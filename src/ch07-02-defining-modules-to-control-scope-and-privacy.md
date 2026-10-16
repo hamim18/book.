@@ -2,57 +2,65 @@
 
 <a id="defining-modules-to-control-scope-and-privacy"></a>
 
-## Control Scope and Privacy with Modules
+## Mengontrol Scope dan Privasi dengan Module
 
-In this section, we’ll talk about modules and other parts of the module system,
-namely _paths_, which allow you to name items; the `use` keyword that brings a
-path into scope; and the `pub` keyword to make items public. We’ll also discuss
-the `as` keyword, external packages, and the glob operator.
+Di bagian ini, kita akan membahas module dan bagian-bagian lain dari module
+system, yaitu *path*, yang memungkinkan Anda memberi nama item; kata kunci
+`use` yang membawa sebuah path ke dalam scope; dan kata kunci `pub` untuk
+menjadikan item publik. Kita juga akan membahas kata kunci `as`, package
+eksternal, dan operator *glob*.
 
-### Modules Cheat Sheet
+### Lembar Contekan Module
 
-Before we get to the details of modules and paths, here we provide a quick
-reference on how modules, paths, the `use` keyword, and the `pub` keyword work
-in the compiler, and how most developers organize their code. We’ll be going
-through examples of each of these rules throughout this chapter, but this is a
-great place to refer to as a reminder of how modules work.
+Sebelum masuk ke detail module dan path, di sini kami menyediakan rujukan
+cepat tentang cara kerja module, path, kata kunci `use`, dan kata kunci `pub`
+di dalam compiler, serta cara sebagian besar pengembang mengatur kode mereka.
+Kita akan menelusuri contoh dari masing-masing aturan ini di sepanjang bab
+ini, tetapi bagian ini adalah tempat yang bagus untuk dirujuk sebagai
+pengingat cara kerja module.
 
-- **Start from the crate root**: When compiling a crate, the compiler first
-  looks in the crate root file (usually _src/lib.rs_ for a library crate and
-  _src/main.rs_ for a binary crate) for code to compile.
-- **Declaring modules**: In the crate root file, you can declare new modules;
-  say you declare a “garden” module with `mod garden;`. The compiler will look
-  for the module’s code in these places:
-  - Inline, within curly brackets that replace the semicolon following `mod
+- **Mulai dari crate root**: Saat mengompilasi sebuah crate, compiler
+  pertama-tama mencari kode untuk dikompilasi di file crate root (biasanya
+  _src/lib.rs_ untuk crate library dan _src/main.rs_ untuk crate binary).
+- **Mendeklarasikan module**: Di file crate root, Anda dapat mendeklarasikan
+  module-module baru; katakanlah Anda mendeklarasikan module “garden” dengan
+  `mod garden;`. Compiler akan mencari kode module tersebut di tempat-tempat
+  berikut:
+  - Inline, di dalam kurung kurawal yang menggantikan titik koma setelah `mod
     garden`
-  - In the file _src/garden.rs_
-  - In the file _src/garden/mod.rs_
-- **Declaring submodules**: In any file other than the crate root, you can
-  declare submodules. For example, you might declare `mod vegetables;` in
-  _src/garden.rs_. The compiler will look for the submodule’s code within the
-  directory named for the parent module in these places:
-  - Inline, directly following `mod vegetables`, within curly brackets instead
-    of the semicolon
-  - In the file _src/garden/vegetables.rs_
-  - In the file _src/garden/vegetables/mod.rs_
-- **Paths to code in modules**: Once a module is part of your crate, you can
-  refer to code in that module from anywhere else in that same crate, as long
-  as the privacy rules allow, using the path to the code. For example, an
-  `Asparagus` type in the garden vegetables module would be found at
+  - Di file _src/garden.rs_
+  - Di file _src/garden/mod.rs_
+- **Mendeklarasikan submodule**: Di file mana pun selain crate root, Anda
+  dapat mendeklarasikan submodule. Misalnya, Anda dapat mendeklarasikan `mod
+  vegetables;` di _src/garden.rs_. Compiler akan mencari kode submodule
+  tersebut di dalam direktori yang diberi nama sesuai module induknya, di
+  tempat-tempat berikut:
+  - Inline, tepat setelah `mod vegetables`, di dalam kurung kurawal, bukan
+    titik koma
+  - Di file _src/garden/vegetables.rs_
+  - Di file _src/garden/vegetables/mod.rs_
+- **Path menuju kode di dalam module**: Begitu sebuah module menjadi bagian
+  dari crate Anda, Anda dapat merujuk kode di module tersebut dari tempat lain
+  mana pun di crate yang sama, selama aturan privasi mengizinkannya, dengan
+  memakai path menuju kode tersebut. Misalnya, tipe `Asparagus` di module
+  garden vegetables akan ditemukan di
   `crate::garden::vegetables::Asparagus`.
-- **Private vs. public**: Code within a module is private from its parent
-  modules by default. To make a module public, declare it with `pub mod`
-  instead of `mod`. To make items within a public module public as well, use
-  `pub` before their declarations.
-- **The `use` keyword**: Within a scope, the `use` keyword creates shortcuts to
-  items to reduce repetition of long paths. In any scope that can refer to
-  `crate::garden::vegetables::Asparagus`, you can create a shortcut with `use
-  crate::garden::vegetables::Asparagus;`, and from then on you only need to
-  write `Asparagus` to make use of that type in the scope.
+- **Privat vs. publik**: Kode di dalam sebuah module bersifat privat dari
+  module-module induknya secara default. Untuk menjadikan sebuah module
+  publik, deklarasikan dengan `pub mod`, bukan `mod`. Untuk menjadikan
+  item-item di dalam module publik ikut publik, pakai `pub` sebelum
+  deklarasinya.
+- **Kata kunci `use`**: Di dalam sebuah scope, kata kunci `use` membuat
+  pintasan menuju item untuk mengurangi pengulangan path yang panjang. Di
+  scope mana pun yang dapat merujuk ke
+  `crate::garden::vegetables::Asparagus`, Anda dapat membuat pintasan dengan
+  `use
+  crate::garden::vegetables::Asparagus;`, dan sejak saat itu Anda cukup
+  menulis `Asparagus` untuk memakai tipe tersebut di dalam scope.
 
-Here, we create a binary crate named `backyard` that illustrates these rules.
-The crate’s directory, also named _backyard_, contains these files and
-directories:
+Di sini, kita membuat sebuah crate binary bernama `backyard` yang
+mengilustrasikan aturan-aturan ini. Direktori crate tersebut, yang juga
+bernama _backyard_, berisi file dan direktori berikut:
 
 ```text
 backyard
@@ -65,7 +73,7 @@ backyard
     └── main.rs
 ```
 
-The crate root file in this case is _src/main.rs_, and it contains:
+File crate root dalam kasus ini adalah _src/main.rs_, dan isinya:
 
 <Listing file-name="src/main.rs">
 
@@ -75,8 +83,8 @@ The crate root file in this case is _src/main.rs_, and it contains:
 
 </Listing>
 
-The `pub mod garden;` line tells the compiler to include the code it finds in
-_src/garden.rs_, which is:
+Baris `pub mod garden;` memberi tahu compiler untuk menyertakan kode yang
+ditemukannya di _src/garden.rs_, yang isinya:
 
 <Listing file-name="src/garden.rs">
 
@@ -86,43 +94,46 @@ _src/garden.rs_, which is:
 
 </Listing>
 
-Here, `pub mod vegetables;` means the code in _src/garden/vegetables.rs_ is
-included too. That code is:
+Di sini, `pub mod vegetables;` berarti kode di _src/garden/vegetables.rs_ ikut
+disertakan. Kode itu adalah:
 
 ```rust,noplayground,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/quick-reference-example/src/garden/vegetables.rs}}
 ```
 
-Now let’s get into the details of these rules and demonstrate them in action!
+Sekarang mari kita masuk ke detail aturan-aturan ini dan menunjukkannya
+beraksi!
 
-### Grouping Related Code in Modules
+### Mengelompokkan Kode yang Berkaitan di dalam Module
 
-_Modules_ let us organize code within a crate for readability and easy reuse.
-Modules also allow us to control the _privacy_ of items because code within a
-module is private by default. Private items are internal implementation details
-not available for outside use. We can choose to make modules and the items
-within them public, which exposes them to allow external code to use and depend
-on them.
+_Modules_ memungkinkan kita mengatur kode di dalam sebuah crate demi
+keterbacaan dan kemudahan pemakaian ulang. Module juga memungkinkan kita
+mengontrol *privacy* (privasi) item, karena kode di dalam sebuah module
+bersifat privat secara default. Item privat adalah detail implementasi
+internal yang tidak tersedia untuk dipakai dari luar. Kita dapat memilih untuk
+menjadikan module dan item-item di dalamnya publik, yang mengeksposnya agar
+kode eksternal dapat memakai dan bergantung padanya.
 
-As an example, let’s write a library crate that provides the functionality of a
-restaurant. We’ll define the signatures of functions but leave their bodies
-empty to concentrate on the organization of the code rather than the
-implementation of a restaurant.
+Sebagai contoh, mari kita tulis sebuah crate library yang menyediakan
+fungsionalitas sebuah restoran. Kita akan mendefinisikan tanda tangan
+fungsi-fungsinya tetapi membiarkan badannya kosong supaya kita berkonsentrasi
+pada pengaturan kode, bukan pada implementasi sebuah restoran.
 
-In the restaurant industry, some parts of a restaurant are referred to as front
-of house and others as back of house. _Front of house_ is where customers are;
-this encompasses where the hosts seat customers, servers take orders and
-payment, and bartenders make drinks. _Back of house_ is where the chefs and
-cooks work in the kitchen, dishwashers clean up, and managers do administrative
-work.
+Di industri restoran, sebagian bagian sebuah restoran disebut sebagai front of
+house dan sebagian lain disebut back of house. *Front of house* (area depan)
+adalah tempat pelanggan berada; ini mencakup tempat host mendudukkan
+pelanggan, pelayan menerima pesanan dan pembayaran, serta bartender membuat
+minuman. *Back of house* (area belakang) adalah tempat koki dan juru masak
+bekerja di dapur, tukang cuci piring membersihkan, dan manajer melakukan
+pekerjaan administratif.
 
-To structure our crate in this way, we can organize its functions into nested
-modules. Create a new library named `restaurant` by running `cargo new
-restaurant --lib`. Then, enter the code in Listing 7-1 into _src/lib.rs_ to
-define some modules and function signatures; this code is the front of house
-section.
+Untuk menyusun crate kita dengan cara ini, kita dapat mengatur
+fungsi-fungsinya ke dalam module bersarang. Buat library baru bernama
+`restaurant` dengan menjalankan `cargo new restaurant --lib`. Lalu, masukkan
+kode di Listing 7-1 ke _src/lib.rs_ untuk mendefinisikan beberapa module dan
+tanda tangan fungsi; kode ini adalah bagian front of house.
 
-<Listing number="7-1" file-name="src/lib.rs" caption="A `front_of_house` module containing other modules that then contain functions">
+<Listing number="7-1" file-name="src/lib.rs" caption="Sebuah module `front_of_house` yang berisi module-module lain yang kemudian berisi fungsi-fungsi">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-01/src/lib.rs}}
@@ -130,27 +141,28 @@ section.
 
 </Listing>
 
-We define a module with the `mod` keyword followed by the name of the module
-(in this case, `front_of_house`). The body of the module then goes inside curly
-brackets. Inside modules, we can place other modules, as in this case with the
-modules `hosting` and `serving`. Modules can also hold definitions for other
-items, such as structs, enums, constants, traits, and as in Listing 7-1,
-functions.
+Kita mendefinisikan sebuah module dengan kata kunci `mod` yang diikuti nama
+module (dalam kasus ini, `front_of_house`). Badan module kemudian diletakkan
+di dalam kurung kurawal. Di dalam module, kita dapat menempatkan module lain,
+seperti dalam kasus ini dengan module `hosting` dan `serving`. Module juga
+dapat memuat definisi untuk item lain, seperti struct, enum, konstanta, trait,
+dan seperti di Listing 7-1, fungsi.
 
-By using modules, we can group related definitions together and name why
-they’re related. Programmers using this code can navigate the code based on the
-groups rather than having to read through all the definitions, making it easier
-to find the definitions relevant to them. Programmers adding new functionality
-to this code would know where to place the code to keep the program organized.
+Dengan memakai module, kita dapat mengelompokkan definisi-definisi yang
+berkaitan dan memberi nama alasan keterkaitannya. Pemrogram yang memakai kode
+ini dapat menavigasi kode berdasarkan kelompok-kelompok tersebut alih-alih
+harus membaca semua definisi, sehingga lebih mudah menemukan definisi yang
+relevan bagi mereka. Pemrogram yang menambahkan fungsionalitas baru ke kode
+ini akan tahu tempat menempatkan kodenya agar program tetap teratur.
 
-Earlier, we mentioned that _src/main.rs_ and _src/lib.rs_ are called _crate
-roots_. The reason for their name is that the contents of either of these two
-files form a module named `crate` at the root of the crate’s module structure,
-known as the _module tree_.
+Sebelumnya, kita menyebutkan bahwa _src/main.rs_ dan _src/lib.rs_ disebut
+*crate root* (akar crate). Alasan penamaannya adalah bahwa isi salah satu dari
+kedua file tersebut membentuk sebuah module bernama `crate` di akar struktur
+module crate, yang dikenal sebagai *module tree* (pohon modul).
 
-Listing 7-2 shows the module tree for the structure in Listing 7-1.
+Listing 7-2 menunjukkan module tree untuk struktur di Listing 7-1.
 
-<Listing number="7-2" caption="The module tree for the code in Listing 7-1">
+<Listing number="7-2" caption="Module tree untuk kode di Listing 7-1">
 
 ```text
 crate
@@ -166,15 +178,18 @@ crate
 
 </Listing>
 
-This tree shows how some of the modules nest inside other modules; for example,
-`hosting` nests inside `front_of_house`. The tree also shows that some modules
-are _siblings_, meaning they’re defined in the same module; `hosting` and
-`serving` are siblings defined within `front_of_house`. If module A is
-contained inside module B, we say that module A is the _child_ of module B and
-that module B is the _parent_ of module A. Notice that the entire module tree
-is rooted under the implicit module named `crate`.
+Pohon ini menunjukkan bagaimana sebagian module bersarang di dalam module
+lain; misalnya, `hosting` bersarang di dalam `front_of_house`. Pohon ini juga
+menunjukkan bahwa sebagian module adalah *sibling* (saudara), artinya
+module-module tersebut didefinisikan di dalam module yang sama; `hosting` dan
+`serving` adalah sibling yang didefinisikan di dalam `front_of_house`. Jika
+module A berada di dalam module B, kita katakan bahwa module A adalah *child*
+(anak) dari module B dan module B adalah *parent* (induk) dari module A.
+Perhatikan bahwa seluruh module tree berakar di bawah module implisit bernama
+`crate`.
 
-The module tree might remind you of the filesystem’s directory tree on your
-computer; this is a very apt comparison! Just like directories in a filesystem,
-you use modules to organize your code. And just like files in a directory, we
-need a way to find our modules.
+Module tree mungkin mengingatkan Anda pada pohon direktori sistem file di
+komputer Anda; ini perbandingan yang sangat tepat! Sama seperti direktori di
+dalam sistem file, Anda memakai module untuk mengatur kode Anda. Dan sama
+seperti file di dalam direktori, kita memerlukan cara untuk menemukan module
+kita.

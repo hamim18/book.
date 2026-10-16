@@ -1,22 +1,22 @@
-## Separating Modules into Different Files
+## Memisahkan Module ke dalam File yang Berbeda
 
-So far, all the examples in this chapter defined multiple modules in one file.
-When modules get large, you might want to move their definitions to a separate
-file to make the code easier to navigate.
+Sejauh ini, semua contoh di bab ini mendefinisikan beberapa module di satu
+file. Ketika module membesar, Anda mungkin ingin memindahkan definisinya ke
+file terpisah untuk membuat kodenya lebih mudah dinavigasi.
 
-For example, let’s start from the code in Listing 7-17 that had multiple
-restaurant modules. We’ll extract modules into files instead of having all the
-modules defined in the crate root file. In this case, the crate root file is
-_src/lib.rs_, but this procedure also works with binary crates whose crate root
-file is _src/main.rs_.
+Misalnya, mari kita mulai dari kode di Listing 7-17 yang memiliki beberapa
+module restoran. Kita akan mengekstrak module ke dalam file-file, alih-alih
+mendefinisikan semua module di file crate root. Dalam kasus ini, file crate
+root adalah _src/lib.rs_, tetapi prosedur ini juga berlaku untuk crate
+binary yang file crate root-nya adalah _src/main.rs_.
 
-First, we’ll extract the `front_of_house` module to its own file. Remove the
-code inside the curly brackets for the `front_of_house` module, leaving only
-the `mod front_of_house;` declaration, so that _src/lib.rs_ contains the code
-shown in Listing 7-21. Note that this won’t compile until we create the
-_src/front_of_house.rs_ file in Listing 7-22.
+Pertama, kita akan mengekstrak module `front_of_house` ke filenya sendiri.
+Hapus kode di dalam kurung kurawal untuk module `front_of_house`, sisakan
+hanya deklarasi `mod front_of_house;`, sehingga _src/lib.rs_ berisi kode yang
+ditunjukkan di Listing 7-21. Perhatikan bahwa ini tidak akan terkompilasi
+sampai kita membuat file _src/front_of_house.rs_ di Listing 7-22.
 
-<Listing number="7-21" file-name="src/lib.rs" caption="Declaring the `front_of_house` module whose body will be in *src/front_of_house.rs*">
+<Listing number="7-21" file-name="src/lib.rs" caption="Mendeklarasikan module `front_of_house` yang badannya akan berada di *src/front_of_house.rs*">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-21-and-22/src/lib.rs}}
@@ -24,12 +24,12 @@ _src/front_of_house.rs_ file in Listing 7-22.
 
 </Listing>
 
-Next, place the code that was in the curly brackets into a new file named
-_src/front_of_house.rs_, as shown in Listing 7-22. The compiler knows to look
-in this file because it came across the module declaration in the crate root
-with the name `front_of_house`.
+Berikutnya, tempatkan kode yang tadinya berada di dalam kurung kurawal ke
+dalam file baru bernama _src/front_of_house.rs_, seperti yang ditunjukkan di
+Listing 7-22. Compiler tahu untuk mencari di file ini karena ia menemukan
+deklarasi module di crate root dengan nama `front_of_house`.
 
-<Listing number="7-22" file-name="src/front_of_house.rs" caption="Definitions inside the `front_of_house` module in *src/front_of_house.rs*">
+<Listing number="7-22" file-name="src/front_of_house.rs" caption="Definisi-definisi di dalam module `front_of_house` di *src/front_of_house.rs*">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-21-and-22/src/front_of_house.rs}}
@@ -37,22 +37,23 @@ with the name `front_of_house`.
 
 </Listing>
 
-Note that you only need to load a file using a `mod` declaration _once_ in your
-module tree. Once the compiler knows the file is part of the project (and knows
-where in the module tree the code resides because of where you’ve put the `mod`
-statement), other files in your project should refer to the loaded file’s code
-using a path to where it was declared, as covered in the [“Paths for Referring
-to an Item in the Module Tree”][paths]<!-- ignore --> section. In other words,
-`mod` is _not_ an “include” operation that you may have seen in other
-programming languages.
+Perhatikan bahwa Anda hanya perlu memuat sebuah file memakai deklarasi `mod`
+_sekali_ di module tree Anda. Begitu compiler tahu bahwa file itu adalah
+bagian dari proyek (dan tahu di mana letak kode itu di module tree karena
+posisi pernyataan `mod` yang Anda tulis), file-file lain di proyek Anda harus
+merujuk kode file yang dimuat itu memakai path menuju tempat ia
+dideklarasikan, seperti yang dibahas di bagian [“Path untuk Merujuk Item di
+dalam Pohon Modul”][paths]<!-- ignore -->. Dengan kata lain, `mod` _bukanlah_
+operasi “include” yang mungkin pernah Anda lihat di bahasa pemrograman lain.
 
-Next, we’ll extract the `hosting` module to its own file. The process is a bit
-different because `hosting` is a child module of `front_of_house`, not of the
-root module. We’ll place the file for `hosting` in a new directory that will be
-named for its ancestors in the module tree, in this case _src/front_of_house_.
+Berikutnya, kita akan mengekstrak module `hosting` ke filenya sendiri.
+Prosesnya sedikit berbeda karena `hosting` adalah module anak dari
+`front_of_house`, bukan dari module akar. Kita akan menempatkan file untuk
+`hosting` di direktori baru yang diberi nama sesuai leluhurnya di module
+tree, dalam kasus ini _src/front_of_house_.
 
-To start moving `hosting`, we change _src/front_of_house.rs_ to contain only
-the declaration of the `hosting` module:
+Untuk mulai memindahkan `hosting`, kita mengubah _src/front_of_house.rs_
+agar hanya berisi deklarasi module `hosting`:
 
 <Listing file-name="src/front_of_house.rs">
 
@@ -62,8 +63,8 @@ the declaration of the `hosting` module:
 
 </Listing>
 
-Then, we create a _src/front_of_house_ directory and a _hosting.rs_ file to
-contain the definitions made in the `hosting` module:
+Lalu, kita membuat direktori _src/front_of_house_ dan file _hosting.rs_ untuk
+menampung definisi-definisi yang dibuat di module `hosting`:
 
 <Listing file-name="src/front_of_house/hosting.rs">
 
@@ -73,57 +74,62 @@ contain the definitions made in the `hosting` module:
 
 </Listing>
 
-If we instead put _hosting.rs_ in the _src_ directory, the compiler would
-expect the _hosting.rs_ code to be in a `hosting` module declared in the crate
-root and not declared as a child of the `front_of_house` module. The
-compiler’s rules for which files to check for which modules’ code mean the
-directories and files more closely match the module tree.
+Jika alih-alih kita menempatkan _hosting.rs_ di direktori _src_, compiler
+akan mengharapkan kode _hosting.rs_ berada di module `hosting` yang
+dideklarasikan di crate root dan bukan dideklarasikan sebagai anak dari
+module `front_of_house`. Aturan compiler tentang file mana yang diperiksa
+untuk kode module mana berarti direktori dan file akan lebih mendekati module
+tree.
 
-> ### Alternate File Paths
+> ### Path File Alternatif
 >
-> So far we’ve covered the most idiomatic file paths the Rust compiler uses,
-> but Rust also supports an older style of file path. For a module named
-> `front_of_house` declared in the crate root, the compiler will look for the
-> module’s code in:
+> Sejauh ini kita telah membahas path file yang paling idiomatis yang dipakai
+> compiler Rust, tetapi Rust juga mendukung gaya path file yang lebih lama.
+> Untuk sebuah module bernama `front_of_house` yang dideklarasikan di crate
+> root, compiler akan mencari kode module tersebut di:
 >
-> - _src/front_of_house.rs_ (what we covered)
-> - _src/front_of_house/mod.rs_ (older style, still supported path)
+> - _src/front_of_house.rs_ (yang kita bahas)
+> - _src/front_of_house/mod.rs_ (gaya lama, path yang masih didukung)
 >
-> For a module named `hosting` that is a submodule of `front_of_house`, the
-> compiler will look for the module’s code in:
+> Untuk sebuah module bernama `hosting` yang merupakan submodule dari
+> `front_of_house`, compiler akan mencari kode module tersebut di:
 >
-> - _src/front_of_house/hosting.rs_ (what we covered)
-> - _src/front_of_house/hosting/mod.rs_ (older style, still supported path)
+> - _src/front_of_house/hosting.rs_ (yang kita bahas)
+> - _src/front_of_house/hosting/mod.rs_ (gaya lama, path yang masih didukung)
 >
-> If you use both styles for the same module, you’ll get a compiler error.
-> Using a mix of both styles for different modules in the same project is
-> allowed but might be confusing for people navigating your project.
+> Jika Anda memakai kedua gaya untuk module yang sama, Anda akan mendapat
+> galat compiler. Memakai campuran kedua gaya untuk module-module yang
+> berbeda di proyek yang sama diperbolehkan, tetapi mungkin membingungkan
+> orang yang menavigasi proyek Anda.
 >
-> The main downside to the style that uses files named _mod.rs_ is that your
-> project can end up with many files named _mod.rs_, which can get confusing
-> when you have them open in your editor at the same time.
+> Kelemahan utama gaya yang memakai file bernama _mod.rs_ adalah proyek Anda
+> bisa berakhir dengan banyak file bernama _mod.rs_, yang bisa membingungkan
+> ketika Anda membukanya di editor secara bersamaan.
 
-We’ve moved each module’s code to a separate file, and the module tree remains
-the same. The function calls in `eat_at_restaurant` will work without any
-modification, even though the definitions live in different files. This
-technique lets you move modules to new files as they grow in size.
+Kita telah memindahkan kode setiap module ke file terpisah, dan module tree
+tetap sama. Pemanggilan fungsi di `eat_at_restaurant` akan bekerja tanpa
+modifikasi apa pun, meskipun definisinya tinggal di file yang berbeda. Teknik
+ini memungkinkan Anda memindahkan module ke file baru seiring membesarnya
+ukuran module.
 
-Note that the `pub use crate::front_of_house::hosting` statement in
-_src/lib.rs_ also hasn’t changed, nor does `use` have any impact on what files
-are compiled as part of the crate. The `mod` keyword declares modules, and Rust
-looks in a file with the same name as the module for the code that goes into
-that module.
+Perhatikan bahwa pernyataan `pub use crate::front_of_house::hosting` di
+_src/lib.rs_ juga tidak berubah, dan `use` tidak memiliki dampak apa pun
+terhadap file mana yang dikompilasi sebagai bagian dari crate. Kata kunci
+`mod` mendeklarasikan module, dan Rust mencari di file dengan nama yang sama
+dengan module untuk kode yang masuk ke module itu.
 
-## Summary
+## Ringkasan
 
-Rust lets you split a package into multiple crates and a crate into modules so
-that you can refer to items defined in one module from another module. You can
-do this by specifying absolute or relative paths. These paths can be brought
-into scope with a `use` statement so that you can use a shorter path for
-multiple uses of the item in that scope. Module code is private by default, but
-you can make definitions public by adding the `pub` keyword.
+Rust memungkinkan Anda membagi sebuah package menjadi beberapa crate dan
+sebuah crate menjadi module sehingga Anda dapat merujuk item yang
+didefinisikan di satu module dari module lain. Anda dapat melakukannya dengan
+menuliskan path absolut atau relatif. Path-path ini dapat dibawa ke dalam
+scope dengan pernyataan `use` sehingga Anda dapat memakai path yang lebih
+pendek untuk beberapa pemakaian item di scope itu. Kode module bersifat
+privat secara default, tetapi Anda dapat menjadikan definisi publik dengan
+menambahkan kata kunci `pub`.
 
-In the next chapter, we’ll look at some collection data structures in the
-standard library that you can use in your neatly organized code.
+Di bab berikutnya, kita akan melihat beberapa struktur data koleksi di
+pustaka standar yang dapat Anda pakai di kode yang tertata rapi.
 
 [paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
