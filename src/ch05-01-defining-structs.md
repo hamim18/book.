@@ -1,19 +1,21 @@
-## Defining and Instantiating Structs
+## Mendefinisikan dan Menginstansiasi Struct
 
-Structs are similar to tuples, discussed in [“The Tuple Type”][tuples]<!--
-ignore --> section, in that both hold multiple related values. Like tuples, the
-pieces of a struct can be different types. Unlike with tuples, in a struct
-you’ll name each piece of data so it’s clear what the values mean. Adding these
-names means that structs are more flexible than tuples: You don’t have to rely
-on the order of the data to specify or access the values of an instance.
+Struct mirip dengan tuple, yang dibahas di bagian [“Tipe Tuple”][tuples]<!--
+ignore -->, dalam hal keduanya menampung banyak nilai yang berkaitan. Seperti
+tuple, bagian-bagian sebuah struct dapat bertipe berbeda. Tidak seperti tuple,
+pada struct Anda memberi nama pada setiap bagian data sehingga jelas apa arti
+nilai-nilai tersebut. Penambahan nama ini berarti struct lebih fleksibel
+daripada tuple: Anda tidak harus mengandalkan urutan data untuk menentukan
+atau mengakses nilai-nilai sebuah instance.
 
-To define a struct, we enter the keyword `struct` and name the entire struct. A
-struct’s name should describe the significance of the pieces of data being
-grouped together. Then, inside curly brackets, we define the names and types of
-the pieces of data, which we call _fields_. For example, Listing 5-1 shows a
-struct that stores information about a user account.
+Untuk mendefinisikan struct, kita menuliskan keyword `struct` dan memberi nama
+pada keseluruhan struct. Nama sebuah struct sebaiknya menggambarkan makna
+bagian-bagian data yang dikelompokkan bersama. Lalu, di dalam kurung kurawal,
+kita mendefinisikan nama dan tipe bagian-bagian data tersebut, yang kita sebut
+*field* (medan). Contohnya, Listing 5-1 menunjukkan sebuah struct yang
+menyimpan informasi tentang akun pengguna.
 
-<Listing number="5-1" file-name="src/main.rs" caption="A `User` struct definition">
+<Listing number="5-1" file-name="src/main.rs" caption="Definisi struct `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-01/src/main.rs:here}}
@@ -21,17 +23,18 @@ struct that stores information about a user account.
 
 </Listing>
 
-To use a struct after we’ve defined it, we create an _instance_ of that struct
-by specifying concrete values for each of the fields. We create an instance by
-stating the name of the struct and then add curly brackets containing _`key:
-value`_ pairs, where the keys are the names of the fields and the values are the
-data we want to store in those fields. We don’t have to specify the fields in
-the same order in which we declared them in the struct. In other words, the
-struct definition is like a general template for the type, and instances fill
-in that template with particular data to create values of the type. For
-example, we can declare a particular user as shown in Listing 5-2.
+Untuk memakai struct setelah kita mendefinisikannya, kita membuat sebuah
+instance dari struct itu dengan menentukan nilai konkret untuk setiap field.
+Kita membuat instance dengan menyebutkan nama struct lalu menambahkan kurung
+kurawal berisi pasangan _`key: value`_, dengan key adalah nama-nama field dan
+value adalah data yang ingin kita simpan di field tersebut. Kita tidak harus
+menyebutkan field sesuai urutan ketika kita mendeklarasikannya di dalam
+struct. Dengan kata lain, definisi struct adalah seperti templat umum untuk
+tipenya, dan instance mengisi templat itu dengan data tertentu untuk membuat
+nilai dari tipe tersebut. Contohnya, kita dapat mendeklarasikan seorang
+pengguna tertentu seperti yang ditunjukkan pada Listing 5-2.
 
-<Listing number="5-2" file-name="src/main.rs" caption="Creating an instance of the `User` struct">
+<Listing number="5-2" file-name="src/main.rs" caption="Membuat instance struct `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-02/src/main.rs:here}}
@@ -39,13 +42,15 @@ example, we can declare a particular user as shown in Listing 5-2.
 
 </Listing>
 
-To get a specific value from a struct, we use dot notation. For example, to
-access this user’s email address, we use `user1.email`. If the instance is
-mutable, we can change a value by using the dot notation and assigning into a
-particular field. Listing 5-3 shows how to change the value in the `email`
-field of a mutable `User` instance.
+Untuk mengambil nilai tertentu dari sebuah struct, kita memakai notasi titik.
+Contohnya, untuk mengakses alamat email pengguna ini, kita memakai
+`user1.email`. Jika instance-nya *mutable* (dapat diubah), kita dapat mengubah
+sebuah nilai dengan memakai notasi titik dan menetapkan nilai ke field
+tertentu. Listing
+5-3 menunjukkan cara mengubah nilai pada field `email` sebuah instance `User`
+yang mutable.
 
-<Listing number="5-3" file-name="src/main.rs" caption="Changing the value in the `email` field of a `User` instance">
+<Listing number="5-3" file-name="src/main.rs" caption="Mengubah nilai pada field `email` sebuah instance `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-03/src/main.rs:here}}
@@ -53,16 +58,16 @@ field of a mutable `User` instance.
 
 </Listing>
 
-Note that the entire instance must be mutable; Rust doesn’t allow us to mark
-only certain fields as mutable. As with any expression, we can construct a new
-instance of the struct as the last expression in the function body to
-implicitly return that new instance.
+Perhatikan bahwa seluruh instance harus *mutable*; Rust tidak mengizinkan kita
+menandai field tertentu saja sebagai *mutable*. Seperti ekspresi mana pun, kita
+dapat menyusun instance baru struct sebagai ekspresi terakhir di badan fungsi
+untuk mengembalikan instance baru itu secara implisit.
 
-Listing 5-4 shows a `build_user` function that returns a `User` instance with
-the given email and username. The `active` field gets the value `true`, and the
-`sign_in_count` gets a value of `1`.
+Listing 5-4 menunjukkan fungsi `build_user` yang mengembalikan instance `User`
+dengan email dan username yang diberikan. Field `active` mendapatkan nilai
+`true`, dan `sign_in_count` mendapatkan nilai `1`.
 
-<Listing number="5-4" file-name="src/main.rs" caption="A `build_user` function that takes an email and username and returns a `User` instance">
+<Listing number="5-4" file-name="src/main.rs" caption="Fungsi `build_user` yang menerima email dan username lalu mengembalikan instance `User`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-04/src/main.rs:here}}
@@ -70,23 +75,25 @@ the given email and username. The `active` field gets the value `true`, and the
 
 </Listing>
 
-It makes sense to name the function parameters with the same name as the struct
-fields, but having to repeat the `email` and `username` field names and
-variables is a bit tedious. If the struct had more fields, repeating each name
-would get even more annoying. Luckily, there’s a convenient shorthand!
+Masuk akal untuk menamai parameter fungsi dengan nama yang sama seperti field
+struct, tetapi harus mengulang nama field dan variabel `email` serta
+`username` agak melelahkan. Jika structnya memiliki lebih banyak field,
+mengulang setiap nama akan semakin menjengkelkan. Untungnya, ada singkatan
+yang praktis!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
-### Using the Field Init Shorthand
+### Memakai Field Init Shorthand
 
-Because the parameter names and the struct field names are exactly the same in
-Listing 5-4, we can use the _field init shorthand_ syntax to rewrite
-`build_user` so that it behaves exactly the same but doesn’t have the
-repetition of `username` and `email`, as shown in Listing 5-5.
+Karena nama parameter dan nama field struct persis sama pada Listing 5-4,
+kita dapat memakai sintaks *field init shorthand* (singkatan inisialisasi
+field) untuk menulis ulang `build_user` sehingga perilakunya persis sama
+tetapi tanpa pengulangan `username` dan `email`, seperti yang ditunjukkan pada
+Listing 5-5.
 
-<Listing number="5-5" file-name="src/main.rs" caption="A `build_user` function that uses field init shorthand because the `username` and `email` parameters have the same name as struct fields">
+<Listing number="5-5" file-name="src/main.rs" caption="Fungsi `build_user` yang memakai field init shorthand karena parameter `username` dan `email` bernama sama dengan field struct">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-05/src/main.rs:here}}
@@ -94,27 +101,27 @@ repetition of `username` and `email`, as shown in Listing 5-5.
 
 </Listing>
 
-Here, we’re creating a new instance of the `User` struct, which has a field
-named `email`. We want to set the `email` field’s value to the value in the
-`email` parameter of the `build_user` function. Because the `email` field and
-the `email` parameter have the same name, we only need to write `email` rather
-than `email: email`.
+Di sini, kita membuat instance baru struct `User`, yang memiliki field
+bernama `email`. Kita ingin menetapkan nilai field `email` menjadi nilai pada
+parameter `email` fungsi `build_user`. Karena field `email` dan parameter
+`email` bernama sama, kita cukup menulis `email` alih-alih `email: email`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="creating-instances-from-other-instances-with-struct-update-syntax"></a>
 
-### Creating Instances with Struct Update Syntax
+### Membuat Instance dengan Sintaks Update Struct
 
-It’s often useful to create a new instance of a struct that includes most of
-the values from another instance of the same type, but changes some of them.
-You can do this using struct update syntax.
+Sering kali berguna untuk membuat instance baru sebuah struct yang menyertakan
+sebagian besar nilai dari instance lain bertipe sama, tetapi mengubah sebagian
+di antaranya. Anda dapat melakukannya memakai sintaks update struct.
 
-First, in Listing 5-6 we show how to create a new `User` instance in `user2` in
-the regular way, without the update syntax. We set a new value for `email` but
-otherwise use the same values from `user1` that we created in Listing 5-2.
+Pertama, pada Listing 5-6 kita menunjukkan cara membuat instance `User` baru
+di `user2` dengan cara biasa, tanpa sintaks update. Kita menetapkan nilai baru
+untuk `email` tetapi selain itu memakai nilai yang sama dari `user1` yang kita
+buat pada Listing 5-2.
 
-<Listing number="5-6" file-name="src/main.rs" caption="Creating a new `User` instance using all but one of the values from `user1`">
+<Listing number="5-6" file-name="src/main.rs" caption="Membuat instance `User` baru memakai semua nilai dari `user1` kecuali satu">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-06/src/main.rs:here}}
@@ -122,11 +129,13 @@ otherwise use the same values from `user1` that we created in Listing 5-2.
 
 </Listing>
 
-Using struct update syntax, we can achieve the same effect with less code, as
-shown in Listing 5-7. The syntax `..` specifies that the remaining fields not
-explicitly set should have the same value as the fields in the given instance.
+Dengan memakai sintaks update struct, kita dapat mencapai efek yang sama
+dengan kode yang lebih sedikit, seperti yang ditunjukkan pada Listing 5-7.
+Sintaks `..` menentukan bahwa field-field tersisa yang tidak ditetapkan secara
+eksplisit sebaiknya memiliki nilai yang sama seperti field pada instance yang
+diberikan.
 
-<Listing number="5-7" file-name="src/main.rs" caption="Using struct update syntax to set a new `email` value for a `User` instance but to use the rest of the values from `user1`">
+<Listing number="5-7" file-name="src/main.rs" caption="Memakai sintaks update struct untuk menetapkan nilai `email` baru bagi instance `User` tetapi memakai nilai-nilai lainnya dari `user1`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
@@ -134,42 +143,46 @@ explicitly set should have the same value as the fields in the given instance.
 
 </Listing>
 
-The code in Listing 5-7 also creates an instance in `user2` that has a
-different value for `email` but has the same values for the `username`,
-`active`, and `sign_in_count` fields from `user1`. The `..user1` must come last
-to specify that any remaining fields should get their values from the
-corresponding fields in `user1`, but we can choose to specify values for as
-many fields as we want in any order, regardless of the order of the fields in
-the struct’s definition.
+Kode pada Listing 5-7 juga membuat sebuah instance di `user2` yang memiliki
+nilai berbeda untuk `email` tetapi memiliki nilai yang sama untuk field
+`username`, `active`, dan `sign_in_count` dari `user1`. `..user1` harus
+diletakkan terakhir untuk menentukan bahwa field-field tersisa sebaiknya
+mengambil nilainya dari field yang bersesuaian di `user1`, tetapi kita dapat
+memilih untuk menentukan nilai field sebanyak yang kita mau dengan urutan apa
+pun, terlepas dari urutan field pada definisi struct.
 
-Note that the struct update syntax uses `=` like an assignment; this is because
-it moves the data, just as we saw in the [“Variables and Data Interacting with
-Move”][move]<!-- ignore --> section. In this example, we can no longer use
-`user1` after creating `user2` because the `String` in the `username` field of
-`user1` was moved into `user2`. If we had given `user2` new `String` values for
-both `email` and `username`, and thus only used the `active` and `sign_in_count`
-values from `user1`, then `user1` would still be valid after creating `user2`.
-Both `active` and `sign_in_count` are types that implement the `Copy` trait, so
-the behavior we discussed in the [“Stack-Only Data: Copy”][copy]<!-- ignore -->
-section would apply. We can also still use `user1.email` in this example,
-because its value was not moved out of `user1`.
+Perhatikan bahwa sintaks update struct memakai `=` seperti sebuah penetapan;
+ini karena ia memindahkan datanya, seperti yang kita lihat di bagian
+[“Variabel dan Data yang Berinteraksi dengan
+Move”][move]<!-- ignore -->. Pada contoh ini, kita tidak dapat lagi memakai
+`user1` setelah membuat `user2` karena `String` pada field `username` milik
+`user1` telah dipindahkan ke `user2`. Seandainya kita memberi `user2` nilai
+`String` baru untuk `email` maupun `username`, dan dengan demikian hanya
+memakai nilai `active` dan `sign_in_count` dari `user1`, maka `user1` akan
+tetap valid setelah `user2` dibuat. Baik `active` maupun `sign_in_count`
+adalah tipe yang mengimplementasikan trait `Copy`, jadi perilaku yang kita
+bahas di bagian [“Data yang Hanya Ada di Stack: Copy”][copy]<!-- ignore -->
+akan berlaku. Dalam contoh ini kita juga masih dapat memakai `user1.email`,
+karena nilainya tidak dipindahkan keluar dari `user1`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
 
-### Creating Different Types with Tuple Structs
+### Membuat Tipe Berbeda dengan Tuple Struct
 
-Rust also supports structs that look similar to tuples, called _tuple structs_.
-Tuple structs have the added meaning the struct name provides but don’t have
-names associated with their fields; rather, they just have the types of the
-fields. Tuple structs are useful when you want to give the whole tuple a name
-and make the tuple a different type from other tuples, and when naming each
-field as in a regular struct would be verbose or redundant.
+Rust juga mendukung struct yang tampak mirip tuple, yang disebut *tuple
+struct* (struct tuple). Tuple struct memiliki makna tambahan yang diberikan
+oleh nama struct-nya, tetapi tidak memiliki nama yang terkait dengan
+field-fieldnya; alih-alih, ia hanya memiliki tipe dari field-fieldnya. Tuple
+struct berguna ketika Anda ingin memberi nama pada keseluruhan tuple dan
+menjadikan tuple itu tipe yang berbeda dari tuple lain, dan ketika menamai
+setiap field seperti pada struct biasa akan terasa bertele-tele atau
+berlebihan.
 
-To define a tuple struct, start with the `struct` keyword and the struct name
-followed by the types in the tuple. For example, here we define and use two
-tuple structs named `Color` and `Point`:
+Untuk mendefinisikan tuple struct, mulailah dengan keyword `struct` dan nama
+struct, yang diikuti tipe-tipe di dalam tuple. Contohnya, di sini kita
+mendefinisikan dan memakai dua tuple struct bernama `Color` dan `Point`:
 
 <Listing file-name="src/main.rs">
 
@@ -179,31 +192,33 @@ tuple structs named `Color` and `Point`:
 
 </Listing>
 
-Note that the `black` and `origin` values are different types because they’re
-instances of different tuple structs. Each struct you define is its own type,
-even though the fields within the struct might have the same types. For
-example, a function that takes a parameter of type `Color` cannot take a
-`Point` as an argument, even though both types are made up of three `i32`
-values. Otherwise, tuple struct instances are similar to tuples in that you can
-destructure them into their individual pieces, and you can use a `.` followed
-by the index to access an individual value. Unlike tuples, tuple structs
-require you to name the type of the struct when you destructure them. For
-example, we would write `let Point(x, y, z) = origin;` to destructure the
-values in the `origin` point into variables named `x`, `y`, and `z`.
+Perhatikan bahwa nilai `black` dan `origin` bertipe berbeda karena keduanya
+adalah instance dari tuple struct yang berbeda. Setiap struct yang Anda
+definisikan adalah tipenya sendiri, meskipun field-field di dalam struct itu
+mungkin bertipe sama. Contohnya, fungsi yang menerima parameter bertipe
+`Color` tidak dapat menerima `Point` sebagai argumen, meskipun kedua tipe itu
+tersusun dari tiga nilai `i32`. Selain itu, instance tuple struct mirip dengan
+tuple dalam hal Anda dapat mendestrukturisasinya menjadi bagian-bagian
+individualnya, dan Anda dapat memakai `.` yang diikuti indeks untuk mengakses
+sebuah nilai individual. Tidak seperti tuple, tuple struct mengharuskan Anda
+menyebutkan tipe structnya ketika mendestrukturisasi. Contohnya, kita akan
+menulis `let Point(x, y, z) = origin;` untuk mendestrukturisasi nilai-nilai di
+titik `origin` menjadi variabel bernama `x`, `y`, dan `z`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="unit-like-structs-without-any-fields"></a>
 
-### Defining Unit-Like Structs
+### Mendefinisikan Struct Mirip Unit
 
-You can also define structs that don’t have any fields! These are called
-_unit-like structs_ because they behave similarly to `()`, the unit type that
-we mentioned in [“The Tuple Type”][tuples]<!-- ignore --> section. Unit-like
-structs can be useful when you need to implement a trait on some type but don’t
-have any data that you want to store in the type itself. We’ll discuss traits
-in Chapter 10. Here’s an example of declaring and instantiating a unit struct
-named `AlwaysEqual`:
+Anda juga dapat mendefinisikan struct yang tidak memiliki field apa pun!
+Struct ini disebut *unit-like struct* (struct mirip unit) karena perilakunya
+mirip `()`, tipe unit yang kita sebutkan di bagian [“Tipe
+Tuple”][tuples]<!-- ignore -->. Unit-like struct dapat berguna ketika Anda
+perlu mengimplementasikan sebuah trait pada suatu tipe tetapi tidak memiliki
+data apa pun yang ingin Anda simpan di dalam tipe itu sendiri. Kita akan
+membahas trait di Bab 10. Berikut contoh mendeklarasikan dan menginstansiasi
+unit struct bernama `AlwaysEqual`:
 
 <Listing file-name="src/main.rs">
 
@@ -213,29 +228,32 @@ named `AlwaysEqual`:
 
 </Listing>
 
-To define `AlwaysEqual`, we use the `struct` keyword, the name we want, and
-then a semicolon. No need for curly brackets or parentheses! Then, we can get
-an instance of `AlwaysEqual` in the `subject` variable in a similar way: using
-the name we defined, without any curly brackets or parentheses. Imagine that
-later we’ll implement behavior for this type such that every instance of
-`AlwaysEqual` is always equal to every instance of any other type, perhaps to
-have a known result for testing purposes. We wouldn’t need any data to
-implement that behavior! You’ll see in Chapter 10 how to define traits and
-implement them on any type, including unit-like structs.
+Untuk mendefinisikan `AlwaysEqual`, kita memakai keyword `struct`, nama yang
+kita inginkan, lalu titik koma. Tidak perlu kurung kurawal atau tanda kurung!
+Lalu, kita bisa mendapatkan instance `AlwaysEqual` di variabel `subject`
+dengan cara yang serupa: memakai nama yang kita definisikan, tanpa kurung
+kurawal atau tanda kurung apa pun. Bayangkan nanti kita akan
+mengimplementasikan perilaku untuk tipe ini sedemikian rupa sehingga setiap
+instance `AlwaysEqual` selalu sama dengan setiap instance dari tipe lain mana
+pun, mungkin untuk mendapatkan hasil yang diketahui demi keperluan pengujian.
+Kita tidak memerlukan data apa pun untuk mengimplementasikan perilaku itu!
+Anda akan melihat di Bab 10 cara mendefinisikan trait dan
+mengimplementasikannya pada tipe mana pun, termasuk unit-like struct.
 
-> ### Ownership of Struct Data
+> ### Ownership pada Data Struct
 >
-> In the `User` struct definition in Listing 5-1, we used the owned `String`
-> type rather than the `&str` string slice type. This is a deliberate choice
-> because we want each instance of this struct to own all of its data and for
-> that data to be valid for as long as the entire struct is valid.
+> Pada definisi struct `User` di Listing 5-1, kita memakai tipe `String` yang
+> dimiliki alih-alih tipe string slice `&str`. Ini adalah pilihan yang
+> disengaja karena kita ingin setiap instance struct ini memiliki semua
+> datanya dan data itu tetap valid selama keseluruhan struct valid.
 >
-> It’s also possible for structs to store references to data owned by something
-> else, but to do so requires the use of _lifetimes_, a Rust feature that we’ll
-> discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct
-> is valid for as long as the struct is. Let’s say you try to store a reference
-> in a struct without specifying lifetimes, like the following in
-> *src/main.rs*; this won’t work:
+> Struct juga dimungkinkan untuk menyimpan *reference* (referensi) ke data
+> yang dimiliki oleh sesuatu yang lain, tetapi untuk melakukannya diperlukan
+> *lifetime* (masa hidup), fitur Rust yang akan kita bahas di Bab 10. Lifetime
+> memastikan bahwa data yang direferensikan oleh sebuah struct tetap valid
+> selama struct itu masih ada. Katakanlah Anda mencoba menyimpan sebuah
+> reference di dalam struct tanpa menyebutkan lifetime, seperti berikut ini di
+> *src/main.rs*; ini tidak akan berhasil:
 >
 > <Listing file-name="src/main.rs">
 >
@@ -261,7 +279,7 @@ implement them on any type, including unit-like structs.
 >
 > </Listing>
 >
-> The compiler will complain that it needs lifetime specifiers:
+> *Compiler* (kompilator) akan mengeluh bahwa ia membutuhkan penanda lifetime:
 >
 > ```console
 > $ cargo run
@@ -297,9 +315,10 @@ implement them on any type, including unit-like structs.
 > error: could not compile `structs` (bin "structs") due to 2 previous errors
 > ```
 >
-> In Chapter 10, we’ll discuss how to fix these errors so that you can store
-> references in structs, but for now, we’ll fix errors like these using owned
-> types like `String` instead of references like `&str`.
+> Di Bab 10, kita akan membahas cara memperbaiki galat-galat ini supaya Anda
+> dapat menyimpan reference di dalam struct, tetapi untuk sekarang, kita akan
+> memperbaiki galat seperti ini dengan memakai tipe yang dimiliki seperti
+> `String`, bukan reference seperti `&str`.
 
 <!-- manual-regeneration
 for the error above

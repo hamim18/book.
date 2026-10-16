@@ -6,11 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 03 (konsep dasar pemrograman) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch05-00-structs.md`
-  (Bab 05, 4 file; mulai dari `ch05-00`).
+- Bab terakhir selesai: Bab 05 (struct) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch06-00-enums.md`
+  (Bab 06, 4 file; mulai dari `ch06-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` sudah dijalankan dan lulus setelah Bab 02 selesai (exit 0).
+- `mdbook test` terakhir lulus: setelah Bab 03 (exit 0); dijadwalkan lagi
+  setelah Bab 05.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -90,7 +91,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 02      |       1 |     0 |     0 |     1 |
 | Bab 03      |       6 |     0 |     0 |     6 |
 | Bab 04      |       4 |     0 |     0 |     4 |
-| Bab 05      |       0 |     0 |     4 |     4 |
+| Bab 05      |       4 |     0 |     0 |     4 |
 | Bab 06      |       0 |     0 |     4 |     4 |
 | Bab 07      |       0 |     0 |     6 |     6 |
 | Bab 08      |       0 |     0 |     4 |     4 |
@@ -108,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      16 |     0 |    96 |   112 |
+| TOTAL       |      20 |     0 |    92 |   112 |
 
 ## Log keputusan istilah
 
@@ -239,6 +240,29 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | interrupt signal | sinyal interupsi | 03 |
 | format string | string format | 03 |
 | mutability / immutability | (tetap, tanpa miring) | 03 |
+| field | *field* (medan) | 05 |
+| field init shorthand | (tetap, nama fitur) | 05 |
+| struct update syntax | sintaks update struct | 05 |
+| tuple struct | *tuple struct* (struct tuple) | 05 |
+| unit-like struct | *unit-like struct* (struct mirip unit) | 05 |
+| dot notation | notasi titik | 05 |
+| template | templat | 05 |
+| derive / derived traits | menurunkan / trait yang diturunkan | 05 |
+| attribute | atribut (tanpa miring) | 05 |
+| debug (verba) | men-debug | 05 |
+| primitive type | tipe primitif | 05 |
+| end user | pengguna akhir | 05 |
+| specifier | penanda | 05 |
+| standard error / standard output | (tetap, aliran konsol) | 05 |
+| getter | (tetap, tanpa miring) | 05 |
+| trait object | *trait object* (objek trait) | 05 |
+| constructor | konstruktor | 05 |
+| receiver | *receiver* (penerima) | 05 |
+| automatic referencing and dereferencing | (tetap, miring; referensi dan dereferensi otomatis) | 05 |
+| alias | alias | 05 |
+| ergonomic | ergonomis | 05 |
+| rectangle | persegi panjang | 05 |
+| width / height | lebar / tinggi | 05 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -264,10 +288,16 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 - Teks tautan yang diterjemahkan di Bab 4 harus cocok dengan heading final
   file tujuan (diperiksa saat file itu dikerjakan):
-  ch05-03 "Metode"; ch07-03 "Path untuk Merujuk Item di dalam Pohon Modul";
+  ch07-03 "Path untuk Merujuk Item di dalam Pohon Modul";
   ch08-02 "Menyimpan Teks Terenkode UTF-8 dengan String";
   ch15-02 "Menggunakan Deref Coercions di dalam Fungsi dan Metode";
   appendix-03 "Trait yang Dapat Diturunkan".
+  (ch05-03 "Metode" sudah beres: heading ch05-03 kini `## Metode`; anchor
+  `#methods` → `#metode` masuk pemeriksaan Tahap 5.)
+- Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
+  ch12-06 (“Writing Error Messages to Standard Error Instead of Standard
+  Output”) tidak persis sama bahkan di teks asli; putuskan keselarasan saat
+  ch12-06 dikerjakan.
 - Teks tautan yang diterjemahkan di Bab 3 harus cocok dengan heading final
   file tujuan (diperiksa saat file itu dikerjakan):
   ch09-01 "Galat yang Tidak Dapat Dipulihkan dengan `panic!`";
