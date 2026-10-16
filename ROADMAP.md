@@ -16,13 +16,14 @@ Diperbarui di akhir setiap sesi.
 - [ ] Tahap 1 — Bab 4 sebagai uji coba gaya & istilah: `ch04-00` … `ch04-03`
 - [ ] Tahap 2 — Urut dari awal buku: `foreword` → `ch00` → `ch01` → … → `ch21`.
       Per bab: terjemah semua file → `cek_terjemahan.py` per file → commit per bab
-      (`terjemah: bab NN <judul>`). Jalankan `mdbook test` setiap beberapa bab.
+      (`terjemah: bab NN <judul>`). Jalankan `mdbook test` (lihat Catatan teknis)
+      setiap beberapa bab.
 - [ ] Tahap 3 — `appendix-00` s/d `appendix-07`
 - [ ] Tahap 4 — `title-page.md` + `SUMMARY.md` (judul bab diterjemahkan, path tetap).
       Paling akhir, supaya judul SUMMARY pasti cocok dengan heading final tiap bab.
 - [ ] Tahap 5 — Pemeriksaan menyeluruh: review kedua (banding `asli/` ↔ `src/`),
-      `mdbook test`, `mdbook build` (tautan anchor rusak karena heading
-      diterjemahkan), konsistensi istilah antar-bab.
+      `mdbook test` (lihat Catatan teknis), `mdbook build` (tautan anchor rusak
+      karena heading diterjemahkan), konsistensi istilah antar-bab.
 - [ ] Tahap 6 — Cetak A5 (lihat Tahap 8 `PANDUAN_PROMPT.md`).
 
 ## Ukuran kerja per kelompok (kata, dari `asli/`)
@@ -58,6 +59,18 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 21 | 4 | 10.497 |
 | Appendix | 8 | 7.001 |
 | **TOTAL** | **112** | **±183.000** |
+
+## Catatan teknis
+
+- `mdbook test` butuh crate `trpl` (dipakai contoh-contoh bab 17) yang dibangun
+  dulu, lalu path-nya diteruskan:
+  ```bash
+  cargo build --locked --manifest-path packages/trpl/Cargo.toml
+  mdbook test --library-path packages/trpl/target/debug/deps
+  ```
+  Tanpa ini, semua contoh bab 17 gagal dengan `can't find crate for trpl`.
+- Batas edit sesuai `CLAUDE.md`: hanya `src/` yang diterjemahkan;
+  `listings/`, `packages/`, `book.toml`, dll. tidak disentuh.
 
 ## Tabel progres
 

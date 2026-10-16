@@ -94,7 +94,11 @@ lebih dulu, lalu gunakan secara konsisten di seluruh buku.
 5. Jalankan pengecekan:
    `python3 cek_terjemahan.py nama-file.md`
    Jika ada galat, perbaiki sampai bersih.
-6. Setelah beberapa file selesai, jalankan `mdbook test` untuk memastikan semua kode masih terkompilasi.
+6. Setelah beberapa file selesai, jalankan `mdbook test` untuk memastikan semua
+   kode masih terkompilasi. Bangun dulu crate `trpl` lalu sertakan path-nya,
+   jika tidak semua contoh bab 17 gagal:
+   `cargo build --locked --manifest-path packages/trpl/Cargo.toml`
+   `mdbook test --library-path packages/trpl/target/debug/deps`
 7. Lakukan review kedua: bandingkan teks asli dan terjemahan, lalu tandai
    bagian yang maknanya bergeser atau terlewat. Perbaiki.
 8. Commit per bab dengan pesan seperti `terjemah: bab 04 ownership`.
