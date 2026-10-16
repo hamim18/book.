@@ -1,23 +1,25 @@
-# Common Programming Concepts
+# Konsep Dasar Pemrograman
 
-This chapter covers concepts that appear in almost every programming language
-and how they work in Rust. Many programming languages have much in common at
-their core. None of the concepts presented in this chapter are unique to Rust,
-but we’ll discuss them in the context of Rust and explain the conventions
-around using them.
+Bab ini membahas konsep-konsep yang muncul di hampir semua bahasa pemrograman
+dan cara kerjanya di Rust. Banyak bahasa pemrograman memiliki banyak kesamaan
+pada intinya. Tidak ada satu pun konsep yang disajikan di bab ini yang unik
+bagi Rust, tetapi kita akan membahasnya dalam konteks Rust dan menjelaskan
+konvensi seputar penggunaannya.
 
-Specifically, you’ll learn about variables, basic types, functions, comments,
-and control flow. These foundations will be in every Rust program, and learning
-them early will give you a strong core to start from.
+Secara khusus, Anda akan mempelajari variabel, tipe dasar, fungsi, komentar,
+dan alur kontrol. Fondasi-fondasi ini akan ada di setiap program Rust, dan
+mempelajarinya sejak awal akan memberi Anda inti yang kuat untuk memulai.
 
-> #### Keywords
+> #### Kata Kunci
 >
-> The Rust language has a set of _keywords_ that are reserved for use by the
-> language only, much as in other languages. Keep in mind that you cannot use
-> these words as names of variables or functions. Most of the keywords have
-> special meanings, and you’ll be using them to do various tasks in your Rust
-> programs; a few have no current functionality associated with them but have
-> been reserved for functionality that might be added to Rust in the future. You
-> can find the list of the keywords in [Appendix A][appendix_a]<!-- ignore -->.
+> Bahasa Rust memiliki sekumpulan *keyword* (kata kunci) yang dicadangkan untuk
+> digunakan oleh bahasa itu saja, sama seperti bahasa-bahasa lain. Ingatlah
+> bahwa Anda tidak dapat menggunakan kata-kata ini sebagai nama variabel atau
+> fungsi. Sebagian besar keyword memiliki makna khusus, dan Anda akan
+> memakainya untuk melakukan berbagai tugas dalam program Rust Anda; sebagian
+> kecil tidak memiliki fungsionalitas yang terkait saat ini, tetapi sudah
+> dicadangkan untuk fungsionalitas yang mungkin ditambahkan ke Rust di masa
+> mendatang. Anda dapat menemukan daftar keyword tersebut di
+> [Lampiran A][appendix_a]<!-- ignore -->.
 
 [appendix_a]: appendix-01-keywords.md

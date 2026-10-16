@@ -6,11 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 02 (permainan tebak angka) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch03-00-common-programming-concepts.md`
-  (Bab 03, 6 file; mulai dari `ch03-00`).
+- Bab terakhir selesai: Bab 03 (konsep dasar pemrograman) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch05-00-structs.md`
+  (Bab 05, 4 file; mulai dari `ch05-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- Terakhir diperbarui: 2026-10-16
+- `mdbook test` sudah dijalankan dan lulus setelah Bab 02 selesai (exit 0).
+- Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
 
@@ -87,7 +88,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 00      |       1 |     0 |     0 |     1 |
 | Bab 01      |       4 |     0 |     0 |     4 |
 | Bab 02      |       1 |     0 |     0 |     1 |
-| Bab 03      |       0 |     0 |     6 |     6 |
+| Bab 03      |       6 |     0 |     0 |     6 |
 | Bab 04      |       4 |     0 |     0 |     4 |
 | Bab 05      |       0 |     0 |     4 |     4 |
 | Bab 06      |       0 |     0 |     4 |     4 |
@@ -107,7 +108,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      10 |     0 |   102 |   112 |
+| TOTAL       |      16 |     0 |    96 |   112 |
 
 ## Log keputusan istilah
 
@@ -197,6 +198,47 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | guess / secret number | tebakan / angka rahasia | 02 |
 | integer | (tetap, tanpa miring) | 02 |
 | infinite loop | perulangan tak berujung | 02 |
+| keyword | *keyword* (kata kunci) | 03 |
+| data type | tipe data (tanpa miring) | 03 |
+| statically typed | *statically typed* (bertipe statis) | 03 |
+| scalar | skalar (tanpa miring) | 03 |
+| signed | bertanda | 03 |
+| literal (integer/number literal) | literal (tanpa miring) | 03 |
+| integer overflow | (tetap, tanpa miring) | 03 |
+| two's complement | komplemen dua | 03 |
+| wrapping (two's complement wrapping) | pembungkusan | 03 |
+| saturate | menjenuhkan | 03 |
+| conditionals | kondisional | 03 |
+| Unicode scalar value | nilai skalar Unicode | 03 |
+| zero-width space | spasi lebar nol | 03 |
+| compound type | tipe majemuk (tanpa miring) | 03 |
+| destructuring | *destructuring* (destrukturisasi) | 03 |
+| unit (unit type) | (tetap, miring) | 03 |
+| array | (tetap, tanpa miring) | 03 |
+| indexing | pengindeksan | 03 |
+| memory safety | keamanan memori | 03 |
+| low-level language | bahasa tingkat rendah | 03 |
+| constant | konstanta (tanpa miring) | 03 |
+| compile time / compile-time | waktu kompilasi | 03 |
+| type annotation | anotasi tipe | 03 |
+| hardcoded value | nilai yang ditulis langsung (hardcoded) | 03 |
+| snake case | (tetap, miring) | 03 |
+| entry point | titik masuk | 03 |
+| parameter | parameter (tanpa miring) | 03 |
+| argument | argumen (tanpa miring) | 03 |
+| statement | pernyataan (tanpa miring) | 03 |
+| expression | ekspresi (tanpa miring) | 03 |
+| return value / return type | nilai kembalian / tipe kembalian | 03 |
+| binary project | proyek binary | 03 |
+| loop label | label perulangan | 03 |
+| iteration | iterasi (tanpa miring) | 03 |
+| machine code | kode mesin | 03 |
+| error-prone | rawan galat | 03 |
+| countdown | hitung mundur | 03 |
+| keyboard shortcut | pintasan keyboard | 03 |
+| interrupt signal | sinyal interupsi | 03 |
+| format string | string format | 03 |
+| mutability / immutability | (tetap, tanpa miring) | 03 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -208,6 +250,16 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Kutipan di prosa memakai tanda kutip tipografis “ ” dan apostrof ’
   mengikuti teks asli (diperbaiki menyusul di bab 01: "Hello, world!" → “Hello, world!”).
 
+## Konvensi yang dipakai di Bab 3 (usulan, mohon konfirmasi)
+
+- Heading yang anchor-nya menjadi target tautan dari bab lain dipertahankan
+  bahasa Inggrisnya: `### Shadowing` tetap "Shadowing" karena ch02 menaut ke
+  `ch03-01-variables-and-mutability.html#shadowing`. Heading lain
+  diterjemahkan, tanpa miring dan tanpa padanan (mis. `## Tipe Data`).
+- Caption Tabel (`<span class="caption">`) dan caption komponen
+  `<Listing ...>` ikut diterjemahkan; header tabel diterjemahkan.
+- Judul karya (“The Twelve Days of Christmas”) tetap Inggris.
+
 ## Masalah terbuka
 
 - Teks tautan yang diterjemahkan di Bab 4 harus cocok dengan heading final
@@ -215,20 +267,22 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch05-03 "Metode"; ch07-03 "Path untuk Merujuk Item di dalam Pohon Modul";
   ch08-02 "Menyimpan Teks Terenkode UTF-8 dengan String";
   ch15-02 "Menggunakan Deref Coercions di dalam Fungsi dan Metode";
-  ch03-02 "Tipe Data"; appendix-03 "Trait yang Dapat Diturunkan".
+  appendix-03 "Trait yang Dapat Diturunkan".
+- Teks tautan yang diterjemahkan di Bab 3 harus cocok dengan heading final
+  file tujuan (diperiksa saat file itu dikerjakan):
+  ch09-01 "Galat yang Tidak Dapat Dipulihkan dengan `panic!`";
+  ch14-02 "Menerbitkan Crate ke Crates.io".
 - Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
-  (sesuai Catatan teknis di CLAUDE.md).
+  (sesuai Catatan teknis di CLAUDE.md). Termasuk anchor intra-bab ch02
+  (`#handling-potential-failure-with-result`,
+  `#comparing-the-guess-to-the-secret-number`). Heading `### Shadowing`
+  (ch03-01) sengaja dipertahankan karena ch02 menaut ke `#shadowing`.
 - Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
   dengan pemakaian Bab 4/00 ("galat"). Mohon konfirmasi pemakaian mana yang
   dianggap resmi, lalu sinkronkan tabel glosarium dengan log di atas.
 - Kejanggalan teks asli ch00: kalimat "In most situations, we'll lead you to
   the correct version of any code that doesn't compile." muncul dua kali
   (sebelum dan sesudah tabel Ferris). Diterjemahkan apa adanya, tidak diperbaiki.
-- Teks tautan yang diterjemahkan di Bab 02 harus cocok dengan heading final
-  file tujuan (diperiksa saat file itu dikerjakan): ch03-01 "Variabel dan
-  Mutabilitas". Anchor intra-bab ch02 (`#handling-potential-failure-with-result`,
-  `#comparing-the-guess-to-the-secret-number`) ikut dicek di Tahap 5.
-- `mdbook test` dijadwalkan berjalan setelah Bab 02 (bab ke-4 yang selesai).
 
 ## Cara memulai sesi baru
 

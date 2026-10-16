@@ -1,19 +1,20 @@
-## Comments
+## Komentar
 
-All programmers strive to make their code easy to understand, but sometimes
-extra explanation is warranted. In these cases, programmers leave _comments_ in
-their source code that the compiler will ignore but that people reading the
-source code may find useful.
+Semua pemrogram berusaha membuat kode mereka mudah dipahami, tetapi
+kadang-kadang penjelasan tambahan memang diperlukan. Pada kasus seperti itu,
+pemrogram meninggalkan komentar di kode sumber mereka yang akan diabaikan
+compiler tetapi mungkin berguna bagi orang yang membaca kode sumbernya.
 
-Here’s a simple comment:
+Berikut komentar sederhana:
 
 ```rust
 // hello, world
 ```
 
-In Rust, the idiomatic comment style starts a comment with two slashes, and the
-comment continues until the end of the line. For comments that extend beyond a
-single line, you’ll need to include `//` on each line, like this:
+Di Rust, gaya komentar yang idiomatis memulai komentar dengan dua garis
+miring, dan komentarnya berlanjut sampai akhir baris. Untuk komentar yang
+melebihi satu baris, Anda perlu menyertakan `//` pada setiap baris, seperti
+ini:
 
 ```rust
 // So we're doing something complicated here, long enough that we need
@@ -21,25 +22,25 @@ single line, you’ll need to include `//` on each line, like this:
 // explain what's going on.
 ```
 
-Comments can also be placed at the end of lines containing code:
+Komentar juga dapat diletakkan di akhir baris yang berisi kode:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nama File: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-24-comments-end-of-line/src/main.rs}}
 ```
 
-But you’ll more often see them used in this format, with the comment on a
-separate line above the code it’s annotating:
+Tetapi Anda akan lebih sering melihat komentar dipakai dalam format ini, yaitu
+komentar berada di baris terpisah di atas kode yang dianotasikannya:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Nama File: src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-25-comments-above-line/src/main.rs}}
 ```
 
-Rust also has another kind of comment, documentation comments, which we’ll
-discuss in the [“Publishing a Crate to Crates.io”][publishing]<!-- ignore -->
-section of Chapter 14.
+Rust juga memiliki jenis komentar lain, yaitu komentar dokumentasi, yang akan
+kita bahas di bagian [“Menerbitkan Crate ke Crates.io”][publishing]<!-- ignore
+--> pada Bab 14.
 
 [publishing]: ch14-02-publishing-to-crates-io.html
