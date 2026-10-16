@@ -1,24 +1,27 @@
-# Error Handling
+# Penanganan Galat
 
-Errors are a fact of life in software, so Rust has a number of features for
-handling situations in which something goes wrong. In many cases, Rust requires
-you to acknowledge the possibility of an error and take some action before your
-code will compile. This requirement makes your program more robust by ensuring
-that you’ll discover errors and handle them appropriately before deploying your
-code to production!
+Galat adalah fakta kehidupan dalam perangkat lunak, jadi Rust memiliki
+sejumlah fitur untuk menangani situasi ketika ada yang tidak beres. Dalam
+banyak kasus, Rust mengharuskan Anda mengakui kemungkinan adanya galat dan
+mengambil tindakan sebelum kode Anda mau dikompilasi. Persyaratan ini
+membuat program Anda lebih tangguh dengan memastikan bahwa Anda akan
+menemukan galat dan menanganinya dengan tepat sebelum menerapkan kode Anda
+ke produksi!
 
-Rust groups errors into two major categories: recoverable and unrecoverable
-errors. For a _recoverable error_, such as a _file not found_ error, we most
-likely just want to report the problem to the user and retry the operation.
-_Unrecoverable errors_ are always symptoms of bugs, such as trying to access a
-location beyond the end of an array, and so we want to immediately stop the
-program.
+Rust mengelompokkan galat menjadi dua kategori besar: galat yang dapat
+dipulihkan dan galat yang tidak dapat dipulihkan. Untuk *galat yang dapat
+dipulihkan*, seperti galat *file not found* (file tidak ditemukan),
+kemungkinan besar kita hanya ingin melaporkan masalahnya kepada pengguna dan
+mencoba ulang operasinya. *Galat yang tidak dapat dipulihkan* selalu
+merupakan gejala bug, seperti mencoba mengakses lokasi melewati ujung array,
+jadi kita ingin segera menghentikan program.
 
-Most languages don’t distinguish between these two kinds of errors and handle
-both in the same way, using mechanisms such as exceptions. Rust doesn’t have
-exceptions. Instead, it has the type `Result<T, E>` for recoverable errors and
-the `panic!` macro that stops execution when the program encounters an
-unrecoverable error. This chapter covers calling `panic!` first and then talks
-about returning `Result<T, E>` values. Additionally, we’ll explore
-considerations when deciding whether to try to recover from an error or to stop
-execution.
+Sebagian besar bahasa tidak membedakan kedua jenis galat ini dan menangani
+keduanya dengan cara yang sama, memakai mekanisme seperti *exception*. Rust
+tidak memiliki exception. Sebagai gantinya, Rust memiliki tipe `Result<T,
+E>` untuk galat yang dapat dipulihkan dan macro `panic!` yang menghentikan
+eksekusi ketika program menemukan galat yang tidak dapat dipulihkan. Bab ini
+pertama-tama membahas pemanggilan `panic!`, lalu membicarakan pengembalian
+nilai `Result<T, E>`. Selain itu, kita akan mengeksplorasi
+pertimbangan-pertimbangan ketika memutuskan apakah akan mencoba memulihkan
+diri dari galat atau menghentikan eksekusi.
