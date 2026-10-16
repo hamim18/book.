@@ -1,201 +1,216 @@
-# Introduction
+# Pendahuluan
 
-> Note: This edition of the book is the same as [The Rust Programming
-> Language][nsprust] available in print and ebook format from [No Starch
-> Press][nsp].
+> Catatan: Edisi buku ini sama dengan [The Rust Programming Language][nsprust]
+> yang tersedia dalam format cetak dan ebook dari [No Starch Press][nsp].
 
 [nsprust]: https://nostarch.com/rust-programming-language-3rd-edition
 [nsp]: https://nostarch.com/
 
-Welcome to _The Rust Programming Language_, an introductory book about Rust.
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+Selamat datang di _The Rust Programming Language_, sebuah buku pengantar
+tentang Rust. Bahasa pemrograman Rust membantu Anda menulis perangkat lunak
+yang lebih cepat dan lebih andal. Ergonomi tingkat tinggi dan kendali tingkat
+rendah sering kali saling bertentangan dalam desain bahasa pemrograman; Rust
+menantang pertentangan itu. Dengan menyeimbangkan kapasitas teknis yang kuat
+dan pengalaman pengembang yang hebat, Rust memberi Anda pilihan untuk
+mengendalikan detail-detail tingkat rendah (seperti penggunaan memori) tanpa
+semua kerepotan yang biasanya melekat pada kendali semacam itu.
 
-## Who Rust Is For
+## Untuk Siapa Rust Ditujukan
 
-Rust is ideal for many people for a variety of reasons. Let’s look at a few of
-the most important groups.
+Rust ideal untuk banyak orang karena berbagai alasan. Mari kita lihat
+beberapa kelompok yang paling penting.
 
-### Teams of Developers
+### Tim Pengembang
 
-Rust is proving to be a productive tool for collaborating among large teams of
-developers with varying levels of systems programming knowledge. Low-level code
-is prone to various subtle bugs, which in most other languages can only be
-caught through extensive testing and careful code review by experienced
-developers. In Rust, the compiler plays a gatekeeper role by refusing to
-compile code with these elusive bugs, including concurrency bugs. By working
-alongside the compiler, the team can spend its time focusing on the program’s
-logic rather than chasing down bugs.
+Rust terbukti menjadi alat yang produktif untuk berkolaborasi dalam tim
+besar pengembang dengan tingkat pengetahuan pemrograman sistem yang beragam.
+Kode tingkat rendah rentan terhadap berbagai bug yang halus, yang di sebagian
+besar bahasa lain hanya dapat ditemukan melalui pengujian yang ekstensif dan
+peninjauan kode yang cermat oleh pengembang berpengalaman. Di Rust, *compiler*
+(kompilator) berperan sebagai penjaga gerbang dengan menolak mengompilasi
+kode yang mengandung bug-bug yang sulit ditemukan ini, termasuk bug
+konkurensi. Dengan bekerja berdampingan dengan *compiler*, tim dapat
+menghabiskan waktunya untuk berfokus pada logika program alih-alih mengejar
+bug.
 
-Rust also brings contemporary developer tools to the systems programming world:
+Rust juga membawa alat-alat pengembang yang modern ke dunia pemrograman
+sistem:
 
-- Cargo, the included dependency manager and build tool, makes adding,
-  compiling, and managing dependencies painless and consistent across the Rust
-  ecosystem.
-- The `rustfmt` formatting tool ensures a consistent coding style across
-  developers.
-- The Rust Language Server powers integrated development environment (IDE)
-  integration for code completion and inline error messages.
+- Cargo, pengelola dependensi dan alat build bawaan, membuat proses
+  menambah, mengompilasi, dan mengelola dependensi menjadi mudah dan
+  konsisten di seluruh ekosistem Rust.
+- Alat pemformatan `rustfmt` menjamin gaya penulisan kode yang konsisten
+  di antara para pengembang.
+- Rust Language Server mendukung integrasi lingkungan pengembangan terpadu
+  (IDE) untuk pelengkapan kode dan pesan galat sebaris.
 
-By using these and other tools in the Rust ecosystem, developers can be
-productive while writing systems-level code.
+Dengan menggunakan alat-alat ini dan alat-alat lain di ekosistem Rust, para
+pengembang dapat tetap produktif saat menulis kode tingkat sistem.
 
-### Students
+### Pelajar
 
-Rust is for students and those who are interested in learning about systems
-concepts. Using Rust, many people have learned about topics like operating
-systems development. The community is very welcoming and happy to answer
-students’ questions. Through efforts such as this book, the Rust teams want to
-make systems concepts more accessible to more people, especially those new to
-programming.
+Rust ditujukan bagi para pelajar dan mereka yang tertarik mempelajari
+konsep-konsep sistem. Dengan memakai Rust, banyak orang telah mempelajari
+topik seperti pengembangan sistem operasi. Komunitasnya sangat ramah dan
+senang menjawab pertanyaan para pelajar. Melalui berbagai upaya seperti buku
+ini, tim-tim Rust ingin membuat konsep-konsep sistem lebih mudah diakses oleh
+lebih banyak orang, terutama mereka yang baru mengenal pemrograman.
 
-### Companies
+### Perusahaan
 
-Hundreds of companies, large and small, use Rust in production for a variety of
-tasks, including command line tools, web services, DevOps tooling, embedded
-devices, audio and video analysis and transcoding, cryptocurrencies,
-bioinformatics, search engines, Internet of Things applications, machine
-learning, and even major parts of the Firefox web browser.
+Ratusan perusahaan, besar maupun kecil, menggunakan Rust di lingkungan
+produksi untuk berbagai macam tugas, termasuk alat baris perintah, layanan
+web, perangkat DevOps, perangkat tertanam, analisis dan transkode audio dan
+video, mata uang kripto, bioinformatika, mesin pencari, aplikasi Internet of
+Things, pembelajaran mesin, dan bahkan sebagian besar peramban web Firefox.
 
-### Open Source Developers
+### Pengembang Open Source
 
-Rust is for people who want to build the Rust programming language, community,
-developer tools, and libraries. We’d love to have you contribute to the Rust
-language.
+Rust ditujukan bagi orang-orang yang ingin membangun bahasa pemrograman Rust,
+komunitas, alat pengembang, dan pustakanya. Kami akan sangat senang jika Anda
+berkontribusi pada bahasa Rust.
 
-### People Who Value Speed and Stability
+### Orang yang Menghargai Kecepatan dan Stabilitas
 
-Rust is for people who crave speed and stability in a language. By speed, we
-mean both how quickly Rust code can run and the speed at which Rust lets you
-write programs. The Rust compiler’s checks ensure stability through feature
-additions and refactoring. This is in contrast to the brittle legacy code in
-languages without these checks, which developers are often afraid to modify. By
-striving for zero-cost abstractions—higher-level features that compile to
-lower-level code as fast as code written manually—Rust endeavors to make safe
-code be fast code as well.
+Rust ditujukan bagi orang-orang yang mendambakan kecepatan dan stabilitas
+dalam sebuah bahasa. Yang kami maksud dengan kecepatan adalah seberapa cepat
+kode Rust dapat berjalan sekaligus seberapa cepat Rust memungkinkan Anda
+menulis program. Pemeriksaan *compiler* Rust menjamin stabilitas ketika
+fitur-fitur ditambahkan dan ketika dilakukan refactoring. Hal ini bertolak
+belakang dengan kode warisan yang rapuh pada bahasa-bahasa tanpa pemeriksaan
+semacam itu, yang sering kali ditakuti para pengembang untuk dimodifikasi.
+Dengan mengupayakan *zero-cost abstraction* (abstraksi tanpa biaya)—fitur
+tingkat tinggi yang dikompilasi menjadi kode tingkat rendah secepat kode yang
+ditulis secara manual—Rust berusaha menjadikan kode yang aman sekaligus kode
+yang cepat.
 
-The Rust language hopes to support many other users as well; those mentioned
-here are merely some of the biggest stakeholders. Overall, Rust’s greatest
-ambition is to eliminate the trade-offs that programmers have accepted for
-decades by providing safety _and_ productivity, speed _and_ ergonomics. Give
-Rust a try, and see if its choices work for you.
+Bahasa Rust juga berharap dapat mendukung banyak pengguna lainnya; mereka
+yang disebutkan di sini hanyalah sebagian dari pemangku kepentingan
+terbesar. Secara keseluruhan, ambisi terbesar Rust adalah menghilangkan
+kompromi-kompromi yang telah diterima para pemrogram selama puluhan tahun
+dengan menyediakan keamanan _dan_ produktivitas, kecepatan _dan_ ergonomi.
+Cobalah Rust, dan lihat apakah pilihan-pilihannya cocok untuk Anda.
 
-## Who This Book Is For
+## Untuk Siapa Buku Ini Ditujukan
 
-This book assumes that you’ve written code in another programming language, but
-it doesn’t make any assumptions about which one. We’ve tried to make the
-material broadly accessible to those from a wide variety of programming
-backgrounds. We don’t spend a lot of time talking about what programming _is_
-or how to think about it. If you’re entirely new to programming, you would be
-better served by reading a book that specifically provides an introduction to
-programming.
+Buku ini mengasumsikan bahwa Anda pernah menulis kode dalam bahasa
+pemrograman lain, tetapi tidak mengasumsikan bahasa apa pun. Kami berusaha
+membuat materi ini mudah diakses secara luas oleh orang-orang dari berbagai
+macam latar belakang pemrograman. Kami tidak menghabiskan banyak waktu untuk
+membahas apa itu pemrograman atau bagaimana cara memikirkannya. Jika Anda
+benar-benar baru dalam dunia pemrograman, akan lebih baik bagi Anda untuk
+membaca buku yang secara khusus memberikan pengantar pemrograman.
 
-## How to Use This Book
+## Cara Menggunakan Buku Ini
 
-In general, this book assumes that you’re reading it in sequence from front to
-back. Later chapters build on concepts in earlier chapters, and earlier
-chapters might not delve into details on a particular topic but will revisit
-the topic in a later chapter.
+Secara umum, buku ini mengasumsikan bahwa Anda membacanya secara berurutan
+dari depan ke belakang. Bab-bab selanjutnya dibangun di atas konsep-konsep
+dari bab-bab sebelumnya, dan bab-bab awal mungkin tidak mendalami detail
+suatu topik tertentu, tetapi topik tersebut akan ditinjau kembali di bab
+selanjutnya.
 
-You’ll find two kinds of chapters in this book: concept chapters and project
-chapters. In concept chapters, you’ll learn about an aspect of Rust. In project
-chapters, we’ll build small programs together, applying what you’ve learned so
-far. Chapter 2, Chapter 12, and Chapter 21 are project chapters; the rest are
-concept chapters.
+Anda akan menemukan dua jenis bab dalam buku ini: bab konsep dan bab proyek.
+Di bab konsep, Anda akan mempelajari salah satu aspek dari Rust. Di bab
+proyek, kita akan membangun program-program kecil bersama-sama dengan
+menerapkan apa yang telah Anda pelajari sejauh ini. Bab 2, Bab 12, dan Bab 21
+adalah bab proyek; sisanya adalah bab konsep.
 
-**Chapter 1** explains how to install Rust, how to write a “Hello, world!”
-program, and how to use Cargo, Rust’s package manager and build tool. **Chapter
-2** is a hands-on introduction to writing a program in Rust, having you build
-up a number-guessing game. Here, we cover concepts at a high level, and later
-chapters will provide additional detail. If you want to get your hands dirty
-right away, Chapter 2 is the place for that. If you’re a particularly
-meticulous learner who prefers to learn every detail before moving on to the
-next, you might want to skip Chapter 2 and go straight to **Chapter 3**, which
-covers Rust features that are similar to those of other programming languages;
-then, you can return to Chapter 2 when you’d like to work on a project applying
-the details you’ve learned.
+**Bab 1** menjelaskan cara memasang Rust, cara menulis program
+"Hello, world!", dan cara menggunakan Cargo, pengelola *package* (paket) dan
+alat build milik Rust. **Bab 2** adalah pengantar langsung untuk menulis
+program di Rust, dengan mengajak Anda membangun permainan tebak angka. Di
+sini, kami membahas konsep-konsep pada tingkat tinggi, dan bab-bab
+selanjutnya akan memberikan detail tambahan. Jika Anda ingin langsung terjun
+praktik, Bab 2 adalah tempatnya. Jika Anda adalah pembelajar yang sangat
+teliti dan lebih suka mempelajari setiap detail sebelum melanjutkan ke bagian
+berikutnya, Anda mungkin ingin melewati Bab 2 dan langsung menuju **Bab 3**,
+yang membahas fitur-fitur Rust yang serupa dengan bahasa pemrograman lain;
+setelah itu, Anda dapat kembali ke Bab 2 saat ingin mengerjakan sebuah proyek
+dengan menerapkan detail-detail yang telah Anda pelajari.
 
-In **Chapter 4**, you’ll learn about Rust’s ownership system. **Chapter 5**
-discusses structs and methods. **Chapter 6** covers enums, `match` expressions,
-and the `if let` and `let...else` control flow constructs. You’ll use structs
-and enums to make custom types.
+Di **Bab 4**, Anda akan mempelajari sistem *ownership* (kepemilikan) Rust.
+**Bab 5** membahas *struct* dan metode. **Bab 6** membahas *enum*, ekspresi
+`match`, serta konstruksi alur kontrol `if let` dan `let...else`. Anda akan
+menggunakan *struct* dan *enum* untuk membuat tipe khusus.
 
-In **Chapter 7**, you’ll learn about Rust’s module system and about privacy
-rules for organizing your code and its public application programming interface
-(API). **Chapter 8** discusses some common collection data structures that the
-standard library provides: vectors, strings, and hash maps. **Chapter 9**
-explores Rust’s error-handling philosophy and techniques.
+Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta
+aturan privasi untuk mengorganisasi kode Anda dan antarmuka pemrograman
+aplikasi (API) publiknya. **Bab 8** membahas beberapa struktur data koleksi
+umum yang disediakan pustaka standar: vektor, string, dan hash map. **Bab 9**
+menjelajahi filosofi dan teknik penanganan galat Rust.
 
-**Chapter 10** digs into generics, traits, and lifetimes, which give you the
-power to define code that applies to multiple types. **Chapter 11** is all
-about testing, which even with Rust’s safety guarantees is necessary to ensure
-that your program’s logic is correct. In **Chapter 12**, we’ll build our own
-implementation of a subset of functionality from the `grep` command line tool
-that searches for text within files. For this, we’ll use many of the concepts
-we discussed in the previous chapters.
+**Bab 10** menggali *generics* (tipe generik), *trait*, dan *lifetime* (masa
+hidup), yang memberi Anda kemampuan untuk mendefinisikan kode yang berlaku
+untuk berbagai tipe. **Bab 11** seluruhnya membahas pengujian, yang bahkan
+dengan jaminan keamanan dari Rust tetap diperlukan untuk memastikan logika
+program Anda benar. Di **Bab 12**, kita akan membangun implementasi sendiri
+dari sebagian fungsionalitas alat baris perintah `grep` yang mencari teks di
+dalam file. Untuk itu, kita akan memakai banyak konsep yang telah kita bahas
+di bab-bab sebelumnya.
 
-**Chapter 13** explores closures and iterators: features of Rust that come from
-functional programming languages. In **Chapter 14**, we’ll examine Cargo in
-more depth and talk about best practices for sharing your libraries with
-others. **Chapter 15** discusses smart pointers that the standard library
-provides and the traits that enable their functionality.
+**Bab 13** menjelajahi *closure* dan *iterator*: fitur Rust yang berasal
+dari bahasa pemrograman fungsional. Di **Bab 14**, kita akan menelaah Cargo
+lebih mendalam dan membahas praktik terbaik untuk membagikan pustaka Anda
+kepada orang lain. **Bab 15** membahas *smart pointer* (penunjuk pintar) yang
+disediakan pustaka standar dan *trait* yang memungkinkan fungsionalitasnya.
 
-In **Chapter 16**, we’ll walk through different models of concurrent
-programming and talk about how Rust helps you program in multiple threads
-fearlessly. In **Chapter 17**, we build on that by exploring Rust’s async and
-await syntax, along with tasks, futures, and streams, and the lightweight
-concurrency model they enable.
+Di **Bab 16**, kita akan menelusuri berbagai model pemrograman konkuren dan
+membahas bagaimana Rust membantu Anda memprogram dengan banyak thread tanpa
+rasa takut. Di **Bab 17**, kita melanjutkannya dengan menjelajahi sintaks
+async dan await Rust, bersama *task*, *future*, dan *stream*, serta model
+konkurensi ringan yang dimungkinkan oleh ketiganya.
 
-**Chapter 18** looks at how Rust idioms compare to object-oriented programming
-principles you might be familiar with. **Chapter 19** is a reference on
-patterns and pattern matching, which are powerful ways of expressing ideas
-throughout Rust programs. **Chapter 20** contains a smorgasbord of advanced
-topics of interest, including unsafe Rust, macros, and more about lifetimes,
-traits, types, functions, and closures.
+**Bab 18** membahas bagaimana idiom-idiom Rust dibandingkan dengan
+prinsip-prinsip pemrograman berorientasi objek yang mungkin sudah Anda kenal.
+**Bab 19** adalah referensi tentang pola dan *pattern matching* (pencocokan
+pola), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
+program Rust. **Bab 20** memuat aneka ragam topik lanjutan yang menarik,
+termasuk *unsafe* Rust, *macro* (makro), serta pembahasan lebih lanjut
+tentang *lifetime*, *trait*, tipe, fungsi, dan *closure*.
 
-In **Chapter 21**, we’ll complete a project in which we’ll implement a
-low-level multithreaded web server!
+Di **Bab 21**, kita akan menyelesaikan sebuah proyek untuk
+mengimplementasikan server web multithread tingkat rendah!
 
-Finally, some appendixes contain useful information about the language in a
-more reference-like format. **Appendix A** covers Rust’s keywords, **Appendix
-B** covers Rust’s operators and symbols, **Appendix C** covers derivable traits
-provided by the standard library, **Appendix D** covers some useful development
-tools, and **Appendix E** explains Rust editions. In **Appendix F**, you can
-find translations of the book, and in **Appendix G** we’ll cover how Rust is
-made and what nightly Rust is.
+Terakhir, beberapa lampiran memuat informasi berguna tentang bahasa ini
+dalam format yang lebih menyerupai referensi. **Lampiran A** membahas kata
+kunci Rust, **Lampiran B** membahas operator dan simbol Rust, **Lampiran C**
+membahas *trait* yang dapat diturunkan yang disediakan pustaka standar,
+**Lampiran D** membahas beberapa alat pengembangan yang berguna, dan
+**Lampiran E** menjelaskan edisi Rust. Di **Lampiran F**, Anda dapat
+menemukan terjemahan buku ini, dan di **Lampiran G** kita akan membahas
+bagaimana Rust dibuat dan apa itu Rust nightly.
 
-There is no wrong way to read this book: If you want to skip ahead, go for it!
-You might have to jump back to earlier chapters if you experience any
-confusion. But do whatever works for you.
+Tidak ada cara yang salah untuk membaca buku ini: jika Anda ingin melompat
+ke depan, silakan saja! Anda mungkin perlu melompat kembali ke bab-bab
+sebelumnya jika mengalami kebingungan. Namun, lakukan apa pun yang paling
+cocok untuk Anda.
 
 <span id="ferris"></span>
 
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: These will guide you toward working code.
-As such, we’ll provide many examples that don’t compile along with the error
-message the compiler will show you in each situation. Know that if you enter
-and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code
-that doesn’t compile. Ferris will also help you distinguish code that isn’t
-meant to work:
+Bagian penting dari proses belajar Rust adalah belajar membaca pesan galat
+yang ditampilkan *compiler*: pesan-pesan ini akan memandu Anda menuju kode
+yang berfungsi. Karena itu, kami akan memberikan banyak contoh yang tidak
+terkompilasi beserta pesan galat yang akan ditampilkan *compiler* pada setiap
+situasi. Perlu Anda ketahui bahwa jika Anda mengetik dan menjalankan sebuah
+contoh secara acak, contoh tersebut mungkin tidak terkompilasi! Pastikan Anda
+membaca teks di sekitarnya untuk melihat apakah contoh yang coba Anda
+jalankan memang sengaja dibuat agar menghasilkan galat. Pada kebanyakan
+situasi, kami akan memandu Anda ke versi yang benar dari setiap kode yang
+tidak terkompilasi. Ferris juga akan membantu Anda membedakan kode yang
+memang tidak dimaksudkan untuk berfungsi:
 
-| Ferris                                                                                                           | Meaning                                          |
-| ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris with a question mark"/>            | This code does not compile!                      |
-| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris throwing up their hands"/>                   | This code panics!                                |
-| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris with one claw up, shrugging"/> | This code does not produce the desired behavior. |
+| Ferris                                                                                                                                                                                                                                             | Makna                                                    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain" alt="Ferris dengan tanda tanya"/>                                                                                                                                                | Kode ini tidak terkompilasi!                             |
+| <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris mengangkat kedua tangannya"/>                                                                                                                                                  | Kode ini memicu panic!                                   |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris dengan satu capit terangkat sambil mengangkat bahu"/>                                                                                                             | Kode ini tidak menghasilkan perilaku yang diinginkan. |
 
-In most situations, we’ll lead you to the correct version of any code that
-doesn’t compile.
+Pada kebanyakan situasi, kami akan memandu Anda ke versi yang benar dari
+setiap kode yang tidak terkompilasi.
 
-## Source Code
+## Kode Sumber
 
-The source files from which this book is generated can be found on
-[GitHub][book].
+File-file sumber yang digunakan untuk menghasilkan buku ini dapat ditemukan
+di [GitHub][book].
 
 [book]: https://github.com/rust-lang/book/tree/main/src

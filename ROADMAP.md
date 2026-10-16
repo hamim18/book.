@@ -6,8 +6,9 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 4 (ownership) — uji coba gaya & istilah; `mdbook test` lulus.
-- File berikutnya yang dikerjakan: `ch00-00-introduction.md` (Tahap 2, mulai dari awal buku)
+- Bab terakhir selesai: Bab 00 (pendahuluan) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch01-00-getting-started.md` (Bab 01).
+  `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
 - Terakhir diperbarui: 2026-10-16
 
 ## Urutan kerja
@@ -82,7 +83,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Kelompok    | Selesai | Galat | Belum | Total |
 |-------------|--------:|------:|------:|------:|
 | Pendahuluan |       0 |     0 |     3 |     3 |
-| Bab 00      |       0 |     0 |     1 |     1 |
+| Bab 00      |       1 |     0 |     0 |     1 |
 | Bab 01      |       0 |     0 |     4 |     4 |
 | Bab 02      |       0 |     0 |     1 |     1 |
 | Bab 03      |       0 |     0 |     6 |     6 |
@@ -105,7 +106,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |       4 |     0 |   108 |   112 |
+| TOTAL       |       5 |     0 |   107 |   112 |
 
 ## Log keputusan istilah
 
@@ -139,6 +140,24 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | data race / race condition | (tetap) | 04 |
 | dangling pointer / dangling reference | pointer menggantung / reference menggantung | 04 |
 | undefined behavior | perilaku tak terdefinisi | 04 |
+| error (error message, error-handling) | galat (pesan galat, penanganan galat) | 00 |
+| bug | (tetap, tanpa miring) | 00 |
+| dependency / dependency manager | dependensi / pengelola dependensi (tanpa miring) | 00 |
+| tool / tooling | alat / perangkat (tanpa miring) | 00 |
+| build (build tool) | (tetap, tanpa miring; "alat build") | 00 |
+| open source | (tetap, tanpa miring) | 00 |
+| panic | (tetap, tanpa miring) | 00 |
+| refactoring | (tetap, tanpa miring) | 00 |
+| zero-cost abstraction | *zero-cost abstraction* (abstraksi tanpa biaya) | 00 |
+| thread | (tetap, tanpa miring) | 00 |
+| async / await | (tetap, tanpa miring) | 00 |
+| task / future / stream | (tetap, miring) | 00 |
+| concurrency / concurrent | konkurensi / konkuren (tanpa miring) | 00 |
+| control flow | alur kontrol (tanpa miring) | 00 |
+| hash map | (tetap, tanpa miring) | 00 |
+| programmer | pemrogram | 00 |
+| web browser / web server | peramban web / server web | 00 |
+| machine learning | pembelajaran mesin | 00 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -158,6 +177,12 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch03-02 "Tipe Data"; appendix-03 "Trait yang Dapat Diturunkan".
 - Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
   (sesuai Catatan teknis di CLAUDE.md).
+- Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
+  dengan pemakaian Bab 4/00 ("galat"). Mohon konfirmasi pemakaian mana yang
+  dianggap resmi, lalu sinkronkan tabel glosarium dengan log di atas.
+- Kejanggalan teks asli ch00: kalimat "In most situations, we'll lead you to
+  the correct version of any code that doesn't compile." muncul dua kali
+  (sebelum dan sesudah tabel Ferris). Diterjemahkan apa adanya, tidak diperbaiki.
 
 ## Cara memulai sesi baru
 
