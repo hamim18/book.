@@ -116,7 +116,7 @@ menerapkan apa yang telah Anda pelajari sejauh ini. Bab 2, Bab 12, dan Bab 21
 adalah bab proyek; sisanya adalah bab konsep.
 
 **Bab 1** menjelaskan cara memasang Rust, cara menulis program
-"Hello, world!", dan cara menggunakan Cargo, pengelola *package* (paket) dan
+“Hello, world!”, dan cara menggunakan Cargo, pengelola *package* (paket) dan
 alat build milik Rust. **Bab 2** adalah pengantar langsung untuk menulis
 program di Rust, dengan mengajak Anda membangun permainan tebak angka. Di
 sini, kami membahas konsep-konsep pada tingkat tinggi, dan bab-bab

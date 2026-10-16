@@ -6,8 +6,9 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 00 (pendahuluan) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch01-00-getting-started.md` (Bab 01).
+- Bab terakhir selesai: Bab 01 (memulai) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch02-00-guessing-game-tutorial.md`
+  (Bab 02; file tunggal 6.028 kata, rencanakan beberapa sesi).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
 - Terakhir diperbarui: 2026-10-16
 
@@ -84,7 +85,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 |-------------|--------:|------:|------:|------:|
 | Pendahuluan |       0 |     0 |     3 |     3 |
 | Bab 00      |       1 |     0 |     0 |     1 |
-| Bab 01      |       0 |     0 |     4 |     4 |
+| Bab 01      |       4 |     0 |     0 |     4 |
 | Bab 02      |       0 |     0 |     1 |     1 |
 | Bab 03      |       0 |     0 |     6 |     6 |
 | Bab 04      |       4 |     0 |     0 |     4 |
@@ -106,7 +107,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |       5 |     0 |   107 |   112 |
+| TOTAL       |       9 |     0 |   103 |   112 |
 
 ## Log keputusan istilah
 
@@ -158,6 +159,20 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | programmer | pemrogram | 00 |
 | web browser / web server | peramban web / server web | 00 |
 | machine learning | pembelajaran mesin | 00 |
+| linker | (tetap, miring) | 01 |
+| script | skrip | 01 |
+| shell | (tetap, tanpa miring) | 01 |
+| native | (tetap, tanpa miring) | 01 |
+| cache | (tetap, tanpa miring) | 01 |
+| flag | (tetap, tanpa miring) | 01 |
+| installer | (tetap, tanpa miring) | 01 |
+| optimization | optimasi | 01 |
+| benchmarking | benchmark (tetap, tanpa miring) | 01 |
+| version control system | sistem kontrol versi | 01 |
+| build (verba) | membangun | 01 |
+| "Filename:" (label <span>) | "Nama File:" | 01 |
+| offline | luring | 01 |
+| source file | file sumber | 01 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -166,6 +181,8 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   kemunculan pertama di prosa per bab.
 - Judul bab (`ch04-00`) memuat padanan: `Memahami Ownership (Kepemilikan)`.
 - Alt teks gambar dan caption Listing/Gambar ikut diterjemahkan.
+- Kutipan di prosa memakai tanda kutip tipografis “ ” dan apostrof ’
+  mengikuti teks asli (diperbaiki menyusul di bab 01: "Hello, world!" → “Hello, world!”).
 
 ## Masalah terbuka
 
