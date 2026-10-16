@@ -1,51 +1,54 @@
-## Storing UTF-8 Encoded Text with Strings
+## Menyimpan Teks Terenkode UTF-8 dengan String
 
-We talked about strings in Chapter 4, but we’ll look at them in more depth now.
-New Rustaceans commonly get stuck on strings for a combination of three
-reasons: Rust’s propensity for exposing possible errors, strings being a more
-complicated data structure than many programmers give them credit for, and
-UTF-8. These factors combine in a way that can seem difficult when you’re
-coming from other programming languages.
+Kita telah membicarakan string di Bab 4, tetapi sekarang kita akan
+melihatnya lebih mendalam. Rustacean baru biasanya tersangkut pada string
+karena kombinasi tiga alasan: kecenderungan Rust untuk mengekspos
+kemungkinan galat, string sebagai struktur data yang lebih rumit daripada
+perkiraan banyak pemrogram, dan UTF-8. Faktor-faktor ini berpadu dengan cara
+yang bisa terasa sulit ketika Anda datang dari bahasa pemrograman lain.
 
-We discuss strings in the context of collections because strings are
-implemented as a collection of bytes, plus some methods to provide useful
-functionality when those bytes are interpreted as text. In this section, we’ll
-talk about the operations on `String` that every collection type has, such as
-creating, updating, and reading. We’ll also discuss the ways in which `String`
-is different from the other collections, namely, how indexing into a `String` is
-complicated by the differences between how people and computers interpret
-`String` data.
+Kita membahas string dalam konteks koleksi karena string diimplementasikan
+sebagai koleksi byte, ditambah beberapa metode untuk menyediakan
+fungsionalitas yang berguna ketika byte-byte itu ditafsirkan sebagai teks.
+Di bagian ini, kita akan membicarakan operasi-operasi pada `String` yang
+dimiliki setiap tipe koleksi, seperti membuat, memperbarui, dan membaca.
+Kita juga akan membahas cara-cara `String` berbeda dari koleksi lainnya,
+yaitu bagaimana pengindeksan ke dalam `String` menjadi rumit karena
+perbedaan antara cara manusia dan komputer menafsirkan data `String`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="what-is-a-string"></a>
 
-### Defining Strings
+### Mendefinisikan String
 
-We’ll first define what we mean by the term _string_. Rust has only one string
-type in the core language, which is the string slice `str` that is usually seen
-in its borrowed form, `&str`. In Chapter 4, we talked about string slices,
-which are references to some UTF-8 encoded string data stored elsewhere. String
-literals, for example, are stored in the program’s binary and are therefore
-string slices.
+Pertama-tama, kita akan mendefinisikan apa yang kita maksud dengan istilah
+*string*. Rust hanya memiliki satu tipe string di bahasa intinya, yaitu
+string slice `str` yang biasanya terlihat dalam bentuk pinjamannya, `&str`.
+Di Bab 4, kita membicarakan string slice, yang merupakan reference ke
+sebagian data string terenkode UTF-8 yang tersimpan di tempat lain. String
+literal, misalnya, tersimpan di binary program dan karena itu adalah string
+slice.
 
-The `String` type, which is provided by Rust’s standard library rather than
-coded into the core language, is a growable, mutable, owned, UTF-8 encoded
-string type. When Rustaceans refer to “strings” in Rust, they might be
-referring to either the `String` or the string slice `&str` types, not just one
-of those types. Although this section is largely about `String`, both types are
-used heavily in Rust’s standard library, and both `String` and string slices
-are UTF-8 encoded.
+Tipe `String`, yang disediakan oleh pustaka standar Rust alih-alih
+dikodekan ke dalam bahasa inti, adalah tipe string yang dapat membesar,
+mutable, dimiliki, dan terenkode UTF-8. Ketika para Rustacean merujuk
+“string” di Rust, mereka mungkin merujuk ke tipe `String` atau string slice
+`&str`, bukan hanya salah satu dari tipe-tipe itu. Meskipun bagian ini
+sebagian besar tentang `String`, kedua tipe dipakai secara besar-besaran di
+pustaka standar Rust, dan baik `String` maupun string slice sama-sama
+terenkode UTF-8.
 
-### Creating a New String
+### Membuat String Baru
 
-Many of the same operations available with `Vec<T>` are available with `String`
-as well because `String` is actually implemented as a wrapper around a vector
-of bytes with some extra guarantees, restrictions, and capabilities. An example
-of a function that works the same way with `Vec<T>` and `String` is the `new`
-function to create an instance, shown in Listing 8-11.
+Banyak operasi yang sama yang tersedia pada `Vec<T>` juga tersedia pada
+`String`, karena `String` sebenarnya diimplementasikan sebagai *wrapper*
+(pembungkus) di sekitar vektor byte dengan beberapa jaminan, pembatasan, dan
+kemampuan ekstra. Contoh fungsi yang bekerja dengan cara yang sama pada
+`Vec<T>` dan `String` adalah fungsi `new` untuk membuat sebuah instance,
+yang ditunjukkan di Listing 8-11.
 
-<Listing number="8-11" caption="Creating a new, empty `String`">
+<Listing number="8-11" caption="Membuat `String` kosong yang baru">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-11/src/main.rs:here}}
@@ -53,13 +56,13 @@ function to create an instance, shown in Listing 8-11.
 
 </Listing>
 
-This line creates a new, empty string called `s`, into which we can then load
-data. Often, we’ll have some initial data with which we want to start the
-string. For that, we use the `to_string` method, which is available on any type
-that implements the `Display` trait, as string literals do. Listing 8-12 shows
-two examples.
+Baris ini membuat string kosong baru bernama `s`, yang kemudian dapat kita
+isi dengan data. Sering kali, kita akan memiliki data awal yang ingin kita
+pakai untuk memulai string. Untuk itu, kita memakai metode `to_string`, yang
+tersedia pada tipe apa pun yang mengimplementasikan *trait* `Display`,
+seperti halnya string literal. Listing 8-12 menunjukkan dua contoh.
 
-<Listing number="8-12" caption="Using the `to_string` method to create a `String` from a string literal">
+<Listing number="8-12" caption="Memakai metode `to_string` untuk membuat `String` dari string literal">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
@@ -67,13 +70,13 @@ two examples.
 
 </Listing>
 
-This code creates a string containing `initial contents`.
+Kode ini membuat string berisi `initial contents`.
 
-We can also use the function `String::from` to create a `String` from a string
-literal. The code in Listing 8-13 is equivalent to the code in Listing 8-12
-that uses `to_string`.
+Kita juga dapat memakai fungsi `String::from` untuk membuat `String` dari
+string literal. Kode di Listing 8-13 setara dengan kode di Listing 8-12 yang
+memakai `to_string`.
 
-<Listing number="8-13" caption="Using the `String::from` function to create a `String` from a string literal">
+<Listing number="8-13" caption="Memakai fungsi `String::from` untuk membuat `String` dari string literal">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-13/src/main.rs:here}}
@@ -81,16 +84,18 @@ that uses `to_string`.
 
 </Listing>
 
-Because strings are used for so many things, we can use many different generic
-APIs for strings, providing us with a lot of options. Some of them can seem
-redundant, but they all have their place! In this case, `String::from` and
-`to_string` do the same thing, so which one you choose is a matter of style and
-readability.
+Karena string dipakai untuk begitu banyak hal, kita dapat memakai banyak API
+generik yang berbeda untuk string, yang memberi kita banyak pilihan.
+Sebagian di antaranya bisa terlihat mubazir, tetapi semuanya punya
+tempatnya masing-masing! Dalam kasus ini, `String::from` dan `to_string`
+melakukan hal yang sama, jadi pilihan Anda adalah soal gaya dan
+keterbacaan.
 
-Remember that strings are UTF-8 encoded, so we can include any properly encoded
-data in them, as shown in Listing 8-14.
+Ingat bahwa string terenkode UTF-8, jadi kita dapat menyertakan data apa pun
+yang terenkode dengan benar di dalamnya, seperti yang ditunjukkan di Listing
+8-14.
 
-<Listing number="8-14" caption="Storing greetings in different languages in strings">
+<Listing number="8-14" caption="Menyimpan sapaan dalam berbagai bahasa di dalam string">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
@@ -98,24 +103,25 @@ data in them, as shown in Listing 8-14.
 
 </Listing>
 
-All of these are valid `String` values.
+Semua nilai ini adalah nilai `String` yang valid.
 
-### Updating a String
+### Memperbarui String
 
-A `String` can grow in size and its contents can change, just like the contents
-of a `Vec<T>`, if you push more data into it. In addition, you can conveniently
-use the `+` operator or the `format!` macro to concatenate `String` values.
+Sebuah `String` dapat membesar ukurannya dan isinya dapat berubah, sama
+seperti isi `Vec<T>`, jika Anda memasukkan lebih banyak data ke dalamnya.
+Selain itu, Anda dapat dengan mudah memakai operator `+` atau *macro*
+(makro) `format!` untuk menggabungkan nilai-nilai `String`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="appending-to-a-string-with-push_str-and-push"></a>
 
-#### Appending with `push_str` or `push`
+#### Menambahkan dengan `push_str` atau `push`
 
-We can grow a `String` by using the `push_str` method to append a string slice,
-as shown in Listing 8-15.
+Kita dapat memperbesar `String` dengan memakai metode `push_str` untuk
+menambahkan sebuah string slice, seperti yang ditunjukkan di Listing 8-15.
 
-<Listing number="8-15" caption="Appending a string slice to a `String` using the `push_str` method">
+<Listing number="8-15" caption="Menambahkan sebuah string slice ke `String` memakai metode `push_str`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
@@ -123,12 +129,12 @@ as shown in Listing 8-15.
 
 </Listing>
 
-After these two lines, `s` will contain `foobar`. The `push_str` method takes a
-string slice because we don’t necessarily want to take ownership of the
-parameter. For example, in the code in Listing 8-16, we want to be able to use
-`s2` after appending its contents to `s1`.
+Setelah dua baris ini, `s` akan berisi `foobar`. Metode `push_str` menerima
+string slice karena kita belum tentu ingin mengambil ownership parameter.
+Misalnya, pada kode di Listing 8-16, kita ingin dapat memakai `s2` setelah
+menambahkan isinya ke `s1`.
 
-<Listing number="8-16" caption="Using a string slice after appending its contents to a `String`">
+<Listing number="8-16" caption="Memakai string slice setelah menambahkan isinya ke `String`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-16/src/main.rs:here}}
@@ -136,14 +142,15 @@ parameter. For example, in the code in Listing 8-16, we want to be able to use
 
 </Listing>
 
-If the `push_str` method took ownership of `s2`, we wouldn’t be able to print
-its value on the last line. However, this code works as we’d expect!
+Jika metode `push_str` mengambil ownership `s2`, kita tidak akan dapat
+mencetak nilainya di baris terakhir. Namun, kode ini bekerja seperti yang
+kita harapkan!
 
-The `push` method takes a single character as a parameter and adds it to the
-`String`. Listing 8-17 adds the letter _l_ to a `String` using the `push`
-method.
+Metode `push` menerima satu karakter sebagai parameter dan menambahkannya ke
+`String`. Listing 8-17 menambahkan huruf _l_ ke sebuah `String` memakai
+metode `push`.
 
-<Listing number="8-17" caption="Adding one character to a `String` value using `push`">
+<Listing number="8-17" caption="Menambahkan satu karakter ke nilai `String` memakai `push`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-17/src/main.rs:here}}
@@ -151,18 +158,19 @@ method.
 
 </Listing>
 
-As a result, `s` will contain `lol`.
+Akibatnya, `s` akan berisi `lol`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="concatenation-with-the--operator-or-the-format-macro"></a>
 
-#### Concatenating with `+` or `format!`
+#### Menggabungkan dengan `+` atau `format!`
 
-Often, you’ll want to combine two existing strings. One way to do so is to use
-the `+` operator, as shown in Listing 8-18.
+Sering kali, Anda ingin menggabungkan dua string yang ada. Salah satu
+caranya adalah memakai operator `+`, seperti yang ditunjukkan di Listing
+8-18.
 
-<Listing number="8-18" caption="Using the `+` operator to combine two `String` values into a new `String` value">
+<Listing number="8-18" caption="Memakai operator `+` untuk menggabungkan dua nilai `String` menjadi nilai `String` baru">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
@@ -170,74 +178,77 @@ the `+` operator, as shown in Listing 8-18.
 
 </Listing>
 
-The string `s3` will contain `Hello, world!`. The reason `s1` is no longer
-valid after the addition, and the reason we used a reference to `s2`, has to do
-with the signature of the method that’s called when we use the `+` operator.
-The `+` operator uses the `add` method, whose signature looks something like
-this:
+String `s3` akan berisi `Hello, world!`. Alasan `s1` tidak lagi valid
+setelah penambahan, dan alasan kita memakai reference ke `s2`, berkaitan
+dengan tanda tangan metode yang dipanggil ketika kita memakai operator `+`.
+Operator `+` memakai metode `add`, yang tanda tangannya terlihat seperti
+ini:
 
 ```rust,ignore
 fn add(self, s: &str) -> String {
 ```
 
-In the standard library, you’ll see `add` defined using generics and associated
-types. Here, we’ve substituted in concrete types, which is what happens when we
-call this method with `String` values. We’ll discuss generics in Chapter 10.
-This signature gives us the clues we need in order to understand the tricky
-bits of the `+` operator.
+Di pustaka standar, Anda akan melihat `add` didefinisikan memakai generics
+dan tipe asosiasi. Di sini, kita telah menggantinya dengan tipe konkret,
+yang memang terjadi ketika kita memanggil metode ini dengan nilai `String`.
+Kita akan membahas generics di Bab 10. Tanda tangan ini memberi kita
+petunjuk yang kita perlukan untuk memahami bagian-bagian rumit dari operator
+`+`.
 
-First, `s2` has an `&`, meaning that we’re adding a reference of the second
-string to the first string. This is because of the `s` parameter in the `add`
-function: We can only add a string slice to a `String`; we can’t add two
-`String` values together. But wait—the type of `&s2` is `&String`, not `&str`,
-as specified in the second parameter to `add`. So, why does Listing 8-18
-compile?
+Pertama, `s2` memiliki `&`, yang berarti kita menambahkan sebuah reference
+ke string kedua ke string pertama. Ini karena parameter `s` di fungsi
+`add`: kita hanya dapat menambahkan string slice ke `String`; kita tidak
+dapat menjumlahkan dua nilai `String`. Tapi tunggu—tipe `&s2` adalah
+`&String`, bukan `&str`, seperti yang disebutkan di parameter kedua `add`.
+Jadi, mengapa Listing 8-18 bisa dikompilasi?
 
-The reason we’re able to use `&s2` in the call to `add` is that the compiler
-can coerce the `&String` argument into a `&str`. When we call the `add` method,
-Rust uses a deref coercion, which here turns `&s2` into `&s2[..]`. We’ll
-discuss deref coercion in more depth in Chapter 15. Because `add` does not take
-ownership of the `s` parameter, `s2` will still be a valid `String` after this
-operation.
+Alasan kita dapat memakai `&s2` di pemanggilan `add` adalah bahwa compiler
+dapat mengoersi argumen `&String` menjadi `&str`. Ketika kita memanggil
+metode `add`, Rust memakai deref coercion, yang di sini mengubah `&s2`
+menjadi `&s2[..]`. Kita akan membahas deref coercion lebih mendalam di Bab
+15. Karena `add` tidak mengambil ownership parameter `s`, `s2` akan tetap
+menjadi `String` yang valid setelah operasi ini.
 
-Second, we can see in the signature that `add` takes ownership of `self`
-because `self` does _not_ have an `&`. This means `s1` in Listing 8-18 will be
-moved into the `add` call and will no longer be valid after that. So, although
-`let s3 = s1 + &s2;` looks like it will copy both strings and create a new one,
-this statement actually takes ownership of `s1`, appends a copy of the contents
-of `s2`, and then returns ownership of the result. In other words, it looks
-like it’s making a lot of copies, but it isn’t; the implementation is more
-efficient than copying.
+Kedua, kita dapat melihat di tanda tangan bahwa `add` mengambil ownership
+`self` karena `self` _tidak_ memiliki `&`. Ini berarti `s1` di Listing 8-18
+akan dipindahkan ke dalam pemanggilan `add` dan tidak lagi valid setelahnya.
+Jadi, meskipun `let s3 = s1 + &s2;` terlihat seperti menyalin kedua string
+dan membuat yang baru, pernyataan ini sebenarnya mengambil ownership `s1`,
+menambahkan salinan isi `s2`, lalu mengembalikan ownership hasilnya. Dengan
+kata lain, ia terlihat membuat banyak salinan, tetapi tidak;
+implementasinya lebih efisien daripada menyalin.
 
-If we need to concatenate multiple strings, the behavior of the `+` operator
-gets unwieldy:
+Jika kita perlu menggabungkan banyak string, perilaku operator `+` menjadi
+sulit dikendalikan:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/no-listing-01-concat-multiple-strings/src/main.rs:here}}
 ```
 
-At this point, `s` will be `tic-tac-toe`. With all of the `+` and `"`
-characters, it’s difficult to see what’s going on. For combining strings in
-more complicated ways, we can instead use the `format!` macro:
+Pada titik ini, `s` akan menjadi `tic-tac-toe`. Dengan semua karakter `+`
+dan `"`, sulit untuk melihat apa yang sedang terjadi. Untuk menggabungkan
+string dengan cara yang lebih rumit, kita dapat memakai macro `format!`:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/no-listing-02-format/src/main.rs:here}}
 ```
 
-This code also sets `s` to `tic-tac-toe`. The `format!` macro works like
-`println!`, but instead of printing the output to the screen, it returns a
-`String` with the contents. The version of the code using `format!` is much
-easier to read, and the code generated by the `format!` macro uses references
-so that this call doesn’t take ownership of any of its parameters.
+Kode ini juga menetapkan `s` menjadi `tic-tac-toe`. Macro `format!` bekerja
+seperti `println!`, tetapi alih-alih mencetak output ke layar, ia
+mengembalikan `String` berisi kontennya. Versi kode yang memakai `format!`
+jauh lebih mudah dibaca, dan kode yang dihasilkan macro `format!` memakai
+reference sehingga pemanggilan ini tidak mengambil ownership parameter mana
+pun.
 
-### Indexing into Strings
+### Mengindeks ke dalam String
 
-In many other programming languages, accessing individual characters in a
-string by referencing them by index is a valid and common operation. However,
-if you try to access parts of a `String` using indexing syntax in Rust, you’ll
-get an error. Consider the invalid code in Listing 8-19.
+Di banyak bahasa pemrograman lain, mengakses karakter individual di string
+dengan merujuknya lewat indeks adalah operasi yang valid dan umum. Namun,
+jika Anda mencoba mengakses bagian-bagian `String` memakai sintaks
+pengindeksan di Rust, Anda akan mendapat galat. Perhatikan kode tidak valid
+di Listing 8-19.
 
-<Listing number="8-19" caption="Attempting to use indexing syntax with a `String`">
+<Listing number="8-19" caption="Mencoba memakai sintaks pengindeksan dengan `String`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-19/src/main.rs:here}}
@@ -245,112 +256,123 @@ get an error. Consider the invalid code in Listing 8-19.
 
 </Listing>
 
-This code will result in the following error:
+Kode ini akan menghasilkan galat berikut:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-19/output.txt}}
 ```
 
-The error tells the story: Rust strings don’t support indexing. But why not? To
-answer that question, we need to discuss how Rust stores strings in memory.
+Galat ini menceritakan semuanya: string Rust tidak mendukung pengindeksan.
+Tetapi mengapa tidak? Untuk menjawab pertanyaan itu, kita perlu membahas
+cara Rust menyimpan string di memori.
 
-#### Internal Representation
+#### Representasi Internal
 
-A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly
-encoded UTF-8 example strings from Listing 8-14. First, this one:
+Sebuah `String` adalah wrapper di atas `Vec<u8>`. Mari kita lihat sebagian
+contoh string UTF-8 yang terenkode dengan benar dari Listing 8-14. Pertama,
+yang ini:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:spanish}}
 ```
 
-In this case, `len` will be `4`, which means the vector storing the string
-`"Hola"` is 4 bytes long. Each of these letters takes 1 byte when encoded in
-UTF-8. The following line, however, may surprise you (note that this string
-begins with the capital Cyrillic letter _Ze_, not the number 3):
+Dalam kasus ini, `len` akan menjadi `4`, yang berarti vektor yang menyimpan
+string `"Hola"` panjangnya 4 byte. Setiap huruf ini memakan 1 byte ketika
+dienkode dalam UTF-8. Namun, baris berikut mungkin mengejutkan Anda
+(perhatikan bahwa string ini dimulai dengan huruf kapital Sirilik _Ze_,
+bukan angka 3):
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:russian}}
 ```
 
-If you were asked how long the string is, you might say 12. In fact, Rust’s
-answer is 24: That’s the number of bytes it takes to encode “Здравствуйте” in
-UTF-8, because each Unicode scalar value in that string takes 2 bytes of
-storage. Therefore, an index into the string’s bytes will not always correlate
-to a valid Unicode scalar value. To demonstrate, consider this invalid Rust
-code:
+Jika Anda ditanya berapa panjang string tersebut, Anda mungkin menjawab 12.
+Kenyataannya, jawaban Rust adalah 24: itulah jumlah byte yang dibutuhkan
+untuk mengodekan “Здравствуйте” dalam UTF-8, karena setiap nilai skalar
+Unicode di string itu memakan 2 byte penyimpanan. Karena itu, sebuah indeks
+ke dalam byte-byte string tidak selalu berkorelasi dengan nilai skalar
+Unicode yang valid. Untuk mendemonstrasikannya, perhatikan kode Rust tidak
+valid ini:
 
 ```rust,ignore,does_not_compile
 let hello = "Здравствуйте";
 let answer = &hello[0];
 ```
 
-You already know that `answer` will not be `З`, the first letter. When encoded
-in UTF-8, the first byte of `З` is `208` and the second is `151`, so it would
-seem that `answer` should in fact be `208`, but `208` is not a valid character
-on its own. Returning `208` is likely not what a user would want if they asked
-for the first letter of this string; however, that’s the only data that Rust
-has at byte index 0. Users generally don’t want the byte value returned, even
-if the string contains only Latin letters: If `&"hi"[0]` were valid code that
-returned the byte value, it would return `104`, not `h`.
+Anda sudah tahu bahwa `answer` tidak akan menjadi `З`, huruf pertama.
+Ketika dienkode dalam UTF-8, byte pertama `З` adalah `208` dan yang kedua
+`151`, jadi sepertinya `answer` seharusnya menjadi `208`, tetapi `208`
+sendiri bukan karakter yang valid. Mengembalikan `208` kemungkinan besar
+bukan yang diinginkan pengguna jika mereka meminta huruf pertama string ini;
+namun, itulah satu-satunya data yang dimiliki Rust pada indeks byte 0.
+Pengguna umumnya tidak ingin nilai byte dikembalikan, bahkan jika stringnya
+hanya berisi huruf Latin: jika `&"hi"[0]` adalah kode valid yang
+mengembalikan nilai byte, ia akan mengembalikan `104`, bukan `h`.
 
-The answer, then, is that to avoid returning an unexpected value and causing
-bugs that might not be discovered immediately, Rust doesn’t compile this code
-at all and prevents misunderstandings early in the development process.
+Jawabannya, dengan demikian, adalah bahwa untuk menghindari pengembalian
+nilai yang tidak diharapkan dan menyebabkan bug yang mungkin tidak segera
+ditemukan, Rust sama sekali tidak mengompilasi kode ini dan mencegah
+kesalahpahaman sejak awal proses pengembangan.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="bytes-and-scalar-values-and-grapheme-clusters-oh-my"></a>
 
-#### Bytes, Scalar Values, and Grapheme Clusters
+#### Byte, Nilai Skalar, dan Grapheme Cluster
 
-Another point about UTF-8 is that there are actually three relevant ways to
-look at strings from Rust’s perspective: as bytes, scalar values, and grapheme
-clusters (the closest thing to what we would call _letters_).
+Poin lain tentang UTF-8 adalah bahwa sebenarnya ada tiga cara relevan untuk
+melihat string dari sudut pandang Rust: sebagai byte, nilai skalar, dan
+*grapheme cluster* (klaster grafem) (hal yang paling dekat dengan apa yang
+kita sebut _huruf_).
 
-If we look at the Hindi word “नमस्ते” written in the Devanagari script, it is
-stored as a vector of `u8` values that looks like this:
+Jika kita melihat kata Hindi “नमस्ते” yang ditulis dalam aksara Devanagari,
+kata itu tersimpan sebagai vektor berisi nilai `u8` yang terlihat seperti
+ini:
 
 ```text
 [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
 224, 165, 135]
 ```
 
-That’s 18 bytes and is how computers ultimately store this data. If we look at
-them as Unicode scalar values, which are what Rust’s `char` type is, those
-bytes look like this:
+Itu 18 byte dan itulah cara komputer pada akhirnya menyimpan data ini. Jika
+kita melihatnya sebagai nilai skalar Unicode, yang merupakan tipe `char`
+Rust, byte-byte itu terlihat seperti ini:
 
 ```text
 ['न', 'म', 'स', '्', 'त', 'े']
 ```
 
-There are six `char` values here, but the fourth and sixth are not letters:
-They’re diacritics that don’t make sense on their own. Finally, if we look at
-them as grapheme clusters, we’d get what a person would call the four letters
-that make up the Hindi word:
+Ada enam nilai `char` di sini, tetapi yang keempat dan keenam bukan huruf:
+keduanya adalah diakritik yang tidak bermakna jika berdiri sendiri.
+Terakhir, jika kita melihatnya sebagai grapheme cluster, kita akan
+mendapatkan apa yang orang sebut sebagai empat huruf yang menyusun kata
+Hindi itu:
 
 ```text
 ["न", "म", "स्", "ते"]
 ```
 
-Rust provides different ways of interpreting the raw string data that computers
-store so that each program can choose the interpretation it needs, no matter
-what human language the data is in.
+Rust menyediakan berbagai cara menafsirkan data string mentah yang disimpan
+komputer sehingga setiap program dapat memilih tafsiran yang dibutuhkannya,
+apa pun bahasa manusia yang dipakai data itu.
 
-A final reason Rust doesn’t allow us to index into a `String` to get a
-character is that indexing operations are expected to always take constant time
-(O(1)). But it isn’t possible to guarantee that performance with a `String`,
-because Rust would have to walk through the contents from the beginning to the
-index to determine how many valid characters there were.
+Alasan terakhir Rust tidak mengizinkan kita mengindeks ke dalam `String`
+untuk mendapatkan karakter adalah bahwa operasi pengindeksan diharapkan
+selalu memakan waktu konstan (O(1)). Tetapi tidak mungkin menjamin kinerja
+itu dengan `String`, karena Rust harus menelusuri isinya dari awal sampai
+indeks itu untuk menentukan berapa banyak karakter valid yang ada.
 
-### Slicing Strings
+### Membuat Slice pada String
 
-Indexing into a string is often a bad idea because it’s not clear what the
-return type of the string-indexing operation should be: a byte value, a
-character, a grapheme cluster, or a string slice. If you really need to use
-indices to create string slices, therefore, Rust asks you to be more specific.
+Mengindeks ke dalam string sering kali merupakan ide buruk karena tidak
+jelas tipe kembalian operasi pengindeksan string seharusnya apa: nilai
+byte, karakter, grapheme cluster, atau string slice. Jika Anda benar-benar
+perlu memakai indeks untuk membuat string slice, maka Rust meminta Anda
+untuk lebih spesifik.
 
-Rather than indexing using `[]` with a single number, you can use `[]` with a
-range to create a string slice containing particular bytes:
+Alih-alih mengindeks memakai `[]` dengan satu angka, Anda dapat memakai
+`[]` dengan sebuah range untuk membuat string slice yang berisi byte-byte
+tertentu:
 
 ```rust
 let hello = "Здравствуйте";
@@ -358,31 +380,32 @@ let hello = "Здравствуйте";
 let s = &hello[0..4];
 ```
 
-Here, `s` will be a `&str` that contains the first 4 bytes of the string.
-Earlier, we mentioned that each of these characters was 2 bytes, which means
-`s` will be `Зд`.
+Di sini, `s` akan menjadi `&str` yang berisi 4 byte pertama string.
+Sebelumnya, kita menyebutkan bahwa setiap karakter ini berukuran 2 byte,
+yang berarti `s` akan menjadi `Зд`.
 
-If we were to try to slice only part of a character’s bytes with something like
-`&hello[0..1]`, Rust would panic at runtime in the same way as if an invalid
-index were accessed in a vector:
+Jika kita mencoba memotong hanya sebagian byte sebuah karakter dengan
+sesuatu seperti `&hello[0..1]`, Rust akan panic pada runtime dengan cara
+yang sama seperti jika indeks tidak valid diakses di vektor:
 
 ```console
 {{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
 ```
 
-You should use caution when creating string slices with ranges, because doing
-so can crash your program.
+Anda harus berhati-hati saat membuat string slice dengan range, karena
+melakukannya dapat membuat program Anda crash.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="methods-for-iterating-over-strings"></a>
 
-### Iterating Over Strings
+### Mengiterasi String
 
-The best way to operate on pieces of strings is to be explicit about whether
-you want characters or bytes. For individual Unicode scalar values, use the
-`chars` method. Calling `chars` on “Зд” separates out and returns two values of
-type `char`, and you can iterate over the result to access each element:
+Cara terbaik untuk mengoperasikan potongan-potongan string adalah dengan
+eksplisit tentang apakah Anda menginginkan karakter atau byte. Untuk nilai
+skalar Unicode individual, pakai metode `chars`. Memanggil `chars` pada
+“Зд” memisahkan dan mengembalikan dua nilai bertipe `char`, dan Anda dapat
+mengiterasi hasilnya untuk mengakses setiap elemen:
 
 ```rust
 for c in "Зд".chars() {
@@ -390,15 +413,15 @@ for c in "Зд".chars() {
 }
 ```
 
-This code will print the following:
+Kode ini akan mencetak yang berikut:
 
 ```text
 З
 д
 ```
 
-Alternatively, the `bytes` method returns each raw byte, which might be
-appropriate for your domain:
+Sebagai alternatif, metode `bytes` mengembalikan setiap byte mentah, yang
+mungkin cocok untuk domain Anda:
 
 ```rust
 for b in "Зд".bytes() {
@@ -406,7 +429,7 @@ for b in "Зд".bytes() {
 }
 ```
 
-This code will print the 4 bytes that make up this string:
+Kode ini akan mencetak 4 byte yang menyusun string ini:
 
 ```text
 208
@@ -415,33 +438,35 @@ This code will print the 4 bytes that make up this string:
 180
 ```
 
-But be sure to remember that valid Unicode scalar values may be made up of more
-than 1 byte.
+Tetapi pastikan untuk mengingat bahwa nilai skalar Unicode yang valid bisa
+tersusun dari lebih dari 1 byte.
 
-Getting grapheme clusters from strings, as with the Devanagari script, is
-complex, so this functionality is not provided by the standard library. Crates
-are available on [crates.io](https://crates.io/)<!-- ignore --> if this is the
-functionality you need.
+Mendapatkan grapheme cluster dari string, seperti pada aksara Devanagari,
+itu rumit, sehingga fungsionalitas ini tidak disediakan oleh pustaka
+standar. Crate-crate tersedia di [crates.io](https://crates.io/)<!-- ignore
+--> jika ini fungsionalitas yang Anda butuhkan.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="strings-are-not-so-simple"></a>
 
-### Handling the Complexities of Strings
+### Menangani Kerumitan String
 
-To summarize, strings are complicated. Different programming languages make
-different choices about how to present this complexity to the programmer. Rust
-has chosen to make the correct handling of `String` data the default behavior
-for all Rust programs, which means programmers have to put more thought into
-handling UTF-8 data up front. This trade-off exposes more of the complexity of
-strings than is apparent in other programming languages, but it prevents you
-from having to handle errors involving non-ASCII characters later in your
-development life cycle.
+Ringkasnya, string itu rumit. Bahasa pemrograman yang berbeda membuat
+pilihan yang berbeda tentang cara menyajikan kerumitan ini kepada pemrogram.
+Rust telah memilih untuk menjadikan penanganan data `String` yang benar
+sebagai perilaku default untuk semua program Rust, yang berarti pemrogram
+harus lebih banyak berpikir untuk menangani data UTF-8 sejak awal. Kompromi
+ini mengekspos lebih banyak kerumitan string daripada yang tampak di bahasa
+pemrograman lain, tetapi ia mencegah Anda harus menangani galat yang
+melibatkan karakter non-ASCII di kemudian hari dalam siklus hidup
+pengembangan Anda.
 
-The good news is that the standard library offers a lot of functionality built
-off the `String` and `&str` types to help handle these complex situations
-correctly. Be sure to check out the documentation for useful methods like
-`contains` for searching in a string and `replace` for substituting parts of a
-string with another string.
+Kabar baiknya adalah pustaka standar menawarkan banyak fungsionalitas yang
+dibangun di atas tipe `String` dan `&str` untuk membantu menangani
+situasi-situasi rumit ini dengan benar. Pastikan untuk memeriksa
+dokumentasinya untuk metode-metode bermanfaat seperti `contains` untuk
+mencari di dalam string dan `replace` untuk mengganti bagian string dengan
+string lain.
 
-Let’s switch to something a bit less complex: hash maps!
+Mari kita beralih ke sesuatu yang sedikit kurang rumit: hash map!

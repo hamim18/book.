@@ -1,17 +1,18 @@
-## Storing Lists of Values with Vectors
+## Menyimpan Daftar Nilai dengan Vektor
 
-The first collection type we’ll look at is `Vec<T>`, also known as a vector.
-Vectors allow you to store more than one value in a single data structure that
-puts all the values next to each other in memory. Vectors can only store values
-of the same type. They are useful when you have a list of items, such as the
-lines of text in a file or the prices of items in a shopping cart.
+Tipe koleksi pertama yang akan kita lihat adalah `Vec<T>`, yang juga dikenal
+sebagai vektor. Vektor memungkinkan Anda menyimpan lebih dari satu nilai di
+dalam satu struktur data yang menempatkan semua nilainya bersebelahan di
+memori. Vektor hanya dapat menyimpan nilai dengan tipe yang sama. Vektor
+berguna ketika Anda memiliki daftar item, seperti baris-baris teks di sebuah
+file atau harga-harga barang di keranjang belanja.
 
-### Creating a New Vector
+### Membuat Vektor Baru
 
-To create a new, empty vector, we call the `Vec::new` function, as shown in
-Listing 8-1.
+Untuk membuat vektor kosong yang baru, kita memanggil fungsi `Vec::new`,
+seperti yang ditunjukkan di Listing 8-1.
 
-<Listing number="8-1" caption="Creating a new, empty vector to hold values of type `i32`">
+<Listing number="8-1" caption="Membuat vektor kosong yang baru untuk menampung nilai bertipe `i32`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
@@ -19,24 +20,26 @@ Listing 8-1.
 
 </Listing>
 
-Note that we added a type annotation here. Because we aren’t inserting any
-values into this vector, Rust doesn’t know what kind of elements we intend to
-store. This is an important point. Vectors are implemented using generics;
-we’ll cover how to use generics with your own types in Chapter 10. For now,
-know that the `Vec<T>` type provided by the standard library can hold any type.
-When we create a vector to hold a specific type, we can specify the type within
-angle brackets. In Listing 8-1, we’ve told Rust that the `Vec<T>` in `v` will
-hold elements of the `i32` type.
+Perhatikan bahwa kita menambahkan anotasi tipe di sini. Karena kita belum
+memasukkan nilai apa pun ke dalam vektor ini, Rust tidak tahu elemen bertipe
+apa yang ingin kita simpan. Ini poin yang penting. Vektor diimplementasikan
+memakai *generics* (tipe generik); kita akan membahas cara memakai generics
+dengan tipe Anda sendiri di Bab 10. Untuk saat ini, ketahuilah bahwa tipe
+`Vec<T>` yang disediakan pustaka standar dapat menampung tipe apa pun. Ketika
+kita membuat vektor untuk menampung tipe tertentu, kita dapat menyebutkan
+tipenya di dalam kurung sudut. Di Listing 8-1, kita telah memberi tahu Rust
+bahwa `Vec<T>` di `v` akan menampung elemen bertipe `i32`.
 
-More often, you’ll create a `Vec<T>` with initial values, and Rust will infer
-the type of value you want to store, so you rarely need to do this type
-annotation. Rust conveniently provides the `vec!` macro, which will create a
-new vector that holds the values you give it. Listing 8-2 creates a new
-`Vec<i32>` that holds the values `1`, `2`, and `3`. The integer type is `i32`
-because that’s the default integer type, as we discussed in the [“Data
-Types”][data-types]<!-- ignore --> section of Chapter 3.
+Lebih sering, Anda akan membuat `Vec<T>` dengan nilai awal, dan Rust akan
+menginferensi tipe nilai yang ingin Anda simpan, sehingga Anda jarang perlu
+melakukan anotasi tipe ini. Rust dengan mudah menyediakan *macro* (makro)
+`vec!`, yang akan membuat vektor baru yang menampung nilai-nilai yang Anda
+berikan. Listing 8-2 membuat `Vec<i32>` baru yang menampung nilai `1`, `2`,
+dan `3`. Tipe bilangannya adalah `i32` karena itu adalah tipe bilangan bulat
+default, seperti yang kita bahas di bagian [“Tipe Data”][data-types]<!--
+ignore --> di Bab 3.
 
-<Listing number="8-2" caption="Creating a new vector containing values">
+<Listing number="8-2" caption="Membuat vektor baru yang berisi nilai-nilai">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
@@ -44,16 +47,16 @@ Types”][data-types]<!-- ignore --> section of Chapter 3.
 
 </Listing>
 
-Because we’ve given initial `i32` values, Rust can infer that the type of `v`
-is `Vec<i32>`, and the type annotation isn’t necessary. Next, we’ll look at how
-to modify a vector.
+Karena kita telah memberikan nilai awal `i32`, Rust dapat menginferensi
+bahwa tipe `v` adalah `Vec<i32>`, dan anotasi tipe tidak diperlukan.
+Berikutnya, kita akan melihat cara memodifikasi vektor.
 
-### Updating a Vector
+### Memperbarui Vektor
 
-To create a vector and then add elements to it, we can use the `push` method,
-as shown in Listing 8-3.
+Untuk membuat vektor lalu menambahkan elemen ke dalamnya, kita dapat memakai
+metode `push`, seperti yang ditunjukkan di Listing 8-3.
 
-<Listing number="8-3" caption="Using the `push` method to add values to a vector">
+<Listing number="8-3" caption="Memakai metode `push` untuk menambahkan nilai ke vektor">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
@@ -61,21 +64,23 @@ as shown in Listing 8-3.
 
 </Listing>
 
-As with any variable, if we want to be able to change its value, we need to
-make it mutable using the `mut` keyword, as discussed in Chapter 3. The numbers
-we place inside are all of type `i32`, and Rust infers this from the data, so
-we don’t need the `Vec<i32>` annotation.
+Seperti variabel mana pun, jika kita ingin dapat mengubah nilainya, kita
+perlu menjadikannya *mutable* (dapat diubah) memakai kata kunci `mut`, seperti
+yang dibahas di Bab 3. Angka-angka yang kita tempatkan di dalamnya semuanya
+bertipe `i32`, dan Rust menginferensi hal ini dari datanya, jadi kita tidak
+perlu anotasi `Vec<i32>`.
 
-### Reading Elements of Vectors
+### Membaca Elemen-Elemen Vektor
 
-There are two ways to reference a value stored in a vector: via indexing or by
-using the `get` method. In the following examples, we’ve annotated the types of
-the values that are returned from these functions for extra clarity.
+Ada dua cara untuk merujuk nilai yang tersimpan di vektor: lewat pengindeksan
+atau dengan memakai metode `get`. Pada contoh-contoh berikut, kita
+menganotasi tipe nilai yang dikembalikan dari fungsi-fungsi ini demi
+kejelasan ekstra.
 
-Listing 8-4 shows both methods of accessing a value in a vector, with indexing
-syntax and the `get` method.
+Listing 8-4 menunjukkan kedua metode untuk mengakses nilai di vektor, dengan
+sintaks pengindeksan dan metode `get`.
 
-<Listing number="8-4" caption="Using indexing syntax and using the `get` method to access an item in a vector">
+<Listing number="8-4" caption="Memakai sintaks pengindeksan dan memakai metode `get` untuk mengakses item di vektor">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
@@ -83,19 +88,21 @@ syntax and the `get` method.
 
 </Listing>
 
-Note a few details here. We use the index value of `2` to get the third element
-because vectors are indexed by number, starting at zero. Using `&` and `[]`
-gives us a reference to the element at the index value. When we use the `get`
-method with the index passed as an argument, we get an `Option<&T>` that we can
-use with `match`.
+Perhatikan beberapa detail di sini. Kita memakai nilai indeks `2` untuk
+mendapatkan elemen ketiga karena vektor diindeks berdasarkan angka, dimulai
+dari nol. Memakai `&` dan `[]` memberi kita sebuah *reference* (referensi) ke
+elemen pada nilai indeks tersebut. Ketika kita memakai metode `get` dengan
+indeks yang diteruskan sebagai argumen, kita mendapat `Option<&T>` yang dapat
+kita pakai dengan `match`.
 
-Rust provides these two ways to reference an element so that you can choose how
-the program behaves when you try to use an index value outside the range of
-existing elements. As an example, let’s see what happens when we have a vector
-of five elements and then we try to access an element at index 100 with each
-technique, as shown in Listing 8-5.
+Rust menyediakan dua cara untuk merujuk elemen ini supaya Anda dapat memilih
+bagaimana program berperilaku ketika Anda mencoba memakai nilai indeks di
+luar jangkauan elemen yang ada. Sebagai contoh, mari kita lihat apa yang
+terjadi ketika kita memiliki vektor berisi lima elemen lalu mencoba mengakses
+elemen pada indeks 100 dengan masing-masing teknik, seperti yang ditunjukkan
+di Listing 8-5.
 
-<Listing number="8-5" caption="Attempting to access the element at index 100 in a vector containing five elements">
+<Listing number="8-5" caption="Mencoba mengakses elemen pada indeks 100 di vektor yang berisi lima elemen">
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
@@ -103,32 +110,33 @@ technique, as shown in Listing 8-5.
 
 </Listing>
 
-When we run this code, the first `[]` method will cause the program to panic
-because it references a nonexistent element. This method is best used when you
-want your program to crash if there’s an attempt to access an element past the
-end of the vector.
+Ketika kita menjalankan kode ini, metode `[]` yang pertama akan menyebabkan
+program panic karena ia merujuk elemen yang tidak ada. Metode ini paling baik
+dipakai ketika Anda ingin program Anda crash jika ada upaya mengakses elemen
+melewati ujung vektor.
 
-When the `get` method is passed an index that is outside the vector, it returns
-`None` without panicking. You would use this method if accessing an element
-beyond the range of the vector may happen occasionally under normal
-circumstances. Your code will then have logic to handle having either
-`Some(&element)` or `None`, as discussed in Chapter 6. For example, the index
-could be coming from a person entering a number. If they accidentally enter a
-number that’s too large and the program gets a `None` value, you could tell the
-user how many items are in the current vector and give them another chance to
-enter a valid value. That would be more user-friendly than crashing the program
-due to a typo!
+Ketika metode `get` diberi indeks yang berada di luar vektor, ia
+mengembalikan `None` tanpa panic. Anda akan memakai metode ini jika mengakses
+elemen di luar jangkauan vektor sesekali dapat terjadi dalam keadaan normal.
+Kode Anda kemudian akan memiliki logika untuk menangani `Some(&element)`
+atau `None`, seperti yang dibahas di Bab 6. Misalnya, indeks bisa berasal
+dari seseorang yang memasukkan angka. Jika mereka tidak sengaja memasukkan
+angka yang terlalu besar dan program mendapat nilai `None`, Anda dapat
+memberi tahu pengguna berapa banyak item yang ada di vektor saat ini dan
+memberi mereka kesempatan lagi untuk memasukkan nilai yang valid. Itu akan
+lebih ramah pengguna daripada membuat program crash gara-gara salah ketik!
 
-When the program has a valid reference, the borrow checker enforces the
-ownership and borrowing rules (covered in Chapter 4) to ensure that this
-reference and any other references to the contents of the vector remain valid.
-Recall the rule that states you can’t have mutable and immutable references in
-the same scope. That rule applies in Listing 8-6, where we hold an immutable
-reference to the first element in a vector and try to add an element to the
-end. This program won’t work if we also try to refer to that element later in
-the function.
+Ketika program memiliki reference yang valid, borrow checker menegakkan
+aturan ownership dan *borrowing* (peminjaman) (yang dibahas di Bab 4) untuk
+memastikan bahwa reference ini dan reference lain mana pun ke isi vektor
+tetap valid. Ingat aturan yang menyatakan bahwa Anda tidak dapat memiliki
+reference mutable dan immutable di scope yang sama. Aturan itu berlaku di
+Listing 8-6, ketika kita memegang reference immutable ke elemen pertama di
+vektor dan mencoba menambahkan elemen ke ujungnya. Program ini tidak akan
+bekerja jika kita juga mencoba merujuk elemen itu di bagian selanjutnya dari
+fungsi.
 
-<Listing number="8-6" caption="Attempting to add an element to a vector while holding a reference to an item">
+<Listing number="8-6" caption="Mencoba menambahkan elemen ke vektor sambil memegang reference ke sebuah item">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
@@ -136,33 +144,34 @@ the function.
 
 </Listing>
 
-Compiling this code will result in this error:
+Mengompilasi kode ini akan menghasilkan galat berikut:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
 ```
 
-The code in Listing 8-6 might look like it should work: Why should a reference
-to the first element care about changes at the end of the vector? This error is
-due to the way vectors work: Because vectors put the values next to each other
-in memory, adding a new element onto the end of the vector might require
-allocating new memory and copying the old elements to the new space, if there
-isn’t enough room to put all the elements next to each other where the vector
-is currently stored. In that case, the reference to the first element would be
-pointing to deallocated memory. The borrowing rules prevent programs from
-ending up in that situation.
+Kode di Listing 8-6 mungkin terlihat seharusnya bekerja: mengapa reference
+ke elemen pertama harus peduli dengan perubahan di ujung vektor? Galat ini
+disebabkan oleh cara kerja vektor: karena vektor menempatkan nilai-nilai
+bersebelahan di memori, menambahkan elemen baru ke ujung vektor mungkin
+mengharuskan pengalokasian memori baru dan penyalinan elemen-elemen lama ke
+ruang yang baru, jika tidak ada cukup ruang untuk menempatkan semua elemen
+bersebelahan di tempat vektor saat ini disimpan. Dalam kasus itu, reference
+ke elemen pertama akan menunjuk ke memori yang telah dibebaskan. Aturan
+borrowing mencegah program berakhir di situasi semacam itu.
 
-> Note: For more on the implementation details of the `Vec<T>` type, see [“The
-> Rustonomicon”][nomicon].
+> Catatan: Untuk lebih lanjut tentang detail implementasi tipe `Vec<T>`,
+> lihat [“The Rustonomicon”][nomicon].
 
-### Iterating Over the Values in a Vector
+### Mengiterasi Nilai-Nilai di dalam Vektor
 
-To access each element in a vector in turn, we would iterate through all of the
-elements rather than use indices to access one at a time. Listing 8-7 shows how
-to use a `for` loop to get immutable references to each element in a vector of
-`i32` values and print them.
+Untuk mengakses setiap elemen di vektor secara bergantian, kita akan
+mengiterasi semua elemen alih-alih memakai indeks untuk mengakses satu per
+satu. Listing 8-7 menunjukkan cara memakai perulangan `for` untuk
+mendapatkan reference immutable ke setiap elemen di vektor berisi nilai
+`i32` dan mencetaknya.
 
-<Listing number="8-7" caption="Printing each element in a vector by iterating over the elements using a `for` loop">
+<Listing number="8-7" caption="Mencetak setiap elemen di vektor dengan mengiterasi elemen-elemennya memakai perulangan `for`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
@@ -170,11 +179,11 @@ to use a `for` loop to get immutable references to each element in a vector of
 
 </Listing>
 
-We can also iterate over mutable references to each element in a mutable vector
-in order to make changes to all the elements. The `for` loop in Listing 8-8
-will add `50` to each element.
+Kita juga dapat mengiterasi reference mutable ke setiap elemen di vektor
+mutable untuk membuat perubahan pada semua elemen. Perulangan `for` di
+Listing 8-8 akan menambahkan `50` ke setiap elemen.
 
-<Listing number="8-8" caption="Iterating over mutable references to elements in a vector">
+<Listing number="8-8" caption="Mengiterasi reference mutable ke elemen-elemen di vektor">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
@@ -182,34 +191,37 @@ will add `50` to each element.
 
 </Listing>
 
-To change the value that the mutable reference refers to, we have to use the
-`*` dereference operator to get to the value in `i` before we can use the `+=`
-operator. We’ll talk more about the dereference operator in the [“Following the
-Reference to the Value”][deref]<!-- ignore --> section of Chapter 15.
+Untuk mengubah nilai yang dirujuk reference mutable, kita harus memakai
+operator dereferensi `*` untuk sampai ke nilai di `i` sebelum kita dapat
+memakai operator `+=`. Kita akan membahas lebih lanjut operator dereferensi
+di bagian [“Mengikuti Reference Menuju Nilai”][deref]<!-- ignore --> di Bab
+15.
 
-Iterating over a vector, whether immutably or mutably, is safe because of the
-borrow checker’s rules. If we attempted to insert or remove items in the `for`
-loop bodies in Listing 8-7 and Listing 8-8, we would get a compiler error
-similar to the one we got with the code in Listing 8-6. The reference to the
-vector that the `for` loop holds prevents simultaneous modification of the
-whole vector.
+Mengiterasi vektor, baik secara immutable maupun mutable, aman karena aturan
+borrow checker. Jika kita mencoba memasukkan atau menghapus item di badan
+perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat galat
+compiler yang mirip dengan yang kita dapatkan pada kode di Listing 8-6.
+Reference ke vektor yang dipegang perulangan `for` mencegah modifikasi
+seluruh vektor secara bersamaan.
 
-### Using an Enum to Store Multiple Types
+### Memakai Enum untuk Menyimpan Beberapa Tipe
 
-Vectors can only store values that are of the same type. This can be
-inconvenient; there are definitely use cases for needing to store a list of
-items of different types. Fortunately, the variants of an enum are defined
-under the same enum type, so when we need one type to represent elements of
-different types, we can define and use an enum!
+Vektor hanya dapat menyimpan nilai yang bertipe sama. Ini bisa merepotkan;
+pasti ada kasus penggunaan yang membutuhkan penyimpanan daftar item dengan
+tipe berbeda. Untungnya, variant-variant sebuah enum didefinisikan di bawah
+tipe enum yang sama, jadi ketika kita membutuhkan satu tipe untuk
+merepresentasikan elemen-elemen dengan tipe berbeda, kita dapat
+mendefinisikan dan memakai enum!
 
-For example, say we want to get values from a row in a spreadsheet in which
-some of the columns in the row contain integers, some floating-point numbers,
-and some strings. We can define an enum whose variants will hold the different
-value types, and all the enum variants will be considered the same type: that
-of the enum. Then, we can create a vector to hold that enum and so, ultimately,
-hold different types. We’ve demonstrated this in Listing 8-9.
+Misalnya, katakanlah kita ingin mengambil nilai dari sebuah baris di
+spreadsheet yang sebagian kolomnya berisi bilangan bulat, sebagian berisi
+angka titik mengambang, dan sebagian berisi string. Kita dapat mendefinisikan
+enum yang variant-nya akan menampung tipe nilai yang berbeda, dan semua
+variant enum akan dianggap sebagai tipe yang sama: tipe enum itu. Lalu, kita
+dapat membuat vektor untuk menampung enum itu dan, pada akhirnya, menampung
+tipe-tipe yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
 
-<Listing number="8-9" caption="Defining an enum to store values of different types in one vector">
+<Listing number="8-9" caption="Mendefinisikan enum untuk menyimpan nilai dengan tipe berbeda di satu vektor">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
@@ -217,29 +229,33 @@ hold different types. We’ve demonstrated this in Listing 8-9.
 
 </Listing>
 
-Rust needs to know what types will be in the vector at compile time so that it
-knows exactly how much memory on the heap will be needed to store each element.
-We must also be explicit about what types are allowed in this vector. If Rust
-allowed a vector to hold any type, there would be a chance that one or more of
-the types would cause errors with the operations performed on the elements of
-the vector. Using an enum plus a `match` expression means that Rust will ensure
-at compile time that every possible case is handled, as discussed in Chapter 6.
+Rust perlu tahu tipe apa saja yang akan berada di vektor pada waktu
+kompilasi supaya ia tahu persis berapa banyak memori di heap yang akan
+dibutuhkan untuk menyimpan setiap elemen. Kita juga harus eksplisit tentang
+tipe apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
+menampung tipe apa pun, ada kemungkinan satu tipe atau lebih menyebabkan
+galat pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
+enum ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
+kompilasi bahwa setiap kasus yang mungkin tertangani, seperti yang dibahas
+di Bab 6.
 
-If you don’t know the exhaustive set of types a program will get at runtime to
-store in a vector, the enum technique won’t work. Instead, you can use a trait
-object, which we’ll cover in Chapter 18.
+Jika Anda tidak tahu himpunan tipe yang lengkap yang akan diterima program
+pada runtime untuk disimpan di vektor, teknik enum tidak akan bekerja.
+Sebagai gantinya, Anda dapat memakai *trait object* (objek trait), yang akan
+kita bahas di Bab 18.
 
-Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review [the API documentation][vec-api]<!-- ignore --> for all of the many
-useful methods defined on `Vec<T>` by the standard library. For example, in
-addition to `push`, a `pop` method removes and returns the last element.
+Setelah kita membahas beberapa cara paling umum untuk memakai vektor,
+pastikan untuk meninjau [dokumentasi API][vec-api]<!-- ignore --> untuk semua
+metode bermanfaat yang banyak jumlahnya yang didefinisikan pada `Vec<T>` oleh
+pustaka standar. Misalnya, selain `push`, metode `pop` menghapus dan
+mengembalikan elemen terakhir.
 
-### Dropping a Vector Drops Its Elements
+### Membebaskan Vektor Ikut Membebaskan Elemen-Elemennya
 
-Like any other `struct`, a vector is freed when it goes out of scope, as
-annotated in Listing 8-10.
+Seperti `struct` lainnya, sebuah vektor dibebaskan ketika keluar dari scope,
+seperti yang dianotasi di Listing 8-10.
 
-<Listing number="8-10" caption="Showing where the vector and its elements are dropped">
+<Listing number="8-10" caption="Menunjukkan tempat vektor dan elemen-elemennya dibebaskan">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
@@ -247,12 +263,12 @@ annotated in Listing 8-10.
 
 </Listing>
 
-When the vector gets dropped, all of its contents are also dropped, meaning the
-integers it holds will be cleaned up. The borrow checker ensures that any
-references to contents of a vector are only used while the vector itself is
-valid.
+Ketika vektor dibebaskan, semua isinya juga ikut dibebaskan, yang berarti
+bilangan bulat yang ditampungnya akan dibersihkan. Borrow checker memastikan
+bahwa reference mana pun ke isi vektor hanya dipakai selama vektornya
+sendiri masih valid.
 
-Let’s move on to the next collection type: `String`!
+Mari kita lanjut ke tipe koleksi berikutnya: `String`!
 
 [data-types]: ch03-02-data-types.html#data-types
 [nomicon]: ../nomicon/vec/vec.html
