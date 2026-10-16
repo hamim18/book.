@@ -6,12 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 06 (enum dan pencocokan pola) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch07-00-managing-growing-projects-with-packages-crates-and-modules.md`
-  (Bab 07, 6 file; mulai dari `ch07-00`).
+- Bab terakhir selesai: Bab 09 (penanganan galat) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch10-00-generics.md`
+  (Bab 10, 4 file; mulai dari `ch10-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 05 (exit 0); dijadwalkan lagi
-  setelah Bab 06.
+- `mdbook test` terakhir lulus: setelah Bab 09 (exit 0); dijadwalkan lagi
+  setelah Bab 12.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -93,9 +93,9 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 04      |       4 |     0 |     0 |     4 |
 | Bab 05      |       4 |     0 |     0 |     4 |
 | Bab 06      |       4 |     0 |     0 |     4 |
-| Bab 07      |       0 |     0 |     6 |     6 |
-| Bab 08      |       0 |     0 |     4 |     4 |
-| Bab 09      |       0 |     0 |     4 |     4 |
+| Bab 07      |       6 |     0 |     0 |     6 |
+| Bab 08      |       4 |     0 |     0 |     4 |
+| Bab 09      |       4 |     0 |     0 |     4 |
 | Bab 10      |       0 |     0 |     4 |     4 |
 | Bab 11      |       0 |     0 |     4 |     4 |
 | Bab 12      |       0 |     0 |     7 |     7 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      24 |     0 |    88 |   112 |
+| TOTAL       |      38 |     0 |    74 |   112 |
 
 ## Log keputusan istilah
 
@@ -272,6 +272,61 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | boilerplate | (tetap) | 06 |
 | happy path | (tetap, “happy path”) | 06 |
 | enumerate (verba) | menyebutkan satu per satu | 06 |
+| workspace | (tetap, tanpa miring) | 07 |
+| crate root | *crate root* (akar crate) | 07 |
+| crate binary / crate library | crate binary / crate library | 07 |
+| module system | *module system* (sistem modul) | 07 |
+| module tree | *module tree* (pohon modul) | 07 |
+| sibling | *sibling* (saudara) | 07 |
+| child / parent (module) | *child* (anak) / *parent* (induk) | 07 |
+| front of house / back of house | *front of house* (area depan) / *back of house* (area belakang) | 07 |
+| privacy | *privacy* (privasi) | 07 |
+| path | (tetap, miring) | 07 |
+| identifier | *identifier* (pengidentifikasi) | 07 |
+| absolute path / relative path | *absolute path* (path absolut) / *relative path* (path relatif) | 07 |
+| glob operator | operator *glob* | 07 |
+| nested path | *nested path* (path bersarang) | 07 |
+| re-exporting | *re-exporting* (mengekspor ulang) | 07 |
+| idiomatic | idiomatis (tanpa miring) | 07 |
+| symbolic link | tautan simbolik | 07 |
+| submodule | (tetap, tanpa miring) | 07 |
+| encapsulation | enkapsulasi | 07 |
+| publik / privat | (tanpa miring) | 07 |
+| map | *map* (tetap, miring) | 08 |
+| key | kunci | 08 |
+| dereference operator | operator dereferensi | 08 |
+| drop (verba) / dropped | membebaskan / dibebaskan | 08 |
+| spreadsheet | (tetap, tanpa miring) | 08 |
+| hashing function | *hashing function* (fungsi hashing) | 08 |
+| hash table | tabel hash | 08 |
+| hasher | (tetap, miring) | 08 |
+| concatenate / concatenation | menggabungkan / penggabungan | 08 |
+| wrapper | *wrapper* (pembungkus) | 08 |
+| coerce | mengoersi | 08 |
+| grapheme cluster | *grapheme cluster* (klaster grafem) | 08 |
+| diacritics | diakritik | 08 |
+| Devanagari script | aksara Devanagari | 08 |
+| denial-of-service (DoS) | (tetap) | 08 |
+| homogeneous | homogen | 08 |
+| median / mode | median / modus | 08 |
+| consonant / vowel | konsonan / vokal | 08 |
+| recoverable / unrecoverable error | galat yang dapat dipulihkan / tidak dapat dipulihkan | 09 |
+| exception | (tetap, miring) | 09 |
+| file not found | *file not found* (file tidak ditemukan) | 09 |
+| unwinding | (tetap, miring) | 09 |
+| aborting | *aborting* (pembatalan) | 09 |
+| backtrace | (tetap, miring) | 09 |
+| buffer overread | *buffer overread* (pembacaan buffer berlebih) | 09 |
+| propagate (galat) | *propagating* (meneruskan) | 09 |
+| question mark operator | operator tanda tanya | 09 |
+| early return | return dini | 09 |
+| bad state | *bad state* (keadaan yang buruk) | 09 |
+| contract (fungsi) | kontrak | 09 |
+| invariant | invarian | 09 |
+| parser | (tetap, tanpa miring) | 09 |
+| malformed | cacat | 09 |
+| rate limit | batas laju (rate limit) | 09 |
+| out-of-bounds | di luar batas | 09 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -295,28 +350,42 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 ## Masalah terbuka
 
-- Teks tautan yang diterjemahkan di Bab 4 harus cocok dengan heading final
-  file tujuan (diperiksa saat file itu dikerjakan):
-  ch07-03 "Path untuk Merujuk Item di dalam Pohon Modul";
-  ch08-02 "Menyimpan Teks Terenkode UTF-8 dengan String";
-  ch15-02 "Menggunakan Deref Coercions di dalam Fungsi dan Metode";
-  appendix-03 "Trait yang Dapat Diturunkan".
-  (ch05-03 "Metode" sudah beres: heading ch05-03 kini `## Metode`; anchor
+- Beres saat sesi ini (heading final sudah cocok dengan teks tautan):
+  ch07-03 “Path untuk Merujuk Item di dalam Pohon Modul”, ch08-02
+  “Menyimpan Teks Terenkode UTF-8 dengan String”, ch09-01 “Galat yang Tidak
+  Dapat Dipulihkan dengan `panic!`”.
+- Teks tautan yang diterjemahkan di bab terdahulu harus cocok dengan heading
+  final file tujuan (diperiksa saat file itu dikerjakan):
+  ch15-02 “Menggunakan Deref Coercions di dalam Fungsi dan Metode”;
+  appendix-03 “Trait yang Dapat Diturunkan”;
+  ch14-02 “Menerbitkan Crate ke Crates.io”.
+  (ch05-03 “Metode” sudah beres: heading ch05-03 kini `## Metode`; anchor
   `#methods` → `#metode` masuk pemeriksaan Tahap 5.)
+- Teks tautan baru yang diterjemahkan di sesi ini, harus cocok dengan
+  heading final file tujuan (diperiksa saat file itu dikerjakan):
+  ch11-01 “Cara Menulis Pengujian” (dari ch07-04);
+  ch14-02 seksi “Mengekspor API Publik yang Mudah Dipakai” (dari ch07-04);
+  ch15-02 “Mengikuti Reference Menuju Nilai” (dari ch08-01);
+  ch10-03 “Memvalidasi Reference dengan Lifetime” (dari ch08-03);
+  ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
+  (dari ch09-02);
+  ch18-03 “Menyandikan State dan Perilaku sebagai Tipe” (dari ch09-03).
 - Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
   ch12-06 (“Writing Error Messages to Standard Error Instead of Standard
   Output”) tidak persis sama bahkan di teks asli; putuskan keselarasan saat
   ch12-06 dikerjakan.
-- Teks tautan yang diterjemahkan di Bab 3 harus cocok dengan heading final
-  file tujuan (diperiksa saat file itu dikerjakan):
-  ch09-01 "Galat yang Tidak Dapat Dipulihkan dengan `panic!`";
-  ch14-02 "Menerbitkan Crate ke Crates.io".
 - Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
   (sesuai Catatan teknis di CLAUDE.md). Termasuk anchor intra-bab ch02
   (`#handling-potential-failure-with-result`,
   `#comparing-the-guess-to-the-secret-number`), anchor ch04-03 → ch06-02
   (`#patterns-that-bind-to-values`, heading kini “Pola yang Mengikat
-  Nilai”), dan ch04-01 → ch05-03 (`#methods`, heading kini “Metode”).
+  Nilai”), ch04-01 → ch05-03 (`#methods`, heading kini “Metode”),
+  ch05-03 → ch07-03 (`#exposing-paths-with-the-pub-keyword`, heading kini
+  “Mengekspos Path dengan Kata Kunci `pub`”), intra-bab ch08-03
+  (`#accessing-values-in-a-hash-map`, heading kini “Mengakses Nilai di
+  dalam Hash Map”), dan ch12-01 → ch07-04
+  (`#creating-idiomatic-use-paths`, heading kini “Membuat Path `use` yang
+  Idiomatis”; sumbernya belum diterjemahkan, ingat saat ch12 dikerjakan).
   Heading `### Shadowing` (ch03-01) sengaja dipertahankan karena ch02
   menaut ke `#shadowing`.
 - Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
