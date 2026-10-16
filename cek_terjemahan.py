@@ -12,6 +12,7 @@ Pemakaian:
   python3 cek_terjemahan.py                    # cek semua file
   python3 cek_terjemahan.py ch04-01-what-is-ownership.md
   python3 cek_terjemahan.py --longgar          # abaikan komentar // di kode
+  python3 cek_terjemahan.py --progres          # tabel status per bab (Markdown)
 
 Kode keluar 0 jika bersih, 1 jika ada galat.
 """
@@ -120,6 +121,69 @@ def bandingkan(asli, terj, longgar):
     return galat, peringatan
 
 
+def kelompok(rel):
+    """Nama kelompok untuk tabel progres: Bab NN, Appendix, atau Pendahuluan."""
+    nama = rel.name
+    m = re.match(r"ch(\d{2})", nama)
+    if m:
+        return f"Bab {m.group(1)}"
+    if nama.startswith("appendix"):
+        return "Appendix"
+    return "Pendahuluan"
+
+
+def status_file(rel, asli_dir, src_dir, longgar):
+    """Status satu file: OK, GALAT, BELUM (identik dengan asli), atau LEWAT."""
+    pa, ps = asli_dir / rel, src_dir / rel
+    if not pa.exists():
+        return "LEWAT"
+    if not ps.exists():
+        return "GALAT"
+    ta, ts = pa.read_text(encoding="utf-8"), ps.read_text(encoding="utf-8")
+    if ta == ts:
+        return "BELUM"
+    galat, _ = bandingkan(analisis(ta), analisis(ts), longgar)
+    return "GALAT" if galat else "OK"
+
+
+def tampilkan_progres(daftar, asli_dir, src_dir, longgar):
+    """Cetak tabel status terjemahan per kelompok dalam format Markdown."""
+    baris = [(kelompok(rel), rel,
+              status_file(rel, asli_dir, src_dir, longgar)) for rel in daftar]
+    def kunci(k):
+        if k == "Pendahuluan":
+            return (0, "")
+        if k.startswith("Bab "):
+            return (1, k[4:].zfill(2))
+        return (2, "")
+
+    urutan = sorted({k for k, _, _ in baris}, key=kunci)
+
+    print("| Kelompok    | Selesai | Galat | Belum | Total |")
+    print("|-------------|--------:|------:|------:|------:|")
+    total = dict(OK=0, GALAT=0, BELUM=0)
+    for grup in urutan:
+        berkas = [(rel, st) for k, rel, st in baris if k == grup]
+        n = {st: sum(1 for _, s in berkas if s == st)
+             for st in ("OK", "GALAT", "BELUM")}
+        for st in ("OK", "GALAT", "BELUM"):
+            total[st] += n[st]
+        print(f"| {grup:<11} | {n['OK']:>7} | {n['GALAT']:>5} | "
+              f"{n['BELUM']:>5} | {len(berkas):>5} |")
+    print(f"| TOTAL       | {total['OK']:>7} | {total['GALAT']:>5} | "
+          f"{total['BELUM']:>5} | {len(baris):>5} |")
+
+    print("\n### Belum diterjemahkan\n")
+    ada = False
+    for grup in urutan:
+        berkas = [rel.name for k, rel, st in baris if k == grup and st == "BELUM"]
+        if berkas:
+            ada = True
+            print(f"- {grup}: {', '.join(berkas)} ({len(berkas)})")
+    if not ada:
+        print("- (kosong) — semua file sudah diterjemahkan.")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -128,6 +192,8 @@ def main():
     ap.add_argument("--src", default="src", help="folder terjemahan (default: src)")
     ap.add_argument("--longgar", action="store_true",
                     help="abaikan komentar // di dalam blok kode")
+    ap.add_argument("--progres", action="store_true",
+                    help="cetak tabel status per bab (Markdown), tanpa cek penuh")
     args = ap.parse_args()
 
     asli_dir, src_dir = Path(args.asli), Path(args.src)
@@ -138,6 +204,10 @@ def main():
         daftar = [Path(f) for f in args.file]
     else:
         daftar = sorted(p.relative_to(asli_dir) for p in asli_dir.rglob("*.md"))
+
+    if args.progres:
+        tampilkan_progres(daftar, asli_dir, src_dir, args.longgar)
+        return
 
     total_galat = 0
     for rel in daftar:

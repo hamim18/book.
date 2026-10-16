@@ -84,18 +84,21 @@ lebih dulu, lalu gunakan secara konsisten di seluruh buku.
 
 ## Alur kerja per file
 
-1. Baca file yang sedang dikerjakan di `src/`. **Jangan membuka `asli/`**;
+1. Baca `ROADMAP.md` di awal sesi untuk tahu posisi terakhir dan masalah
+   terbuka. Perbarui file itu di akhir sesi (status terkini, tabel progres,
+   log istilah, masalah terbuka).
+2. Baca file yang sedang dikerjakan di `src/`. **Jangan membuka `asli/`**;
    folder itu hanya dipakai oleh `cek_terjemahan.py`.
-2. Terjemahkan **satu file per kali**. Untuk file yang panjang, kerjakan per bagian heading.
-3. Tulis hasilnya ke file yang sama di `src/`.
-4. Jalankan pengecekan:
+3. Terjemahkan **satu file per kali**. Untuk file yang panjang, kerjakan per bagian heading.
+4. Tulis hasilnya ke file yang sama di `src/`.
+5. Jalankan pengecekan:
    `python3 cek_terjemahan.py nama-file.md`
    Jika ada galat, perbaiki sampai bersih.
-5. Setelah beberapa file selesai, jalankan `mdbook test` untuk memastikan semua kode masih terkompilasi.
-6. Lakukan review kedua: bandingkan teks asli dan terjemahan, lalu tandai
+6. Setelah beberapa file selesai, jalankan `mdbook test` untuk memastikan semua kode masih terkompilasi.
+7. Lakukan review kedua: bandingkan teks asli dan terjemahan, lalu tandai
    bagian yang maknanya bergeser atau terlewat. Perbaiki.
-7. Commit per bab dengan pesan seperti `terjemah: bab 04 ownership`.
-8. Di akhir setiap file, laporkan singkat: istilah baru yang kamu putuskan,
+8. Commit per bab dengan pesan seperti `terjemah: bab 04 ownership`.
+9. Di akhir setiap file, laporkan singkat: istilah baru yang kamu putuskan,
    dan bagian yang kamu ragukan.
 
 ## Hemat konteks
