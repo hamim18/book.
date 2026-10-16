@@ -70,7 +70,9 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
   ```
   Tanpa ini, semua contoh bab 17 gagal dengan `can't find crate for trpl`.
 - Batas edit sesuai `CLAUDE.md`: hanya `src/` yang diterjemahkan;
-  `listings/`, `packages/`, `book.toml`, dll. tidak disentuh.
+  `listings/`, `packages/`, `book.toml`, dll. tidak disentuh. Diperkuat
+  deny rules di `.claude/settings.json` (Read/Edit/Write pada folder
+  terlarang; `asli/` tetap boleh dibaca untuk review kedua).
 
 ## Tabel progres
 
