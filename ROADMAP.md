@@ -6,14 +6,14 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: — (belum ada)
-- File berikutnya yang dikerjakan: `ch04-00-understanding-ownership.md` (Tahap 1)
-- Terakhir diperbarui: 2026-10-16 (infrastruktur siap; belum ada yang diterjemahkan)
+- Bab terakhir selesai: Bab 4 (ownership) — uji coba gaya & istilah; `mdbook test` lulus.
+- File berikutnya yang dikerjakan: `ch00-00-introduction.md` (Tahap 2, mulai dari awal buku)
+- Terakhir diperbarui: 2026-10-16
 
 ## Urutan kerja
 
 - [x] Tahap 0 — Snapshot `asli/` + commit baseline (`siapkan asli/ dan perangkat terjemahan`)
-- [ ] Tahap 1 — Bab 4 sebagai uji coba gaya & istilah: `ch04-00` … `ch04-03`
+- [x] Tahap 1 — Bab 4 sebagai uji coba gaya & istilah: `ch04-00` … `ch04-03`
 - [ ] Tahap 2 — Urut dari awal buku: `foreword` → `ch00` → `ch01` → … → `ch21`.
       Per bab: terjemah semua file → `cek_terjemahan.py` per file → commit per bab
       (`terjemah: bab NN <judul>`). Jalankan `mdbook test` (lihat Catatan teknis)
@@ -86,7 +86,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 01      |       0 |     0 |     4 |     4 |
 | Bab 02      |       0 |     0 |     1 |     1 |
 | Bab 03      |       0 |     0 |     6 |     6 |
-| Bab 04      |       0 |     0 |     4 |     4 |
+| Bab 04      |       4 |     0 |     0 |     4 |
 | Bab 05      |       0 |     0 |     4 |     4 |
 | Bab 06      |       0 |     0 |     4 |     4 |
 | Bab 07      |       0 |     0 |     6 |     6 |
@@ -105,7 +105,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |       0 |     0 |   112 |   112 |
+| TOTAL       |       4 |     0 |   108 |   112 |
 
 ## Log keputusan istilah
 
@@ -114,11 +114,50 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 | Istilah | Padanan | Bab |
 |---|---|---|
-| (kosong) | | |
+| pointer | penunjuk | 04 |
+| memory allocator / allocator | pengalokasi memori (tetap miring) | 04 |
+| allocation / allocating on the heap | alokasi / mengalokasikan di heap | 04 |
+| garbage collector (GC) / garbage collection | pengumpul sampah / pengumpulan sampah | 04 |
+| owner | pemilik | 04 |
+| string literal | (tetap) | 04 |
+| runtime | (tetap) | 04 |
+| shallow copy / deep copy | salinan dangkal / salinan dalam | 04 |
+| double free | (tetap) | 04 |
+| namespace | ruang nama | 04 |
+| standard library | pustaka standar | 04 |
+| signature (fungsi) | tanda tangan | 04 |
+| floating point | titik mengambang | 04 |
+| tuple | (tetap, miring) | 04 |
+| assignment / assign | penetapan / menetapkan | 04 |
+| method | metode (tanpa miring) | 04 |
+| collection | koleksi (tanpa miring) | 04 |
+| pattern | pola (tanpa miring) | 04 |
+| loop | perulangan (tanpa miring) | 04 |
+| vector | vektor (tanpa miring) | 04 |
+| dereferencing | dereferensi | 04 |
+| deref coercion | (tetap) | 04 |
+| data race / race condition | (tetap) | 04 |
+| dangling pointer / dangling reference | pointer menggantung / reference menggantung | 04 |
+| undefined behavior | perilaku tak terdefinisi | 04 |
+
+## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
+
+- Heading: istilah teknis ditulis tanpa miring dan tanpa padanan
+  (mis. `## Tipe Slice`, `### Mutable References`); padanan hanya pada
+  kemunculan pertama di prosa per bab.
+- Judul bab (`ch04-00`) memuat padanan: `Memahami Ownership (Kepemilikan)`.
+- Alt teks gambar dan caption Listing/Gambar ikut diterjemahkan.
 
 ## Masalah terbuka
 
-- (kosong)
+- Teks tautan yang diterjemahkan di Bab 4 harus cocok dengan heading final
+  file tujuan (diperiksa saat file itu dikerjakan):
+  ch05-03 "Metode"; ch07-03 "Path untuk Merujuk Item di dalam Pohon Modul";
+  ch08-02 "Menyimpan Teks Terenkode UTF-8 dengan String";
+  ch15-02 "Menggunakan Deref Coercions di dalam Fungsi dan Metode";
+  ch03-02 "Tipe Data"; appendix-03 "Trait yang Dapat Diturunkan".
+- Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
+  (sesuai Catatan teknis di CLAUDE.md).
 
 ## Cara memulai sesi baru
 
