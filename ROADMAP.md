@@ -6,12 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 05 (struct) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch06-00-enums.md`
-  (Bab 06, 4 file; mulai dari `ch06-00`).
+- Bab terakhir selesai: Bab 06 (enum dan pencocokan pola) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch07-00-managing-growing-projects-with-packages-crates-and-modules.md`
+  (Bab 07, 6 file; mulai dari `ch07-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 03 (exit 0); dijadwalkan lagi
-  setelah Bab 05.
+- `mdbook test` terakhir lulus: setelah Bab 05 (exit 0); dijadwalkan lagi
+  setelah Bab 06.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -92,7 +92,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 03      |       6 |     0 |     0 |     6 |
 | Bab 04      |       4 |     0 |     0 |     4 |
 | Bab 05      |       4 |     0 |     0 |     4 |
-| Bab 06      |       0 |     0 |     4 |     4 |
+| Bab 06      |       4 |     0 |     0 |     4 |
 | Bab 07      |       0 |     0 |     6 |     6 |
 | Bab 08      |       0 |     0 |     4 |     4 |
 | Bab 09      |       0 |     0 |     4 |     4 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      20 |     0 |    92 |   112 |
+| TOTAL       |      24 |     0 |    88 |   112 |
 
 ## Log keputusan istilah
 
@@ -263,6 +263,15 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | ergonomic | ergonomis | 05 |
 | rectangle | persegi panjang | 05 |
 | width / height | lebar / tinggi | 05 |
+| null | (tetap, miring pada kemunculan pertama) | 06 |
+| wildcard | (tetap) | 06 |
+| catch-all | (tetap) | 06 |
+| exhaustive / exhaustiveness | *exhaustive* (ekshaustif) / ekshaustivitas | 06 |
+| quarter (koin) | (tetap, koin 25 sen) | 06 |
+| syntax sugar | gula sintaks | 06 |
+| boilerplate | (tetap) | 06 |
+| happy path | (tetap, “happy path”) | 06 |
+| enumerate (verba) | menyebutkan satu per satu | 06 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -305,8 +314,11 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
   (sesuai Catatan teknis di CLAUDE.md). Termasuk anchor intra-bab ch02
   (`#handling-potential-failure-with-result`,
-  `#comparing-the-guess-to-the-secret-number`). Heading `### Shadowing`
-  (ch03-01) sengaja dipertahankan karena ch02 menaut ke `#shadowing`.
+  `#comparing-the-guess-to-the-secret-number`), anchor ch04-03 → ch06-02
+  (`#patterns-that-bind-to-values`, heading kini “Pola yang Mengikat
+  Nilai”), dan ch04-01 → ch05-03 (`#methods`, heading kini “Metode”).
+  Heading `### Shadowing` (ch03-01) sengaja dipertahankan karena ch02
+  menaut ke `#shadowing`.
 - Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
   dengan pemakaian Bab 4/00 ("galat"). Mohon konfirmasi pemakaian mana yang
   dianggap resmi, lalu sinkronkan tabel glosarium dengan log di atas.
