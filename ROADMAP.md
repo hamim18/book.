@@ -6,9 +6,9 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 01 (memulai) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch02-00-guessing-game-tutorial.md`
-  (Bab 02; file tunggal 6.028 kata, rencanakan beberapa sesi).
+- Bab terakhir selesai: Bab 02 (permainan tebak angka) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch03-00-common-programming-concepts.md`
+  (Bab 03, 6 file; mulai dari `ch03-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
 - Terakhir diperbarui: 2026-10-16
 
@@ -86,7 +86,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Pendahuluan |       0 |     0 |     3 |     3 |
 | Bab 00      |       1 |     0 |     0 |     1 |
 | Bab 01      |       4 |     0 |     0 |     4 |
-| Bab 02      |       0 |     0 |     1 |     1 |
+| Bab 02      |       1 |     0 |     0 |     1 |
 | Bab 03      |       0 |     0 |     6 |     6 |
 | Bab 04      |       4 |     0 |     0 |     4 |
 | Bab 05      |       0 |     0 |     4 |     4 |
@@ -107,7 +107,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |       9 |     0 |   103 |   112 |
+| TOTAL       |      10 |     0 |   102 |   112 |
 
 ## Log keputusan istilah
 
@@ -173,6 +173,30 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | "Filename:" (label <span>) | "Nama File:" | 01 |
 | offline | luring | 01 |
 | source file | file sumber | 01 |
+| variable | variabel (tanpa miring) | 02 |
+| associated function | *associated function* (fungsi asosiasi) | 02 |
+| enumeration | *enumeration* (enumerasi) | 02 |
+| variant | *variant* (varian) | 02 |
+| arm (match arm) | *arm* (lengan) | 02 |
+| prelude | (tetap, miring) | 02 |
+| instance | (tetap, tanpa miring) | 02 |
+| handle | (tetap, tanpa miring) | 02 |
+| placeholder | (tetap, tanpa miring) | 02 |
+| crash | (tetap, tanpa miring) | 02 |
+| registry | *registry* (registri) | 02 |
+| range | (tetap, tanpa miring) | 02 |
+| seed (seeded) | di-seed | 02 |
+| source control | kontrol sumber | 02 |
+| input/output | masukan/keluaran | 02 |
+| random number generator | pembangkit angka acak | 02 |
+| type inference | inferensi tipe | 02 |
+| unsigned | tak bertanda | 02 |
+| whitespace | spasi | 02 |
+| newline | (tetap, tanpa miring) | 02 |
+| shadowing | (tetap, miring) | 02 |
+| guess / secret number | tebakan / angka rahasia | 02 |
+| integer | (tetap, tanpa miring) | 02 |
+| infinite loop | perulangan tak berujung | 02 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -200,6 +224,11 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Kejanggalan teks asli ch00: kalimat "In most situations, we'll lead you to
   the correct version of any code that doesn't compile." muncul dua kali
   (sebelum dan sesudah tabel Ferris). Diterjemahkan apa adanya, tidak diperbaiki.
+- Teks tautan yang diterjemahkan di Bab 02 harus cocok dengan heading final
+  file tujuan (diperiksa saat file itu dikerjakan): ch03-01 "Variabel dan
+  Mutabilitas". Anchor intra-bab ch02 (`#handling-potential-failure-with-result`,
+  `#comparing-the-guess-to-the-secret-number`) ikut dicek di Tahap 5.
+- `mdbook test` dijadwalkan berjalan setelah Bab 02 (bab ke-4 yang selesai).
 
 ## Cara memulai sesi baru
 
