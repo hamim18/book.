@@ -1,22 +1,24 @@
-## Generic Data Types
+## Tipe Data Generik
 
-We use generics to create definitions for items like function signatures or
-structs, which we can then use with many different concrete data types. Let’s
-first look at how to define functions, structs, enums, and methods using
-generics. Then, we’ll discuss how generics affect code performance.
+Kita memakai generics untuk membuat definisi item seperti tanda tangan
+fungsi atau *struct*, yang kemudian bisa kita pakai dengan banyak tipe data
+konkret yang berbeda. Mari kita lihat dulu cara mendefinisikan fungsi,
+struct, enum, dan metode dengan memakai generics. Kemudian, kita akan
+membahas bagaimana generics memengaruhi kinerja kode.
 
-### In Function Definitions
+### Dalam Definisi Fungsi
 
-When defining a function that uses generics, we place the generics in the
-signature of the function where we would usually specify the data types of the
-parameters and return value. Doing so makes our code more flexible and provides
-more functionality to callers of our function while preventing code duplication.
+Saat mendefinisikan fungsi yang memakai generics, kita menempatkan generics
+di tanda tangan fungsi, tepat di tempat kita biasanya menentukan tipe data
+parameter dan nilai kembaliannya. Melakukannya membuat kode kita lebih
+fleksibel dan menyediakan lebih banyak fungsionalitas bagi pemanggil fungsi
+kita sekaligus mencegah duplikasi kode.
 
-Continuing with our `largest` function, Listing 10-4 shows two functions that
-both find the largest value in a slice. We’ll then combine these into a single
-function that uses generics.
+Melanjutkan fungsi `largest` kita, Listing 10-4 menunjukkan dua fungsi yang
+sama-sama menemukan nilai terbesar dalam sebuah slice. Kita kemudian akan
+menggabungkan keduanya menjadi satu fungsi yang memakai generics.
 
-<Listing number="10-4" file-name="src/main.rs" caption="Two functions that differ only in their names and in the types in their signatures">
+<Listing number="10-4" file-name="src/main.rs" caption="Dua fungsi yang hanya berbeda pada nama dan tipe di tanda tangannya">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-04/src/main.rs:here}}
@@ -24,40 +26,43 @@ function that uses generics.
 
 </Listing>
 
-The `largest_i32` function is the one we extracted in Listing 10-3 that finds
-the largest `i32` in a slice. The `largest_char` function finds the largest
-`char` in a slice. The function bodies have the same code, so let’s eliminate
-the duplication by introducing a generic type parameter in a single function.
+Fungsi `largest_i32` adalah fungsi yang kita ekstrak di Listing 10-3 untuk
+menemukan `i32` terbesar dalam sebuah slice. Fungsi `largest_char`
+menemukan `char` terbesar dalam sebuah slice. Badan kedua fungsi memiliki
+kode yang sama, jadi mari kita hilangkan duplikasinya dengan memperkenalkan
+parameter tipe generik dalam satu fungsi.
 
-To parameterize the types in a new single function, we need to name the type
-parameter, just as we do for the value parameters to a function. You can use
-any identifier as a type parameter name. But we’ll use `T` because, by
-convention, type parameter names in Rust are short, often just one letter, and
-Rust’s type-naming convention is UpperCamelCase. Short for _type_, `T` is the
-default choice of most Rust programmers.
+Untuk memparameterisasi tipe-tipe dalam satu fungsi baru, kita perlu menamai
+parameter tipe tersebut, sama seperti kita menamai parameter nilai sebuah
+fungsi. Anda bisa memakai *identifier* (pengidentifikasi) mana pun sebagai
+nama parameter tipe. Akan tetapi, kita akan memakai `T` karena, menurut
+konvensi, nama parameter tipe di Rust pendek, sering kali hanya satu huruf,
+dan konvensi penamaan tipe Rust adalah UpperCamelCase. Sebagai kependekan
+dari _type_, `T` adalah pilihan bawaan sebagian besar pemrogram Rust.
 
-When we use a parameter in the body of the function, we have to declare the
-parameter name in the signature so that the compiler knows what that name
-means. Similarly, when we use a type parameter name in a function signature, we
-have to declare the type parameter name before we use it. To define the generic
-`largest` function, we place type name declarations inside angle brackets,
-`<>`, between the name of the function and the parameter list, like this:
+Ketika kita memakai sebuah parameter di badan fungsi, kita harus
+mendeklarasikan nama parameter itu di tanda tangan supaya compiler tahu apa
+arti nama tersebut. Demikian pula, ketika kita memakai nama parameter tipe di
+tanda tangan fungsi, kita harus mendeklarasikan nama parameter tipe itu
+sebelum memakainya. Untuk mendefinisikan fungsi generik `largest`, kita
+menempatkan deklarasi nama tipe di dalam kurung sudut, `<>`, di antara nama
+fungsi dan daftar parameternya, seperti ini:
 
 ```rust,ignore
 fn largest<T>(list: &[T]) -> &T {
 ```
 
-We read this definition as “The function `largest` is generic over some type
-`T`.” This function has one parameter named `list`, which is a slice of values
-of type `T`. The `largest` function will return a reference to a value of the
-same type `T`.
+Kita membaca definisi ini sebagai “Fungsi `largest` bersifat generik atas
+suatu tipe `T`.” Fungsi ini memiliki satu parameter bernama `list`, yang
+berupa slice berisi nilai-nilai bertipe `T`. Fungsi `largest` akan
+mengembalikan sebuah reference ke nilai bertipe `T` yang sama.
 
-Listing 10-5 shows the combined `largest` function definition using the generic
-data type in its signature. The listing also shows how we can call the function
-with either a slice of `i32` values or `char` values. Note that this code won’t
-compile yet.
+Listing 10-5 menunjukkan definisi fungsi `largest` gabungan yang memakai
+tipe data generik di tanda tangannya. Listing itu juga menunjukkan bagaimana
+kita bisa memanggil fungsi tersebut dengan slice berisi nilai `i32` ataupun
+nilai `char`. Perhatikan bahwa kode ini belum bisa dikompilasi.
 
-<Listing number="10-5" file-name="src/main.rs" caption="The `largest` function using generic type parameters; this doesn’t compile yet">
+<Listing number="10-5" file-name="src/main.rs" caption="Fungsi `largest` yang memakai parameter tipe generik; kode ini belum bisa dikompilasi">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/src/main.rs}}
@@ -65,30 +70,35 @@ compile yet.
 
 </Listing>
 
-If we compile this code right now, we’ll get this error:
+Jika kita mengompilasi kode ini sekarang, kita akan mendapatkan galat
+berikut:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
 ```
 
-The help text mentions `std::cmp::PartialOrd`, which is a trait, and we’re
-going to talk about traits in the next section. For now, know that this error
-states that the body of `largest` won’t work for all possible types that `T`
-could be. Because we want to compare values of type `T` in the body, we can
-only use types whose values can be ordered. To enable comparisons, the standard
-library has the `std::cmp::PartialOrd` trait that you can implement on types
-(see Appendix C for more on this trait). To fix Listing 10-5, we can follow the
-help text’s suggestion and restrict the types valid for `T` to only those that
-implement `PartialOrd`. The listing will then compile, because the standard
-library implements `PartialOrd` on both `i32` and `char`.
+Teks bantuannya menyebut `std::cmp::PartialOrd`, yang merupakan sebuah
+*trait*, dan kita akan membahas trait di bagian berikutnya. Untuk sekarang,
+ketahuilah bahwa galat ini menyatakan bahwa badan `largest` tidak akan
+berfungsi untuk semua tipe yang mungkin menjadi `T`. Karena kita ingin
+membandingkan nilai bertipe `T` di dalam badan fungsi, kita hanya bisa
+memakai tipe-tipe yang nilainya bisa diurutkan. Untuk memungkinkan
+perbandingan, pustaka standar memiliki trait `std::cmp::PartialOrd` yang bisa
+Anda implementasikan pada tipe-tipe (lihat Lampiran C untuk penjelasan lebih
+lanjut tentang trait ini). Untuk memperbaiki Listing 10-5, kita bisa
+mengikuti saran teks bantuan itu dan membatasi tipe-tipe yang sah untuk `T`
+menjadi hanya tipe-tipe yang mengimplementasikan `PartialOrd`. Listing
+tersebut kemudian akan terkompilasi, karena pustaka standar
+mengimplementasikan `PartialOrd` pada `i32` maupun `char`.
 
-### In Struct Definitions
+### Dalam Definisi Struct
 
-We can also define structs to use a generic type parameter in one or more
-fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
-`x` and `y` coordinate values of any type.
+Kita juga bisa mendefinisikan struct untuk memakai parameter tipe generik di
+satu *field* (medan) atau lebih dengan memakai sintaks `<>`. Listing 10-6
+mendefinisikan struct `Point<T>` untuk menampung nilai koordinat `x` dan `y`
+bertipe apa pun.
 
-<Listing number="10-6" file-name="src/main.rs" caption="A `Point<T>` struct that holds `x` and `y` values of type `T`">
+<Listing number="10-6" file-name="src/main.rs" caption="Struct `Point<T>` yang menampung nilai `x` dan `y` bertipe `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-06/src/main.rs}}
@@ -96,18 +106,20 @@ fields using the `<>` syntax. Listing 10-6 defines a `Point<T>` struct to hold
 
 </Listing>
 
-The syntax for using generics in struct definitions is similar to that used in
-function definitions. First, we declare the name of the type parameter inside
-angle brackets just after the name of the struct. Then, we use the generic type
-in the struct definition where we would otherwise specify concrete data types.
+Sintaks pemakaian generics dalam definisi struct mirip dengan yang dipakai
+dalam definisi fungsi. Pertama, kita mendeklarasikan nama parameter tipe di
+dalam kurung sudut tepat setelah nama struct. Kemudian, kita memakai tipe
+generik dalam definisi struct di tempat yang biasanya kita pakai untuk
+menentukan tipe data konkret.
 
-Note that because we’ve used only one generic type to define `Point<T>`, this
-definition says that the `Point<T>` struct is generic over some type `T`, and
-the fields `x` and `y` are _both_ that same type, whatever that type may be. If
-we create an instance of a `Point<T>` that has values of different types, as in
-Listing 10-7, our code won’t compile.
+Perhatikan bahwa karena kita hanya memakai satu tipe generik untuk
+mendefinisikan `Point<T>`, definisi ini menyatakan bahwa struct `Point<T>`
+bersifat generik atas suatu tipe `T`, dan field `x` serta `y` _keduanya_
+bertipe sama, apa pun tipe itu. Jika kita membuat sebuah instance
+`Point<T>` yang memiliki nilai-nilai bertipe berbeda, seperti di Listing
+10-7, kode kita tidak akan terkompilasi.
 
-<Listing number="10-7" file-name="src/main.rs" caption="The fields `x` and `y` must be the same type because both have the same generic data type `T`.">
+<Listing number="10-7" file-name="src/main.rs" caption="Field `x` dan `y` harus bertipe sama karena keduanya memiliki tipe data generik `T` yang sama.">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/src/main.rs}}
@@ -115,21 +127,23 @@ Listing 10-7, our code won’t compile.
 
 </Listing>
 
-In this example, when we assign the integer value `5` to `x`, we let the
-compiler know that the generic type `T` will be an integer for this instance of
-`Point<T>`. Then, when we specify `4.0` for `y`, which we’ve defined to have
-the same type as `x`, we’ll get a type mismatch error like this:
+Dalam contoh ini, ketika kita menetapkan nilai integer `5` ke `x`, kita
+memberi tahu compiler bahwa tipe generik `T` akan berupa integer untuk
+instance `Point<T>` ini. Kemudian, ketika kita menentukan `4.0` untuk `y`,
+yang telah kita definisikan bertipe sama dengan `x`, kita akan mendapatkan
+galat ketidakcocokan tipe seperti ini:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
 ```
 
-To define a `Point` struct where `x` and `y` are both generics but could have
-different types, we can use multiple generic type parameters. For example, in
-Listing 10-8, we change the definition of `Point` to be generic over types `T`
-and `U` where `x` is of type `T` and `y` is of type `U`.
+Untuk mendefinisikan struct `Point` yang `x` dan `y`-nya sama-sama generik
+tetapi bisa bertipe berbeda, kita bisa memakai beberapa parameter tipe
+generik. Sebagai contoh, di Listing 10-8, kita mengubah definisi `Point`
+agar generik atas tipe `T` dan `U`, dengan `x` bertipe `T` dan `y` bertipe
+`U`.
 
-<Listing number="10-8" file-name="src/main.rs" caption="A `Point<T, U>` generic over two types so that `x` and `y` can be values of different types">
+<Listing number="10-8" file-name="src/main.rs" caption="`Point<T, U>` yang generik atas dua tipe sehingga `x` dan `y` bisa berupa nilai bertipe berbeda">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-08/src/main.rs}}
@@ -137,17 +151,19 @@ and `U` where `x` is of type `T` and `y` is of type `U`.
 
 </Listing>
 
-Now all the instances of `Point` shown are allowed! You can use as many generic
-type parameters in a definition as you want, but using more than a few makes
-your code hard to read. If you’re finding you need lots of generic types in
-your code, it could indicate that your code needs restructuring into smaller
-pieces.
+Sekarang semua instance `Point` yang ditampilkan diizinkan! Anda bisa
+memakai parameter tipe generik sebanyak yang Anda mau dalam sebuah definisi,
+tetapi memakai lebih dari beberapa parameter membuat kode Anda sulit dibaca.
+Jika Anda merasa butuh banyak tipe generik dalam kode Anda, itu bisa menjadi
+pertanda bahwa kode Anda perlu direstrukturisasi menjadi bagian-bagian yang
+lebih kecil.
 
-### In Enum Definitions
+### Dalam Definisi Enum
 
-As we did with structs, we can define enums to hold generic data types in their
-variants. Let’s take another look at the `Option<T>` enum that the standard
-library provides, which we used in Chapter 6:
+Seperti yang kita lakukan dengan struct, kita bisa mendefinisikan enum untuk
+menampung tipe data generik di dalam *variant* (varian)-nya. Mari kita lihat
+lagi enum `Option<T>` yang disediakan pustaka standar, yang kita pakai di
+Bab 6:
 
 ```rust
 enum Option<T> {
@@ -156,15 +172,16 @@ enum Option<T> {
 }
 ```
 
-This definition should now make more sense to you. As you can see, the
-`Option<T>` enum is generic over type `T` and has two variants: `Some`, which
-holds one value of type `T`, and a `None` variant that doesn’t hold any value.
-By using the `Option<T>` enum, we can express the abstract concept of an
-optional value, and because `Option<T>` is generic, we can use this abstraction
-no matter what the type of the optional value is.
+Definisi ini seharusnya sekarang lebih masuk akal bagi Anda. Seperti yang
+Anda lihat, enum `Option<T>` bersifat generik atas tipe `T` dan memiliki dua
+varian: `Some`, yang menampung satu nilai bertipe `T`, dan varian `None` yang
+tidak menampung nilai apa pun. Dengan memakai enum `Option<T>`, kita bisa
+mengekspresikan konsep abstrak tentang nilai opsional, dan karena
+`Option<T>` generik, kita bisa memakai abstraksi ini apa pun tipe nilai
+opsionalnya.
 
-Enums can use multiple generic types as well. The definition of the `Result`
-enum that we used in Chapter 9 is one example:
+Enum juga bisa memakai beberapa tipe generik. Definisi enum `Result` yang
+kita pakai di Bab 9 adalah salah satu contohnya:
 
 ```rust
 enum Result<T, E> {
@@ -173,26 +190,27 @@ enum Result<T, E> {
 }
 ```
 
-The `Result` enum is generic over two types, `T` and `E`, and has two variants:
-`Ok`, which holds a value of type `T`, and `Err`, which holds a value of type
-`E`. This definition makes it convenient to use the `Result` enum anywhere we
-have an operation that might succeed (return a value of some type `T`) or fail
-(return an error of some type `E`). In fact, this is what we used to open a
-file in Listing 9-3, where `T` was filled in with the type `std::fs::File` when
-the file was opened successfully and `E` was filled in with the type
-`std::io::Error` when there were problems opening the file.
+Enum `Result` bersifat generik atas dua tipe, `T` dan `E`, dan memiliki dua
+varian: `Ok`, yang menampung sebuah nilai bertipe `T`, dan `Err`, yang
+menampung sebuah nilai bertipe `E`. Definisi ini memudahkan kita memakai enum
+`Result` di mana pun kita memiliki operasi yang mungkin berhasil
+(mengembalikan nilai bertipe `T`) atau gagal (mengembalikan galat bertipe
+`E`). Nyatanya, inilah yang kita pakai untuk membuka file di Listing 9-3,
+ketika `T` diisi dengan tipe `std::fs::File` jika file berhasil dibuka dan
+`E` diisi dengan tipe `std::io::Error` ketika ada masalah saat membuka file.
 
-When you recognize situations in your code with multiple struct or enum
-definitions that differ only in the types of the values they hold, you can
-avoid duplication by using generic types instead.
+Ketika Anda mengenali situasi dalam kode Anda dengan beberapa definisi
+struct atau enum yang hanya berbeda pada tipe nilai yang ditampungnya, Anda
+bisa menghindari duplikasi dengan memakai tipe generik.
 
-### In Method Definitions
+### Dalam Definisi Metode
 
-We can implement methods on structs and enums (as we did in Chapter 5) and use
-generic types in their definitions too. Listing 10-9 shows the `Point<T>`
-struct we defined in Listing 10-6 with a method named `x` implemented on it.
+Kita bisa mengimplementasikan metode pada struct dan enum (seperti yang kita
+lakukan di Bab 5) dan memakai tipe generik dalam definisinya juga. Listing
+10-9 menunjukkan struct `Point<T>` yang kita definisikan di Listing 10-6
+dengan sebuah metode bernama `x` yang diimplementasikan padanya.
 
-<Listing number="10-9" file-name="src/main.rs" caption="Implementing a method named `x` on the `Point<T>` struct that will return a reference to the `x` field of type `T`">
+<Listing number="10-9" file-name="src/main.rs" caption="Mengimplementasikan metode bernama `x` pada struct `Point<T>` yang akan mengembalikan reference ke field `x` bertipe `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-09/src/main.rs}}
@@ -200,25 +218,28 @@ struct we defined in Listing 10-6 with a method named `x` implemented on it.
 
 </Listing>
 
-Here, we’ve defined a method named `x` on `Point<T>` that returns a reference
-to the data in the field `x`.
+Di sini, kita telah mendefinisikan metode bernama `x` pada `Point<T>` yang
+mengembalikan sebuah reference ke data di dalam field `x`.
 
-Note that we have to declare `T` just after `impl` so that we can use `T` to
-specify that we’re implementing methods on the type `Point<T>`. By declaring
-`T` as a generic type after `impl`, Rust can identify that the type in the
-angle brackets in `Point` is a generic type rather than a concrete type. We
-could have chosen a different name for this generic parameter than the generic
-parameter declared in the struct definition, but using the same name is
-conventional. If you write a method within an `impl` that declares a generic
-type, that method will be defined on any instance of the type, no matter what
-concrete type ends up substituting for the generic type.
+Perhatikan bahwa kita harus mendeklarasikan `T` tepat setelah `impl` supaya
+kita bisa memakai `T` untuk menyatakan bahwa kita sedang mengimplementasikan
+metode pada tipe `Point<T>`. Dengan mendeklarasikan `T` sebagai tipe generik
+setelah `impl`, Rust bisa mengidentifikasi bahwa tipe di dalam kurung sudut
+pada `Point` adalah tipe generik, bukan tipe konkret. Kita bisa saja memilih
+nama yang berbeda untuk parameter generik ini daripada parameter generik
+yang dideklarasikan dalam definisi struct, tetapi memakai nama yang sama
+sudah menjadi konvensi. Jika Anda menulis metode di dalam `impl` yang
+mendeklarasikan tipe generik, metode itu akan didefinisikan pada instance
+mana pun dari tipe tersebut, apa pun tipe konkret yang akhirnya menggantikan
+tipe generiknya.
 
-We can also specify constraints on generic types when defining methods on the
-type. We could, for example, implement methods only on `Point<f32>` instances
-rather than on `Point<T>` instances with any generic type. In Listing 10-10, we
-use the concrete type `f32`, meaning we don’t declare any types after `impl`.
+Kita juga bisa menentukan batasan pada tipe generik ketika mendefinisikan
+metode pada tipe tersebut. Misalnya, kita bisa mengimplementasikan metode
+hanya pada instance `Point<f32>`, alih-alih pada instance `Point<T>` dengan
+tipe generik apa pun. Di Listing 10-10, kita memakai tipe konkret `f32`,
+artinya kita tidak mendeklarasikan tipe apa pun setelah `impl`.
 
-<Listing number="10-10" file-name="src/main.rs" caption="An `impl` block that only applies to a struct with a particular concrete type for the generic type parameter `T`">
+<Listing number="10-10" file-name="src/main.rs" caption="Blok `impl` yang hanya berlaku untuk struct dengan tipe konkret tertentu untuk parameter tipe generik `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-10/src/main.rs:here}}
@@ -226,20 +247,20 @@ use the concrete type `f32`, meaning we don’t declare any types after `impl`.
 
 </Listing>
 
-This code means the type `Point<f32>` will have a `distance_from_origin`
-method; other instances of `Point<T>` where `T` is not of type `f32` will not
-have this method defined. The method measures how far our point is from the
-point at coordinates (0.0, 0.0) and uses mathematical operations that are
-available only for floating-point types.
+Kode ini berarti tipe `Point<f32>` akan memiliki metode
+`distance_from_origin`; instance lain `Point<T>` yang `T`-nya bukan bertipe
+`f32` tidak akan memiliki metode ini. Metode tersebut mengukur seberapa jauh
+titik kita dari titik pada koordinat (0.0, 0.0) dan memakai operasi matematis
+yang hanya tersedia untuk tipe titik mengambang.
 
-Generic type parameters in a struct definition aren’t always the same as those
-you use in that same struct’s method signatures. Listing 10-11 uses the generic
-types `X1` and `Y1` for the `Point` struct and `X2` and `Y2` for the `mixup`
-method signature to make the example clearer. The method creates a new `Point`
-instance with the `x` value from the `self` `Point` (of type `X1`) and the `y`
-value from the passed-in `Point` (of type `Y2`).
+Parameter tipe generik dalam definisi struct tidak selalu sama dengan yang
+Anda pakai di tanda tangan metode struct yang sama. Listing 10-11 memakai
+tipe generik `X1` dan `Y1` untuk struct `Point` dan `X2` serta `Y2` untuk
+tanda tangan metode `mixup` agar contohnya lebih jelas. Metode ini membuat
+sebuah instance `Point` baru dengan nilai `x` dari `Point` `self` (bertipe
+`X1`) dan nilai `y` dari `Point` yang diteruskan (bertipe `Y2`).
 
-<Listing number="10-11" file-name="src/main.rs" caption="A method that uses generic types that are different from its struct’s definition">
+<Listing number="10-11" file-name="src/main.rs" caption="Metode yang memakai tipe generik yang berbeda dari definisi struct-nya">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
@@ -247,52 +268,56 @@ value from the passed-in `Point` (of type `Y2`).
 
 </Listing>
 
-In `main`, we’ve defined a `Point` that has an `i32` for `x` (with value `5`)
-and an `f64` for `y` (with value `10.4`). The `p2` variable is a `Point` struct
-that has a string slice for `x` (with value `"Hello"`) and a `char` for `y`
-(with value `c`). Calling `mixup` on `p1` with the argument `p2` gives us `p3`,
-which will have an `i32` for `x` because `x` came from `p1`. The `p3` variable
-will have a `char` for `y` because `y` came from `p2`. The `println!` macro
-call will print `p3.x = 5, p3.y = c`.
+Di dalam `main`, kita telah mendefinisikan sebuah `Point` yang memiliki
+`i32` untuk `x` (dengan nilai `5`) dan `f64` untuk `y` (dengan nilai `10.4`).
+Variabel `p2` adalah struct `Point` yang memiliki *string slice* untuk `x`
+(dengan nilai `"Hello"`) dan `char` untuk `y` (dengan nilai `c`). Memanggil
+`mixup` pada `p1` dengan argumen `p2` menghasilkan `p3`, yang akan memiliki
+`i32` untuk `x` karena `x` berasal dari `p1`. Variabel `p3` akan memiliki
+`char` untuk `y` karena `y` berasal dari `p2`. Panggilan *macro* (makro)
+`println!` akan mencetak `p3.x = 5, p3.y = c`.
 
-The purpose of this example is to demonstrate a situation in which some generic
-parameters are declared with `impl` and some are declared with the method
-definition. Here, the generic parameters `X1` and `Y1` are declared after
-`impl` because they go with the struct definition. The generic parameters `X2`
-and `Y2` are declared after `fn mixup` because they’re only relevant to the
-method.
+Tujuan contoh ini adalah untuk memperlihatkan situasi ketika sebagian
+parameter generik dideklarasikan dengan `impl` dan sebagian lagi
+dideklarasikan dengan definisi metode. Di sini, parameter generik `X1` dan
+`Y1` dideklarasikan setelah `impl` karena mereka menyertai definisi struct.
+Parameter generik `X2` dan `Y2` dideklarasikan setelah `fn mixup` karena
+mereka hanya relevan untuk metode tersebut.
 
-### Performance of Code Using Generics
+### Kinerja Kode yang Memakai Generics
 
-You might be wondering whether there is a runtime cost when using generic type
-parameters. The good news is that using generic types won’t make your program
-run any slower than it would with concrete types.
+Anda mungkin bertanya-tanya apakah ada biaya *runtime* ketika memakai
+parameter tipe generik. Kabar baiknya, memakai tipe generik tidak akan
+membuat program Anda berjalan lebih lambat dibandingkan dengan tipe konkret.
 
-Rust accomplishes this by performing monomorphization of the code using
-generics at compile time. _Monomorphization_ is the process of turning generic
-code into specific code by filling in the concrete types that are used when
-compiled. In this process, the compiler does the opposite of the steps we used
-to create the generic function in Listing 10-5: The compiler looks at all the
-places where generic code is called and generates code for the concrete types
-the generic code is called with.
+Rust mencapai hal ini dengan melakukan monomorfisasi pada kode yang memakai
+generics di waktu kompilasi. *Monomorphization* (monomorfisasi) adalah proses
+mengubah kode generik menjadi kode spesifik dengan mengisi tipe-tipe konkret
+yang dipakai saat dikompilasi. Dalam proses ini, compiler melakukan
+kebalikan dari langkah-langkah yang kita pakai untuk membuat fungsi generik
+di Listing 10-5: compiler melihat semua tempat kode generik dipanggil dan
+membangkitkan kode untuk tipe-tipe konkret yang dipakai untuk memanggil kode
+generik tersebut.
 
-Let’s look at how this works by using the standard library’s generic
-`Option<T>` enum:
+Mari kita lihat cara kerjanya dengan memakai enum generik `Option<T>` dari
+pustaka standar:
 
 ```rust
 let integer = Some(5);
 let float = Some(5.0);
 ```
 
-When Rust compiles this code, it performs monomorphization. During that
-process, the compiler reads the values that have been used in `Option<T>`
-instances and identifies two kinds of `Option<T>`: One is `i32` and the other
-is `f64`. As such, it expands the generic definition of `Option<T>` into two
-definitions specialized to `i32` and `f64`, thereby replacing the generic
-definition with the specific ones.
+Ketika Rust mengompilasi kode ini, ia melakukan monomorfisasi. Selama proses
+itu, compiler membaca nilai-nilai yang telah dipakai dalam instance
+`Option<T>` dan mengidentifikasi dua jenis `Option<T>`: satu adalah `i32` dan
+satunya lagi `f64`. Dengan demikian, ia memperluas definisi generik
+`Option<T>` menjadi dua definisi yang terspesialisasi untuk `i32` dan `f64`,
+lalu mengganti definisi generiknya dengan definisi-definisi spesifik
+tersebut.
 
-The monomorphized version of the code looks similar to the following (the
-compiler uses different names than what we’re using here for illustration):
+Versi kode yang telah dimonomorfisasi tampak mirip dengan yang berikut
+(compiler memakai nama yang berbeda dari yang kita pakai di sini untuk
+ilustrasi):
 
 <Listing file-name="src/main.rs">
 
@@ -315,9 +340,9 @@ fn main() {
 
 </Listing>
 
-The generic `Option<T>` is replaced with the specific definitions created by
-the compiler. Because Rust compiles generic code into code that specifies the
-type in each instance, we pay no runtime cost for using generics. When the code
-runs, it performs just as it would if we had duplicated each definition by
-hand. The process of monomorphization makes Rust’s generics extremely efficient
-at runtime.
+`Option<T>` yang generik diganti dengan definisi-definisi spesifik yang
+dibuat compiler. Karena Rust mengompilasi kode generik menjadi kode yang
+menentukan tipe di setiap instance, kita tidak membayar biaya *runtime*
+untuk memakai generics. Ketika kode berjalan, kinerjanya sama seperti jika
+kita menduplikasi setiap definisi secara manual. Proses monomorfisasi
+membuat generics Rust sangat efisien di *runtime*.

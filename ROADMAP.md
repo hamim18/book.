@@ -6,12 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 09 (penanganan galat) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch10-00-generics.md`
-  (Bab 10, 4 file; mulai dari `ch10-00`).
+- Bab terakhir selesai: Bab 10 (tipe generik, trait, dan lifetime) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch11-00-testing.md`
+  (Bab 11, 4 file; mulai dari `ch11-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 09 (exit 0); dijadwalkan lagi
-  setelah Bab 12.
+- `mdbook test` terakhir lulus: setelah Bab 10 (exit 0); dijadwalkan lagi
+  setelah Bab 14.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -96,7 +96,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 07      |       6 |     0 |     0 |     6 |
 | Bab 08      |       4 |     0 |     0 |     4 |
 | Bab 09      |       4 |     0 |     0 |     4 |
-| Bab 10      |       0 |     0 |     4 |     4 |
+| Bab 10      |       4 |     0 |     0 |     4 |
 | Bab 11      |       0 |     0 |     4 |     4 |
 | Bab 12      |       0 |     0 |     7 |     7 |
 | Bab 13      |       0 |     0 |     5 |     5 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      38 |     0 |    74 |   112 |
+| TOTAL       |      42 |     0 |    70 |   112 |
 
 ## Log keputusan istilah
 
@@ -327,6 +327,17 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | malformed | cacat | 09 |
 | rate limit | batas laju (rate limit) | 09 |
 | out-of-bounds | di luar batas | 09 |
+| monomorphization | *monomorphization* (monomorfisasi) | 10 |
+| trait bound | *trait bound* (batasan trait) | 10 |
+| interface | *interface* (antarmuka) | 10 |
+| coherence | *coherence* (koherensi) | 10 |
+| orphan rule | *orphan rule* (aturan anak yatim) | 10 |
+| blanket implementation | *blanket implementation* (implementasi menyeluruh) | 10 |
+| lifetime elision rules | *lifetime elision rules* (aturan elision lifetime) | 10 |
+| input lifetime / output lifetime | *input lifetime* (lifetime masukan) / *output lifetime* (lifetime keluaran) | 10 |
+| dynamically typed | *dynamically typed* (bertipe dinamis) | 10 |
+| default implementation | implementasi bawaan | 10 |
+| Appendix (merujuk lampiran buku) | Lampiran | 10 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -350,10 +361,6 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 ## Masalah terbuka
 
-- Beres saat sesi ini (heading final sudah cocok dengan teks tautan):
-  ch07-03 “Path untuk Merujuk Item di dalam Pohon Modul”, ch08-02
-  “Menyimpan Teks Terenkode UTF-8 dengan String”, ch09-01 “Galat yang Tidak
-  Dapat Dipulihkan dengan `panic!`”.
 - Teks tautan yang diterjemahkan di bab terdahulu harus cocok dengan heading
   final file tujuan (diperiksa saat file itu dikerjakan):
   ch15-02 “Menggunakan Deref Coercions di dalam Fungsi dan Metode”;
@@ -366,10 +373,14 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch11-01 “Cara Menulis Pengujian” (dari ch07-04);
   ch14-02 seksi “Mengekspor API Publik yang Mudah Dipakai” (dari ch07-04);
   ch15-02 “Mengikuti Reference Menuju Nilai” (dari ch08-01);
-  ch10-03 “Memvalidasi Reference dengan Lifetime” (dari ch08-03);
   ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
   (dari ch09-02);
   ch18-03 “Menyandikan State dan Perilaku sebagai Tipe” (dari ch09-03).
+- Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
+  (dicatat di sini supaya cocok saat bab itu dikerjakan):
+  ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime”;
+  ch13-03 & ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
+  ch15-02 & ch20-02 → ch10-02 “Mengimplementasikan Trait pada Suatu Tipe”.
 - Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
   ch12-06 (“Writing Error Messages to Standard Error Instead of Standard
   Output”) tidak persis sama bahkan di teks asli; putuskan keselarasan saat
@@ -383,7 +394,12 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch05-03 → ch07-03 (`#exposing-paths-with-the-pub-keyword`, heading kini
   “Mengekspos Path dengan Kata Kunci `pub`”), intra-bab ch08-03
   (`#accessing-values-in-a-hash-map`, heading kini “Mengakses Nilai di
-  dalam Hash Map”), dan ch12-01 → ch07-04
+  dalam Hash Map”), ch08-03 & ch12-04 → ch10-03
+  (`#validating-references-with-lifetimes`, heading kini “Memvalidasi
+  Reference dengan Lifetime”), ch15-02 & ch20-02 → ch10-02
+  (`#implementing-a-trait-on-a-type`, heading kini “Mengimplementasikan
+  Trait pada Suatu Tipe”; anchor ini otomatis dari heading, tidak ada
+  tag `<a id>` lama), dan ch12-01 → ch07-04
   (`#creating-idiomatic-use-paths`, heading kini “Membuat Path `use` yang
   Idiomatis”; sumbernya belum diterjemahkan, ingat saat ch12 dikerjakan).
   Heading `### Shadowing` (ch03-01) sengaja dipertahankan karena ch02
