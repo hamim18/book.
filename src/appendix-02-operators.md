@@ -1,206 +1,207 @@
-## Appendix B: Operators and Symbols
+## Lampiran B: Operator dan Simbol
 
-This appendix contains a glossary of Rust’s syntax, including operators and
-other symbols that appear by themselves or in the context of paths, generics,
-trait bounds, macros, attributes, comments, tuples, and brackets.
+Lampiran ini memuat glosarium sintaks Rust, termasuk operator dan simbol lain
+yang muncul sendiri-sendiri atau dalam konteks path, generics, trait bound,
+macro, atribut, komentar, tuple, dan tanda kurung.
 
-### Operators
+### Operator
 
-Table B-1 contains the operators in Rust, an example of how the operator would
-appear in context, a short explanation, and whether that operator is
-overloadable. If an operator is overloadable, the relevant trait to use to
-overload that operator is listed.
+Tabel B-1 memuat operator-operator di Rust, contoh bagaimana operator itu muncul
+dalam konteks, penjelasan singkat, dan apakah operator tersebut dapat
+di-overload. Jika suatu operator dapat di-overload, trait yang relevan untuk
+meng-overload operator itu dicantumkan.
 
-<span class="caption">Table B-1: Operators</span>
+<span class="caption">Tabel B-1: Operator</span>
 
-| Operator                  | Example                                                 | Explanation                                                           | Overloadable?  |
-| ------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
-| `!`                       | `ident!(...)`, `ident!{...}`, `ident![...]`             | Macro expansion                                                       |                |
-| `!`                       | `!expr`                                                 | Bitwise or logical complement                                         | `Not`          |
-| `!=`                      | `expr != expr`                                          | Nonequality comparison                                                | `PartialEq`    |
-| `%`                       | `expr % expr`                                           | Arithmetic remainder                                                  | `Rem`          |
-| `%=`                      | `var %= expr`                                           | Arithmetic remainder and assignment                                   | `RemAssign`    |
-| `&`                       | `&expr`, `&mut expr`                                    | Borrow                                                                |                |
-| `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Borrowed pointer type                                                 |                |
-| `&`                       | `expr & expr`                                           | Bitwise AND                                                           | `BitAnd`       |
-| `&=`                      | `var &= expr`                                           | Bitwise AND and assignment                                            | `BitAndAssign` |
-| `&&`                      | `expr && expr`                                          | Short-circuiting logical AND                                          |                |
-| `*`                       | `expr * expr`                                           | Arithmetic multiplication                                             | `Mul`          |
-| `*=`                      | `var *= expr`                                           | Arithmetic multiplication and assignment                              | `MulAssign`    |
-| `*`                       | `*expr`                                                 | Dereference                                                           | `Deref`        |
-| `*`                       | `*const type`, `*mut type`                              | Raw pointer                                                           |                |
-| `+`                       | `trait + trait`, `'a + trait`                           | Compound type constraint                                              |                |
-| `+`                       | `expr + expr`                                           | Arithmetic addition                                                   | `Add`          |
-| `+=`                      | `var += expr`                                           | Arithmetic addition and assignment                                    | `AddAssign`    |
-| `,`                       | `expr, expr`                                            | Argument and element separator                                        |                |
-| `-`                       | `- expr`                                                | Arithmetic negation                                                   | `Neg`          |
-| `-`                       | `expr - expr`                                           | Arithmetic subtraction                                                | `Sub`          |
-| `-=`                      | `var -= expr`                                           | Arithmetic subtraction and assignment                                 | `SubAssign`    |
-| `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Function and closure return type                                      |                |
-| `.`                       | `expr.ident`                                            | Field access                                                          |                |
-| `.`                       | `expr.ident(expr, ...)`                                 | Method call                                                           |                |
-| `.`                       | `expr.0`, `expr.1`, and so on                           | Tuple indexing                                                        |                |
-| `..`                      | `..`, `expr..`, `..expr`, `expr..expr`                  | Right-exclusive range literal                                         | `PartialOrd`   |
-| `..=`                     | `..=expr`, `expr..=expr`                                | Right-inclusive range literal                                         | `PartialOrd`   |
-| `..`                      | `..expr`                                                | Struct literal update syntax                                          |                |
-| `..`                      | `variant(x, ..)`, `struct_type { x, .. }`               | “And the rest” pattern binding                                        |                |
-| `...`                     | `expr...expr`                                           | (Deprecated, use `..=` instead) In a pattern: inclusive range pattern |                |
-| `/`                       | `expr / expr`                                           | Arithmetic division                                                   | `Div`          |
-| `/=`                      | `var /= expr`                                           | Arithmetic division and assignment                                    | `DivAssign`    |
-| `:`                       | `pat: type`, `ident: type`                              | Constraints                                                           |                |
-| `:`                       | `ident: expr`                                           | Struct field initializer                                              |                |
-| `:`                       | `'a: loop {...}`                                        | Loop label                                                            |                |
-| `;`                       | `expr;`                                                 | Statement and item terminator                                         |                |
-| `;`                       | `[...; len]`                                            | Part of fixed-size array syntax                                       |                |
-| `<<`                      | `expr << expr`                                          | Left-shift                                                            | `Shl`          |
-| `<<=`                     | `var <<= expr`                                          | Left-shift and assignment                                             | `ShlAssign`    |
-| `<`                       | `expr < expr`                                           | Less than comparison                                                  | `PartialOrd`   |
-| `<=`                      | `expr <= expr`                                          | Less than or equal to comparison                                      | `PartialOrd`   |
-| `=`                       | `var = expr`, `ident = type`                            | Assignment/equivalence                                                |                |
-| `==`                      | `expr == expr`                                          | Equality comparison                                                   | `PartialEq`    |
-| `=>`                      | `pat => expr`                                           | Part of match arm syntax                                              |                |
-| `>`                       | `expr > expr`                                           | Greater than comparison                                               | `PartialOrd`   |
-| `>=`                      | `expr >= expr`                                          | Greater than or equal to comparison                                   | `PartialOrd`   |
-| `>>`                      | `expr >> expr`                                          | Right-shift                                                           | `Shr`          |
-| `>>=`                     | `var >>= expr`                                          | Right-shift and assignment                                            | `ShrAssign`    |
-| `@`                       | `ident @ pat`                                           | Pattern binding                                                       |                |
-| `^`                       | `expr ^ expr`                                           | Bitwise exclusive OR                                                  | `BitXor`       |
-| `^=`                      | `var ^= expr`                                           | Bitwise exclusive OR and assignment                                   | `BitXorAssign` |
-| <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Pattern alternatives                                                  |                |
-| <code>&vert;</code>       | <code>expr &vert; expr</code>                           | Bitwise OR                                                            | `BitOr`        |
-| <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | Bitwise OR and assignment                                             | `BitOrAssign`  |
-| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | Short-circuiting logical OR                                           |                |
-| `?`                       | `expr?`                                                 | Error propagation                                                     |                |
+| Operator                  | Contoh                                                  | Penjelasan                                                                     | Dapat di-Overload? |
+| ------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------ |
+| `!`                       | `ident!(...)`, `ident!{...}`, `ident![...]`             | Ekspansi macro                                                                 |                    |
+| `!`                       | `!expr`                                                 | Komplemen bitwise atau logis                                                   | `Not`              |
+| `!=`                      | `expr != expr`                                          | Perbandingan ketidaksamaan                                                     | `PartialEq`        |
+| `%`                       | `expr % expr`                                           | Sisa pembagian aritmetika                                                      | `Rem`              |
+| `%=`                      | `var %= expr`                                           | Sisa pembagian aritmetika dan penetapan                                        | `RemAssign`        |
+| `&`                       | `&expr`, `&mut expr`                                    | Peminjaman                                                                     |                    |
+| `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Tipe pointer yang dipinjam                                                     |                    |
+| `&`                       | `expr & expr`                                           | AND bitwise                                                                    | `BitAnd`           |
+| `&=`                      | `var &= expr`                                           | AND bitwise dan penetapan                                                      | `BitAndAssign`     |
+| `&&`                      | `expr && expr`                                          | AND logis dengan evaluasi hubung singkat                                       |                    |
+| `*`                       | `expr * expr`                                           | Perkalian aritmetika                                                           | `Mul`              |
+| `*=`                      | `var *= expr`                                           | Perkalian aritmetika dan penetapan                                             | `MulAssign`        |
+| `*`                       | `*expr`                                                 | Dereferensi                                                                    | `Deref`            |
+| `*`                       | `*const type`, `*mut type`                              | Pointer mentah                                                                 |                    |
+| `+`                       | `trait + trait`, `'a + trait`                           | Batasan tipe majemuk                                                           |                    |
+| `+`                       | `expr + expr`                                           | Penjumlahan aritmetika                                                         | `Add`              |
+| `+=`                      | `var += expr`                                           | Penjumlahan aritmetika dan penetapan                                           | `AddAssign`        |
+| `,`                       | `expr, expr`                                            | Pemisah argumen dan elemen                                                     |                    |
+| `-`                       | `- expr`                                                | Negasi aritmetika                                                              | `Neg`              |
+| `-`                       | `expr - expr`                                           | Pengurangan aritmetika                                                         | `Sub`              |
+| `-=`                      | `var -= expr`                                           | Pengurangan aritmetika dan penetapan                                           | `SubAssign`        |
+| `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Tipe kembalian fungsi dan closure                                              |                    |
+| `.`                       | `expr.ident`                                            | Akses field                                                                    |                    |
+| `.`                       | `expr.ident(expr, ...)`                                 | Pemanggilan metode                                                             |                    |
+| `.`                       | `expr.0`, `expr.1`, dan seterusnya                      | Pengindeksan tuple                                                             |                    |
+| `..`                      | `..`, `expr..`, `..expr`, `expr..expr`                  | Literal rentang eksklusif-kanan                                                | `PartialOrd`       |
+| `..=`                     | `..=expr`, `expr..=expr`                                | Literal rentang inklusif-kanan                                                 | `PartialOrd`       |
+| `..`                      | `..expr`                                                | Sintaks update literal struct                                                  |                    |
+| `..`                      | `variant(x, ..)`, `struct_type { x, .. }`               | Pengikatan pola “dan sisanya”                                                  |                    |
+| `...`                     | `expr...expr`                                           | (Usang, pakai `..=` saja) Di dalam pola: pola rentang inklusif                 |                    |
+| `/`                       | `expr / expr`                                           | Pembagian aritmetika                                                           | `Div`              |
+| `/=`                      | `var /= expr`                                           | Pembagian aritmetika dan penetapan                                             | `DivAssign`        |
+| `:`                       | `pat: type`, `ident: type`                              | Batasan                                                                        |                    |
+| `:`                       | `ident: expr`                                           | Penginisialisasi field struct                                                  |                    |
+| `:`                       | `'a: loop {...}`                                        | Label perulangan                                                               |                    |
+| `;`                       | `expr;`                                                 | Terminator pernyataan dan item                                                 |                    |
+| `;`                       | `[...; len]`                                            | Bagian dari sintaks array berukuran tetap                                      |                    |
+| `<<`                      | `expr << expr`                                          | Pergeseran kiri                                                                | `Shl`              |
+| `<<=`                     | `var <<= expr`                                          | Pergeseran kiri dan penetapan                                                  | `ShlAssign`        |
+| `<`                       | `expr < expr`                                           | Perbandingan kurang dari                                                       | `PartialOrd`       |
+| `<=`                      | `expr <= expr`                                          | Perbandingan kurang dari atau sama dengan                                      | `PartialOrd`       |
+| `=`                       | `var = expr`, `ident = type`                            | Penetapan/kesetaraan                                                           |                    |
+| `==`                      | `expr == expr`                                          | Perbandingan kesamaan                                                          | `PartialEq`        |
+| `=>`                      | `pat => expr`                                           | Bagian dari sintaks arm match                                                  |                    |
+| `>`                       | `expr > expr`                                           | Perbandingan lebih dari                                                        | `PartialOrd`       |
+| `>=`                      | `expr >= expr`                                          | Perbandingan lebih dari atau sama dengan                                       | `PartialOrd`       |
+| `>>`                      | `expr >> expr`                                          | Pergeseran kanan                                                               | `Shr`              |
+| `>>=`                     | `var >>= expr`                                          | Pergeseran kanan dan penetapan                                                 | `ShrAssign`        |
+| `@`                       | `ident @ pat`                                           | Pengikatan pola                                                                |                    |
+| `^`                       | `expr ^ expr`                                           | OR eksklusif bitwise                                                           | `BitXor`           |
+| `^=`                      | `var ^= expr`                                           | OR eksklusif bitwise dan penetapan                                             | `BitXorAssign`     |
+| <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Alternatif pola                                                                |                    |
+| <code>&vert;</code>       | <code>expr &vert; expr</code>                           | OR bitwise                                                                     | `BitOr`            |
+| <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan penetapan                                                       | `BitOrAssign`      |
+| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan evaluasi hubung singkat                                        |                    |
+| `?`                       | `expr?`                                                 | Penerusan galat                                                                |                    |
 
-### Non-operator Symbols
+### Simbol Non-operator
 
-The following tables contain all symbols that don’t function as operators; that
-is, they don’t behave like a function or method call.
+Tabel-tabel berikut memuat semua simbol yang tidak berfungsi sebagai operator;
+artinya, simbol-simbol itu tidak berperilaku seperti pemanggilan fungsi atau
+metode.
 
-Table B-2 shows symbols that appear on their own and are valid in a variety of
-locations.
+Tabel B-2 menunjukkan simbol yang muncul sendirian dan berlaku di berbagai
+lokasi.
 
-<span class="caption">Table B-2: Stand-alone Syntax</span>
+<span class="caption">Tabel B-2: Sintaks Berdiri Sendiri</span>
 
-| Symbol                                                                 | Explanation                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `'ident`                                                               | Named lifetime or loop label                                           |
-| Digits immediately followed by `u8`, `i32`, `f64`, `usize`, and so on  | Numeric literal of specific type                                       |
-| `"..."`                                                                | String literal                                                         |
-| `r"..."`, `r#"..."#`, `r##"..."##`, and so on                          | Raw string literal; escape characters not processed                    |
-| `b"..."`                                                               | Byte string literal; constructs an array of bytes instead of a string  |
-| `br"..."`, `br#"..."#`, `br##"..."##`, and so on                       | Raw byte string literal; combination of raw and byte string literal    |
-| `'...'`                                                                | Character literal                                                      |
-| `b'...'`                                                               | ASCII byte literal                                                     |
-| <code>&vert;...&vert; expr</code>                                      | Closure                                                                |
-| `!`                                                                    | Always-empty bottom type for diverging functions                       |
-| `_`                                                                    | “Ignored” pattern binding; also used to make integer literals readable |
+| Symbol                                                                 | Penjelasan                                                                                       |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `'ident`                                                               | Lifetime bernama atau label perulangan                                                           |
+| Digit yang langsung diikuti `u8`, `i32`, `f64`, `usize`, dan seterusnya | Literal numerik bertipe tertentu                                                                 |
+| `"..."`                                                                | String literal                                                                                   |
+| `r"..."`, `r#"..."#`, `r##"..."##`, dan seterusnya                      | Raw string literal; karakter escape tidak diproses                                               |
+| `b"..."`                                                               | Byte string literal; membangun array berisi byte, bukan string                                   |
+| `br"..."`, `br#"..."#`, `br##"..."##`, dan seterusnya                   | Raw byte string literal; gabungan raw dan byte string literal                                    |
+| `'...'`                                                                | Literal karakter                                                                                 |
+| `b'...'`                                                               | Literal byte ASCII                                                                               |
+| <code>&vert;...&vert; expr</code>                                      | Closure                                                                                          |
+| `!`                                                                    | Tipe bottom yang selalu kosong untuk fungsi divergen                                             |
+| `_`                                                                    | Pengikatan pola “yang diabaikan”; juga dipakai untuk membuat literal integer mudah dibaca        |
 
-Table B-3 shows symbols that appear in the context of a path through the module
-hierarchy to an item.
+Tabel B-3 menunjukkan simbol yang muncul dalam konteks path menuju suatu item
+melalui hierarki module.
 
-<span class="caption">Table B-3: Path-Related Syntax</span>
+<span class="caption">Tabel B-3: Sintaks Terkait Path</span>
 
-| Symbol                                  | Explanation                                                                                                  |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------|
-| `ident::ident`                          | Namespace path                                                                                               |
-| `::path`                                | Path relative to the crate root (that is, an explicitly absolute path)                                       |
-| `self::path`                            | Path relative to the current module (that is, an explicitly relative path)                                   |
-| `super::path`                           | Path relative to the parent of the current module                                                            |
-| `type::ident`, `<type as trait>::ident` | Associated constants, functions, and types                                                                   |
-| `<type>::...`                           | Associated item for a type that cannot be directly named (for example, `<&T>::...`, `<[T]>::...`, and so on) |
-| `trait::method(...)`                    | Disambiguating a method call by naming the trait that defines it                                             |
-| `type::method(...)`                     | Disambiguating a method call by naming the type for which it’s defined                                       |
-| `<type as trait>::method(...)`          | Disambiguating a method call by naming the trait and type                                                    |
+| Symbol                                  | Penjelasan                                                                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `ident::ident`                          | Path ruang nama                                                                                                               |
+| `::path`                                | Path relatif terhadap akar crate (yaitu, path yang secara eksplisit absolut)                                                  |
+| `self::path`                            | Path relatif terhadap module saat ini (yaitu, path yang secara eksplisit relatif)                                             |
+| `super::path`                           | Path relatif terhadap induk module saat ini                                                                                    |
+| `type::ident`, `<type as trait>::ident` | Konstanta, fungsi, dan tipe asosiasi                                                                                           |
+| `<type>::...`                           | Item asosiasi untuk tipe yang tidak dapat dinamai secara langsung (misalnya, `<&T>::...`, `<[T]>::...`, dan seterusnya)        |
+| `trait::method(...)`                    | Mendisambiguasi pemanggilan metode dengan menamai trait yang mendefinisikannya                                                 |
+| `type::method(...)`                     | Mendisambiguasi pemanggilan metode dengan menamai tipe tempat metode itu didefinisikan                                         |
+| `<type as trait>::method(...)`          | Mendisambiguasi pemanggilan metode dengan menamai trait dan tipenya                                                             |
 
-Table B-4 shows symbols that appear in the context of using generic type
-parameters.
+Tabel B-4 menunjukkan simbol yang muncul dalam konteks pemakaian parameter
+tipe generik.
 
-<span class="caption">Table B-4: Generics</span>
+<span class="caption">Tabel B-4: Generics</span>
 
-| Symbol                         | Explanation                                                                                                                                         |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path<...>`                    | Specifies parameters to a generic type in a type (for example, `Vec<u8>`)                                                                           |
-| `path::<...>`, `method::<...>` | Specifies parameters to a generic type, function, or method in an expression; often referred to as _turbofish_ (for example, `"42".parse::<i32>()`) |
-| `fn ident<...> ...`            | Define generic function                                                                                                                             |
-| `struct ident<...> ...`        | Define generic structure                                                                                                                            |
-| `enum ident<...> ...`          | Define generic enumeration                                                                                                                          |
-| `impl<...> ...`                | Define generic implementation                                                                                                                       |
-| `for<...> type`                | Higher ranked lifetime bounds                                                                                                                       |
-| `type<ident=type>`             | A generic type where one or more associated types have specific assignments (for example, `Iterator<Item=T>`)                                       |
+| Symbol                         | Penjelasan                                                                                                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path<...>`                    | Menentukan parameter untuk tipe generik dalam suatu tipe (misalnya, `Vec<u8>`)                                                                                 |
+| `path::<...>`, `method::<...>` | Menentukan parameter untuk tipe, fungsi, atau metode generik dalam suatu ekspresi; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
+| `fn ident<...> ...`            | Mendefinisikan fungsi generik                                                                                                                                  |
+| `struct ident<...> ...`        | Mendefinisikan struktur generik                                                                                                                                |
+| `enum ident<...> ...`          | Mendefinisikan enumerasi generik                                                                                                                               |
+| `impl<...> ...`                | Mendefinisikan implementasi generik                                                                                                                            |
+| `for<...> type`                | Batasan lifetime berperingkat lebih tinggi                                                                                                                     |
+| `type<ident=type>`             | Tipe generik yang satu atau beberapa associated type-nya memiliki penetapan spesifik (misalnya, `Iterator<Item=T>`)                                            |
 
-Table B-5 shows symbols that appear in the context of constraining generic type
-parameters with trait bounds.
+Tabel B-5 menunjukkan simbol yang muncul dalam konteks pembatasan parameter
+tipe generik dengan trait bound.
 
-<span class="caption">Table B-5: Trait Bound Constraints</span>
+<span class="caption">Tabel B-5: Batasan Trait Bound</span>
 
-| Symbol                        | Explanation                                                                                                                                |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `T: U`                        | Generic parameter `T` constrained to types that implement `U`                                                                              |
-| `T: 'a`                       | Generic type `T` must outlive lifetime `'a` (meaning the type cannot transitively contain any references with lifetimes shorter than `'a`) |
-| `T: 'static`                  | Generic type `T` contains no borrowed references other than `'static` ones                                                                 |
-| `'b: 'a`                      | Generic lifetime `'b` must outlive lifetime `'a`                                                                                           |
-| `T: ?Sized`                   | Allow generic type parameter to be a dynamically sized type                                                                                |
-| `'a + trait`, `trait + trait` | Compound type constraint                                                                                                                   |
+| Symbol                        | Penjelasan                                                                                                                                              |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `T: U`                        | Parameter generik `T` dibatasi pada tipe-tipe yang mengimplementasikan `U`                                                                               |
+| `T: 'a`                       | Tipe generik `T` harus hidup lebih lama daripada lifetime `'a` (artinya tipe itu tidak boleh memuat reference apa pun secara transitif dengan lifetime yang lebih pendek daripada `'a`) |
+| `T: 'static`                  | Tipe generik `T` tidak memuat reference yang dipinjam selain reference `'static`                                                                         |
+| `'b: 'a`                      | Lifetime generik `'b` harus hidup lebih lama daripada lifetime `'a`                                                                                      |
+| `T: ?Sized`                   | Mengizinkan parameter tipe generik menjadi tipe berukuran dinamis                                                                                        |
+| `'a + trait`, `trait + trait` | Batasan tipe majemuk                                                                                                                                     |
 
-Table B-6 shows symbols that appear in the context of calling or defining
-macros and specifying attributes on an item.
+Tabel B-6 menunjukkan simbol yang muncul dalam konteks pemanggilan atau
+pendefinisian macro dan penentuan atribut pada suatu item.
 
-<span class="caption">Table B-6: Macros and Attributes</span>
+<span class="caption">Tabel B-6: Macro dan Atribut</span>
 
-| Symbol                                      | Explanation        |
+| Symbol                                      | Penjelasan         |
 | ------------------------------------------- | ------------------ |
-| `#[meta]`                                   | Outer attribute    |
-| `#![meta]`                                  | Inner attribute    |
-| `$ident`                                    | Macro substitution |
-| `$ident:kind`                               | Macro metavariable |
-| `$(...)...`                                 | Macro repetition   |
-| `ident!(...)`, `ident!{...}`, `ident![...]` | Macro invocation   |
+| `#[meta]`                                   | Atribut luar       |
+| `#![meta]`                                  | Atribut dalam      |
+| `$ident`                                    | Substitusi macro   |
+| `$ident:kind`                               | Metavariabel macro |
+| `$(...)...`                                 | Pengulangan macro  |
+| `ident!(...)`, `ident!{...}`, `ident![...]` | Invokasi macro     |
 
-Table B-7 shows symbols that create comments.
+Tabel B-7 menunjukkan simbol yang membuat komentar.
 
-<span class="caption">Table B-7: Comments</span>
+<span class="caption">Tabel B-7: Komentar</span>
 
-| Symbol     | Explanation             |
-| ---------- | ----------------------- |
-| `//`       | Line comment            |
-| `//!`      | Inner line doc comment  |
-| `///`      | Outer line doc comment  |
-| `/*...*/`  | Block comment           |
-| `/*!...*/` | Inner block doc comment |
-| `/**...*/` | Outer block doc comment |
+| Symbol     | Penjelasan            |
+| ---------- | --------------------- |
+| `//`       | Komentar baris        |
+| `//!`      | Komentar dok baris dalam  |
+| `///`      | Komentar dok baris luar  |
+| `/*...*/`  | Komentar blok         |
+| `/*!...*/` | Komentar dok blok dalam |
+| `/**...*/` | Komentar dok blok luar |
 
-Table B-8 shows the contexts in which parentheses are used.
+Tabel B-8 menunjukkan konteks pemakaian tanda kurung.
 
-<span class="caption">Table B-8: Parentheses</span>
+<span class="caption">Tabel B-8: Tanda Kurung</span>
 
-| Symbol                   | Explanation                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| `()`                     | Empty tuple (aka unit), both literal and type                                               |
-| `(expr)`                 | Parenthesized expression                                                                    |
-| `(expr,)`                | Single-element tuple expression                                                             |
-| `(type,)`                | Single-element tuple type                                                                   |
-| `(expr, ...)`            | Tuple expression                                                                            |
-| `(type, ...)`            | Tuple type                                                                                  |
-| `expr(expr, ...)`        | Function call expression; also used to initialize tuple `struct`s and tuple `enum` variants |
+| Symbol                   | Penjelasan                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `()`                     | Tuple kosong (alias unit), baik sebagai literal maupun tipe                                        |
+| `(expr)`                 | Ekspresi dalam tanda kurung                                                                        |
+| `(expr,)`                | Ekspresi tuple satu elemen                                                                         |
+| `(type,)`                | Tipe tuple satu elemen                                                                             |
+| `(expr, ...)`            | Ekspresi tuple                                                                                     |
+| `(type, ...)`            | Tipe tuple                                                                                         |
+| `expr(expr, ...)`        | Ekspresi pemanggilan fungsi; juga dipakai untuk menginisialisasi `struct` tuple dan varian `enum` tuple |
 
-Table B-9 shows the contexts in which curly brackets are used.
+Tabel B-9 menunjukkan konteks pemakaian kurung kurawal.
 
-<span class="caption">Table B-9: Curly Brackets</span>
+<span class="caption">Tabel B-9: Kurung Kurawal</span>
 
-| Context      | Explanation      |
-| ------------ | ---------------- |
-| `{...}`      | Block expression |
-| `Type {...}` | Struct literal   |
+| Context      | Penjelasan     |
+| ------------ | -------------- |
+| `{...}`      | Ekspresi blok  |
+| `Type {...}` | Literal struct |
 
-Table B-10 shows the contexts in which square brackets are used.
+Tabel B-10 menunjukkan konteks pemakaian kurung siku.
 
-<span class="caption">Table B-10: Square Brackets</span>
+<span class="caption">Tabel B-10: Kurung Siku</span>
 
-| Context                                            | Explanation                                                                                                                   |
-| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `[...]`                                            | Array literal                                                                                                                 |
-| `[expr; len]`                                      | Array literal containing `len` copies of `expr`                                                                               |
-| `[type; len]`                                      | Array type containing `len` instances of `type`                                                                               |
-| `expr[expr]`                                       | Collection indexing; overloadable (`Index`, `IndexMut`)                                                                       |
-| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Collection indexing pretending to be collection slicing, using `Range`, `RangeFrom`, `RangeTo`, or `RangeFull` as the “index” |
+| Context                                            | Penjelasan                                                                                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `[...]`                                            | Literal array                                                                                                                  |
+| `[expr; len]`                                      | Literal array berisi `len` salinan `expr`                                                                                      |
+| `[type; len]`                                      | Tipe array berisi `len` instance dari `type`                                                                                   |
+| `expr[expr]`                                       | Pengindeksan koleksi; dapat di-overload (`Index`, `IndexMut`)                                                                  |
+| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Pengindeksan koleksi yang berperan sebagai slicing koleksi, memakai `Range`, `RangeFrom`, `RangeTo`, atau `RangeFull` sebagai “index” |

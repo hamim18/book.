@@ -1,7 +1,8 @@
-## Appendix F: Translations of the Book
+## Lampiran F: Terjemahan Buku Ini
 
-For resources in languages other than English. Most are still in progress; see
-[the Translations label][label] to help or let us know about a new translation!
+Untuk sumber daya dalam bahasa selain Inggris. Sebagian besar masih dalam
+pengerjaan; lihat [label Translations][label] untuk membantu atau memberi tahu
+kami tentang terjemahan baru!
 
 [label]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 

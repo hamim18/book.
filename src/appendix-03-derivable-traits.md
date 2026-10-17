@@ -1,183 +1,195 @@
-## Appendix C: Derivable Traits
+## Lampiran C: Trait yang Dapat Diturunkan
 
-In various places in the book, we’ve discussed the `derive` attribute, which
-you can apply to a struct or enum definition. The `derive` attribute generates
-code that will implement a trait with its own default implementation on the
-type you’ve annotated with the `derive` syntax.
+Di berbagai bagian buku ini, kita sudah membahas atribut `derive`, yang dapat
+Anda terapkan pada definisi struct atau enum. Atribut `derive` menghasilkan kode
+yang mengimplementasikan trait dengan implementasi bawaannya sendiri pada tipe
+yang Anda beri anotasi dengan sintaks `derive`.
 
-In this appendix, we provide a reference of all the traits in the standard
-library that you can use with `derive`. Each section covers:
+Dalam lampiran ini, kami menyajikan rujukan untuk semua trait di pustaka standar
+yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 
-- What operators and methods deriving this trait will enable
-- What the implementation of the trait provided by `derive` does
-- What implementing the trait signifies about the type
-- The conditions in which you’re allowed or not allowed to implement the trait
-- Examples of operations that require the trait
+- Operator dan metode apa saja yang diaktifkan oleh penurunan trait ini
+- Apa yang dilakukan implementasi trait yang disediakan oleh `derive`
+- Apa yang ditandakan oleh pengimplementasian trait itu tentang tipe tersebut
+- Kondisi yang mengizinkan atau tidak mengizinkan Anda mengimplementasikan trait
+  itu
+- Contoh operasi yang memerlukan trait itu
 
-If you want different behavior from that provided by the `derive` attribute,
-consult the [standard library documentation](../std/index.html)<!-- ignore -->
-for each trait for details on how to manually implement them.
+Jika Anda menginginkan perilaku yang berbeda dari yang disediakan atribut
+`derive`, lihat [dokumentasi pustaka standar](../std/index.html)<!-- ignore -->
+untuk setiap trait guna mengetahui detail cara mengimplementasikannya secara
+manual.
 
-The traits listed here are the only ones defined by the standard library that
-can be implemented on your types using `derive`. Other traits defined in the
-standard library don’t have sensible default behavior, so it’s up to you to
-implement them in the way that makes sense for what you’re trying to accomplish.
+Trait yang dicantumkan di sini adalah satu-satunya trait yang didefinisikan oleh
+pustaka standar yang dapat diimplementasikan pada tipe Anda memakai `derive`.
+Trait lain yang didefinisikan di pustaka standar tidak memiliki perilaku bawaan
+yang masuk akal, sehingga terserah Anda untuk mengimplementasikannya dengan cara
+yang masuk akal untuk apa yang ingin Anda capai.
 
-An example of a trait that can’t be derived is `Display`, which handles
-formatting for end users. You should always consider the appropriate way to
-display a type to an end user. What parts of the type should an end user be
-allowed to see? What parts would they find relevant? What format of the data
-would be most relevant to them? The Rust compiler doesn’t have this insight, so
-it can’t provide appropriate default behavior for you.
+Contoh trait yang tidak dapat diturunkan adalah `Display`, yang menangani
+pemformatan untuk pengguna akhir. Anda sebaiknya selalu mempertimbangkan cara
+yang tepat untuk menampilkan suatu tipe kepada pengguna akhir. Bagian tipe mana
+yang boleh dilihat pengguna akhir? Bagian mana yang menurut mereka relevan?
+Format data mana yang paling relevan bagi mereka? Kompilator Rust tidak memiliki
+wawasan ini, sehingga tidak dapat menyediakan perilaku bawaan yang sesuai untuk
+Anda.
 
-The list of derivable traits provided in this appendix is not comprehensive:
-Libraries can implement `derive` for their own traits, making the list of
-traits you can use `derive` with truly open ended. Implementing `derive`
-involves using a procedural macro, which is covered in the [“Custom `derive`
-Macros”][custom-derive-macros]<!-- ignore --> section in Chapter 20.
+Daftar trait yang dapat diturunkan dalam lampiran ini tidaklah lengkap: library
+dapat mengimplementasikan `derive` untuk trait mereka sendiri, sehingga daftar
+trait yang dapat Anda pakai bersama `derive` benar-benar terbuka.
+Mengimplementasikan `derive` melibatkan pemakaian macro prosedural, yang dibahas
+di bagian [“Macro `derive` Kustom”][custom-derive-macros]<!-- ignore --> di Bab
+20.
 
-### `Debug` for Programmer Output
+### `Debug` untuk Keluaran Pemrogram
 
-The `Debug` trait enables debug formatting in format strings, which you
-indicate by adding `:?` within `{}` placeholders.
+Trait `Debug` mengaktifkan pemformatan debug dalam string format, yang Anda
+tandai dengan menambahkan `:?` di dalam placeholder `{}`.
 
-The `Debug` trait allows you to print instances of a type for debugging
-purposes, so you and other programmers using your type can inspect an instance
-at a particular point in a program’s execution.
+Trait `Debug` memungkinkan Anda mencetak instance suatu tipe untuk keperluan
+debugging, sehingga Anda dan pemrogram lain yang memakai tipe Anda dapat
+memeriksa sebuah instance pada titik tertentu dalam eksekusi program.
 
-The `Debug` trait is required, for example, in the use of the `assert_eq!`
-macro. This macro prints the values of instances given as arguments if the
-equality assertion fails so that programmers can see why the two instances
-weren’t equal.
+Trait `Debug` diperlukan, misalnya, dalam pemakaian macro `assert_eq!`. Macro
+ini mencetak nilai instance yang diberikan sebagai argumen jika asersi
+kesamaannya gagal, supaya pemrogram dapat melihat mengapa kedua instance itu
+tidak sama.
 
-### `PartialEq` and `Eq` for Equality Comparisons
+### `PartialEq` dan `Eq` untuk Perbandingan Kesamaan
 
-The `PartialEq` trait allows you to compare instances of a type to check for
-equality and enables use of the `==` and `!=` operators.
+Trait `PartialEq` memungkinkan Anda membandingkan instance suatu tipe untuk
+memeriksa kesamaan dan mengaktifkan pemakaian operator `==` dan `!=`.
 
-Deriving `PartialEq` implements the `eq` method. When `PartialEq` is derived on
-structs, two instances are equal only if _all_ fields are equal, and the
-instances are not equal if _any_ fields are not equal. When derived on enums,
-each variant is equal to itself and not equal to the other variants.
+Menurunkan `PartialEq` mengimplementasikan metode `eq`. Ketika `PartialEq`
+diturunkan pada struct, dua instance dianggap sama hanya jika _semua_ field sama,
+dan instance-instance itu tidak sama jika _salah satu_ field tidak sama. Ketika
+diturunkan pada enum, setiap varian sama dengan dirinya sendiri dan tidak sama
+dengan varian lainnya.
 
-The `PartialEq` trait is required, for example, with the use of the
-`assert_eq!` macro, which needs to be able to compare two instances of a type
-for equality.
+Trait `PartialEq` diperlukan, misalnya, dalam pemakaian macro `assert_eq!`, yang
+harus mampu membandingkan dua instance suatu tipe untuk kesamaan.
 
-The `Eq` trait has no methods. Its purpose is to signal that for every value of
-the annotated type, the value is equal to itself. The `Eq` trait can only be
-applied to types that also implement `PartialEq`, although not all types that
-implement `PartialEq` can implement `Eq`. One example of this is floating-point
-number types: The implementation of floating-point numbers states that two
-instances of the not-a-number (`NaN`) value are not equal to each other.
+Trait `Eq` tidak memiliki metode. Tujuannya adalah memberi sinyal bahwa untuk
+setiap nilai dari tipe yang dianotasi, nilai itu sama dengan dirinya sendiri.
+Trait `Eq` hanya dapat diterapkan pada tipe yang juga mengimplementasikan
+`PartialEq`, meskipun tidak semua tipe yang mengimplementasikan `PartialEq` dapat
+mengimplementasikan `Eq`. Salah satu contohnya adalah tipe angka titik
+mengambang: implementasi angka titik mengambang menyatakan bahwa dua instance
+nilai not-a-number (`NaN`) tidak sama satu sama lain.
 
-An example of when `Eq` is required is for keys in a `HashMap<K, V>` so that
-the `HashMap<K, V>` can tell whether two keys are the same.
+Contoh saat `Eq` diperlukan adalah untuk kunci dalam `HashMap<K, V>`, supaya
+`HashMap<K, V>` dapat mengetahui apakah dua kunci itu sama.
 
-### `PartialOrd` and `Ord` for Ordering Comparisons
+### `PartialOrd` dan `Ord` untuk Perbandingan Urutan
 
-The `PartialOrd` trait allows you to compare instances of a type for sorting
-purposes. A type that implements `PartialOrd` can be used with the `<`, `>`,
-`<=`, and `>=` operators. You can only apply the `PartialOrd` trait to types
-that also implement `PartialEq`.
+Trait `PartialOrd` memungkinkan Anda membandingkan instance suatu tipe untuk
+keperluan pengurutan. Tipe yang mengimplementasikan `PartialOrd` dapat dipakai
+dengan operator `<`, `>`, `<=`, dan `>=`. Anda hanya dapat menerapkan trait
+`PartialOrd` pada tipe yang juga mengimplementasikan `PartialEq`.
 
-Deriving `PartialOrd` implements the `partial_cmp` method, which returns an
-`Option<Ordering>` that will be `None` when the values given don’t produce an
-ordering. An example of a value that doesn’t produce an ordering, even though
-most values of that type can be compared, is the `NaN` floating point value.
-Calling `partial_cmp` with any floating-point number and the `NaN`
-floating-point value will return `None`.
+Menurunkan `PartialOrd` mengimplementasikan metode `partial_cmp`, yang
+mengembalikan `Option<Ordering>` yang akan menjadi `None` ketika nilai yang
+diberikan tidak menghasilkan urutan. Contoh nilai yang tidak menghasilkan
+urutan, meskipun sebagian besar nilai bertipe itu dapat dibandingkan, adalah
+nilai titik mengambang `NaN`. Memanggil `partial_cmp` dengan angka titik
+mengambang mana pun dan nilai titik mengambang `NaN` akan mengembalikan `None`.
 
-When derived on structs, `PartialOrd` compares two instances by comparing the
-value in each field in the order in which the fields appear in the struct
-definition. When derived on enums, variants of the enum declared earlier in the
-enum definition are considered less than the variants listed later.
+Ketika diturunkan pada struct, `PartialOrd` membandingkan dua instance dengan
+membandingkan nilai di setiap field sesuai urutan kemunculan field tersebut
+dalam definisi struct. Ketika diturunkan pada enum, varian enum yang
+dideklarasikan lebih awal dalam definisi enum dianggap kurang dari varian yang
+dicantumkan kemudian.
 
-The `PartialOrd` trait is required, for example, for the `gen_range` method
-from the `rand` crate that generates a random value in the range specified by a
-range expression.
+Trait `PartialOrd` diperlukan, misalnya, untuk metode `gen_range` dari crate
+`rand` yang membangkitkan nilai acak dalam rentang yang ditentukan oleh ekspresi
+rentang.
 
-The `Ord` trait allows you to know that for any two values of the annotated
-type, a valid ordering will exist. The `Ord` trait implements the `cmp` method,
-which returns an `Ordering` rather than an `Option<Ordering>` because a valid
-ordering will always be possible. You can only apply the `Ord` trait to types
-that also implement `PartialOrd` and `Eq` (and `Eq` requires `PartialEq`). When
-derived on structs and enums, `cmp` behaves the same way as the derived
-implementation for `partial_cmp` does with `PartialOrd`.
+Trait `Ord` memungkinkan Anda mengetahui bahwa untuk dua nilai apa pun dari tipe
+yang dianotasi, urutan yang valid akan selalu ada. Trait `Ord`
+mengimplementasikan metode `cmp`, yang mengembalikan `Ordering`, bukan
+`Option<Ordering>`, karena urutan yang valid akan selalu memungkinkan. Anda
+hanya dapat menerapkan trait `Ord` pada tipe yang juga mengimplementasikan
+`PartialOrd` dan `Eq` (dan `Eq` mensyaratkan `PartialEq`). Ketika diturunkan
+pada struct dan enum, `cmp` berperilaku sama seperti implementasi hasil
+penurunan untuk `partial_cmp` pada `PartialOrd`.
 
-An example of when `Ord` is required is when storing values in a `BTreeSet<T>`,
-a data structure that stores data based on the sort order of the values.
+Contoh saat `Ord` diperlukan adalah ketika menyimpan nilai dalam `BTreeSet<T>`,
+struktur data yang menyimpan data berdasarkan urutan sortir nilainya.
 
-### `Clone` and `Copy` for Duplicating Values
+### `Clone` dan `Copy` untuk Menduplikasi Nilai
 
-The `Clone` trait allows you to explicitly create a deep copy of a value, and
-the duplication process might involve running arbitrary code and copying heap
-data. See the [“Variables and Data Interacting with
-Clone”][variables-and-data-interacting-with-clone]<!-- ignore --> section in
-Chapter 4 for more information on `Clone`.
+Trait `Clone` memungkinkan Anda secara eksplisit membuat salinan dalam dari
+sebuah nilai, dan proses duplikasinya mungkin melibatkan menjalankan kode
+arbitrer serta menyalin data di heap. Lihat bagian [“Variabel dan Data yang
+Berinteraksi dengan Clone”][variables-and-data-interacting-with-clone]<!--
+ignore --> di Bab 4 untuk informasi lebih lanjut tentang `Clone`.
 
-Deriving `Clone` implements the `clone` method, which when implemented for the
-whole type, calls `clone` on each of the parts of the type. This means all the
-fields or values in the type must also implement `Clone` to derive `Clone`.
+Menurunkan `Clone` mengimplementasikan metode `clone`, yang ketika
+diimplementasikan untuk seluruh tipe, memanggil `clone` pada setiap bagian tipe
+tersebut. Artinya, semua field atau nilai dalam tipe itu juga harus
+mengimplementasikan `Clone` untuk menurunkan `Clone`.
 
-An example of when `Clone` is required is when calling the `to_vec` method on a
-slice. The slice doesn’t own the type instances it contains, but the vector
-returned from `to_vec` will need to own its instances, so `to_vec` calls
-`clone` on each item. Thus, the type stored in the slice must implement `Clone`.
+Contoh saat `Clone` diperlukan adalah ketika memanggil metode `to_vec` pada
+slice. Slice tidak memiliki instance tipe yang dimuatnya, tetapi vektor yang
+dikembalikan dari `to_vec` perlu memiliki instance-instancenya, sehingga
+`to_vec` memanggil `clone` pada setiap item. Karena itu, tipe yang disimpan
+dalam slice harus mengimplementasikan `Clone`.
 
-The `Copy` trait allows you to duplicate a value by only copying bits stored on
-the stack; no arbitrary code is necessary. See the [“Stack-Only Data:
-Copy”][stack-only-data-copy]<!-- ignore --> section in Chapter 4 for more
-information on `Copy`.
+Trait `Copy` memungkinkan Anda menduplikasi nilai hanya dengan menyalin bit yang
+tersimpan di stack; tidak ada kode arbitrer yang diperlukan. Lihat bagian
+[“Data yang Hanya Ada di Stack: Copy”][stack-only-data-copy]<!-- ignore --> di
+Bab 4 untuk informasi lebih lanjut tentang `Copy`.
 
-The `Copy` trait doesn’t define any methods to prevent programmers from
-overloading those methods and violating the assumption that no arbitrary code
-is being run. That way, all programmers can assume that copying a value will be
-very fast.
+Trait `Copy` tidak mendefinisikan metode apa pun untuk mencegah pemrogram
+meng-overload metode tersebut dan melanggar asumsi bahwa tidak ada kode
+arbitrer yang dijalankan. Dengan demikian, semua pemrogram dapat berasumsi bahwa
+menyalin nilai akan berlangsung sangat cepat.
 
-You can derive `Copy` on any type whose parts all implement `Copy`. A type that
-implements `Copy` must also implement `Clone` because a type that implements
-`Copy` has a trivial implementation of `Clone` that performs the same task as
-`Copy`.
+Anda dapat menurunkan `Copy` pada tipe apa pun yang semua bagiannya
+mengimplementasikan `Copy`. Tipe yang mengimplementasikan `Copy` juga harus
+mengimplementasikan `Clone`, karena tipe yang mengimplementasikan `Copy`
+memiliki implementasi `Clone` yang trivial dan menjalankan tugas yang sama
+seperti `Copy`.
 
-The `Copy` trait is rarely required; types that implement `Copy` have
-optimizations available, meaning you don’t have to call `clone`, which makes
-the code more concise.
+Trait `Copy` jarang diperlukan; tipe yang mengimplementasikan `Copy` memiliki
+optimasi yang tersedia, artinya Anda tidak perlu memanggil `clone`, yang membuat
+kode menjadi lebih ringkas.
 
-Everything possible with `Copy` you can also accomplish with `Clone`, but the
-code might be slower or have to use `clone` in places.
+Semua yang mungkin dilakukan dengan `Copy` juga dapat Anda capai dengan `Clone`,
+tetapi kodenya mungkin lebih lambat atau harus memakai `clone` di beberapa
+tempat.
 
-### `Hash` for Mapping a Value to a Value of Fixed Size
+### `Hash` untuk Memetakan Nilai ke Nilai Berukuran Tetap
 
-The `Hash` trait allows you to take an instance of a type of arbitrary size and
-map that instance to a value of fixed size using a hash function. Deriving
-`Hash` implements the `hash` method. The derived implementation of the `hash`
-method combines the result of calling `hash` on each of the parts of the type,
-meaning all fields or values must also implement `Hash` to derive `Hash`.
+Trait `Hash` memungkinkan Anda mengambil instance suatu tipe berukuran arbitrer
+dan memetakan instance itu ke nilai berukuran tetap memakai fungsi hashing.
+Menurunkan `Hash` mengimplementasikan metode `hash`. Implementasi hasil
+penurunan metode `hash` menggabungkan hasil pemanggilan `hash` pada setiap
+bagian tipe, artinya semua field atau nilai juga harus mengimplementasikan
+`Hash` untuk menurunkan `Hash`.
 
-An example of when `Hash` is required is in storing keys in a `HashMap<K, V>`
-to store data efficiently.
+Contoh saat `Hash` diperlukan adalah ketika menyimpan kunci dalam `HashMap<K,
+V>` untuk menyimpan data secara efisien.
 
-### `Default` for Default Values
+### `Default` untuk Nilai Bawaan
 
-The `Default` trait allows you to create a default value for a type. Deriving
-`Default` implements the `default` function. The derived implementation of the
-`default` function calls the `default` function on each part of the type,
-meaning all fields or values in the type must also implement `Default` to
-derive `Default`.
+Trait `Default` memungkinkan Anda membuat nilai bawaan untuk suatu tipe.
+Menurunkan `Default` mengimplementasikan fungsi `default`. Implementasi hasil
+penurunan fungsi `default` memanggil fungsi `default` pada setiap bagian tipe,
+artinya semua field atau nilai dalam tipe itu juga harus mengimplementasikan
+`Default` untuk menurunkan `Default`.
 
-The `Default::default` function is commonly used in combination with the struct
-update syntax discussed in the [“Creating Instances from Other Instances with
-Struct Update
-Syntax”][creating-instances-from-other-instances-with-struct-update-syntax]<!--
-ignore --> section in Chapter 5. You can customize a few fields of a struct and
-then set and use a default value for the rest of the fields by using
+Fungsi `Default::default` umum dipakai bersama sintaks update struct yang
+dibahas di bagian [“Membuat Instance dengan Sintaks Update
+Struct”][creating-instances-from-other-instances-with-struct-update-syntax]<!--
+ignore --> di Bab 5. Anda dapat mengkustomisasi beberapa field struct, lalu
+menetapkan dan memakai nilai bawaan untuk field sisanya dengan
 `..Default::default()`.
 
-The `Default` trait is required when you use the method `unwrap_or_default` on
-`Option<T>` instances, for example. If the `Option<T>` is `None`, the method
-`unwrap_or_default` will return the result of `Default::default` for the type
-`T` stored in the `Option<T>`.
+Trait `Default` diperlukan, misalnya, ketika Anda memakai metode
+`unwrap_or_default` pada instance `Option<T>`. Jika `Option<T>`-nya adalah
+`None`, metode `unwrap_or_default` akan mengembalikan hasil `Default::default`
+untuk tipe `T` yang tersimpan dalam `Option<T>`.
 
 [creating-instances-from-other-instances-with-struct-update-syntax]: ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
 [stack-only-data-copy]: ch04-01-what-is-ownership.html#stack-only-data-copy

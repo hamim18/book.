@@ -6,13 +6,13 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 21 (proyek akhir web server, 4 file) — Tahap 2
-  selesai. Tinggal Tahap 3 (Appendix) dan Tahap 4 (Pendahuluan).
-- File berikutnya yang dikerjakan: Tahap 3 — `appendix-00.md`
-  (8 file, urut dari `appendix-00`). `foreword.md` masih di kelompok
-  Pendahuluan (Tahap 4, dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 21 (exit 0); dijadwalkan lagi
-  setelah Appendix.
+- Bab terakhir selesai: Tahap 3 — Appendix A s/d G (8 file) selesai dan lulus
+  `cek_terjemahan.py`. Tinggal Tahap 4 (Pendahuluan: `title-page.md`,
+  `foreword.md`, `SUMMARY.md`) dan Tahap 5 (pemeriksaan menyeluruh).
+- File berikutnya yang dikerjakan: Tahap 4 — `title-page.md` + `foreword.md`
+  + `SUMMARY.md` (judul bab diterjemahkan, path tetap; paling akhir supaya
+  judul SUMMARY cocok dengan heading final tiap bab).
+- `mdbook test` terakhir lulus: setelah Appendix (exit 0).
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -24,7 +24,7 @@ Diperbarui di akhir setiap sesi.
       (`terjemah: bab NN <judul>`). Jalankan `mdbook test` (lihat Catatan teknis)
       setiap beberapa bab. (`foreword.md` dipindah ke Tahap 4, bersama kelompok
       Pendahuluan.)
-- [ ] Tahap 3 — `appendix-00` s/d `appendix-07`
+- [x] Tahap 3 — `appendix-00` s/d `appendix-07`
 - [ ] Tahap 4 — `title-page.md` + `SUMMARY.md` (judul bab diterjemahkan, path tetap).
       Paling akhir, supaya judul SUMMARY pasti cocok dengan heading final tiap bab.
 - [ ] Tahap 5 — Pemeriksaan menyeluruh: review kedua (banding `asli/` ↔ `src/`),
@@ -110,8 +110,8 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 19      |       4 |     0 |     0 |     4 |
 | Bab 20      |       6 |     0 |     0 |     6 |
 | Bab 21      |       4 |     0 |     0 |     4 |
-| Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |     101 |     0 |    11 |   112 |
+| Appendix    |       8 |     0 |     0 |     8 |
+| TOTAL       |     109 |     0 |     3 |   112 |
 
 ## Log keputusan istilah
 
@@ -646,6 +646,32 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | robustness | ketangguhan | 21 |
 | enhance | menyempurnakan | 21 |
 | Rustaceans | Rustacean (tetap) | 21 |
+| raw identifier | *raw identifier* (identifier mentah) | App A |
+| module path | (tetap, urutan Inggris) | App A |
+| glossary | glosarium (tanpa miring) | App B |
+| bitwise | bitwise (tetap) | App B |
+| left-shift / right-shift | pergeseran kiri / pergeseran kanan | App B |
+| short-circuit (evaluasi) | evaluasi hubung singkat | App B |
+| bottom type | tipe bottom (tetap, miring) | App B |
+| metavariable | metavariabel | App B |
+| turbofish | _turbofish_ (tetap) | App B |
+| linter | linter (tetap) | App D |
+| autocompletion | pelengkapan otomatis | App D |
+| inline (galat) | inline (tetap) | App D |
+| language server | language server (tetap) | App D |
+| edition | edisi (tanpa miring; sudah dipakai ch00/ch01) | App E |
+| release channel | *release channel* (saluran rilis) | App G |
+| train model / train schedule | model kereta / jadwal kereta | App G |
+| branch (git) | branch (tetap) | App G |
+| regression | regresi | App G |
+| backport | backport (tetap) | App G |
+| feature flag / feature gate | (tetap) | App G |
+| toolchain | *toolchain* (rantai alat) | App G |
+| end of life (EOL) | akhir masa pakai | App G |
+| RFC (Request For Comments) | (tetap, nama resmi) | App G |
+| opt in (verba) | ikut serta / memilih untuk memakai | App G |
+| rock-solid | kokoh | App G |
+| bleeding edge | garis terdepan | App G |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -677,6 +703,12 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   “Komentar Dokumentasi sebagai Pengujian” (dari ch11-01), ch15-02
   “Menggunakan Deref Coercions di dalam Fungsi dan Metode”, ch15-02
   “Mengikuti Reference Menuju Nilai” (dari ch08-01).
+  Sudah beres setelah Appendix: heading final appendix-03 kini
+  `## Lampiran C: Trait yang Dapat Diturunkan` (cocok dengan teks tautan
+  ch04-01/ch10-02); heading final appendix-07 kini `## Lampiran G: Bagaimana
+  Rust Dibuat dan “Nightly Rust”` (cocok dengan teks tautan ch20-01).
+  Catatan: prosa ch04-01 masih menulis “di Appendix C” (bahasa Inggris),
+  tidak konsisten dengan “Lampiran C” di bab lain — ditangani di Tahap 5.
 - Teks tautan baru yang diterjemahkan di sesi ini, harus cocok dengan
   heading final file tujuan (diperiksa saat file itu dikerjakan):
   ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
@@ -785,7 +817,8 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   aslinya. Solusi diputuskan di Tahap 5.
 - Teks tautan ch20-01 → appendix-07 “Lampiran G: Bagaimana Rust Dibuat dan
   “Nightly Rust”” harus cocok dengan heading final appendix-07
-  (diperiksa saat Tahap 3 mengerjakan file itu).
+  (diperiksa saat Tahap 3 mengerjakan file itu). Sudah beres: heading
+  finalnya persis sama dengan teks tautan itu.
 - Anchor otomatis dari heading bab 21 yang menjadi target tautan (heading
   kini diterjemahkan; tag `<a id>` yang ada tidak cocok dengan target
   tautan, yang di teks asli mengandalkan anchor otomatis):
@@ -795,6 +828,21 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   “Sinonim Tipe dan Alias Tipe”; di ch20-03 hanya ada
   `<a id="creating-type-synonyms-with-type-aliases">`). Solusi diputuskan
   di Tahap 5.
+- Anchor otomatis yang menjadi target tautan appendix-03 (heading kini
+  diterjemahkan; di teks asli anchor-nya otomatis dari heading, dan tag
+  `<a id>` yang ada memakai id lama yang tidak cocok):
+  appendix-03 → ch04-01 `#variables-and-data-interacting-with-clone`
+  (heading kini “Variabel dan Data yang Berinteraksi dengan Clone”;
+  `<a id="ways-variables-and-data-interact-clone">` tidak cocok),
+  appendix-03 → ch04-01 `#stack-only-data-copy` (heading kini “Data yang
+  Hanya Ada di Stack: Copy”; tidak ada tag `<a id>`),
+  appendix-03 → ch20-05 `#custom-derive-macros` (heading kini “Macro
+  `derive` Kustom”; `<a id="how-to-write-a-custom-derive-macro">` tidak
+  cocok). Solusi diputuskan di Tahap 5.
+- Heading yang sengaja dipertahankan bahasa Inggris karena menjadi target
+  anchor intra-file: `### Raw Identifiers` (appendix-01,
+  `#raw-identifiers`) dan `### Unstable Features` (appendix-07,
+  `#unstable-features`).
 - Kejanggalan teks asli ch20-05: kalimat “Let’s walk through what the
   pattern pieces in Listing 20-29 mean” merujuk Listing 20-29, padahal
   konteksnya adalah definisi `vec!` di Listing 20-35. Diterjemahkan apa

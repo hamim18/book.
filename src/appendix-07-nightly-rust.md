@@ -1,50 +1,51 @@
-## Appendix G - How Rust is Made and “Nightly Rust”
+## Lampiran G: Bagaimana Rust Dibuat dan “Nightly Rust”
 
-This appendix is about how Rust is made and how that affects you as a Rust
-developer.
+Lampiran ini membahas bagaimana Rust dibuat dan bagaimana hal itu memengaruhi
+Anda sebagai pengembang Rust.
 
-### Stability Without Stagnation
+### Stabilitas Tanpa Stagnasi
 
-As a language, Rust cares a _lot_ about the stability of your code. We want
-Rust to be a rock-solid foundation you can build on, and if things were
-constantly changing, that would be impossible. At the same time, if we can’t
-experiment with new features, we may not find out important flaws until after
-their release, when we can no longer change things.
+Sebagai sebuah bahasa, Rust sangat _memperhatikan_ stabilitas kode Anda. Kami
+ingin Rust menjadi fondasi yang kokoh untuk Anda bangun, dan jika segala
+sesuatunya terus berubah, hal itu mustahil terwujud. Pada saat yang sama, jika
+kami tidak dapat bereksperimen dengan fitur baru, kami mungkin baru menemukan
+kelemahan penting setelah fitur itu dirilis, saat kami tidak bisa lagi mengubah
+apa pun.
 
-Our solution to this problem is what we call “stability without stagnation”,
-and our guiding principle is this: you should never have to fear upgrading to a
-new version of stable Rust. Each upgrade should be painless, but should also
-bring you new features, fewer bugs, and faster compile times.
+Solusi kami untuk masalah ini adalah apa yang kami sebut “stabilitas tanpa
+stagnasi”, dan prinsip panduan kami adalah ini: Anda tidak perlu takut
+meningkatkan ke versi baru Rust stable. Setiap peningkatan seharusnya tidak
+menyakitkan, tetapi juga memberi Anda fitur baru, lebih sedikit bug, dan waktu
+kompilasi yang lebih cepat.
 
-### Choo, Choo! Release Channels and Riding the Trains
+### Choo, Choo! Saluran Rilis dan Menumpangi Kereta
 
-Rust development operates on a _train schedule_. That is, all development is
-done in the main branch of the Rust repository. Releases follow a software
-release train model, which has been used by Cisco IOS and other software
-projects. There are three _release channels_ for Rust:
+Pengembangan Rust berjalan menurut _jadwal kereta_. Artinya, semua pengembangan
+dilakukan di branch main repositori Rust. Rilis mengikuti model kereta rilis
+perangkat lunak, yang telah dipakai oleh Cisco IOS dan proyek perangkat lunak
+lainnya. Ada tiga *release channel* (saluran rilis) untuk Rust:
 
 - Nightly
 - Beta
 - Stable
 
-Most Rust developers primarily use the stable channel, but those who want to
-try out experimental new features may use nightly or beta.
+Sebagian besar pengembang Rust terutama memakai saluran stable, tetapi mereka
+yang ingin mencoba fitur eksperimental baru boleh memakai nightly atau beta.
 
-Here’s an example of how the development and release process works: let’s
-assume that the Rust team is working on the release of Rust 1.5. That release
-happened in December of 2015, but it will provide us with realistic version
-numbers. A new feature is added to Rust: a new commit lands on the main
-branch. Each night, a new nightly version of Rust is produced. Every day is a
-release day, and these releases are created by our release infrastructure
-automatically. So as time passes, our releases look like this, once a night:
+Berikut contoh cara kerja proses pengembangan dan rilis: anggaplah tim Rust
+sedang mengerjakan rilis Rust 1.5. Rilis itu terjadi pada Desember 2015, tetapi
+akan memberi kita nomor versi yang realistis. Sebuah fitur baru ditambahkan ke
+Rust: commit baru masuk ke branch main. Setiap malam, versi nightly Rust yang
+baru diproduksi. Setiap hari adalah hari rilis, dan rilis-rilis ini dibuat oleh
+infrastruktur rilis kami secara otomatis. Jadi, seiring berjalannya waktu,
+rilis kami tampak seperti ini, sekali setiap malam:
 
 ```text
 nightly: * - - * - - *
 ```
 
-Every six weeks, it’s time to prepare a new release! The `beta` branch of the
-Rust repository branches off from the main branch used by nightly. Now,
-there are two releases:
+Setiap enam minggu, tiba saatnya menyiapkan rilis baru! Branch `beta` repositori
+Rust bercabang dari branch main yang dipakai nightly. Sekarang, ada dua rilis:
 
 ```text
 nightly: * - - * - - *
@@ -52,9 +53,9 @@ nightly: * - - * - - *
 beta:                *
 ```
 
-Most Rust users do not use beta releases actively, but test against beta in
-their CI system to help Rust discover possible regressions. In the meantime,
-there’s still a nightly release every night:
+Sebagian besar pengguna Rust tidak memakai rilis beta secara aktif, tetapi
+menguji terhadap beta di sistem CI mereka untuk membantu Rust menemukan
+kemungkinan regresi. Sementara itu, masih ada rilis nightly setiap malam:
 
 ```text
 nightly: * - - * - - * - - * - - *
@@ -62,10 +63,10 @@ nightly: * - - * - - * - - * - - *
 beta:                *
 ```
 
-Let’s say a regression is found. Good thing we had some time to test the beta
-release before the regression snuck into a stable release! The fix is applied
-to the main branch, so that nightly is fixed, and then the fix is backported to
-the `beta` branch, and a new release of beta is produced:
+Katakanlah sebuah regresi ditemukan. Untungnya kita sempat menguji rilis beta
+sebelum regresi itu menyelinap ke rilis stable! Perbaikan diterapkan ke branch
+main, sehingga nightly diperbaiki, lalu perbaikan itu di-backport ke branch
+`beta`, dan rilis beta baru diproduksi:
 
 ```text
 nightly: * - - * - - * - - * - - * - - *
@@ -73,8 +74,8 @@ nightly: * - - * - - * - - * - - * - - *
 beta:                * - - - - - - - - *
 ```
 
-Six weeks after the first beta was created, it’s time for a stable release! The
-`stable` branch is produced from the `beta` branch:
+Enam minggu setelah beta pertama dibuat, tiba saatnya rilis stable! Branch
+`stable` dihasilkan dari branch `beta`:
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -84,10 +85,10 @@ beta:                * - - - - - - - - *
 stable:                                *
 ```
 
-Hooray! Rust 1.5 is done! However, we’ve forgotten one thing: because the six
-weeks have gone by, we also need a new beta of the _next_ version of Rust, 1.6.
-So after `stable` branches off of `beta`, the next version of `beta` branches
-off of `nightly` again:
+Hore! Rust 1.5 selesai! Namun, kita lupa satu hal: karena enam minggu telah
+berlalu, kita juga butuh beta baru untuk versi Rust _berikutnya_, 1.6. Jadi,
+setelah `stable` bercabang dari `beta`, versi `beta` berikutnya bercabang lagi
+dari `nightly`:
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -97,63 +98,66 @@ beta:                * - - - - - - - - *       *
 stable:                                *
 ```
 
-This is called the “train model” because every six weeks, a release “leaves the
-station”, but still has to take a journey through the beta channel before it
-arrives as a stable release.
+Ini disebut “model kereta” karena setiap enam minggu, sebuah rilis “berangkat
+dari stasiun”, tetapi masih harus menempuh perjalanan melalui saluran beta
+sebelum tiba sebagai rilis stable.
 
-Rust releases every six weeks, like clockwork. If you know the date of one Rust
-release, you can know the date of the next one: it’s six weeks later. A nice
-aspect of having releases scheduled every six weeks is that the next train is
-coming soon. If a feature happens to miss a particular release, there’s no need
-to worry: another one is happening in a short time! This helps reduce pressure
-to sneak possibly unpolished features in close to the release deadline.
+Rust merilis setiap enam minggu, seperti jarum jam. Jika Anda tahu tanggal salah
+satu rilis Rust, Anda bisa tahu tanggal rilis berikutnya: enam minggu kemudian.
+Aspek menyenangkan dari rilis yang dijadwalkan setiap enam minggu adalah kereta
+berikutnya segera datang. Jika sebuah fitur kebetulan melewatkan rilis tertentu,
+tidak perlu khawatir: rilis berikutnya akan segera tiba! Ini membantu mengurangi
+tekanan untuk menyelundupkan fitur yang mungkin belum sempurna menjelang tenggat
+rilis.
 
-Thanks to this process, you can always check out the next build of Rust and
-verify for yourself that it’s easy to upgrade to: if a beta release doesn’t
-work as expected, you can report it to the team and get it fixed before the
-next stable release happens! Breakage in a beta release is relatively rare, but
-`rustc` is still a piece of software, and bugs do exist.
+Berkat proses ini, Anda selalu dapat memeriksa build Rust berikutnya dan
+membuktikan sendiri bahwa peningkatannya mudah: jika rilis beta tidak berjalan
+seperti yang diharapkan, Anda dapat melaporkannya ke tim dan mendapat perbaikan
+sebelum rilis stable berikutnya terjadi! Kerusakan pada rilis beta relatif
+jarang, tetapi `rustc` tetaplah sebuah perangkat lunak, dan bug memang ada.
 
-### Maintenance time
+### Waktu Pemeliharaan
 
-The Rust project supports the most recent stable version. When a new stable
-version is released, the old version reaches its end of life (EOL). This means
-each version is supported for six weeks.
+Proyek Rust mendukung versi stable terbaru. Ketika versi stable baru dirilis,
+versi lama mencapai akhir masa pakainya (end of life, EOL). Artinya, setiap
+versi didukung selama enam minggu.
 
 ### Unstable Features
 
-There’s one more catch with this release model: unstable features. Rust uses a
-technique called “feature flags” to determine what features are enabled in a
-given release. If a new feature is under active development, it lands on the
-main branch, and therefore, in nightly, but behind a _feature flag_. If you, as
-a user, wish to try out the work-in-progress feature, you can, but you must be
-using a nightly release of Rust and annotate your source code with the
-appropriate flag to opt in.
+Ada satu lagi hal yang perlu diperhatikan dengan model rilis ini: fitur yang
+tidak stabil. Rust memakai teknik yang disebut “feature flag” untuk menentukan
+fitur apa saja yang diaktifkan pada rilis tertentu. Jika fitur baru sedang
+dalam pengembangan aktif, fitur itu masuk ke branch main, dan karena itu juga
+ke nightly, tetapi di balik _feature flag_. Jika Anda, sebagai pengguna, ingin
+mencoba fitur yang masih dalam pengerjaan itu, Anda boleh melakukannya, tetapi
+Anda harus memakai rilis nightly Rust dan memberi anotasi pada kode sumber Anda
+dengan flag yang sesuai untuk ikut serta.
 
-If you’re using a beta or stable release of Rust, you can’t use any feature
-flags. This is the key that allows us to get practical use with new features
-before we declare them stable forever. Those who wish to opt into the bleeding
-edge can do so, and those who want a rock-solid experience can stick with
-stable and know that their code won’t break. Stability without stagnation.
+Jika Anda memakai rilis beta atau stable dari Rust, Anda tidak dapat memakai
+feature flag apa pun. Inilah kuncinya yang memungkinkan kita mendapatkan
+pemakaian praktis fitur-fitur baru sebelum kita menyatakannya stable selamanya.
+Mereka yang ingin ikut di garis terdepan boleh melakukannya, dan mereka yang
+menginginkan pengalaman yang kokoh dapat bertahan di stable dan yakin bahwa
+kode mereka tidak akan rusak. Stabilitas tanpa stagnasi.
 
-This book only contains information about stable features, as in-progress
-features are still changing, and surely they’ll be different between when this
-book was written and when they get enabled in stable builds. You can find
-documentation for nightly-only features online.
+Buku ini hanya memuat informasi tentang fitur stable, karena fitur yang masih
+dalam pengerjaan masih terus berubah, dan tentu saja fitur itu akan berbeda
+antara saat buku ini ditulis dan saat fitur itu diaktifkan di build stable. Anda
+dapat menemukan dokumentasi fitur-fitur yang hanya ada di nightly secara daring.
 
-### Rustup and the Role of Rust Nightly
+### Rustup dan Peran Rust Nightly
 
-Rustup makes it easy to change between different release channels of Rust, on a
-global or per-project basis. By default, you’ll have stable Rust installed. To
-install nightly, for example:
+Rustup memudahkan perpindahan antara saluran rilis Rust yang berbeda, baik
+secara global maupun per proyek. Secara bawaan, Anda akan memasang Rust stable.
+Untuk memasang nightly, misalnya:
 
 ```console
 $ rustup toolchain install nightly
 ```
 
-You can see all of the _toolchains_ (releases of Rust and associated
-components) you have installed with `rustup` as well. Here’s an example on one
-of your authors’ Windows computer:
+Anda juga dapat melihat semua *toolchain* (rantai alat, yaitu rilis Rust beserta
+komponen terkaitnya) yang terpasang dengan `rustup`. Berikut contohnya di
+komputer Windows salah satu penulis buku ini:
 
 ```powershell
 > rustup toolchain list
@@ -162,45 +166,49 @@ beta-x86_64-pc-windows-msvc
 nightly-x86_64-pc-windows-msvc
 ```
 
-As you can see, the stable toolchain is the default. Most Rust users use stable
-most of the time. You might want to use stable most of the time, but use
-nightly on a specific project, because you care about a cutting-edge feature.
-To do so, you can use `rustup override` in that project’s directory to set the
-nightly toolchain as the one `rustup` should use when you’re in that directory:
+Seperti yang Anda lihat, toolchain stable adalah bawaannya. Sebagian besar
+pengguna Rust memakai stable hampir sepanjang waktu. Anda mungkin ingin memakai
+stable hampir sepanjang waktu, tetapi memakai nightly pada proyek tertentu,
+karena Anda menginginkan fitur yang paling mutakhir. Untuk melakukannya, Anda
+dapat memakai `rustup override` di direktori proyek itu untuk menetapkan
+toolchain nightly sebagai yang harus dipakai `rustup` ketika Anda berada di
+direktori itu:
 
 ```console
 $ cd ~/projects/needs-nightly
 $ rustup override set nightly
 ```
 
-Now, every time you call `rustc` or `cargo` inside of
-_~/projects/needs-nightly_, `rustup` will make sure that you are using nightly
-Rust, rather than your default of stable Rust. This comes in handy when you
-have a lot of Rust projects!
+Sekarang, setiap kali Anda memanggil `rustc` atau `cargo` di dalam
+_~/projects/needs-nightly_, `rustup` akan memastikan bahwa Anda memakai Rust
+nightly, bukan stable yang menjadi bawaan Anda. Ini sangat berguna ketika Anda
+punya banyak proyek Rust!
 
-### The RFC Process and Teams
+### Proses RFC dan Tim
 
-So how do you learn about these new features? Rust’s development model follows
-a _Request For Comments (RFC) process_. If you’d like an improvement in Rust,
-you can write up a proposal, called an RFC.
+Lalu, bagaimana Anda mengetahui fitur-fitur baru ini? Model pengembangan Rust
+mengikuti *Request For Comments* (RFC). Jika Anda menginginkan peningkatan pada
+Rust, Anda dapat menulis proposal yang disebut RFC.
 
-Anyone can write RFCs to improve Rust, and the proposals are reviewed and
-discussed by the Rust team, which is comprised of many topic subteams. There’s
-a full list of the teams [on Rust’s website](https://www.rust-lang.org/governance), which includes teams for
-each area of the project: language design, compiler implementation,
-infrastructure, documentation, and more. The appropriate team reads the
-proposal and the comments, writes some comments of their own, and eventually,
-there’s consensus to accept or reject the feature.
+Siapa pun dapat menulis RFC untuk meningkatkan Rust, dan proposal itu ditinjau
+serta didiskusikan oleh tim Rust, yang terdiri atas banyak subtim berdasarkan
+topik. Ada daftar lengkap tim-tim itu [di situs web
+Rust](https://www.rust-lang.org/governance), yang mencakup tim untuk setiap
+bidang proyek: desain bahasa, implementasi kompilator, infrastruktur,
+dokumentasi, dan lain-lain. Tim yang sesuai membaca proposal dan
+komentar-komentarnya, menulis beberapa komentar sendiri, dan pada akhirnya,
+tercapai konsensus untuk menerima atau menolak fitur tersebut.
 
-If the feature is accepted, an issue is opened on the Rust repository, and
-someone can implement it. The person who implements it very well may not be the
-person who proposed the feature in the first place! When the implementation is
-ready, it lands on the main branch behind a feature gate, as we discussed in
-the [“Unstable Features”](#unstable-features)<!-- ignore --> section.
+Jika fitur itu diterima, sebuah issue dibuka di repositori Rust, dan seseorang
+dapat mengimplementasikannya. Orang yang mengimplementasikannya dengan sangat
+baik boleh jadi bukan orang yang pertama kali mengusulkan fitur itu! Ketika
+implementasinya siap, implementasi itu masuk ke branch main di balik feature
+gate, seperti yang kita bahas di bagian [“Unstable
+Features”](#unstable-features)<!-- ignore -->.
 
-After some time, once Rust developers who use nightly releases have been able
-to try out the new feature, team members will discuss the feature, how it’s
-worked out on nightly, and decide if it should make it into stable Rust or not.
-If the decision is to move forward, the feature gate is removed, and the
-feature is now considered stable! It rides the trains into a new stable release
-of Rust.
+Setelah beberapa waktu, setelah para pengembang Rust yang memakai rilis nightly
+sempat mencoba fitur baru itu, anggota tim akan mendiskusikan fitur tersebut,
+bagaimana hasilnya di nightly, dan memutuskan apakah fitur itu layak masuk ke
+Rust stable atau tidak. Jika keputusannya adalah melanjutkan, feature gate-nya
+dihapus, dan fitur itu kini dianggap stable! Fitur itu menumpangi kereta menuju
+rilis stable Rust yang baru.
