@@ -69,7 +69,7 @@ perlu mengembalikan nilai-nilai tersebut untuk menyerahkan kembali
 *ownership*, karena sejak awal kita tidak pernah memilikinya.
 
 Kita menyebut tindakan membuat sebuah *reference* sebagai *borrowing*
-(*borrowing*). Seperti dalam kehidupan nyata, jika seseorang memiliki sesuatu,
+(peminjaman). Seperti dalam kehidupan nyata, jika seseorang memiliki sesuatu,
 Anda dapat meminjamnya dari mereka. Setelah selesai, Anda harus
 mengembalikannya. Anda tidak memilikinya.
 
@@ -240,7 +240,7 @@ Berikut errornya:
 ```
 
 Pesan error ini merujuk pada sebuah fitur yang belum kita bahas: *lifetime*
-(*lifetime*). Kita akan membahas *lifetime* secara mendetail di Bab 10.
+(masa hidup). Kita akan membahas *lifetime* secara mendetail di Bab 10.
 Namun, jika Anda mengabaikan bagian-bagian tentang *lifetime*, pesan ini
 memang memuat kunci mengapa kode ini bermasalah:
 

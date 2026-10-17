@@ -145,7 +145,7 @@ iterasi loop sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
 memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
 error *compiler* itu dengan method *ownership* ganda yang kita bahas di Bab 15.
 
-#### *ownership* Ganda dengan Banyak Thread
+#### Ownership Ganda dengan Banyak Thread
 
 Di Bab 15, kita memberikan nilai kepada beberapa *owner* dengan memakai smart
 *pointer* `Rc<T>` untuk membuat nilai dengan penghitungan *reference*. Mari kita
@@ -185,7 +185,7 @@ dibebaskan sebelum kita selesai memakainya. Yang kita butuhkan adalah type
 yang persis seperti `Rc<T>`, tetapi mengubah jumlah *reference* dengan cara yang
 thread-safe.
 
-#### Penghitungan *reference* Atomik dengan `Arc<T>`
+#### Penghitungan Reference Atomik dengan `Arc<T>`
 
 Untungnya, `Arc<T>` _adalah_ type seperti `Rc<T>` yang aman dipakai dalam
 situasi concurrent. Huruf _a_ berarti _atomic_ (atomik), yang berarti type itu

@@ -48,7 +48,7 @@ Berikut topik yang akan kita bahas di bab ini:
   sama
 - Concurrency _message-passing_ (message passing), di mana *channel* mengirim
   pesan antar-thread
-- Concurrency _shared-state_ (shared state), di mana beberapa thread memiliki
+- Concurrency _shared-state_ (state bersama), di mana beberapa thread memiliki
   akses ke sepotong data tertentu
 - *Trait* `Sync` dan `Send`, yang memperluas jaminan concurrency Rust ke type
   yang didefinisikan pengguna maupun type yang disediakan standard library

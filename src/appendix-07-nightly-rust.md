@@ -18,7 +18,7 @@ meningkatkan ke versi baru Rust stable. Setiap peningkatan seharusnya tidak
 menyakitkan, tetapi juga memberi Anda fitur baru, lebih sedikit bug, dan waktu
 kompilasi yang lebih cepat.
 
-### Choo, Choo! *channel* Rilis dan Menumpangi Kereta
+### Choo, Choo! Channel Rilis dan Menumpangi Kereta
 
 Pengembangan Rust berjalan menurut _train schedule_. Artinya, semua pengembangan
 dilakukan di branch main repositori Rust. Rilis mengikuti train model rilis

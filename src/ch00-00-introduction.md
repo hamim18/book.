@@ -27,7 +27,7 @@ besar pengembang dengan tingkat pengetahuan pemrograman sistem yang beragam.
 Kode tingkat rendah rentan terhadap berbagai bug yang halus, yang di sebagian
 besar bahasa lain hanya dapat ditemukan melalui test yang ekstensif dan
 peninjauan kode yang cermat oleh pengembang berpengalaman. Di Rust, *compiler*
-(*compiler*) berperan sebagai penjaga gerbang dengan menolak mengompilasi
+(kompilator) berperan sebagai penjaga gerbang dengan menolak mengompilasi
 kode yang mengandung bug-bug yang sulit ditemukan ini, termasuk bug
 concurrency. Dengan bekerja berdampingan dengan *compiler*, tim dapat
 menghabiskan waktunya untuk berfokus pada logika program alih-alih mengejar

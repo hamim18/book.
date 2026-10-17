@@ -123,7 +123,7 @@ itu belum siap ketika ia mengembalikan `Poll::Pending`. Sebaliknya, runtime
 tahu *future* itu _sudah_ siap dan memajukannya ketika `poll` mengembalikan
 `Poll::Ready(Some(message))` atau `Poll::Ready(None)`.
 
-Detail persis cara sebuah runtime melakukannya berada di luar coverage buku
+Detail persis cara sebuah runtime melakukannya berada di luar *scope* buku
 ini, tetapi kuncinya adalah melihat mekanika dasar *future*: sebuah runtime
 melakukan _polling_ pada setiap *future* yang menjadi tanggung jawabnya, lalu
 membuat *future* itu kembali tidur ketika ia belum siap.
@@ -232,7 +232,7 @@ pub trait Future {
 
 Parameter `cx` dan typenya, `Context`, adalah kunci dari cara sebuah runtime
 benar-benar tahu kapan harus mengecek sebuah *future* tertentu sambil tetap
-bersifat malas. Sekali lagi, detail cara kerjanya berada di luar coverage bab
+bersifat malas. Sekali lagi, detail cara kerjanya berada di luar *scope* bab
 ini, dan Anda umumnya hanya perlu memikirkannya saat menulis implementasi
 `Future` kustom. Kita akan berfokus pada type untuk `self`, karena ini kali
 pertama kita melihat method yang `self`-nya punya type annotation. Anotasi type

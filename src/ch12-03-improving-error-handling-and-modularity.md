@@ -141,7 +141,7 @@ untuk mengembalikan string *slice* yang mereferensikan nilai-nilai `String` di
 yang dimiliki. Variable `args` di dalam `main` adalah *owner* (pemilik) dari
 nilai-nilai argumen dan hanya membiarkan fungsi `parse_config` meminjam
 nilai-nilai itu, yang berarti kita akan melanggar aturan *borrowing*
-(*borrowing*) Rust jika `Config` mencoba mengambil *ownership* (kepemilikan)
+(peminjaman) Rust jika `Config` mencoba mengambil *ownership* (kepemilikan)
 atas nilai-nilai di dalam `args`.
 
 Ada sejumlah cara untuk mengelola data `String`; rute termudah, meskipun agak
@@ -431,7 +431,7 @@ Untuk saat ini, cukup ketahui bahwa `Box<dyn Error>` berarti fungsi ini akan
 mengembalikan sebuah type yang mengimplementasikan *trait* `Error`, tetapi
 kita tidak perlu menentukan type tertentu apa return valuenya. Ini memberi
 kita fleksibilitas untuk mengembalikan nilai-nilai error yang mungkin berbeda
-typenya pada kasus-kasus error yang berbeda. *Keyword* (*keyword*) `dyn`
+typenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
 adalah singkatan dari _dynamic_.
 
 Kedua, kita telah menghapus pemanggilan `expect` demi operator `?`, seperti

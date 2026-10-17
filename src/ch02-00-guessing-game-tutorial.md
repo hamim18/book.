@@ -87,7 +87,7 @@ _src/main.rs_.
 Kode ini memuat banyak informasi, jadi mari kita bahas baris per baris.
 Untuk mendapatkan user input lalu mencetak hasilnya sebagai output,
 kita perlu membawa pustaka input/output `io` ke dalam *scope*
-(coverage). Pustaka `io` berasal dari standard library, yang dikenal sebagai
+(cakupan). Pustaka `io` berasal dari standard library, yang dikenal sebagai
 `std`:
 
 ```rust,ignore
@@ -207,7 +207,7 @@ kita meneruskan string tersebut sebagai argumen. Argumen string itu harus
 *mutable* agar methodnya dapat mengubah isi string tersebut.
 
 Tanda `&` menandakan bahwa argumen ini adalah sebuah *reference*
-(*reference*), yang memberi Anda cara untuk memungkinkan banyak bagian kode
+(referensi), yang memberi Anda cara untuk memungkinkan banyak bagian kode
 mengakses satu data tanpa perlu menyalin data itu ke memori berkali-kali.
 *Reference* adalah fitur yang kompleks, dan salah satu keunggulan utama Rust
 adalah betapa aman dan mudahnya memakai *reference*. Anda tidak perlu tahu

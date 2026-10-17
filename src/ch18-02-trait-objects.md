@@ -138,7 +138,7 @@ runtime-nya.
 
 Sekarang kita akan menambahkan beberapa type yang mengimplementasikan *trait*
 `Draw`. Kita akan menyediakan type `Button`. Sekali lagi, benar-benar
-mengimplementasikan library GUI berada di luar coverage buku ini, jadi method
+mengimplementasikan library GUI berada di luar *scope* buku ini, jadi method
 `draw` tidak akan memiliki implementasi yang berguna di badannya. Untuk
 membayangkan seperti apa implementasinya, *struct* `Button` mungkin memiliki
 *field* untuk `width`, `height`, dan `label`, seperti yang ditunjukkan di
@@ -198,7 +198,7 @@ mengimplementasikan *trait* `Draw`, yang berarti ia mengimplementasikan method
 `draw`.
 
 Konsep ini—hanya peduli pada pesan yang direspons sebuah nilai alih-alih type
-konkret nilai itu—mirip dengan konsep _duck typing_ (duck typing) di
+konkret nilai itu—mirip dengan konsep _duck typing_ (pengetikan bebek) di
 bahasa dynamically typed: jika ia berjalan seperti bebek dan berkuek seperti
 bebek, maka ia pasti bebek! Di implementasi `run` pada `Screen` di Listing
 18-5, `run` tidak perlu tahu apa type konkret setiap component. Ia tidak
@@ -268,7 +268,7 @@ dipanggil. Pencarian ini menimbulkan biaya runtime yang tidak terjadi pada
 meng-inline kode sebuah method, yang pada gilirannya mencegah beberapa
 optimasi, dan Rust punya beberapa aturan tentang di mana Anda boleh dan tidak
 boleh memakai *dynamic dispatch*, yang disebut _dyn compatibility_
-(kompatibilitas dyn). Aturan-aturan itu berada di luar coverage pembahasan ini,
+(kompatibilitas dyn). Aturan-aturan itu berada di luar *scope* pembahasan ini,
 tetapi Anda bisa membaca lebih lanjut [di reference][dyn-compatibility]<!-- ignore -->.
 Akan tetapi, kita memang mendapat fleksibilitas tambahan pada kode yang kita
 tulis di Listing 18-5 dan yang bisa kita dukung di Listing 18-9, jadi itu kompromi yang

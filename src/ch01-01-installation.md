@@ -10,7 +10,7 @@ terkaitnya. Anda memerlukan connection internet untuk pengunduhan ini.
 > untuk opsi lebih lanjut.
 
 Langkah-langkah berikut memasang versi stabil terbaru dari *compiler*
-(*compiler*) Rust. Jaminan stabilitas Rust memastikan bahwa semua contoh
+(kompilator) Rust. Jaminan stabilitas Rust memastikan bahwa semua contoh
 dalam buku ini yang terkompilasi akan tetap terkompilasi dengan versi Rust
 yang lebih baru. Keluarannya mungkin sedikit berbeda antarversi karena Rust
 sering meningkatkan pesan error dan peringatannya. Dengan kata lain, versi

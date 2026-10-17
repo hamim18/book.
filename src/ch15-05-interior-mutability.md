@@ -50,7 +50,7 @@ yang aman terhadap memori menjadi diizinkan, padahal skenario itu akan ditolak
 oleh pemeriksaan waktu kompilasi. Analisis statis, seperti *compiler* Rust,
 pada dasarnya bersifat konservatif. Beberapa sifat kode tidak mungkin
 dideteksi dengan menganalisis kodenya: Contoh paling terkenal adalah Masalah
-Halting, yang berada di luar coverage buku ini tetapi merupakan topik yang
+Halting, yang berada di luar *scope* buku ini tetapi merupakan topik yang
 menarik untuk diteliti.
 
 Karena sebagian analisis tidak mungkin dilakukan, jika *compiler* Rust tidak
@@ -318,7 +318,7 @@ fungsionalitas daripada yang disediakan *reference* biasa.
 <a id="having-multiple-owners-of-mutable-data-by-combining-rc-t-and-ref-cell-t"></a>
 <a id="allowing-multiple-owners-of-mutable-data-with-rct-and-refcellt"></a>
 
-### Mengizinkan Beberapa *owner* Data Mutable
+### Mengizinkan Beberapa Owner Data Mutable
 
 Cara umum memakai `RefCell<T>` adalah dengan mengombinasikannya dengan
 `Rc<T>`. Ingat bahwa `Rc<T>` memungkinkan Anda memiliki beberapa *owner* atas

@@ -8,7 +8,7 @@ memastikan bahwa *reference* tetap valid selama kita membutuhkannya.
 Satu detail yang tidak kita bahas di bagian [“*References* dan
 *Borrowing*”][*references*-and-borrowing]<!-- ignore --> pada Bab 4 adalah
 bahwa setiap *reference* di Rust memiliki sebuah *lifetime*, yaitu *scope*
-(coverage) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
+(cakupan) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
 bersifat implisit dan diinferensi, sama seperti sebagian besar waktu type
 diinferensi. Kita hanya diwajibkan mengtype annotation ketika ada banyak type
 yang mungkin. Dengan cara serupa, kita harus menganotasi *lifetime* ketika
@@ -27,7 +27,7 @@ dengan konsepnya.
 
 <a id="preventing-dangling-references-with-lifetimes"></a>
 
-### Reference *dangling*
+### Reference Dangling
 
 Tujuan utama *lifetime* adalah mencegah *reference* *dangling*, yang jika
 diizinkan ada, akan membuat sebuah program merujuk data selain data yang

@@ -18,7 +18,7 @@
   - [Komentar](ch03-04-comments.md)
   - [Alur Kontrol](ch03-05-control-flow.md)
 
-- [Memahami Ownership (*ownership*)](ch04-00-understanding-ownership.md)
+- [Memahami Ownership (Kepemilikan)](ch04-00-understanding-ownership.md)
   - [Apa Itu Ownership?](ch04-01-what-is-ownership.md)
   - [References dan Borrowing](ch04-02-references-and-borrowing.md)
   - [Type Slice](ch04-03-slices.md)

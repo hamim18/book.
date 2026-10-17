@@ -22,7 +22,7 @@ digerakkan oleh test) dengan langkah-langkah berikut:
 
 Meskipun hanya salah satu dari banyak cara menulis perangkat lunak, TDD dapat
 membantu mengarahkan desain kode. Menulis test sebelum menulis kode yang
-membuat test itu lulus membantu mempertahankan coverage test yang
+membuat test itu lulus membantu mempertahankan test coverage yang
 tinggi di sepanjang proses.
 
 Kita akan menulis testnya terlebih dahulu untuk menggerakkan

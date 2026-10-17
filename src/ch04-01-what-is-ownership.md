@@ -199,7 +199,7 @@ Jadi, apa bedanya di sini? Mengapa `String` bisa diubah sementara *string
 literal* tidak bisa? Perbedaannya terletak pada cara kedua type ini
 memperlakukan memori.
 
-### Memori dan *allocation*
+### Memori dan Allocation
 
 Dalam kasus *string literal*, kita sudah mengetahui isinya pada saat
 kompilasi, sehingga teksnya ditulis langsung ke dalam berkas eksekutabel

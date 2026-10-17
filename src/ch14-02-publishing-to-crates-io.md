@@ -373,7 +373,7 @@ Anda, lalu memakai `license-file` untuk menyebutkan nama file itu alih-alih
 memakai kunci `license`.
 
 Panduan tentang lisensi mana yang sesuai untuk proyek Anda berada di luar
-coverage buku ini. Banyak orang di komunitas Rust melisensikan proyek mereka
+*scope* buku ini. Banyak orang di komunitas Rust melisensikan proyek mereka
 dengan cara yang sama seperti Rust, yaitu memakai lisensi ganda
 `MIT OR Apache-2.0`. Praktik ini menunjukkan bahwa Anda juga dapat
 menyebutkan beberapa pengidentifikasi lisensi yang dipisahkan dengan `OR`
