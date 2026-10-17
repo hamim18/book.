@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Pipeline cetak: mdbook build -> ekstrak print.html -> pandoc -> typst -> PDF.
 # Dipanggil dari akar repo: ./cetak/konversi.sh
+# Dua pass kompilasi: pass 1 untuk peta heading->halaman, lalu indeks
+# istilah dibangkitkan, lalu pass 2 (halaman sebelum indeks tidak bergeser
+# karena indeks ditempel paling belakang; heading stub-nya sudah ada di
+# pass 1 sehingga daftar isi pun tidak berubah).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -10,21 +14,47 @@ mdbook build >/dev/null
 echo "== ekstrak print.html"
 python3 cetak/ekstrak-print.py
 
-echo "== pandoc html -> typst"
+echo "== materi (glosarium, langsung .typ)"
+python3 cetak/buat-materi.py glosarium
+
+echo "== pandoc html/markdown -> typst"
 # Dijalankan dari cetak/build supaya referensi media di .typ relatif
 # terhadap lokasi file output (media/...), bukan terhadap akar repo.
 (
   cd cetak/build
-  for nama in depan jilid-1 jilid-2 lampiran; do
+  for nama in foreword pendahuluan jilid-1 jilid-2 lampiran; do
     pandoc -f html -t typst --wrap=none --resource-path=../../book \
       --extract-media=media \
       --lua-filter=../hilangkan-tautan.lua \
       "$nama.html" -o "$nama.typ"
   done
+  # indeks: stub heading dulu supaya daftar isi pass 1 == pass 2
+  printf '= Indeks Istilah\n' > indeks.typ
+  for nama in hak-cipta kata-pengantar-penerjemah panduan-membaca referensi profil info-edisi; do
+    pandoc -f markdown -t typst --wrap=none \
+      --lua-filter=../hilangkan-tautan.lua \
+      "../materi/$nama.md" -o "$nama.typ"
+  done
+  # glosarium.typ ditulis langsung oleh buat-materi.py (tabel panjang
+  # tidak boleh dibungkus #figure oleh pandoc).
 )
 
-echo "== typst compile"
+echo "== typst compile pass 1"
 mkdir -p cetak/keluaran
+typst compile --root cetak cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
+typst compile --root cetak cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
+
+echo "== peta heading -> halaman"
+typst eval 'query(heading).map(h => (h.level, h.body, h.location().page()))' \
+  --in cetak/jilid-1.typ > cetak/build/halaman-1.json
+typst eval 'query(heading).map(h => (h.level, h.body, h.location().page()))' \
+  --in cetak/jilid-2.typ > cetak/build/halaman-2.json
+
+echo "== indeks istilah"
+python3 cetak/buat-materi.py indeks-scan
+python3 cetak/buat-materi.py indeks-rakit
+
+echo "== typst compile pass 2"
 typst compile --root cetak cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
 typst compile --root cetak cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
 

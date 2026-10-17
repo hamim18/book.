@@ -3,10 +3,11 @@
 siap dikonversi Pandoc ke Typst.
 
 Keluarannya (di `cetak/build/`):
-- `depan.html`    : kata pengantar + pendahuluan (tanpa nomor bab)
-- `jilid-1.html`  : bab 1-12
-- `jilid-2.html`  : bab 13-21
-- `lampiran.html` : lampiran A-G (tanpa nomor)
+- `foreword.html`    : kata pengantar penulis asli (tanpa nomor bab)
+- `pendahuluan.html` : pendahuluan ch00 (tanpa nomor bab)
+- `jilid-1.html`     : bab 1-12
+- `jilid-2.html`     : bab 13-21
+- `lampiran.html`    : lampiran A-G (tanpa nomor)
 
 Aturan transformasi:
 - Unit potongan adalah `<h1>` sintetis mdBook, satu per file sumber, urut
@@ -100,7 +101,7 @@ def main() -> None:
             f"entri SUMMARY.md ({len(entri)}); periksa SUMMARY.md."
         )
 
-    depan, isi1, isi2, lampiran = [], [], [], []
+    foreword, pendahuluan, isi1, isi2, lampiran = [], [], [], [], []
     idx_batas = next(
         i for i, (idf, _, _) in enumerate(entri) if idf == BATAS_JILID
     )
@@ -112,8 +113,10 @@ def main() -> None:
         if not parent:
             # Buang <h1> sintetis yang duplikat judul <h2> pertama sumber.
             b = re.sub(r"^\s*<h1.*?</h1>\s*", "", b, count=1, flags=re.S)
-        if idf == "foreword" or idf.startswith("ch00"):
-            depan.append(b)
+        if idf == "foreword":
+            foreword.append(b)
+        elif idf.startswith("ch00"):
+            pendahuluan.append(b)
         elif idf.startswith("appendix"):
             lampiran.append(b)
         elif i >= idx_batas:
@@ -123,7 +126,7 @@ def main() -> None:
 
     os.makedirs(BUILD, exist_ok=True)
     if args.satu:
-        dengan = [p for p in depan + isi1 + isi2 + lampiran]
+        dengan = [p for p in foreword + pendahuluan + isi1 + isi2 + lampiran]
         if not dengan:
             sys.exit(f"id '{args.satu}' tidak ditemukan di SUMMARY.md")
         with open(os.path.join(BUILD, "bab-dev.html"), "w", encoding="utf-8") as f:
@@ -132,7 +135,8 @@ def main() -> None:
         return
 
     for nama, potongan in (
-        ("depan.html", depan),
+        ("foreword.html", foreword),
+        ("pendahuluan.html", pendahuluan),
         ("jilid-1.html", isi1),
         ("jilid-2.html", isi2),
         ("lampiran.html", lampiran),

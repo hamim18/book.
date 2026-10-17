@@ -70,18 +70,51 @@
   body
 }
 
-// Dokumen lengkap satu jilid: halaman judul, daftar isi, bagian depan
-// (tanpa nomor), bab bernomor (mulai Bab offset+1), dan lampiran (tanpa
-// nomor). Setiap heading level 1 memulai halaman baru.
+// Dokumen lengkap satu jilid. Urutan: sampul, halaman judul, hak cipta,
+// kata pengantar penerjemah, kata pengantar penulis, panduan membaca,
+// daftar isi, pendahuluan, bab bernomor (mulai Bab offset+1), lampiran,
+// lalu materi belakang (glosarium, referensi, indeks, profil, info edisi).
+// Semua selain bab bernomor tanpa nomor heading. Setiap heading level 1
+// memulai halaman baru.
 #let dokumen(
   judul-jilid,
   cakupan-jilid,
-  depan: none,
+  hak-cipta: none,
+  kata-pengantar: none,
+  foreword: none,
+  panduan: none,
+  pendahuluan: none,
   isi: none,
   lampiran: none,
+  belakang: none,
   offset-bab: 0,
 ) = {
   gaya[
+    // Heading level 1 selalu memulai halaman baru.
+    // PENTING: show rule ini harus berada di level atas konten — bila
+    // dibungkus block[...], pagebreak-nya memicu galat "pagebreaks are
+    // not allowed inside of containers" (ditemukan lewat uji bisect
+    // 2026-10-17; breakable: true pun tidak menolong).
+    #show heading.where(level: 1): it => {
+      pagebreak()
+      it
+    }
+
+    // ---------- Sampul (tanpa nomor halaman) ----------
+    #set page(numbering: none)
+    #align(center)[
+      #v(3.5cm)
+      #text(size: 26pt, weight: 700)[The Rust Programming Language]
+      #v(6mm)
+      #text(size: 14pt)[Terjemahan Bahasa Indonesia]
+      #v(1.6cm)
+      #text(size: 12pt)[Steve Klabnik · Carol Nichols · Chris Krycho]
+      #v(3mm)
+      #text(size: 11pt)[diterjemahkan oleh [Nama Penerjemah]]
+      #v(3cm)
+      #text(size: 13pt)[#judul-jilid — #cakupan-jilid]
+    ]
+
     // ---------- Halaman judul ----------
     #pagebreak()
     #align(center)[
@@ -93,26 +126,23 @@
       #v(2.5cm)
       #text(size: 11pt)[Steve Klabnik, Carol Nichols, Chris Krycho]
       #v(2mm)
-      #text(size: 11pt)[terjemahan bahasa Indonesia]
+      #text(size: 11pt)[terjemahan bahasa Indonesia oleh [Nama Penerjemah]]
+      #v(6mm)
+      #text(size: 9.5pt)[versi teks Rust 1.98.0 · edition 2024]
     ]
-    #pagebreak()
+    #set page(numbering: "1")
+
+    // ---------- Bagian awal & depan (tanpa nomor) ----------
+    #if hak-cipta != none { hak-cipta }
+    #if kata-pengantar != none { kata-pengantar }
+    #if foreword != none { foreword }
+    #if panduan != none { panduan }
 
     // ---------- Daftar isi ----------
     #set outline.entry(fill: repeat([.]))
     #outline(title: [Daftar Isi], depth: 3)
 
-    // Heading level 1 selalu memulai halaman baru.
-    // PENTING: show rule ini harus berada di level atas konten — bila
-    // dibungkus block[...], pagebreak-nya memicu galat "pagebreaks are
-    // not allowed inside of containers" (ditemukan lewat uji bisect
-    // 2026-10-17; breakable: true pun tidak menolong).
-    #show heading.where(level: 1): it => {
-      pagebreak()
-      it
-    }
-
-    // ---------- Bagian depan (tanpa nomor bab) ----------
-    #if depan != none { depan }
+    #if pendahuluan != none { pendahuluan }
 
     // ---------- Isi (bab bernomor) ----------
     #if isi != none {
@@ -120,10 +150,14 @@
       isi
     }
 
-    // ---------- Lampiran (tanpa nomor) ----------
+    // ---------- Lampiran + materi belakang (tanpa nomor) ----------
     #if lampiran != none {
       set heading(numbering: none)
       lampiran
+    }
+    #if belakang != none {
+      set heading(numbering: none)
+      belakang
     }
   ]
 }
