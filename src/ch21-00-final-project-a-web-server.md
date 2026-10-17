@@ -1,41 +1,44 @@
-# Final Project: Building a Multithreaded Web Server
+# Proyek Akhir: Membangun Web Server Multithreaded
 
-It’s been a long journey, but we’ve reached the end of the book. In this
-chapter, we’ll build one more project together to demonstrate some of the
-concepts we covered in the final chapters, as well as recap some earlier
-lessons.
+Perjalanan ini sudah panjang, tetapi kita telah sampai di akhir buku. Di bab
+ini, kita akan membangun satu proyek lagi bersama-sama untuk menunjukkan
+beberapa konsep yang kita bahas di bab-bab terakhir, sekaligus mengulang
+beberapa pelajaran sebelumnya.
 
-For our final project, we’ll make a web server that says “Hello!” and looks like
-Figure 21-1 in a web browser.
+Untuk proyek akhir kita, kita akan membuat server web yang menyapa “Hello!”
+dan tampak seperti Gambar 21-1 di peramban web.
 
-Here is our plan for building the web server:
+Berikut rencana kita untuk membangun server web itu:
 
-1. Learn a bit about TCP and HTTP.
-2. Listen for TCP connections on a socket.
-3. Parse a small number of HTTP requests.
-4. Create a proper HTTP response.
-5. Improve the throughput of our server with a thread pool.
+1. Mempelajari sedikit tentang TCP dan HTTP.
+2. Mendengarkan koneksi TCP pada sebuah soket.
+3. Melakukan parsing sejumlah kecil permintaan HTTP.
+4. Membuat respons HTTP yang tepat.
+5. Meningkatkan throughput server kita dengan thread pool.
 
-<img alt="Screenshot of a web browser visiting the address 127.0.0.1:8080 displaying a webpage with the text content “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
+<img alt="Tangkapan layar peramban web yang mengunjungi alamat 127.0.0.1:8080 dan menampilkan halaman web dengan konten teks “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 21-1: Our final shared project</span>
+<span class="caption">Gambar 21-1: Proyek akhir kita bersama</span>
 
-Before we get started, we should mention two details. First, the method we’ll
-use won’t be the best way to build a web server with Rust. Community members
-have published a number of production-ready crates available at
-[crates.io](https://crates.io/) that provide more complete web server and
-thread pool implementations than we’ll build. However, our intention in this
-chapter is to help you learn, not to take the easy route. Because Rust is a
-systems programming language, we can choose the level of abstraction we want to
-work with and can go to a lower level than is possible or practical in other
-languages.
+Sebelum kita mulai, ada dua hal yang perlu kami sampaikan. Pertama, metode
+yang akan kita pakai bukanlah cara terbaik untuk membangun server web dengan
+Rust. Anggota komunitas telah menerbitkan sejumlah crate siap produksi yang
+tersedia di [crates.io](https://crates.io/)<!-- ignore --> yang menyediakan
+implementasi server web dan thread pool yang lebih lengkap daripada yang
+akan kita bangun. Akan tetapi, niat kami di bab ini adalah membantu Anda
+belajar, bukan mengambil jalan pintas. Karena Rust adalah bahasa pemrograman
+sistem, kita bisa memilih tingkat abstraksi yang ingin kita pakai untuk
+bekerja dan bisa turun ke tingkat yang lebih rendah daripada yang mungkin
+atau praktis di bahasa lain.
 
-Second, we will not be using async and await here. Building a thread pool is a
-big enough challenge on its own, without adding in building an async runtime!
-However, we will note how async and await might be applicable to some of the
-same problems we will see in this chapter. Ultimately, as we noted back in
-Chapter 17, many async runtimes use thread pools for managing their work.
+Kedua, kita tidak akan memakai async dan await di sini. Membangun thread
+pool saja sudah merupakan tantangan yang cukup besar, tanpa menambahkan
+pembangunan runtime async! Akan tetapi, kita akan mencatat bagaimana async
+dan await mungkin bisa diterapkan pada beberapa masalah yang sama yang akan
+kita lihat di bab ini. Pada akhirnya, seperti yang kami catat di Bab 17,
+banyak runtime async yang memakai thread pool untuk mengelola pekerjaan
+mereka.
 
-We’ll therefore write the basic HTTP server and thread pool manually so that
-you can learn the general ideas and techniques behind the crates you might use
-in the future.
+Karena itu, kita akan menulis server HTTP dasar dan thread pool-nya secara
+manual supaya Anda bisa mempelajari gagasan dan teknik umum di balik
+crate-crate yang mungkin Anda pakai di masa depan.

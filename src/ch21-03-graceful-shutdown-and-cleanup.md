@@ -1,32 +1,36 @@
-## Graceful Shutdown and Cleanup
+## Penghentian yang Rapi dan Pembersihan
 
-The code in Listing 21-20 is responding to requests asynchronously through the
-use of a thread pool, as we intended. We get some warnings about the `workers`,
-`id`, and `thread` fields that we’re not using in a direct way that reminds us
-we’re not cleaning up anything. When we use the less elegant
-<kbd>ctrl</kbd>-<kbd>C</kbd> method to halt the main thread, all other threads
-are stopped immediately as well, even if they’re in the middle of serving a
-request.
+Kode di Listing 21-20 merespons permintaan secara asinkron melalui
+pemakaian thread pool, seperti yang kita maksudkan. Kita mendapat beberapa
+peringatan tentang field `workers`, `id`, dan `thread` yang tidak kita
+pakai secara langsung yang mengingatkan kita bahwa kita belum membersihkan
+apa pun. Saat kita memakai metode <kbd>ctrl</kbd>-<kbd>C</kbd> yang kurang
+elegan untuk menghentikan thread utama, semua thread lain juga langsung
+dihentikan, bahkan jika mereka sedang berada di tengah-tengah melayani
+sebuah permintaan.
 
-Next, then, we’ll implement the `Drop` trait to call `join` on each of the
-threads in the pool so that they can finish the requests they’re working on
-before closing. Then, we’ll implement a way to tell the threads they should
-stop accepting new requests and shut down. To see this code in action, we’ll
-modify our server to accept only two requests before gracefully shutting down
-its thread pool.
+Maka, berikutnya kita akan mengimplementasikan trait `Drop` untuk memanggil
+`join` pada setiap thread di pool supaya mereka bisa menyelesaikan
+permintaan yang sedang mereka kerjakan sebelum menutup. Lalu, kita akan
+mengimplementasikan cara untuk memberi tahu thread-thread itu bahwa mereka
+harus berhenti menerima permintaan baru dan menghentikan diri. Untuk
+melihat kode ini bekerja, kita akan mengubah server kita untuk hanya
+menerima dua permintaan sebelum menghentikan thread pool-nya dengan rapi.
 
-One thing to notice as we go: None of this affects the parts of the code that
-handle executing the closures, so everything here would be the same if we were
-using a thread pool for an async runtime.
+Satu hal yang perlu diperhatikan selama kita melakukannya: Tidak satu pun
+dari ini memengaruhi bagian kode yang menangani eksekusi closure, jadi
+semua yang ada di sini akan sama jika kita memakai thread pool untuk
+runtime async.
 
-### Implementing the `Drop` Trait on `ThreadPool`
+### Mengimplementasikan Trait `Drop` pada `ThreadPool`
 
-Let’s start with implementing `Drop` on our thread pool. When the pool is
-dropped, our threads should all join to make sure they finish their work.
-Listing 21-22 shows a first attempt at a `Drop` implementation; this code won’t
-quite work yet.
+Mari kita mulai dengan mengimplementasikan `Drop` pada thread pool kita.
+Ketika pool itu dibebaskan, thread-thread kita seharusnya semuanya melakukan
+join untuk memastikan mereka menyelesaikan pekerjaan mereka. Listing 21-22
+menunjukkan percobaan pertama implementasi `Drop`; kode ini belum akan
+bekerja.
 
-<Listing number="21-22" file-name="src/lib.rs" caption="Joining each thread when the thread pool goes out of scope">
+<Listing number="21-22" file-name="src/lib.rs" caption="Melakukan join pada setiap thread ketika thread pool keluar dari scope">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-22/src/lib.rs:here}}
@@ -34,44 +38,49 @@ quite work yet.
 
 </Listing>
 
-First, we loop through each of the thread pool `workers`. We use `&mut` for this
-because `self` is a mutable reference, and we also need to be able to mutate
-`worker`. For each `worker`, we print a message saying that this particular
-`Worker` instance is shutting down, and then we call `join` on that `Worker`
-instance’s thread. If the call to `join` fails, we use `unwrap` to make Rust
-panic and go into an ungraceful shutdown.
+Pertama, kita melakukan loop melalui setiap `workers` pada thread pool.
+Kita memakai `&mut` untuk ini karena `self` adalah reference mutable, dan
+kita juga perlu bisa mengubah `worker`. Untuk setiap `worker`, kita
+mencetak pesan yang menyatakan bahwa instance `Worker` tertentu ini sedang
+menghentikan diri, lalu kita memanggil `join` pada thread instance
+`Worker` itu. Jika pemanggilan `join` gagal, kita memakai `unwrap` untuk
+membuat Rust panic dan melakukan penghentian yang tidak rapi.
 
-Here is the error we get when we compile this code:
+Berikut galat yang kita dapat saat mengompilasi kode ini:
 
 ```console
 {{#include ../listings/ch21-web-server/listing-21-22/output.txt}}
 ```
 
-The error tells us we can’t call `join` because we only have a mutable borrow
-of each `worker` and `join` takes ownership of its argument. To solve this
-issue, we need to move the thread out of the `Worker` instance that owns
-`thread` so that `join` can consume the thread. One way to do this is to take
-the same approach we took in Listing 18-15. If `Worker` held an
-`Option<thread::JoinHandle<()>>`, we could call the `take` method on the
-`Option` to move the value out of the `Some` variant and leave a `None` variant
-in its place. In other words, a `Worker` that is running would have a `Some`
-variant in `thread`, and when we wanted to clean up a `Worker`, we’d replace
-`Some` with `None` so that the `Worker` wouldn’t have a thread to run.
+Galat itu memberi tahu kita bahwa kita tidak bisa memanggil `join` karena
+kita hanya punya peminjaman mutable untuk setiap `worker` dan `join`
+mengambil ownership atas argumennya. Untuk menyelesaikan masalah ini, kita
+perlu memindahkan thread keluar dari instance `Worker` yang memiliki
+`thread` supaya `join` bisa mengonsumsi thread itu. Salah satu caranya
+adalah mengambil pendekatan yang sama seperti yang kita ambil di Listing
+18-15. Jika `Worker` menampung `Option<thread::JoinHandle<()>>`, kita bisa
+memanggil metode `take` pada `Option` itu untuk memindahkan nilainya keluar
+dari varian `Some` dan meninggalkan varian `None` di tempatnya. Dengan kata
+lain, `Worker` yang sedang berjalan akan memiliki varian `Some` di
+`thread`, dan saat kita ingin membersihkan `Worker`, kita mengganti `Some`
+dengan `None` supaya `Worker` itu tidak memiliki thread untuk dijalankan.
 
-However, the _only_ time this would come up would be when dropping the
-`Worker`. In exchange, we’d have to deal with an
-`Option<thread::JoinHandle<()>>` anywhere we accessed `worker.thread`.
-Idiomatic Rust uses `Option` quite a bit, but when you find yourself wrapping
-something you know will always be present in an `Option` as a workaround like
-this, it’s a good idea to look for alternative approaches to make your code
-cleaner and less error-prone.
+Akan tetapi, satu-satunya saat hal ini muncul hanyalah ketika membebaskan
+`Worker`. Sebagai gantinya, kita harus berurusan dengan
+`Option<thread::JoinHandle<()>>` di mana pun kita mengakses
+`worker.thread`. Rust yang idiomatis memang cukup sering memakai `Option`,
+tetapi ketika Anda mendapati diri Anda membungkus sesuatu yang Anda tahu
+pasti selalu ada di dalam `Option` sebagai jalan keluar seperti ini, ada
+baiknya mencari pendekatan alternatif untuk membuat kode Anda lebih bersih
+dan tidak terlalu rawan galat.
 
-In this case, a better alternative exists: the `Vec::drain` method. It accepts
-a range parameter to specify which items to remove from the vector and returns
-an iterator of those items. Passing the `..` range syntax will remove *every*
-value from the vector.
+Dalam kasus ini, ada alternatif yang lebih baik: metode `Vec::drain`.
+Metode ini menerima parameter range untuk menentukan item-item mana yang
+akan dihapus dari vektor dan mengembalikan iterator berisi item-item itu.
+Memberikan sintaks range `..` akan menghapus *semua* nilai dari vektor.
 
-So, we need to update the `ThreadPool` `drop` implementation like this:
+Jadi, kita perlu memperbarui implementasi `drop` pada `ThreadPool` menjadi
+seperti ini:
 
 <Listing file-name="src/lib.rs">
 
@@ -81,32 +90,35 @@ So, we need to update the `ThreadPool` `drop` implementation like this:
 
 </Listing>
 
-This resolves the compiler error and does not require any other changes to our
-code. Note that, because drop can be called when panicking, the unwrap
-could also panic and cause a double panic, which immediately crashes the
-program and ends any cleanup in progress. This is fine for an example program,
-but it isn’t recommended for production code.
+Ini menyelesaikan galat kompilator dan tidak memerlukan perubahan lain
+pada kode kita. Perhatikan bahwa, karena drop bisa dipanggil saat sedang
+panic, unwrap itu juga bisa panic dan menyebabkan panic ganda, yang
+langsung membuat program crash dan mengakhiri pembersihan apa pun yang
+sedang berlangsung. Ini tidak apa-apa untuk program contoh, tetapi tidak
+direkomendasikan untuk kode produksi.
 
-### Signaling to the Threads to Stop Listening for Jobs
+### Memberi Sinyal kepada Thread untuk Berhenti Mendengarkan Pekerjaan
 
-With all the changes we’ve made, our code compiles without any warnings.
-However, the bad news is that this code doesn’t function the way we want it to
-yet. The key is the logic in the closures run by the threads of the `Worker`
-instances: At the moment, we call `join`, but that won’t shut down the threads,
-because they `loop` forever looking for jobs. If we try to drop our
-`ThreadPool` with our current implementation of `drop`, the main thread will
-block forever, waiting for the first thread to finish.
+Dengan semua perubahan yang kita buat, kode kita terkompilasi tanpa
+peringatan apa pun. Akan tetapi, kabar buruknya adalah kode ini belum
+berfungsi seperti yang kita inginkan. Kuncinya adalah logika di closure
+yang dijalankan oleh thread-thread dari instance `Worker`: Saat ini, kita
+memanggil `join`, tetapi itu tidak akan menghentikan thread-thread itu,
+karena mereka melakukan `loop` selamanya mencari pekerjaan. Jika kita
+mencoba membebaskan `ThreadPool` kita dengan implementasi `drop` saat ini,
+thread utama akan memblokir selamanya, menunggu thread pertama selesai.
 
-To fix this problem, we’ll need a change in the `ThreadPool` `drop`
-implementation and then a change in the `Worker` loop.
+Untuk memperbaiki masalah ini, kita perlu mengubah implementasi `drop` pada
+`ThreadPool` lalu mengubah loop `Worker`.
 
-First, we’ll change the `ThreadPool` `drop` implementation to explicitly drop
-the `sender` before waiting for the threads to finish. Listing 21-23 shows the
-changes to `ThreadPool` to explicitly drop `sender`. Unlike with the thread,
-here we _do_ need to use an `Option` to be able to move `sender` out of
-`ThreadPool` with `Option::take`.
+Pertama, kita akan mengubah implementasi `drop` pada `ThreadPool` untuk
+membebaskan `sender` secara eksplisit sebelum menunggu thread-thread
+selesai. Listing 21-23 menunjukkan perubahan pada `ThreadPool` untuk
+membebaskan `sender` secara eksplisit. Tidak seperti dengan thread, di sini
+kita *memang* perlu memakai `Option` untuk bisa memindahkan `sender` keluar
+dari `ThreadPool` dengan `Option::take`.
 
-<Listing number="21-23" file-name="src/lib.rs" caption="Explicitly dropping `sender` before joining the `Worker` threads">
+<Listing number="21-23" file-name="src/lib.rs" caption="Membebaskan `sender` secara eksplisit sebelum melakukan join pada thread `Worker`">
 
 ```rust,noplayground,not_desired_behavior
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-23/src/lib.rs:here}}
@@ -114,13 +126,14 @@ here we _do_ need to use an `Option` to be able to move `sender` out of
 
 </Listing>
 
-Dropping `sender` closes the channel, which indicates no more messages will be
-sent. When that happens, all the calls to `recv` that the `Worker` instances do
-in the infinite loop will return an error. In Listing 21-24, we change the
-`Worker` loop to gracefully exit the loop in that case, which means the threads
-will finish when the `ThreadPool` `drop` implementation calls `join` on them.
+Membebaskan `sender` menutup channel, yang menandakan bahwa tidak akan ada
+lagi pesan yang dikirim. Ketika itu terjadi, semua pemanggilan `recv` yang
+dilakukan instance `Worker` di loop tak berujung itu akan mengembalikan
+galat. Di Listing 21-24, kita mengubah loop `Worker` untuk keluar dari loop
+dengan rapi pada kasus itu, yang berarti thread-thread itu akan selesai
+saat implementasi `drop` pada `ThreadPool` memanggil `join` pada mereka.
 
-<Listing number="21-24" file-name="src/lib.rs" caption="Explicitly breaking out of the loop when `recv` returns an error">
+<Listing number="21-24" file-name="src/lib.rs" caption="Keluar dari loop secara eksplisit ketika `recv` mengembalikan galat">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-24/src/lib.rs:here}}
@@ -128,10 +141,11 @@ will finish when the `ThreadPool` `drop` implementation calls `join` on them.
 
 </Listing>
 
-To see this code in action, let’s modify `main` to accept only two requests
-before gracefully shutting down the server, as shown in Listing 21-25.
+Untuk melihat kode ini bekerja, mari kita ubah `main` untuk hanya menerima
+dua permintaan sebelum menghentikan server dengan rapi, seperti yang
+ditunjukkan di Listing 21-25.
 
-<Listing number="21-25" file-name="src/main.rs" caption="Shutting down the server after serving two requests by exiting the loop">
+<Listing number="21-25" file-name="src/main.rs" caption="Menghentikan server setelah melayani dua permintaan dengan keluar dari loop">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-25/src/main.rs:here}}
@@ -139,16 +153,17 @@ before gracefully shutting down the server, as shown in Listing 21-25.
 
 </Listing>
 
-You wouldn’t want a real-world web server to shut down after serving only two
-requests. This code just demonstrates that the graceful shutdown and cleanup is
-in working order.
+Anda tidak akan ingin server web di dunia nyata berhenti setelah melayani
+hanya dua permintaan. Kode ini hanya menunjukkan bahwa penghentian yang
+rapi dan pembersihannya bekerja dengan baik.
 
-The `take` method is defined in the `Iterator` trait and limits the iteration
-to the first two items at most. The `ThreadPool` will go out of scope at the
-end of `main`, and the `drop` implementation will run.
+Metode `take` didefinisikan di trait `Iterator` dan membatasi iterasi
+paling banyak ke dua item pertama. `ThreadPool` akan keluar dari scope di
+akhir `main`, dan implementasi `drop` akan berjalan.
 
-Start the server with `cargo run` and make three requests. The third request
-should error, and in your terminal, you should see output similar to this:
+Mulai server dengan `cargo run` dan buat tiga permintaan. Permintaan ketiga
+seharusnya galat, dan di terminal Anda, Anda seharusnya melihat output yang
+mirip dengan ini:
 
 <!-- manual-regeneration
 cd listings/ch21-web-server/listing-21-25
@@ -179,28 +194,31 @@ Shutting down worker 2
 Shutting down worker 3
 ```
 
-You might see a different ordering of `Worker` IDs and messages printed. We can
-see how this code works from the messages: `Worker` instances 0 and 3 got the
-first two requests. The server stopped accepting connections after the second
-connection, and the `Drop` implementation on `ThreadPool` starts executing
-before `Worker 3` even starts its job. Dropping the `sender` disconnects all the
-`Worker` instances and tells them to shut down. The `Worker` instances each
-print a message when they disconnect, and then the thread pool calls `join` to
-wait for each `Worker` thread to finish.
+Anda mungkin melihat urutan ID `Worker` dan pesan yang berbeda. Kita bisa
+melihat bagaimana kode ini bekerja dari pesan-pesannya: Instance `Worker` 0
+dan 3 mendapat dua permintaan pertama. Server berhenti menerima koneksi
+setelah koneksi kedua, dan implementasi `Drop` pada `ThreadPool` mulai
+dieksekusi bahkan sebelum `Worker 3` memulai pekerjaannya. Membebaskan
+`sender` memutuskan semua instance `Worker` dan memberi tahu mereka untuk
+menghentikan diri. Setiap instance `Worker` mencetak pesan saat mereka
+terputus, lalu thread pool memanggil `join` untuk menunggu setiap thread
+`Worker` selesai.
 
-Notice one interesting aspect of this particular execution: The `ThreadPool`
-dropped the `sender`, and before any `Worker` received an error, we tried to
-join `Worker 0`. `Worker 0` had not yet gotten an error from `recv`, so the main
-thread blocked, waiting for `Worker 0` to finish. In the meantime, `Worker 3`
-received a job and then all threads received an error. When `Worker 0` finished,
-the main thread waited for the rest of the `Worker` instances to finish. At that
-point, they had all exited their loops and stopped.
+Perhatikan satu aspek menarik dari eksekusi khusus ini: `ThreadPool`
+membebaskan `sender`, dan sebelum ada `Worker` yang menerima galat, kita
+mencoba melakukan join pada `Worker 0`. `Worker 0` belum mendapat galat
+dari `recv`, jadi thread utama memblokir, menunggu `Worker 0` selesai.
+Sementara itu, `Worker 3` menerima pekerjaan lalu semua thread menerima
+galat. Ketika `Worker 0` selesai, thread utama menunggu sisa instance
+`Worker` untuk selesai. Pada titik itu, mereka semua telah keluar dari
+loop-nya dan berhenti.
 
-Congrats! We’ve now completed our project; we have a basic web server that uses
-a thread pool to respond asynchronously. We’re able to perform a graceful
-shutdown of the server, which cleans up all the threads in the pool.
+Selamat! Sekarang kita telah menyelesaikan proyek kita; kita punya server
+web dasar yang memakai thread pool untuk merespons secara asinkron. Kita
+bisa melakukan penghentian server yang rapi, yang membersihkan semua thread
+di pool.
 
-Here’s the full code for reference:
+Berikut kode lengkapnya sebagai rujukan:
 
 <Listing file-name="src/main.rs">
 
@@ -218,21 +236,26 @@ Here’s the full code for reference:
 
 </Listing>
 
-We could do more here! If you want to continue enhancing this project, here are
-some ideas:
+Kita masih bisa melakukan lebih banyak hal di sini! Jika Anda ingin terus
+menyempurnakan proyek ini, berikut beberapa gagasan:
 
-- Add more documentation to `ThreadPool` and its public methods.
-- Add tests of the library’s functionality.
-- Change calls to `unwrap` to more robust error handling.
-- Use `ThreadPool` to perform some task other than serving web requests.
-- Find a thread pool crate on [crates.io](https://crates.io/) and implement a
-  similar web server using the crate instead. Then, compare its API and
-  robustness to the thread pool we implemented.
+- Menambahkan lebih banyak dokumentasi ke `ThreadPool` dan metode-metode
+  publiknya.
+- Menambahkan pengujian untuk fungsionalitas library itu.
+- Mengubah pemanggilan `unwrap` menjadi penanganan galat yang lebih
+  tangguh.
+- Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
+  permintaan web.
+- Menemukan crate thread pool di [crates.io](https://crates.io/)<!-- ignore -->
+  dan mengimplementasikan server web yang serupa dengan memakai crate itu.
+  Lalu, bandingkan API dan ketangguhannya dengan thread pool yang kita
+  implementasikan.
 
-## Summary
+## Ringkasan
 
-Well done! You’ve made it to the end of the book! We want to thank you for
-joining us on this tour of Rust. You’re now ready to implement your own Rust
-projects and help with other people’s projects. Keep in mind that there is a
-welcoming community of other Rustaceans who would love to help you with any
-challenges you encounter on your Rust journey.
+Kerja bagus! Anda telah sampai di akhir buku! Kami ingin berterima kasih
+karena telah bergabung dengan kami dalam tur Rust ini. Anda sekarang siap
+untuk mengimplementasikan proyek-proyek Rust Anda sendiri dan membantu
+proyek orang lain. Ingatlah bahwa ada komunitas Rustacean lain yang ramah
+yang akan senang membantu Anda menghadapi tantangan apa pun yang Anda temui
+dalam perjalanan Rust Anda.

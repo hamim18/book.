@@ -6,22 +6,24 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 20 (fitur lanjutan, 6 file) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch21-00-final-project-a-web-server.md`
-  (Bab 21, 4 file; mulai dari `ch21-00`).
-  `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 20 (exit 0); dijadwalkan lagi
-  setelah Bab 21.
+- Bab terakhir selesai: Bab 21 (proyek akhir web server, 4 file) — Tahap 2
+  selesai. Tinggal Tahap 3 (Appendix) dan Tahap 4 (Pendahuluan).
+- File berikutnya yang dikerjakan: Tahap 3 — `appendix-00.md`
+  (8 file, urut dari `appendix-00`). `foreword.md` masih di kelompok
+  Pendahuluan (Tahap 4, dikerjakan belakangan).
+- `mdbook test` terakhir lulus: setelah Bab 21 (exit 0); dijadwalkan lagi
+  setelah Appendix.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
 
 - [x] Tahap 0 — Snapshot `asli/` + commit baseline (`siapkan asli/ dan perangkat terjemahan`)
 - [x] Tahap 1 — Bab 4 sebagai uji coba gaya & istilah: `ch04-00` … `ch04-03`
-- [ ] Tahap 2 — Urut dari awal buku: `foreword` → `ch00` → `ch01` → … → `ch21`.
+- [x] Tahap 2 — Urut dari awal buku: `ch00` → `ch01` → … → `ch21`.
       Per bab: terjemah semua file → `cek_terjemahan.py` per file → commit per bab
       (`terjemah: bab NN <judul>`). Jalankan `mdbook test` (lihat Catatan teknis)
-      setiap beberapa bab.
+      setiap beberapa bab. (`foreword.md` dipindah ke Tahap 4, bersama kelompok
+      Pendahuluan.)
 - [ ] Tahap 3 — `appendix-00` s/d `appendix-07`
 - [ ] Tahap 4 — `title-page.md` + `SUMMARY.md` (judul bab diterjemahkan, path tetap).
       Paling akhir, supaya judul SUMMARY pasti cocok dengan heading final tiap bab.
@@ -107,9 +109,9 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 18      |       4 |     0 |     0 |     4 |
 | Bab 19      |       4 |     0 |     0 |     4 |
 | Bab 20      |       6 |     0 |     0 |     6 |
-| Bab 21      |       0 |     0 |     4 |     4 |
+| Bab 21      |       4 |     0 |     0 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      97 |     0 |    15 |   112 |
+| TOTAL       |     101 |     0 |    11 |   112 |
 
 ## Log keputusan istilah
 
@@ -598,6 +600,52 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | emitted (kode) | dihasilkan | 20 |
 | pre-allocate (up front) | mengalokasikan di muka | 20 |
 | syntactically correct | benar secara sintaksis | 20 |
+| thread pool | thread pool (tetap) | 21 |
+| throughput | throughput (tetap) | 21 |
+| request (HTTP) | permintaan | 21 |
+| response (HTTP) | respons | 21 |
+| client | *client* (klien) | 21 |
+| server | *server* (tetap, miring pada kemunculan pertama) | 21 |
+| protocol | protokol | 21 |
+| Hypertext Transfer Protocol (HTTP) / Transmission Control Protocol (TCP) | (tetap, nama resmi) | 21 |
+| request-response | (tetap, miring) | 21 |
+| connection / connection attempt | koneksi / percobaan koneksi | 21 |
+| bind / binding | mengikat ke port / pengikatan | 21 |
+| port | port (tetap) | 21 |
+| buffering | buffering (tetap) | 21 |
+| request line / status line | baris permintaan / baris status | 21 |
+| uniform resource identifier (URI) | *uniform resource identifier* (pengidentifikasi sumber seragam) | 21 |
+| uniform resource locator (URL) | *uniform resource locator* (penunjuk lokasi sumber) | 21 |
+| CRLF / carriage return / line feed | (tetap) | 21 |
+| status code | kode status | 21 |
+| reason phrase | frasa alasan | 21 |
+| header (HTTP) | header (tetap) | 21 |
+| body (HTTP) | isi (respons) | 21 |
+| well-formed | well-formed (tetap, miring) | 21 |
+| handcoded | menulis dengan tangan | 21 |
+| filesystem | filesystem (tetap) | 21 |
+| DoS attack | serangan DoS | 21 |
+| back up (permintaan) | menumpuk (di antrean) | 21 |
+| long-running | berjalan lama | 21 |
+| idle thread | thread yang menganggur | 21 |
+| fork/join model | model fork/join | 21 |
+| compiler-driven development | *compiler-driven development* (pengembangan yang digerakkan oleh kompilator) | 21 |
+| configurable | dapat dikonfigurasi | 21 |
+| queue | antrean | 21 |
+| job (channel) | pekerjaan | 21 |
+| worker (pooling) | *Worker* (tetap, nama struct) | 21 |
+| pooling | pooling (tetap) | 21 |
+| logging | logging (tetap) | 21 |
+| capacity (vektor) | kapasitas | 21 |
+| sender | pengirim | 21 |
+| poisoned (mutex) | *poisoned* (teracuni) | 21 |
+| double panic | panic ganda | 21 |
+| graceful shutdown | *graceful shutdown* (penghentian yang rapi) | 21 |
+| disconnect (channel) | terputus | 21 |
+| signaling (verba) | memberi sinyal | 21 |
+| robustness | ketangguhan | 21 |
+| enhance | menyempurnakan | 21 |
+| Rustaceans | Rustacean (tetap) | 21 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -738,6 +786,15 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Teks tautan ch20-01 → appendix-07 “Lampiran G: Bagaimana Rust Dibuat dan
   “Nightly Rust”” harus cocok dengan heading final appendix-07
   (diperiksa saat Tahap 3 mengerjakan file itu).
+- Anchor otomatis dari heading bab 21 yang menjadi target tautan (heading
+  kini diterjemahkan; tag `<a id>` yang ada tidak cocok dengan target
+  tautan, yang di teks asli mengandalkan anchor otomatis):
+  ch21-02 intra-file `#creating-a-finite-number-of-threads` (heading kini
+  “Membuat Thread dalam Jumlah Terbatas”);
+  ch21-02 → ch20-03 `#type-synonyms-and-type-aliases` (heading kini
+  “Sinonim Tipe dan Alias Tipe”; di ch20-03 hanya ada
+  `<a id="creating-type-synonyms-with-type-aliases">`). Solusi diputuskan
+  di Tahap 5.
 - Kejanggalan teks asli ch20-05: kalimat “Let’s walk through what the
   pattern pieces in Listing 20-29 mean” merujuk Listing 20-29, padahal
   konteksnya adalah definisi `vec!` di Listing 20-35. Diterjemahkan apa
