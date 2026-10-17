@@ -22,14 +22,14 @@ Kita pernah melihat serangkaian item di Bab 13, ketika kita menelaah *trait*
 *Iterator* di bagian [“Trait `Iterator` dan Method `next`”][iterator-trait]<!--
 ignore -->, tetapi ada dua perbedaan antara *iterator* dan *receiver* *channel*
 async. Perbedaan pertama adalah waktu: *iterator* bersifat sinkron, sementara
-*receiver* *channel* bersifat asinkron. Perbedaan kedua adalah API-nya. Saat
+*receiver* *channel* bersifat asynchronous. Perbedaan kedua adalah API-nya. Saat
 bekerja langsung dengan `Iterator`, kita memanggil method sinkronnya, `next`.
-Khusus pada *stream* `trpl::Receiver`, kita memanggil method asinkron `recv`.
+Khusus pada *stream* `trpl::Receiver`, kita memanggil method asynchronous `recv`.
 Selain itu, kedua API ini terasa sangat mirip, dan kemiripan itu bukanlah
-kebetulan. *Stream* itu seperti bentuk iterasi yang asinkron. Akan tetapi,
+kebetulan. *Stream* itu seperti bentuk iterasi yang asynchronous. Akan tetapi,
 sementara `trpl::Receiver` secara khusus menunggu untuk menerima pesan, API
 *stream* serbaguna jauh lebih luas: API ini menyediakan item berikutnya
-sebagaimana `Iterator`, tetapi secara asinkron.
+sebagaimana `Iterator`, tetapi secara asynchronous.
 
 Kemiripan antara *iterator* dan *stream* di Rust berarti kita benar-benar bisa
 membuat sebuah *stream* dari *iterator* mana pun. Seperti halnya *iterator*, kita

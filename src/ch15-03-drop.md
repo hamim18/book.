@@ -11,10 +11,10 @@ Kita memperkenalkan `Drop` dalam konteks *smart pointer* karena fungsionalitas
 Sebagai contoh, ketika sebuah `Box<T>` dibebaskan, ia akan mendealokasikan
 ruang di *heap* yang ditunjuk *box* itu.
 
-Di beberapa bahasa, untuk beberapa type, pemrogram harus memanggil kode untuk
+Di beberapa bahasa, untuk beberapa type, programmer harus memanggil kode untuk
 membebaskan memori atau sumber daya setiap kali mereka selesai memakai instance
 type-type itu. Contohnya antara lain handle file, soket, dan kunci. Jika
-pemrogram lupa, sistem bisa kelebihan beban dan crash. Di Rust, Anda dapat
+programmer lupa, sistem bisa kelebihan beban dan crash. Di Rust, Anda dapat
 menentukan bahwa potongan kode tertentu dijalankan setiap kali sebuah nilai
 keluar dari *scope*, dan *compiler* akan menyisipkan kode ini secara otomatis.
 Akibatnya, Anda tidak perlu berhati-hati menempatkan kode pembersihan di
@@ -78,7 +78,7 @@ yang mengelola kunci: Anda mungkin ingin memaksa method `drop` yang melepaskan
 kunci itu berjalan supaya kode lain di *scope* yang sama dapat memperoleh kunci
 itu. Rust tidak mengizinkan Anda memanggil method `drop` dari *trait* `Drop`
 secara manual; sebagai gantinya, Anda harus memanggil fungsi `std::mem::drop`
-yang disediakan pustaka standar jika Anda ingin memaksa sebuah nilai dibebaskan
+yang disediakan standard library jika Anda ingin memaksa sebuah nilai dibebaskan
 sebelum akhir *scope*-nya.
 
 Mencoba memanggil method `drop` dari *trait* `Drop` secara manual dengan
@@ -153,4 +153,4 @@ ketika nilai itu tidak lagi dipakai.
 
 Sekarang kita telah memeriksa `Box<T>` dan sebagian karakteristik smart
 *pointer*, mari kita lihat beberapa *smart pointer* lain yang didefinisikan di
-pustaka standar.
+standard library.

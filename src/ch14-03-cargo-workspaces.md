@@ -142,7 +142,7 @@ Di file _add_one/src/lib.rs_, mari kita tambahkan fungsi `add_one`:
 
 Sekarang kita dapat membuat *package* `adder` dengan binary kita bergantung pada
 *package* `add_one` yang memuat library kita. Pertama, kita perlu menambahkan
-dependensi *path* pada `add_one` ke _adder/Cargo.toml_.
+dependency *path* pada `add_one` ke _adder/Cargo.toml_.
 
 <span class="filename">Nama File: adder/Cargo.toml</span>
 
@@ -151,7 +151,7 @@ dependensi *path* pada `add_one` ke _adder/Cargo.toml_.
 ```
 
 Cargo tidak berasumsi bahwa *crate*-crate di sebuah workspace akan saling
-bergantung, jadi kita perlu menegaskan hubungan dependensinya secara eksplisit.
+bergantung, jadi kita perlu menegaskan hubungan dependencynya secara eksplisit.
 
 Selanjutnya, mari kita pakai fungsi `add_one` (dari *crate* `add_one`) di *crate*
 `adder`. Buka file _adder/src/main.rs_ dan ubah fungsi `main` untuk memanggil
@@ -209,11 +209,11 @@ Ini menjalankan kode di _adder/src/main.rs_, yang bergantung pada *crate*
 
 Perhatikan bahwa workspace ini hanya memiliki satu file _Cargo.lock_ di
 tingkat teratas, alih-alih memiliki _Cargo.lock_ di direktori setiap *crate*.
-Ini memastikan semua *crate* memakai versi yang sama dari semua dependensi. Jika
+Ini memastikan semua *crate* memakai versi yang sama dari semua dependency. Jika
 kita menambahkan *package* `rand` ke file _adder/Cargo.toml_ dan
 _add_one/Cargo.toml_, Cargo akan menyelesaikan keduanya menjadi satu versi
 `rand` dan mencatatnya di _Cargo.lock_ yang satu itu. Membuat semua crate di
-workspace memakai dependensi yang sama berarti crate-crate itu akan selalu
+workspace memakai dependency yang sama berarti crate-crate itu akan selalu
 kompatibel satu sama lain. Mari kita tambahkan crate `rand` ke seksi
 `[dependencies]` di file _add_one/Cargo.toml_ supaya kita dapat memakai *crate*
 `rand` di *crate* `add_one`:
@@ -263,7 +263,7 @@ warning: `add_one` (lib) generated 1 warning (run `cargo fix --lib -p add_one` t
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.95s
 ```
 
-_Cargo.lock_ tingkat teratas sekarang memuat informasi tentang dependensi
+_Cargo.lock_ tingkat teratas sekarang memuat informasi tentang dependency
 `add_one` pada `rand`. Namun, meskipun `rand` dipakai di suatu tempat di
 workspace, kita tidak dapat memakainya di *crate* lain di workspace kecuali kita
 menambahkan `rand` ke file _Cargo.toml_ mereka juga. Sebagai contoh, jika kita
@@ -288,8 +288,8 @@ error[E0432]: unresolved import `rand`
 ```
 
 Untuk memperbaikinya, sunting file _Cargo.toml_ untuk *package* `adder` dan
-nyatakan bahwa `rand` juga merupakan dependensi baginya. Membangun *package*
-`adder` akan menambahkan `rand` ke daftar dependensi untuk `adder` di
+nyatakan bahwa `rand` juga merupakan dependency baginya. Membangun *package*
+`adder` akan menambahkan `rand` ke daftar dependency untuk `adder` di
 _Cargo.lock_, tetapi tidak ada copy tambahan `rand` yang akan diunduh.
 Cargo akan memastikan bahwa setiap *crate* di setiap *package* dalam workspace
 yang memakai *package* `rand` akan memakai versi yang sama selama mereka
@@ -297,12 +297,12 @@ menyebutkan versi `rand` yang kompatibel, menghemat ruang kita dan memastikan
 *crate*-crate di workspace akan kompatibel satu sama lain.
 
 Jika *crate*-crate di workspace menyebutkan versi yang tidak kompatibel dari
-dependensi yang sama, Cargo akan menyelesaikan masing-masing versi itu, tetapi
+dependency yang sama, Cargo akan menyelesaikan masing-masing versi itu, tetapi
 tetap berusaha menyelesaikan sesedikit mungkin versi.
 
-### Menambahkan Pengujian ke Workspace
+### Menambahkan Test ke Workspace
 
-Untuk peningkatan lain, mari kita tambahkan *test* (pengujian) untuk fungsi
+Untuk peningkatan lain, mari kita tambahkan *test* (test) untuk fungsi
 `add_one::add_one` di dalam *crate* `add_one`:
 
 <span class="filename">Nama File: add_one/src/lib.rs</span>

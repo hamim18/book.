@@ -6,7 +6,7 @@
 
 Perintah `cargo install` memungkinkan Anda memasang dan memakai *crate* binary
 secara lokal. Ini tidak dimaksudkan untuk menggantikan *package* sistem; ini
-dimaksudkan sebagai cara yang nyaman bagi pengembang Rust untuk memasang alat
+dimaksudkan sebagai cara yang nyaman bagi pengembang Rust untuk memasang tool
 yang telah dibagikan orang lain di
 [crates.io](https://crates.io/)<!-- ignore -->. Perhatikan bahwa Anda hanya
 dapat memasang *package* yang memiliki target binary. Sebuah _binary target_
@@ -24,7 +24,7 @@ direktori ini ada di `$PATH` Anda supaya Anda dapat menjalankan program yang
 telah Anda pasang dengan `cargo install`.
 
 Sebagai contoh, di Bab 12 kita menyebutkan bahwa ada implementasi Rust dari
-alat `grep` bernama `ripgrep` untuk mencari file. Untuk memasang `ripgrep`,
+tool `grep` bernama `ripgrep` untuk mencari file. Untuk memasang `ripgrep`,
 kita dapat menjalankan perintah berikut:
 
 <!-- manual-regeneration
@@ -47,5 +47,5 @@ $ cargo install ripgrep
 Baris kedua dari terakhir pada output itu menunjukkan lokasi dan nama binary
 yang dipasang, yang dalam kasus `ripgrep` adalah `rg`. Selama direktori
 instalasi itu ada di `$PATH` Anda, seperti disebutkan sebelumnya, Anda dapat
-menjalankan `rg --help` dan mulai memakai alat pencari file yang lebih cepat
+menjalankan `rg --help` dan mulai memakai tool pencari file yang lebih cepat
 dan lebih Rust-y!

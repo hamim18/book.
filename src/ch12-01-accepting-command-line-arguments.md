@@ -1,7 +1,7 @@
 ## Menerima Argumen Baris Perintah
 
 Mari kita membuat proyek baru dengan, seperti biasa, `cargo new`. Kita akan
-menamai proyek kita `minigrep` untuk membedakannya dari alat `grep` yang
+menamai proyek kita `minigrep` untuk membedakannya dari tool `grep` yang
 mungkin sudah ada di sistem Anda:
 
 ```console
@@ -24,15 +24,15 @@ $ cargo run -- searchstring example-filename.txt
 Saat ini, program yang dihasilkan oleh `cargo new` belum dapat memproses
 argumen yang kita berikan. Beberapa pustaka yang sudah ada di
 [crates.io](https://crates.io/) dapat membantu menulis program yang menerima
-argumen baris perintah, tetapi karena Anda baru saja mempelajari konsep ini,
+argumen command line, tetapi karena Anda baru saja mempelajari konsep ini,
 mari kita implementasikan kemampuan ini sendiri.
 
 ### Membaca Nilai Argumen
 
-Agar `minigrep` dapat membaca nilai-nilai argumen baris perintah yang kita
+Agar `minigrep` dapat membaca nilai-nilai argumen command line yang kita
 teruskan kepadanya, kita memerlukan fungsi `std::env::args` yang disediakan
-oleh pustaka standar Rust. Fungsi ini mengembalikan sebuah *iterator* atas
-argumen-argumen baris perintah yang diteruskan ke `minigrep`. Kita akan
+oleh standard library Rust. Fungsi ini mengembalikan sebuah *iterator* atas
+argumen-argumen command line yang diteruskan ke `minigrep`. Kita akan
 membahas *iterator* secara menyeluruh di [Bab 13][ch13]<!-- ignore -->. Untuk
 saat ini, Anda hanya perlu mengetahui dua hal tentang *iterator*: *Iterator*
 menghasilkan serangkaian nilai, dan kita dapat memanggil method `collect` pada
@@ -40,10 +40,10 @@ sebuah *iterator* untuk mengubahnya menjadi sebuah collection, seperti vector,
 yang memuat semua elemen yang dihasilkan oleh *iterator* tersebut.
 
 Kode di Listing 12-1 memungkinkan program `minigrep` Anda membaca semua
-argumen baris perintah yang diteruskan kepadanya, lalu mengumpulkan nilainya
+argumen command line yang diteruskan kepadanya, lalu mengumpulkan nilainya
 ke dalam sebuah vector.
 
-<Listing number="12-1" file-name="src/main.rs" caption="Mengumpulkan argumen baris perintah ke dalam sebuah vector dan mencetaknya">
+<Listing number="12-1" file-name="src/main.rs" caption="Mengumpulkan argumen command line ke dalam sebuah vector dan mencetaknya">
 
 ```rust
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-01/src/main.rs}}
@@ -99,14 +99,14 @@ Perhatikan bahwa nilai pertama di dalam vector itu adalah
 daftar argumen di C, yang memungkinkan program memakai nama yang digunakan
 untuk memanggilnya saat dieksekusi. Akses ke nama program sering kali berguna
 jika Anda ingin mencetaknya di dalam pesan atau mengubah perilaku program
-berdasarkan alias baris perintah yang dipakai untuk memanggil program
+berdasarkan alias command line yang dipakai untuk memanggil program
 tersebut. Tetapi untuk keperluan bab ini, kita akan mengabaikannya dan hanya
 menyimpan dua argumen yang kita butuhkan.
 
 ### Menyimpan Nilai Argumen di dalam Variable
 
 Saat ini program sudah dapat mengakses nilai-nilai yang diberikan sebagai
-argumen baris perintah. Sekarang kita perlu menyimpan nilai kedua argumen
+argumen command line. Sekarang kita perlu menyimpan nilai kedua argumen
 tersebut di dalam variable agar kita dapat memakai nilai-nilai itu di seluruh
 bagian program selanjutnya. Kita melakukannya di Listing 12-2.
 

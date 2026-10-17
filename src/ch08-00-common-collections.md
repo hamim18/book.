@@ -20,7 +20,7 @@ yang sangat sering dipakai di program Rust:
   sebuah kunci tertentu. Ini adalah implementasi khusus dari struktur data
   yang lebih umum yang disebut *map*.
 
-Untuk mempelajari jenis collection lain yang disediakan oleh pustaka standar,
+Untuk mempelajari jenis collection lain yang disediakan oleh standard library,
 lihat [dokumentasinya][collections].
 
 Kita akan membahas cara membuat dan memperbarui vector, string, dan hash

@@ -2,7 +2,7 @@
 ## Instalasi
 
 Langkah pertama adalah memasang Rust. Kita akan mengunduh Rust melalui
-`rustup`, alat baris perintah untuk mengelola versi Rust dan alat-alat
+`rustup`, tool command line untuk mengelola versi Rust dan tool-tool
 terkaitnya. Anda memerlukan koneksi internet untuk pengunduhan ini.
 
 > Catatan: Jika karena suatu alasan Anda memilih untuk tidak memakai
@@ -22,7 +22,7 @@ langkah-langkah ini seharusnya bekerja sesuai harapan dengan isi buku ini.
 > Di bab ini dan di seluruh buku, kita akan menampilkan beberapa perintah
 > yang dipakai di terminal. Baris yang harus Anda ketik di terminal semuanya
 > diawali dengan `$`. Anda tidak perlu mengetik karakter `$`; itu adalah
-> prompt baris perintah yang ditampilkan untuk menandai awal setiap perintah.
+> prompt command line yang ditampilkan untuk menandai awal setiap perintah.
 > Baris yang tidak diawali `$` biasanya menampilkan output dari perintah
 > sebelumnya. Selain itu, contoh khusus PowerShell akan memakai `>` alih-alih
 > `$`.
@@ -36,7 +36,7 @@ berikut:
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
-Perintah ini mengunduh sebuah skrip dan memulai instalasi alat `rustup`,
+Perintah ini mengunduh sebuah skrip dan memulai instalasi tool `rustup`,
 yang memasang versi stabil terbaru dari Rust. Anda mungkin akan diminta
 memasukkan kata sandi. Jika instalasi berhasil, baris berikut akan muncul:
 
@@ -140,10 +140,10 @@ $ rustup self uninstall
 ### Membaca Dokumentasi Lokal
 
 Instalasi Rust juga menyertakan copy lokal dokumentasinya sehingga Anda
-dapat membacanya secara luring. Jalankan `rustup doc` untuk membuka
+dapat membacanya secara offline. Jalankan `rustup doc` untuk membuka
 dokumentasi lokal di peramban Anda.
 
-Kapan pun sebuah type atau fungsi disediakan oleh pustaka standar dan Anda
+Kapan pun sebuah type atau fungsi disediakan oleh standard library dan Anda
 tidak yakin apa fungsinya atau bagaimana cara memakainya, gunakan
 dokumentasi antarmuka pemrograman aplikasi (API) untuk mengetahuinya!
 
@@ -152,19 +152,19 @@ dokumentasi antarmuka pemrograman aplikasi (API) untuk mengetahuinya!
 
 ### Menggunakan Editor Teks dan IDE
 
-Buku ini tidak membuat asumsi tentang alat yang Anda pakai untuk menulis
+Buku ini tidak membuat asumsi tentang tool yang Anda pakai untuk menulis
 kode Rust. Hampir semua editor teks bisa menyelesaikan pekerjaan ini!
 Namun, banyak editor teks dan lingkungan pengembangan terpadu (IDE)
 memiliki dukungan bawaan untuk Rust. Anda selalu dapat menemukan daftar
-yang cukup mutakhir dari banyak editor dan IDE di [halaman alat][tools] di
+yang cukup mutakhir dari banyak editor dan IDE di [halaman tool][tools] di
 situs web Rust.
 
-### Bekerja Luring dengan Buku Ini
+### Bekerja Offline dengan Buku Ini
 
 Dalam beberapa contoh, kita akan memakai *package* Rust di luar pustaka
 standar. Untuk mengerjakan contoh-contoh tersebut, Anda memerlukan koneksi
-internet atau harus mengunduh dependensi-dependensi itu lebih dulu. Untuk
-mengunduh dependensinya lebih dulu, Anda dapat menjalankan perintah-perintah
+internet atau harus mengunduh dependency-dependency itu lebih dulu. Untuk
+mengunduh dependencynya lebih dulu, Anda dapat menjalankan perintah-perintah
 berikut. (Nanti kita akan menjelaskan secara detail apa itu `cargo` dan apa
 fungsi setiap perintah ini.)
 

@@ -234,8 +234,8 @@ type yang muncul setelah keyword `impl`, yang pada kasus ini adalah
 
 Untuk memanggil *associated function* ini, kita memakai sintaks `::` dengan nama
 *struct*; `let sq = Rectangle::square(3);` adalah contohnya. Fungsi ini berada
-dalam ruang nama *struct*: sintaks `::` dipakai untuk *associated function* maupun
-ruang nama yang dibuat oleh *module* (modul). Kita akan membahas *module* di
+dalam namespace *struct*: sintaks `::` dipakai untuk *associated function* maupun
+namespace yang dibuat oleh *module* (modul). Kita akan membahas *module* di
 [Bab 7][modules]<!-- ignore -->.
 
 ### Beberapa Blok `impl`
@@ -268,7 +268,7 @@ function yang memungkinkan Anda menentukan perilaku yang dimiliki instance
 *struct* Anda.
 
 Tetapi *struct* bukanlah satu-satunya cara untuk membuat custom type: mari kita
-beralih ke fitur *enum* milik Rust untuk menambah alat lain ke kotak peralatan
+beralih ke fitur *enum* milik Rust untuk menambah tool lain ke kotak peralatan
 Anda.
 
 [enums]: ch06-00-enums.html

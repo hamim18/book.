@@ -27,7 +27,7 @@ file tersebut, seperti yang ditunjukkan di Listing 12-4.
 
 </Listing>
 
-Pertama, kita membawa bagian pustaka standar yang relevan dengan statement
+Pertama, kita membawa bagian standard library yang relevan dengan statement
 `use`: Kita memerlukan `std::fs` untuk menangani file.
 
 Di dalam `main`, statement baru `fs::read_to_string` menerima `file_path`,

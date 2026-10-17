@@ -4,43 +4,43 @@
 ## Menambahkan Fungsionalitas dengan Test-Driven Development
 
 Sekarang logika pencarian di _src/lib.rs_ terpisah dari fungsi `main`, menulis
-pengujian untuk fungsionalitas inti kode kita menjadi jauh lebih mudah. Kita
+test untuk fungsionalitas inti kode kita menjadi jauh lebih mudah. Kita
 dapat memanggil fungsi-fungsi secara langsung dengan berbagai argumen dan
 memeriksa return valuenya tanpa harus memanggil binary kita dari baris
 perintah.
 
 Di bagian ini, kita akan menambahkan logika pencarian ke program `minigrep`
 menggunakan proses *test-driven development* (TDD, pengembangan yang
-digerakkan oleh pengujian) dengan langkah-langkah berikut:
+digerakkan oleh test) dengan langkah-langkah berikut:
 
-1. Tulis sebuah pengujian yang gagal dan jalankan untuk memastikan ia gagal
+1. Tulis sebuah test yang gagal dan jalankan untuk memastikan ia gagal
    karena alasan yang Anda harapkan.
-2. Tulis atau ubah kode secukupnya agar pengujian baru itu lulus.
+2. Tulis atau ubah kode secukupnya agar test baru itu lulus.
 3. Lakukan refactoring pada kode yang baru saja Anda tambahkan atau ubah, dan
-   pastikan pengujian-pengujian itu terus lulus.
+   pastikan test-test itu terus lulus.
 4. Ulangi dari langkah 1!
 
 Meskipun hanya salah satu dari banyak cara menulis perangkat lunak, TDD dapat
-membantu mengarahkan desain kode. Menulis pengujian sebelum menulis kode yang
-membuat pengujian itu lulus membantu mempertahankan coverage pengujian yang
+membantu mengarahkan desain kode. Menulis test sebelum menulis kode yang
+membuat test itu lulus membantu mempertahankan coverage test yang
 tinggi di sepanjang proses.
 
-Kita akan menulis pengujiannya terlebih dahulu untuk menggerakkan
+Kita akan menulis testnya terlebih dahulu untuk menggerakkan
 implementasi fungsionalitas yang benar-benar melakukan pencarian string kueri
 di dalam isi file dan menghasilkan daftar baris yang cocok dengan kueri
 tersebut. Kita akan menambahkan fungsionalitas ini di dalam sebuah fungsi
 bernama `search`.
 
-### Menulis Pengujian yang Gagal
+### Menulis Test yang Gagal
 
 Di _src/lib.rs_, kita akan menambahkan modul `tests` dengan sebuah fungsi
-pengujian, seperti yang kita lakukan di [Bab 11][ch11-anatomy]<!-- ignore -->.
-Fungsi pengujian itu menentukan perilaku yang kita inginkan dari fungsi
+test, seperti yang kita lakukan di [Bab 11][ch11-anatomy]<!-- ignore -->.
+Fungsi test itu menentukan perilaku yang kita inginkan dari fungsi
 `search`: Fungsi ini akan menerima sebuah kueri dan teks yang akan dicari,
 lalu mengembalikan hanya baris-baris dari teks itu yang memuat kueri tersebut.
-Listing 12-15 menunjukkan pengujian ini.
+Listing 12-15 menunjukkan test ini.
 
-<Listing number="12-15" file-name="src/lib.rs" caption="Membuat pengujian yang gagal untuk fungsi `search` demi fungsionalitas yang kita inginkan">
+<Listing number="12-15" file-name="src/lib.rs" caption="Membuat test yang gagal untuk fungsi `search` demi fungsionalitas yang kita inginkan">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-15/src/lib.rs:here}}
@@ -48,18 +48,18 @@ Listing 12-15 menunjukkan pengujian ini.
 
 </Listing>
 
-Pengujian ini mencari string `"duct"`. Teks yang kita cari terdiri dari tiga
+Test ini mencari string `"duct"`. Teks yang kita cari terdiri dari tiga
 baris, dan hanya satu baris yang memuat `"duct"` (perhatikan bahwa backslash
 setelah tanda kutip ganda pembuka memberi tahu Rust untuk tidak menaruh
 karakter newline di awal isi *string literal* ini). Kita menegaskan bahwa nilai
 yang dikembalikan dari fungsi `search` hanya memuat baris yang kita harapkan.
 
-Jika kita menjalankan pengujian ini, saat ini ia akan gagal karena makro
+Jika kita menjalankan test ini, saat ini ia akan gagal karena makro
 `unimplemented!` melakukan panic dengan pesan “not implemented”. Sesuai
 prinsip TDD, kita akan mengambil langkah kecil dengan menambahkan kode
-secukupnya agar pengujian itu tidak panic saat memanggil fungsinya, yaitu
+secukupnya agar test itu tidak panic saat memanggil fungsinya, yaitu
 dengan mendefinisikan fungsi `search` agar selalu mengembalikan vector kosong,
-seperti yang ditunjukkan di Listing 12-16. Setelah itu, pengujian ini
+seperti yang ditunjukkan di Listing 12-16. Setelah itu, test ini
 seharusnya terkompilasi dan gagal karena vector kosong tidak cocok dengan
 vector yang memuat baris `"safe, fast, productive."`.
 
@@ -109,9 +109,9 @@ mudah seiring waktu. Anda mungkin ingin membandingkan contoh ini dengan
 contoh-contoh di bagian [“Memvalidasi *Reference* dengan
 *Lifetime*”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
 
-### Menulis Kode agar Pengujian Lulus
+### Menulis Kode agar Test Lulus
 
-Saat ini, pengujian kita gagal karena kita selalu mengembalikan vector
+Saat ini, test kita gagal karena kita selalu mengembalikan vector
 kosong. Untuk memperbaikinya dan mengimplementasikan `search`, program kita
 perlu mengikuti langkah-langkah ini:
 
@@ -183,18 +183,18 @@ membuat sebuah vector *mutable* sebelum loop `for` dan memanggil method
 </Listing>
 
 Sekarang fungsi `search` seharusnya mengembalikan hanya baris-baris yang
-memuat `query`, dan pengujian kita seharusnya lulus. Mari kita jalankan
-pengujiannya:
+memuat `query`, dan test kita seharusnya lulus. Mari kita jalankan
+testnya:
 
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-19/output.txt}}
 ```
 
-Pengujian kita lulus, jadi kita tahu ia bekerja!
+Test kita lulus, jadi kita tahu ia bekerja!
 
 Pada titik ini, kita dapat mempertimbangkan peluang untuk melakukan
 refactoring pada implementasi fungsi pencarian sambil tetap menjaga
-pengujian-pengujiannya lulus untuk mempertahankan fungsionalitas yang sama.
+test-testnya lulus untuk mempertahankan fungsionalitas yang sama.
 Kode di fungsi pencarian tidak terlalu buruk, tetapi ia belum memanfaatkan
 beberapa fitur *iterator* yang berguna. Kita akan kembali ke contoh ini di
 [Bab 13][ch13-iterators]<!-- ignore -->, tempat kita akan menjelajahi
@@ -223,14 +223,14 @@ seperti _monomorphization_:
 {{#include ../listings/ch12-an-io-project/output-only-04-no-matches/output.txt}}
 ```
 
-Luar biasa! Kita telah membangun versi mini kita sendiri dari sebuah alat
+Luar biasa! Kita telah membangun versi mini kita sendiri dari sebuah tool
 klasik dan belajar banyak tentang cara menyusun aplikasi. Kita juga telah
-belajar sedikit tentang input dan output file, *lifetime*, pengujian, dan
-parsing baris perintah.
+belajar sedikit tentang input dan output file, *lifetime*, test, dan
+parsing command line.
 
 Untuk melengkapi proyek ini, kita akan mendemonstrasikan secara singkat cara
 bekerja dengan environment variable dan cara mencetak ke standard error, yang
-keduanya berguna ketika Anda menulis program baris perintah.
+keduanya berguna ketika Anda menulis program command line.
 
 [validating-references-with-lifetimes]: ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
 [ch11-anatomy]: ch11-01-writing-tests.html#the-anatomy-of-a-test-function

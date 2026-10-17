@@ -89,7 +89,7 @@ kita sendiri.
 ### Mendefinisikan Smart Pointer Kita Sendiri
 
 Mari kita bangun type *wrapper* (pembungkus) yang serupa dengan type `Box<T>`
-yang disediakan pustaka standar untuk merasakan bagaimana type *smart pointer*
+yang disediakan standard library untuk merasakan bagaimana type *smart pointer*
 berperilaku berbeda dari *reference* secara default. Kemudian, kita akan melihat
 cara menambahkan kemampuan untuk memakai operator dereferensi.
 
@@ -149,7 +149,7 @@ dereferensi dengan operator `*`, kita mengimplementasikan *trait* `Deref`.
 Seperti yang dibahas di [“Mengimplementasikan *Trait* pada Suatu
 Type”][impl-trait]<!-- ignore --> di Bab 10, untuk mengimplementasikan sebuah
 *trait* kita perlu menyediakan implementasi untuk method-method yang diwajibkan
-*trait* itu. *Trait* `Deref`, yang disediakan pustaka standar, mewajibkan kita
+*trait* itu. *Trait* `Deref`, yang disediakan standard library, mewajibkan kita
 mengimplementasikan satu method bernama `deref` yang meminjam `self` dan
 mengembalikan *reference* ke data bagian dalam. Listing 15-10 memuat
 implementasi `Deref` untuk ditambahkan ke definisi `MyBox<T>`.
@@ -226,7 +226,7 @@ parameter dalam definisi fungsi atau method itu. Serangkaian panggilan ke
 method `deref` mengubah type yang kita berikan menjadi type yang dibutuhkan
 parameter.
 
-*Deref coercion* ditambahkan ke Rust supaya pemrogram yang menulis panggilan
+*Deref coercion* ditambahkan ke Rust supaya programmer yang menulis panggilan
 fungsi dan method tidak perlu menambahkan sebanyak itu *reference* dan
 dereferensi eksplisit dengan `&` dan `*`. Fitur *deref coercion* juga
 memungkinkan kita menulis lebih banyak kode yang dapat bekerja untuk *reference*

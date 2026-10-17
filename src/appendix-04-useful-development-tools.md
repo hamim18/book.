@@ -1,14 +1,14 @@
-## Lampiran D: Alat Pengembangan yang Berguna
+## Lampiran D: Tool Pengembangan yang Berguna
 
-Dalam lampiran ini, kita membahas beberapa alat pengembangan yang berguna yang
+Dalam lampiran ini, kita membahas beberapa tool pengembangan yang berguna yang
 disediakan oleh proyek Rust. Kita akan melihat pemformatan otomatis, cara cepat
 menerapkan perbaikan peringatan, sebuah linter, dan integrasi dengan IDE.
 
 ### Pemformatan Otomatis dengan `rustfmt`
 
-Alat `rustfmt` memformat ulang kode Anda sesuai gaya kode komunitas. Banyak
+Tool `rustfmt` memformat ulang kode Anda sesuai gaya kode komunitas. Banyak
 proyek kolaboratif memakai `rustfmt` untuk mencegah perdebatan tentang gaya mana
-yang dipakai saat menulis Rust: semua orang memformat kodenya memakai alat
+yang dipakai saat menulis Rust: semua orang memformat kodenya memakai tool
 tersebut.
 
 Instalasi Rust menyertakan `rustfmt` secara bawaan, jadi Anda seharusnya sudah
@@ -27,7 +27,7 @@ informasi lebih lanjut tentang `rustfmt`, lihat [dokumentasinya][rustfmt].
 
 ### Memperbaiki Kode Anda dengan `rustfix`
 
-Alat `rustfix` disertakan dalam instalasi Rust dan dapat memperbaiki peringatan
+Tool `rustfix` disertakan dalam instalasi Rust dan dapat memperbaiki peringatan
 *compiler* secara otomatis apabila ada cara yang jelas untuk mengoreksi masalah
 itu yang kemungkinan besar memang Anda inginkan. Anda mungkin pernah melihat
 peringatan *compiler* sebelumnya. Sebagai contoh, perhatikan kode berikut:
@@ -60,7 +60,7 @@ warning: variable does not need to be mutable
 ```
 
 Peringatan itu menyarankan kita menghapus kata kunci `mut`. Kita dapat
-menerapkan saran itu secara otomatis memakai alat `rustfix` dengan menjalankan
+menerapkan saran itu secara otomatis memakai tool `rustfix` dengan menjalankan
 perintah `cargo fix`:
 
 ```console
@@ -90,7 +90,7 @@ ignore -->.
 
 ### Lint Tambahan dengan Clippy
 
-Alat Clippy adalah kumpulan lint untuk menganalisis kode Anda supaya Anda dapat
+Tool Clippy adalah kumpulan lint untuk menganalisis kode Anda supaya Anda dapat
 menangkap kesalahan umum dan meningkatkan kode Rust Anda. Clippy disertakan
 dengan instalasi standar Rust.
 
@@ -153,7 +153,7 @@ Untuk informasi lebih lanjut tentang Clippy, lihat
 ### Integrasi IDE Memakai `rust-analyzer`
 
 Untuk membantu integrasi IDE, komunitas Rust merekomendasikan pemakaian
-[`rust-analyzer`][rust-analyzer]<!-- ignore -->. Alat ini adalah sekumpulan
+[`rust-analyzer`][rust-analyzer]<!-- ignore -->. Tool ini adalah sekumpulan
 utilitas yang berpusat pada *compiler* dan memakai [Language Server
 Protocol][lsp]<!-- ignore -->, spesifikasi bagi IDE dan bahasa pemrograman untuk
 saling berkomunikasi. Berbagai client dapat memakai `rust-analyzer`, seperti

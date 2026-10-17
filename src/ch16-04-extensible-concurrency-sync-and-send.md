@@ -3,16 +3,16 @@
 <a id="extensible-concurrency-with-the-sync-and-send-traits"></a>
 <a id="extensible-concurrency-with-the-send-and-sync-traits"></a>
 
-## Konkurensi yang Dapat Diperluas dengan `Send` dan `Sync`
+## Concurrency yang Dapat Diperluas dengan `Send` dan `Sync`
 
-Menariknya, hampir semua fitur konkurensi yang sejauh ini kita bicarakan di
-bab ini merupakan bagian dari pustaka standar, bukan bahasa. Pilihan Anda
-untuk menangani konkurensi tidak terbatas pada bahasa atau pustaka standar;
-Anda dapat menulis fitur konkurensi Anda sendiri atau memakai yang ditulis
+Menariknya, hampir semua fitur concurrency yang sejauh ini kita bicarakan di
+bab ini merupakan bagian dari standard library, bukan bahasa. Pilihan Anda
+untuk menangani concurrency tidak terbatas pada bahasa atau standard library;
+Anda dapat menulis fitur concurrency Anda sendiri atau memakai yang ditulis
 orang lain.
 
-Namun, di antara konsep-konsep konkurensi kunci yang tertanam di dalam bahasa
-alih-alih pustaka standar adalah *trait* `std::marker` `Send` dan `Sync`.
+Namun, di antara konsep-konsep concurrency kunci yang tertanam di dalam bahasa
+alih-alih standard library adalah *trait* `std::marker` `Send` dan `Sync`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -27,7 +27,7 @@ termasuk `Rc<T>`: Type ini tidak dapat mengimplementasikan `Send` karena jika
 Anda mengklon nilai `Rc<T>` dan mencoba mentransfer *ownership* klon itu ke
 thread lain, kedua thread mungkin memperbarui jumlah *reference* pada saat yang
 sama. Karena alasan ini, `Rc<T>` diimplementasikan untuk dipakai dalam
-situasi single-threaded ketika Anda tidak ingin membayar denda performa
+situasi single-threaded ketika Anda tidak ingin membayar performance penalty
 thread-safe.
 
 Karena itu, type system dan *trait bound* Rust memastikan bahwa Anda tidak
@@ -71,36 +71,36 @@ Karena type yang tersusun seluruhnya dari type lain yang mengimplementasikan
 kita tidak harus mengimplementasikan *trait*-trait itu secara manual. Sebagai
 *marker trait*, keduanya bahkan tidak memiliki method untuk diimplementasikan.
 Keduanya hanya berguna untuk menegakkan invarian yang terkait dengan
-konkurensi.
+concurrency.
 
 Mengimplementasikan *trait*-trait ini secara manual melibatkan penulisan kode
 Rust *unsafe*. Kita akan membahas pemakaian kode Rust *unsafe* di Bab 20; untuk
-sekarang, informasi pentingnya adalah bahwa membangun type konkuren baru yang
+sekarang, informasi pentingnya adalah bahwa membangun type concurrent baru yang
 tidak tersusun dari bagian-bagian `Send` dan `Sync` menuntut pemikiran yang
 cermat untuk menegakkan jaminan keamanan. [“The Rustonomicon”][nomicon]
 memiliki informasi lebih lanjut tentang jaminan ini dan cara menegakkannya.
 
 ## Ringkasan
 
-Ini bukan terakhir kalinya Anda melihat konkurensi di buku ini: Bab berikutnya
+Ini bukan terakhir kalinya Anda melihat concurrency di buku ini: Bab berikutnya
 berfokus pada pemrograman async, dan proyek di Bab 21 akan memakai
 konsep-konsep di bab ini dalam situasi yang lebih realistis daripada
 contoh-contoh kecil yang dibahas di sini.
 
 Seperti disebutkan sebelumnya, karena sangat sedikit dari cara Rust menangani
-konkurensi yang merupakan bagian dari bahasa, banyak solusi konkurensi
+concurrency yang merupakan bagian dari bahasa, banyak solusi concurrency
 diimplementasikan sebagai *crate*. Solusi-solusi itu berevolusi lebih cepat
-daripada pustaka standar, jadi pastikan untuk mencari *crate* terkini yang
+daripada standard library, jadi pastikan untuk mencari *crate* terkini yang
 mutakhir secara daring untuk dipakai dalam situasi multithreaded.
 
 Pustaka standar Rust menyediakan *channel* untuk *message passing* dan type smart
 *pointer*, seperti `Mutex<T>` dan `Arc<T>`, yang aman dipakai dalam konteks
-konkuren. Sistem type dan *borrow checker* memastikan bahwa kode yang memakai
+concurrent. Sistem type dan *borrow checker* memastikan bahwa kode yang memakai
 solusi-solusi ini tidak akan berakhir dengan data race atau *reference* yang
 tidak valid. Begitu kode Anda terkompilasi, Anda bisa yakin bahwa kode itu
 akan berjalan dengan senang hati di banyak thread tanpa jenis-jenis bug yang
-sulit dilacak seperti yang umum di bahasa lain. Pemrograman konkuren bukan
-lagi konsep yang perlu ditakuti: Majulah dan buat program Anda konkuren,
+sulit dilacak seperti yang umum di bahasa lain. Pemrograman concurrent bukan
+lagi konsep yang perlu ditakuti: Majulah dan buat program Anda concurrent,
 tanpa takut!
 
 [shared-access]: ch16-03-shared-state.html#shared-access-to-mutext

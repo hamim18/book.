@@ -57,7 +57,7 @@ terjadi.
 
 Kita perlu menambahkan kode ke Listing 9-3 untuk mengambil tindakan yang
 berbeda bergantung pada nilai yang dikembalikan `File::open`. Listing 9-4
-menunjukkan satu cara menangani `Result` memakai alat dasar, expression
+menunjukkan satu cara menangani `Result` memakai tool dasar, expression
 `match` yang kita bahas di Bab 6.
 
 <Listing number="9-4" file-name="src/main.rs" caption="Memakai expression `match` untuk menangani variant `Result` yang mungkin dikembalikan">
@@ -111,9 +111,9 @@ tests to fail lol -->
 </Listing>
 
 Type nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
-`io::Error`, yaitu sebuah *struct* yang disediakan pustaka standar. *Struct* ini
+`io::Error`, yaitu sebuah *struct* yang disediakan standard library. *Struct* ini
 memiliki method `kind`, yang dapat kita panggil untuk mendapatkan nilai
-`io::ErrorKind`. *Enum* `io::ErrorKind` disediakan pustaka standar dan
+`io::ErrorKind`. *Enum* `io::ErrorKind` disediakan standard library dan
 memiliki variant-variant yang merepresentasikan berbagai jenis error yang
 mungkin dihasilkan dari operasi `io`. Variant yang ingin kita pakai adalah
 `ErrorKind::NotFound`, yang mengindikasikan bahwa file yang kita coba buka
@@ -162,7 +162,7 @@ program panic pada error apa pun selain error file tidak ditemukan.
 > Meskipun kode ini berperilaku sama dengan Listing 9-5, ia tidak memuat
 > expression `match` apa pun dan lebih bersih untuk dibaca. Kembalilah ke
 > contoh ini setelah Anda membaca Bab 13 dan carilah method
-> `unwrap_or_else` di dokumentasi pustaka standar. Banyak lagi method
+> `unwrap_or_else` di dokumentasi standard library. Banyak lagi method
 > semacam ini yang dapat merapikan expression `match` bersarang yang besar
 > ketika Anda berurusan dengan error.
 
@@ -352,7 +352,7 @@ errornya diteruskan ke kode pemanggil.
 Ada perbedaan antara yang dilakukan expression `match` dari Listing 9-6 dan
 yang dilakukan operator `?`: nilai error yang dipanggilkan operator `?`
 padanya melewati fungsi `from`, yang didefinisikan di *trait* `From` di
-pustaka standar, yang dipakai untuk mengonversi nilai dari satu type ke type
+standard library, yang dipakai untuk mengonversi nilai dari satu type ke type
 lain. Ketika operator `?` memanggil fungsi `from`, type error yang diterima
 dikonversi menjadi type error yang didefinisikan di return type fungsi
 saat ini. Ini berguna ketika sebuah fungsi mengembalikan satu type error

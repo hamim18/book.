@@ -236,7 +236,7 @@ dengan cara yang serupa: memakai nama yang kita definisikan, tanpa kurung
 kurawal atau tanda kurung apa pun. Bayangkan nanti kita akan
 mengimplementasikan perilaku untuk type ini sedemikian rupa sehingga setiap
 instance `AlwaysEqual` selalu sama dengan setiap instance dari type lain mana
-pun, mungkin untuk mendapatkan hasil yang diketahui demi keperluan pengujian.
+pun, mungkin untuk mendapatkan hasil yang diketahui demi keperluan test.
 Kita tidak memerlukan data apa pun untuk mengimplementasikan perilaku itu!
 Anda akan melihat di Bab 10 cara mendefinisikan *trait* dan
 mengimplementasikannya pada type mana pun, termasuk *unit-like struct*.

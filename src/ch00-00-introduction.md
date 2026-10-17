@@ -22,29 +22,29 @@ beberapa kelompok yang paling penting.
 
 ### Tim Pengembang
 
-Rust terbukti menjadi alat yang produktif untuk berkolaborasi dalam tim
+Rust terbukti menjadi tool yang produktif untuk berkolaborasi dalam tim
 besar pengembang dengan tingkat pengetahuan pemrograman sistem yang beragam.
 Kode tingkat rendah rentan terhadap berbagai bug yang halus, yang di sebagian
-besar bahasa lain hanya dapat ditemukan melalui pengujian yang ekstensif dan
+besar bahasa lain hanya dapat ditemukan melalui test yang ekstensif dan
 peninjauan kode yang cermat oleh pengembang berpengalaman. Di Rust, *compiler*
 (*compiler*) berperan sebagai penjaga gerbang dengan menolak mengompilasi
 kode yang mengandung bug-bug yang sulit ditemukan ini, termasuk bug
-konkurensi. Dengan bekerja berdampingan dengan *compiler*, tim dapat
+concurrency. Dengan bekerja berdampingan dengan *compiler*, tim dapat
 menghabiskan waktunya untuk berfokus pada logika program alih-alih mengejar
 bug.
 
-Rust juga membawa alat-alat pengembang yang modern ke dunia pemrograman
+Rust juga membawa tool-tool pengembang yang modern ke dunia pemrograman
 sistem:
 
-- Cargo, pengelola dependensi dan alat build bawaan, membuat proses
-  menambah, mengompilasi, dan mengelola dependensi menjadi mudah dan
+- Cargo, dependency manager dan tool build bawaan, membuat proses
+  menambah, mengompilasi, dan mengelola dependency menjadi mudah dan
   konsisten di seluruh ekosistem Rust.
-- Alat pemformatan `rustfmt` menjamin gaya penulisan kode yang konsisten
+- Tool pemformatan `rustfmt` menjamin gaya penulisan kode yang konsisten
   di antara para pengembang.
 - Rust Language Server mendukung integrasi lingkungan pengembangan terpadu
   (IDE) untuk pelengkapan kode dan pesan error sebaris.
 
-Dengan menggunakan alat-alat ini dan alat-alat lain di ekosistem Rust, para
+Dengan menggunakan tool-tool ini dan tool-tool lain di ekosistem Rust, para
 pengembang dapat tetap produktif saat menulis kode tingkat sistem.
 
 ### Pelajar
@@ -59,15 +59,15 @@ lebih banyak orang, terutama mereka yang baru mengenal pemrograman.
 ### Perusahaan
 
 Ratusan perusahaan, besar maupun kecil, menggunakan Rust di lingkungan
-produksi untuk berbagai macam tugas, termasuk alat baris perintah, layanan
+produksi untuk berbagai macam tugas, termasuk tool command line, layanan
 web, perangkat DevOps, perangkat tertanam, analisis dan transkode audio dan
 video, mata uang kripto, bioinformatika, mesin pencari, aplikasi Internet of
-Things, pembelajaran mesin, dan bahkan bagian-bagian utama peramban web Firefox.
+Things, machine learning, dan bahkan bagian-bagian utama web browser Firefox.
 
 ### Pengembang Open Source
 
 Rust ditujukan bagi orang-orang yang ingin membangun bahasa pemrograman Rust,
-komunitas, alat pengembang, dan pustakanya. Kami akan sangat senang jika Anda
+komunitas, tool pengembang, dan pustakanya. Kami akan sangat senang jika Anda
 berkontribusi pada bahasa Rust.
 
 ### Orang yang Menghargai Kecepatan dan Stabilitas
@@ -87,7 +87,7 @@ yang cepat.
 Bahasa Rust juga berharap dapat mendukung banyak pengguna lainnya; mereka
 yang disebutkan di sini hanyalah sebagian dari pemangku kepentingan
 terbesar. Secara keseluruhan, ambisi terbesar Rust adalah menghilangkan
-kompromi-kompromi yang telah diterima para pemrogram selama puluhan tahun
+kompromi-kompromi yang telah diterima para programmer selama puluhan tahun
 dengan menyediakan keamanan _dan_ produktivitas, kecepatan _dan_ ergonomi.
 Cobalah Rust, dan lihat apakah pilihan-pilihannya cocok untuk Anda.
 
@@ -117,7 +117,7 @@ adalah bab proyek; sisanya adalah bab konsep.
 
 **Bab 1** menjelaskan cara memasang Rust, cara menulis program
 “Hello, world!”, dan cara menggunakan Cargo, pengelola *package* (paket) dan
-alat build milik Rust. **Bab 2** adalah pengantar langsung untuk menulis
+tool build milik Rust. **Bab 2** adalah pengantar langsung untuk menulis
 program di Rust, dengan mengajak Anda membangun permainan tebak angka. Di
 sini, kita membahas konsep-konsep pada tingkat tinggi, dan bab-bab
 selanjutnya akan memberikan detail tambahan. Jika Anda ingin langsung terjun
@@ -136,32 +136,32 @@ menggunakan *struct* dan *enum* untuk membuat type khusus.
 Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta
 aturan privasi untuk mengorganisasi kode Anda dan antarmuka pemrograman
 aplikasi (API) publiknya. **Bab 8** membahas beberapa struktur data collection
-umum yang disediakan pustaka standar: vector, string, dan hash map. **Bab 9**
+umum yang disediakan standard library: vector, string, dan hash map. **Bab 9**
 menjelajahi filosofi dan teknik penanganan error Rust.
 
 **Bab 10** menggali *generics* (tipe generik), *trait*, dan *lifetime* (masa
 hidup), yang memberi Anda kemampuan untuk mendefinisikan kode yang berlaku
-untuk berbagai type. **Bab 11** seluruhnya membahas pengujian, yang bahkan
+untuk berbagai type. **Bab 11** seluruhnya membahas test, yang bahkan
 dengan jaminan keamanan dari Rust tetap diperlukan untuk memastikan logika
 program Anda benar. Di **Bab 12**, kita akan membangun implementasi sendiri
-dari sebagian fungsionalitas alat baris perintah `grep` yang mencari teks di
+dari sebagian fungsionalitas tool command line `grep` yang mencari teks di
 dalam file. Untuk itu, kita akan memakai banyak konsep yang telah kita bahas
 di bab-bab sebelumnya.
 
 **Bab 13** menjelajahi *closure* dan *iterator*: fitur Rust yang berasal
-dari bahasa pemrograman fungsional. Di **Bab 14**, kita akan menelaah Cargo
+dari bahasa functional programming. Di **Bab 14**, kita akan menelaah Cargo
 lebih mendalam dan membahas praktik terbaik untuk membagikan pustaka Anda
 kepada orang lain. **Bab 15** membahas *smart pointer* (*pointer* pintar) yang
-disediakan pustaka standar dan *trait* yang memungkinkan fungsionalitasnya.
+disediakan standard library dan *trait* yang memungkinkan fungsionalitasnya.
 
-Di **Bab 16**, kita akan menelusuri berbagai model pemrograman konkuren dan
+Di **Bab 16**, kita akan menelusuri berbagai model concurrent programming dan
 membahas bagaimana Rust membantu Anda memprogram dengan banyak thread tanpa
 rasa takut. Di **Bab 17**, kita melanjutkannya dengan menjelajahi sintaks
 async dan await Rust, bersama *task*, *future*, dan *stream*, serta model
-konkurensi ringan yang dimungkinkan oleh ketiganya.
+concurrency ringan yang dimungkinkan oleh ketiganya.
 
 **Bab 18** membahas bagaimana idiom-idiom Rust dibandingkan dengan
-prinsip-prinsip pemrograman berorientasi objek yang mungkin sudah Anda kenal.
+prinsip-prinsip object-oriented programming yang mungkin sudah Anda kenal.
 **Bab 19** adalah *reference* tentang pattern dan *pattern matching* (pencocokan
 pattern), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
 program Rust. **Bab 20** memuat aneka ragam topik lanjutan yang menarik,
@@ -169,13 +169,13 @@ termasuk *unsafe* Rust, *macro* (makro), serta pembahasan lebih lanjut
 tentang *lifetime*, *trait*, type, fungsi, dan *closure*.
 
 Di **Bab 21**, kita akan menyelesaikan sebuah proyek untuk
-mengimplementasikan server web multithread tingkat rendah!
+mengimplementasikan web server multithread tingkat rendah!
 
 Terakhir, beberapa lampiran memuat informasi berguna tentang bahasa ini
 dalam format yang lebih menyerupai *reference*. **Lampiran A** membahas kata
 kunci Rust, **Lampiran B** membahas operator dan simbol Rust, **Lampiran C**
-membahas *trait* yang dapat diturunkan yang disediakan pustaka standar,
-**Lampiran D** membahas beberapa alat pengembangan yang berguna, dan
+membahas *trait* yang dapat diturunkan yang disediakan standard library,
+**Lampiran D** membahas beberapa tool pengembangan yang berguna, dan
 **Lampiran E** menjelaskan edisi Rust. Di **Lampiran F**, Anda dapat
 menemukan terjemahan buku ini, dan di **Lampiran G** kita akan membahas
 bagaimana Rust dibuat dan apa itu Rust nightly.
@@ -210,7 +210,7 @@ setiap kode yang tidak terkompilasi.
 
 ## Kode Sumber
 
-File-file sumber yang digunakan untuk menghasilkan buku ini dapat ditemukan
+File-source file yang digunakan untuk menghasilkan buku ini dapat ditemukan
 di [GitHub][book].
 
 [book]: https://github.com/rust-lang/book/tree/main/src

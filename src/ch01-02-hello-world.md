@@ -5,10 +5,10 @@ Ketika mempelajari bahasa baru, tradisinya adalah menulis program kecil yang
 mencetak teks `Hello, world!` ke layar, jadi kita akan melakukan hal yang
 sama di sini!
 
-> Catatan: Buku ini mengasumsikan Anda cukup familier dengan baris perintah.
+> Catatan: Buku ini mengasumsikan Anda cukup familier dengan command line.
 > Rust tidak menuntut hal khusus tentang cara Anda menyunting atau perangkat yang Anda
 > pakai ataupun lokasi kode Anda, jadi jika Anda lebih suka memakai IDE
-> alih-alih baris perintah, silakan memakai IDE favorit Anda. Banyak IDE kini
+> alih-alih command line, silakan memakai IDE favorit Anda. Banyak IDE kini
 > memiliki dukungan Rust sampai taraf tertentu; periksa dokumentasi IDE
 > tersebut untuk detailnya. Tim Rust selama ini berfokus menghadirkan
 > dukungan IDE yang hebat melalui `rust-analyzer`. Lihat
@@ -52,7 +52,7 @@ Untuk Windows CMD, masukkan ini:
 <a id="rust-program-basics"></a>
 ### Dasar-Dasar Program Rust
 
-Berikutnya, buat file sumber baru dan beri nama _main.rs_. File Rust selalu
+Berikutnya, buat source file baru dan beri nama _main.rs_. File Rust selalu
 diakhiri dengan ekstensi _.rs_. Jika Anda memakai lebih dari satu kata dalam
 nama file, konvensinya adalah memakai garis bawah sebagai pemisah.
 Misalnya, gunakan _hello_world.rs_ alih-alih _helloworld.rs_.
@@ -94,7 +94,7 @@ terminal. Jika Anda tidak melihat output ini, lihat kembali bagian
 untuk cara meminta bantuan.
 
 Jika `Hello, world!` tercetak, selamat! Anda telah resmi menulis program
-Rust. Itu menjadikan Anda seorang pemrogram Rust—selamat datang!
+Rust. Itu menjadikan Anda seorang programmer Rust—selamat datang!
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -124,11 +124,11 @@ kurung kurawal pembuka di baris yang sama dengan deklarasi fungsi, dengan
 satu spasi di antaranya.
 
 > Catatan: Jika Anda ingin mempertahankan gaya yang standar di seluruh
-> proyek Rust, Anda dapat memakai alat pemformat otomatis bernama `rustfmt`
+> proyek Rust, Anda dapat memakai tool pemformat otomatis bernama `rustfmt`
 > untuk memformat kode Anda dalam gaya tertentu (lebih lanjut tentang
 > `rustfmt` di [Lampiran D][devtools]<!-- ignore -->). Tim Rust telah
-> menyertakan alat ini dalam distribusi standar Rust, sama seperti `rustc`,
-> jadi alat ini seharusnya sudah terpasang di komputer Anda!
+> menyertakan tool ini dalam distribusi standar Rust, sama seperti `rustc`,
+> jadi tool ini seharusnya sudah terpasang di komputer Anda!
 
 Badan fungsi `main` memuat kode berikut:
 
@@ -165,7 +165,7 @@ setiap langkah dalam prosesnya.
 
 Sebelum menjalankan program Rust, Anda harus mengompilasinya menggunakan
 *compiler* (kompilator) Rust dengan memasukkan perintah `rustc` dan
-memberikan nama file sumber Anda kepadanya, seperti ini:
+memberikan nama source file Anda kepadanya, seperti ini:
 
 ```console
 $ rustc main.rs
@@ -222,7 +222,7 @@ desain bahasa.
 Mengompilasi hanya dengan `rustc` sudah cukup untuk program sederhana,
 tetapi seiring berkembangnya proyek Anda, Anda akan ingin mengelola semua
 opsinya dan mempermudah berbagi kode. Berikutnya, kita akan memperkenalkan
-Anda pada alat Cargo, yang akan membantu Anda menulis program Rust untuk
+Anda pada tool Cargo, yang akan membantu Anda menulis program Rust untuk
 dunia nyata.
 
 [troubleshooting]: ch01-01-installation.html#troubleshooting

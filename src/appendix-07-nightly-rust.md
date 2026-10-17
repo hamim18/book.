@@ -119,7 +119,7 @@ jarang, tetapi `rustc` tetaplah sebuah perangkat lunak, dan bug memang ada.
 ### Waktu Pemeliharaan
 
 Proyek Rust mendukung versi stable terbaru. Ketika versi stable baru dirilis,
-versi lama mencapai akhir masa pakainya (end of life, EOL). Artinya, setiap
+versi lama mencapai end of lifenya (end of life, EOL). Artinya, setiap
 versi didukung selama enam minggu.
 
 ### Unstable Features
@@ -155,7 +155,7 @@ Untuk memasang nightly, misalnya:
 $ rustup toolchain install nightly
 ```
 
-Anda juga dapat melihat semua *toolchain* (rantai alat, yaitu rilis Rust beserta
+Anda juga dapat melihat semua *toolchain* (rantai tool, yaitu rilis Rust beserta
 komponen terkaitnya) yang terpasang dengan `rustup`. Berikut contohnya di
 komputer Windows salah satu penulis buku ini:
 

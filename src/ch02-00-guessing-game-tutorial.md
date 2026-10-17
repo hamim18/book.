@@ -87,7 +87,7 @@ _src/main.rs_.
 Kode ini memuat banyak informasi, jadi mari kita bahas baris per baris.
 Untuk mendapatkan user input lalu mencetak hasilnya sebagai output,
 kita perlu membawa pustaka input/output `io` ke dalam *scope*
-(coverage). Pustaka `io` berasal dari pustaka standar, yang dikenal sebagai
+(coverage). Pustaka `io` berasal dari standard library, yang dikenal sebagai
 `std`:
 
 ```rust,ignore
@@ -165,7 +165,7 @@ Tanda sama dengan (`=`) memberi tahu Rust bahwa kita ingin mengikat sesuatu
 ke variable itu sekarang. Di sebelah kanan tanda sama dengan terdapat nilai
 yang diikat ke `guess`, yaitu hasil dari memanggil `String::new`, fungsi
 yang mengembalikan instance baru dari `String`. [`String`][string]<!--
-ignore --> adalah type string yang disediakan pustaka standar berupa teks
+ignore --> adalah type string yang disediakan standard library berupa teks
 yang dapat bertambah dan terenkode UTF-8.
 
 Sintaks `::` pada baris `::new` menandakan bahwa `new` adalah *associated
@@ -347,7 +347,7 @@ Berikutnya, kita perlu menghasilkan angka rahasia yang akan coba ditebak
 pengguna. Angka rahasia harus berbeda setiap kali supaya permainannya seru
 dimainkan lebih dari sekali. Kita akan memakai angka acak antara 1 dan 100
 supaya permainannya tidak terlalu sulit. Rust belum menyertakan
-fungsionalitas angka acak di pustaka standarnya. Namun, tim Rust
+fungsionalitas angka acak di standard librarynya. Namun, tim Rust
 menyediakan [crate `rand`][randcrate]<!-- ignore --> dengan fungsionalitas
 tersebut.
 
@@ -364,7 +364,7 @@ sendiri.
 
 Koordinasi *crate* eksternal adalah tempat Cargo benar-benar bersinar.
 Sebelum kita bisa menulis kode yang memakai `rand`, kita perlu mengubah
-file _Cargo.toml_ untuk menyertakan *crate* `rand` sebagai dependensi. Buka
+file _Cargo.toml_ untuk menyertakan *crate* `rand` sebagai dependency. Buka
 file itu sekarang dan tambahkan baris berikut ke bagian bawah, di bawah
 judul seksi `[dependencies]` yang dibuat Cargo untuk Anda. Pastikan untuk
 menuliskan `rand` persis seperti di sini, dengan nomor versi ini, atau
@@ -386,7 +386,7 @@ contoh kode dalam tutorial ini mungkin tidak akan bekerja:
 
 Di file _Cargo.toml_, semua yang mengikuti sebuah judul adalah bagian dari
 seksi itu, yang berlanjut sampai seksi lain dimulai. Di `[dependencies]`,
-Anda memberi tahu Cargo *crate* eksternal mana yang menjadi dependensi proyek
+Anda memberi tahu Cargo *crate* eksternal mana yang menjadi dependency proyek
 Anda dan versi *crate* mana yang Anda butuhkan. Dalam kasus ini, kita
 menentukan *crate* `rand` dengan spesifikasi versi semantik `0.10.1`. Cargo
 memahami [Semantic Versioning][semver]<!-- ignore --> (kadang disebut
@@ -409,7 +409,7 @@ rm Cargo.lock
 cargo clean
 cargo build -->
 
-<Listing number="2-2" caption="Output dari menjalankan `cargo build` setelah menambahkan crate `rand` sebagai dependensi">
+<Listing number="2-2" caption="Output dari menjalankan `cargo build` setelah menambahkan crate `rand` sebagai dependency">
 
 ```console
 $ cargo build
@@ -436,23 +436,23 @@ kompatibel dengan kodenya, berkat SemVer!) dan baris-baris yang berbeda
 (tergantung sistem operasi), dan baris-barisnya mungkin dalam urutan yang
 berbeda.
 
-Ketika kita menyertakan dependensi eksternal, Cargo mengambil versi
-terbaru dari semua yang dibutuhkan dependensi itu dari *registry*
+Ketika kita menyertakan dependency eksternal, Cargo mengambil versi
+terbaru dari semua yang dibutuhkan dependency itu dari *registry*
 (registri), yang merupakan copy data dari [*Crates*.io][cratesio].
 *Crates*.io adalah tempat orang-orang di ekosistem Rust memublikasikan proyek
 Rust open source mereka untuk dipakai orang lain.
 
 Setelah memperbarui *registry*, Cargo memeriksa seksi `[dependencies]` dan
 mengunduh *crate* apa pun yang terdaftar dan belum diunduh. Dalam kasus ini,
-meskipun kita hanya mendaftarkan `rand` sebagai dependensi, Cargo juga
+meskipun kita hanya mendaftarkan `rand` sebagai dependency, Cargo juga
 mengambil *crate* lain yang dibutuhkan `rand` agar bisa bekerja. Setelah
 mengunduh *crate*-crate tersebut, Rust mengompilasinya, lalu mengompilasi
-proyek dengan dependensi yang tersedia.
+proyek dengan dependency yang tersedia.
 
 Jika Anda langsung menjalankan `cargo build` lagi tanpa mengubah apa pun,
 Anda tidak akan mendapat output apa pun selain baris `Finished`. Cargo
-tahu bahwa ia telah mengunduh dan mengompilasi dependensinya, dan Anda
-belum mengubah apa pun tentang dependensi itu di file _Cargo.toml_ Anda.
+tahu bahwa ia telah mengunduh dan mengompilasi dependencynya, dan Anda
+belum mengubah apa pun tentang dependency itu di file _Cargo.toml_ Anda.
 Cargo juga tahu bahwa Anda belum mengubah apa pun pada kode Anda, jadi ia
 tidak mengompilasi ulang kode itu juga. Karena tidak ada yang perlu
 dikerjakan, ia langsung berhenti.
@@ -473,9 +473,9 @@ $ cargo build
 ```
 
 Baris-baris ini menunjukkan bahwa Cargo hanya memperbarui build dengan
-perubahan kecil Anda pada file _src/main.rs_. Dependensi Anda belum
+perubahan kecil Anda pada file _src/main.rs_. Dependency Anda belum
 berubah, jadi Cargo tahu bahwa ia dapat memakai ulang apa yang telah
-diunduh dan dikompilasi untuk dependensi itu.
+diunduh dan dikompilasi untuk dependency itu.
 
 <!-- Old headings. Do not remove or links may break. -->
 <a id="ensuring-reproducible-builds-with-the-cargo-lock-file"></a>
@@ -484,7 +484,7 @@ diunduh dan dikompilasi untuk dependensi itu.
 
 Cargo memiliki mekanisme yang menjamin bahwa Anda dapat membangun ulang
 artefak yang sama setiap kali Anda atau siapa pun membangun kode Anda:
-Cargo hanya akan memakai versi dependensi yang Anda tentukan sampai Anda
+Cargo hanya akan memakai versi dependency yang Anda tentukan sampai Anda
 menyatakan sebaliknya. Misalnya, katakanlah minggu depan versi 0.10.2 dari
 *crate* `rand` dirilis, dan versi itu memuat perbaikan bug yang penting,
 tetapi juga memuat regresi yang akan merusak kode Anda. Untuk menangani
@@ -493,7 +493,7 @@ ini, Rust membuat file _Cargo.lock_ saat pertama kali Anda menjalankan
 _guessing_game_.
 
 Ketika Anda membangun proyek untuk pertama kalinya, Cargo mencari tahu
-semua versi dependensi yang memenuhi kriteria lalu menuliskannya ke file
+semua versi dependency yang memenuhi kriteria lalu menuliskannya ke file
 _Cargo.lock_. Ketika Anda membangun proyek di masa depan, Cargo akan
 melihat bahwa file _Cargo.lock_ sudah ada dan akan memakai versi-versi
 yang ditentukan di sana alih-alih melakukan semua pekerjaan mencari tahu
@@ -589,7 +589,7 @@ meminta angka antara 1 dan 100.
 > *crate*, jadi setiap *crate* memiliki dokumentasi berisi petunjuk
 > pemakaiannya. Fitur rapi lain dari Cargo adalah bahwa menjalankan
 > perintah `cargo doc --open` akan membangun dokumentasi yang disediakan
-> semua dependensi Anda secara lokal dan membukanya di peramban Anda.
+> semua dependency Anda secara lokal dan membukanya di peramban Anda.
 > Misalnya, jika Anda tertarik pada fungsionalitas lain di *crate* `rand`,
 > jalankan `cargo doc --open` dan klik `rand` di bilah sisi sebelah kiri.
 
@@ -653,7 +653,7 @@ jelaskan.
 </Listing>
 
 Pertama, kita menambahkan statement `use` lain, membawa type bernama
-`std::cmp::Ordering` ke dalam *scope* dari pustaka standar. Type
+`std::cmp::Ordering` ke dalam *scope* dari standard library. Type
 `Ordering` adalah *enum* lain dan memiliki *variant* `Less`, `Greater`, dan
 `Equal`. Ketiganya adalah tiga kemungkinan hasil ketika Anda membandingkan
 dua nilai.
@@ -984,7 +984,7 @@ You win!
 
 Luar biasa! Dengan satu penyesuaian kecil terakhir, kita akan
 menyelesaikan permainan tebak angka. Ingat bahwa programnya masih mencetak
-angka rahasia. Itu bekerja baik untuk pengujian, tetapi merusak
+angka rahasia. Itu bekerja baik untuk test, tetapi merusak
 permainannya. Mari kita hapus `println!` yang mengeluarkan angka rahasia.
 Listing 2-6 menunjukkan kode finalnya.
 

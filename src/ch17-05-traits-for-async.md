@@ -255,7 +255,7 @@ kita butuh *reference* *mutable* yang terbungkus `Pin` ke type itu.
 mengimplementasikan *trait* `Deref` atau `DerefMut`, tetapi ini secara efektif
 setara dengan bekerja hanya dengan *reference* dan *smart pointer*.) `Pin`
 bukanlah *pointer* itu sendiri dan tidak punya perilaku sendiri seperti yang
-dimiliki `Rc` dan `Arc` dengan penghitungan *reference*; `Pin` murni alat yang
+dimiliki `Rc` dan `Arc` dengan penghitungan *reference*; `Pin` murni tool yang
 bisa dipakai *compiler* untuk menegakkan batasan pada pemakaian *pointer*.
 
 Mengingat bahwa `await` diimplementasikan dalam bentuk pemanggilan `poll`
@@ -473,8 +473,8 @@ memperbaiki kode Anda!
 Sekarang setelah Anda punya pemahaman yang lebih dalam tentang *trait*
 `Future`, `Pin`, dan `Unpin`, kita bisa mengalihkan perhatian ke *trait*
 `Stream`. Seperti yang Anda pelajari di awal bab ini, *stream* mirip dengan
-*iterator* asinkron. Akan tetapi, tidak seperti `Iterator` dan `Future`,
-`Stream` belum punya definisi di pustaka standar saat tulisan ini dibuat,
+*iterator* asynchronous. Akan tetapi, tidak seperti `Iterator` dan `Future`,
+`Stream` belum punya definisi di standard library saat tulisan ini dibuat,
 tetapi _ada_ definisi yang sangat umum dari *crate* `futures` yang dipakai di
 seluruh ekosistem.
 
@@ -515,7 +515,7 @@ karena ia perlu memberi sinyal apakah masih ada pesan lagi, sama seperti
 *iterator*.
 
 Sesuatu yang sangat mirip dengan definisi ini kemungkinan besar akan berakhir
-menjadi bagian dari pustaka standar Rust. Sementara itu, definisi ini menjadi
+menjadi bagian dari standard library Rust. Sementara itu, definisi ini menjadi
 bagian dari perangkat kebanyakan runtime, jadi Anda bisa mengandalkannya, dan
 semua yang kita bahas berikutnya secara umum seharusnya berlaku!
 

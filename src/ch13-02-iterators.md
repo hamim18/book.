@@ -40,7 +40,7 @@ dipakai dalam satu iterasi loop, yang mencetak setiap nilainya.
 
 </Listing>
 
-Di bahasa-bahasa yang tidak memiliki *iterator* dari pustaka standarnya, Anda
+Di bahasa-bahasa yang tidak memiliki *iterator* dari standard librarynya, Anda
 kemungkinan akan menulis fungsionalitas yang sama ini dengan memulai sebuah
 variable pada indeks 0, memakai variable itu untuk mengindeks ke dalam vector
 untuk mendapat sebuah nilai, dan menaikkan nilai variable itu di dalam
@@ -56,7 +56,7 @@ telaah bagaimana *iterator* melakukannya.
 ### Trait `Iterator` dan Method `next`
 
 Semua *iterator* mengimplementasikan sebuah *trait* bernama `Iterator` yang
-didefinisikan di pustaka standar. Definisi *trait* itu tampak seperti ini:
+didefinisikan di standard library. Definisi *trait* itu tampak seperti ini:
 
 ```rust
 pub trait Iterator {
@@ -95,7 +95,7 @@ Kita dapat memanggil method `next` pada *iterator* secara langsung; Listing
 </Listing>
 
 Perhatikan bahwa kita perlu membuat `v1_iter` *mutable*: Memanggil method
-`next` pada sebuah *iterator* mengubah keadaan internal yang dipakai
+`next` pada sebuah *iterator* mengubah internal state yang dipakai
 *iterator* untuk melacak posisinya di dalam urutan. Dengan kata lain, kode ini
 _mengonsumsi_, atau menghabiskan, *iterator* itu. Setiap pemanggilan `next`
 memakan satu item dari *iterator*. Kita tidak perlu membuat `v1_iter`
@@ -114,8 +114,8 @@ alih-alih `iter`. Demikian pula, jika kita ingin melakukan iterasi atas
 ### Method yang Mengonsumsi Iterator
 
 *Trait* `Iterator` memiliki sejumlah method yang berbeda dengan implementasi
-bawaan yang disediakan oleh pustaka standar; Anda dapat mengetahui
-method-method ini dengan melihat dokumentasi API pustaka standar untuk *trait*
+bawaan yang disediakan oleh standard library; Anda dapat mengetahui
+method-method ini dengan melihat dokumentasi API standard library untuk *trait*
 `Iterator`. Sebagian dari method ini memanggil method `next` di dalam
 definisinya, itulah sebabnya Anda diharuskan mengimplementasikan method `next`
 ketika mengimplementasikan *trait* `Iterator`.
@@ -126,7 +126,7 @@ adalah method `sum`, yang mengambil *ownership* atas *iterator* dan melakukan
 iterasi pada item-itemnya dengan memanggil `next` berulang kali, sehingga
 mengonsumsi *iterator* itu. Selagi melakukan iterasi, method ini menambahkan
 setiap item ke total berjalan dan mengembalikan totalnya ketika iterasi
-selesai. Listing 13-13 memiliki sebuah pengujian yang mengilustrasikan
+selesai. Listing 13-13 memiliki sebuah test yang mengilustrasikan
 pemakaian method `sum`.
 
 <Listing number="13-13" file-name="src/lib.rs" caption="Memanggil method `sum` untuk mendapat total semua item di dalam iterator">
@@ -243,6 +243,6 @@ yang ditentukan. Akhirnya, pemanggilan `collect` mengumpulkan nilai-nilai yang
 dikembalikan oleh *iterator* yang diadaptasi itu ke dalam sebuah vector yang
 dikembalikan oleh fungsi tersebut.
 
-Pengujian itu menunjukkan bahwa ketika kita memanggil `shoes_in_size`, kita
+Test itu menunjukkan bahwa ketika kita memanggil `shoes_in_size`, kita
 hanya mendapat kembali sepatu-sepatu yang ukurannya sama dengan nilai yang
 kita tentukan.

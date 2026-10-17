@@ -1,7 +1,7 @@
-# Menulis Pengujian Terotomatisasi
+# Menulis Test Terotomatisasi
 
 Dalam esainya tahun 1972 yang berjudul “The Humble Programmer,” Edsger W.
-Dijkstra mengatakan bahwa “pengujian program bisa menjadi cara yang sangat
+Dijkstra mengatakan bahwa “test program bisa menjadi cara yang sangat
 efektif untuk menunjukkan keberadaan bug, tetapi sama sekali tidak memadai
 untuk menunjukkan ketiadaan bug.” Itu tidak berarti kita tidak boleh
 berusaha menguji sebanyak mungkin!
@@ -11,7 +11,7 @@ melakukan apa yang kita maksudkan. Rust dirancang dengan tingkat kepedulian
 yang tinggi terhadap kebenaran program, tetapi kebenaran itu kompleks dan
 tidak mudah dibuktikan. Sistem type Rust memikul sebagian besar beban ini,
 tetapi type system tidak bisa menangkap semuanya. Karena itu, Rust
-menyertakan dukungan untuk menulis *test* (pengujian) perangkat lunak
+menyertakan dukungan untuk menulis *test* (test) perangkat lunak
 terotomatisasi.
 
 Katakanlah kita menulis fungsi `add_two` yang menambahkan 2 ke angka apa pun
@@ -23,17 +23,17 @@ untuk memastikan bahwa, misalnya, kita tidak meneruskan nilai `String` atau
 *reference* yang tidak valid ke fungsi ini. Akan tetapi, Rust _tidak bisa_
 memeriksa bahwa fungsi ini akan melakukan persis apa yang kita maksudkan,
 yaitu mengembalikan parameter plus 2 alih-alih, katakanlah, parameter plus
-10 atau parameter minus 50! Di sinilah pengujian berperan.
+10 atau parameter minus 50! Di sinilah test berperan.
 
-Kita bisa menulis pengujian yang menegaskan, misalnya, bahwa ketika kita
+Kita bisa menulis test yang menegaskan, misalnya, bahwa ketika kita
 meneruskan `3` ke fungsi `add_two`, nilai yang dikembalikan adalah `5`.
-Kita bisa menjalankan pengujian ini kapan pun kita membuat perubahan pada
+Kita bisa menjalankan test ini kapan pun kita membuat perubahan pada
 kode kita untuk memastikan perilaku benar yang sudah ada tidak berubah.
 
-Pengujian adalah keterampilan yang kompleks: meskipun kita tidak bisa
-membahas setiap detail tentang cara menulis pengujian yang baik dalam satu
-bab, di bab ini kita akan membahas mekanisme fasilitas pengujian Rust. Kita
+Test adalah keterampilan yang kompleks: meskipun kita tidak bisa
+membahas setiap detail tentang cara menulis test yang baik dalam satu
+bab, di bab ini kita akan membahas mekanisme fasilitas test Rust. Kita
 akan membicarakan anotasi dan *macro* (makro) yang tersedia bagi Anda saat
-menulis pengujian, perilaku bawaan dan opsi-opsi yang disediakan untuk
-menjalankan pengujian, serta cara mengorganisasikan pengujian menjadi
-pengujian unit dan pengujian integrasi.
+menulis test, perilaku bawaan dan opsi-opsi yang disediakan untuk
+menjalankan test, serta cara mengorganisasikan test menjadi
+unit test dan integration test.

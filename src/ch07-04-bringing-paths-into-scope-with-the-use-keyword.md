@@ -82,7 +82,7 @@ pengulangan *path* lengkap. Kode di Listing 7-13 tidak jelas mengenai di mana
 
 Di sisi lain, ketika membawa *struct*, *enum*, dan item lain dengan `use`, adalah
 idiomatis untuk menuliskan *path* lengkapnya. Listing 7-14 menunjukkan cara
-yang idiomatis untuk membawa *struct* `HashMap` dari pustaka standar ke dalam
+yang idiomatis untuk membawa *struct* `HashMap` dari standard library ke dalam
 *scope* sebuah *crate* binary.
 
 <Listing number="7-14" file-name="src/main.rs" caption="Membawa `HashMap` ke dalam scope dengan cara yang idiomatis">
@@ -168,14 +168,14 @@ eksternal dapat memakai *path* `restaurant::hosting::add_to_waitlist()`
 sebagai gantinya.
 
 Re-exporting berguna ketika struktur internal kode Anda berbeda dari cara
-pemrogram yang memanggil kode Anda memikirkan domainnya. Misalnya, dalam
+programmer yang memanggil kode Anda memikirkan domainnya. Misalnya, dalam
 metafora restoran ini, orang-orang yang menjalankan restoran memikirkan
 “front of house” dan “back of house.” Tetapi pelanggan yang mengunjungi
 sebuah restoran mungkin tidak akan memikirkan bagian-bagian restoran dalam
 istilah-istilah tersebut. Dengan `pub use`, kita dapat menulis kode kita
 dengan satu struktur tetapi mengekspos struktur yang berbeda. Melakukannya
-membuat library kita tertata dengan baik bagi pemrogram yang mengerjakan
-library dan pemrogram yang memanggil library. Kita akan melihat contoh lain
+membuat library kita tertata dengan baik bagi programmer yang mengerjakan
+library dan programmer yang memanggil library. Kita akan melihat contoh lain
 dari `pub use` dan bagaimana pengaruhnya terhadap dokumentasi *crate* Anda di
 [“Mengekspor API Publik yang Mudah Dipakai”][ch14-pub-use]<!-- ignore -->
 di Bab 14.
@@ -202,8 +202,8 @@ di proyek kita, kita menambahkan baris ini ke _Cargo.toml_:
 
 </Listing>
 
-Menambahkan `rand` sebagai dependensi di _Cargo.toml_ memberi tahu Cargo
-untuk mengunduh *package* `rand` dan dependensi apa pun dari
+Menambahkan `rand` sebagai dependency di _Cargo.toml_ memberi tahu Cargo
+untuk mengunduh *package* `rand` dan dependency apa pun dari
 [crates.io](https://crates.io/) dan menjadikan `rand` tersedia untuk proyek
 kita.
 
@@ -224,8 +224,8 @@ Anda melibatkan langkah-langkah yang sama: mendaftarkannya di file
 _Cargo.toml_ *package* Anda dan memakai `use` untuk membawa item-item dari
 *crate* mereka ke dalam *scope*.
 
-Perhatikan bahwa pustaka standar `std` juga adalah sebuah *crate* yang
-eksternal bagi *package* kita. Karena pustaka standar dikirim bersama bahasa
+Perhatikan bahwa standard library `std` juga adalah sebuah *crate* yang
+eksternal bagi *package* kita. Karena standard library dikirim bersama bahasa
 Rust, kita tidak perlu mengubah _Cargo.toml_ untuk menyertakan `std`. Tetapi
 kita memang perlu merujuknya dengan `use` untuk membawa item-item dari sana
 ke dalam *scope* *package* kita. Misalnya, dengan `HashMap` kita akan memakai
@@ -323,14 +323,14 @@ Statement `use` ini membawa semua item publik yang didefinisikan di
 `std::collections` ke dalam *scope* saat ini. Berhati-hatilah saat memakai
 operator glob! Glob dapat mempersulit mengetahui nama apa saja yang berada di
 dalam *scope* dan di mana sebuah nama yang dipakai di program Anda
-didefinisikan. Selain itu, jika dependensi mengubah definisinya, apa yang
+didefinisikan. Selain itu, jika dependency mengubah definisinya, apa yang
 Anda impor ikut berubah, yang dapat menyebabkan error *compiler* ketika Anda
-memperbarui dependensi jika dependensi itu menambahkan definisi dengan nama
+memperbarui dependency jika dependency itu menambahkan definisi dengan nama
 yang sama dengan definisi milik Anda di *scope* yang sama, misalnya.
 
 Operator glob sering dipakai saat menguji untuk membawa semua yang sedang
 diuji ke dalam *module* `tests`; kita akan membahasnya di [“Cara Menulis
-Pengujian”][writing-tests]<!-- ignore --> di Bab 11. Operator glob juga
+Test”][writing-tests]<!-- ignore --> di Bab 11. Operator glob juga
 kadang dipakai sebagai bagian dari pattern prelude: lihat [dokumentasi pustaka
 standar](../std/prelude/index.html#other-preludes)<!-- ignore --> untuk
 informasi lebih lanjut tentang pattern itu.

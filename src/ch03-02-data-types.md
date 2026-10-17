@@ -126,7 +126,7 @@ saat melakukan pengindeksan terhadap suatu collection.
 > error.
 >
 > Untuk menangani kemungkinan overflow secara eksplisit, Anda dapat memakai
-> keluarga method berikut yang disediakan oleh pustaka standar untuk type
+> keluarga method berikut yang disediakan oleh standard library untuk type
 > numerik primitif:
 >
 > - Membungkus dalam semua mode kompilasi dengan method `wrapping_*`, seperti 
@@ -293,7 +293,7 @@ sama seperti type-type lain yang telah kita lihat sejauh ini, alih-alih di
 [Bab 4][stack-and-heap]<!-- ignore -->) atau ketika Anda ingin memastikan
 bahwa Anda selalu memiliki jumlah elemen yang tetap. Meski begitu, array tidak
 sefleksibel type vector. Vector adalah type collection serupa yang disediakan oleh
-pustaka standar yang _diizinkan_ untuk membesar atau mengecil ukurannya karena
+standard library yang _diizinkan_ untuk membesar atau mengecil ukurannya karena
 isinya berada di *heap*. Jika Anda ragu apakah harus memakai array atau vector,
 kemungkinan besar Anda sebaiknya memakai vector. [Bab 8][vectors]<!-- ignore
 --> membahas vector secara lebih mendetail.
@@ -389,7 +389,7 @@ pada saat runtime, khususnya pada kasus ini, karena *compiler* tidak mungkin tah
 nilai apa yang akan dimasukkan pengguna ketika mereka menjalankan kodenya
 nanti.
 
-Ini adalah contoh prinsip keamanan memori Rust sedang beraksi. Pada banyak
+Ini adalah contoh prinsip memory safety Rust sedang beraksi. Pada banyak
 low-level language, pemeriksaan semacam ini tidak dilakukan, dan ketika Anda
 memberikan indeks yang salah, memori yang tidak valid dapat diakses. Rust
 melindungi Anda dari error semacam ini dengan segera keluar alih-alih

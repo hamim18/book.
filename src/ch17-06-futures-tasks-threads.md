@@ -1,13 +1,13 @@
 ## Merangkai Semuanya: Futures, Tasks, dan Threads
 
 Seperti yang kita lihat di [Bab 16][ch16]<!-- ignore -->, thread menyediakan
-satu pendekatan terhadap konkurensi. Kita telah melihat pendekatan lain di bab
+satu pendekatan terhadap concurrency. Kita telah melihat pendekatan lain di bab
 ini: memakai async dengan *future* dan *stream*. Jika Anda bertanya-tanya kapan
 memilih satu method alih-alih yang lain, jawabannya adalah: tergantung! Dan
 dalam banyak kasus, pilihannya bukan thread _atau_ async, melainkan thread
 _dan_ async.
 
-Banyak sistem operasi telah menyediakan model konkurensi berbasis threading
+Banyak sistem operasi telah menyediakan model concurrency berbasis threading
 selama puluhan tahun, dan karena itu banyak bahasa pemrograman mendukungnya.
 Akan tetapi, model-model ini bukan tanpa kompromi. Di banyak sistem operasi,
 model ini memakai memori yang cukup banyak untuk setiap thread. Thread juga
@@ -17,7 +17,7 @@ sistem tertanam tidak punya OS sama sekali, jadi mereka juga tidak punya
 thread.
 
 Model async menyediakan sekumpulan kompromi yang berbeda—dan pada akhirnya
-saling melengkapi. Dalam model async, operasi konkuren tidak memerlukan
+saling melengkapi. Dalam model async, operasi concurrent tidak memerlukan
 thread-nya sendiri. Sebagai gantinya, operasi itu bisa berjalan pada *task*,
 seperti saat kita memakai `trpl::spawn_task` untuk memulai pekerjaan dari
 fungsi sinkron di bagian *streams*. Sebuah *task* mirip dengan thread, tetapi
@@ -25,11 +25,11 @@ alih-alih dikelola oleh sistem operasi, *task* dikelola oleh kode tingkat
 library: runtime.
 
 Ada alasan mengapa API untuk membuat thread dan membuat *task* sangat mirip.
-Thread berlaku sebagai batas untuk kumpulan operasi sinkron; konkurensi
+Thread berlaku sebagai batas untuk kumpulan operasi sinkron; concurrency
 dimungkinkan _antar_-thread. *Task* berlaku sebagai batas untuk kumpulan operasi
-_asinkron_; konkurensi dimungkinkan baik _antar_- maupun _di dalam_ *task*,
+_asinkron_; concurrency dimungkinkan baik _antar_- maupun _di dalam_ *task*,
 karena sebuah *task* bisa beralih di antara *future*-future di badannya.
-Terakhir, *future* adalah satuan konkurensi Rust yang paling halus, dan setiap
+Terakhir, *future* adalah satuan concurrency Rust yang paling halus, dan setiap
 *future* bisa merepresentasikan pohon dari *future*-future lain. Runtime—secara
 khusus, executor-nya—mengelola *task*, dan *task* mengelola *future*. Dalam hal itu,
 *task* mirip dengan thread ringan yang dikelola runtime, dengan kemampuan
@@ -37,8 +37,8 @@ tambahan yang berasal dari dikelola oleh runtime alih-alih oleh sistem
 operasi.
 
 Ini tidak berarti *task* async selalu lebih baik daripada thread (atau
-sebaliknya). Konkurensi dengan thread dalam beberapa hal adalah model
-pemrograman yang lebih sederhana daripada konkurensi dengan `async`. Itu bisa
+sebaliknya). Concurrency dengan thread dalam beberapa hal adalah model
+pemrograman yang lebih sederhana daripada concurrency dengan `async`. Itu bisa
 menjadi kekuatan atau kelemahan. Thread agak “fire and forget” (dilepas dan
 dibiarkan); mereka tidak punya padanan native untuk *future*, jadi mereka
 langsung berjalan sampai selesai tanpa diinterupsi kecuali oleh sistem operasi
@@ -64,7 +64,7 @@ aturan praktis ini:
   menangani pesan dari banyak sumber berbeda yang bisa datang pada selang atau
   laju yang berbeda, async adalah pilihan yang lebih baik.
 
-Dan jika Anda butuh paralelisme sekaligus konkurensi, Anda tidak harus memilih
+Dan jika Anda butuh paralelisme sekaligus concurrency, Anda tidak harus memilih
 antara thread dan async. Anda bisa memakai keduanya secara bebas, membiarkan
 masing-masing memainkan peran yang paling dikuasainya. Contohnya, Listing
 17-25 menunjukkan contoh yang cukup umum dari campuran semacam ini di kode
@@ -95,20 +95,20 @@ semacam ini di kasus pemakaian dunia nyata.
 
 ## Ringkasan
 
-Ini bukan terakhir kalinya Anda melihat konkurensi di buku ini. Proyek di
+Ini bukan terakhir kalinya Anda melihat concurrency di buku ini. Proyek di
 [Bab 21][ch21]<!-- ignore --> akan menerapkan konsep-konsep ini dalam situasi
 yang lebih realistis daripada contoh-contoh sederhana yang dibahas di sini,
 dan membandingkan pemecahan masalah dengan threading versus *task* dan *future*
 secara lebih langsung.
 
-Apa pun pendekatan yang Anda pilih di antara ini, Rust memberi Anda alat yang
-Anda butuhkan untuk menulis kode konkuren yang aman dan cepat—baik untuk
-server web berdaya tampung tinggi maupun sistem operasi tertanam.
+Apa pun pendekatan yang Anda pilih di antara ini, Rust memberi Anda tool yang
+Anda butuhkan untuk menulis kode concurrent yang aman dan cepat—baik untuk
+web server berdaya tampung tinggi maupun sistem operasi tertanam.
 
 Berikutnya, kita akan membahas cara-cara yang idiomatis untuk memodelkan
 masalah dan menstrukturkan solusi seiring program Rust Anda membesar. Selain
 itu, kita akan membahas bagaimana idiom Rust berhubungan dengan idiom yang
-mungkin Anda kenal dari pemrograman berorientasi objek.
+mungkin Anda kenal dari object-oriented programming.
 
 [ch16]: ch16-00-concurrency.html
 [combining-futures]: ch17-03-more-futures.html#building-our-own-async-abstractions

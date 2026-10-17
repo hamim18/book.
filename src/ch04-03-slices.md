@@ -344,7 +344,7 @@ vector di Bab 8.
 
 ## Ringkasan
 
-Konsep *ownership*, *borrowing*, dan *slice* menjamin keamanan memori dalam
+Konsep *ownership*, *borrowing*, dan *slice* menjamin memory safety dalam
 program Rust pada saat kompilasi. Bahasa Rust memberi Anda kendali atas
 penggunaan memori Anda, sama seperti bahasa pemrograman sistem lainnya.
 Namun, dengan adanya *owner* data yang membersihkan data itu secara otomatis

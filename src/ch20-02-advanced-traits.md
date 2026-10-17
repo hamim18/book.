@@ -27,7 +27,7 @@ lebih jarang dipakai daripada fitur-fitur yang dijelaskan di bagian lain buku
 ini, tetapi lebih sering daripada banyak fitur lain yang dibahas di bab ini.
 
 Salah satu contoh *trait* dengan associated type adalah *trait* `Iterator` yang
-disediakan pustaka standar. Type asosiasinya diberi nama `Item` dan mewakili
+disediakan standard library. Type asosiasinya diberi nama `Item` dan mewakili
 type dari nilai-nilai yang sedang diiterasi oleh type yang
 mengimplementasikan *trait* `Iterator`. Definisi *trait* `Iterator` adalah
 seperti yang ditunjukkan di Listing 20-13.
@@ -182,7 +182,7 @@ Anda akan memakai type parameter bawaan dengan dua cara utama:
 2. Untuk memungkinkan kustomisasi pada kasus-kasus spesifik yang tidak
    dibutuhkan sebagian besar pengguna
 
-*Trait* `Add` dari pustaka standar adalah contoh tujuan kedua: Biasanya, Anda
+*Trait* `Add` dari standard library adalah contoh tujuan kedua: Biasanya, Anda
 akan menjumlahkan dua type yang sejenis, tetapi *trait* `Add` menyediakan
 kemampuan untuk menyesuaikan lebih dari itu. Memakai type parameter bawaan
 di definisi *trait* `Add` berarti Anda tidak perlu menentukan parameter
@@ -377,7 +377,7 @@ dari *trait* Anda.
 Sebagai contoh, katakanlah kita ingin membuat *trait* `OutlinePrint` dengan
 method `outline_print` yang akan mencetak sebuah nilai yang diberikan dengan
 format yang dibingkai tanda bintang. Artinya, jika ada *struct* `Point` yang
-mengimplementasikan *trait* `Display` dari pustaka standar sehingga
+mengimplementasikan *trait* `Display` dari standard library sehingga
 menghasilkan `(x, y)`, saat kita memanggil `outline_print` pada instance
 `Point` yang memiliki `1` untuk `x` dan `3` untuk `y`, ia harusnya mencetak
 hal berikut:
@@ -467,7 +467,7 @@ Berbeda dengan *Tuple Struct*”][*tuple*-structs]<!-- ignore --> pada Bab 5.)
 sekeliling type yang ingin kita implementasikan *trait*-nya. Dengan begitu,
 type wrapper itu bersifat lokal bagi *crate* kita, dan kita bisa
 mengimplementasikan *trait* itu pada wrapper. *Newtype* adalah istilah yang
-berasal dari bahasa pemrograman Haskell. Tidak ada denda performa runtime
+berasal dari bahasa pemrograman Haskell. Tidak ada performance penalty runtime
 untuk memakai pattern ini, dan type wrapper-nya dihilangkan pada waktu
 kompilasi.
 

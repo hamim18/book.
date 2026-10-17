@@ -3,7 +3,7 @@
 Kita akan memperbaiki binary `minigrep` dengan menambahkan fitur tambahan:
 sebuah opsi untuk pencarian *case-insensitive* (tanpa membedakan huruf
 besar-kecil) yang dapat diaktifkan pengguna melalui sebuah variable
-lingkungan. Kita bisa menjadikan fitur ini sebuah opsi baris perintah dan
+lingkungan. Kita bisa menjadikan fitur ini sebuah opsi command line dan
 mengharuskan pengguna memasukkannya setiap kali mereka ingin fitur itu
 berlaku, tetapi dengan menjadikannya environment variable, kita mengizinkan
 pengguna menetapkan environment variable itu sekali dan membuat semua
@@ -12,18 +12,18 @@ pencarian mereka menjadi case-insensitive di sesi terminal itu.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="writing-a-failing-test-for-the-case-insensitive-search-function"></a>
 
-### Menulis Pengujian yang Gagal untuk Pencarian Case-Insensitive
+### Menulis Test yang Gagal untuk Pencarian Case-Insensitive
 
 Pertama, kita menambahkan fungsi baru `search_case_insensitive` ke pustaka
 `minigrep` yang akan dipanggil ketika environment variable itu memiliki nilai.
 Kita akan terus mengikuti proses TDD, jadi langkah pertama kembali adalah
-menulis sebuah pengujian yang gagal. Kita akan menambahkan pengujian baru
+menulis sebuah test yang gagal. Kita akan menambahkan test baru
 untuk fungsi `search_case_insensitive` yang baru itu dan mengganti nama
-pengujian lama kita dari `one_result` menjadi `case_sensitive` untuk
-memperjelas perbedaan antara kedua pengujian tersebut, seperti yang
+test lama kita dari `one_result` menjadi `case_sensitive` untuk
+memperjelas perbedaan antara kedua test tersebut, seperti yang
 ditunjukkan di Listing 12-20.
 
-<Listing number="12-20" file-name="src/lib.rs" caption="Menambahkan pengujian gagal yang baru untuk fungsi case-insensitive yang akan segera kita tambahkan">
+<Listing number="12-20" file-name="src/lib.rs" caption="Menambahkan test gagal yang baru untuk fungsi case-insensitive yang akan segera kita tambahkan">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-20/src/lib.rs:here}}
@@ -31,24 +31,24 @@ ditunjukkan di Listing 12-20.
 
 </Listing>
 
-Perhatikan bahwa kita juga telah mengedit `contents` pada pengujian lama.
+Perhatikan bahwa kita juga telah mengedit `contents` pada test lama.
 Kita telah menambahkan sebuah baris baru dengan teks `"Duct tape."` memakai
 huruf kapital _D_ yang seharusnya tidak cocok dengan kueri `"duct"` ketika
-kita mencari secara case-sensitive. Mengubah pengujian lama dengan cara ini
+kita mencari secara case-sensitive. Mengubah test lama dengan cara ini
 membantu memastikan bahwa kita tidak secara tidak sengaja merusak
 fungsionalitas pencarian case-sensitive yang telah kita implementasikan.
-Pengujian ini seharusnya lulus sekarang dan seharusnya terus lulus saat kita
+Test ini seharusnya lulus sekarang dan seharusnya terus lulus saat kita
 mengerjakan pencarian case-insensitive.
 
-Pengujian baru untuk pencarian case-_insensitive_ memakai `"rUsT"` sebagai
+Test baru untuk pencarian case-_insensitive_ memakai `"rUsT"` sebagai
 kuerinya. Di fungsi `search_case_insensitive` yang akan segera kita tambahkan,
 kueri `"rUsT"` seharusnya cocok dengan baris yang memuat `"Rust:"` dengan
 huruf kapital _R_ dan cocok dengan baris `"Trust me."` meskipun keduanya
-memiliki kapitalisasi yang berbeda dari kuerinya. Ini adalah pengujian kita
+memiliki kapitalisasi yang berbeda dari kuerinya. Ini adalah test kita
 yang gagal, dan ia akan gagal terkompilasi karena kita belum mendefinisikan
 fungsi `search_case_insensitive`. Silakan tambahkan implementasi kerangka yang
 selalu mengembalikan vector kosong, mirip dengan yang kita lakukan untuk
-fungsi `search` di Listing 12-16, untuk melihat pengujiannya terkompilasi lalu
+fungsi `search` di Listing 12-16, untuk melihat testnya terkompilasi lalu
 gagal.
 
 ### Mengimplementasikan Fungsi `search_case_insensitive`
@@ -92,7 +92,7 @@ untuk mengubah semua karakter menjadi huruf kecil. Sekarang setelah kita
 mengonversi `line` dan `query` menjadi huruf kecil, kita akan menemukan
 kecocokan apa pun huruf besar-kecil kuerinya.
 
-Mari kita lihat apakah implementasi ini meloloskan pengujian-pengujiannya:
+Mari kita lihat apakah implementasi ini meloloskan test-testnya:
 
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-21/output.txt}}
@@ -210,14 +210,14 @@ To an admiring bog!
 Luar biasa, kita juga mendapat baris-baris yang memuat _To_! Program
 `minigrep` kita kini dapat melakukan pencarian case-insensitive yang
 dikendalikan oleh sebuah environment variable. Sekarang Anda tahu cara
-mengelola opsi yang ditetapkan menggunakan argumen baris perintah ataupun
+mengelola opsi yang ditetapkan menggunakan argumen command line ataupun
 environment variable.
 
 Beberapa program mengizinkan argumen _dan_ environment variable untuk
 konfigurasi yang sama. Dalam kasus-kasus itu, program menentukan bahwa salah
 satu di antaranya yang didahulukan. Untuk latihan lain secara mandiri, cobalah
-mengendalikan kepekaan huruf besar-kecil melalui argumen baris perintah
-ataupun environment variable. Putuskan apakah argumen baris perintah atau
+mengendalikan kepekaan huruf besar-kecil melalui argumen command line
+ataupun environment variable. Putuskan apakah argumen command line atau
 environment variable yang seharusnya didahulukan jika program dijalankan dengan
 yang satu ditetapkan untuk membedakan huruf besar-kecil dan yang satu lagi
 untuk mengabaikan huruf besar-kecil.

@@ -115,7 +115,7 @@ adalah memulai dari atas dan membaca sampai Anda melihat file yang Anda
 tulis. Di situlah tempat masalah bermula. Baris-baris di atas titik itu
 adalah kode yang telah dipanggil kode Anda; baris-baris di bawahnya adalah
 kode yang memanggil kode Anda. Baris-baris sebelum-dan-sesudah ini mungkin
-mencakup kode inti Rust, kode pustaka standar, atau *crate* yang sedang Anda
+mencakup kode inti Rust, kode standard library, atau *crate* yang sedang Anda
 pakai. Mari kita coba mendapatkan backtrace dengan menetapkan variable
 lingkungan `RUST_BACKTRACE` ke nilai apa pun kecuali `0`. Listing 9-2
 menunjukkan output yang mirip dengan yang akan Anda lihat.

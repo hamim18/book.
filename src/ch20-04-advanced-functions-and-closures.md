@@ -53,7 +53,7 @@ tidak memiliki *closure*.
 
 Sebagai contoh situasi di mana Anda bisa memakai *closure* yang didefinisikan
 secara inline ataupun fungsi bernama, mari kita lihat pemakaian method `map`
-yang disediakan *trait* `Iterator` di pustaka standar. Untuk memakai method
+yang disediakan *trait* `Iterator` di standard library. Untuk memakai method
 `map` guna mengubah vector berisi angka menjadi vector berisi string, kita
 bisa memakai *closure*, seperti di Listing 20-29.
 
@@ -81,7 +81,7 @@ di seksi [“Trait Lanjutan”][advanced-traits]<!-- ignore --> karena ada banya
 fungsi bernama `to_string` yang tersedia.
 
 Di sini, kita memakai fungsi `to_string` yang didefinisikan di *trait*
-`ToString`, yang telah diimplementasikan pustaka standar untuk type apa pun
+`ToString`, yang telah diimplementasikan standard library untuk type apa pun
 yang mengimplementasikan `Display`.
 
 Ingat kembali dari seksi [“Nilai Enum”][enum-values]<!-- ignore --> di Bab 6

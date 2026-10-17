@@ -1,6 +1,6 @@
 ## Futures dan Sintaks Async
 
-Elemen kunci dari pemrograman asinkron di Rust adalah _future_ dan kata kunci
+Elemen kunci dari asynchronous programming di Rust adalah _future_ dan kata kunci
 `async` serta `await` dari Rust.
 
 Sebuah _future_ adalah nilai yang mungkin belum siap sekarang, tetapi akan siap
@@ -22,7 +22,7 @@ kembali. Proses mengecek sebuah *future* untuk melihat apakah nilainya sudah
 tersedia disebut _polling_.
 
 Beberapa bahasa lain, seperti C# dan JavaScript, juga memakai kata kunci
-`async` dan `await` untuk pemrograman asinkron. Jika Anda familier dengan
+`async` dan `await` untuk asynchronous programming. Jika Anda familier dengan
 bahasa-bahasa itu, Anda mungkin akan melihat beberapa perbedaan yang cukup
 besar dalam cara Rust menangani sintaks ini. Ada alasan kuat di baliknya,
 seperti yang akan kita lihat nanti!
@@ -40,7 +40,7 @@ melaju.
 
 Semua ini mungkin terasa agak abstrak, jadi mari kita tulis program async
 pertama kita: sebuah _web scraper_ kecil. Kita akan meneruskan dua URL dari
-baris perintah, mengambil keduanya secara konkuren, dan mengembalikan hasil
+command line, mengambil keduanya secara concurrent, dan mengembalikan hasil
 dari URL mana pun yang selesai lebih dulu. Contoh ini akan memuat cukup banyak
 sintaks baru, tetapi jangan khawatir—kita akan menjelaskan semua yang perlu
 Anda ketahui seiring kita berjalan.
@@ -68,7 +68,7 @@ re-export berasal, dan kita telah meninggalkan komentar yang ekstensif untuk
 menjelaskan apa yang dilakukan *crate* ini.
 
 Buat proyek binary baru bernama `hello-async` dan tambahkan *crate* `trpl`
-sebagai dependensi:
+sebagai dependency:
 
 ```console
 $ cargo new hello-async
@@ -77,7 +77,7 @@ $ cargo add trpl
 ```
 
 Sekarang kita bisa memakai berbagai bagian yang disediakan `trpl` untuk
-menulis program async pertama kita. Kita akan membangun sebuah alat baris
+menulis program async pertama kita. Kita akan membangun sebuah tool baris
 perintah kecil yang mengambil dua halaman web, menarik elemen `<title>` dari
 masing-masing halaman, dan mencetak judul dari halaman mana pun yang
 menyelesaikan seluruh proses itu lebih dulu.
@@ -101,7 +101,7 @@ dengan kata kunci `async`. Kemudian kita memakai fungsi `trpl::get` untuk
 mengambil URL apa pun yang diteruskan, lalu menambahkan kata kunci `await`
 untuk menunggu responsnya. Untuk mendapatkan teks dari `response`, kita
 memanggil method `text`-nya dan sekali lagi menunggunya dengan kata kunci
-`await`. Kedua langkah ini asinkron. Untuk fungsi `get`, kita harus menunggu
+`await`. Kedua langkah ini asynchronous. Untuk fungsi `get`, kita harus menunggu
 server mengirim balik bagian pertama dari responsnya, yang akan mencakup
 header HTTP, cookie, dan seterusnya, dan bisa dikirim terpisah dari badan
 respons. Apalagi jika badannya sangat besar, semuanya bisa butuh waktu untuk
@@ -228,7 +228,7 @@ ditunjukkan di Listing 17-3. Sayangnya, kode ini belum terkompilasi.
 </Listing>
 
 Kita mengikuti pattern yang sama dengan yang kita pakai untuk mendapatkan
-argumen baris perintah di bagian [“Menerima Argumen Baris
+argumen command line di bagian [“Menerima Argumen Baris
 Perintah”][cli-args]<!-- ignore --> di Bab 12. Kemudian kita meneruskan argumen
 URL itu ke `page_title` dan menunggu hasilnya. Karena nilai yang dihasilkan
 *future* itu adalah `Option<String>`, kita memakai expression `match` untuk
@@ -255,7 +255,7 @@ error[E0752]: `main` function is not allowed to be `async`
 
 Alasan `main` tidak boleh ditandai `async` adalah karena kode async
 membutuhkan sebuah _runtime_: sebuah *crate* Rust yang mengelola detail eksekusi
-kode asinkron. Fungsi `main` sebuah program bisa _menginisialisasi_ sebuah
+kode asynchronous. Fungsi `main` sebuah program bisa _menginisialisasi_ sebuah
 runtime, tetapi `main` bukanlah runtime _itu sendiri_. (Sebentar lagi kita
 akan melihat lebih jauh alasan kondisi ini.) Setiap program Rust yang
 menjalankan kode async punya setidaknya satu tempat yang menyiapkan runtime
@@ -264,7 +264,7 @@ untuk menjalankan *future*-future tersebut.
 Kebanyakan bahasa yang mendukung async membundel sebuah runtime, tetapi Rust
 tidak. Sebagai gantinya, tersedia banyak runtime async yang berbeda,
 masing-masing dengan pilihan kompromi yang sesuai untuk kasus pemakaian yang
-dibidiknya. Contohnya, sebuah server web berdaya tampung tinggi dengan banyak
+dibidiknya. Contohnya, sebuah web server berdaya tampung tinggi dengan banyak
 inti CPU dan RAM besar punya kebutuhan yang sangat berbeda dari sebuah
 mikrokontroler dengan satu inti, RAM kecil, dan tanpa kemampuan *allocation* *heap*.
 *Crate*-crate yang menyediakan runtime itu juga sering menyediakan versi async
@@ -361,16 +361,16 @@ sampai selesai.
 > menjalankan *future* sampai tuntas sebagaimana `trpl::block_on`.
 
 Sekarang mari kita rangkai semua bagian ini dan melihat bagaimana kita bisa
-menulis kode konkuren.
+menulis kode concurrent.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="racing-our-two-urls-against-each-other"></a>
 
-### Mempertandingkan Dua URL Secara Konkuren
+### Mempertandingkan Dua URL Secara Concurrent
 
 Di Listing 17-5, kita memanggil `page_title` dengan dua URL berbeda yang
-diteruskan dari baris perintah dan mempertandingkannya dengan memilih *future*
+diteruskan dari command line dan mempertandingkannya dengan memilih *future*
 mana pun yang selesai lebih dulu.
 
 <Listing number="17-5" caption="Memanggil `page_title` untuk dua URL untuk melihat mana yang kembali lebih dulu" file-name="src/main.rs">
@@ -424,7 +424,7 @@ output `println!` kita untuk menunjukkan URL mana yang selesai lebih dulu dan
 apa `<title>` halaman web di URL itu, jika ada.
 
 Sekarang Anda telah membangun sebuah web scraper kecil yang berfungsi! Pilih
-beberapa URL dan jalankan alat baris perintah itu. Anda mungkin menemukan
+beberapa URL dan jalankan tool command line itu. Anda mungkin menemukan
 bahwa beberapa situs secara konsisten lebih cepat daripada yang lain, sementara
 di kasus lain situs yang lebih cepat berubah-ubah dari satu kali jalankan ke
 jalankan berikutnya. Yang lebih penting, Anda telah mempelajari dasar-dasar

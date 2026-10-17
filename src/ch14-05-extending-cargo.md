@@ -6,7 +6,7 @@ bernama `cargo-something`, Anda dapat menjalankannya seolah-olah binary itu
 adalah subperintah Cargo dengan menjalankan `cargo something`. Perintah
 buatan sendiri seperti ini juga terdaftar ketika Anda menjalankan
 `cargo --list`. Bisa memakai `cargo install` untuk memasang ekstensi lalu
-menjalankannya persis seperti alat bawaan Cargo merupakan keuntungan desain
+menjalankannya persis seperti tool bawaan Cargo merupakan keuntungan desain
 Cargo yang sangat praktis!
 
 ## Ringkasan

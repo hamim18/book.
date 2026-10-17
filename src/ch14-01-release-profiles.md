@@ -2,7 +2,7 @@
 
 Dalam Rust, *release profile* (profil rilis) adalah profil yang telah
 didefinisikan sebelumnya dan dapat disesuaikan, dengan konfigurasi yang
-berbeda-beda sehingga seorang pemrogram memiliki kontrol lebih besar atas
+berbeda-beda sehingga seorang programmer memiliki kontrol lebih besar atas
 berbagai opsi untuk mengompilasi kode. Setiap profil dikonfigurasi secara
 terpisah dari yang lain.
 

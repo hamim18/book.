@@ -28,7 +28,7 @@ Rustacean menyebut “*crate*”, yang mereka maksud adalah *crate* library, dan
 mereka memakai “*crate*” secara bergantian dengan konsep pemrograman umum
 “library”.
 
-*Crate root* (akar *crate*) adalah file sumber yang menjadi titik awal *compiler*
+*Crate root* (akar *crate*) adalah source file yang menjadi titik awal *compiler*
 Rust dan menyusun *module* akar dari *crate* Anda (kita akan menjelaskan *module*
 secara mendalam di [“Mengontrol *Scope* dan Privasi dengan
 *Module*”][modules]<!-- ignore -->).
@@ -36,11 +36,11 @@ secara mendalam di [“Mengontrol *Scope* dan Privasi dengan
 Sebuah *package* (paket) adalah bundel berisi satu *crate* atau lebih yang
 menyediakan sekumpulan fungsionalitas. Sebuah *package* berisi file _Cargo.toml_
 yang menjelaskan cara membangun *crate*-crate tersebut. Cargo sendiri sebenarnya
-adalah sebuah *package* yang berisi *crate* binary untuk alat baris perintah yang
+adalah sebuah *package* yang berisi *crate* binary untuk tool command line yang
 selama ini Anda pakai untuk membangun kode Anda. *Package* Cargo juga berisi
-sebuah *crate* library yang menjadi dependensi *crate* binary tersebut. Proyek
+sebuah *crate* library yang menjadi dependency *crate* binary tersebut. Proyek
 lain dapat bergantung pada *crate* library Cargo untuk memakai logika yang sama
-dengan yang dipakai alat baris perintah Cargo.
+dengan yang dipakai tool command line Cargo.
 
 Sebuah *package* dapat berisi *crate* binary sebanyak yang Anda mau, tetapi paling
 banyak hanya satu *crate* library. Sebuah *package* harus berisi paling sedikit

@@ -44,7 +44,7 @@ seperti ini:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:instance}}
 ```
 
-Perhatikan bahwa *variant*-*variant* *enum* berada dalam ruang nama di bawah
+Perhatikan bahwa *variant*-*variant* *enum* berada dalam namespace di bawah
 pengenalnya, dan kita memakai titik dua ganda untuk memisahkan keduanya. Ini
 berguna karena kini nilai `IpAddrKind::V4` dan `IpAddrKind::V6` sama-sama
 typed `IpAddrKind`. Kita kemudian dapat, misalnya, mendefinisikan sebuah
@@ -116,8 +116,8 @@ melakukannya dengan *struct*. *Enum* menangani kasus ini dengan mudah:
 Kita telah menunjukkan beberapa cara berbeda untuk mendefinisikan struktur
 data guna menyimpan alamat IP versi empat dan versi enam. Akan tetapi,
 ternyata keinginan untuk menyimpan alamat IP dan mengkodekan jenisnya begitu
-umum sehingga [pustaka standar memiliki definisi yang dapat kita
-pakai!][IpAddr]<!-- ignore --> Mari kita lihat bagaimana pustaka standar
+umum sehingga [standard library memiliki definisi yang dapat kita
+pakai!][IpAddr]<!-- ignore --> Mari kita lihat bagaimana standard library
 mendefinisikan `IpAddr`. Ia memiliki *enum* dan *variant* yang persis seperti
 yang telah kita definisikan dan pakai, tetapi ia menanamkan data alamat di
 dalam *variant*-nya dalam bentuk dua *struct* berbeda, yang didefinisikan secara
@@ -140,12 +140,12 @@ enum IpAddr {
 
 Kode ini mengilustrasikan bahwa Anda dapat meletakkan data jenis apa pun di
 dalam *variant* *enum*: string, type numerik, atau *struct*, misalnya. Anda
-bahkan dapat menyertakan *enum* lain! Selain itu, type-type pustaka standar
+bahkan dapat menyertakan *enum* lain! Selain itu, type-type standard library
 sering kali tidak jauh lebih rumit daripada yang mungkin Anda buat sendiri.
 
-Perhatikan bahwa meskipun pustaka standar memuat definisi untuk `IpAddr`,
+Perhatikan bahwa meskipun standard library memuat definisi untuk `IpAddr`,
 kita tetap dapat membuat dan memakai definisi kita sendiri tanpa konflik
-karena kita belum membawa definisi pustaka standar ke dalam *scope* (cakupan)
+karena kita belum membawa definisi standard library ke dalam *scope* (cakupan)
 kita. Kita akan membahas lebih lanjut cara membawa type ke dalam *scope* di Bab
 7.
 
@@ -196,7 +196,7 @@ dipanggil. Pada contoh ini, kita telah membuat variable `m` yang memiliki
 nilai `Message::Write(String::from("hello"))`, dan itulah yang akan menjadi
 `self` di badan method `call` ketika `m.call()` dijalankan.
 
-Mari kita lihat *enum* lain di pustaka standar yang sangat umum dan berguna:
+Mari kita lihat *enum* lain di standard library yang sangat umum dan berguna:
 `Option`.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -206,7 +206,7 @@ Mari kita lihat *enum* lain di pustaka standar yang sangat umum dan berguna:
 ### Enum `Option`
 
 Bagian ini mengeksplorasi studi kasus `Option`, yang merupakan *enum* lain yang
-didefinisikan oleh pustaka standar. Type `Option` mengkodekan skenario yang
+didefinisikan oleh standard library. Type `Option` mengkodekan skenario yang
 sangat umum ketika sebuah nilai bisa berupa sesuatu, atau bisa juga bukan
 apa-apa.
 
@@ -248,7 +248,7 @@ yang saat ini tidak valid atau tidak ada karena suatu alasan.
 Masalahnya sebenarnya bukan pada konsepnya, melainkan pada implementasi
 tertentu. Karena itu, Rust tidak memiliki null, tetapi ia memiliki sebuah *enum*
 yang dapat mengkodekan konsep nilai yang ada atau tidak ada. *Enum* ini adalah
-`Option<T>`, dan ia [didefinisikan oleh pustaka standar][option]<!-- ignore -->
+`Option<T>`, dan ia [didefinisikan oleh standard library][option]<!-- ignore -->
 sebagai berikut:
 
 ```rust

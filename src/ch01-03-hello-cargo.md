@@ -1,18 +1,18 @@
 ## Hello, Cargo!
 
 Cargo adalah sistem build dan pengelola *package* (paket) milik Rust.
-Sebagian besar Rustaceans memakai alat ini untuk mengelola proyek Rust
+Sebagian besar Rustaceans memakai tool ini untuk mengelola proyek Rust
 mereka karena Cargo menangani banyak tugas untuk Anda, seperti membangun
 kode Anda, mengunduh pustaka-pustaka yang dibutuhkan kode Anda, dan
 membangun pustaka-pustaka itu. (Kita menyebut pustaka yang dibutuhkan kode
 Anda sebagai _dependensi_.)
 
 Program Rust yang paling sederhana, seperti yang telah kita tulis sejauh
-ini, tidak memiliki dependensi. Jika kita membangun proyek “Hello, world!”
+ini, tidak memiliki dependency. Jika kita membangun proyek “Hello, world!”
 dengan Cargo, proyek itu hanya akan memakai bagian Cargo yang menangani
 pembangunan kode Anda. Seiring Anda menulis program Rust yang lebih
-kompleks, Anda akan menambahkan dependensi, dan jika Anda memulai proyek
-menggunakan Cargo, menambahkan dependensi akan jauh lebih mudah.
+kompleks, Anda akan menambahkan dependency, dan jika Anda memulai proyek
+menggunakan Cargo, menambahkan dependency akan jauh lebih mudah.
 
 Karena sebagian besar proyek Rust memakai Cargo, sisa buku ini mengasumsikan
 bahwa Anda juga memakai Cargo. Cargo ikut terpasang bersama Rust jika Anda
@@ -55,9 +55,9 @@ _.gitignore_. File-file Git tidak akan dibuat jika Anda menjalankan
 `cargo new` di dalam repositori Git yang sudah ada; Anda dapat
 mengesampingkan perilaku ini dengan memakai `cargo new --vcs=git`.
 
-> Catatan: Git adalah sistem kontrol versi yang umum. Anda dapat mengubah
-> `cargo new` agar memakai sistem kontrol versi yang berbeda atau tidak
-> memakai sistem kontrol versi sama sekali dengan menggunakan flag `--vcs`.
+> Catatan: Git adalah version control system yang umum. Anda dapat mengubah
+> `cargo new` agar memakai version control system yang berbeda atau tidak
+> memakai version control system sama sekali dengan menggunakan flag `--vcs`.
 > Jalankan `cargo new --help` untuk melihat opsi-opsi yang tersedia.
 
 Buka _Cargo.toml_ di editor teks pilihan Anda. Isinya seharusnya mirip
@@ -90,10 +90,10 @@ akan dipakai. Kita akan membahas kunci `edition` di
 [Lampiran E][appendix-e]<!-- ignore -->.
 
 Baris terakhir, `[dependencies]`, adalah awal dari bagian untuk
-mendaftarkan dependensi-dependensi proyek Anda. Di Rust, paket-paket
+mendaftarkan dependency-dependency proyek Anda. Di Rust, paket-paket
 kode disebut sebagai *crate*. Kita tidak membutuhkan crate lain untuk
 proyek ini, tetapi kita akan membutuhkannya pada proyek pertama di Bab 2,
-jadi kita akan memakai bagian dependensi ini nanti.
+jadi kita akan memakai bagian dependency ini nanti.
 
 Sekarang buka _src/main.rs_ dan lihatlah:
 
@@ -111,7 +111,7 @@ dan proyek buatan Cargo adalah bahwa Cargo menempatkan kodenya di direktori
 _src_, dan kita memiliki file konfigurasi _Cargo.toml_ di direktori
 teratas.
 
-Cargo mengharapkan file-file sumber Anda berada di dalam direktori _src_.
+Cargo mengharapkan file-source file Anda berada di dalam direktori _src_.
 Direktori proyek tingkat atas hanya untuk file README, informasi lisensi,
 file konfigurasi, dan hal-hal lain yang tidak terkait dengan kode Anda.
 Memakai Cargo membantu Anda mengorganisasi proyek. Setiap hal punya
@@ -150,8 +150,8 @@ Hello, world!
 Jika semuanya berjalan lancar, `Hello, world!` seharusnya tercetak ke
 terminal. Menjalankan `cargo build` untuk pertama kalinya juga membuat
 Cargo menciptakan file baru di tingkat teratas: _Cargo.lock_. File ini
-melacak versi-versi pasti dari dependensi dalam proyek Anda. Proyek ini
-tidak memiliki dependensi, jadi isi file-nya agak sepi. Anda tidak akan
+melacak versi-versi pasti dari dependency dalam proyek Anda. Proyek ini
+tidak memiliki dependency, jadi isi file-nya agak sepi. Anda tidak akan
 pernah perlu mengubah file ini secara manual; Cargo mengelola isinya untuk
 Anda.
 
@@ -244,7 +244,7 @@ melakukan benchmark dengan file eksekutabel di _target/release_.
 Pada proyek-proyek sederhana, Cargo tidak memberikan banyak nilai
 dibandingkan sekadar memakai `rustc`, tetapi nilainya akan terbukti saat
 program Anda semakin rumit. Begitu program tumbuh menjadi banyak file atau
-membutuhkan dependensi, jauh lebih mudah membiarkan Cargo mengoordinasikan
+membutuhkan dependency, jauh lebih mudah membiarkan Cargo mengoordinasikan
 build-nya.
 
 Meskipun proyek `hello_cargo` sederhana, proyek ini kini memakai banyak

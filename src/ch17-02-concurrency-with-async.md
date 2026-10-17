@@ -2,14 +2,14 @@
 
 <a id="concurrency-with-async"></a>
 
-## Menerapkan Konkurensi dengan Async
+## Menerapkan Concurrency dengan Async
 
-Pada bagian ini, kita akan menerapkan async pada sebagian tantangan konkurensi
+Pada bagian ini, kita akan menerapkan async pada sebagian tantangan concurrency
 yang sama dengan yang kita tangani dengan thread di Bab 16. Karena kita sudah
 membahas banyak gagasan kuncinya di sana, pada bagian ini kita akan berfokus
 pada hal-hal yang berbeda antara thread dan *future*.
 
-Dalam banyak kasus, API untuk bekerja dengan konkurensi menggunakan async
+Dalam banyak kasus, API untuk bekerja dengan concurrency menggunakan async
 sangat mirip dengan yang menggunakan thread. Di kasus lain, keduanya akhirnya
 cukup berbeda. Bahkan ketika API thread dan async _terlihat_ mirip, keduanya
 sering kali punya perilaku yang berbeda—dan karakteristik performanya hampir
@@ -171,7 +171,7 @@ sudah siap. Dengan thread, sistem operasi yang memutuskan thread mana yang
 dicek dan berapa lama ia dibiarkan berjalan. Dengan async Rust, runtime yang
 memutuskan *task* mana yang dicek. (Dalam praktiknya, detailnya menjadi rumit
 karena sebuah runtime async mungkin memakai thread sistem operasi di balik
-layar sebagai bagian dari cara ia mengelola konkurensi, sehingga menjamin
+layar sebagai bagian dari cara ia mengelola concurrency, sehingga menjamin
 fairness bisa menjadi pekerjaan lebih bagi sebuah runtime—tetapi itu tetap
 mungkin!) Runtime tidak harus menjamin fairness untuk operasi tertentu, dan
 runtime sering kali menawarkan API yang berbeda untuk memilih apakah Anda
@@ -198,7 +198,7 @@ Berbagi data antar-future juga akan terasa familier: kita akan memakai message
 passing lagi, tetapi kali ini dengan versi async dari type-type dan
 fungsi-fungsinya. Kita akan menempuh jalan yang sedikit berbeda dari bagian
 [“Mentransfer Data Antar-Thread dengan Message Passing”][message-passing-threads]<!-- ignore -->
-di Bab 16 untuk mengilustrasikan sebagian perbedaan kunci antara konkurensi
+di Bab 16 untuk mengilustrasikan sebagian perbedaan kunci antara concurrency
 berbasis thread dan berbasis *future*. Di Listing 17-9, kita akan mulai dengan
 satu blok async saja—_bukan_ membuat *task* terpisah sebagaimana kita membuat
 thread terpisah.
@@ -236,7 +236,7 @@ pengirimannya tidak terbatas.
 > async, dan dengan demikian tempat transisi antara kode sinkron dan async.
 
 Perhatikan dua hal tentang contoh ini. Pertama, pesan akan langsung tiba.
-Kedua, meskipun kita memakai *future* di sini, belum ada konkurensi. Semua yang
+Kedua, meskipun kita memakai *future* di sini, belum ada concurrency. Semua yang
 ada di listing ini terjadi secara berurutan, sama seperti jika tidak ada
 *future* yang terlibat.
 
@@ -297,7 +297,7 @@ Di dalam sebuah blok async tertentu, urutan kemunculan kata kunci `await` di
 kode juga merupakan urutan eksekusinya saat program berjalan.
 
 Hanya ada satu blok async di Listing 17-10, jadi semua yang ada di dalamnya
-berjalan secara linear. Masih belum ada konkurensi. Semua pemanggilan
+berjalan secara linear. Masih belum ada concurrency. Semua pemanggilan
 `tx.send` terjadi, diselingi semua pemanggilan `trpl::sleep` dan await point
 terkaitnya. Baru setelah itu loop `while let` sempat melewati
 await point mana pun pada pemanggilan `recv`.

@@ -104,7 +104,7 @@ melalui hierarki *module*.
 
 | Simbol                                  | Penjelasan                                                                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `ident::ident`                          | Path ruang nama                                                                                                               |
+| `ident::ident`                          | Path namespace                                                                                                               |
 | `::path`                                | Path relatif terhadap akar crate (yaitu, path yang secara eksplisit absolut)                                                  |
 | `self::path`                            | Path relatif terhadap module saat ini (yaitu, path yang secara eksplisit relatif)                                             |
 | `super::path`                           | Path relatif terhadap induk module saat ini                                                                                    |

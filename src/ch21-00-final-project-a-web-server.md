@@ -5,10 +5,10 @@ ini, kita akan membangun satu proyek lagi bersama-sama untuk menunjukkan
 beberapa konsep yang kita bahas di bab-bab terakhir, sekaligus mengulang
 beberapa pelajaran sebelumnya.
 
-Untuk proyek akhir kita, kita akan membuat server web yang menyapa “Hello!”
-dan tampak seperti Gambar 21-1 di peramban web.
+Untuk proyek akhir kita, kita akan membuat web server yang menyapa “Hello!”
+dan tampak seperti Gambar 21-1 di web browser.
 
-Berikut rencana kita untuk membangun server web itu:
+Berikut rencana kita untuk membangun web server itu:
 
 1. Mempelajari sedikit tentang TCP dan HTTP.
 2. Mendengarkan koneksi TCP pada sebuah soket.
@@ -16,15 +16,15 @@ Berikut rencana kita untuk membangun server web itu:
 4. Membuat respons HTTP yang tepat.
 5. Meningkatkan throughput server kita dengan *thread pool*.
 
-<img alt="Tangkapan layar peramban web yang mengunjungi alamat 127.0.0.1:8080 dan menampilkan halaman web dengan konten teks “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
+<img alt="Tangkapan layar web browser yang mengunjungi alamat 127.0.0.1:8080 dan menampilkan halaman web dengan konten teks “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 21-1: Proyek akhir kita bersama</span>
 
 Sebelum kita mulai, ada dua hal yang perlu kita sampaikan. Pertama, method
-yang akan kita pakai bukanlah cara terbaik untuk membangun server web dengan
+yang akan kita pakai bukanlah cara terbaik untuk membangun web server dengan
 Rust. Anggota komunitas telah menerbitkan sejumlah *crate* siap produksi yang
 tersedia di [crates.io](https://crates.io/)<!-- ignore --> yang menyediakan
-implementasi server web dan *thread pool* yang lebih lengkap daripada yang
+implementasi web server dan *thread pool* yang lebih lengkap daripada yang
 akan kita bangun. Akan tetapi, niat kita di bab ini adalah membantu Anda
 belajar, bukan mengambil jalan pintas. Karena Rust adalah bahasa pemrograman
 sistem, kita bisa memilih tingkat abstraksi yang ingin kita pakai untuk

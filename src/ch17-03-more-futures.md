@@ -147,9 +147,9 @@ itu _cepat_: mereka bisa melakukan banyak hal dalam satu milidetik!
 
 Artinya, async bisa berguna bahkan untuk tugas-tugas yang terikat komputasi,
 bergantung pada apa lagi yang sedang dikerjakan program Anda, karena async
-menyediakan alat yang berguna untuk menstrukturkan hubungan antara berbagai
+menyediakan tool yang berguna untuk menstrukturkan hubungan antara berbagai
 bagian program (tetapi dengan membayar overhead state machine async). Ini
-adalah bentuk _cooperative multitasking_ (multitasking kooperatif), tempat
+adalah bentuk _cooperative multitasking_ (cooperative multitasking), tempat
 setiap *future* punya kuasa untuk menentukan kapan ia menyerahkan kontrol
 melalui await point. Karena itu, setiap *future* juga punya tanggung jawab untuk
 menghindari pemblokiran terlalu lama. Di sebagian sistem operasi tertanam
@@ -163,7 +163,7 @@ lambat, jadi terkadang lebih baik bagi performa _keseluruhan_ untuk
 membiarkan sebuah operasi memblokir sebentar. Selalu ukur untuk melihat di
 mana hambatan performa sesungguhnya dari kode Anda. Meski begitu, dinamika
 mendasar ini penting untuk diingat jika Anda _memang_ melihat banyak pekerjaan
-berjalan serial padahal Anda mengharapkannya berjalan konkuren!
+berjalan serial padahal Anda mengharapkannya berjalan concurrent!
 
 <a id="building-our-own-async-abstractions"></a>
 ### Membangun Abstraksi Async Kita Sendiri
@@ -248,7 +248,7 @@ kegagalannya setelah batas waktu habis:
 Failed after 2 seconds
 ```
 
-Karena *future* dapat disusun dengan *future* lain, Anda bisa membangun alat yang
+Karena *future* dapat disusun dengan *future* lain, Anda bisa membangun tool yang
 benar-benar hebat menggunakan batu penyusun async yang lebih kecil. Contohnya,
 Anda bisa memakai pendekatan yang sama ini untuk menggabungkan timeout dengan
 percobaan ulang, dan selanjutnya memakai keduanya dengan operasi seperti

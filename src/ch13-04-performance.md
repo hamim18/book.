@@ -50,7 +50,7 @@ performa runtime karenanya.
 ## Ringkasan
 
 *Closure* dan *iterator* adalah fitur Rust yang terinspirasi oleh gagasan-gagasan
-bahasa pemrograman fungsional. Keduanya berkontribusi pada kemampuan Rust
+bahasa functional programming. Keduanya berkontribusi pada kemampuan Rust
 untuk mengekspresikan gagasan tingkat tinggi dengan jelas pada performa
 tingkat rendah. Implementasi *closure* dan *iterator* dibuat sedemikian rupa
 sehingga performa runtime tidak terpengaruh. Ini adalah bagian dari tujuan

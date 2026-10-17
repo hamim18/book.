@@ -352,7 +352,7 @@ Kelima nilai array muncul di terminal, seperti yang diharapkan. Meskipun
 mengeksekusi sebelum mencoba mengambil nilai keenam dari array.
 
 Akan tetapi, pendekatan ini rawan error; kita dapat membuat program panic jika
-nilai indeks atau kondisi pengujiannya salah. Contohnya, jika Anda mengubah
+nilai indeks atau kondisi testnya salah. Contohnya, jika Anda mengubah
 definisi array `a` menjadi empat elemen tetapi lupa memperbarui kondisinya
 menjadi `while index < 4`, kodenya akan panic. Pendekatan ini juga lambat,
 karena compiler menambahkan kode runtime untuk melakukan pemeriksaan
@@ -388,7 +388,7 @@ yang paling sering dipakai di Rust. Bahkan pada situasi ketika Anda ingin
 menjalankan kode sebanyak beberapa kali tertentu, seperti contoh hitung mundur
 yang memakai loop `while` pada Listing 3-3, sebagian besar Rustacean
 akan memakai loop `for`. Caranya adalah memakai `Range`, yang disediakan
-oleh pustaka standar, yang membangkitkan semua angka secara berurutan mulai
+oleh standard library, yang membangkitkan semua angka secara berurutan mulai
 dari satu angka dan berakhir sebelum angka lain.
 
 Berikut tampilan hitung mundurnya jika memakai loop `for` dan method

@@ -2,11 +2,11 @@
 
 Kita akan mulai dengan membuat web server single-threaded bekerja. Sebelum
 kita mulai, mari kita lihat sekilas protokol-protokol yang terlibat dalam
-pembangunan server web. Detail protokol-protokol ini berada di luar coverage
+pembangunan web server. Detail protokol-protokol ini berada di luar coverage
 buku ini, tetapi ringkasan singkat akan memberi Anda informasi yang Anda
 butuhkan.
 
-Dua protokol utama yang terlibat dalam server web adalah *Hypertext Transfer
+Dua protokol utama yang terlibat dalam web server adalah *Hypertext Transfer
 Protocol* *(HTTP)* dan *Transmission Control Protocol* *(TCP)*. Kedua
 protokol itu adalah protokol *request-response*, yang berarti sebuah
 *client* (klien) memulai permintaan dan sebuah *server* mendengarkan
@@ -53,7 +53,7 @@ alamat IP yang mewakili komputer Anda (alamat ini sama di setiap komputer
 dan tidak mewakili komputer para penulis secara khusus), dan `7878` adalah
 portnya. Kami memilih port ini karena dua alasan: HTTP biasanya tidak
 diterima pada port ini, jadi server kita kemungkinan besar tidak akan
-bentrok dengan server web lain yang mungkin sedang berjalan di mesin Anda,
+bentrok dengan web server lain yang mungkin sedang berjalan di mesin Anda,
 dan 7878 adalah _rust_ jika diketik pada telepon.
 
 Fungsi `bind` dalam skenario ini bekerja seperti fungsi `new`, yaitu
@@ -92,7 +92,7 @@ serentak yang bisa mereka dukung; percobaan koneksi baru di luar jumlah itu
 akan menghasilkan error sampai sebagian koneksi yang terbuka ditutup.
 
 Mari kita coba menjalankan kode ini! Jalankan `cargo run` di terminal lalu
-muat _127.0.0.1:7878_ di peramban web. Peramban seharusnya menampilkan
+muat _127.0.0.1:7878_ di web browser. Peramban seharusnya menampilkan
 pesan error seperti “Connection reset” karena server saat ini tidak
 mengirimkan data apa pun kembali. Tetapi saat Anda melihat terminal Anda,
 Anda seharusnya melihat beberapa pesan yang dicetak saat peramban terhubung
@@ -183,7 +183,7 @@ karakter newline berturut-turut, jadi untuk mendapatkan satu permintaan
 dari *stream*, kita mengambil baris-baris sampai kita mendapat baris yang
 berupa string kosong. Setelah kita mengumpulkan baris-baris itu ke dalam
 vector, kita mencetaknya dengan format debug yang rapi supaya kita bisa
-melihat instruksi yang dikirim peramban web ke server kita.
+melihat instruksi yang dikirim web browser ke server kita.
 
 Mari kita coba kode ini! Mulai programnya dan buat permintaan di peramban
 web lagi. Perhatikan bahwa kita tetap akan mendapat halaman error di
@@ -329,7 +329,7 @@ Anda akan menambahkan penanganan error di sini.
 Dengan perubahan ini, mari kita jalankan kode kita dan buat permintaan.
 Kita tidak lagi mencetak data apa pun ke terminal, jadi kita tidak akan
 melihat output selain output dari Cargo. Saat Anda memuat
-_127.0.0.1:7878_ di peramban web, Anda seharusnya mendapat halaman kosong,
+_127.0.0.1:7878_ di web browser, Anda seharusnya mendapat halaman kosong,
 bukan error. Anda baru saja menulis dengan tangan penerimaan permintaan
 HTTP dan pengiriman respons!
 
@@ -363,7 +363,7 @@ mengirimkannya.
 </Listing>
 
 Kita telah menambahkan `fs` ke statement `use` untuk membawa *module*
-filesystem pustaka standar ke dalam *scope*. Kode untuk membaca isi file
+filesystem standard library ke dalam *scope*. Kode untuk membaca isi file
 menjadi string seharusnya tampak familier; kita memakainya saat membaca isi
 file untuk proyek I/O kita di Listing 12-4.
 
@@ -380,13 +380,13 @@ mengirim kembali isi file HTML itu tanpa syarat. Itu berarti jika Anda
 mencoba meminta _127.0.0.1:7878/something-else_ di peramban Anda, Anda
 tetap akan mendapat respons HTML yang sama itu. Saat ini, server kita
 sangat terbatas dan tidak melakukan apa yang dilakukan sebagian besar
-server web. Kita ingin menyesuaikan respons kita bergantung pada
+web server. Kita ingin menyesuaikan respons kita bergantung pada
 permintaannya dan hanya mengirim kembali file HTML itu untuk permintaan
 yang *well-formed* ke _/_.
 
 ### Memvalidasi Permintaan dan Merespons Secara Selektif
 
-Saat ini, server web kita akan mengembalikan HTML di file itu apa pun yang
+Saat ini, web server kita akan mengembalikan HTML di file itu apa pun yang
 diminta client. Mari kita tambahkan fungsionalitas untuk memeriksa bahwa
 peramban meminta _/_ sebelum mengembalikan file HTML itu dan untuk
 mengembalikan error jika peramban meminta apa pun selain itu. Untuk ini,
@@ -428,7 +428,7 @@ Sekarang mari kita tambahkan kode di Listing 21-7 ke blok `else` untuk
 mengembalikan respons dengan kode status 404, yang menandakan bahwa konten
 untuk permintaan itu tidak ditemukan. Kita juga akan mengembalikan
 sebagian HTML untuk halaman yang dirender di peramban yang menunjukkan
-respons itu kepada pengguna akhir.
+respons itu kepada end user.
 
 <Listing number="21-7" file-name="src/main.rs" caption="Merespons dengan kode status 404 dan halaman error jika yang diminta bukan */*">
 
@@ -492,7 +492,7 @@ punya satu tempat untuk memperbarui kode jika kita ingin mengubah cara
 pembacaan file dan penulisan respons bekerja. Perilaku kode di Listing 21-9
 akan sama dengan di Listing 21-7.
 
-Luar biasa! Sekarang kita punya server web sederhana dalam kira-kira 40
+Luar biasa! Sekarang kita punya web server sederhana dalam kira-kira 40
 baris kode Rust yang merespons satu permintaan dengan halaman berisi
 konten dan merespons semua permintaan lainnya dengan respons 404.
 

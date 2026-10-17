@@ -644,7 +644,7 @@ pattern itu tidak tahu yang mana. Kode pattern itu tidak bisa memakai nilai dari
 Di arm terakhir, tempat kita menentukan variable tanpa rentang, kita memang
 memiliki nilainya untuk dipakai di kode arm itu dalam variable bernama `id`.
 Alasannya adalah kita telah memakai sintaks bentuk singkat *field* *struct*.
-Tetapi kita belum menerapkan pengujian apa pun pada nilai di *field* `id` di
+Tetapi kita belum menerapkan test apa pun pada nilai di *field* `id` di
 arm ini, seperti yang kita lakukan di dua arm pertama: nilai apa pun akan
 cocok dengan pattern ini.
 

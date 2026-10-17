@@ -5,7 +5,7 @@ dijalankan dalam sebuah _process_ (proses), dan sistem operasi mengelola
 beberapa proses sekaligus. Di dalam sebuah program, Anda juga dapat memiliki
 bagian-bagian independen yang berjalan secara bersamaan. Fitur yang
 menjalankan bagian-bagian independen ini disebut _thread_. Sebagai contoh,
-sebuah server web bisa memiliki beberapa thread supaya ia dapat menanggapi
+sebuah web server bisa memiliki beberapa thread supaya ia dapat menanggapi
 lebih dari satu permintaan pada saat yang sama.
 
 Memecah komputasi dalam program Anda menjadi beberapa thread untuk
@@ -33,7 +33,7 @@ implementasi thread _1:1_, yang berarti sebuah program memakai satu thread
 sistem operasi untuk setiap satu thread bahasa. Ada *crate*-crate yang
 mengimplementasikan model threading lain yang membuat kompromi berbeda dari
 model 1:1. (Sistem async Rust, yang akan kita lihat di bab berikutnya, juga
-menyediakan pendekatan lain terhadap konkurensi.)
+menyediakan pendekatan lain terhadap concurrency.)
 
 <a id="creating-a-new-thread-with-spawn"></a>
 ### Membuat Thread Baru dengan `spawn`

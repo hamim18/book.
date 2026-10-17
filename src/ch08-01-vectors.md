@@ -25,7 +25,7 @@ memasukkan nilai apa pun ke dalam vector ini, Rust tidak tahu elemen typed
 apa yang ingin kita simpan. Ini poin yang penting. Vector diimplementasikan
 memakai *generics* (tipe generik); kita akan membahas cara memakai *generics*
 dengan type Anda sendiri di Bab 10. Untuk saat ini, ketahuilah bahwa type
-`Vec<T>` yang disediakan pustaka standar dapat menampung type apa pun. Ketika
+`Vec<T>` yang disediakan standard library dapat menampung type apa pun. Ketika
 kita membuat vector untuk menampung type tertentu, kita dapat menyebutkan
 typenya di dalam kurung sudut. Di Listing 8-1, kita telah memberi tahu Rust
 bahwa `Vec<T>` di `v` akan menampung elemen typed `i32`.
@@ -247,7 +247,7 @@ kita bahas di Bab 18.
 Setelah kita membahas beberapa cara paling umum untuk memakai vector,
 pastikan untuk meninjau [dokumentasi API][vec-api]<!-- ignore --> untuk semua
 method bermanfaat yang banyak jumlahnya yang didefinisikan pada `Vec<T>` oleh
-pustaka standar. Misalnya, selain `push`, method `pop` menghapus dan
+standard library. Misalnya, selain `push`, method `pop` menghapus dan
 mengembalikan elemen terakhir.
 
 ### Membebaskan Vector Ikut Membebaskan Elemen-Elemennya

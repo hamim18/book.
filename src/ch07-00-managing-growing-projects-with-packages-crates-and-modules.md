@@ -16,7 +16,7 @@ kode dengan membaginya ke dalam beberapa *module*, lalu ke dalam beberapa file.
 Sebuah *package* (paket) dapat berisi beberapa *crate* binary dan, opsional,
 satu *crate* library. Seiring berkembangnya sebuah *package*, Anda dapat
 mengekstrak bagian-bagiannya ke dalam *crate*-crate terpisah yang menjadi
-dependensi eksternal. Bab ini membahas semua teknik tersebut. Untuk proyek
+dependency eksternal. Bab ini membahas semua teknik tersebut. Untuk proyek
 yang sangat besar yang terdiri atas sekumpulan *package* yang saling terkait dan
 berkembang bersama, Cargo menyediakan workspace, yang akan kita bahas di
 [“Workspace Cargo”][workspaces]<!-- ignore --> di Bab 14.
@@ -32,7 +32,7 @@ Anda simpan di kepala.
 
 Konsep yang berkaitan adalah *scope* (cakupan): konteks bersarang tempat kode
 ditulis memiliki sekumpulan nama yang didefinisikan sebagai “berada di dalam
-*scope*”. Ketika membaca, menulis, dan mengompilasi kode, pemrogram dan
+*scope*”. Ketika membaca, menulis, dan mengompilasi kode, programmer dan
 *compiler* (kompilator) perlu tahu apakah sebuah nama pada titik tertentu
 merujuk ke variable, fungsi, *struct*, *enum*, *module*, constant, atau item lain,
 dan apa makna item tersebut. Anda dapat membuat *scope* dan mengubah nama-nama

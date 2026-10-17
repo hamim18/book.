@@ -135,7 +135,7 @@ berikut:
 *Macro* `println!` dapat melakukan banyak jenis format, dan secara bawaan,
 kurung kurawalnya memberi tahu `println!` untuk memakai format yang dikenal
 sebagai `Display`: output yang ditujukan untuk konsumsi langsung oleh
-pengguna akhir. Type-primitive type yang telah kita lihat sejauh ini
+end user. Type-primitive type yang telah kita lihat sejauh ini
 mengimplementasikan `Display` secara bawaan karena hanya ada satu cara untuk
 menampilkan `1` atau primitive type lain kepada pengguna. Tetapi untuk *struct*,
 cara `println!` memformat output-nya kurang jelas karena ada lebih banyak

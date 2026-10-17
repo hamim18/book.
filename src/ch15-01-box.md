@@ -79,7 +79,7 @@ diketahui, kita dapat mengaktifkan type rekursif dengan menyisipkan sebuah *box*
 di definisi type rekursif itu.
 
 Sebagai contoh type rekursif, mari kita jelajahi *cons list*. Ini adalah type
-data yang umum ditemukan di bahasa-bahasa pemrograman fungsional. Type cons
+data yang umum ditemukan di bahasa-bahasa functional programming. Type cons
 list yang akan kita definisikan ini sederhana, kecuali bagian rekursinya;
 karena itu, konsep-konsep dalam contoh yang akan kita kerjakan akan berguna
 kapan pun Anda menghadapi situasi yang lebih kompleks yang melibatkan type

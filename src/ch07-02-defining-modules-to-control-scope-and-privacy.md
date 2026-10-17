@@ -149,10 +149,10 @@ dapat memuat definisi untuk item lain, seperti *struct*, *enum*, constant, *trai
 dan seperti di Listing 7-1, fungsi.
 
 Dengan memakai *module*, kita dapat mengelompokkan definisi-definisi yang
-berkaitan dan memberi nama alasan keterkaitannya. Pemrogram yang memakai kode
+berkaitan dan memberi nama alasan keterkaitannya. Programmer yang memakai kode
 ini dapat menavigasi kode berdasarkan kelompok-kelompok tersebut alih-alih
 harus membaca semua definisi, sehingga lebih mudah menemukan definisi yang
-relevan bagi mereka. Pemrogram yang menambahkan fungsionalitas baru ke kode
+relevan bagi mereka. Programmer yang menambahkan fungsionalitas baru ke kode
 ini akan tahu tempat menempatkan kodenya agar program tetap teratur.
 
 Sebelumnya, kita menyebutkan bahwa _src/main.rs_ dan _src/lib.rs_ disebut

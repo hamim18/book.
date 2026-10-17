@@ -2,12 +2,12 @@
 
 Desain Rust mengambil inspirasi dari banyak bahasa dan teknik yang sudah ada,
 dan salah satu pengaruh yang signifikan adalah _functional programming_
-(pemrograman fungsional). Memprogram dengan gaya fungsional sering kali
+(functional programming). Memprogram dengan gaya fungsional sering kali
 mencakup memakai fungsi sebagai nilai dengan meneruskannya sebagai argumen,
 mengembalikannya dari fungsi lain, menetapkannya ke variable untuk dieksekusi
 nanti, dan seterusnya.
 
-Di bab ini, kita tidak akan memperdebatkan soal apa itu pemrograman fungsional
+Di bab ini, kita tidak akan memperdebatkan soal apa itu functional programming
 atau bukan, melainkan membahas beberapa fitur Rust yang mirip dengan
 fitur-fitur di banyak bahasa yang sering disebut fungsional.
 

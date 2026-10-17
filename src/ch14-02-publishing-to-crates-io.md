@@ -1,7 +1,7 @@
 ## Menerbitkan Crate ke Crates.io
 
 Kita telah memakai *package* (paket) dari
-[crates.io](https://crates.io/)<!-- ignore --> sebagai dependensi proyek kita,
+[crates.io](https://crates.io/)<!-- ignore --> sebagai dependency proyek kita,
 tetapi Anda juga dapat membagikan kode Anda kepada orang lain dengan
 menerbitkan *package* Anda sendiri. *Crate registry* (registri *crate*) di
 [crates.io](https://crates.io/)<!-- ignore --> mendistribusikan kode sumber
@@ -20,7 +20,7 @@ kode Rust dengan dua garis miring, `//`. Rust juga memiliki jenis komentar
 khusus untuk dokumentasi, yang dengan tepat disebut _documentation comment_
 (komentar dokumentasi), yang akan menghasilkan dokumentasi HTML. HTML itu
 menampilkan isi komentar dokumentasi untuk item API publik yang ditujukan bagi
-pemrogram yang tertarik mengetahui cara _memakai_ *crate* Anda, bukan cara *crate*
+programmer yang tertarik mengetahui cara _memakai_ *crate* Anda, bukan cara *crate*
 Anda _diimplementasikan_.
 
 Komentar dokumentasi memakai tiga garis miring, `///`, alih-alih dua, dan
@@ -40,12 +40,12 @@ Di sini, kita memberikan deskripsi tentang apa yang dilakukan fungsi
 `add_one`, memulai sebuah seksi dengan heading `Examples`, lalu menyediakan
 kode yang menunjukkan cara memakai fungsi `add_one`. Kita dapat menghasilkan
 dokumentasi HTML dari komentar dokumentasi ini dengan menjalankan `cargo doc`.
-Perintah ini menjalankan alat `rustdoc` yang didistribusikan bersama Rust dan
+Perintah ini menjalankan tool `rustdoc` yang didistribusikan bersama Rust dan
 meletakkan dokumentasi HTML yang dihasilkan di direktori _target/doc_.
 
 Demi kemudahan, menjalankan `cargo doc --open` akan membangun HTML untuk
-dokumentasi *crate* Anda saat ini (serta dokumentasi untuk semua dependensi
-*crate* Anda) dan membuka hasilnya di peramban web. Buka fungsi `add_one` dan
+dokumentasi *crate* Anda saat ini (serta dokumentasi untuk semua dependency
+*crate* Anda) dan membuka hasilnya di web browser. Buka fungsi `add_one` dan
 Anda akan melihat bagaimana teks di komentar dokumentasi itu dirender, seperti
 ditunjukkan pada Gambar 14-1.
 
@@ -77,7 +77,7 @@ ini adalah daftar periksa yang baik untuk mengingatkan Anda tentang
 aspek-aspek kode yang ingin diketahui pengguna Anda.
 
 <a id="documentation-comments-as-tests"></a>
-#### Komentar Dokumentasi sebagai Pengujian
+#### Komentar Dokumentasi sebagai Test
 
 Menambahkan blok kode contoh di komentar dokumentasi Anda dapat membantu
 menunjukkan cara memakai library Anda dan memberi bonus tambahan: menjalankan
@@ -269,7 +269,7 @@ Listing 14-6.
 Dalam kasus di mana ada banyak modul bersarang, mengekspor ulang type-type di
 tingkat teratas dengan `pub use` dapat membuat perbedaan yang berarti dalam
 pengalaman orang yang memakai *crate* itu. Kegunaan umum lain dari `pub use`
-adalah mengekspor ulang definisi sebuah dependensi di *crate* saat ini untuk
+adalah mengekspor ulang definisi sebuah dependency di *crate* saat ini untuk
 menjadikan definisi *crate* tersebut bagian dari API publik *crate* Anda.
 
 Membuat struktur API publik yang berguna lebih merupakan seni daripada ilmu,
@@ -441,7 +441,7 @@ You may press ctrl-c to skip waiting; the crate should be available shortly.
 ```
 
 Selamat! Anda kini telah membagikan kode Anda dengan komunitas Rust, dan
-siapa pun dapat dengan mudah menambahkan *crate* Anda sebagai dependensi
+siapa pun dapat dengan mudah menambahkan *crate* Anda sebagai dependency
 proyek mereka.
 
 ### Menerbitkan Versi Baru dari Crate yang Sudah Ada
@@ -461,7 +461,7 @@ baru.
 ### Menandai Versi sebagai Usang di Crates.io
 
 Meskipun Anda tidak dapat menghapus versi lama sebuah *crate*, Anda dapat
-mencegah semua proyek mendatang untuk menambahkannya sebagai dependensi baru.
+mencegah semua proyek mendatang untuk menambahkannya sebagai dependency baru.
 Ini berguna ketika sebuah versi *crate* rusak karena satu dan lain hal. Dalam
 situasi seperti itu, Cargo mendukung *yanking* (penarikan) sebuah versi *crate*.
 

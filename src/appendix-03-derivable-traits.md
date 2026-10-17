@@ -5,7 +5,7 @@ Anda terapkan pada definisi *struct* atau *enum*. Atribut `derive` menghasilkan 
 yang mengimplementasikan *trait* dengan implementasi bawaannya sendiri pada type
 yang Anda beri anotasi dengan sintaks `derive`.
 
-Dalam lampiran ini, kita menyajikan rujukan untuk semua *trait* di pustaka standar
+Dalam lampiran ini, kita menyajikan rujukan untuk semua *trait* di standard library
 yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 
 - Operator dan method apa saja yang diaktifkan oleh penurunan *trait* ini
@@ -16,20 +16,20 @@ yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 - Contoh operasi yang memerlukan *trait* itu
 
 Jika Anda menginginkan perilaku yang berbeda dari yang disediakan atribut
-`derive`, lihat [dokumentasi pustaka standar](../std/index.html)<!-- ignore -->
+`derive`, lihat [dokumentasi standard library](../std/index.html)<!-- ignore -->
 untuk setiap *trait* guna mengetahui detail cara mengimplementasikannya secara
 manual.
 
 *Trait* yang dicantumkan di sini adalah satu-satunya *trait* yang didefinisikan oleh
-pustaka standar yang dapat diimplementasikan pada type Anda memakai `derive`.
-*Trait* lain yang didefinisikan di pustaka standar tidak memiliki perilaku bawaan
+standard library yang dapat diimplementasikan pada type Anda memakai `derive`.
+*Trait* lain yang didefinisikan di standard library tidak memiliki perilaku bawaan
 yang masuk akal, sehingga terserah Anda untuk mengimplementasikannya dengan cara
 yang masuk akal untuk apa yang ingin Anda capai.
 
 Contoh *trait* yang tidak dapat diturunkan adalah `Display`, yang menangani
-pemformatan untuk pengguna akhir. Anda sebaiknya selalu mempertimbangkan cara
-yang tepat untuk menampilkan suatu type kepada pengguna akhir. Bagian type mana
-yang boleh dilihat pengguna akhir? Bagian mana yang menurut mereka relevan?
+pemformatan untuk end user. Anda sebaiknya selalu mempertimbangkan cara
+yang tepat untuk menampilkan suatu type kepada end user. Bagian type mana
+yang boleh dilihat end user? Bagian mana yang menurut mereka relevan?
 Format data mana yang paling relevan bagi mereka? *compiler* Rust tidak memiliki
 wawasan ini, sehingga tidak dapat menyediakan perilaku bawaan yang sesuai untuk
 Anda.
@@ -41,18 +41,18 @@ Mengimplementasikan `derive` melibatkan pemakaian *macro* prosedural, yang dibah
 di bagian [“Macro `derive` Kustom”][custom-derive-macros]<!-- ignore --> di Bab
 20.
 
-### `Debug` untuk Output Pemrogram
+### `Debug` untuk Output Programmer
 
 *Trait* `Debug` mengaktifkan pemformatan debug dalam string format, yang Anda
 tandai dengan menambahkan `:?` di dalam placeholder `{}`.
 
 *Trait* `Debug` memungkinkan Anda mencetak instance suatu type untuk keperluan
-debugging, sehingga Anda dan pemrogram lain yang memakai type Anda dapat
+debugging, sehingga Anda dan programmer lain yang memakai type Anda dapat
 memeriksa sebuah instance pada titik tertentu dalam eksekusi program.
 
 *Trait* `Debug` diperlukan, misalnya, dalam pemakaian *macro* `assert_eq!`. *Macro*
 ini mencetak nilai instance yang diberikan sebagai argumen jika asersi
-kesamaannya gagal, supaya pemrogram dapat melihat mengapa kedua instance itu
+kesamaannya gagal, supaya programmer dapat melihat mengapa kedua instance itu
 tidak sama.
 
 ### `PartialEq` dan `Eq` untuk Perbandingan Kesamaan
@@ -140,9 +140,9 @@ tersimpan di *stack*; tidak ada kode arbitrer yang diperlukan. Lihat bagian
 [“Data yang Hanya Ada di Stack: Copy”][stack-only-data-copy]<!-- ignore --> di
 Bab 4 untuk informasi lebih lanjut tentang `Copy`.
 
-*Trait* `Copy` tidak mendefinisikan method apa pun untuk mencegah pemrogram
+*Trait* `Copy` tidak mendefinisikan method apa pun untuk mencegah programmer
 meng-overload method tersebut dan melanggar asumsi bahwa tidak ada kode
-arbitrer yang dijalankan. Dengan demikian, semua pemrogram dapat berasumsi bahwa
+arbitrer yang dijalankan. Dengan demikian, semua programmer dapat berasumsi bahwa
 menyalin nilai akan berlangsung sangat cepat.
 
 Anda dapat menurunkan `Copy` pada type apa pun yang semua bagiannya

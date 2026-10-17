@@ -16,17 +16,17 @@ kita ketahui saat kode kita dikompilasi.
 
 Akan tetapi, terkadang kita ingin pengguna library kita bisa memperluas
 kumpulan type yang valid dalam situasi tertentu. Untuk menunjukkan cara kita
-mencapainya, kita akan membuat contoh alat antarmuka pengguna grafis (GUI)
+mencapainya, kita akan membuat contoh tool antarmuka pengguna grafis (GUI)
 yang mengiterasi daftar item, memanggil method `draw` pada setiap item untuk
-menggambarnya ke layar—teknik yang umum untuk alat GUI. Kita akan membuat
+menggambarnya ke layar—teknik yang umum untuk tool GUI. Kita akan membuat
 *crate* library bernama `gui` yang memuat struktur library GUI. *Crate* ini
 mungkin menyertakan beberapa type untuk dipakai orang, seperti `Button` atau
 `TextField`. Selain itu, pengguna `gui` akan ingin membuat type mereka
-sendiri yang bisa digambar: misalnya, satu pemrogram mungkin menambahkan
-`Image`, dan pemrogram lain mungkin menambahkan `SelectBox`.
+sendiri yang bisa digambar: misalnya, satu programmer mungkin menambahkan
+`Image`, dan programmer lain mungkin menambahkan `SelectBox`.
 
 Pada saat menulis library itu, kita tidak bisa mengetahui dan mendefinisikan
-semua type yang mungkin ingin dibuat pemrogram lain. Tetapi kita tahu bahwa
+semua type yang mungkin ingin dibuat programmer lain. Tetapi kita tahu bahwa
 `gui` perlu melacak banyak nilai dari type yang berbeda, dan perlu memanggil
 method `draw` pada setiap nilai yang typed berbeda ini. `gui` tidak perlu
 tahu persis apa yang akan terjadi ketika kita memanggil method `draw`, cukup

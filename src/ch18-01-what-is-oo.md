@@ -3,7 +3,7 @@
 Tidak ada konsensus di komunitas pemrograman tentang fitur apa yang harus
 dimiliki sebuah bahasa agar dianggap berorientasi objek. Rust dipengaruhi oleh
 banyak paradigma pemrograman, termasuk OOP; contohnya, kita mengeksplorasi
-fitur-fitur yang berasal dari pemrograman fungsional di Bab 13. Bisa
+fitur-fitur yang berasal dari functional programming di Bab 13. Bisa
 dikatakan, bahasa-bahasa OOP memiliki karakteristik umum tertentu—yakni,
 objek, enkapsulasi, dan *inheritance*. Mari kita lihat apa arti setiap
 karakteristik itu dan apakah Rust mendukungnya.
@@ -33,7 +33,7 @@ _enkapsulasi_, yang berarti detail implementasi sebuah objek tidak dapat
 diakses oleh kode yang memakai objek itu. Karena itu, satu-satunya cara untuk
 berinteraksi dengan sebuah objek adalah melalui API publiknya; kode yang
 memakai objek itu seharusnya tidak bisa menjangkau bagian dalam objek dan
-mengubah data atau perilaku secara langsung. Ini memungkinkan pemrogram
+mengubah data atau perilaku secara langsung. Ini memungkinkan programmer
 mengubah dan me-refactor bagian dalam sebuah objek tanpa perlu mengubah kode
 yang memakai objek itu.
 

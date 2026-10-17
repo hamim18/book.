@@ -1,10 +1,10 @@
 ## Reference Cycle Dapat Membocorkan Memori
 
-Jaminan keamanan memori Rust membuat penciptaan memori yang tidak pernah
+Jaminan memory safety Rust membuat penciptaan memori yang tidak pernah
 dibersihkan secara tidak sengaja (dikenal sebagai _memory leak_ atau kebocoran
 memori) menjadi sulit, tetapi bukan mustahil. Mencegah *memory leak*
 sepenuhnya bukanlah salah satu jaminan Rust, artinya *memory leak* tidak
-melanggar keamanan memori di Rust. Kita bisa melihat bahwa Rust mengizinkan kebocoran
+melanggar memory safety di Rust. Kita bisa melihat bahwa Rust mengizinkan kebocoran
 memori dengan memakai `Rc<T>` dan `RefCell<T>`: Ada kemungkinan membuat
 *reference* di mana item-item saling merujuk dalam sebuah siklus. Ini
 menciptakan *memory leak* karena jumlah *reference* setiap item dalam siklus
@@ -98,7 +98,7 @@ bersarang serupa dari type dengan *interior mutability* dan penghitungan
 *reference*, Anda harus memastikan Anda tidak menciptakan siklus; Anda tidak
 bisa mengandalkan Rust untuk menangkapnya. Membuat *reference cycle* akan
 menjadi bug logika dalam program Anda yang harus Anda minimalisasi dengan
-pengujian terotomatisasi, code review, dan praktik pengembangan perangkat
+test terotomatisasi, code review, dan praktik pengembangan perangkat
 lunak lainnya.
 
 Solusi lain untuk menghindari *reference cycle* adalah menata ulang struktur
@@ -329,7 +329,7 @@ Jika bab ini telah menggugah minat Anda dan Anda ingin mengimplementasikan
 *smart pointer* Anda sendiri, lihat [“The Rustonomicon”][nomicon] untuk
 informasi yang lebih berguna.
 
-Selanjutnya, kita akan membicarakan konkurensi di Rust. Anda bahkan akan
+Selanjutnya, kita akan membicarakan concurrency di Rust. Anda bahkan akan
 belajar tentang beberapa *smart pointer* baru.
 
 [nomicon]: ../nomicon/index.html

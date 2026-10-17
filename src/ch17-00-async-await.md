@@ -1,24 +1,24 @@
-# Dasar-Dasar Pemrograman Asinkron: Async, Await, Futures, dan Streams
+# Dasar-Dasar Pemrograman Asynchronous: Async, Await, Futures, dan Streams
 
 Banyak operasi yang kita minta komputer lakukan bisa memakan waktu cukup lama
 untuk selesai. Alangkah baiknya bila kita bisa mengerjakan hal lain selagi
 menunggu proses-proses yang berjalan lama itu selesai. Komputer modern
 menawarkan dua teknik untuk mengerjakan lebih dari satu operasi pada satu
-waktu: paralelisme dan konkurensi. Namun, logika program kita kebanyakan
+waktu: paralelisme dan concurrency. Namun, logika program kita kebanyakan
 ditulis secara linear. Kita ingin bisa menentukan operasi-operasi yang harus
 dijalankan sebuah program serta titik-titik ketika sebuah fungsi bisa berhenti
 sejenak dan bagian lain program bisa berjalan menggantikannya, tanpa perlu
 menentukan di muka urutan dan cara setiap potongan kode dijalankan secara
-persis. Pemrograman asinkron adalah abstraksi yang memungkinkan kita
+persis. Pemrograman asynchronous adalah abstraksi yang memungkinkan kita
 mengekspresikan kode dalam bentuk titik-titik yang mungkin dijeda dan hasil
 yang pada akhirnya diperoleh, sambil mengurus detail koordinasinya untuk kita.
 
-Bab ini melanjutkan pemakaian thread untuk paralelisme dan konkurensi di Bab 16
+Bab ini melanjutkan pemakaian thread untuk paralelisme dan concurrency di Bab 16
 dengan memperkenalkan pendekatan alternatif dalam menulis kode: *futures*,
 *streams*, dan sintaks `async` serta `await` dari Rust yang memungkinkan kita
-mengekspresikan bagaimana sebuah operasi bisa berjalan asinkron, berikut
-*crate*-crate pihak ketiga yang mengimplementasikan runtime asinkron: kode yang
-mengelola dan mengoordinasikan eksekusi operasi-operasi asinkron.
+mengekspresikan bagaimana sebuah operasi bisa berjalan asynchronous, berikut
+*crate*-crate pihak ketiga yang mengimplementasikan runtime asynchronous: kode yang
+mengelola dan mengoordinasikan eksekusi operasi-operasi asynchronous.
 
 Mari kita lihat sebuah contoh. Katakan Anda sedang mengekspor video perayaan
 keluarga yang Anda buat, sebuah operasi yang bisa memakan waktu dari beberapa
@@ -43,20 +43,20 @@ mengerjakan pekerjaan lain selagi menunggu panggilan jaringan itu selesai.
 
 Ekspor video adalah contoh operasi _CPU-bound_ (terikat CPU) atau
 _compute-bound_ (terikat komputasi). Operasi ini dibatasi oleh kecepatan
-pemrosesan data potensial komputer di dalam CPU atau GPU, dan seberapa banyak
+processing data potensial komputer di dalam CPU atau GPU, dan seberapa banyak
 kecepatan itu bisa dicurahkan untuk operasi tersebut. Unduhan video adalah
 contoh operasi _I/O-bound_ (terikat I/O), karena operasi ini dibatasi oleh
 kecepatan input dan output komputer; operasi ini hanya bisa secepat
 pengiriman data melintasi jaringan.
 
 Pada kedua contoh itu, interupsi tak terlihat dari sistem operasi menyediakan
-satu bentuk konkurensi. Akan tetapi, konkurensi itu hanya terjadi di tingkat
+satu bentuk concurrency. Akan tetapi, concurrency itu hanya terjadi di tingkat
 keseluruhan program: sistem operasi menginterupsi satu program agar program
 lain bisa menyelesaikan pekerjaan. Dalam banyak kasus, karena kita memahami
 program kita pada tingkat yang jauh lebih rinci daripada sistem operasi, kita
-bisa menemukan peluang konkurensi yang tidak terlihat oleh sistem operasi.
+bisa menemukan peluang concurrency yang tidak terlihat oleh sistem operasi.
 
-Contohnya, jika kita sedang membangun alat untuk mengelola unduhan file, kita
+Contohnya, jika kita sedang membangun tool untuk mengelola unduhan file, kita
 seharusnya bisa menulis program sedemikian rupa sehingga memulai satu unduhan
 tidak membuat UI macet, dan pengguna bisa memulai beberapa unduhan sekaligus.
 Akan tetapi, banyak API sistem operasi untuk berinteraksi dengan jaringan
@@ -81,18 +81,18 @@ milik Rust. Di bab ini, Anda akan mempelajari segala hal tentang async sembari
 kita membahas topik-topik berikut:
 
 - Cara memakai sintaks `async` dan `await` dari Rust serta menjalankan fungsi
-  asinkron dengan sebuah runtime
+  asynchronous dengan sebuah runtime
 - Cara memakai model async untuk menyelesaikan sebagian tantangan yang sama
   dengan yang kita lihat di Bab 16
 - Bagaimana multithreading dan async memberikan solusi yang saling melengkapi
   dan dapat Anda kombinasikan dalam banyak kasus
 
 Namun, sebelum kita melihat cara kerja async dalam praktik, kita perlu
-berputar sebentar untuk membahas perbedaan antara paralelisme dan konkurensi.
+berputar sebentar untuk membahas perbedaan antara paralelisme dan concurrency.
 
-## Paralelisme dan Konkurensi
+## Paralelisme dan Concurrency
 
-Sejauh ini kita memperlakukan paralelisme dan konkurensi sebagai dua hal yang
+Sejauh ini kita memperlakukan paralelisme dan concurrency sebagai dua hal yang
 hampir bisa dipertukarkan. Sekarang kita perlu membedakan keduanya dengan
 lebih cermat, karena perbedaannya akan terlihat begitu kita mulai bekerja.
 
@@ -101,8 +101,8 @@ perangkat lunak. Anda bisa memberi satu anggota beberapa tugas, memberi setiap
 anggota satu tugas, atau memakai campuran dari dua pendekatan tersebut.
 
 Ketika satu orang mengerjakan beberapa tugas berbeda sebelum salah satu
-darinya selesai, itulah konkurensi. Salah satu cara mengimplementasikan
-konkurensi mirip dengan memiliki dua proyek berbeda yang di-_check out_ di
+darinya selesai, itulah concurrency. Salah satu cara mengimplementasikan
+concurrency mirip dengan memiliki dua proyek berbeda yang di-_check out_ di
 komputer Anda; saat Anda bosan atau buntu di satu proyek, Anda beralih ke
 proyek yang lain. Anda hanya satu orang, jadi Anda tidak bisa membuat kemajuan
 pada kedua tugas pada saat yang persis sama, tetapi Anda bisa melakukan banyak
@@ -113,7 +113,7 @@ keduanya (lihat Gambar 17-1).
 
 <img src="img/trpl17-01.svg" class="center" alt="Diagram dengan kotak bertumpuk berlabel Task A dan Task B, dengan belah ketupat di dalamnya yang mewakili subtugas. Panah menunjuk dari A1 ke B1, B1 ke A2, A2 ke B2, B2 ke A3, A3 ke A4, dan A4 ke B3. Panah-panah di antara subtugas itu melintasi kotak di antara Task A dan Task B." />
 
-<figcaption>Gambar 17-1: Alur kerja konkuren, beralih antara *Task* A dan *Task* B</figcaption>
+<figcaption>Gambar 17-1: Alur kerja concurrent, beralih antara *Task* A dan *Task* B</figcaption>
 
 </figure>
 
@@ -129,7 +129,7 @@ tim bisa membuat kemajuan pada saat yang persis sama (lihat Gambar 17-2).
 
 </figure>
 
-Pada kedua alur kerja ini, Anda mungkin harus berkoordinasi di antara berbagai
+Pada kedua workflow ini, Anda mungkin harus berkoordinasi di antara berbagai
 tugas. Barangkali Anda mengira tugas yang diberikan kepada satu orang
 sepenuhnya independen dari pekerjaan orang lain, tetapi ternyata tugas itu
 mengharuskan orang lain di tim menyelesaikan tugasnya lebih dulu. Sebagian
@@ -146,30 +146,30 @@ tugas berikutnya, seperti pada Gambar 17-3.
 </figure>
 
 Begitu pula, Anda mungkin menyadari bahwa salah satu tugas Anda bergantung
-pada tugas Anda yang lain. Sekarang pekerjaan konkuren Anda ikut menjadi
+pada tugas Anda yang lain. Sekarang pekerjaan concurrent Anda ikut menjadi
 serial.
 
-Paralelisme dan konkurensi juga bisa saling bersinggungan. Jika Anda tahu
+Paralelisme dan concurrency juga bisa saling bersinggungan. Jika Anda tahu
 seorang kolega terhenti sampai Anda menyelesaikan salah satu tugas Anda, Anda
 mungkin akan memusatkan seluruh tenaga pada tugas itu untuk “membuka jalan”
 bagi kolega Anda. Anda dan rekan kerja Anda tidak lagi bisa bekerja secara
-paralel, dan Anda juga tidak lagi bisa bekerja secara konkuren pada
+paralel, dan Anda juga tidak lagi bisa bekerja secara concurrent pada
 tugas-tugas Anda sendiri.
 
 Dinamika dasar yang sama berlaku pada perangkat lunak dan perangkat keras.
 Pada mesin dengan satu inti CPU, CPU hanya bisa menjalankan satu operasi pada
-satu waktu, tetapi ia tetap bisa bekerja secara konkuren. Dengan memakai
-alat-alat seperti thread, *process*, dan async, komputer bisa menjeda satu
+satu waktu, tetapi ia tetap bisa bekerja secara concurrent. Dengan memakai
+tool-tool seperti thread, *process*, dan async, komputer bisa menjeda satu
 aktivitas dan beralih ke aktivitas lain sebelum akhirnya kembali ke aktivitas
 pertama itu. Pada mesin dengan beberapa inti CPU, komputer juga bisa bekerja
 secara paralel. Satu inti bisa mengerjakan satu tugas sementara inti lain
 mengerjakan tugas yang sama sekali tidak berkaitan, dan operasi-operasi itu
 benar-benar berlangsung pada saat yang sama.
 
-Menjalankan kode async di Rust biasanya berlangsung secara konkuren.
+Menjalankan kode async di Rust biasanya berlangsung secara concurrent.
 Bergantung pada perangkat keras, sistem operasi, dan runtime async yang kita
-pakai (runtime async akan segera kita bahas lebih lanjut), konkurensi itu
+pakai (runtime async akan segera kita bahas lebih lanjut), concurrency itu
 mungkin juga memakai paralelisme di balik layar.
 
-Sekarang, mari selami cara kerja pemrograman asinkron di Rust yang
+Sekarang, mari selami cara kerja asynchronous programming di Rust yang
 sesungguhnya.

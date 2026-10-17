@@ -1,7 +1,7 @@
 # Type Generik, Trait, dan Lifetime
 
-Setiap bahasa pemrograman memiliki alat untuk menangani duplikasi konsep
-secara efektif. Di Rust, salah satu alat tersebut adalah *generics* (tipe
+Setiap bahasa pemrograman memiliki tool untuk menangani duplikasi konsep
+secara efektif. Di Rust, salah satu tool tersebut adalah *generics* (tipe
 generik): pengganti abstrak untuk type konkret atau properti lain. Kita bisa
 mengekspresikan perilaku *generics* atau bagaimana mereka berhubungan dengan
 *generics* lain tanpa mengetahui apa yang akan berada di tempatnya saat kode

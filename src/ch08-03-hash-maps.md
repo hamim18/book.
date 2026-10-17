@@ -17,8 +17,8 @@ dapat mengambil skornya.
 
 Kita akan membahas API dasar hash map di bagian ini, tetapi masih banyak hal
 menarik yang tersembunyi di fungsi-fungsi yang didefinisikan pada
-`HashMap<K, V>` oleh pustaka standar. Seperti biasa, periksa dokumentasi
-pustaka standar untuk informasi lebih lanjut.
+`HashMap<K, V>` oleh standard library. Seperti biasa, periksa dokumentasi
+standard library untuk informasi lebih lanjut.
 
 ### Membuat Hash Map Baru
 
@@ -36,10 +36,10 @@ memulai dengan 50.
 </Listing>
 
 Perhatikan bahwa kita perlu terlebih dahulu `use` `HashMap` dari bagian
-collections pustaka standar. Dari tiga collection umum kita, yang satu ini
+collections standard library. Dari tiga collection umum kita, yang satu ini
 paling jarang dipakai, jadi ia tidak termasuk dalam fitur-fitur yang dibawa
 ke dalam *scope* secara otomatis di *prelude*. Hash map juga mendapat dukungan
-lebih sedikit dari pustaka standar; tidak ada *macro* bawaan untuk
+lebih sedikit dari standard library; tidak ada *macro* bawaan untuk
 mengonstruksinya, misalnya.
 
 Sama seperti vector, hash map menyimpan datanya di *heap*. `HashMap` ini
@@ -255,7 +255,7 @@ selesaikan:
    departemen atau semua orang di perusahaan menurut departemen, diurutkan
    menurut abjad.
 
-Dokumentasi API pustaka standar menjelaskan method-method yang dimiliki
+Dokumentasi API standard library menjelaskan method-method yang dimiliki
 vector, string, dan hash map yang akan membantu latihan-latihan ini!
 
 Kita mulai masuk ke program yang lebih kompleks yang operasinya dapat gagal,

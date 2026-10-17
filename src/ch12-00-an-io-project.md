@@ -1,14 +1,14 @@
 # Proyek I/O: Membangun Program Baris Perintah
 
 Bab ini merangkum banyak keterampilan yang telah Anda pelajari sejauh ini
-sekaligus menjelajahi beberapa fitur pustaka standar lainnya. Kita akan
-membangun sebuah alat baris perintah yang berinteraksi dengan input/output
-file dan baris perintah untuk melatih sebagian konsep Rust yang kini telah Anda
+sekaligus menjelajahi beberapa fitur standard library lainnya. Kita akan
+membangun sebuah tool command line yang berinteraksi dengan input/output
+file dan command line untuk melatih sebagian konsep Rust yang kini telah Anda
 kuasai.
 
 Kecepatan, keamanan, output binary tunggal, dan dukungan lintas platform Rust
-menjadikannya bahasa yang ideal untuk membuat alat baris perintah, jadi untuk
-proyek kita, kita akan membuat versi kita sendiri dari alat pencarian baris
+menjadikannya bahasa yang ideal untuk membuat tool command line, jadi untuk
+proyek kita, kita akan membuat versi kita sendiri dari tool pencarian baris
 perintah klasik `grep` (**g**lobally search a **r**egular **e**xpression and
 **p**rint, mencari secara global sebuah expression reguler lalu mencetaknya).
 Pada kasus penggunaan paling sederhana, `grep` mencari sebuah string tertentu
@@ -17,10 +17,10 @@ file dan sebuah string sebagai argumennya. Kemudian, ia membaca file tersebut,
 menemukan baris-baris di dalam file itu yang memuat string argumen tersebut,
 dan mencetak baris-baris itu.
 
-Sepanjang perjalanan, kita akan menunjukkan cara membuat alat baris perintah
-kita memakai fitur-fitur terminal yang dipakai banyak alat baris perintah
+Sepanjang perjalanan, kita akan menunjukkan cara membuat tool command line
+kita memakai fitur-fitur terminal yang dipakai banyak tool command line
 lainnya. Kita akan membaca nilai sebuah environment variable untuk memungkinkan
-pengguna mengonfigurasi perilaku alat kita. Kita juga akan mencetak pesan
+pengguna mengonfigurasi perilaku tool kita. Kita juga akan mencetak pesan
 error ke aliran konsol standard error (`stderr`) alih-alih standard output
 (`stdout`) sehingga, misalnya, pengguna bisa mengalihkan output yang berhasil
 ke sebuah file sambil tetap melihat pesan error di layar.
@@ -38,7 +38,7 @@ sejauh ini:
 - Memakai vector dan string ([Bab 8][ch8]<!-- ignore -->)
 - Menangani error ([Bab 9][ch9]<!-- ignore -->)
 - Memakai *trait* dan *lifetime* bilamana sesuai ([Bab 10][ch10]<!-- ignore -->)
-- Menulis pengujian ([Bab 11][ch11]<!-- ignore -->)
+- Menulis test ([Bab 11][ch11]<!-- ignore -->)
 
 Kita juga akan memperkenalkan secara singkat *closure*, *iterator*, dan *trait
 object* (objek *trait*), yang akan dibahas secara mendetail di [Bab 13][ch13]<!--

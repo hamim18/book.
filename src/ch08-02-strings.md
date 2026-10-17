@@ -5,7 +5,7 @@ Kita telah membicarakan string di Bab 4, tetapi sekarang kita akan
 melihatnya lebih mendalam. Rustacean baru biasanya tersangkut pada string
 karena kombinasi tiga alasan: kecenderungan Rust untuk mengekspos
 kemungkinan error, string sebagai struktur data yang lebih rumit daripada
-perkiraan banyak pemrogram, dan UTF-8. Faktor-faktor ini berpadu dengan cara
+perkiraan banyak programmer, dan UTF-8. Faktor-faktor ini berpadu dengan cara
 yang bisa terasa sulit ketika Anda datang dari bahasa pemrograman lain.
 
 Kita membahas string dalam konteks collection karena string diimplementasikan
@@ -31,13 +31,13 @@ sebagian data string terenkode UTF-8 yang tersimpan di tempat lain. String
 literal, misalnya, tersimpan di binary program dan karena itu adalah string
 *slice*.
 
-Type `String`, yang disediakan oleh pustaka standar Rust alih-alih
+Type `String`, yang disediakan oleh standard library Rust alih-alih
 dikodekan ke dalam bahasa inti, adalah type string yang dapat membesar,
 *mutable*, dimiliki, dan terenkode UTF-8. Ketika para Rustacean merujuk
 “string” di Rust, mereka mungkin merujuk ke type `String` atau string *slice*
 `&str`, bukan hanya salah satu dari type-type itu. Meskipun bagian ini
 sebagian besar tentang `String`, kedua type dipakai secara besar-besaran di
-pustaka standar Rust, dan baik `String` maupun string *slice* sama-sama
+standard library Rust, dan baik `String` maupun string *slice* sama-sama
 terenkode UTF-8.
 
 ### Membuat String Baru
@@ -190,7 +190,7 @@ ini:
 fn add(self, s: &str) -> String {
 ```
 
-Di pustaka standar, Anda akan melihat `add` didefinisikan memakai *generics*
+Di standard library, Anda akan melihat `add` didefinisikan memakai *generics*
 dan associated type. Di sini, kita telah menggantinya dengan type konkret,
 yang memang terjadi ketika kita memanggil method ini dengan nilai `String`.
 Kita akan membahas *generics* di Bab 10. Tanda tangan ini memberi kita
@@ -455,16 +455,16 @@ standar. *Crate*-crate tersedia di [crates.io](https://crates.io/)<!-- ignore
 ### Menangani Kerumitan String
 
 Ringkasnya, string itu rumit. Bahasa pemrograman yang berbeda membuat
-pilihan yang berbeda tentang cara menyajikan kerumitan ini kepada pemrogram.
+pilihan yang berbeda tentang cara menyajikan kerumitan ini kepada programmer.
 Rust telah memilih untuk menjadikan penanganan data `String` yang benar
-sebagai perilaku default untuk semua program Rust, yang berarti pemrogram
+sebagai perilaku default untuk semua program Rust, yang berarti programmer
 harus lebih banyak berpikir untuk menangani data UTF-8 sejak awal. Kompromi
 ini mengekspos lebih banyak kerumitan string daripada yang tampak di bahasa
 pemrograman lain, tetapi ia mencegah Anda harus menangani error yang
 melibatkan karakter non-ASCII di kemudian hari dalam siklus hidup
 pengembangan Anda.
 
-Kabar baiknya adalah pustaka standar menawarkan banyak fungsionalitas yang
+Kabar baiknya adalah standard library menawarkan banyak fungsionalitas yang
 dibangun di atas type `String` dan `&str` untuk membantu menangani
 situasi-situasi rumit ini dengan benar. Pastikan untuk memeriksa
 dokumentasinya untuk method-method bermanfaat seperti `contains` untuk

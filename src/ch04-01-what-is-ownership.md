@@ -4,14 +4,14 @@
 mengelola memori. Semua program harus mengelola cara mereka menggunakan
 memori komputer selama berjalan. Sebagian bahasa memiliki *garbage collection*
 (pengumpulan sampah) yang secara berkala mencari memori yang tidak lagi
-dipakai selama program berjalan; pada bahasa lain, pemrogram harus secara
+dipakai selama program berjalan; pada bahasa lain, programmer harus secara
 eksplisit mengalokasikan dan membebaskan memori. Rust memakai pendekatan
 ketiga: memori dikelola melalui sistem *ownership* dengan seperangkat aturan
 yang diperiksa oleh *compiler* (kompilator). Jika salah satu aturan
 dilanggar, program tidak akan terkompilasi. Tidak satu pun fitur *ownership*
 akan memperlambat program Anda selama program itu berjalan.
 
-Karena *ownership* adalah konsep baru bagi banyak pemrogram, memang perlu
+Karena *ownership* adalah konsep baru bagi banyak programmer, memang perlu
 waktu untuk membiasakan diri. Kabar baiknya, semakin berpengalaman Anda
 dengan Rust dan aturan-aturan sistem *ownership*, semakin mudah bagi Anda
 untuk secara alami mengembangkan kode yang aman dan efisien. Teruslah
@@ -161,7 +161,7 @@ adalah contoh yang bagus.
 
 Kita akan berkonsentrasi pada bagian-bagian `String` yang berkaitan dengan
 *ownership*. Aspek-aspek ini juga berlaku untuk data type kompleks lainnya,
-baik yang disediakan oleh *standard library* (pustaka standar) maupun yang
+baik yang disediakan oleh *standard library* (standard library) maupun yang
 Anda buat sendiri. Kita akan membahas aspek-aspek `String` yang tidak
 berkaitan dengan *ownership* di [Bab 8][ch8]<!-- ignore -->.
 
@@ -182,10 +182,10 @@ let s = String::from("hello");
 ```
 
 Operator titik dua ganda `::` memungkinkan kita menaruh fungsi `from` khusus
-ini ke dalam *namespace* (ruang nama) dari type `String`, alih-alih
+ini ke dalam *namespace* (namespace) dari type `String`, alih-alih
 menggunakan semacam nama seperti `string_from`. Kita akan membahas sintaks
 ini lebih lanjut di bagian [“Method”][methods]<!-- ignore --> pada Bab 5,
-serta ketika kita membicarakan ruang nama dengan *module* (modul) di bagian
+serta ketika kita membicarakan namespace dengan *module* (modul) di bagian
 [“*Path* untuk Merujuk Item di dalam Pohon
 Modul”][*paths*-module-tree]<!-- ignore --> pada Bab 7.
 
@@ -346,11 +346,11 @@ Sebelumnya kita telah mengatakan bahwa ketika sebuah variable keluar dari
 data menunjuk ke lokasi yang sama. Ini adalah sebuah masalah: ketika `s2` dan
 `s1` keluar dari *scope*, keduanya akan mencoba membebaskan memori yang sama.
 Ini dikenal sebagai error *double free* dan merupakan salah satu *bug*
-keamanan memori yang kita sebutkan sebelumnya. Membebaskan memori dua kali
+memory safety yang kita sebutkan sebelumnya. Membebaskan memori dua kali
 dapat menyebabkan korupsi memori, yang berpotensi mengarah pada celah
 keamanan.
 
-Untuk menjamin keamanan memori, setelah baris `let s2 = s1;`, Rust
+Untuk menjamin memory safety, setelah baris `let s2 = s1;`, Rust
 menganggap `s1` tidak lagi valid. Karena itu, Rust tidak perlu membebaskan
 apa pun ketika `s1` keluar dari *scope*. Lihatlah apa yang terjadi ketika
 Anda mencoba menggunakan `s1` setelah `s2` dibuat; ini tidak akan berhasil:

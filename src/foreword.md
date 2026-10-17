@@ -12,13 +12,13 @@ berskala luas di berbagai industri.
 
 Pada titik ini, mudah untuk menunjuk fitur-fitur hebat yang ditawarkan Rust
 sebagai penjelasan atas ledakan minat dan adopsi ini. Siapa yang tidak
-menginginkan keamanan memori, *dan* performa yang cepat, *dan* *compiler*
+menginginkan memory safety, *dan* performa yang cepat, *dan* *compiler*
 (*compiler*) yang ramah, *dan* perangkat yang hebat, di antara segudang fitur
 hebat lainnya? Bahasa Rust yang Anda lihat hari ini menggabungkan riset
 bertahun-tahun di bidang pemrograman sistem dengan kebijaksanaan praktis dari
 komunitas yang hidup dan bergairah. Bahasa ini dirancang dengan tujuan yang
 jelas dan dikerjakan dengan penuh kecermatan, menawarkan kepada para pengembang
-sebuah alat yang memudahkan mereka menulis kode yang aman, cepat, dan andal.
+sebuah tool yang memudahkan mereka menulis kode yang aman, cepat, dan andal.
 
 Namun, yang membuat Rust benar-benar istimewa adalah akarnya yang memberdayakan
 Anda, sang pengguna, untuk mencapai tujuan Anda. Ini adalah bahasa yang
@@ -42,7 +42,7 @@ Perjalanan Rust adalah perjalanan kolaborasi, pembelajaran, dan iterasi.
 Pertumbuhan bahasa ini beserta ekosistemnya merupakan cerminan langsung dari
 komunitas yang hidup dan beragam di belakangnya. Kontribusi ribuan pengembang,
 dari perancang inti bahasa hingga kontributor biasa, adalah yang membuat Rust
-menjadi alat yang begitu unik dan kuat. Dengan mengambil buku ini, Anda tidak
+menjadi tool yang begitu unik dan kuat. Dengan mengambil buku ini, Anda tidak
 sekadar mempelajari bahasa pemrograman baru—Anda ikut bergabung dalam gerakan
 untuk membuat perangkat lunak menjadi lebih baik, lebih aman, dan lebih
 menyenangkan untuk dikerjakan.

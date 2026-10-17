@@ -11,7 +11,7 @@ _Smart pointer_ (*pointer* pintar), di sisi lain, adalah struktur data yang
 berperilaku seperti *pointer* tetapi juga memiliki metadata dan kemampuan
 tambahan. Konsep *smart pointer* tidak unik bagi Rust: *Smart pointer* berasal
 dari C++ dan ada juga di bahasa-bahasa lain. Rust memiliki beragam smart
-*pointer* yang didefinisikan di pustaka standar yang menyediakan fungsionalitas
+*pointer* yang didefinisikan di standard library yang menyediakan fungsionalitas
 di luar yang disediakan oleh *reference*. Untuk mengeksplorasi konsep umumnya,
 kita akan melihat beberapa contoh *smart pointer* yang berbeda, termasuk type
 *smart pointer* _reference counting_ (penghitungan *reference*). *Pointer* ini
@@ -35,7 +35,7 @@ Mengingat pattern *smart pointer* adalah pattern desain umum yang sering dipakai
 Rust, bab ini tidak akan membahas setiap *smart pointer* yang ada. Banyak
 library memiliki *smart pointer* sendiri, dan Anda bahkan dapat menulis smart
 *pointer* Anda sendiri. Kita akan membahas *smart pointer* yang paling umum di
-pustaka standar:
+standard library:
 
 - `Box<T>`, untuk mengalokasikan nilai di *heap*
 - `Rc<T>`, type penghitungan *reference* yang memungkinkan banyak *ownership*

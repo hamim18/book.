@@ -14,14 +14,14 @@ dan mengubah error yang dapat dipulihkan menjadi error yang tidak dapat
 dipulihkan. Karena itu, mengembalikan `Result` adalah pilihan default yang
 baik ketika Anda mendefinisikan fungsi yang mungkin gagal.
 
-Dalam situasi seperti contoh, kode prototipe, dan pengujian, lebih tepat
+Dalam situasi seperti contoh, kode prototipe, dan test, lebih tepat
 menulis kode yang panic alih-alih mengembalikan `Result`. Mari kita telusuri
 alasannya, lalu membahas situasi ketika *compiler* tidak dapat mengetahui
 bahwa kegagalan itu mustahil, tetapi Anda sebagai manusia bisa. Bab ini akan
 ditutup dengan beberapa panduan umum tentang cara memutuskan apakah
 sebaiknya panic di kode library.
 
-### Contoh, Kode Prototipe, dan Pengujian
+### Contoh, Kode Prototipe, dan Test
 
 Ketika Anda menulis contoh untuk mengilustrasikan suatu konsep, menyertakan
 juga kode penanganan error yang tangguh dapat membuat contohnya kurang
@@ -35,9 +35,9 @@ membuat prototipe dan belum siap memutuskan cara menangani error. Keduanya
 meninggalkan penanda yang jelas di kode Anda untuk saat Anda siap membuat
 program Anda lebih tangguh.
 
-Jika pemanggilan method gagal dalam sebuah pengujian, Anda ingin seluruh
-pengujian gagal, bahkan jika method itu bukan fungsionalitas yang sedang
-diuji. Karena `panic!` adalah cara sebuah pengujian ditandai gagal,
+Jika pemanggilan method gagal dalam sebuah test, Anda ingin seluruh
+test gagal, bahkan jika method itu bukan fungsionalitas yang sedang
+diuji. Karena `panic!` adalah cara sebuah test ditandai gagal,
 memanggil `unwrap` atau `expect` adalah persis yang seharusnya terjadi.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -79,7 +79,7 @@ alamat IP dari sumber lain.
 ### Panduan untuk Penanganan Error
 
 Disarankan agar kode Anda panic ketika ada kemungkinan kode Anda berakhir
-dalam keadaan yang buruk. Dalam konteks ini, *bad state* (keadaan yang
+dalam bad state. Dalam konteks ini, *bad state* (keadaan yang
 buruk) adalah ketika suatu asumsi, jaminan, kontrak, atau invarian telah
 dilanggar, seperti ketika nilai yang tidak valid, nilai yang kontradiktif,
 atau nilai yang hilang diteruskan ke kode Anda—ditambah satu atau lebih hal
@@ -118,7 +118,7 @@ dipanggil memakai nilai yang tidak valid, kode Anda sebaiknya memverifikasi
 nilai-nilainya valid terlebih dahulu dan panic jika nilainya tidak valid.
 Ini terutama demi alasan keamanan: mencoba beroperasi pada data yang tidak
 valid dapat mengekspos kode Anda terhadap kerentanan. Inilah alasan utama
-pustaka standar memanggil `panic!` jika Anda mencoba akses memori di luar
+standard library memanggil `panic!` jika Anda mencoba akses memori di luar
 batas: mencoba mengakses memori yang bukan milik struktur data saat ini
 adalah masalah keamanan yang umum. Fungsi sering memiliki _kontrak_:
 perilakunya hanya dijamin jika inputnya memenuhi persyaratan tertentu.
@@ -213,7 +213,7 @@ bernama `new` pada `Guess` yang membuat instance nilai `Guess`. Fungsi `new`
 didefinisikan memiliki satu parameter bernama `value` typed `i32` dan
 mengembalikan `Guess`. Kode di badan fungsi `new` menguji `value` untuk
 memastikan ia berada antara 1 dan 100. Jika `value` tidak lulus uji ini,
-kita melakukan pemanggilan `panic!`, yang akan memperingatkan pemrogram yang
+kita melakukan pemanggilan `panic!`, yang akan memperingatkan programmer yang
 menulis kode pemanggil bahwa mereka memiliki bug yang perlu diperbaiki,
 karena membuat `Guess` dengan `value` di luar jangkauan ini akan melanggar
 kontrak yang diandalkan `Guess::new`. Kondisi ketika `Guess::new` mungkin
@@ -253,7 +253,7 @@ atau gagal. Memakai `panic!` dan `Result` pada situasi yang tepat akan
 membuat kode Anda lebih andal dalam menghadapi masalah yang tak
 terhindarkan.
 
-Setelah Anda melihat cara-cara bermanfaat pustaka standar memakai *generics*
+Setelah Anda melihat cara-cara bermanfaat standard library memakai *generics*
 dengan *enum* `Option` dan `Result`, kita akan membicarakan cara kerja
 *generics* dan cara Anda dapat memakainya di kode Anda.
 

@@ -213,7 +213,7 @@ tertarik pada topik ini, lihat [Rust API Guidelines][api-guidelines].
 > hanya penulis, tetapi juga klien!
 >
 > Di [Bab 12][ch12]<!-- ignore -->, kita akan mendemonstrasikan praktik
-> pengaturan ini dengan sebuah program baris perintah yang akan berisi *crate*
+> pengaturan ini dengan sebuah program command line yang akan berisi *crate*
 > binary dan *crate* library.
 
 ### Memulai Path Relatif dengan `super`

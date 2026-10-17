@@ -4,13 +4,13 @@
 
 ## Mentransfer Data Antar-Thread dengan Message Passing
 
-Salah satu pendekatan yang semakin populer untuk menjamin konkurensi yang aman
-adalah *message passing* (pengiriman pesan), ketika thread atau aktor
+Salah satu pendekatan yang semakin populer untuk menjamin concurrency yang aman
+adalah *message passing* (message passing), ketika thread atau aktor
 berkomunikasi dengan saling mengirim pesan yang memuat data. Berikut gagasan
 itu dalam sebuah slogan dari [dokumentasi bahasa Go](https://golang.org/doc/effective_go.html#concurrency):
 “Do not communicate by sharing memory; instead, share memory by communicating.”
 
-Untuk mewujudkan konkurensi pengiriman pesan, pustaka standar Rust menyediakan
+Untuk mewujudkan concurrency message passing, standard library Rust menyediakan
 implementasi *channel*. Sebuah _channel_ (saluran) adalah konsep pemrograman
 umum untuk mengirim data dari satu thread ke thread lain.
 
@@ -50,7 +50,7 @@ tidak bisa tahu type nilai apa yang ingin kita kirim melalui *channel* itu.
 
 Kita membuat *channel* baru menggunakan fungsi `mpsc::channel`; `mpsc` adalah
 singkatan dari _multiple producer, single consumer_ (banyak produsen, satu
-konsumen). Singkatnya, cara pustaka standar Rust mengimplementasikan *channel*
+konsumen). Singkatnya, cara standard library Rust mengimplementasikan *channel*
 berarti sebuah *channel* dapat memiliki beberapa ujung _pengirim_ yang
 menghasilkan nilai tetapi hanya satu ujung _penerima_ yang mengonsumsi
 nilai-nilai itu. Bayangkan beberapa anak sungai mengalir bersama menjadi satu
@@ -146,9 +146,9 @@ Sempurna!
 
 ### Mentransfer Ownership Melalui Channel
 
-Aturan *ownership* memainkan peran penting dalam pengiriman pesan karena
-aturan itu membantu Anda menulis kode konkuren yang aman. Mencegah error
-dalam pemrograman konkuren adalah keuntungan memikirkan *ownership* di seluruh
+Aturan *ownership* memainkan peran penting dalam message passing karena
+aturan itu membantu Anda menulis kode concurrent yang aman. Mencegah error
+dalam concurrent programming adalah keuntungan memikirkan *ownership* di seluruh
 program Rust Anda. Mari kita lakukan eksperimen untuk menunjukkan bagaimana
 *channel* dan *ownership* bekerja sama mencegah masalah: Kita akan mencoba memakai
 nilai `val` di thread yang dibuat _setelah_ kita mengirimkannya melalui
@@ -175,7 +175,7 @@ mencoba mengompilasi kode di Listing 16-9:
 {{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
 ```
 
-Kesalahan konkurensi kita telah menyebabkan error waktu kompilasi. Fungsi
+Kesalahan concurrency kita telah menyebabkan error waktu kompilasi. Fungsi
 `send` mengambil *ownership* atas parameternya, dan ketika nilainya dipindahkan,
 *receiver* mengambil *ownership* atasnya. Ini mencegah kita tanpa sengaja memakai
 nilai itu lagi setelah mengirimkannya; sistem *ownership* memeriksa bahwa
@@ -192,7 +192,7 @@ menunjukkan dengan jelas kepada kita bahwa dua thread terpisah sedang saling
 berbicara melalui *channel*.
 
 Di Listing 16-10, kita telah membuat beberapa modifikasi yang akan
-membuktikan bahwa kode di Listing 16-8 berjalan secara konkuren: Thread yang
+membuktikan bahwa kode di Listing 16-8 berjalan secara concurrent: Thread yang
 dibuat sekarang akan mengirim banyak pesan dan berhenti sejenak selama satu
 detik di antara setiap pesan.
 
@@ -276,10 +276,10 @@ Got: you
 ```
 
 Anda mungkin melihat nilai-nilai itu dalam urutan lain, tergantung sistem
-Anda. Inilah yang membuat konkurensi menarik sekaligus sulit. Jika Anda
+Anda. Inilah yang membuat concurrency menarik sekaligus sulit. Jika Anda
 bereksperimen dengan `thread::sleep`, memberinya berbagai nilai di thread yang
 berbeda, setiap penjalanan akan semakin nondeterministik dan menghasilkan
 output yang berbeda setiap kali.
 
 Sekarang setelah kita melihat cara kerja *channel*, mari kita lihat method
-konkurensi yang berbeda.
+concurrency yang berbeda.

@@ -1,6 +1,6 @@
 ## Penghentian yang Rapi dan Pembersihan
 
-Kode di Listing 21-20 merespons permintaan secara asinkron melalui
+Kode di Listing 21-20 merespons permintaan secara asynchronous melalui
 pemakaian *thread pool*, seperti yang kita maksudkan. Kita mendapat beberapa
 peringatan tentang *field* `workers`, `id`, dan `thread` yang tidak kita
 pakai secara langsung yang mengingatkan kita bahwa kita belum membersihkan
@@ -153,7 +153,7 @@ ditunjukkan di Listing 21-25.
 
 </Listing>
 
-Anda tidak akan ingin server web di dunia nyata berhenti setelah melayani
+Anda tidak akan ingin web server di dunia nyata berhenti setelah melayani
 hanya dua permintaan. Kode ini hanya menunjukkan bahwa penghentian yang
 rapi dan pembersihannya bekerja dengan baik.
 
@@ -214,7 +214,7 @@ error. Ketika `Worker 0` selesai, thread utama menunggu sisa instance
 loop-nya dan berhenti.
 
 Selamat! Sekarang kita telah menyelesaikan proyek kita; kita punya server
-web dasar yang memakai *thread pool* untuk merespons secara asinkron. Kita
+web dasar yang memakai *thread pool* untuk merespons secara asynchronous. Kita
 bisa melakukan penghentian server yang rapi, yang membersihkan semua thread
 di pool.
 
@@ -241,13 +241,13 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
 
 - Menambahkan lebih banyak dokumentasi ke `ThreadPool` dan method-method
   publiknya.
-- Menambahkan pengujian untuk fungsionalitas library itu.
+- Menambahkan test untuk fungsionalitas library itu.
 - Mengubah pemanggilan `unwrap` menjadi penanganan error yang lebih
   tangguh.
 - Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
   permintaan web.
 - Menemukan *crate* *thread pool* di [crates.io](https://crates.io/)<!-- ignore -->
-  dan mengimplementasikan server web yang serupa dengan memakai *crate* itu.
+  dan mengimplementasikan web server yang serupa dengan memakai *crate* itu.
   Lalu, bandingkan API dan ketangguhannya dengan *thread pool* yang kita
   implementasikan.
 

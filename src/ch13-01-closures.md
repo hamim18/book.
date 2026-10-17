@@ -61,7 +61,7 @@ pelajari, kecuali badan method `giveaway` yang memakai sebuah *closure*. Di
 method `giveaway`, kita menerima preferensi pengguna sebagai parameter
 typed `Option<ShirtColor>` dan memanggil method `unwrap_or_else` pada
 `user_preference`. [Method `unwrap_or_else` pada `Option<T>`][unwrap-or-else]<!--
-ignore --> didefinisikan oleh pustaka standar. Method ini menerima satu
+ignore --> didefinisikan oleh standard library. Method ini menerima satu
 argumen: sebuah *closure* tanpa argumen yang mengembalikan nilai `T` (type yang
 sama dengan yang disimpan di *variant* `Some` dari `Option<T>`, dalam kasus
 ini `ShirtColor`). Jika `Option<T>`-nya berupa *variant* `Some`,
@@ -256,7 +256,7 @@ parameternya.
 Teknik ini paling berguna ketika meneruskan sebuah *closure* ke thread baru
 untuk memindahkan data sehingga data itu dimiliki oleh thread baru. Kita akan
 membahas thread dan alasan Anda ingin memakainya secara mendetail di Bab 16
-ketika kita berbicara tentang konkurensi, tetapi untuk saat ini, mari kita
+ketika kita berbicara tentang concurrency, tetapi untuk saat ini, mari kita
 menelaah secara singkat pembuatan thread baru memakai *closure* yang memerlukan
 kata kunci `move`. Listing 13-6 menunjukkan Listing 13-4 yang dimodifikasi
 untuk mencetak vector di thread baru alih-alih di thread utama.
@@ -327,7 +327,7 @@ menangani nilai-nilainya:
   keluar dari badannya dan tidak mengubah nilai-nilai yang ditangkap, serta
   *closure* yang tidak menangkap apa pun dari lingkungannya. *Closure* ini dapat
   dipanggil lebih dari sekali tanpa mengubah lingkungannya, yang penting dalam
-  kasus seperti memanggil sebuah *closure* berkali-kali secara konkuren.
+  kasus seperti memanggil sebuah *closure* berkali-kali secara concurrent.
 
 Mari kita lihat definisi method `unwrap_or_else` pada `Option<T>` yang kita
 pakai di Listing 13-1:
@@ -373,7 +373,7 @@ dan sefleksibel mungkin.
 > nilainya `None`. *Compiler* secara otomatis mengimplementasikan *trait* `Fn`
 > mana pun yang berlaku untuk sebuah definisi fungsi.
 
-Sekarang mari kita lihat method pustaka standar `sort_by_key`, yang
+Sekarang mari kita lihat method standard library `sort_by_key`, yang
 didefinisikan pada *slice*, untuk melihat perbedaannya dari `unwrap_or_else` dan
 alasan `sort_by_key` memakai `FnMut` alih-alih `FnOnce` untuk *trait bound*-nya.
 *Closure* itu menerima satu argumen berupa *reference* ke item saat ini di dalam

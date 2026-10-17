@@ -83,7 +83,7 @@ belum akan terkompilasi, karena kita perlu memperbarui badan fungsinya.
 
 </Listing>
 
-Dokumentasi pustaka standar untuk fungsi `env::args` menunjukkan bahwa type
+Dokumentasi standard library untuk fungsi `env::args` menunjukkan bahwa type
 *iterator* yang dikembalikannya adalah `std::env::Args`, dan type itu
 mengimplementasikan *trait* `Iterator` serta mengembalikan nilai `String`.
 
@@ -146,11 +146,11 @@ Listing 12-19.
 
 Kita dapat menulis kode ini dengan cara yang lebih ringkas memakai
 method-method *iterator adapter*. Melakukannya juga memungkinkan kita
-menghindari vector `results` *mutable* perantara. Gaya pemrograman fungsional
+menghindari vector `results` *mutable* perantara. Gaya functional programming
 lebih suka meminimalkan jumlah keadaan *mutable* untuk membuat kode lebih
 jelas. Menghapus keadaan *mutable* mungkin memungkinkan penyempurnaan di masa
 depan untuk membuat pencarian berjalan secara paralel karena kita tidak harus
-mengelola akses konkuren ke vector `results`. Listing 13-22 menunjukkan
+mengelola akses concurrent ke vector `results`. Listing 13-22 menunjukkan
 perubahan ini.
 
 <Listing number="13-22" file-name="src/lib.rs" caption="Memakai method iterator adapter di dalam implementasi fungsi `search`">
@@ -173,7 +173,7 @@ Untuk penyempurnaan lebih lanjut, kembalikan sebuah *iterator* dari fungsi
 `search` dengan menghapus pemanggilan `collect` dan mengubah return typenya
 menjadi `impl Iterator<Item = &'a str>` sehingga fungsi itu menjadi sebuah
 *iterator adapter*. Perhatikan bahwa Anda juga perlu memperbarui
-pengujian-pengujiannya! Cari di file yang besar memakai alat `minigrep` Anda
+test-testnya! Cari di file yang besar memakai tool `minigrep` Anda
 sebelum dan sesudah melakukan perubahan ini untuk mengamati perbedaan
 perilakunya. Sebelum perubahan ini, program tidak akan mencetak hasil apa pun
 sampai ia mengumpulkan semua hasilnya, tetapi setelah perubahan ini,
@@ -190,14 +190,14 @@ Pertanyaan logis berikutnya adalah gaya mana yang sebaiknya Anda pilih di
 kode Anda sendiri dan mengapa: implementasi asli di Listing 13-21 atau versi
 yang memakai *iterator* di Listing 13-22 (dengan asumsi kita mengumpulkan
 semua hasilnya sebelum mengembalikannya, alih-alih mengembalikan
-*iterator*-nya). Sebagian besar pemrogram Rust lebih suka memakai gaya
+*iterator*-nya). Sebagian besar programmer Rust lebih suka memakai gaya
 *iterator*. Sedikit lebih sulit untuk membiasakan diri pada awalnya, tetapi
 begitu Anda mendapat pemahaman tentang berbagai *iterator adapter* dan apa yang
 mereka lakukan, *iterator* bisa jadi lebih mudah dipahami. Alih-alih
 mengutak-atik berbagai bagian loop dan membangun vector-vector baru,
 kode berfokus pada tujuan tingkat tinggi dari loop tersebut. Ini
 mengabstraksikan sebagian kode yang umum dijumpai sehingga lebih mudah
-melihat konsep-konsep yang unik untuk kode ini, seperti kondisi penyaringan
+melihat konsep-konsep yang unik untuk kode ini, seperti kondisi filtering
 yang harus dilewati setiap elemen di dalam *iterator*.
 
 Tetapi apakah kedua implementasi itu benar-benar setara? Asumsi intuitifnya

@@ -57,7 +57,7 @@ Karena sebagian analisis tidak mungkin dilakukan, jika *compiler* Rust tidak
 bisa memastikan kode mematuhi aturan *ownership*, ia mungkin menolak program
 yang sebenarnya benar; dalam hal ini, ia bersifat konservatif. Jika Rust
 menerima program yang salah, pengguna tidak akan bisa memercayai jaminan yang
-dibuat Rust. Namun, jika Rust menolak program yang benar, pemrogram akan
+dibuat Rust. Namun, jika Rust menolak program yang benar, programmer akan
 kerepotan, tetapi tidak ada hal fatal yang dapat terjadi. Type `RefCell<T>`
 berguna ketika Anda yakin kode Anda mengikuti aturan *borrowing* tetapi
 *compiler* tidak mampu memahami dan menjamin hal itu.
@@ -121,10 +121,10 @@ untuk mengubah nilai *immutable* dan melihat mengapa hal itu berguna.
 
 #### Menguji dengan Mock Object
 
-Terkadang selama pengujian seorang pemrogram memakai suatu type sebagai
+Terkadang selama test seorang programmer memakai suatu type sebagai
 pengganti type lain, untuk mengamati perilaku tertentu dan menegaskan bahwa
 perilaku itu diimplementasikan dengan benar. Type pengganti ini disebut
-_test double_ (pengganti dalam pengujian). Bayangkan ini seperti pemeran
+_test double_ (pengganti dalam test). Bayangkan ini seperti pemeran
 pengganti dalam pembuatan film, ketika seseorang maju menggantikan seorang
 aktor untuk melakukan adegan yang sangat rumit. *Test double* menggantikan type
 lain ketika kita menjalankan test. _Mock object_ (objek tiruan) adalah jenis
@@ -133,7 +133,7 @@ dapat menegaskan bahwa tindakan yang benar telah terjadi.
 
 Rust tidak memiliki objek dalam pengertian yang sama seperti objek di
 bahasa-bahasa lain, dan Rust tidak memiliki fungsionalitas *mock object* yang
-tertanam di pustaka standar seperti yang dimiliki beberapa bahasa lain. Namun,
+tertanam di standard library seperti yang dimiliki beberapa bahasa lain. Namun,
 Anda pasti bisa membuat *struct* yang akan menjalankan tujuan yang sama dengan
 *mock object*.
 
@@ -146,7 +146,7 @@ diizinkan untuk mereka buat.
 Library kita hanya akan menyediakan fungsionalitas melacak seberapa dekat
 sebuah nilai dengan maksimumnya dan pesan apa yang seharusnya muncul pada
 waktu apa. Aplikasi yang memakai library kita diharapkan menyediakan mekanisme
-pengiriman pesannya: Aplikasi bisa menampilkan pesan itu langsung kepada
+message passingnya: Aplikasi bisa menampilkan pesan itu langsung kepada
 pengguna, mengirim email, mengirim pesan teks, atau melakukan hal lain.
 Library tidak perlu tahu detail itu. Yang dibutuhkannya hanyalah sesuatu yang
 mengimplementasikan *trait* yang akan kita sediakan, bernama `Messenger`.
@@ -217,7 +217,7 @@ Kita tidak bisa memodifikasi `MockMessenger` untuk melacak pesan-pesan itu,
 karena method `send` menerima *immutable* *reference* ke `self`. Kita juga tidak
 bisa mengambil saran dari teks error itu untuk memakai `&mut self` di method
 `impl` sekaligus definisi *trait*. Kita tidak ingin mengubah *trait* `Messenger`
-semata-mata demi pengujian. Sebagai gantinya, kita perlu mencari cara membuat
+semata-mata demi test. Sebagai gantinya, kita perlu mencari cara membuat
 kode test kita bekerja dengan benar dengan desain yang sudah ada.
 
 Ini adalah situasi ketika *interior mutability* dapat membantu! Kita akan
@@ -305,7 +305,7 @@ Memilih untuk menangkap error *borrowing* pada runtime alih-alih pada waktu
 kompilasi, seperti yang kita lakukan di sini, berarti Anda berpotensi
 menemukan kesalahan dalam kode Anda lebih lambat dalam proses pengembangan:
 bisa jadi baru ketahuan ketika kode Anda sudah di-deploy ke produksi. Selain
-itu, kode Anda akan menanggung denda performa runtime yang kecil sebagai
+itu, kode Anda akan menanggung performance penalty runtime yang kecil sebagai
 akibat melacak *borrowing* pada runtime alih-alih pada waktu kompilasi. Namun,
 memakai `RefCell<T>` memungkinkan penulisan *mock object* yang dapat memodifikasi
 dirinya sendiri untuk melacak pesan yang telah dilihatnya selagi Anda

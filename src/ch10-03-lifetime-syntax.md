@@ -390,7 +390,7 @@ Pada akhirnya, sintaks *lifetime* adalah tentang menghubungkan *lifetime*
 berbagai parameter dan return value fungsi. Setelah mereka terhubung,
 Rust memiliki informasi yang cukup untuk mengizinkan operasi yang aman bagi
 memori dan melarang operasi yang akan membuat *pointer* *dangling* atau
-melanggar keamanan memori.
+melanggar memory safety.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -450,7 +450,7 @@ tangan fungsinya akan ditulis seperti ini:
 fn first_word<'a>(s: &'a str) -> &'a str {
 ```
 
-Setelah menulis banyak kode Rust, tim Rust menemukan bahwa pemrogram Rust
+Setelah menulis banyak kode Rust, tim Rust menemukan bahwa programmer Rust
 memasukkan anotasi *lifetime* yang sama berulang-ulang dalam situasi-situasi
 tertentu. Situasi-situasi ini dapat diprediksi dan mengikuti beberapa pattern
 deterministik. Para pengembang memprogram pattern-pattern ini ke dalam kode
@@ -463,7 +463,7 @@ anotasi *lifetime* yang diperlukan mungkin menjadi lebih sedikit lagi.
 
 Pattern-pattern yang diprogram ke dalam analisis *reference* Rust disebut
 *lifetime elision rules* (aturan elision *lifetime*). Ini bukan aturan yang
-harus dipatuhi pemrogram; ini adalah sekumpulan kasus tertentu yang akan
+harus dipatuhi programmer; ini adalah sekumpulan kasus tertentu yang akan
 dipertimbangkan *compiler*, dan jika kode Anda cocok dengan kasus-kasus ini,
 Anda tidak perlu menulis *lifetime* secara eksplisit.
 
@@ -526,7 +526,7 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 ```
 
 Sekarang semua *reference* di *signature* fungsi ini memiliki *lifetime*, dan
-*compiler* bisa melanjutkan analisisnya tanpa perlu pemrogram menganotasi
+*compiler* bisa melanjutkan analisisnya tanpa perlu programmer menganotasi
 *lifetime* di *signature* fungsi ini.
 
 Mari kita lihat contoh lain, kali ini memakai fungsi `longest` yang tidak
@@ -670,7 +670,7 @@ merupakan cara lain untuk memakai *trait*. Ada juga skenario yang lebih
 kompleks yang melibatkan anotasi *lifetime* yang hanya Anda perlukan dalam
 skenario yang sangat lanjut; untuk itu, Anda sebaiknya membaca [Rust
 *Reference*][reference]. Namun selanjutnya, Anda akan mempelajari cara
-menulis pengujian di Rust supaya Anda bisa memastikan bahwa kode Anda
+menulis test di Rust supaya Anda bisa memastikan bahwa kode Anda
 berjalan sebagaimana mestinya.
 
 [references-and-borrowing]: ch04-02-references-and-borrowing.html#references-and-borrowing

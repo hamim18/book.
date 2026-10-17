@@ -1,8 +1,8 @@
 ## Unsafe Rust
 
-Semua kode yang kita bahas sejauh ini memiliki jaminan keamanan memori Rust
+Semua kode yang kita bahas sejauh ini memiliki jaminan memory safety Rust
 yang ditegakkan pada waktu kompilasi. Akan tetapi, Rust memiliki bahasa kedua
-yang tersembunyi di dalamnya yang tidak menegakkan jaminan keamanan memori
+yang tersembunyi di dalamnya yang tidak menegakkan jaminan memory safety
 ini: Bahasa itu disebut *unsafe Rust* dan bekerja persis seperti Rust biasa,
 tetapi memberi kita kekuatan super ekstra.
 
@@ -22,9 +22,9 @@ Alasan lain mengapa Rust memiliki alter ego yang *unsafe* adalah karena
 perangkat keras komputer yang mendasarinya pada dasarnya tidak aman. Jika
 Rust tidak mengizinkan Anda melakukan operasi *unsafe*, Anda tidak bisa
 mengerjakan tugas-tugas tertentu. Rust perlu mengizinkan Anda melakukan
-pemrograman sistem tingkat rendah, seperti berinteraksi langsung dengan
+low-level systems programming, seperti berinteraksi langsung dengan
 sistem operasi atau bahkan menulis sistem operasi Anda sendiri. Mengerjakan
-pemrograman sistem tingkat rendah adalah salah satu tujuan bahasa ini. Mari
+low-level systems programming adalah salah satu tujuan bahasa ini. Mari
 kita telusuri apa saja yang bisa kita lakukan dengan *unsafe* Rust dan bagaimana
 melakukannya.
 
@@ -50,24 +50,24 @@ Penting untuk dipahami bahwa `unsafe` tidak mematikan *borrow checker* atau
 menonaktifkan pemeriksaan keamanan Rust lainnya: Jika Anda memakai sebuah
 *reference* di dalam kode *unsafe*, *reference* itu tetap akan diperiksa. Kata
 kunci `unsafe` hanya memberi Anda akses ke lima fitur ini, yang kemudian tidak
-diperiksa oleh *compiler* untuk keamanan memori. Anda tetap mendapatkan
+diperiksa oleh *compiler* untuk memory safety. Anda tetap mendapatkan
 keamanan dalam tingkat tertentu di dalam blok *unsafe*.
 
 Selain itu, `unsafe` tidak berarti kode di dalam bloknya pasti berbahaya atau
-pasti akan memiliki masalah keamanan memori: Maksudnya adalah, sebagai
-pemrogram, Andalah yang akan memastikan bahwa kode di dalam blok `unsafe`
+pasti akan memiliki masalah memory safety: Maksudnya adalah, sebagai
+programmer, Andalah yang akan memastikan bahwa kode di dalam blok `unsafe`
 mengakses memori dengan cara yang valid.
 
 Manusia bisa salah dan kesalahan pasti akan terjadi, tetapi dengan
 mengharuskan lima operasi *unsafe* ini berada di dalam blok yang ditandai
 dengan `unsafe`, Anda akan tahu bahwa error apa pun yang berkaitan dengan
-keamanan memori pasti berada di dalam blok `unsafe`. Buatlah blok `unsafe`
+memory safety pasti berada di dalam blok `unsafe`. Buatlah blok `unsafe`
 sekecil mungkin; Anda akan bersyukur nanti saat menyelidiki bug memori.
 
 Untuk mengisolasi kode *unsafe* sebisa mungkin, sebaiknya kode semacam itu
 dibungkus di dalam abstraksi yang aman dan menyediakan API yang aman, yang
 akan kita bahas nanti di bab ini saat kita menelaah fungsi dan method *unsafe*.
-Sebagian pustaka standar diimplementasikan sebagai abstraksi yang aman di
+Sebagian standard library diimplementasikan sebagai abstraksi yang aman di
 atas kode *unsafe* yang telah diaudit. Membungkus kode *unsafe* di dalam
 abstraksi yang aman mencegah pemakaian `unsafe` bocor ke semua tempat di mana
 Anda atau pengguna Anda mungkin ingin memakai fungsionalitas yang
@@ -220,7 +220,7 @@ diperlukan di seluruh tubuh fungsi.
 Hanya karena sebuah fungsi memuat kode *unsafe* bukan berarti kita perlu
 menandai seluruh fungsi itu sebagai *unsafe*. Bahkan, membungkus kode *unsafe* di
 dalam fungsi yang aman adalah abstraksi yang umum. Sebagai contoh, mari kita
-pelajari fungsi `split_at_mut` dari pustaka standar, yang memerlukan sedikit
+pelajari fungsi `split_at_mut` dari standard library, yang memerlukan sedikit
 kode *unsafe*. Kita akan menelusuri bagaimana kita bisa mengimplementasikannya.
 Method yang aman ini didefinisikan pada *slice* *mutable*: Method ini mengambil
 satu *slice* dan menjadikannya dua dengan membelah *slice* itu pada indeks yang
@@ -348,11 +348,11 @@ mendefinisikan fungsi dan memungkinkan bahasa pemrograman lain (asing) untuk
 memanggil fungsi-fungsi itu.
 
 Listing 20-8 menunjukkan cara menyiapkan integrasi dengan fungsi `abs` dari
-pustaka standar C. Fungsi yang dideklarasikan di dalam blok `extern` umumnya
+standard library C. Fungsi yang dideklarasikan di dalam blok `extern` umumnya
 tidak aman untuk dipanggil dari kode Rust, jadi blok `extern` juga harus
 ditandai `unsafe`. Alasannya, bahasa lain tidak menegakkan aturan dan jaminan
 Rust, dan Rust tidak bisa memeriksanya, sehingga tanggung jawab untuk
-memastikan keamanan jatuh pada pemrogram.
+memastikan keamanan jatuh pada programmer.
 
 <Listing number="20-8" file-name="src/main.rs" caption="Mendeklarasikan dan memanggil fungsi `extern` yang didefinisikan dalam bahasa lain">
 
@@ -372,8 +372,8 @@ yang didukung Rust tersedia di [Rust *Reference*][ABI].
 
 Setiap item yang dideklarasikan di dalam blok `unsafe extern` secara implisit
 bersifat *unsafe*. Akan tetapi, beberapa fungsi FFI *memang* aman untuk
-dipanggil. Misalnya, fungsi `abs` dari pustaka standar C tidak memiliki
-pertimbangan keamanan memori apa pun, dan kita tahu ia bisa dipanggil dengan
+dipanggil. Misalnya, fungsi `abs` dari standard library C tidak memiliki
+pertimbangan memory safety apa pun, dan kita tahu ia bisa dipanggil dengan
 `i32` apa pun. Dalam kasus seperti ini, kita bisa memakai kata kunci `safe`
 untuk menyatakan bahwa fungsi khusus ini aman untuk dipanggil meskipun ia
 berada di dalam blok `unsafe extern`. Setelah kita membuat perubahan itu,
@@ -498,7 +498,7 @@ lebih jelas.
 Dengan data *mutable* yang dapat diakses secara global, sulit untuk memastikan
 tidak ada data race, dan itulah sebabnya Rust menganggap variable static yang
 *mutable* sebagai *unsafe*. Jika memungkinkan, lebih baik memakai teknik
-konkurensi dan *smart pointer* yang thread-safe yang kita bahas di Bab 16,
+concurrency dan *smart pointer* yang thread-safe yang kita bahas di Bab 16,
 supaya *compiler* memeriksa bahwa akses data dari thread yang berbeda
 dilakukan dengan aman.
 
@@ -523,7 +523,7 @@ Dengan memakai `unsafe impl`, kita berjanji bahwa kita akan menegakkan
 invarian-invarian yang tidak bisa diverifikasi *compiler*.
 
 Sebagai contoh, ingat kembali *marker trait* `Send` dan `Sync` yang kita bahas
-di seksi [“Konkurensi yang Dapat Diperluas dengan `Send` dan `Sync`”][send-and-sync]<!-- ignore
+di seksi [“Concurrency yang Dapat Diperluas dengan `Send` dan `Sync`”][send-and-sync]<!-- ignore
 --> di Bab 16: *compiler* mengimplementasikan *trait*-trait ini secara otomatis
 jika type-type kita seluruhnya tersusun dari type-type lain yang
 mengimplementasikan `Send` dan `Sync`. Jika kita mengimplementasikan sebuah
@@ -548,18 +548,18 @@ tentang *union* di [Rust *Reference*][unions].
 
 Saat menulis kode *unsafe*, Anda mungkin ingin memeriksa bahwa apa yang Anda
 tulis benar-benar aman dan tepat. Salah satu cara terbaik untuk melakukannya
-adalah memakai Miri, alat resmi Rust untuk mendeteksi perilaku tak
-terdefinisi. Sementara *borrow checker* adalah alat *statis* yang bekerja pada
-waktu kompilasi, Miri adalah alat *dinamis* yang bekerja pada runtime. Miri
+adalah memakai Miri, tool resmi Rust untuk mendeteksi perilaku tak
+terdefinisi. Sementara *borrow checker* adalah tool *statis* yang bekerja pada
+waktu kompilasi, Miri adalah tool *dinamis* yang bekerja pada runtime. Miri
 memeriksa kode Anda dengan menjalankan program Anda, atau test suite-nya, dan
 mendeteksi saat Anda melanggar aturan-aturan yang dipahaminya tentang cara
 Rust seharusnya bekerja.
 
 Memakai Miri memerlukan build nightly dari Rust (yang akan kita bahas lebih
 lanjut di [Lampiran G: Bagaimana Rust Dibuat dan “Nightly Rust”][nightly]<!-- ignore -->).
-Anda bisa memasang versi nightly dari Rust sekaligus alat Miri dengan
+Anda bisa memasang versi nightly dari Rust sekaligus tool Miri dengan
 mengetik `rustup +nightly component add miri`. Ini tidak mengubah versi Rust
-yang dipakai proyek Anda; ini hanya menambahkan alat itu ke sistem Anda
+yang dipakai proyek Anda; ini hanya menambahkan tool itu ke sistem Anda
 supaya bisa Anda pakai kapan pun Anda mau. Anda bisa menjalankan Miri pada
 sebuah proyek dengan mengetik `cargo +nightly miri run` atau `cargo +nightly
 miri test`.
@@ -582,9 +582,9 @@ beberapa kasus, Miri bahkan bisa memberikan rekomendasi tentang cara
 memperbaiki error.
 
 Miri tidak menangkap semua hal yang mungkin Anda lakukan salah saat menulis
-kode *unsafe*. Miri adalah alat analisis dinamis, jadi ia hanya menangkap
+kode *unsafe*. Miri adalah tool analisis dinamis, jadi ia hanya menangkap
 masalah pada kode yang benar-benar dijalankan. Itu berarti Anda perlu
-memakainya bersamaan dengan teknik pengujian yang baik untuk meningkatkan
+memakainya bersamaan dengan teknik test yang baik untuk meningkatkan
 keyakinan Anda terhadap kode *unsafe* yang telah Anda tulis. Miri juga tidak
 mencakup semua kemungkinan cara kode Anda menjadi tidak sound.
 
@@ -606,7 +606,7 @@ GitHub-nya][miri].
 Memakai `unsafe` untuk memakai salah satu dari lima kekuatan super yang baru
 saja dibahas tidaklah salah, bahkan tidak dipandang buruk, tetapi membuat
 kode `unsafe` menjadi benar itu lebih sulit karena *compiler* tidak bisa
-membantu menegakkan keamanan memori. Ketika Anda memiliki alasan untuk
+membantu menegakkan memory safety. Ketika Anda memiliki alasan untuk
 memakai kode `unsafe`, Anda boleh melakukannya, dan adanya anotasi `unsafe`
 yang eksplisit membuat sumber masalah lebih mudah dilacak saat masalah itu
 terjadi. Kapan pun Anda menulis kode *unsafe*, Anda bisa memakai Miri untuk

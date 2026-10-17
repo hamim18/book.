@@ -93,7 +93,7 @@ Listing 20-35 menunjukkan definisi *macro* `vec!` yang sedikit disederhanakan.
 
 </Listing>
 
-> Catatan: Definisi asli *macro* `vec!` di pustaka standar menyertakan kode
+> Catatan: Definisi asli *macro* `vec!` di standard library menyertakan kode
 > untuk mengalokasikan jumlah memori yang tepat di muka. Kode itu adalah
 > optimasi yang tidak kita sertakan di sini, supaya contohnya lebih
 > sederhana.
@@ -216,7 +216,7 @@ pengguna bisa mengtype annotation mereka dengan `#[derive(HelloMacro)]` untuk
 mendapatkan implementasi bawaan dari fungsi `hello_macro`. Implementasi
 bawaan itu akan mencetak `Hello, Macro! My name is TypeName!` dengan
 `TypeName` adalah nama type tempat *trait* ini didefinisikan. Dengan kata
-lain, kita akan menulis *crate* yang memungkinkan pemrogram lain menulis kode
+lain, kita akan menulis *crate* yang memungkinkan programmer lain menulis kode
 seperti Listing 20-37 dengan memakai *crate* kita.
 
 <Listing number="20-37" file-name="src/main.rs" caption="Kode yang akan bisa ditulis oleh pengguna crate kita saat memakai macro prosedural kita">
@@ -282,18 +282,18 @@ Kedua *crate* kita saling terkait erat, jadi kita membuat *crate* *macro*
 prosedural itu di dalam direktori *crate* `hello_macro`. Jika kita mengubah
 definisi *trait* di `hello_macro`, kita juga harus mengubah implementasi
 *macro* prosedural di `hello_macro_derive`. Kedua *crate* itu harus diterbitkan
-secara terpisah, dan pemrogram yang memakai *crate*-crate ini harus
-menambahkan keduanya sebagai dependensi dan membawa keduanya ke dalam *scope*.
+secara terpisah, dan programmer yang memakai *crate*-crate ini harus
+menambahkan keduanya sebagai dependency dan membawa keduanya ke dalam *scope*.
 Sebagai gantinya, kita bisa membuat *crate* `hello_macro` memakai
-`hello_macro_derive` sebagai dependensi dan mengekspor ulang kode *macro*
+`hello_macro_derive` sebagai dependency dan mengekspor ulang kode *macro*
 prosedural itu. Akan tetapi, cara kita menyusun proyek ini memungkinkan
-pemrogram memakai `hello_macro` meskipun mereka tidak menginginkan
+programmer memakai `hello_macro` meskipun mereka tidak menginginkan
 fungsionalitas `derive`.
 
 Kita perlu mendeklarasikan *crate* `hello_macro_derive` sebagai *crate* *macro*
 prosedural. Kita juga akan membutuhkan fungsionalitas dari *crate* `syn` dan
 `quote`, seperti yang akan Anda lihat sebentar lagi, jadi kita perlu
-menambahkan keduanya sebagai dependensi. Tambahkan yang berikut ini ke file
+menambahkan keduanya sebagai dependency. Tambahkan yang berikut ini ke file
 _Cargo.toml_ untuk `hello_macro_derive`:
 
 <Listing file-name="hello_macro_derive/Cargo.toml">
@@ -329,7 +329,7 @@ pada tujuan *macro* prosedural Anda.
 Kita telah memperkenalkan tiga *crate* baru: `proc_macro`,
 [`syn`][syn]<!-- ignore -->, dan [`quote`][quote]<!-- ignore -->. *Crate*
 `proc_macro` ikut disertakan bersama Rust, jadi kita tidak perlu
-menambahkannya ke dependensi di _Cargo.toml_. *Crate* `proc_macro` adalah API
+menambahkannya ke dependency di _Cargo.toml_. *Crate* `proc_macro` adalah API
 *compiler* yang memungkinkan kita membaca dan memanipulasi kode Rust dari
 kode kita.
 
@@ -455,10 +455,10 @@ Pada titik ini, `cargo build` seharusnya selesai dengan sukses di
 ini dengan kode di Listing 20-37 untuk melihat *macro* prosedural itu
 bekerja! Buat proyek binary baru di direktori _projects_ Anda dengan
 `cargo new pancakes`. Kita perlu menambahkan `hello_macro` dan
-`hello_macro_derive` sebagai dependensi di _Cargo.toml_ *crate* `pancakes`.
+`hello_macro_derive` sebagai dependency di _Cargo.toml_ *crate* `pancakes`.
 Jika Anda menerbitkan versi `hello_macro` dan `hello_macro_derive` Anda ke
 [crates.io](https://crates.io/)<!-- ignore -->, keduanya akan menjadi
-dependensi biasa; jika tidak, Anda bisa menentukannya sebagai dependensi
+dependency biasa; jika tidak, Anda bisa menentukannya sebagai dependency
 `path` seperti berikut:
 
 ```toml
@@ -523,7 +523,7 @@ let sql = sql!(SELECT * FROM posts WHERE id=1);
 ```
 
 *Macro* ini akan melakukan parsing statement SQL di dalamnya dan memeriksa
-bahwa statement itu benar secara sintaksis, pemrosesan yang jauh lebih
+bahwa statement itu benar secara sintaksis, processing yang jauh lebih
 kompleks daripada yang bisa dilakukan *macro* `macro_rules!`. *Macro* `sql!`
 akan didefinisikan seperti ini:
 

@@ -13,7 +13,7 @@ tentang edisi.
 
 Format HTML buku ini tersedia secara daring di
 [https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)
-dan juga tersedia secara luring pada instalasi-instalasi Rust yang dibuat
+dan juga tersedia secara offline pada instalasi-instalasi Rust yang dibuat
 dengan `rustup`; jalankan `rustup doc --book` untuk membukanya.
 
 Sejumlah [terjemahan][translations] dari komunitas juga tersedia.

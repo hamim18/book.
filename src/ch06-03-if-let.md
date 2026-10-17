@@ -138,7 +138,7 @@ dan `let...else` juga ada di kotak peralatan Rust Anda.
 
 Kini kita telah membahas cara memakai *enum* untuk membuat custom type yang
 dapat menjadi salah satu dari sekumpulan nilai yang dienumerasikan. Kita telah
-menunjukkan bagaimana type `Option<T>` milik pustaka standar membantu Anda
+menunjukkan bagaimana type `Option<T>` milik standard library membantu Anda
 memakai type system untuk mencegah error. Ketika nilai *enum* memiliki data di
 dalamnya, Anda dapat memakai `match` atau `if let` untuk mengekstrak dan
 memakai nilai-nilai itu, bergantung pada seberapa banyak kasus yang perlu Anda

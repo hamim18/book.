@@ -33,7 +33,7 @@ jelas. Akan lebih baik jika seluruh kode penanganan error berada di satu
 tempat sehingga pengelola kode di masa depan hanya perlu melihat satu tempat
 jika logika penanganan errornya perlu diubah. Menaruh seluruh kode penanganan
 error di satu tempat juga akan memastikan bahwa kita mencetak pesan yang
-bermakna bagi pengguna akhir kita.
+bermakna bagi end user kita.
 
 Mari kita tangani keempat masalah ini dengan melakukan refactoring pada
 proyek kita.
@@ -45,27 +45,27 @@ proyek kita.
 ### Memisahkan Tanggung Jawab dalam Proyek Binary
 
 Masalah organisasi berupa penyerahan tanggung jawab banyak tugas kepada fungsi
-`main` ini umum dijumpai di banyak proyek binary. Akibatnya, banyak pemrogram
+`main` ini umum dijumpai di banyak proyek binary. Akibatnya, banyak programmer
 Rust merasa berguna untuk memisahkan berbagai tanggung jawab sebuah program
 binary ketika fungsi `main` mulai membesar. Proses ini memiliki langkah-langkah
 berikut:
 
 - Pecah program Anda menjadi file _main.rs_ dan file _lib.rs_, lalu pindahkan
   logika program Anda ke _lib.rs_.
-- Selama logika parsing baris perintah Anda masih kecil, logika itu dapat
+- Selama logika parsing command line Anda masih kecil, logika itu dapat
   tetap berada di fungsi `main`.
-- Ketika logika parsing baris perintah mulai menjadi rumit, ekstrak logika itu
+- Ketika logika parsing command line mulai menjadi rumit, ekstrak logika itu
   dari fungsi `main` ke fungsi atau type lain.
 
 Tanggung jawab yang tersisa di fungsi `main` setelah proses ini sebaiknya
 dibatasi pada hal-hal berikut:
 
-- Memanggil logika parsing baris perintah dengan nilai-nilai argumen
+- Memanggil logika parsing command line dengan nilai-nilai argumen
 - Menyiapkan konfigurasi lain apa pun
 - Memanggil fungsi `run` di _lib.rs_
 - Menangani error jika `run` mengembalikan error
 
-Pattern ini berkaitan dengan pemisahan tanggung jawab: _main.rs_ menangani
+Pattern ini berkaitan dengan separation of concerns: _main.rs_ menangani
 jalannya program dan _lib.rs_ menangani seluruh logika tugas yang sedang
 dikerjakan. Karena Anda tidak dapat menguji fungsi `main` secara langsung,
 struktur ini memungkinkan Anda menguji seluruh logika program Anda dengan
@@ -88,14 +88,14 @@ definisikan di _src/main.rs_.
 
 </Listing>
 
-Kita masih mengumpulkan argumen baris perintah ke dalam sebuah vector, tetapi
+Kita masih mengumpulkan argumen command line ke dalam sebuah vector, tetapi
 alih-alih menetapkan nilai argumen pada indeks 1 ke variable `query` dan nilai
 argumen pada indeks 2 ke variable `file_path` di dalam fungsi `main`, kita
 meneruskan seluruh vector tersebut ke fungsi `parse_config`. Fungsi
 `parse_config` kemudian memegang logika yang menentukan argumen mana yang masuk
 ke variable mana, lalu meneruskan nilai-nilainya kembali ke `main`. Kita masih
 membuat variable `query` dan `file_path` di `main`, tetapi `main` tidak lagi
-bertanggung jawab menentukan bagaimana argumen baris perintah dan
+bertanggung jawab menentukan bagaimana argumen command line dan
 variable-variable itu saling berkorespondensi.
 
 Pengerjaan ulang ini mungkin tampak berlebihan untuk program sekecil ini,
@@ -182,7 +182,7 @@ dinamai sesuai tujuannya.
 #### Membuat Konstruktor untuk `Config`
 
 Sejauh ini, kita telah mengekstrak logika yang bertanggung jawab atas parsing
-argumen baris perintah dari `main` dan menaruhnya di fungsi `parse_config`.
+argumen command line dari `main` dan menaruhnya di fungsi `parse_config`.
 Hal ini membantu kita melihat bahwa nilai `query` dan `file_path` saling
 berkaitan, dan hubungan itu seharusnya disampaikan di dalam kode kita. Kita
 kemudian menambahkan *struct* `Config` untuk menamai tujuan bersama dari
@@ -193,7 +193,7 @@ Jadi, sekarang karena tujuan fungsi `parse_config` adalah membuat sebuah
 instance `Config`, kita dapat mengubah `parse_config` dari fungsi biasa
 menjadi sebuah fungsi bernama `new` yang terasosiasi dengan *struct* `Config`.
 Perubahan ini akan membuat kode lebih idiomatis. Kita dapat membuat instance
-type-type di pustaka standar, seperti `String`, dengan memanggil `String::new`.
+type-type di standard library, seperti `String`, dengan memanggil `String::new`.
 Demikian pula, dengan mengubah `parse_config` menjadi fungsi `new` yang
 terasosiasi dengan `Config`, kita akan dapat membuat instance `Config` dengan
 memanggil `Config::new`. Listing 12-7 menunjukkan perubahan yang perlu kita
@@ -225,7 +225,7 @@ jalankan program ini tanpa argumen apa pun; hasilnya akan tampak seperti ini:
 ```
 
 Baris `index out of bounds: the len is 1 but the index is 1` adalah pesan
-error yang ditujukan untuk pemrogram. Pesan itu tidak akan membantu pengguna
+error yang ditujukan untuk programmer. Pesan itu tidak akan membantu pengguna
 akhir kita memahami apa yang seharusnya mereka lakukan. Mari kita perbaiki
 sekarang.
 
@@ -277,7 +277,7 @@ ignore --> yang menunjukkan keberhasilan ataupun error.
 Sebagai gantinya, kita dapat mengembalikan sebuah nilai `Result` yang akan
 memuat instance `Config` pada kasus keberhasilan dan akan menjelaskan
 masalahnya pada kasus error. Kita juga akan mengubah nama fungsinya dari `new`
-menjadi `build` karena banyak pemrogram mengharapkan fungsi `new` tidak pernah
+menjadi `build` karena banyak programmer mengharapkan fungsi `new` tidak pernah
 gagal. Ketika `Config::build` berkomunikasi dengan `main`, kita dapat memakai
 type `Result` untuk memberi sinyal bahwa ada masalah. Kemudian, kita dapat
 mengubah `main` untuk mengubah sebuah *variant* (varian) `Err` menjadi error
@@ -323,7 +323,7 @@ proses dengan lebih bersih pada kasus error.
 Untuk menangani kasus error dan mencetak pesan yang ramah pengguna, kita perlu
 memperbarui `main` untuk menangani `Result` yang dikembalikan oleh
 `Config::build`, seperti yang ditunjukkan di Listing 12-10. Kita juga akan
-mengambil alih tanggung jawab mengeluarkan alat baris perintah ini dengan kode
+mengambil alih tanggung jawab mengeluarkan tool command line ini dengan kode
 error bukan nol dari `panic!`, lalu mengimplementasikannya secara manual.
 Status keluar bukan nol adalah sebuah konvensi untuk memberi sinyal kepada
 proses yang memanggil program kita bahwa program itu keluar dalam keadaan
@@ -339,7 +339,7 @@ error.
 
 Di listing ini, kita telah memakai sebuah method yang belum kita bahas secara
 mendetail: `unwrap_or_else`, yang didefinisikan pada `Result<T, E>` oleh
-pustaka standar. Memakai `unwrap_or_else` memungkinkan kita mendefinisikan
+standard library. Memakai `unwrap_or_else` memungkinkan kita mendefinisikan
 penanganan error khusus yang bukan `panic!`. Jika `Result`-nya berupa nilai
 `Ok`, perilaku method ini mirip dengan `unwrap`: Ia mengembalikan nilai di
 dalamnya yang sedang dibungkus oleh `Ok`. Akan tetapi, jika nilainya berupa
@@ -380,7 +380,7 @@ ignore -->, kita akan mengekstrak sebuah fungsi bernama `run` yang akan memuat
 semua logika yang kini berada di fungsi `main` dan tidak terlibat dalam
 menyiapkan konfigurasi atau menangani error. Setelah selesai, fungsi `main`
 akan menjadi ringkas dan mudah diverifikasi hanya dengan membacanya, dan kita
-akan dapat menulis pengujian untuk semua logika lainnya.
+akan dapat menulis test untuk semua logika lainnya.
 
 Listing 12-11 menunjukkan perbaikan kecil dan bertahap berupa ekstraksi fungsi
 `run`.
@@ -549,7 +549,7 @@ mulai sekarang akan dilakukan di _src/lib.rs_.
 
 Mari kita manfaatkan modularitas yang baru diperoleh ini dengan melakukan
 sesuatu yang akan sulit dilakukan dengan kode lama tetapi mudah dengan kode
-baru: Kita akan menulis beberapa pengujian!
+baru: Kita akan menulis beberapa test!
 
 [ch13]: ch13-00-functional-features.html
 [ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creating-custom-types-for-validation

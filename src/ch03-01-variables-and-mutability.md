@@ -5,7 +5,7 @@ Seperti disebutkan di bagian [“Menyimpan Nilai dengan
 Variable”][storing-values-with-variables]<!-- ignore -->, secara bawaan
 variable bersifat *immutable* (tidak dapat diubah). Ini adalah salah satu dari
 sekian banyak dorongan yang diberikan Rust kepada Anda untuk menulis kode
-dengan cara yang memanfaatkan keamanan dan kemudahan konkurensi yang
+dengan cara yang memanfaatkan keamanan dan kemudahan concurrency yang
 ditawarkan Rust. Meski begitu, Anda tetap punya pilihan untuk membuat variable
 menjadi *mutable* (dapat diubah). Mari kita lihat bagaimana dan mengapa Rust
 mendorong Anda untuk memilih immutability, dan mengapa kadang-kadang Anda
@@ -37,7 +37,7 @@ Contoh ini menunjukkan bagaimana *compiler* (kompilator) membantu Anda
 menemukan error dalam program Anda. Error dari *compiler* bisa membuat
 frustrasi, tetapi sebenarnya error itu hanya berarti program Anda belum
 secara aman melakukan apa yang Anda inginkan; error itu _bukan_ berarti Anda
-bukan pemrogram yang baik! Rustacean yang berpengalaman pun masih mendapatkan
+bukan programmer yang baik! Rustacean yang berpengalaman pun masih mendapatkan
 error *compiler*.
 
 Anda menerima pesan error `` cannot assign twice to immutable variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variable `x` yang *immutable*.

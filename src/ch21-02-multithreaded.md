@@ -70,28 +70,28 @@ akan memproses tugasnya. Thread-thread tersisa di pool tersedia untuk
 menangani tugas lain apa pun yang masuk sementara thread pertama sedang
 memproses. Ketika thread pertama selesai memproses tugasnya, ia
 dikembalikan ke kumpulan thread yang menganggur, siap menangani tugas baru.
-*Thread pool* memungkinkan Anda memproses koneksi secara konkuren, sehingga
+*Thread pool* memungkinkan Anda memproses koneksi secara concurrent, sehingga
 throughput server Anda meningkat.
 
 Kita akan membatasi jumlah thread di pool menjadi angka kecil untuk
 melindungi kita dari serangan DoS; jika program kita membuat thread baru
 untuk setiap permintaan yang masuk, seseorang yang membuat 10 juta
 permintaan ke server kita bisa membuat kekacauan dengan menghabiskan semua
-sumber daya server kita dan membuat pemrosesan permintaan berhenti total.
+sumber daya server kita dan membuat processing permintaan berhenti total.
 
 Jadi, alih-alih membuat thread tanpa batas, kita akan punya sejumlah tetap
 thread yang menunggu di pool. Permintaan yang masuk dikirim ke pool untuk
 diproses. Pool akan memelihara antrean permintaan yang masuk. Setiap thread
 di pool akan mengambil sebuah permintaan dari antrean ini, menangani
 permintaan itu, lalu meminta permintaan lain dari antrean. Dengan desain
-ini, kita bisa memproses hingga _`N`_ permintaan secara konkuren, dengan
+ini, kita bisa memproses hingga _`N`_ permintaan secara concurrent, dengan
 _`N`_ adalah jumlah thread. Jika setiap thread sedang merespons permintaan
 yang berjalan lama, permintaan-permintaan berikutnya tetap bisa menumpuk di
 antrean, tetapi kita telah meningkatkan jumlah permintaan berjalan lama
 yang bisa kita tangani sebelum mencapai titik itu.
 
 Teknik ini hanyalah salah satu dari banyak cara untuk meningkatkan
-throughput server web. Pilihan lain yang mungkin Anda jelajahi adalah model
+throughput web server. Pilihan lain yang mungkin Anda jelajahi adalah model
 fork/join, model I/O async single-threaded, dan model I/O async
 multithreaded. Jika Anda tertarik dengan topik ini, Anda bisa membaca lebih
 banyak tentang solusi-solusi lain dan mencoba mengimplementasikannya;
@@ -105,7 +105,7 @@ memanggilnya; kemudian, implementasikan fungsionalitasnya di dalam struktur
 itu, alih-alih mengimplementasikan fungsionalitasnya lalu mendesain API
 publiknya.
 
-Mirip dengan cara kita memakai pengembangan yang digerakkan oleh pengujian
+Mirip dengan cara kita memakai test-driven development
 di proyek Bab 12, di sini kita akan memakai *compiler-driven development*
 (pengembangan yang digerakkan oleh *compiler*). Kita akan menulis kode yang
 memanggil fungsi-fungsi yang kita inginkan, lalu kita akan melihat error
@@ -198,7 +198,7 @@ Berikut error pertama yang kita dapat:
 Bagus! Error ini memberi tahu kita bahwa kita memerlukan type atau *module*
 `ThreadPool`, jadi sekarang kita akan membangunnya. Implementasi
 `ThreadPool` kita akan tidak bergantung pada jenis pekerjaan yang dilakukan
-server web kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
+web server kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
 menjadi *crate* library untuk menampung implementasi `ThreadPool` kita.
 Setelah kita mengubahnya menjadi *crate* library, kita juga bisa memakai
 library *thread pool* terpisah itu untuk pekerjaan apa pun yang ingin kita
@@ -276,7 +276,7 @@ Bab 13 bahwa kita bisa menerima *closure* sebagai parameter dengan tiga *trait*
 yang berbeda: `Fn`, `FnMut`, dan `FnOnce`. Kita perlu memutuskan jenis
 *closure* mana yang dipakai di sini. Kita tahu pada akhirnya kita akan
 melakukan sesuatu yang mirip dengan implementasi `thread::spawn` di
-pustaka standar, jadi kita bisa melihat bound apa yang dimiliki tanda
+standard library, jadi kita bisa melihat bound apa yang dimiliki tanda
 tangan `thread::spawn` pada parameternya. Dokumentasinya menunjukkan hal
 berikut kepada kita:
 
@@ -336,7 +336,7 @@ yang kita lihat di awal bab ini. Library kita belum benar-benar memanggil
 > terkompilasi, ia bekerja.” Tetapi pepatah ini tidak berlaku secara
 > universal. Proyek kita terkompilasi, tetapi ia sama sekali tidak
 > melakukan apa pun! Jika kita sedang membangun proyek yang nyata dan
-> lengkap, ini adalah saat yang tepat untuk mulai menulis pengujian unit
+> lengkap, ini adalah saat yang tepat untuk mulai menulis unit test
 > untuk memeriksa bahwa kode terkompilasi _dan_ memiliki perilaku yang kita
 > inginkan.
 
@@ -446,7 +446,7 @@ membuat thread, dan `thread::spawn` mengharapkan untuk menerima sebagian
 kode yang harus dijalankan thread itu segera setelah thread itu dibuat.
 Akan tetapi, dalam kasus kita, kita ingin membuat thread-thread itu dan
 membuat mereka _menunggu_ kode yang akan kita kirim nanti. Implementasi
-thread di pustaka standar tidak menyertakan cara untuk melakukan itu; kita
+thread di standard library tidak menyertakan cara untuk melakukan itu; kita
 harus mengimplementasikannya secara manual.
 
 Kita akan mengimplementasikan perilaku ini dengan memperkenalkan struktur
@@ -734,16 +734,16 @@ Worker 2 got a job; executing.
 ```
 
 Sukses! Sekarang kita punya *thread pool* yang mengeksekusi koneksi secara
-asinkron. Tidak pernah ada lebih dari empat thread yang dibuat, jadi sistem
+asynchronous. Tidak pernah ada lebih dari empat thread yang dibuat, jadi sistem
 kita tidak akan kelebihan beban jika server menerima banyak permintaan.
 Jika kita membuat permintaan ke _/sleep_, server akan bisa melayani
 permintaan lain dengan meminta thread lain menjalankannya.
 
 > Catatan: Jika Anda membuka _/sleep_ di banyak jendela peramban secara
 > bersamaan, halaman-halaman itu mungkin dimuat satu per satu dengan jeda
-> lima detik. Sebagian peramban web mengeksekusi banyak instance dari
+> lima detik. Sebagian web browser mengeksekusi banyak instance dari
 > permintaan yang sama secara berurutan karena alasan caching. Batasan ini
-> bukan disebabkan oleh server web kita.
+> bukan disebabkan oleh web server kita.
 
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
 kode di Listing 21-18, 21-19, dan 21-20 akan berbeda jika kita memakai

@@ -42,9 +42,9 @@ Semua versi *compiler* Rust mendukung edisi mana pun yang sudah ada sebelum
 rilis *compiler* tersebut, dan mereka dapat menautkan *crate* dari edisi mana pun
 yang didukung secara bersamaan. Perubahan edisi hanya memengaruhi cara
 *compiler* melakukan parsing awal terhadap kode. Karena itu, jika Anda memakai
-Rust 2015 dan salah satu dependensi Anda memakai Rust 2018, proyek Anda akan
-terkompilasi dan dapat memakai dependensi itu. Situasi sebaliknya, saat proyek
-Anda memakai Rust 2018 dan sebuah dependensi memakai Rust 2015, juga berjalan
+Rust 2015 dan salah satu dependency Anda memakai Rust 2018, proyek Anda akan
+terkompilasi dan dapat memakai dependency itu. Situasi sebaliknya, saat proyek
+Anda memakai Rust 2018 dan sebuah dependency memakai Rust 2015, juga berjalan
 dengan baik.
 
 Agar jelas: sebagian besar fitur akan tersedia di semua edisi. Pengembang yang

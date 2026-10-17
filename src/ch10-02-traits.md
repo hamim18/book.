@@ -112,7 +112,7 @@ trait `Summary` ke dalam scope untuk mengimplementasikan `Summary` pada
 type-type mereka sendiri. Satu batasan yang perlu diperhatikan adalah kita
 hanya bisa mengimplementasikan sebuah trait pada sebuah type jika trait
 atau type tersebut, atau keduanya, bersifat lokal untuk crate kita. Sebagai
-contoh, kita bisa mengimplementasikan trait pustaka standar seperti
+contoh, kita bisa mengimplementasikan trait standard library seperti
 `Display` pada custom type seperti `SocialPost` sebagai bagian dari
 fungsionalitas crate `aggregator` kita karena type `SocialPost` bersifat
 lokal untuk crate `aggregator` kita. Kita juga bisa mengimplementasikan
@@ -122,7 +122,7 @@ bersifat lokal untuk crate `aggregator` kita.
 Akan tetapi, kita tidak bisa mengimplementasikan trait eksternal pada type
 eksternal. Sebagai contoh, kita tidak bisa mengimplementasikan trait
 `Display` pada `Vec<T>` di dalam crate `aggregator` kita, karena `Display`
-dan `Vec<T>` sama-sama didefinisikan di pustaka standar dan tidak bersifat
+dan `Vec<T>` sama-sama didefinisikan di standard library dan tidak bersifat
 lokal untuk crate `aggregator` kita. Batasan ini adalah bagian dari
 properti yang disebut *coherence* (koherensi), dan lebih spesifiknya
 *orphan rule* (aturan anak yatim), dinamai demikian karena type induknya
@@ -395,10 +395,10 @@ memungkinkan pencetakan.
 Kita juga bisa mengimplementasikan sebuah *trait* secara bersyarat untuk type
 apa pun yang mengimplementasikan *trait* lain. Implementasi *trait* pada type
 apa pun yang memenuhi *trait bound* disebut *blanket implementation*
-(implementasi menyeluruh) dan dipakai secara ekstensif di pustaka standar
-Rust. Sebagai contoh, pustaka standar mengimplementasikan *trait* `ToString`
+(implementasi menyeluruh) dan dipakai secara ekstensif di standard library
+Rust. Sebagai contoh, standard library mengimplementasikan *trait* `ToString`
 pada type apa pun yang mengimplementasikan *trait* `Display`. Blok `impl` di
-pustaka standar terlihat mirip dengan kode ini:
+standard library terlihat mirip dengan kode ini:
 
 ```rust,ignore
 impl<T: Display> ToString for T {
@@ -406,7 +406,7 @@ impl<T: Display> ToString for T {
 }
 ```
 
-Karena pustaka standar memiliki *blanket implementation* ini, kita bisa
+Karena standard library memiliki *blanket implementation* ini, kita bisa
 memanggil method `to_string` yang didefinisikan oleh *trait* `ToString` pada
 type apa pun yang mengimplementasikan *trait* `Display`. Sebagai contoh, kita
 bisa mengubah integer menjadi nilai `String` yang bersesuaian seperti ini

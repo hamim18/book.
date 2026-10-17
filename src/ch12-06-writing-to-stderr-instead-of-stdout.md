@@ -23,7 +23,7 @@ standard output ke sebuah file sambil dengan sengaja memicu error. Kita tidak
 akan mengalihkan aliran standard error, jadi konten apa pun yang dikirim ke
 standard error akan terus tampil di layar.
 
-Program baris perintah diharapkan mengirim pesan error ke aliran standard
+Program command line diharapkan mengirim pesan error ke aliran standard
 error sehingga kita tetap dapat melihat pesan error di layar bahkan jika kita
 mengalihkan aliran standard output ke sebuah file. Program kita saat ini
 belum berperilaku baik: Sebentar lagi kita akan melihat bahwa program itu
@@ -78,7 +78,7 @@ Problem parsing arguments: not enough arguments
 ```
 
 Sekarang kita melihat errornya di layar dan _output.txt_ tidak berisi apa
-pun, sesuai perilaku yang kita harapkan dari program baris perintah.
+pun, sesuai perilaku yang kita harapkan dari program command line.
 
 Mari kita jalankan lagi programnya dengan argumen-argumen yang tidak memicu
 error, tetapi tetap mengalihkan standard output ke sebuah file, seperti ini:
@@ -104,8 +104,8 @@ yang berhasil dan standard error untuk output error, sebagaimana mestinya.
 
 Bab ini merangkum beberapa konsep utama yang telah Anda pelajari sejauh ini
 dan membahas cara melakukan operasi I/O yang umum di Rust. Dengan memakai
-argumen baris perintah, file, environment variable, dan makro `eprintln!`
-untuk mencetak error, Anda kini siap menulis aplikasi baris perintah.
+argumen command line, file, environment variable, dan makro `eprintln!`
+untuk mencetak error, Anda kini siap menulis aplikasi command line.
 Dipadukan dengan konsep-konsep di bab-bab sebelumnya, kode Anda akan tertata
 dengan baik, menyimpan data secara efektif di struktur data yang tepat,
 menangani error dengan baik, dan teruji dengan baik.

@@ -38,7 +38,7 @@ fungsi. Anda bisa memakai *identifier* (pengidentifikasi) mana pun sebagai
 nama type parameter. Akan tetapi, kita akan memakai `T` karena, menurut
 konvensi, nama type parameter di Rust pendek, sering kali hanya satu huruf,
 dan konvensi penamaan type Rust adalah UpperCamelCase. Sebagai kependekan
-dari _type_, `T` adalah pilihan bawaan sebagian besar pemrogram Rust.
+dari _type_, `T` adalah pilihan bawaan sebagian besar programmer Rust.
 
 Ketika kita memakai sebuah parameter di badan fungsi, kita harus
 mendeklarasikan nama parameter itu di *signature* supaya *compiler* tahu apa
@@ -83,12 +83,12 @@ ketahuilah bahwa error ini menyatakan bahwa badan `largest` tidak akan
 berfungsi untuk semua type yang mungkin menjadi `T`. Karena kita ingin
 membandingkan nilai typed `T` di dalam badan fungsi, kita hanya bisa
 memakai type-type yang nilainya bisa diurutkan. Untuk memungkinkan
-perbandingan, pustaka standar memiliki *trait* `std::cmp::PartialOrd` yang bisa
+perbandingan, standard library memiliki *trait* `std::cmp::PartialOrd` yang bisa
 Anda implementasikan pada type-type (lihat Lampiran C untuk penjelasan lebih
 lanjut tentang *trait* ini). Untuk memperbaiki Listing 10-5, kita bisa
 mengikuti saran teks bantuan itu dan membatasi type-type yang sah untuk `T`
 menjadi hanya type-type yang mengimplementasikan `PartialOrd`. Listing
-tersebut kemudian akan terkompilasi, karena pustaka standar
+tersebut kemudian akan terkompilasi, karena standard library
 mengimplementasikan `PartialOrd` pada `i32` maupun `char`.
 
 ### Dalam Definisi Struct
@@ -162,7 +162,7 @@ lebih kecil.
 
 Seperti yang kita lakukan dengan *struct*, kita bisa mendefinisikan *enum* untuk
 menampung data generic type di dalam *variant* (varian)-nya. Mari kita lihat
-lagi *enum* `Option<T>` yang disediakan pustaka standar, yang kita pakai di
+lagi *enum* `Option<T>` yang disediakan standard library, yang kita pakai di
 Bab 6:
 
 ```rust
@@ -301,7 +301,7 @@ membangkitkan kode untuk type-type konkret yang dipakai untuk memanggil kode
 generik tersebut.
 
 Mari kita lihat cara kerjanya dengan memakai *enum* generik `Option<T>` dari
-pustaka standar:
+standard library:
 
 ```rust
 let integer = Some(5);

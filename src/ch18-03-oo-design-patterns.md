@@ -24,7 +24,7 @@ yang memakai nilai itu. Kita hanya perlu memperbarui kode di dalam salah satu
 Pertama, kita akan mengimplementasikan state pattern dengan cara yang lebih
 tradisional dan berorientasi objek. Kemudian, kita akan memakai pendekatan
 yang sedikit lebih alami di Rust. Mari kita mulai dengan mengimplementasikan
-alur kerja post blog secara bertahap menggunakan state pattern.
+workflow post blog secara bertahap menggunakan state pattern.
 
 Fungsionalitas akhirnya akan terlihat seperti ini:
 
@@ -52,11 +52,11 @@ ini lebih bergaya berorientasi objek tradisional, yang mungkin untuk ditulis
 di Rust, tetapi tidak memanfaatkan sebagian kekuatan Rust. Nanti, kita akan
 mendemonstrasikan solusi berbeda yang tetap memakai pattern desain berorientasi
 objek tetapi terstruktur dengan cara yang mungkin terlihat kurang familier
-bagi pemrogram berpengalaman berorientasi objek. Kita akan membandingkan
+bagi programmer berpengalaman berorientasi objek. Kita akan membandingkan
 kedua solusi itu untuk merasakan kompromi merancang kode Rust secara berbeda
 dari kode di bahasa lain.
 
-Listing 18-11 menunjukkan alur kerja ini dalam bentuk kode: ini adalah contoh
+Listing 18-11 menunjukkan workflow ini dalam bentuk kode: ini adalah contoh
 pemakaian API yang akan kita implementasikan di *crate* library bernama `blog`.
 Ini belum bisa terkompilasi karena kita belum mengimplementasikan *crate*
 `blog`.
@@ -73,9 +73,9 @@ Kita ingin memungkinkan pengguna membuat post blog draf baru dengan
 `Post::new`. Kita ingin memungkinkan teks ditambahkan ke post blog itu. Jika
 kita mencoba mendapatkan konten post itu segera, sebelum disetujui, kita
 seharusnya tidak mendapat teks apa pun karena post itu masih draf. Kami telah
-menambahkan `assert_eq!` di kode untuk tujuan demonstrasi. Pengujian unit
+menambahkan `assert_eq!` di kode untuk tujuan demonstrasi. Test unit
 yang bagus untuk ini adalah menegaskan bahwa post blog draf mengembalikan
-string kosong dari method `content`, tetapi kita tidak akan menulis pengujian
+string kosong dari method `content`, tetapi kita tidak akan menulis test
 untuk contoh ini.
 
 Berikutnya, kita ingin mengaktifkan permintaan review terhadap post itu, dan
@@ -345,7 +345,7 @@ mengembalikan *reference* ke bagian dari `post` itu, jadi *lifetime* *reference*
 yang dikembalikan berkaitan dengan *lifetime* argumen `post`.
 
 Dan selesai—semua Listing 18-11 sekarang bekerja! Kita telah
-mengimplementasikan state pattern dengan aturan alur kerja post blog. Logika
+mengimplementasikan state pattern dengan aturan workflow post blog. Logika
 yang berkaitan dengan aturan-aturan itu hidup di *state object* alih-alih
 tersebar di seluruh `Post`.
 
@@ -516,7 +516,7 @@ satu-satunya cara mendapatkan instance `Post` yang diterbitkan—yang memang
 memiliki method `content`—adalah memanggil method `approve` pada
 `PendingReviewPost`, dan satu-satunya cara mendapatkan `PendingReviewPost`
 adalah memanggil method `request_review` pada `DraftPost`, kita kini telah
-menyandikan alur kerja post blog ke dalam type system.
+menyandikan workflow post blog ke dalam type system.
 
 Tetapi kita juga harus membuat beberapa perubahan kecil pada `main`. Method
 `request_review` dan `approve` mengembalikan instance baru alih-alih mengubah
@@ -527,7 +527,7 @@ review adalah string kosong, dan kita juga tidak memerlukannya: kita tidak
 bisa mengompilasi kode yang mencoba memakai konten post pada state-state itu.
 Kode yang diperbarui di `main` ditunjukkan di Listing 18-21.
 
-<Listing number="18-21" file-name="src/main.rs" caption="Modifikasi pada `main` untuk memakai implementasi baru alur kerja post blog">
+<Listing number="18-21" file-name="src/main.rs" caption="Modifikasi pada `main` untuk memakai implementasi baru workflow post blog">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch18-oop/listing-18-21/src/main.rs}}

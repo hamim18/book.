@@ -110,7 +110,7 @@ kata untuk kode yang akan dievaluasi pada waktu yang akan datang, jadi itu
 nama yang tepat untuk *closure* yang disimpan).
 
 Alias type juga umum dipakai bersama type `Result<T, E>` untuk mengurangi
-pengulangan. Perhatikan modul `std::io` di pustaka standar. Operasi I/O
+pengulangan. Perhatikan modul `std::io` di standard library. Operasi I/O
 sering kali mengembalikan `Result<T, E>` untuk menangani situasi ketika
 operasi gagal bekerja. Library ini memiliki *struct* `std::io::Error` yang
 mewakili semua error I/O yang mungkin terjadi. Banyak fungsi di `std::io`

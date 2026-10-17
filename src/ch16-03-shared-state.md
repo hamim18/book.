@@ -1,6 +1,6 @@
-## Konkurensi Shared-State
+## Concurrency Shared-State
 
-*Message passing* adalah cara yang baik untuk menangani konkurensi, tetapi itu
+*Message passing* adalah cara yang baik untuk menangani concurrency, tetapi itu
 bukan satu-satunya cara. Method lain adalah membiarkan beberapa thread
 mengakses data bersama yang sama. Perhatikan kembali bagian slogan dari
 dokumentasi bahasa Go ini: “Do not communicate by sharing memory.”
@@ -10,13 +10,13 @@ penggemar *message passing* mengingatkan agar tidak memakai pembagian memori?
 
 Dengan satu cara, *channel* dalam bahasa pemrograman mana pun mirip dengan
 *ownership* tunggal karena begitu Anda mentransfer nilai melalui *channel*, Anda
-tidak boleh lagi memakai nilai itu. Konkurensi shared-memory seperti
+tidak boleh lagi memakai nilai itu. Concurrency shared-memory seperti
 *ownership* ganda: Beberapa thread dapat mengakses lokasi memori yang sama pada
 saat yang sama. Seperti yang Anda lihat di Bab 15, ketika *smart pointer*
 memungkinkan *ownership* ganda, *ownership* ganda dapat menambah kompleksitas
 karena *owner*-*owner* yang berbeda ini perlu dikelola. Sistem type dan
 aturan *ownership* Rust sangat membantu dalam menangani pengelolaan ini dengan
-benar. Sebagai contoh, mari kita lihat mutex, salah satu primitif konkurensi
+benar. Sebagai contoh, mari kita lihat mutex, salah satu primitif concurrency
 yang lebih umum untuk *shared memory*.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -173,12 +173,12 @@ difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
 *compiler* juga memberi tahu alasannya: `` the trait `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
 adalah salah satu *trait* yang memastikan bahwa type yang kita pakai dengan
-thread memang dimaksudkan untuk dipakai dalam situasi konkuren.
+thread memang dimaksudkan untuk dipakai dalam situasi concurrent.
 
 Sayangnya, `Rc<T>` tidak aman untuk dibagikan antar-thread. Ketika `Rc<T>`
 mengelola jumlah *reference*, ia menambah jumlah itu untuk setiap panggilan ke
 `clone` dan menguranginya ketika setiap klon dibebaskan. Tetapi ia tidak
-memakai primitif konkurensi apa pun untuk memastikan perubahan pada jumlah itu
+memakai primitif concurrency apa pun untuk memastikan perubahan pada jumlah itu
 tidak bisa disela thread lain. Ini bisa menyebabkan jumlah yang salah—bug
 samar yang pada gilirannya bisa menyebabkan *memory leak* atau nilai yang
 dibebaskan sebelum kita selesai memakainya. Yang kita butuhkan adalah type
@@ -188,16 +188,16 @@ thread-safe.
 #### Penghitungan *reference* Atomik dengan `Arc<T>`
 
 Untungnya, `Arc<T>` _adalah_ type seperti `Rc<T>` yang aman dipakai dalam
-situasi konkuren. Huruf _a_ berarti _atomic_ (atomik), yang berarti type itu
+situasi concurrent. Huruf _a_ berarti _atomic_ (atomik), yang berarti type itu
 adalah type yang _dihitung *reference*nya secara atomik_. Atomik adalah jenis
-primitif konkurensi tambahan yang tidak akan kita bahas secara mendetail di
-sini: Lihat dokumentasi pustaka standar untuk [`std::sync::atomic`][atomic]<!--
+primitif concurrency tambahan yang tidak akan kita bahas secara mendetail di
+sini: Lihat dokumentasi standard library untuk [`std::sync::atomic`][atomic]<!--
 ignore --> untuk detail lebih lanjut. Pada titik ini, Anda cukup tahu bahwa
 atomik bekerja seperti primitive type tetapi aman dibagikan antar-thread.
 
 Anda mungkin lalu bertanya-tanya mengapa semua primitive type tidak atomik dan
-mengapa type-type pustaka standar tidak diimplementasikan memakai `Arc<T>`
-secara default. Alasannya adalah thread safety datang dengan denda performa
+mengapa type-type standard library tidak diimplementasikan memakai `Arc<T>`
+secara default. Alasannya adalah thread safety datang dengan performance penalty
 yang hanya ingin Anda bayar ketika benar-benar membutuhkannya. Jika Anda hanya
 melakukan operasi pada nilai di dalam satu thread, kode Anda dapat berjalan
 lebih cepat jika ia tidak harus menegakkan jaminan yang disediakan atomik.
@@ -235,8 +235,8 @@ thread memperbarui hasil akhir dengan bagiannya.
 
 Perhatikan bahwa jika Anda melakukan operasi numerik sederhana, ada type yang
 lebih sederhana daripada type `Mutex<T>` yang disediakan oleh [modul
-`std::sync::atomic` pada pustaka standar][atomic]<!-- ignore -->. Type-type
-ini menyediakan akses atomik, konkuren, dan aman ke primitive type. Kita
+`std::sync::atomic` pada standard library][atomic]<!-- ignore -->. Type-type
+ini menyediakan akses atomik, concurrent, dan aman ke primitive type. Kita
 memilih memakai `Mutex<T>` dengan primitive type untuk contoh ini supaya kita
 dapat berkonsentrasi pada cara kerja `Mutex<T>`.
 
@@ -263,7 +263,7 @@ masing-masing telah memperoleh salah satu lock, menyebabkan keduanya saling
 menunggu selamanya. Jika Anda tertarik pada deadlock, cobalah membuat program
 Rust yang memiliki deadlock; lalu, teliti strategi mitigasi deadlock untuk
 mutex dalam bahasa apa pun dan cobalah mengimplementasikannya di Rust.
-Dokumentasi API pustaka standar untuk `Mutex<T>` dan `MutexGuard` menawarkan
+Dokumentasi API standard library untuk `Mutex<T>` dan `MutexGuard` menawarkan
 informasi yang berguna.
 
 Kita akan menutup bab ini dengan membicarakan *trait* `Send` dan `Sync` serta
