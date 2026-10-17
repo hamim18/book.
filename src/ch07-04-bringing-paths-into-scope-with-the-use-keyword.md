@@ -99,11 +99,11 @@ dengan cara ini.
 
 Pengecualian untuk idiom ini adalah jika kita membawa dua item dengan nama
 yang sama ke dalam *scope* dengan pernyataan `use`, karena Rust tidak
-mengizinkannya. Listing 7-15 menunjukkan cara membawa dua tipe `Result` ke
+mengizinkannya. Listing 7-15 menunjukkan cara membawa dua type `Result` ke
 dalam *scope* yang memiliki nama yang sama tetapi *module* induk yang berbeda,
 dan cara merujuk keduanya.
 
-<Listing number="7-15" file-name="src/lib.rs" caption="Membawa dua tipe dengan nama yang sama ke dalam scope yang sama mengharuskan pemakaian module induk keduanya.">
+<Listing number="7-15" file-name="src/lib.rs" caption="Membawa dua type dengan nama yang sama ke dalam scope yang sama mengharuskan pemakaian module induk keduanya.">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-15/src/lib.rs:here}}
@@ -111,21 +111,21 @@ dan cara merujuk keduanya.
 
 </Listing>
 
-Seperti yang Anda lihat, memakai *module* induk membedakan kedua tipe
+Seperti yang Anda lihat, memakai *module* induk membedakan kedua type
 `Result`. Jika alih-alih kita menuliskan `use std::fmt::Result` dan `use
-std::io::Result`, kita akan memiliki dua tipe `Result` di *scope* yang sama,
+std::io::Result`, kita akan memiliki dua type `Result` di *scope* yang sama,
 dan Rust tidak akan tahu yang mana yang kita maksud ketika kita memakai
 `Result`.
 
 ### Memberi Nama Baru dengan Kata Kunci `as`
 
-Ada solusi lain untuk masalah membawa dua tipe dengan nama yang sama ke dalam
+Ada solusi lain untuk masalah membawa dua type dengan nama yang sama ke dalam
 *scope* yang sama dengan `use`: setelah *path*, kita dapat menuliskan `as` dan
-sebuah nama lokal baru, atau *alias*, untuk tipe tersebut. Listing 7-16
+sebuah nama lokal baru, atau *alias*, untuk type tersebut. Listing 7-16
 menunjukkan cara lain untuk menulis kode di Listing 7-15 dengan mengganti
-nama salah satu dari dua tipe `Result` memakai `as`.
+nama salah satu dari dua type `Result` memakai `as`.
 
-<Listing number="7-16" file-name="src/lib.rs" caption="Mengganti nama sebuah tipe saat tipe itu dibawa ke dalam scope dengan kata kunci `as`">
+<Listing number="7-16" file-name="src/lib.rs" caption="Mengganti nama sebuah type saat type itu dibawa ke dalam scope dengan kata kunci `as`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
@@ -133,7 +133,7 @@ nama salah satu dari dua tipe `Result` memakai `as`.
 
 </Listing>
 
-Pada pernyataan `use` kedua, kita memilih nama baru `IoResult` untuk tipe
+Pada pernyataan `use` kedua, kita memilih nama baru `IoResult` untuk type
 `std::io::Result`, yang tidak akan bentrok dengan `Result` dari `std::fmt`
 yang juga kita bawa ke dalam *scope*. Listing 7-15 dan Listing 7-16 sama-sama
 dianggap idiomatis, jadi pilihannya ada di tangan Anda!

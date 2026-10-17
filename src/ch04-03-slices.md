@@ -1,5 +1,5 @@
 <a id="the-slice-type"></a>
-## Tipe Slice
+## Type Slice
 
 *Slice* memungkinkan Anda merujuk pada urutan elemen yang berkesinambungan di
 dalam sebuah [koleksi](ch08-00-common-collections.md)<!-- ignore -->. *Slice*
@@ -24,7 +24,7 @@ menggunakan *slice*, untuk memahami masalah yang akan dipecahkan oleh
 fn first_word(s: &String) -> ?
 ```
 
-Fungsi `first_word` memiliki parameter bertipe `&String`. Kita tidak
+Fungsi `first_word` memiliki parameter typed `&String`. Kita tidak
 membutuhkan *ownership*, jadi ini tidak masalah. (Dalam Rust yang idiomatis,
 fungsi tidak mengambil *ownership* dari argumennya kecuali memang perlu, dan
 alasannya akan menjadi jelas seiring perjalanan kita.) Tetapi apa yang harus
@@ -193,7 +193,7 @@ let slice = &s[..];
 > karakter multibyte, program Anda akan keluar dengan error.
 
 Dengan semua informasi ini, mari kita tulis ulang `first_word` agar
-mengembalikan sebuah *slice*. Tipe yang menandakan “string *slice*” ditulis
+mengembalikan sebuah *slice*. Type yang menandakan “string *slice*” ditulis
 sebagai `&str`:
 
 <Listing file-name="src/main.rs">
@@ -269,7 +269,7 @@ dalam biner. Sekarang setelah kita mengenal *slice*, kita dapat memahami
 let s = "Hello, world!";
 ```
 
-Tipe `s` di sini adalah `&str`: ia adalah sebuah *slice* yang menunjuk ke
+Type `s` di sini adalah `&str`: ia adalah sebuah *slice* yang menunjuk ke
 titik tertentu di dalam biner. Inilah juga mengapa *string literal* bersifat
 *immutable*; `&str` adalah *immutable reference*.
 
@@ -288,7 +288,7 @@ Rustacean yang lebih berpengalaman akan menulis *signature* seperti yang
 ditunjukkan pada Listing 4-9, karena ini memungkinkan kita menggunakan fungsi
 yang sama untuk nilai `&String` maupun nilai `&str`.
 
-<Listing number="4-9" caption="Menyempurnakan fungsi `first_word` dengan menggunakan string slice sebagai tipe parameter `s`">
+<Listing number="4-9" caption="Menyempurnakan fungsi `first_word` dengan menggunakan string slice sebagai type parameter `s`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
@@ -318,7 +318,7 @@ fungsionalitas apa pun:
 ### Slice Lainnya
 
 *String slice*, seperti yang dapat Anda bayangkan, khusus untuk *string*.
-Tetapi ada juga tipe *slice* yang lebih umum. Perhatikan array ini:
+Tetapi ada juga type *slice* yang lebih umum. Perhatikan array ini:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -336,7 +336,7 @@ let slice = &a[1..3];
 assert_eq!(slice, &[2, 3]);
 ```
 
-*Slice* ini bertipe `&[i32]`. Cara kerjanya sama dengan *string slice*, yaitu
+*Slice* ini typed `&[i32]`. Cara kerjanya sama dengan *string slice*, yaitu
 dengan menyimpan *reference* ke elemen pertama dan sebuah panjang. Anda akan
 menggunakan *slice* semacam ini untuk berbagai jenis koleksi lainnya. Kita
 akan membahas koleksi-koleksi ini secara mendetail ketika kita membicarakan

@@ -10,7 +10,7 @@ terlalu jauh ke detail cara kerja *trait*-trait itu atau bagaimana mereka saling
 berkaitan, yang sebagian besar waktu tidak masalah untuk pekerjaan Rust
 sehari-hari Anda. Akan tetapi, terkadang Anda akan menghadapi situasi yang
 mengharuskan Anda memahami beberapa detail tambahan dari *trait*-trait ini,
-bersama tipe `Pin` dan *trait* `Unpin`. Pada bagian ini, kita akan menggali
+bersama type `Pin` dan *trait* `Unpin`. Pada bagian ini, kita akan menggali
 secukupnya untuk membantu dalam skenario-skenario itu, sambil tetap
 menyerahkan penyelaman yang _benar-benar_ dalam ke dokumentasi lain.
 
@@ -34,17 +34,17 @@ pub trait Future {
 }
 ```
 
-Definisi *trait* itu memuat sejumlah tipe baru dan juga beberapa sintaks yang
+Definisi *trait* itu memuat sejumlah type baru dan juga beberapa sintaks yang
 belum pernah kita lihat, jadi mari kita telusuri definisinya bagian demi
 bagian.
 
-Pertama, tipe asosiasi `Output` dari `Future` menyatakan apa yang dihasilkan
-*future* itu. Ini serupa dengan tipe asosiasi `Item` untuk *trait* `Iterator`.
+Pertama, associated type `Output` dari `Future` menyatakan apa yang dihasilkan
+*future* itu. Ini serupa dengan associated type `Item` untuk *trait* `Iterator`.
 Kedua, `Future` memiliki metode `poll`, yang menerima *reference* `Pin` khusus
-untuk parameter `self`-nya dan *reference* *mutable* ke tipe `Context`, lalu
+untuk parameter `self`-nya dan *reference* *mutable* ke type `Context`, lalu
 mengembalikan `Poll<Self::Output>`. Sebentar lagi kita akan membahas lebih
 banyak tentang `Pin` dan `Context`. Untuk saat ini, mari kita fokus pada apa
-yang dikembalikan metode itu, yaitu tipe `Poll`:
+yang dikembalikan metode itu, yaitu type `Poll`:
 
 ```rust
 pub enum Poll<T> {
@@ -53,7 +53,7 @@ pub enum Poll<T> {
 }
 ```
 
-Tipe `Poll` ini mirip dengan `Option`. Ia memiliki satu varian yang memuat
+Type `Poll` ini mirip dengan `Option`. Ia memiliki satu varian yang memuat
 nilai, `Ready(T)`, dan satu yang tidak, `Pending`. Akan tetapi, `Poll`
 berarti sesuatu yang cukup berbeda dari `Option`! Varian `Pending` menandakan
 bahwa *future* itu masih punya pekerjaan yang harus dilakukan, jadi pemanggil
@@ -133,7 +133,7 @@ membuat *future* itu kembali tidur ketika ia belum siap.
 <a id="pinning-and-the-pin-and-unpin-traits"></a>
 <a id="the-pin-and-unpin-traits"></a>
 
-### Tipe `Pin` dan Trait `Unpin`
+### Type `Pin` dan Trait `Unpin`
 
 Kembali di Listing 17-13, kita memakai *macro* `trpl::join!` untuk menunggu
 tiga *future*. Akan tetapi, lazim untuk memiliki koleksi seperti vektor yang
@@ -154,13 +154,13 @@ Kita menaruh setiap *future* di dalam `Box` untuk menjadikannya _trait object_,
 sama seperti yang kita lakukan di bagian “Mengembalikan Error dari `run`” di
 Bab 12. (Kita akan membahas *trait object* secara mendetail di Bab 18.) Memakai
 *trait object* memungkinkan kita memperlakukan setiap *future* anonim yang
-dihasilkan tipe-tipe ini sebagai tipe yang sama, karena semuanya
+dihasilkan type-type ini sebagai type yang sama, karena semuanya
 mengimplementasikan *trait* `Future`.
 
 Ini mungkin mengejutkan. Toh, tidak ada satu pun blok async itu yang
 mengembalikan apa pun, jadi setiap blok menghasilkan `Future<Output = ()>`.
 Namun, ingat bahwa `Future` adalah *trait*, dan kompilator menciptakan *enum* unik
-untuk setiap blok async, bahkan ketika tipe outputnya identik. Sama seperti
+untuk setiap blok async, bahkan ketika type outputnya identik. Sama seperti
 Anda tidak bisa menaruh dua *struct* tulisan tangan yang berbeda di dalam
 `Vec`, Anda tidak bisa mencampur *enum* hasil kompilator.
 
@@ -196,13 +196,13 @@ note: required by a bound in `futures_util::future::join_all::JoinAll`
 
 Catatan dalam pesan error ini memberi tahu kita bahwa kita sebaiknya memakai
 *macro* `pin!` untuk mem-_pin_ nilai-nilai itu, yang berarti menaruhnya di dalam
-tipe `Pin` yang menjamin nilai-nilai itu tidak akan dipindahkan di memori.
+type `Pin` yang menjamin nilai-nilai itu tidak akan dipindahkan di memori.
 Pesan error itu mengatakan pinning diperlukan karena `dyn Future<Output = ()>`
 perlu mengimplementasikan *trait* `Unpin` dan saat ini belum
 mengimplementasikannya.
 
 Fungsi `trpl::join_all` mengembalikan sebuah *struct* bernama `JoinAll`. *Struct*
-itu generik atas tipe `F`, yang dibatasi agar mengimplementasikan *trait*
+itu generik atas type `F`, yang dibatasi agar mengimplementasikan *trait*
 `Future`. Menunggu sebuah *future* secara langsung dengan `await` akan mem-pin
 *future* itu secara implisit. Itulah sebabnya kita tidak perlu memakai `pin!` di
 setiap tempat kita ingin menunggu *future*.
@@ -210,7 +210,7 @@ setiap tempat kita ingin menunggu *future*.
 Akan tetapi, di sini kita tidak menunggu sebuah *future* secara langsung.
 Sebaliknya, kita membangun *future* baru, JoinAll, dengan meneruskan koleksi
 *future* ke fungsi `join_all`. Tanda tangan untuk `join_all` mensyaratkan bahwa
-tipe item-item di koleksi itu semuanya mengimplementasikan *trait* `Future`, dan
+type item-item di koleksi itu semuanya mengimplementasikan *trait* `Future`, dan
 `Box<T>` mengimplementasikan `Future` hanya jika `T` yang dibungkusnya adalah
 *future* yang mengimplementasikan *trait* `Unpin`.
 
@@ -230,28 +230,28 @@ pub trait Future {
 }
 ```
 
-Parameter `cx` dan tipenya, `Context`, adalah kunci dari cara sebuah runtime
+Parameter `cx` dan typenya, `Context`, adalah kunci dari cara sebuah runtime
 benar-benar tahu kapan harus mengecek sebuah *future* tertentu sambil tetap
 bersifat malas. Sekali lagi, detail cara kerjanya berada di luar cakupan bab
 ini, dan Anda umumnya hanya perlu memikirkannya saat menulis implementasi
-`Future` kustom. Kita akan berfokus pada tipe untuk `self`, karena ini kali
-pertama kita melihat metode yang `self`-nya punya anotasi tipe. Anotasi tipe
-untuk `self` bekerja seperti anotasi tipe untuk parameter fungsi lain, tetapi
+`Future` kustom. Kita akan berfokus pada type untuk `self`, karena ini kali
+pertama kita melihat metode yang `self`-nya punya type annotation. Anotasi type
+untuk `self` bekerja seperti type annotation untuk parameter fungsi lain, tetapi
 dengan dua perbedaan kunci:
 
-- Anotasi itu memberi tahu Rust tipe `self` yang harus dipenuhi agar metode
+- Anotasi itu memberi tahu Rust type `self` yang harus dipenuhi agar metode
   itu bisa dipanggil.
-- Anotasi itu tidak bisa berupa tipe sembarang. Anotasi ini dibatasi pada tipe
-  tempat metode itu diimplementasikan, *reference* atau *smart pointer* ke tipe
-  itu, atau `Pin` yang membungkus *reference* ke tipe itu.
+- Anotasi itu tidak bisa berupa type sembarang. Anotasi ini dibatasi pada type
+  tempat metode itu diimplementasikan, *reference* atau *smart pointer* ke type
+  itu, atau `Pin` yang membungkus *reference* ke type itu.
 
 Kita akan melihat lebih banyak sintaks ini di [Bab 18][ch-18]<!-- ignore -->.
 Untuk saat ini, cukup untuk mengetahui bahwa jika kita ingin melakukan polling
 pada sebuah *future* untuk mengecek apakah ia `Pending` atau `Ready(Output)`,
-kita butuh *reference* *mutable* yang terbungkus `Pin` ke tipe itu.
+kita butuh *reference* *mutable* yang terbungkus `Pin` ke type itu.
 
-`Pin` adalah wrapper untuk tipe-tipe yang mirip *pointer* seperti `&`, `&mut`,
-`Box`, dan `Rc`. (Secara teknis, `Pin` bekerja dengan tipe yang
+`Pin` adalah wrapper untuk type-type yang mirip *pointer* seperti `&`, `&mut`,
+`Box`, dan `Rc`. (Secara teknis, `Pin` bekerja dengan type yang
 mengimplementasikan *trait* `Deref` atau `DerefMut`, tetapi ini secara efektif
 setara dengan bekerja hanya dengan *reference* dan *smart pointer*.) `Pin`
 bukanlah *pointer* itu sendiri dan tidak punya perilaku sendiri seperti yang
@@ -261,7 +261,7 @@ bisa dipakai kompilator untuk menegakkan batasan pada pemakaian *pointer*.
 Mengingat bahwa `await` diimplementasikan dalam bentuk pemanggilan `poll`
 mulai menjelaskan pesan error yang kita lihat sebelumnya, tetapi itu dalam
 bentuk `Unpin`, bukan `Pin`. Jadi, bagaimana persisnya hubungan `Pin` dengan
-`Unpin`, dan mengapa `Future` membutuhkan `self` berada di dalam tipe `Pin`
+`Unpin`, dan mengapa `Future` membutuhkan `self` berada di dalam type `Pin`
 untuk memanggil `poll`?
 
 Ingat dari awal bab ini bahwa serangkaian await point di dalam sebuah *future*
@@ -283,7 +283,7 @@ blok itu—misalnya memindahkannya ke dalam `Vec` untuk diteruskan ke
 Ketika kita memindahkan sebuah *future*—entah dengan mendorongnya ke dalam
 struktur data untuk dipakai sebagai *iterator* dengan `join_all`, atau dengan
 mengembalikannya dari fungsi—itu sebenarnya berarti memindahkan state machine
-yang dibuat Rust untuk kita. Dan tidak seperti kebanyakan tipe lain di Rust,
+yang dibuat Rust untuk kita. Dan tidak seperti kebanyakan type lain di Rust,
 *future* yang dibuat Rust untuk blok async bisa berakhir dengan *reference* ke
 dirinya sendiri di *field* dari varian mana pun, seperti yang ditunjukkan
 ilustrasi sederhana di Gambar 17-4.
@@ -292,7 +292,7 @@ ilustrasi sederhana di Gambar 17-4.
 
 <img alt="Tabel satu kolom tiga baris yang merepresentasikan sebuah future, fut1, yang memiliki nilai data 0 dan 1 pada dua baris pertama dan sebuah panah yang menunjuk dari baris ketiga kembali ke baris kedua, merepresentasikan reference internal di dalam future tersebut." src="img/trpl17-04.svg" class="center" />
 
-<figcaption>Gambar 17-4: Tipe data yang mengacu ke dirinya sendiri</figcaption>
+<figcaption>Gambar 17-4: Type data yang mengacu ke dirinya sendiri</figcaption>
 
 </figure>
 
@@ -310,7 +310,7 @@ membaca data yang sama sekali tidak berkaitan di kemudian hari.
 
 <img alt="Dua tabel, menggambarkan dua future, fut1 dan fut2, masing-masing memiliki satu kolom dan tiga baris, merepresentasikan hasil pemindahan sebuah future dari fut1 ke fut2. Tabel pertama, fut1, berwarna abu-abu, dengan tanda tanya di setiap indeks, merepresentasikan memori yang tidak diketahui. Tabel kedua, fut2, memiliki 0 dan 1 pada baris pertama dan kedua, dan sebuah panah yang menunjuk dari baris ketiganya kembali ke baris kedua fut1, merepresentasikan sebuah pointer yang mengacu ke lokasi lama future itu di memori sebelum dipindahkan." src="img/trpl17-05.svg" class="center" />
 
-<figcaption>Gambar 17-5: Hasil tidak aman dari memindahkan tipe data yang mengacu ke dirinya sendiri</figcaption>
+<figcaption>Gambar 17-5: Hasil tidak aman dari memindahkan data type yang mengacu ke dirinya sendiri</figcaption>
 
 </figure>
 
@@ -334,7 +334,7 @@ ini.
 
 <img alt="Tiga kotak tersusun bersebelahan. Kotak pertama diberi label “Pin”, yang kedua “b1”, dan yang ketiga “pinned”. Di dalam “pinned” terdapat tabel berlabel “fut”, dengan satu kolom; tabel itu merepresentasikan sebuah future dengan sel untuk setiap bagian struktur datanya. Sel pertamanya berisi nilai “0”, sel keduanya memiliki panah yang keluar darinya dan menunjuk ke sel keempat sekaligus terakhir, yang berisi nilai “1”, dan sel ketiga memiliki garis putus-putus serta elipsis untuk menunjukkan bahwa mungkin ada bagian lain dari struktur data itu. Secara keseluruhan, tabel “fut” merepresentasikan sebuah future yang mengacu ke dirinya sendiri. Sebuah panah keluar dari kotak berlabel “Pin”, melewati kotak berlabel “b1”, dan berakhir di dalam kotak “pinned” pada tabel “fut”." src="img/trpl17-06.svg" class="center" />
 
-<figcaption>Gambar 17-6: Mem-pin sebuah `Box` yang menunjuk ke tipe *future* yang mengacu ke dirinya sendiri</figcaption>
+<figcaption>Gambar 17-6: Mem-pin sebuah `Box` yang menunjuk ke type *future* yang mengacu ke dirinya sendiri</figcaption>
 
 </figure>
 
@@ -342,23 +342,23 @@ Bahkan, *pointer* `Box` itu tetap bisa berpindah-pindah dengan bebas. Ingat:
 yang kita pedulikan adalah memastikan data yang pada akhirnya diacu tetap
 berada di tempatnya. Jika sebuah *pointer* berpindah-pindah, _tetapi data yang
 ditunjuknya_ berada di tempat yang sama, seperti di Gambar 17-7, tidak ada
-masalah potensial. (Sebagai latihan mandiri, lihat dokumentasi tipe-tipe itu
+masalah potensial. (Sebagai latihan mandiri, lihat dokumentasi type-type itu
 serta modul `std::pin` dan cobalah mencari tahu cara Anda melakukannya dengan
-`Pin` yang membungkus sebuah `Box`.) Kuncinya adalah tipe yang mengacu ke
+`Pin` yang membungkus sebuah `Box`.) Kuncinya adalah type yang mengacu ke
 dirinya sendiri itu tidak bisa berpindah, karena ia tetap ter-pin.
 
 <figure>
 
 <img alt="Empat kotak tersusun dalam tiga kolom kasar, identik dengan diagram sebelumnya dengan satu perubahan pada kolom kedua. Sekarang ada dua kotak di kolom kedua, berlabel “b1” dan “b2”; “b1” berwarna abu-abu, dan panah dari “Pin” melewati “b2” alih-alih “b1”, menunjukkan bahwa pointer telah berpindah dari “b1” ke “b2”, tetapi data di “pinned” tidak berpindah." src="img/trpl17-07.svg" class="center" />
 
-<figcaption>Gambar 17-7: Memindahkan sebuah `Box` yang menunjuk ke tipe *future* yang mengacu ke dirinya sendiri</figcaption>
+<figcaption>Gambar 17-7: Memindahkan sebuah `Box` yang menunjuk ke type *future* yang mengacu ke dirinya sendiri</figcaption>
 
 </figure>
 
-Akan tetapi, kebanyakan tipe sepenuhnya aman untuk dipindahkan, bahkan jika
+Akan tetapi, kebanyakan type sepenuhnya aman untuk dipindahkan, bahkan jika
 mereka kebetulan berada di balik *pointer* `Pin`. Kita hanya perlu memikirkan
 pinning ketika item punya *reference* internal. Nilai primitif seperti angka dan
-Boolean aman karena jelas tidak punya *reference* internal. Kebanyakan tipe yang
+Boolean aman karena jelas tidak punya *reference* internal. Kebanyakan type yang
 biasa Anda pakai di Rust juga tidak. Anda bisa memindahkan `Vec`, contohnya,
 tanpa khawatir. Mengingat apa yang telah kita lihat sejauh ini, jika Anda
 punya `Pin<Vec<String>>`, Anda harus melakukan semuanya melalui API yang aman
@@ -369,9 +369,9 @@ seperti ini—dan di situlah `Unpin` berperan.
 
 `Unpin` adalah *marker trait*, mirip dengan *trait* `Send` dan `Sync` yang kita
 lihat di Bab 16, sehingga tidak punya fungsionalitas sendiri. *Marker trait*
-ada hanya untuk memberi tahu kompilator bahwa aman memakai tipe yang
+ada hanya untuk memberi tahu kompilator bahwa aman memakai type yang
 mengimplementasikan *trait* tertentu dalam konteks tertentu. `Unpin`
-memberitahukan kompilator bahwa tipe tertentu _tidak_ perlu mempertahankan
+memberitahukan kompilator bahwa type tertentu _tidak_ perlu mempertahankan
 jaminan apa pun tentang apakah nilai yang dimaksud bisa dipindahkan dengan
 aman.
 
@@ -382,24 +382,24 @@ aman.
 -->
 
 Sama seperti `Send` dan `Sync`, kompilator mengimplementasikan `Unpin` secara
-otomatis untuk semua tipe yang bisa dibuktikan aman olehnya. Kasus khususnya,
+otomatis untuk semua type yang bisa dibuktikan aman olehnya. Kasus khususnya,
 lagi-lagi mirip dengan `Send` dan `Sync`, adalah ketika `Unpin` _tidak_
-diimplementasikan untuk sebuah tipe. Notasi untuk ini adalah
+diimplementasikan untuk sebuah type. Notasi untuk ini adalah
 <code>impl !Unpin for <em>SomeType</em></code>, dengan
-<code><em>SomeType</em></code> adalah nama tipe yang _memang_ perlu
-mempertahankan jaminan-jaminan itu agar aman setiap kali *pointer* ke tipe itu
+<code><em>SomeType</em></code> adalah nama type yang _memang_ perlu
+mempertahankan jaminan-jaminan itu agar aman setiap kali *pointer* ke type itu
 dipakai di dalam `Pin`.
 
 Dengan kata lain, ada dua hal yang perlu diingat tentang hubungan antara `Pin`
 dan `Unpin`. Pertama, `Unpin` adalah kasus yang “normal”, dan `!Unpin` adalah
-kasus khusus. Kedua, apakah sebuah tipe mengimplementasikan `Unpin` atau
-`!Unpin` _hanya_ penting ketika Anda memakai *pointer* ter-pin ke tipe itu
+kasus khusus. Kedua, apakah sebuah type mengimplementasikan `Unpin` atau
+`!Unpin` _hanya_ penting ketika Anda memakai *pointer* ter-pin ke type itu
 seperti <code>Pin<&mut <em>SomeType</em>></code>.
 
 Untuk membuatnya konkret, pikirkan sebuah `String`: ia punya panjang dan
 karakter-karakter Unicode yang menyusunnya. Kita bisa membungkus `String` di
 dalam `Pin`, seperti terlihat di Gambar 17-8. Namun, `String` secara otomatis
-mengimplementasikan `Unpin`, begitu pula kebanyakan tipe lain di Rust.
+mengimplementasikan `Unpin`, begitu pula kebanyakan type lain di Rust.
 
 <figure>
 
@@ -429,11 +429,11 @@ pemanggilan `join_all` dari Listing 17-23. Awalnya kita mencoba memindahkan
 future yang dihasilkan blok async ke dalam `Vec<Box<dyn Future<Output =
 ()>>>`, tetapi seperti yang telah kita lihat, future-future itu mungkin punya
 *reference* internal, jadi mereka tidak otomatis mengimplementasikan `Unpin`.
-Begitu kita mem-pin mereka, kita bisa meneruskan tipe `Pin` yang dihasilkan ke
+Begitu kita mem-pin mereka, kita bisa meneruskan type `Pin` yang dihasilkan ke
 dalam `Vec`, yakin bahwa data yang mendasari *future*-future itu _tidak_ akan
 dipindahkan. Listing 17-24 menunjukkan cara memperbaiki kodenya dengan
 memanggil *macro* `pin!` di tempat ketiga *future* itu didefinisikan dan
-menyesuaikan tipe *trait object*-nya.
+menyesuaikan type *trait object*-nya.
 
 <Listing number="17-24" caption="Mem-pin future-future itu agar bisa dipindahkan ke dalam vektor">
 
@@ -453,8 +453,8 @@ error, sekarang Anda akan punya gambaran yang lebih baik tentang cara
 memperbaiki kode Anda!
 
 > Catatan: Kombinasi `Pin` dan `Unpin` ini memungkinkan implementasi yang aman
-> untuk seluruh kelas tipe kompleks di Rust yang jika tidak akan terbukti
-> menantang karena mereka mengacu ke dirinya sendiri. Tipe yang memerlukan
+> untuk seluruh kelas type kompleks di Rust yang jika tidak akan terbukti
+> menantang karena mereka mengacu ke dirinya sendiri. Type yang memerlukan
 > `Pin` paling sering muncul di Rust async saat ini, tetapi sesekali Anda
 > mungkin melihatnya di konteks lain juga.
 >
@@ -500,17 +500,17 @@ trait Stream {
 }
 ```
 
-*Trait* `Stream` mendefinisikan tipe asosiasi bernama `Item` untuk tipe item
+*Trait* `Stream` mendefinisikan associated type bernama `Item` untuk type item
 yang dihasilkan *stream* itu. Ini mirip dengan `Iterator`, yang itemnya bisa
 nol hingga banyak, dan tidak seperti `Future`, yang selalu punya satu
-`Output`, bahkan jika itu tipe unit `()`.
+`Output`, bahkan jika itu type unit `()`.
 
 `Stream` juga mendefinisikan metode untuk mendapatkan item-item itu. Kita
 menamainya `poll_next`, untuk memperjelas bahwa metode itu melakukan polling
 dengan cara yang sama seperti `Future::poll` dan menghasilkan urutan item
-dengan cara yang sama seperti `Iterator::next`. Tipe kembaliannya
-menggabungkan `Poll` dengan `Option`. Tipe luarnya adalah `Poll`, karena ia
-harus dicek kesiapannya, sama seperti *future*. Tipe dalamnya adalah `Option`,
+dengan cara yang sama seperti `Iterator::next`. Type kembaliannya
+menggabungkan `Poll` dengan `Option`. Type luarnya adalah `Poll`, karena ia
+harus dicek kesiapannya, sama seperti *future*. Type dalamnya adalah `Option`,
 karena ia perlu memberi sinyal apakah masih ada pesan lagi, sama seperti
 *iterator*.
 
@@ -546,22 +546,22 @@ in traits, since the lack thereof is the reason they do not yet have this.
 > fn next(&mut self) -> Next<'_, Self> where Self: Unpin;
 > ```
 >
-> Tipe `Next` itu adalah `struct` yang mengimplementasikan `Future` dan
+> Type `Next` itu adalah `struct` yang mengimplementasikan `Future` dan
 > memungkinkan kita menamai *lifetime* *reference* ke `self` dengan
 > `Next<'_, Self>`, sehingga `await` bisa bekerja dengan metode ini.
 
 *Trait* `StreamExt` juga merupakan rumah bagi semua metode menarik yang tersedia
 untuk dipakai dengan *stream*. `StreamExt` diimplementasikan secara otomatis
-untuk setiap tipe yang mengimplementasikan `Stream`, tetapi *trait*-trait ini
+untuk setiap type yang mengimplementasikan `Stream`, tetapi *trait*-trait ini
 didefinisikan terpisah untuk memungkinkan komunitas mengembangkan API
 kenyamanan secara iteratif tanpa memengaruhi *trait* dasarnya.
 
 Pada versi `StreamExt` yang dipakai *crate* `trpl`, *trait* itu tidak hanya
 mendefinisikan metode `next`, tetapi juga menyediakan implementasi bawaan
 `next` yang menangani detail pemanggilan `Stream::poll_next` dengan benar.
-Artinya, bahkan ketika Anda perlu menulis tipe data streaming Anda sendiri,
+Artinya, bahkan ketika Anda perlu menulis data type streaming Anda sendiri,
 Anda _hanya_ perlu mengimplementasikan `Stream`, lalu siapa pun yang memakai
-tipe data Anda bisa memakai `StreamExt` dan metode-metodenya secara otomatis.
+data type Anda bisa memakai `StreamExt` dan metode-metodenya secara otomatis.
 
 Itu saja yang akan kita bahas untuk detail tingkat rendah dari *trait*-trait
 ini. Sebagai penutup, mari kita pertimbangkan bagaimana *future* (termasuk

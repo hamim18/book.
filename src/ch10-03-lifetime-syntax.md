@@ -2,15 +2,15 @@
 ## Memvalidasi Reference dengan Lifetime
 
 *Lifetime* adalah jenis generik lain yang sudah kita pakai. Alih-alih
-memastikan bahwa sebuah tipe memiliki perilaku yang kita inginkan, *lifetime*
+memastikan bahwa sebuah type memiliki perilaku yang kita inginkan, *lifetime*
 memastikan bahwa *reference* tetap valid selama kita membutuhkannya.
 
 Satu detail yang tidak kita bahas di bagian [“*References* dan
 *Borrowing*”][*references*-and-borrowing]<!-- ignore --> pada Bab 4 adalah
 bahwa setiap *reference* di Rust memiliki sebuah *lifetime*, yaitu *scope*
 (cakupan) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
-bersifat implisit dan diinferensi, sama seperti sebagian besar waktu tipe
-diinferensi. Kita hanya diwajibkan menganotasi tipe ketika ada banyak tipe
+bersifat implisit dan diinferensi, sama seperti sebagian besar waktu type
+diinferensi. Kita hanya diwajibkan mengtype annotation ketika ada banyak type
 yang mungkin. Dengan cara serupa, kita harus menganotasi *lifetime* ketika
 *lifetime* dari beberapa *reference* bisa saling terkait dalam beberapa cara
 yang berbeda. Rust mewajibkan kita menganotasi hubungan tersebut memakai
@@ -153,7 +153,7 @@ Sebagai gantinya, kita mendapatkan error berikut yang membahas tentang
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-20/output.txt}}
 ```
 
-Teks bantuan itu mengungkapkan bahwa tipe kembaliannya memerlukan parameter
+Teks bantuan itu mengungkapkan bahwa return typenya memerlukan parameter
 *lifetime* generik karena Rust tidak bisa membedakan apakah *reference* yang
 dikembalikan merujuk `x` atau `y`. Sebenarnya, kita juga tidak tahu, karena
 blok `if` di badan fungsi ini mengembalikan *reference* ke `x` dan blok
@@ -176,16 +176,16 @@ melakukan analisisnya.
 Anotasi *lifetime* tidak mengubah berapa lama *reference* mana pun hidup.
 Sebaliknya, anotasi itu mendeskripsikan hubungan *lifetime* dari beberapa
 *reference* satu sama lain tanpa memengaruhi *lifetime*-nya. Sama seperti
-fungsi yang bisa menerima tipe apa pun ketika tanda tangannya menentukan
-parameter tipe generik, fungsi bisa menerima *reference* dengan *lifetime* apa
+fungsi yang bisa menerima type apa pun ketika tanda tangannya menentukan
+type parameter generik, fungsi bisa menerima *reference* dengan *lifetime* apa
 pun dengan menentukan parameter *lifetime* generik.
 
 Anotasi *lifetime* memiliki sintaks yang sedikit tidak biasa: nama parameter
 *lifetime* harus dimulai dengan tanda apostrof (`'`) dan biasanya semuanya
-huruf kecil serta sangat pendek, seperti tipe generik. Kebanyakan orang
+huruf kecil serta sangat pendek, seperti generic type. Kebanyakan orang
 memakai nama `'a` untuk anotasi *lifetime* yang pertama. Kita menempatkan
 anotasi parameter *lifetime* setelah `&` pada sebuah *reference*, memakai spasi
-untuk memisahkan anotasi itu dari tipe *reference*-nya.
+untuk memisahkan anotasi itu dari type *reference*-nya.
 
 Berikut beberapa contoh—*reference* ke `i32` tanpa parameter *lifetime*,
 *reference* ke `i32` yang memiliki parameter *lifetime* bernama `'a`, dan
@@ -212,7 +212,7 @@ beberapa *reference* saling berhubungan. Mari kita periksa bagaimana anotasi
 Untuk memakai anotasi *lifetime* di tanda tangan fungsi, kita perlu
 mendeklarasikan parameter *lifetime* generik di dalam kurung sudut antara
 nama fungsi dan daftar parameternya, sama seperti yang kita lakukan dengan
-parameter tipe generik.
+type parameter generik.
 
 Kita ingin tanda tangan itu mengekspresikan batasan berikut: *reference* yang
 dikembalikan akan valid selama kedua parameter valid. Inilah hubungan antara
@@ -250,7 +250,7 @@ hidup, ia hanya perlu tahu bahwa ada *scope* yang bisa disubstitusikan untuk
 
 Ketika menganotasi *lifetime* dalam fungsi, anotasinya berada di tanda tangan
 fungsi, bukan di badan fungsi. Anotasi *lifetime* menjadi bagian dari kontrak
-fungsi, mirip dengan tipe-tipe di tanda tangan. Tanda tangan fungsi yang
+fungsi, mirip dengan type-type di tanda tangan. Tanda tangan fungsi yang
 memuat kontrak *lifetime* membuat analisis yang dilakukan *compiler* Rust
 menjadi lebih sederhana. Jika ada masalah dengan cara sebuah fungsi
 dianotasi atau cara ia dipanggil, error *compiler* bisa menunjuk ke bagian
@@ -349,12 +349,12 @@ string *slice* terpanjang, kita tidak perlu menentukan *lifetime* pada parameter
 
 </Listing>
 
-Kita telah menentukan parameter *lifetime* `'a` untuk parameter `x` dan tipe
+Kita telah menentukan parameter *lifetime* `'a` untuk parameter `x` dan type
 kembaliannya, tetapi tidak untuk parameter `y`, karena *lifetime* `y` tidak
 memiliki hubungan apa pun dengan *lifetime* `x` atau nilai kembaliannya.
 
 Ketika mengembalikan *reference* dari sebuah fungsi, parameter *lifetime* untuk
-tipe kembalian harus cocok dengan parameter *lifetime* salah satu
+return type harus cocok dengan parameter *lifetime* salah satu
 parameternya. Jika *reference* yang dikembalikan _tidak_ merujuk salah satu
 parameter, ia harus merujuk nilai yang dibuat di dalam fungsi ini. Namun,
 ini akan menjadi *reference* menggantung karena nilainya akan keluar dari
@@ -369,7 +369,7 @@ ini yang tidak akan terkompilasi:
 
 </Listing>
 
-Di sini, meskipun kita telah menentukan parameter *lifetime* `'a` untuk tipe
+Di sini, meskipun kita telah menentukan parameter *lifetime* `'a` untuk type
 kembalian, implementasi ini akan gagal terkompilasi karena *lifetime* nilai
 kembaliannya tidak berhubungan sama sekali dengan *lifetime* parameternya.
 Berikut pesan error yang kita dapatkan:
@@ -383,7 +383,7 @@ Masalahnya, `result` keluar dari *scope* dan dibersihkan di akhir fungsi
 fungsi itu. Tidak ada cara untuk menentukan parameter *lifetime* yang akan
 mengubah *reference* menggantung itu, dan Rust tidak akan membiarkan kita
 membuat *reference* menggantung. Dalam kasus ini, perbaikan terbaik adalah
-mengembalikan tipe data yang dimiliki alih-alih *reference* sehingga fungsi
+mengembalikan data type yang dimiliki alih-alih *reference* sehingga fungsi
 pemanggil yang bertanggung jawab membersihkan nilainya.
 
 Pada akhirnya, sintaks *lifetime* adalah tentang menghubungkan *lifetime*
@@ -398,7 +398,7 @@ melanggar keamanan memori.
 
 ### Dalam Definisi Struct
 
-Sejauh ini, semua *struct* yang kita definisikan menampung tipe yang
+Sejauh ini, semua *struct* yang kita definisikan menampung type yang
 dimiliki. Kita bisa mendefinisikan *struct* untuk menampung *reference*, tetapi
 dalam kasus itu, kita perlu menambahkan anotasi *lifetime* pada setiap
 *reference* di definisi *struct*. Listing 10-24 memiliki *struct* bernama
@@ -413,7 +413,7 @@ dalam kasus itu, kita perlu menambahkan anotasi *lifetime* pada setiap
 </Listing>
 
 *Struct* ini memiliki satu *field* `part` yang menampung sebuah string *slice*,
-yang merupakan *reference*. Seperti tipe data generik, kita mendeklarasikan
+yang merupakan *reference*. Seperti data generic type, kita mendeklarasikan
 nama parameter *lifetime* generik di dalam kurung sudut setelah nama *struct*
 supaya kita bisa memakai parameter *lifetime* itu di badan definisi *struct*.
 Anotasi ini berarti instance `ImportantExcerpt` tidak bisa hidup lebih lama
@@ -433,7 +433,7 @@ Anda perlu menentukan parameter *lifetime* untuk fungsi atau *struct* yang
 memakai *reference*. Namun, kita memiliki fungsi di Listing 4-9, yang
 ditampilkan lagi di Listing 10-25, yang terkompilasi tanpa anotasi *lifetime*.
 
-<Listing number="10-25" file-name="src/lib.rs" caption="Fungsi yang kita definisikan di Listing 4-9 yang terkompilasi tanpa anotasi lifetime, meskipun parameter dan tipe kembaliannya berupa reference">
+<Listing number="10-25" file-name="src/lib.rs" caption="Fungsi yang kita definisikan di Listing 4-9 yang terkompilasi tanpa anotasi lifetime, meskipun parameter dan return typenya berupa reference">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-25/src/main.rs:here}}
@@ -549,7 +549,7 @@ Anda bisa melihat bahwa aturan kedua tidak berlaku, karena ada lebih dari
 satu *lifetime* masukan. Aturan ketiga juga tidak berlaku, karena `longest`
 adalah fungsi alih-alih metode, jadi tidak ada parameternya yang berupa
 `self`. Setelah melewati ketiga aturan, kita masih belum tahu berapa
-*lifetime* tipe kembaliannya. Inilah alasan kita mendapatkan error ketika
+*lifetime* return typenya. Inilah alasan kita mendapatkan error ketika
 mencoba mengompilasi kode di Listing 10-20: *compiler* telah melewati
 aturan-aturan elision *lifetime*, tetapi masih belum bisa mengetahui semua
 *lifetime* *reference* di tanda tangan itu.
@@ -566,14 +566,14 @@ metode terlalu sering.
 ### Dalam Definisi Metode
 
 Ketika kita mengimplementasikan metode pada *struct* yang memiliki *lifetime*,
-kita memakai sintaks yang sama seperti sintaks parameter tipe generik,
+kita memakai sintaks yang sama seperti sintaks type parameter generik,
 seperti yang ditunjukkan di Listing 10-11. Tempat kita mendeklarasikan dan
 memakai parameter *lifetime* bergantung pada apakah parameter itu terkait
 dengan *field* *struct* atau dengan parameter dan nilai kembalian metode.
 
 Nama-nama *lifetime* untuk *field* *struct* selalu perlu dideklarasikan setelah
 kata kunci `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
-tersebut merupakan bagian dari tipe *struct*.
+tersebut merupakan bagian dari type *struct*.
 
 Di tanda tangan metode dalam blok `impl`, *reference* mungkin terikat dengan
 *lifetime* *reference* di *field* *struct*, atau mungkin independen. Selain itu,
@@ -590,7 +590,7 @@ parameternya adalah *reference* ke `self` dan nilai kembaliannya berupa
 ```
 
 Deklarasi parameter *lifetime* setelah `impl` dan pemakaiannya setelah nama
-tipe itu wajib, tetapi karena aturan elision pertama, kita tidak wajib
+type itu wajib, tetapi karena aturan elision pertama, kita tidak wajib
 menganotasi *lifetime* *reference* ke `self`.
 
 Berikut contoh ketika aturan elision *lifetime* ketiga berlaku:
@@ -602,7 +602,7 @@ Berikut contoh ketika aturan elision *lifetime* ketiga berlaku:
 Ada dua *lifetime* masukan, jadi Rust menerapkan aturan elision *lifetime*
 pertama dan memberikan *lifetime* masing-masing kepada `&self` dan
 `announcement`. Kemudian, karena salah satu parameternya adalah `&self`,
-tipe kembaliannya mendapatkan *lifetime* `&self`, dan semua *lifetime* telah
+return typenya mendapatkan *lifetime* `&self`, dan semua *lifetime* telah
 terhitung.
 
 ### Lifetime Static
@@ -632,9 +632,9 @@ tersebut, bukan menentukan *lifetime* `'static`.
 
 <a id="generic-type-parameters-trait-bounds-and-lifetimes-together"></a>
 
-## Parameter Tipe Generik, Trait Bound, dan Lifetime
+## Parameter Type Generik, Trait Bound, dan Lifetime
 
-Mari kita lihat sekilas sintaks menentukan parameter tipe generik, *trait*
+Mari kita lihat sekilas sintaks menentukan type parameter generik, *trait*
 bound, dan *lifetime* semuanya dalam satu fungsi!
 
 ```rust
@@ -643,22 +643,22 @@ bound, dan *lifetime* semuanya dalam satu fungsi!
 
 Ini adalah fungsi `longest` dari Listing 10-21 yang mengembalikan yang
 lebih panjang dari dua string *slice*. Namun, sekarang ia memiliki parameter
-tambahan bernama `ann` bertipe generik `T`, yang bisa diisi oleh tipe apa
+tambahan bernama `ann` typed generik `T`, yang bisa diisi oleh type apa
 pun yang mengimplementasikan *trait* `Display` seperti yang ditentukan oleh
 klausa `where`. Parameter tambahan ini akan dicetak memakai `{}`, dan
 itulah alasan *trait bound* `Display` diperlukan. Karena *lifetime* adalah
 salah satu jenis generik, deklarasi parameter *lifetime* `'a` dan parameter
-tipe generik `T` berada di daftar yang sama di dalam kurung sudut setelah
+generic type `T` berada di daftar yang sama di dalam kurung sudut setelah
 nama fungsi.
 
 ## Ringkasan
 
 Banyak yang telah kita bahas dalam bab ini! Sekarang setelah Anda tahu
-tentang parameter tipe generik, *trait* dan *trait bound*, serta parameter
+tentang type parameter generik, *trait* dan *trait bound*, serta parameter
 *lifetime* generik, Anda siap menulis kode tanpa pengulangan yang berfungsi
-dalam banyak situasi berbeda. Parameter tipe generik memungkinkan Anda
-menerapkan kode ke berbagai tipe. *Trait* dan *trait bound* memastikan bahwa
-meskipun tipe-tipenya generik, mereka akan memiliki perilaku yang
+dalam banyak situasi berbeda. Parameter generic type memungkinkan Anda
+menerapkan kode ke berbagai type. *Trait* dan *trait bound* memastikan bahwa
+meskipun type-typenya generik, mereka akan memiliki perilaku yang
 dibutuhkan kode. Anda telah mempelajari cara memakai anotasi *lifetime* untuk
 memastikan bahwa kode fleksibel ini tidak memiliki *reference* menggantung.
 Dan semua analisis ini terjadi pada waktu kompilasi, yang tidak memengaruhi

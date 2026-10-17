@@ -31,7 +31,7 @@ parameter, dan sebagai gantinya membuat metode `area` yang didefinisikan pada
 
 Untuk mendefinisikan fungsi di dalam konteks `Rectangle`, kita memulai blok
 `impl` (implementation) untuk `Rectangle`. Semua yang ada di dalam blok `impl`
-ini akan terkait dengan tipe `Rectangle`. Lalu, kita memindahkan fungsi `area`
+ini akan terkait dengan type `Rectangle`. Lalu, kita memindahkan fungsi `area`
 ke dalam kurung kurawal `impl` dan mengubah parameter pertama (dan pada kasus
 ini, satu-satunya) menjadi `self` di tanda tangan dan di semua tempat dalam
 badannya. Di `main`, tempat kita memanggil fungsi `area` dan meneruskan
@@ -42,8 +42,8 @@ metode, tanda kurung, dan argumen apa pun.
 
 Pada tanda tangan `area`, kita memakai `&self`, bukan `rectangle: &Rectangle`.
 `&self` sebenarnya adalah singkatan dari `self: &Self`. Di dalam blok `impl`,
-tipe `Self` adalah alias untuk tipe yang menjadi sasaran blok `impl` itu. Metode
-harus memiliki parameter bernama `self` bertipe `Self` sebagai parameter
+type `Self` adalah alias untuk type yang menjadi sasaran blok `impl` itu. Metode
+harus memiliki parameter bernama `self` typed `Self` sebagai parameter
 pertamanya, jadi Rust mengizinkan Anda menyingkatnya hanya dengan nama `self`
 di posisi parameter pertama. Perhatikan bahwa kita tetap perlu memakai `&` di
 depan singkatan `self` untuk menandakan bahwa metode ini meminjam instance
@@ -63,9 +63,9 @@ mengubah `self` menjadi sesuatu yang lain dan Anda ingin mencegah pemanggilnya
 memakai instance aslinya setelah transformasi itu.
 
 Alasan utama memakai metode alih-alih fungsi, selain menyediakan method
-syntax dan tidak perlu mengulang tipe `self` di setiap tanda tangan metode,
+syntax dan tidak perlu mengulang type `self` di setiap tanda tangan metode,
 adalah untuk pengorganisasian. Kita telah meletakkan semua hal yang dapat kita
-lakukan dengan instance sebuah tipe dalam satu blok `impl`, alih-alih membuat
+lakukan dengan instance sebuah type dalam satu blok `impl`, alih-alih membuat
 pengguna kode kita di masa depan mencari kemampuan `Rectangle` di berbagai
 tempat pada pustaka yang kita sediakan.
 
@@ -95,7 +95,7 @@ dalam *field* dan tidak melakukan hal lain. Metode seperti ini disebut *getter*,
 dan Rust tidak mengimplementasikannya secara otomatis untuk *field* *struct*
 seperti yang dilakukan beberapa bahasa lain. Getter berguna karena Anda dapat
 membuat *field*-nya privat tetapi metodenya publik, sehingga memungkinkan akses
-baca-saja ke *field* itu sebagai bagian dari API publik tipe tersebut. Kita akan
+baca-saja ke *field* itu sebagai bagian dari API publik type tersebut. Kita akan
 membahas apa itu publik dan privat serta cara menetapkan *field* atau metode
 sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 
@@ -142,7 +142,7 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 > ```
 >
 > Yang pertama tampak jauh lebih bersih. Perilaku referensi otomatis ini
-> bekerja karena metode memiliki *receiver* (penerima) yang jelas—tipe dari
+> bekerja karena metode memiliki *receiver* (penerima) yang jelas—type dari
 > `self`. Dengan mengetahui penerima dan nama sebuah metode, Rust dapat
 > memastikan secara definitif apakah metodenya membaca (`&self`), mengubah
 > (`&mut self`), atau mengonsumsi (`self`). Fakta bahwa Rust membuat
@@ -179,7 +179,7 @@ Can rect1 hold rect3? false
 Kita tahu bahwa kita ingin mendefinisikan sebuah metode, jadi ia akan berada
 di dalam blok `impl Rectangle`. Nama metodenya adalah `can_hold`, dan ia akan
 menerima peminjaman *immutable* atas `Rectangle` lain sebagai parameter. Kita
-bisa tahu tipe parameternya dengan melihat kode yang memanggil metodenya:
+bisa tahu type parameternya dengan melihat kode yang memanggil metodenya:
 `rect1.can_hold(&rect2)` meneruskan `&rect2`, yang merupakan peminjaman
 *immutable* atas `rect2`, sebuah instance `Rectangle`. Ini masuk akal karena
 kita hanya perlu membaca `rect2` (bukan menulis, yang berarti kita akan butuh
@@ -207,12 +207,12 @@ fungsi.
 ### Fungsi Asosiasi
 
 Semua fungsi yang didefinisikan di dalam blok `impl` disebut *associated
-function* (fungsi asosiasi) karena ia terkait dengan tipe yang disebutkan
+function* (fungsi asosiasi) karena ia terkait dengan type yang disebutkan
 setelah `impl`. Kita dapat mendefinisikan *associated function* yang tidak
 memiliki `self` sebagai parameter pertamanya (dan dengan demikian bukan
-metode) karena ia tidak memerlukan instance dari tipenya untuk bekerja. Kita
+metode) karena ia tidak memerlukan instance dari typenya untuk bekerja. Kita
 telah memakai satu fungsi seperti ini: fungsi `String::from` yang didefinisikan
-pada tipe `String`.
+pada type `String`.
 
 *Associated function* yang bukan metode sering dipakai sebagai konstruktor yang
 mengembalikan instance baru *struct*. Fungsi seperti ini sering disebut `new`,
@@ -228,8 +228,8 @@ harus menyebutkan nilai yang sama dua kali:
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-03-associated-functions/src/main.rs:here}}
 ```
 
-Keyword `Self` pada tipe kembalian dan pada badan fungsi adalah alias untuk
-tipe yang muncul setelah keyword `impl`, yang pada kasus ini adalah
+Keyword `Self` pada return type dan pada badan fungsi adalah alias untuk
+type yang muncul setelah keyword `impl`, yang pada kasus ini adalah
 `Rectangle`.
 
 Untuk memanggil *associated function* ini, kita memakai sintaks `::` dengan nama
@@ -254,20 +254,20 @@ metode di blok `impl`-nya sendiri.
 
 Tidak ada alasan untuk memisahkan metode-metode ini ke beberapa blok `impl` di
 sini, tetapi ini adalah sintaks yang valid. Kita akan melihat kasus ketika
-beberapa blok `impl` berguna di Bab 10, tempat kita membahas tipe generik dan
+beberapa blok `impl` berguna di Bab 10, tempat kita membahas generic type dan
 *trait*.
 
 ## Ringkasan
 
-*Struct* memungkinkan Anda membuat tipe kustom yang bermakna bagi domain Anda.
+*Struct* memungkinkan Anda membuat custom type yang bermakna bagi domain Anda.
 Dengan memakai *struct*, Anda dapat menjaga bagian-bagian data yang berkaitan
 tetap saling terhubung dan memberi nama pada setiap bagiannya untuk membuat
 kode Anda jelas. Di dalam blok `impl`, Anda dapat mendefinisikan fungsi yang
-terkait dengan tipe Anda, dan metode adalah salah satu jenis associated
+terkait dengan type Anda, dan metode adalah salah satu jenis associated
 function yang memungkinkan Anda menentukan perilaku yang dimiliki instance
 *struct* Anda.
 
-Tetapi *struct* bukanlah satu-satunya cara untuk membuat tipe kustom: mari kita
+Tetapi *struct* bukanlah satu-satunya cara untuk membuat custom type: mari kita
 beralih ke fitur *enum* milik Rust untuk menambah alat lain ke kotak peralatan
 Anda.
 

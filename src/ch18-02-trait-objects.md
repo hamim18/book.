@@ -6,29 +6,29 @@
 ## Memakai Trait Object untuk Mengabstraksi Perilaku Bersama
 
 Di Bab 8, kita menyebutkan bahwa salah satu keterbatasan vektor adalah mereka
-hanya bisa menyimpan elemen dari satu tipe. Kita membuat jalan keluar di
+hanya bisa menyimpan elemen dari satu type. Kita membuat jalan keluar di
 Listing 8-9 dengan mendefinisikan *enum* `SpreadsheetCell` yang memiliki varian
 untuk menampung integer, float, dan teks. Ini berarti kita bisa menyimpan
-berbagai tipe data di setiap sel dan tetap memiliki vektor yang
+berbagai data type di setiap sel dan tetap memiliki vektor yang
 merepresentasikan satu baris sel. Ini solusi yang sepenuhnya bagus ketika
-item-item yang saling dapat dipertukarkan adalah sekumpulan tipe tetap yang
+item-item yang saling dapat dipertukarkan adalah sekumpulan type tetap yang
 kita ketahui saat kode kita dikompilasi.
 
 Akan tetapi, terkadang kita ingin pengguna library kita bisa memperluas
-kumpulan tipe yang valid dalam situasi tertentu. Untuk menunjukkan cara kita
+kumpulan type yang valid dalam situasi tertentu. Untuk menunjukkan cara kita
 mencapainya, kita akan membuat contoh alat antarmuka pengguna grafis (GUI)
 yang mengiterasi daftar item, memanggil metode `draw` pada setiap item untuk
 menggambarnya ke layar—teknik yang umum untuk alat GUI. Kita akan membuat
 *crate* library bernama `gui` yang memuat struktur library GUI. *Crate* ini
-mungkin menyertakan beberapa tipe untuk dipakai orang, seperti `Button` atau
-`TextField`. Selain itu, pengguna `gui` akan ingin membuat tipe mereka
+mungkin menyertakan beberapa type untuk dipakai orang, seperti `Button` atau
+`TextField`. Selain itu, pengguna `gui` akan ingin membuat type mereka
 sendiri yang bisa digambar: misalnya, satu pemrogram mungkin menambahkan
 `Image`, dan pemrogram lain mungkin menambahkan `SelectBox`.
 
 Pada saat menulis library itu, kita tidak bisa mengetahui dan mendefinisikan
-semua tipe yang mungkin ingin dibuat pemrogram lain. Tetapi kita tahu bahwa
-`gui` perlu melacak banyak nilai dari tipe yang berbeda, dan perlu memanggil
-metode `draw` pada setiap nilai yang bertipe berbeda ini. `gui` tidak perlu
+semua type yang mungkin ingin dibuat pemrogram lain. Tetapi kita tahu bahwa
+`gui` perlu melacak banyak nilai dari type yang berbeda, dan perlu memanggil
+metode `draw` pada setiap nilai yang typed berbeda ini. `gui` tidak perlu
 tahu persis apa yang akan terjadi ketika kita memanggil metode `draw`, cukup
 bahwa nilai itu akan memiliki metode tersebut tersedia untuk kita panggil.
 
@@ -37,10 +37,10 @@ kelas bernama `Component` yang memiliki metode bernama `draw`. Kelas-kelas
 lain, seperti `Button`, `Image`, dan `SelectBox`, akan mewarisi dari
 `Component` dan dengan demikian mewarisi metode `draw`. Mereka masing-masing
 bisa menimpa metode `draw` untuk mendefinisikan perilaku kustomnya, tetapi
-framework itu bisa memperlakukan semua tipe seolah-olah mereka adalah
+framework itu bisa memperlakukan semua type seolah-olah mereka adalah
 instance `Component` dan memanggil `draw` pada mereka. Namun, karena Rust
 tidak memiliki *inheritance*, kita butuh cara lain untuk menstrukturkan
-library `gui` agar pengguna bisa membuat tipe baru yang kompatibel dengan
+library `gui` agar pengguna bisa membuat type baru yang kompatibel dengan
 library itu.
 
 ### Mendefinisikan Trait untuk Perilaku Bersama
@@ -48,18 +48,18 @@ library itu.
 Untuk mengimplementasikan perilaku yang kita inginkan pada `gui`, kita akan
 mendefinisikan *trait* bernama `Draw` yang memiliki satu metode bernama `draw`.
 Kemudian, kita bisa mendefinisikan vektor yang menerima *trait object*. Sebuah
-_trait object_ (objek *trait*) menunjuk ke instance tipe yang
+_trait object_ (objek *trait*) menunjuk ke instance type yang
 mengimplementasikan *trait* yang kita tentukan sekaligus ke tabel yang dipakai
-untuk mencari metode *trait* pada tipe itu saat runtime. Kita membuat *trait*
+untuk mencari metode *trait* pada type itu saat runtime. Kita membuat *trait*
 object dengan menentukan semacam *pointer*, seperti *reference* atau smart
 *pointer* `Box<T>`, lalu kata kunci `dyn`, dan kemudian *trait* yang relevan.
-(Kita akan membahas alasan *trait object* harus memakai *pointer* di [“Tipe
+(Kita akan membahas alasan *trait object* harus memakai *pointer* di [“Type
 Berukuran Dinamis dan *Trait* `Sized`”][dynamically-sized]<!-- ignore --> di Bab
-20.) Kita bisa memakai *trait object* sebagai pengganti tipe generik atau tipe
-konkret. Di mana pun kita memakai *trait object*, sistem tipe Rust akan
+20.) Kita bisa memakai *trait object* sebagai pengganti generic type atau type
+konkret. Di mana pun kita memakai *trait object*, type system Rust akan
 memastikan pada waktu kompilasi bahwa nilai apa pun yang dipakai dalam konteks
 itu akan mengimplementasikan *trait* dari *trait object* tersebut. Akibatnya,
-kita tidak perlu mengetahui semua tipe yang mungkin pada waktu kompilasi.
+kita tidak perlu mengetahui semua type yang mungkin pada waktu kompilasi.
 
 Kami telah menyebutkan bahwa, di Rust, kita menahan diri untuk tidak menyebut
 *struct* dan *enum* sebagai “objek” untuk membedakannya dari objek bahasa lain.
@@ -84,8 +84,8 @@ metode bernama `draw`.
 Sintaks ini seharusnya terasa familier dari pembahasan kita tentang cara
 mendefinisikan *trait* di Bab 10. Berikutnya ada beberapa sintaks baru: Listing
 18-4 mendefinisikan *struct* bernama `Screen` yang menampung vektor bernama
-`components`. Vektor ini bertipe `Box<dyn Draw>`, yang merupakan *trait*
-object; ia adalah pengganti untuk tipe apa pun di dalam `Box` yang
+`components`. Vektor ini typed `Box<dyn Draw>`, yang merupakan *trait*
+object; ia adalah pengganti untuk type apa pun di dalam `Box` yang
 mengimplementasikan *trait* `Draw`.
 
 <Listing number="18-4" file-name="src/lib.rs" caption="Definisi struct `Screen` dengan field `components` yang menampung vektor trait object yang mengimplementasikan trait `Draw`">
@@ -108,11 +108,11 @@ ditunjukkan di Listing 18-5.
 
 </Listing>
 
-Ini bekerja berbeda dari mendefinisikan *struct* yang memakai parameter tipe
-generik dengan *trait bound*. Parameter tipe generik hanya bisa digantikan
-dengan satu tipe konkret pada satu waktu, sedangkan *trait object* memungkinkan
-beberapa tipe konkret mengisi peran *trait object* itu saat runtime. Contohnya,
-kita bisa saja mendefinisikan *struct* `Screen` menggunakan tipe generik dan
+Ini bekerja berbeda dari mendefinisikan *struct* yang memakai type parameter
+generik dengan *trait bound*. Parameter generic type hanya bisa digantikan
+dengan satu type konkret pada satu waktu, sedangkan *trait object* memungkinkan
+beberapa type konkret mengisi peran *trait object* itu saat runtime. Contohnya,
+kita bisa saja mendefinisikan *struct* `Screen` menggunakan generic type dan
 *trait bound*, seperti di Listing 18-6.
 
 <Listing number="18-6" file-name="src/lib.rs" caption="Implementasi alternatif struct `Screen` dan metode `run`-nya menggunakan generics dan trait bound">
@@ -124,10 +124,10 @@ kita bisa saja mendefinisikan *struct* `Screen` menggunakan tipe generik dan
 </Listing>
 
 Ini membatasi kita pada instance `Screen` yang memiliki daftar component yang
-semuanya bertipe `Button` atau semuanya bertipe `TextField`. Jika Anda hanya
+semuanya typed `Button` atau semuanya typed `TextField`. Jika Anda hanya
 akan memiliki koleksi yang homogen, memakai *generics* dan *trait bound* lebih
 disukai karena definisinya akan dimonomorfisasi pada waktu kompilasi untuk
-memakai tipe-tipe konkretnya.
+memakai type-type konkretnya.
 
 Di sisi lain, dengan metode yang memakai *trait object*, satu instance `Screen`
 bisa menampung `Vec<T>` yang berisi `Box<Button>` sekaligus `Box<TextField>`.
@@ -136,8 +136,8 @@ runtime-nya.
 
 ### Mengimplementasikan Trait
 
-Sekarang kita akan menambahkan beberapa tipe yang mengimplementasikan *trait*
-`Draw`. Kita akan menyediakan tipe `Button`. Sekali lagi, benar-benar
+Sekarang kita akan menambahkan beberapa type yang mengimplementasikan *trait*
+`Draw`. Kita akan menyediakan type `Button`. Sekali lagi, benar-benar
 mengimplementasikan library GUI berada di luar cakupan buku ini, jadi metode
 `draw` tidak akan memiliki implementasi yang berguna di badannya. Untuk
 membayangkan seperti apa implementasinya, *struct* `Button` mungkin memiliki
@@ -153,19 +153,19 @@ Listing 18-7.
 </Listing>
 
 *Field* `width`, `height`, dan `label` pada `Button` akan berbeda dari *field*
-pada component lain; contohnya, tipe `TextField` mungkin memiliki
-*field*-field yang sama itu plus *field* `placeholder`. Setiap tipe yang ingin
+pada component lain; contohnya, type `TextField` mungkin memiliki
+*field*-field yang sama itu plus *field* `placeholder`. Setiap type yang ingin
 kita gambar di layar akan mengimplementasikan *trait* `Draw` tetapi memakai kode
-yang berbeda di metode `draw` untuk mendefinisikan cara menggambar tipe
+yang berbeda di metode `draw` untuk mendefinisikan cara menggambar type
 tertentu itu, seperti yang dilakukan `Button` di sini (tanpa kode GUI
-sebenarnya, seperti disebutkan). Tipe `Button`, misalnya, mungkin memiliki
+sebenarnya, seperti disebutkan). Type `Button`, misalnya, mungkin memiliki
 blok `impl` tambahan berisi metode-metode yang berkaitan dengan apa yang
 terjadi ketika pengguna mengeklik tombol itu. Metode-metode semacam ini tidak
-akan berlaku untuk tipe seperti `TextField`.
+akan berlaku untuk type seperti `TextField`.
 
 Jika seseorang yang memakai library kita memutuskan untuk mengimplementasikan
 *struct* `SelectBox` yang memiliki *field* `width`, `height`, dan `options`,
-mereka juga akan mengimplementasikan *trait* `Draw` pada tipe `SelectBox`,
+mereka juga akan mengimplementasikan *trait* `Draw` pada type `SelectBox`,
 seperti yang ditunjukkan di Listing 18-8.
 
 <Listing number="18-8" file-name="src/main.rs" caption="Crate lain yang memakai `gui` dan mengimplementasikan trait `Draw` pada struct `SelectBox`">
@@ -183,7 +183,7 @@ menjadi *trait object*. Mereka kemudian bisa memanggil metode `run` pada
 instance `Screen`, yang akan memanggil `draw` pada setiap component. Listing
 18-9 menunjukkan implementasi ini.
 
-<Listing number="18-9" file-name="src/main.rs" caption="Memakai trait object untuk menyimpan nilai dari tipe berbeda yang mengimplementasikan trait yang sama">
+<Listing number="18-9" file-name="src/main.rs" caption="Memakai trait object untuk menyimpan nilai dari type berbeda yang mengimplementasikan trait yang sama">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch18-oop/listing-18-09/src/main.rs:here}}
@@ -192,23 +192,23 @@ instance `Screen`, yang akan memanggil `draw` pada setiap component. Listing
 </Listing>
 
 Ketika kita menulis library itu, kita tidak tahu bahwa seseorang mungkin
-menambahkan tipe `SelectBox`, tetapi implementasi `Screen` kita bisa
-mengoperasikan tipe baru itu dan menggambarnya karena `SelectBox`
+menambahkan type `SelectBox`, tetapi implementasi `Screen` kita bisa
+mengoperasikan type baru itu dan menggambarnya karena `SelectBox`
 mengimplementasikan *trait* `Draw`, yang berarti ia mengimplementasikan metode
 `draw`.
 
-Konsep ini—hanya peduli pada pesan yang direspons sebuah nilai alih-alih tipe
-konkret nilai itu—mirip dengan konsep _duck typing_ (pengetikan bebek) di
-bahasa bertipe dinamis: jika ia berjalan seperti bebek dan berkuek seperti
+Konsep ini—hanya peduli pada pesan yang direspons sebuah nilai alih-alih type
+konkret nilai itu—mirip dengan konsep _duck typing_ (duck typing) di
+bahasa dynamically typed: jika ia berjalan seperti bebek dan berkuek seperti
 bebek, maka ia pasti bebek! Di implementasi `run` pada `Screen` di Listing
-18-5, `run` tidak perlu tahu apa tipe konkret setiap component. Ia tidak
+18-5, `run` tidak perlu tahu apa type konkret setiap component. Ia tidak
 mengecek apakah sebuah component adalah instance `Button` atau `SelectBox`,
 ia hanya memanggil metode `draw` pada component itu. Dengan menentukan
-`Box<dyn Draw>` sebagai tipe nilai di vektor `components`, kita telah
+`Box<dyn Draw>` sebagai type nilai di vektor `components`, kita telah
 mendefinisikan `Screen` sebagai memerlukan nilai-nilai yang bisa kita panggil
 metode `draw`-nya.
 
-Keuntungan memakai *trait object* dan sistem tipe Rust untuk menulis kode yang
+Keuntungan memakai *trait object* dan type system Rust untuk menulis kode yang
 mirip dengan kode yang memakai *duck typing* adalah kita tidak pernah harus mengecek
 apakah sebuah nilai mengimplementasikan metode tertentu saat runtime atau
 khawatir mendapat error jika sebuah nilai tidak mengimplementasikan sebuah
@@ -219,7 +219,7 @@ tersebut.
 Contohnya, Listing 18-10 menunjukkan apa yang terjadi jika kita mencoba
 membuat `Screen` dengan `String` sebagai component.
 
-<Listing number="18-10" file-name="src/main.rs" caption="Mencoba memakai tipe yang tidak mengimplementasikan trait dari trait object itu">
+<Listing number="18-10" file-name="src/main.rs" caption="Mencoba memakai type yang tidak mengimplementasikan trait dari trait object itu">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch18-oop/listing-18-10/src/main.rs}}
@@ -235,7 +235,7 @@ Kita akan mendapat error ini karena `String` tidak mengimplementasikan *trait*
 ```
 
 Error ini memberi tahu kita bahwa entah kita meneruskan sesuatu ke `Screen`
-yang tidak kita maksudkan untuk diteruskan sehingga seharusnya meneruskan tipe
+yang tidak kita maksudkan untuk diteruskan sehingga seharusnya meneruskan type
 yang berbeda, atau kita harus mengimplementasikan `Draw` pada `String` supaya
 `Screen` bisa memanggil `draw` padanya.
 
@@ -249,8 +249,8 @@ Ingat kembali di [“Kinerja Kode yang Memakai
 *Generics*”][performance-of-code-using-generics]<!-- ignore --> di Bab 10,
 pembahasan kita tentang proses monomorfisasi yang dilakukan kompilator pada
 *generics*: kompilator menghasilkan implementasi nongenerik dari fungsi dan
-metode untuk setiap tipe konkret yang kita pakai sebagai pengganti parameter
-tipe generik. Kode yang dihasilkan monomorfisasi melakukan _static dispatch_
+metode untuk setiap type konkret yang kita pakai sebagai pengganti parameter
+generic type. Kode yang dihasilkan monomorfisasi melakukan _static dispatch_
 (dispatch statis), yaitu ketika kompilator tahu metode apa yang Anda panggil
 pada waktu kompilasi. Ini berlawanan dengan _dynamic dispatch_ (dispatch
 dinamis), yaitu ketika kompilator tidak bisa mengetahui pada waktu kompilasi
@@ -259,9 +259,9 @@ menghasilkan kode yang pada saat runtime akan tahu metode mana yang harus
 dipanggil.
 
 Ketika kita memakai *trait object*, Rust harus memakai *dynamic dispatch*.
-Kompilator tidak mengetahui semua tipe yang mungkin dipakai dengan kode yang
+Kompilator tidak mengetahui semua type yang mungkin dipakai dengan kode yang
 memakai *trait object*, jadi ia tidak tahu metode mana yang diimplementasikan
-pada tipe mana yang harus dipanggil. Sebagai gantinya, pada saat runtime, Rust
+pada type mana yang harus dipanggil. Sebagai gantinya, pada saat runtime, Rust
 memakai *pointer* di dalam *trait object* untuk mengetahui metode mana yang harus
 dipanggil. Pencarian ini menimbulkan biaya runtime yang tidak terjadi pada
 *static dispatch*. *Dynamic dispatch* juga mencegah kompilator memilih untuk

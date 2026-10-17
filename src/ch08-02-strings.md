@@ -12,7 +12,7 @@ Kita membahas string dalam konteks koleksi karena string diimplementasikan
 sebagai koleksi byte, ditambah beberapa metode untuk menyediakan
 fungsionalitas yang berguna ketika byte-byte itu ditafsirkan sebagai teks.
 Di bagian ini, kita akan membicarakan operasi-operasi pada `String` yang
-dimiliki setiap tipe koleksi, seperti membuat, memperbarui, dan membaca.
+dimiliki setiap type koleksi, seperti membuat, memperbarui, dan membaca.
 Kita juga akan membahas cara-cara `String` berbeda dari koleksi lainnya,
 yaitu bagaimana pengindeksan ke dalam `String` menjadi rumit karena
 perbedaan antara cara manusia dan komputer menafsirkan data `String`.
@@ -24,19 +24,19 @@ perbedaan antara cara manusia dan komputer menafsirkan data `String`.
 ### Mendefinisikan String
 
 Pertama-tama, kita akan mendefinisikan apa yang kita maksud dengan istilah
-*string*. Rust hanya memiliki satu tipe string di bahasa intinya, yaitu
+*string*. Rust hanya memiliki satu type string di bahasa intinya, yaitu
 string *slice* `str` yang biasanya terlihat dalam bentuk pinjamannya, `&str`.
 Di Bab 4, kita membicarakan string *slice*, yang merupakan *reference* ke
 sebagian data string terenkode UTF-8 yang tersimpan di tempat lain. String
 literal, misalnya, tersimpan di binary program dan karena itu adalah string
 *slice*.
 
-Tipe `String`, yang disediakan oleh pustaka standar Rust alih-alih
-dikodekan ke dalam bahasa inti, adalah tipe string yang dapat membesar,
+Type `String`, yang disediakan oleh pustaka standar Rust alih-alih
+dikodekan ke dalam bahasa inti, adalah type string yang dapat membesar,
 *mutable*, dimiliki, dan terenkode UTF-8. Ketika para Rustacean merujuk
-“string” di Rust, mereka mungkin merujuk ke tipe `String` atau string *slice*
-`&str`, bukan hanya salah satu dari tipe-tipe itu. Meskipun bagian ini
-sebagian besar tentang `String`, kedua tipe dipakai secara besar-besaran di
+“string” di Rust, mereka mungkin merujuk ke type `String` atau string *slice*
+`&str`, bukan hanya salah satu dari type-type itu. Meskipun bagian ini
+sebagian besar tentang `String`, kedua type dipakai secara besar-besaran di
 pustaka standar Rust, dan baik `String` maupun string *slice* sama-sama
 terenkode UTF-8.
 
@@ -60,7 +60,7 @@ yang ditunjukkan di Listing 8-11.
 Baris ini membuat string kosong baru bernama `s`, yang kemudian dapat kita
 isi dengan data. Sering kali, kita akan memiliki data awal yang ingin kita
 pakai untuk memulai string. Untuk itu, kita memakai metode `to_string`, yang
-tersedia pada tipe apa pun yang mengimplementasikan *trait* `Display`,
+tersedia pada type apa pun yang mengimplementasikan *trait* `Display`,
 seperti halnya *string literal*. Listing 8-12 menunjukkan dua contoh.
 
 <Listing number="8-12" caption="Memakai metode `to_string` untuk membuat `String` dari string literal">
@@ -191,7 +191,7 @@ fn add(self, s: &str) -> String {
 ```
 
 Di pustaka standar, Anda akan melihat `add` didefinisikan memakai *generics*
-dan tipe asosiasi. Di sini, kita telah menggantinya dengan tipe konkret,
+dan associated type. Di sini, kita telah menggantinya dengan type konkret,
 yang memang terjadi ketika kita memanggil metode ini dengan nilai `String`.
 Kita akan membahas *generics* di Bab 10. Tanda tangan ini memberi kita
 petunjuk yang kita perlukan untuk memahami bagian-bagian rumit dari operator
@@ -200,7 +200,7 @@ petunjuk yang kita perlukan untuk memahami bagian-bagian rumit dari operator
 Pertama, `s2` memiliki `&`, yang berarti kita menambahkan sebuah *reference*
 ke string kedua ke string pertama. Ini karena parameter `s` di fungsi
 `add`: kita hanya dapat menambahkan string *slice* ke `String`; kita tidak
-dapat menjumlahkan dua nilai `String`. Tapi tunggu—tipe `&s2` adalah
+dapat menjumlahkan dua nilai `String`. Tapi tunggu—type `&s2` adalah
 `&String`, bukan `&str`, seperti yang disebutkan di parameter kedua `add`.
 Jadi, mengapa Listing 8-18 bisa dikompilasi?
 
@@ -337,7 +337,7 @@ ini:
 ```
 
 Itu 18 byte dan itulah cara komputer pada akhirnya menyimpan data ini. Jika
-kita melihatnya sebagai nilai skalar Unicode, yang merupakan tipe `char`
+kita melihatnya sebagai nilai skalar Unicode, yang merupakan type `char`
 Rust, byte-byte itu terlihat seperti ini:
 
 ```text
@@ -367,7 +367,7 @@ indeks itu untuk menentukan berapa banyak karakter valid yang ada.
 ### Membuat Slice pada String
 
 Mengindeks ke dalam string sering kali merupakan ide buruk karena tidak
-jelas tipe kembalian operasi pengindeksan string seharusnya apa: nilai
+jelas return type operasi pengindeksan string seharusnya apa: nilai
 byte, karakter, grapheme cluster, atau string *slice*. Jika Anda benar-benar
 perlu memakai indeks untuk membuat string *slice*, maka Rust meminta Anda
 untuk lebih spesifik.
@@ -406,7 +406,7 @@ melakukannya dapat membuat program Anda crash.
 Cara terbaik untuk mengoperasikan potongan-potongan string adalah dengan
 eksplisit tentang apakah Anda menginginkan karakter atau byte. Untuk nilai
 skalar Unicode individual, pakai metode `chars`. Memanggil `chars` pada
-“Зд” memisahkan dan mengembalikan dua nilai bertipe `char`, dan Anda dapat
+“Зд” memisahkan dan mengembalikan dua nilai typed `char`, dan Anda dapat
 mengiterasi hasilnya untuk mengakses setiap elemen:
 
 ```rust
@@ -465,7 +465,7 @@ melibatkan karakter non-ASCII di kemudian hari dalam siklus hidup
 pengembangan Anda.
 
 Kabar baiknya adalah pustaka standar menawarkan banyak fungsionalitas yang
-dibangun di atas tipe `String` dan `&str` untuk membantu menangani
+dibangun di atas type `String` dan `&str` untuk membantu menangani
 situasi-situasi rumit ini dengan benar. Pastikan untuk memeriksa
 dokumentasinya untuk metode-metode bermanfaat seperti `contains` untuk
 mencari di dalam string dan `replace` untuk mengganti bagian string dengan

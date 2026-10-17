@@ -1,30 +1,30 @@
-# Tipe Generik, Trait, dan Lifetime
+# Type Generik, Trait, dan Lifetime
 
 Setiap bahasa pemrograman memiliki alat untuk menangani duplikasi konsep
 secara efektif. Di Rust, salah satu alat tersebut adalah *generics* (tipe
-generik): pengganti abstrak untuk tipe konkret atau properti lain. Kita bisa
+generik): pengganti abstrak untuk type konkret atau properti lain. Kita bisa
 mengekspresikan perilaku *generics* atau bagaimana mereka berhubungan dengan
 *generics* lain tanpa mengetahui apa yang akan berada di tempatnya saat kode
 dikompilasi dan dijalankan.
 
-Fungsi dapat menerima parameter bertipe generik, alih-alih tipe konkret
+Fungsi dapat menerima parameter typed generik, alih-alih type konkret
 seperti `i32` atau `String`, sama seperti mereka menerima parameter dengan
 nilai yang tidak diketahui untuk menjalankan kode yang sama pada banyak nilai
 konkret. Nyatanya, kita sudah memakai *generics* di Bab 6 dengan `Option<T>`,
 di Bab 8 dengan `Vec<T>` dan `HashMap<K, V>`, serta di Bab 9 dengan
 `Result<T, E>`. Di bab ini, Anda akan mengeksplorasi cara mendefinisikan
-tipe, fungsi, dan metode Anda sendiri dengan *generics*!
+type, fungsi, dan metode Anda sendiri dengan *generics*!
 
 Pertama, kita akan meninjau cara mengekstrak fungsi untuk mengurangi
 duplikasi kode. Kemudian, kita akan memakai teknik yang sama untuk membuat
-fungsi generik dari dua fungsi yang hanya berbeda pada tipe parameternya.
-Kita juga akan menjelaskan cara memakai tipe generik dalam definisi *struct*
+fungsi generik dari dua fungsi yang hanya berbeda pada type parameternya.
+Kita juga akan menjelaskan cara memakai generic type dalam definisi *struct*
 dan *enum*.
 
 Kemudian, Anda akan mempelajari cara memakai *trait* untuk mendefinisikan
-perilaku secara generik. Anda bisa menggabungkan *trait* dengan tipe generik
-untuk membatasi tipe generik agar hanya menerima tipe-tipe yang memiliki
-perilaku tertentu, alih-alih sembarang tipe.
+perilaku secara generik. Anda bisa menggabungkan *trait* dengan generic type
+untuk membatasi generic type agar hanya menerima type-type yang memiliki
+perilaku tertentu, alih-alih sembarang type.
 
 Terakhir, kita akan membahas *lifetime* (masa hidup): sejenis *generics* yang
 memberi *compiler* (kompilator) informasi tentang bagaimana *reference*
@@ -35,10 +35,10 @@ daripada yang bisa ia lakukan tanpa bantuan kita.
 
 ## Menghilangkan Duplikasi dengan Mengekstrak Fungsi
 
-*Generics* memungkinkan kita mengganti tipe spesifik dengan placeholder yang
-mewakili banyak tipe untuk menghilangkan duplikasi kode. Sebelum menyelami
+*Generics* memungkinkan kita mengganti type spesifik dengan placeholder yang
+mewakili banyak type untuk menghilangkan duplikasi kode. Sebelum menyelami
 sintaks *generics*, mari kita lihat dulu cara menghilangkan duplikasi dengan
-cara yang tidak melibatkan tipe generik, yaitu dengan mengekstrak fungsi yang
+cara yang tidak melibatkan generic type, yaitu dengan mengekstrak fungsi yang
 mengganti nilai spesifik dengan placeholder yang mewakili banyak nilai.
 Kemudian, kita akan menerapkan teknik yang sama untuk mengekstrak fungsi
 generik! Dengan melihat cara mengenali kode duplikat yang bisa Anda ekstrak
@@ -120,7 +120,7 @@ Listing 10-2 menjadi Listing 10-3:
 Selanjutnya, kita akan memakai langkah-langkah yang sama dengan *generics*
 untuk mengurangi duplikasi kode. Sama seperti badan fungsi yang dapat
 beroperasi pada `list` yang abstrak alih-alih nilai-nilai spesifik, *generics*
-memungkinkan kode beroperasi pada tipe-tipe abstrak.
+memungkinkan kode beroperasi pada type-type abstrak.
 
 Sebagai contoh, katakanlah kita memiliki dua fungsi: satu yang menemukan item
 terbesar dalam sebuah *slice* berisi nilai `i32` dan satu yang menemukan item

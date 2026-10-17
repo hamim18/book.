@@ -20,7 +20,7 @@ Alamat IP mana pun dapat berupa alamat versi empat atau versi enam, tetapi
 tidak keduanya sekaligus. Sifat alamat IP itu menjadikan struktur data *enum*
 tepat untuk dipakai, karena sebuah nilai *enum* hanya dapat menjadi salah satu
 variannya. Alamat versi empat dan versi enam pada dasarnya tetap alamat IP,
-jadi keduanya seharusnya diperlakukan sebagai tipe yang sama ketika kode
+jadi keduanya seharusnya diperlakukan sebagai type yang sama ketika kode
 menangani situasi yang berlaku untuk alamat IP jenis apa pun.
 
 Kita dapat menyatakan konsep ini dalam kode dengan mendefinisikan enumerasi
@@ -31,7 +31,7 @@ Kita dapat menyatakan konsep ini dalam kode dengan mendefinisikan enumerasi
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-01-defining-enums/src/main.rs:def}}
 ```
 
-`IpAddrKind` kini adalah tipe data kustom yang dapat kita pakai di bagian lain
+`IpAddrKind` kini adalah data custom type yang dapat kita pakai di bagian lain
 kode kita.
 
 <a id="enum-values"></a>
@@ -47,7 +47,7 @@ seperti ini:
 Perhatikan bahwa *variant*-*variant* *enum* berada dalam ruang nama di bawah
 pengenalnya, dan kita memakai titik dua ganda untuk memisahkan keduanya. Ini
 berguna karena kini nilai `IpAddrKind::V4` dan `IpAddrKind::V6` sama-sama
-bertipe `IpAddrKind`. Kita kemudian dapat, misalnya, mendefinisikan sebuah
+typed `IpAddrKind`. Kita kemudian dapat, misalnya, mendefinisikan sebuah
 fungsi yang menerima `IpAddrKind` apa pun:
 
 ```rust
@@ -61,7 +61,7 @@ Dan kita dapat memanggil fungsi ini dengan *variant* mana pun:
 ```
 
 Memakai *enum* memiliki lebih banyak lagi keunggulan. Kalau dipikirkan lebih
-jauh tentang tipe alamat IP kita, saat ini kita belum punya cara untuk
+jauh tentang type alamat IP kita, saat ini kita belum punya cara untuk
 menyimpan _data_ alamat IP yang sesungguhnya; kita hanya tahu _jenisnya_.
 Mengingat Anda baru mempelajari *struct* di Bab 5, Anda mungkin tergoda untuk
 menangani masalah ini dengan *struct* seperti yang ditunjukkan pada Listing
@@ -76,8 +76,8 @@ menangani masalah ini dengan *struct* seperti yang ditunjukkan pada Listing
 </Listing>
 
 Di sini, kita telah mendefinisikan *struct* `IpAddr` yang memiliki dua *field*:
-*field* `kind` bertipe `IpAddrKind` (*enum* yang kita definisikan sebelumnya) dan
-*field* `address` bertipe `String`. Kita memiliki dua instance *struct* ini. Yang
+*field* `kind` typed `IpAddrKind` (*enum* yang kita definisikan sebelumnya) dan
+*field* `address` typed `String`. Kita memiliki dua instance *struct* ini. Yang
 pertama adalah `home`, yang memiliki nilai `IpAddrKind::V4` sebagai `kind`-nya
 beserta data alamat terkait `127.0.0.1`. Instance kedua adalah `loopback`. Ia
 memiliki *variant* lain dari `IpAddrKind`, yaitu `V6`, sebagai nilai
@@ -98,12 +98,12 @@ Kita melampirkan data ke setiap *variant* *enum* secara langsung, jadi tidak
 perlu *struct* tambahan. Di sini, juga lebih mudah melihat detail lain dari
 cara kerja *enum*: nama setiap *variant* *enum* yang kita definisikan juga menjadi
 fungsi yang menyusun instance *enum*. Artinya, `IpAddr::V4()` adalah pemanggilan
-fungsi yang menerima argumen `String` dan mengembalikan instance bertipe
+fungsi yang menerima argumen `String` dan mengembalikan instance typed
 `IpAddr`. Kita otomatis mendapatkan fungsi konstruktor ini terdefinisi
 sebagai hasil dari mendefinisikan *enum*.
 
 Ada keunggulan lain dari memakai *enum* alih-alih *struct*: setiap *variant*
-dapat memiliki tipe dan jumlah data terkait yang berbeda. Alamat IP versi
+dapat memiliki type dan jumlah data terkait yang berbeda. Alamat IP versi
 empat akan selalu memiliki empat komponen numerik yang nilainya antara 0 dan
 255. Jika kita ingin menyimpan alamat `V4` sebagai empat nilai `u8` tetapi
 tetap menyatakan alamat `V6` sebagai satu nilai `String`, kita tidak akan bisa
@@ -139,20 +139,20 @@ enum IpAddr {
 ```
 
 Kode ini mengilustrasikan bahwa Anda dapat meletakkan data jenis apa pun di
-dalam *variant* *enum*: string, tipe numerik, atau *struct*, misalnya. Anda
-bahkan dapat menyertakan *enum* lain! Selain itu, tipe-tipe pustaka standar
+dalam *variant* *enum*: string, type numerik, atau *struct*, misalnya. Anda
+bahkan dapat menyertakan *enum* lain! Selain itu, type-type pustaka standar
 sering kali tidak jauh lebih rumit daripada yang mungkin Anda buat sendiri.
 
 Perhatikan bahwa meskipun pustaka standar memuat definisi untuk `IpAddr`,
 kita tetap dapat membuat dan memakai definisi kita sendiri tanpa konflik
 karena kita belum membawa definisi pustaka standar ke dalam *scope* (cakupan)
-kita. Kita akan membahas lebih lanjut cara membawa tipe ke dalam *scope* di Bab
+kita. Kita akan membahas lebih lanjut cara membawa type ke dalam *scope* di Bab
 7.
 
 Mari kita lihat contoh *enum* lain pada Listing 6-2: yang ini memiliki beragam
-tipe yang tertanam di *variant*-nya.
+type yang tertanam di *variant*-nya.
 
-<Listing number="6-2" caption="Enum `Message` yang varian-variannya masing-masing menyimpan jumlah dan tipe nilai yang berbeda">
+<Listing number="6-2" caption="Enum `Message` yang varian-variannya masing-masing menyimpan jumlah dan type nilai yang berbeda">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}
@@ -160,7 +160,7 @@ tipe yang tertanam di *variant*-nya.
 
 </Listing>
 
-*Enum* ini memiliki empat *variant* dengan tipe yang berbeda:
+*Enum* ini memiliki empat *variant* dengan type yang berbeda:
 
 - `Quit`: tidak memiliki data apa pun yang terkait dengannya
 - `Move`: memiliki *field* bernama, seperti *struct*
@@ -169,7 +169,7 @@ tipe yang tertanam di *variant*-nya.
 
 Mendefinisikan *enum* dengan *variant*-*variant* seperti pada Listing 6-2 mirip
 dengan mendefinisikan berbagai jenis definisi *struct*, hanya saja *enum* tidak
-memakai keyword `struct` dan semua *variant*-nya dikelompokkan di bawah tipe
+memakai keyword `struct` dan semua *variant*-nya dikelompokkan di bawah type
 `Message`. *Struct*-struct berikut dapat menampung data yang sama seperti yang
 ditampung *variant*-*variant* *enum* sebelumnya:
 
@@ -178,9 +178,9 @@ ditampung *variant*-*variant* *enum* sebelumnya:
 ```
 
 Tetapi jika kita memakai *struct*-struct yang berbeda, yang masing-masing
-memiliki tipenya sendiri, kita tidak dapat semudah itu mendefinisikan sebuah
+memiliki typenya sendiri, kita tidak dapat semudah itu mendefinisikan sebuah
 fungsi yang menerima pesan jenis apa pun, tidak seperti dengan *enum* `Message`
-yang didefinisikan pada Listing 6-2, yang merupakan satu tipe.
+yang didefinisikan pada Listing 6-2, yang merupakan satu type.
 
 Ada satu kemiripan lagi antara *enum* dan *struct*: sama seperti kita dapat
 mendefinisikan metode pada *struct* dengan `impl`, kita juga dapat
@@ -206,14 +206,14 @@ Mari kita lihat *enum* lain di pustaka standar yang sangat umum dan berguna:
 ### Enum `Option`
 
 Bagian ini mengeksplorasi studi kasus `Option`, yang merupakan *enum* lain yang
-didefinisikan oleh pustaka standar. Tipe `Option` mengkodekan skenario yang
+didefinisikan oleh pustaka standar. Type `Option` mengkodekan skenario yang
 sangat umum ketika sebuah nilai bisa berupa sesuatu, atau bisa juga bukan
 apa-apa.
 
 Contohnya, jika Anda meminta item pertama dari daftar yang tidak kosong, Anda
 akan mendapatkan sebuah nilai. Jika Anda meminta item pertama dari daftar
 kosong, Anda tidak akan mendapatkan apa-apa. Menyatakan konsep ini dalam
-bentuk sistem tipe berarti *compiler* (kompilator) dapat memeriksa apakah Anda
+bentuk type system berarti *compiler* (kompilator) dapat memeriksa apakah Anda
 telah menangani semua kasus yang seharusnya Anda tangani; fungsionalitas ini
 dapat mencegah bug yang sangat umum terjadi di bahasa pemrograman lain.
 
@@ -228,7 +228,7 @@ Dalam presentasinya tahun 2009 yang berjudul “Null References: The Billion
 Dollar Mistake,” Tony Hoare, penemu null, berkata:
 
 > Saya menyebutnya kesalahan senilai satu miliar dolar. Saat itu, saya sedang
-> merancang sistem tipe komprehensif pertama untuk *reference* di sebuah bahasa
+> merancang type system komprehensif pertama untuk *reference* di sebuah bahasa
 > berorientasi objek. Tujuan saya adalah memastikan bahwa semua penggunaan
 > *reference* benar-benar aman, dengan pemeriksaan yang dilakukan otomatis oleh
 > *compiler*. Tetapi saya tidak kuasa menahan godaan untuk memasukkan null
@@ -262,36 +262,36 @@ enum Option<T> {
 Anda tidak perlu membawanya ke dalam *scope* secara eksplisit. *variant*-*variant*-nya
 juga disertakan dalam *prelude*: Anda dapat memakai `Some` dan `None` secara
 langsung tanpa awalan `Option::`. *Enum* `Option<T>` tetap hanyalah *enum* biasa,
-dan `Some(T)` serta `None` tetaplah *variant* bertipe `Option<T>`.
+dan `Some(T)` serta `None` tetaplah *variant* typed `Option<T>`.
 
 Sintaks `<T>` adalah fitur Rust yang belum kita bahas. Ia adalah parameter
-tipe generik, dan kita akan membahas *generics* (tipe generik) lebih mendetail di Bab 10.
+generic type, dan kita akan membahas *generics* (tipe generik) lebih mendetail di Bab 10.
 Untuk sekarang, yang perlu Anda ketahui hanyalah `<T>` berarti *variant*
-`Some` dari *enum* `Option` dapat menampung satu potong data bertipe apa pun,
-dan setiap tipe konkret yang dipakai menggantikan `T` menjadikan keseluruhan
-tipe `Option<T>` sebagai tipe yang berbeda. Berikut beberapa contoh pemakaian
-nilai `Option` untuk menampung tipe angka dan tipe char:
+`Some` dari *enum* `Option` dapat menampung satu potong data typed apa pun,
+dan setiap type konkret yang dipakai menggantikan `T` menjadikan keseluruhan
+type `Option<T>` sebagai type yang berbeda. Berikut beberapa contoh pemakaian
+nilai `Option` untuk menampung numeric type dan type char:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-06-option-examples/src/main.rs:here}}
 ```
 
-Tipe `some_number` adalah `Option<i32>`. Tipe `some_char` adalah
-`Option<char>`, yang merupakan tipe yang berbeda. Rust dapat menyimpulkan
-tipe-tipe ini karena kita telah menentukan nilai di dalam *variant* `Some`.
+Type `some_number` adalah `Option<i32>`. Type `some_char` adalah
+`Option<char>`, yang merupakan type yang berbeda. Rust dapat menyimpulkan
+type-type ini karena kita telah menentukan nilai di dalam *variant* `Some`.
 Untuk `absent_number`, Rust mengharuskan kita memberi anotasi pada
-keseluruhan tipe `Option`: *compiler* tidak dapat menyimpulkan tipe yang akan
+keseluruhan type `Option`: *compiler* tidak dapat menyimpulkan type yang akan
 ditampung *variant* `Some` yang bersesuaian hanya dengan melihat nilai `None`.
 Di sini, kita memberi tahu Rust bahwa yang kita maksud adalah `absent_number`
-bertipe `Option<i32>`.
+typed `Option<i32>`.
 
 Ketika kita memiliki nilai `Some`, kita tahu bahwa ada nilai, dan nilai itu
 ditampung di dalam `Some`. Ketika kita memiliki nilai `None`, dalam arti
 tertentu itu sama dengan null: kita tidak memiliki nilai yang valid. Jadi,
 mengapa memiliki `Option<T>` lebih baik daripada memiliki null?
 
-Singkatnya, karena `Option<T>` dan `T` (dengan `T` dapat berupa tipe apa pun)
-adalah tipe yang berbeda, *compiler* tidak akan mengizinkan kita memakai nilai
+Singkatnya, karena `Option<T>` dan `T` (dengan `T` dapat berupa type apa pun)
+adalah type yang berbeda, *compiler* tidak akan mengizinkan kita memakai nilai
 `Option<T>` seolah-olah ia pasti nilai yang valid. Contohnya, kode ini tidak
 akan terkompilasi, karena ia mencoba menambahkan `i8` ke `Option<i8>`:
 
@@ -306,11 +306,11 @@ Jika kita menjalankan kode ini, kita mendapatkan pesan error seperti ini:
 ```
 
 Sengit! Pada dasarnya, pesan error ini berarti Rust tidak memahami cara
-menambahkan `i8` dan `Option<i8>`, karena keduanya adalah tipe yang berbeda.
-Ketika kita memiliki nilai bertipe seperti `i8` di Rust, *compiler* akan
+menambahkan `i8` dan `Option<i8>`, karena keduanya adalah type yang berbeda.
+Ketika kita memiliki nilai typed seperti `i8` di Rust, *compiler* akan
 memastikan bahwa kita selalu memiliki nilai yang valid. Kita dapat melangkah
 dengan percaya diri tanpa harus memeriksa null sebelum memakai nilai itu.
-Hanya ketika kita memiliki `Option<i8>` (atau tipe nilai apa pun yang sedang
+Hanya ketika kita memiliki `Option<i8>` (atau type nilai apa pun yang sedang
 kita olah) kita harus mengkhawatirkan kemungkinan tidak adanya nilai, dan
 *compiler* akan memastikan kita menangani kasus itu sebelum memakai nilainya.
 
@@ -321,15 +321,15 @@ padahal sebenarnya null.
 
 Menghilangkan risiko keliru menganggap sebuah nilai tidak-null membantu Anda
 lebih percaya diri terhadap kode Anda. Untuk memiliki nilai yang mungkin saja
-null, Anda harus memilihnya secara eksplisit dengan membuat tipe nilai itu
+null, Anda harus memilihnya secara eksplisit dengan membuat type nilai itu
 `Option<T>`. Lalu, ketika Anda memakai nilai itu, Anda diwajibkan untuk secara
 eksplisit menangani kasus ketika nilainya null. Di mana pun sebuah nilai
-bertipe selain `Option<T>`, Anda _dapat_ dengan aman mengasumsikan bahwa nilai
+typed selain `Option<T>`, Anda _dapat_ dengan aman mengasumsikan bahwa nilai
 itu tidak null. Ini adalah keputusan desain yang disengaja oleh Rust untuk
 membatasi meratanya null dan meningkatkan keamanan kode Rust.
 
 Jadi, bagaimana cara mengeluarkan nilai `T` dari *variant* `Some` ketika Anda
-memiliki nilai bertipe `Option<T>` supaya Anda dapat memakai nilai itu? *Enum*
+memiliki nilai typed `Option<T>` supaya Anda dapat memakai nilai itu? *Enum*
 `Option<T>` memiliki banyak metode yang berguna dalam berbagai situasi; Anda
 dapat melihatnya di [dokumentasinya][docs]<!-- ignore -->. Membiasakan diri
 dengan metode-metode pada `Option<T>` akan sangat berguna dalam perjalanan

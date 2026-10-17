@@ -101,7 +101,7 @@ apalagi jika kita ingin mencocokkan, katakanlah, angka apa pun antara 1 dan
 1.000!
 
 Kompilator memeriksa bahwa rentangnya tidak kosong pada waktu kompilasi, dan
-karena satu-satunya tipe yang bisa dipakai Rust untuk mengetahui apakah
+karena satu-satunya type yang bisa dipakai Rust untuk mengetahui apakah
 sebuah rentang kosong atau tidak adalah `char` dan nilai numerik, rentang
 hanya diizinkan untuk nilai numerik atau `char`.
 
@@ -278,7 +278,7 @@ sebuah *tuple* dan mendestrukturisasi semua nilai primitifnya:
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-05-destructuring-structs-and-tuples/src/main.rs:here}}
 ```
 
-Kode ini memungkinkan kita memecah tipe kompleks menjadi bagian-bagian
+Kode ini memungkinkan kita memecah type kompleks menjadi bagian-bagian
 komponennya supaya kita bisa memakai nilai-nilai yang kita minati secara
 terpisah.
 
@@ -325,7 +325,7 @@ Dalam kebanyakan kasus, ketika Anda tidak lagi membutuhkan parameter fungsi
 tertentu, Anda akan mengubah tanda tangannya supaya tidak menyertakan
 parameter yang tidak terpakai itu. Mengabaikan parameter fungsi bisa sangat
 berguna dalam kasus ketika, contohnya, Anda mengimplementasikan sebuah *trait*
-yang mengharuskan tanda tangan tipe tertentu, tetapi badan fungsi di
+yang mengharuskan tanda tangan type tertentu, tetapi badan fungsi di
 implementasi Anda tidak membutuhkan salah satu parameternya. Anda pun
 terhindar dari peringatan kompilator tentang parameter fungsi yang tidak
 terpakai, yang akan Anda dapatkan jika memakai nama.

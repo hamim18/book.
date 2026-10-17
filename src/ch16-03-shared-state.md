@@ -14,7 +14,7 @@ tidak boleh lagi memakai nilai itu. Konkurensi shared-memory seperti
 *ownership* ganda: Beberapa thread dapat mengakses lokasi memori yang sama pada
 saat yang sama. Seperti yang Anda lihat di Bab 15, ketika *smart pointer*
 memungkinkan *ownership* ganda, *ownership* ganda dapat menambah kompleksitas
-karena pemilik-pemilik yang berbeda ini perlu dikelola. Sistem tipe dan
+karena pemilik-pemilik yang berbeda ini perlu dikelola. Sistem type dan
 aturan *ownership* Rust sangat membantu dalam menangani pengelolaan ini dengan
 benar. Sebagai contoh, mari kita lihat mutex, salah satu primitif konkurensi
 yang lebih umum untuk memori bersama.
@@ -50,7 +50,7 @@ selesai memakainya, tidak ada orang lain yang bisa berbicara. Jika pengelolaan
 mikrofon bersama itu kacau, panel tidak akan berjalan sesuai rencana!
 
 Pengelolaan mutex bisa sangat rumit untuk dilakukan dengan benar, yang menjadi
-alasan begitu banyak orang antusias dengan *channel*. Namun, berkat sistem tipe
+alasan begitu banyak orang antusias dengan *channel*. Namun, berkat type system
 dan aturan *ownership* Rust, Anda tidak bisa salah dalam mengunci dan membuka
 kunci.
 
@@ -67,7 +67,7 @@ konteks single-threaded, seperti ditunjukkan pada Listing 16-12.
 
 </Listing>
 
-Seperti banyak tipe lain, kita membuat `Mutex<T>` menggunakan associated
+Seperti banyak type lain, kita membuat `Mutex<T>` menggunakan associated
 function `new`. Untuk mengakses data di dalam mutex, kita memakai metode
 `lock` untuk memperoleh lock. Panggilan ini akan memblokir thread saat ini
 sehingga ia tidak bisa melakukan pekerjaan apa pun sampai giliran kita
@@ -80,16 +80,16 @@ situasi itu.
 
 Setelah kita memperoleh lock, kita dapat memperlakukan nilai kembaliannya,
 yang bernama `num` dalam kasus ini, sebagai *mutable* *reference* ke data di
-dalamnya. Sistem tipe memastikan bahwa kita memperoleh lock sebelum memakai
-nilai di dalam `m`. Tipe `m` adalah `Mutex<i32>`, bukan `i32`, jadi kita
+dalamnya. Sistem type memastikan bahwa kita memperoleh lock sebelum memakai
+nilai di dalam `m`. Type `m` adalah `Mutex<i32>`, bukan `i32`, jadi kita
 _harus_ memanggil `lock` untuk bisa memakai nilai `i32` itu. Kita tidak bisa
-lupa; sistem tipe tidak akan mengizinkan kita mengakses `i32` bagian dalam
+lupa; type system tidak akan mengizinkan kita mengakses `i32` bagian dalam
 jika tidak.
 
-Panggilan ke `lock` mengembalikan tipe bernama `MutexGuard`, yang dibungkus
-dalam `LockResult` yang kita tangani dengan panggilan ke `unwrap`. Tipe
+Panggilan ke `lock` mengembalikan type bernama `MutexGuard`, yang dibungkus
+dalam `LockResult` yang kita tangani dengan panggilan ke `unwrap`. Type
 `MutexGuard` mengimplementasikan `Deref` untuk menunjuk ke data bagian dalam
-kita; tipe itu juga memiliki implementasi `Drop` yang melepas lock secara
+kita; type itu juga memiliki implementasi `Drop` yang melepas lock secara
 otomatis ketika sebuah `MutexGuard` keluar dari *scope*, yang terjadi di akhir
 *scope* dalam. Akibatnya, kita tidak berisiko lupa melepas lock dan menghalangi
 mutex dipakai thread lain karena pelepasan lock terjadi secara otomatis.
@@ -172,7 +172,7 @@ Wah, pesan error itu panjang lebar sekali! Berikut bagian penting yang perlu
 difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
 Kompilator juga memberi tahu alasannya: `` the trait `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
-adalah salah satu *trait* yang memastikan bahwa tipe yang kita pakai dengan
+adalah salah satu *trait* yang memastikan bahwa type yang kita pakai dengan
 thread memang dimaksudkan untuk dipakai dalam situasi konkuren.
 
 Sayangnya, `Rc<T>` tidak aman untuk dibagikan antar-thread. Ketika `Rc<T>`
@@ -181,22 +181,22 @@ mengelola jumlah referensi, ia menambah jumlah itu untuk setiap panggilan ke
 memakai primitif konkurensi apa pun untuk memastikan perubahan pada jumlah itu
 tidak bisa disela thread lain. Ini bisa menyebabkan jumlah yang salah—bug
 samar yang pada gilirannya bisa menyebabkan kebocoran memori atau nilai yang
-dibebaskan sebelum kita selesai memakainya. Yang kita butuhkan adalah tipe
+dibebaskan sebelum kita selesai memakainya. Yang kita butuhkan adalah type
 yang persis seperti `Rc<T>`, tetapi mengubah jumlah referensi dengan cara yang
 thread-safe.
 
 #### Penghitungan Referensi Atomik dengan `Arc<T>`
 
-Untungnya, `Arc<T>` _adalah_ tipe seperti `Rc<T>` yang aman dipakai dalam
-situasi konkuren. Huruf _a_ berarti _atomic_ (atomik), yang berarti tipe itu
-adalah tipe yang _dihitung referensinya secara atomik_. Atomik adalah jenis
+Untungnya, `Arc<T>` _adalah_ type seperti `Rc<T>` yang aman dipakai dalam
+situasi konkuren. Huruf _a_ berarti _atomic_ (atomik), yang berarti type itu
+adalah type yang _dihitung referensinya secara atomik_. Atomik adalah jenis
 primitif konkurensi tambahan yang tidak akan kita bahas secara mendetail di
 sini: Lihat dokumentasi pustaka standar untuk [`std::sync::atomic`][atomic]<!--
 ignore --> untuk detail lebih lanjut. Pada titik ini, Anda cukup tahu bahwa
-atomik bekerja seperti tipe primitif tetapi aman dibagikan antar-thread.
+atomik bekerja seperti primitive type tetapi aman dibagikan antar-thread.
 
-Anda mungkin lalu bertanya-tanya mengapa semua tipe primitif tidak atomik dan
-mengapa tipe-tipe pustaka standar tidak diimplementasikan memakai `Arc<T>`
+Anda mungkin lalu bertanya-tanya mengapa semua primitive type tidak atomik dan
+mengapa type-type pustaka standar tidak diimplementasikan memakai `Arc<T>`
 secara default. Alasannya adalah thread safety datang dengan denda performa
 yang hanya ingin Anda bayar ketika benar-benar membutuhkannya. Jika Anda hanya
 melakukan operasi pada nilai di dalam satu thread, kode Anda dapat berjalan
@@ -233,11 +233,11 @@ ini, Anda dapat membagi perhitungan menjadi bagian-bagian independen,
 memecah bagian-bagian itu lintas thread, lalu memakai `Mutex<T>` agar setiap
 thread memperbarui hasil akhir dengan bagiannya.
 
-Perhatikan bahwa jika Anda melakukan operasi numerik sederhana, ada tipe yang
-lebih sederhana daripada tipe `Mutex<T>` yang disediakan oleh [modul
-`std::sync::atomic` pada pustaka standar][atomic]<!-- ignore -->. Tipe-tipe
-ini menyediakan akses atomik, konkuren, dan aman ke tipe primitif. Kita
-memilih memakai `Mutex<T>` dengan tipe primitif untuk contoh ini supaya kita
+Perhatikan bahwa jika Anda melakukan operasi numerik sederhana, ada type yang
+lebih sederhana daripada type `Mutex<T>` yang disediakan oleh [modul
+`std::sync::atomic` pada pustaka standar][atomic]<!-- ignore -->. Type-type
+ini menyediakan akses atomik, konkuren, dan aman ke primitive type. Kita
+memilih memakai `Mutex<T>` dengan primitive type untuk contoh ini supaya kita
 dapat berkonsentrasi pada cara kerja `Mutex<T>`.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -267,6 +267,6 @@ Dokumentasi API pustaka standar untuk `Mutex<T>` dan `MutexGuard` menawarkan
 informasi yang berguna.
 
 Kita akan menutup bab ini dengan membicarakan *trait* `Send` dan `Sync` serta
-cara kita dapat memakainya dengan tipe buatan sendiri.
+cara kita dapat memakainya dengan type buatan sendiri.
 
 [atomic]: ../std/sync/atomic/index.html

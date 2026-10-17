@@ -13,7 +13,7 @@
 
 - [Konsep Dasar Pemrograman](ch03-00-common-programming-concepts.md)
   - [Variabel dan Mutabilitas](ch03-01-variables-and-mutability.md)
-  - [Tipe Data](ch03-02-data-types.md)
+  - [Type Data](ch03-02-data-types.md)
   - [Fungsi](ch03-03-how-functions-work.md)
   - [Komentar](ch03-04-comments.md)
   - [Alur Kontrol](ch03-05-control-flow.md)
@@ -21,7 +21,7 @@
 - [Memahami Ownership (Kepemilikan)](ch04-00-understanding-ownership.md)
   - [Apa Itu Ownership?](ch04-01-what-is-ownership.md)
   - [References dan Borrowing](ch04-02-references-and-borrowing.md)
-  - [Tipe Slice](ch04-03-slices.md)
+  - [Type Slice](ch04-03-slices.md)
 
 - [Menggunakan Struct untuk Menyusun Data yang Berkaitan](ch05-00-structs.md)
   - [Mendefinisikan dan Menginstansiasi Struct](ch05-01-defining-structs.md)
@@ -50,8 +50,8 @@
   - [Error yang Dapat Dipulihkan dengan `Result`](ch09-02-recoverable-errors-with-result.md)
   - [Untuk `panic!` atau Tidak `panic!`](ch09-03-to-panic-or-not-to-panic.md)
 
-- [Tipe Generik, Trait, dan Lifetime](ch10-00-generics.md)
-  - [Tipe Data Generik](ch10-01-syntax.md)
+- [Type Generik, Trait, dan Lifetime](ch10-00-generics.md)
+  - [Type Data Generik](ch10-01-syntax.md)
   - [Mendefinisikan Perilaku Bersama dengan Trait](ch10-02-traits.md)
   - [Memvalidasi Reference dengan Lifetime](ch10-03-lifetime-syntax.md)
 
@@ -116,7 +116,7 @@
 - [Fitur Lanjutan](ch20-00-advanced-features.md)
   - [Unsafe Rust](ch20-01-unsafe-rust.md)
   - [Trait Lanjutan](ch20-02-advanced-traits.md)
-  - [Tipe Lanjutan](ch20-03-advanced-types.md)
+  - [Type Lanjutan](ch20-03-advanced-types.md)
   - [Fungsi dan Closure Lanjutan](ch20-04-advanced-functions-and-closures.md)
   - [Macro](ch20-05-macros.md)
 

@@ -1,6 +1,6 @@
 # Pola dan Pencocokan
 
-Pola adalah sintaks khusus di Rust untuk mencocokkan struktur tipe, baik yang
+Pola adalah sintaks khusus di Rust untuk mencocokkan struktur type, baik yang
 kompleks maupun yang sederhana. Memakai pola bersamaan dengan ekspresi
 `match` dan konstruksi lain memberi Anda kontrol yang lebih besar atas alur
 kontrol program. Sebuah pola terdiri dari kombinasi hal-hal berikut:

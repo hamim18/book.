@@ -385,10 +385,10 @@ keluaran fungsinya tidak sama dengan masukannya.
 Di balik layar, *macro* `assert_eq!` dan `assert_ne!` masing-masing memakai
 operator `==` dan `!=`. Ketika asersinya gagal, *macro*-macro ini mencetak
 argumennya memakai pemformatan debug, yang berarti nilai yang dibandingkan
-harus mengimplementasikan *trait* `PartialEq` dan `Debug`. Semua tipe
-primitif dan sebagian besar tipe pustaka standar mengimplementasikan *trait*
+harus mengimplementasikan *trait* `PartialEq` dan `Debug`. Semua type
+primitif dan sebagian besar type pustaka standar mengimplementasikan *trait*
 ini. Untuk *struct* dan *enum* yang Anda definisikan sendiri, Anda perlu
-mengimplementasikan `PartialEq` untuk menegaskan kesamaan tipe-tipe itu.
+mengimplementasikan `PartialEq` untuk menegaskan kesamaan type-type itu.
 Anda juga perlu mengimplementasikan `Debug` untuk mencetak nilai-nilainya
 ketika asersinya gagal. Karena kedua *trait* itu adalah *trait* yang dapat
 diturunkan, seperti yang disebutkan di Listing 5-12 pada Bab 5, ini
@@ -466,7 +466,7 @@ yang kita harapkan terjadi.
 
 Selain memeriksa nilai kembalian, penting untuk memeriksa bahwa kode kita
 menangani kondisi error seperti yang kita harapkan. Sebagai contoh,
-perhatikan tipe `Guess` yang kita buat di Bab 9, Listing 9-13. Kode lain
+perhatikan type `Guess` yang kita buat di Bab 9, Listing 9-13. Kode lain
 yang memakai `Guess` bergantung pada jaminan bahwa instance `Guess` hanya
 akan berisi nilai antara 1 dan 100. Kita bisa menulis pengujian yang
 memastikan bahwa percobaan membuat instance `Guess` dengan nilai di luar
@@ -573,7 +573,7 @@ panic:
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs:here}}
 ```
 
-Fungsi `it_works` sekarang memiliki tipe kembalian `Result<(), String>`. Di
+Fungsi `it_works` sekarang memiliki return type `Result<(), String>`. Di
 badan fungsi, alih-alih memanggil *macro* `assert_eq!`, kita mengembalikan
 `Ok(())` ketika pengujian lulus dan `Err` dengan `String` di dalamnya
 ketika pengujian gagal.

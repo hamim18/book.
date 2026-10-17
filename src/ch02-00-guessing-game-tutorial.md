@@ -99,8 +99,8 @@ standar dan dibawa ke dalam *scope* setiap program. Kumpulan ini disebut
 *prelude*, dan Anda dapat melihat semuanya [di dokumentasi pustaka
 standar][prelude].
 
-Jika tipe yang ingin Anda pakai tidak ada di dalam *prelude*, Anda harus
-membawa tipe itu ke dalam *scope* secara eksplisit dengan pernyataan `use`.
+Jika type yang ingin Anda pakai tidak ada di dalam *prelude*, Anda harus
+membawa type itu ke dalam *scope* secara eksplisit dengan pernyataan `use`.
 Memakai pustaka `std::io` memberi Anda sejumlah fitur berguna, termasuk
 kemampuan untuk menerima masukan pengguna.
 
@@ -165,14 +165,14 @@ Tanda sama dengan (`=`) memberi tahu Rust bahwa kita ingin mengikat sesuatu
 ke variabel itu sekarang. Di sebelah kanan tanda sama dengan terdapat nilai
 yang diikat ke `guess`, yaitu hasil dari memanggil `String::new`, fungsi
 yang mengembalikan instance baru dari `String`. [`String`][string]<!--
-ignore --> adalah tipe string yang disediakan pustaka standar berupa teks
+ignore --> adalah type string yang disediakan pustaka standar berupa teks
 yang dapat bertambah dan terenkode UTF-8.
 
 Sintaks `::` pada baris `::new` menandakan bahwa `new` adalah *associated
-function* dari tipe `String`. *Associated function* adalah fungsi yang
-diimplementasikan pada sebuah tipe, dalam hal ini `String`. Fungsi `new`
+function* dari type `String`. *Associated function* adalah fungsi yang
+diimplementasikan pada sebuah type, dalam hal ini `String`. Fungsi `new`
 ini membuat string baru yang kosong. Anda akan menemukan fungsi `new` pada
-banyak tipe karena itu adalah nama yang umum untuk fungsi yang membuat
+banyak type karena itu adalah nama yang umum untuk fungsi yang membuat
 nilai baru dari jenis tertentu.
 
 Secara lengkap, baris `let mut guess = String::new();` telah membuat
@@ -193,7 +193,7 @@ memungkinkan kita menangani masukan pengguna:
 Jika kita tidak mengimpor *module* `io` dengan `use std::io;` di awal
 program, kita tetap bisa memakai fungsi itu dengan menulis pemanggilannya
 sebagai `std::io::stdin`. Fungsi `stdin` mengembalikan instance
-[`std::io::Stdin`][iostdin]<!-- ignore -->, yaitu tipe yang
+[`std::io::Stdin`][iostdin]<!-- ignore -->, yaitu type yang
 merepresentasikan handle ke masukan standar untuk terminal Anda.
 
 Berikutnya, baris `.read_line(&mut guess)` memanggil metode
@@ -247,19 +247,19 @@ Seperti yang disebutkan sebelumnya, `read_line` memasukkan apa pun yang
 diketik pengguna ke string yang kita berikan, tetapi ia juga mengembalikan
 nilai `Result`. [`Result`][result]<!-- ignore --> adalah
 [_enumeration_][enums]<!-- ignore --> (enumerasi), yang sering disebut
-*enum*, yaitu tipe yang dapat berada pada salah satu dari beberapa keadaan
+*enum*, yaitu type yang dapat berada pada salah satu dari beberapa keadaan
 yang mungkin. Setiap keadaan yang mungkin itu kita sebut *variant*
 (varian).
 
 [Bab 6][enums]<!-- ignore --> akan membahas *enum* lebih detail. Tujuan
-tipe-tipe `Result` ini adalah untuk mengodekan informasi penanganan error.
+type-type `Result` ini adalah untuk mengodekan informasi penanganan error.
 
 *Variant* `Result` adalah `Ok` dan `Err`. *Variant* `Ok` menandakan
 operasinya berhasil, dan ia memuat nilai yang berhasil dihasilkan.
 *Variant* `Err` berarti operasinya gagal, dan ia memuat informasi tentang
 bagaimana atau mengapa operasi itu gagal.
 
-Nilai bertipe `Result`, seperti nilai dari tipe mana pun, memiliki metode
+Nilai typed `Result`, seperti nilai dari type mana pun, memiliki metode
 yang didefinisikan padanya. Sebuah instance `Result` memiliki [metode
 `expect`][expect]<!-- ignore --> yang dapat Anda panggil. Jika instance
 `Result` ini bernilai `Err`, `expect` akan membuat program crash dan
@@ -652,14 +652,14 @@ jelaskan.
 
 </Listing>
 
-Pertama, kita menambahkan pernyataan `use` lain, membawa tipe bernama
-`std::cmp::Ordering` ke dalam *scope* dari pustaka standar. Tipe
+Pertama, kita menambahkan pernyataan `use` lain, membawa type bernama
+`std::cmp::Ordering` ke dalam *scope* dari pustaka standar. Type
 `Ordering` adalah *enum* lain dan memiliki *variant* `Less`, `Greater`, dan
 `Equal`. Ketiganya adalah tiga kemungkinan hasil ketika Anda membandingkan
 dua nilai.
 
 Kemudian, kita menambahkan lima baris baru di bagian bawah yang memakai
-tipe `Ordering`. Metode `cmp` membandingkan dua nilai dan dapat dipanggil
+type `Ordering`. Metode `cmp` membandingkan dua nilai dan dapat dipanggil
 pada apa pun yang dapat dibandingkan. Metode ini menerima sebuah
 *reference* ke apa pun yang ingin Anda bandingkan dengannya: Di sini, ia
 membandingkan `guess` dengan `secret_number`. Lalu, ia mengembalikan
@@ -707,20 +707,20 @@ anchor or snip comments
 ```
 
 Inti errornya menyatakan bahwa terdapat _tipe yang tidak cocok_. Rust
-memiliki sistem tipe statis yang kuat. Namun, ia juga memiliki inferensi
-tipe. Ketika kita menulis `let mut guess = String::new()`, Rust mampu
+memiliki type system statis yang kuat. Namun, ia juga memiliki inferensi
+type. Ketika kita menulis `let mut guess = String::new()`, Rust mampu
 menyimpulkan bahwa `guess` harus berupa `String` dan tidak memaksa kita
-menulis tipenya. Sebaliknya, `secret_number` adalah tipe angka. Beberapa
-tipe angka Rust dapat memiliki nilai antara 1 dan 100: `i32`, angka
+menulis typenya. Sebaliknya, `secret_number` adalah numeric type. Beberapa
+numeric type Rust dapat memiliki nilai antara 1 dan 100: `i32`, angka
 32-bit; `u32`, angka 32-bit tak bertanda; `i64`, angka 64-bit; serta
 lainnya. Kecuali ditentukan lain, Rust secara bawaan memilih `i32`, yang
-merupakan tipe `secret_number` kecuali Anda menambahkan informasi tipe di
-tempat lain yang akan membuat Rust menyimpulkan tipe angka yang berbeda.
+merupakan type `secret_number` kecuali Anda menambahkan informasi type di
+tempat lain yang akan membuat Rust menyimpulkan numeric type yang berbeda.
 Alasan terjadinya error adalah Rust tidak dapat membandingkan string
-dengan tipe angka.
+dengan numeric type.
 
 Pada akhirnya, kita ingin mengonversi `String` yang dibaca program sebagai
-masukan menjadi tipe angka supaya kita dapat membandingkannya secara
+masukan menjadi numeric type supaya kita dapat membandingkannya secara
 numerik dengan angka rahasia. Kita melakukannya dengan menambahkan baris
 ini ke badan fungsi `main`:
 
@@ -744,7 +744,7 @@ variabel `guess` alih-alih memaksa kita membuat dua variabel unik, seperti
 `guess_str` dan `guess`, misalnya. Kita akan membahasnya lebih detail di
 [Bab 3][shadowing]<!-- ignore -->, tetapi untuk sekarang, ketahuilah bahwa
 fitur ini sering dipakai ketika Anda ingin mengonversi nilai dari satu
-tipe ke tipe lain.
+type ke type lain.
 
 Kita mengikat variabel baru ini ke ekspresi `guess.trim().parse()`.
 `guess` dalam ekspresi itu merujuk ke variabel `guess` asli yang berisi
@@ -760,25 +760,25 @@ return dan newline, `\r\n`.) Metode `trim` menghapus `\n` atau `\r\n`,
 sehingga hasilnya hanya `5`.
 
 [Metode `parse` pada string][parse]<!-- ignore --> mengonversi string ke
-tipe lain. Di sini, kita memakainya untuk mengonversi dari string ke
-angka. Kita perlu memberi tahu Rust tipe angka persis yang kita inginkan
+type lain. Di sini, kita memakainya untuk mengonversi dari string ke
+angka. Kita perlu memberi tahu Rust numeric type persis yang kita inginkan
 dengan memakai `let guess: u32`. Titik dua (`:`) setelah `guess` memberi
-tahu Rust bahwa kita akan menganotasi tipe variabelnya. Rust memiliki
-beberapa tipe angka bawaan; `u32` yang terlihat di sini adalah integer
+tahu Rust bahwa kita akan mengtype annotation variabelnya. Rust memiliki
+beberapa numeric type bawaan; `u32` yang terlihat di sini adalah integer
 32-bit tak bertanda. Ini pilihan bawaan yang bagus untuk angka positif
-kecil. Anda akan belajar tentang tipe angka lainnya di
+kecil. Anda akan belajar tentang numeric type lainnya di
 [Bab 3][integers]<!-- ignore -->.
 
 Selain itu, anotasi `u32` dalam contoh program ini dan perbandingan dengan
 `secret_number` berarti Rust akan menyimpulkan bahwa `secret_number` juga
 harus berupa `u32`. Jadi, sekarang perbandingannya akan terjadi antara dua
-nilai dengan tipe yang sama!
+nilai dengan type yang sama!
 
 Metode `parse` hanya akan bekerja pada karakter yang secara logis dapat
 dikonversi menjadi angka sehingga ia dapat dengan mudah menyebabkan error.
 Jika, misalnya, string berisi `A👍%`, tidak akan ada cara untuk
 mengonversinya menjadi angka. Karena ia mungkin gagal, metode `parse`
-mengembalikan tipe `Result`, sama seperti yang dilakukan metode
+mengembalikan type `Result`, sama seperti yang dilakukan metode
 `read_line` (dibahas sebelumnya di [“Menangani Kemungkinan Kegagalan
 dengan `Result`”](#handling-potential-failure-with-result)<!-- ignore -->).
 Kita akan memperlakukan `Result` ini dengan cara yang sama, yaitu memakai
@@ -925,7 +925,7 @@ menjadi `u32`, seperti yang ditunjukkan pada Listing 2-5.
 
 Kita beralih dari pemanggilan `expect` ke ekspresi `match` untuk beralih
 dari crash karena error menjadi menangani error. Ingat bahwa `parse`
-mengembalikan tipe `Result` dan `Result` adalah *enum* yang memiliki
+mengembalikan type `Result` dan `Result` adalah *enum* yang memiliki
 *variant* `Ok` dan `Err`. Kita memakai ekspresi `match` di sini, seperti
 yang kita lakukan dengan hasil `Ordering` dari metode `cmp`.
 
@@ -1005,7 +1005,7 @@ Proyek ini adalah cara praktik untuk memperkenalkan Anda pada banyak
 konsep baru Rust: `let`, `match`, fungsi, penggunaan *crate* eksternal, dan
 lainnya. Dalam beberapa bab berikutnya, Anda akan mempelajari
 konsep-konsep ini lebih detail. Bab 3 membahas konsep yang dimiliki
-sebagian besar bahasa pemrograman, seperti variabel, tipe data, dan
+sebagian besar bahasa pemrograman, seperti variabel, data type, dan
 fungsi, serta menunjukkan cara memakainya di Rust. Bab 4 mengeksplorasi
 *ownership*, fitur yang membuat Rust berbeda dari bahasa lain. Bab 5
 membahas *struct* dan sintaks metode, dan Bab 6 menjelaskan cara kerja

@@ -2,7 +2,7 @@
 
 Di berbagai bagian buku ini, kita sudah membahas atribut `derive`, yang dapat
 Anda terapkan pada definisi *struct* atau *enum*. Atribut `derive` menghasilkan kode
-yang mengimplementasikan *trait* dengan implementasi bawaannya sendiri pada tipe
+yang mengimplementasikan *trait* dengan implementasi bawaannya sendiri pada type
 yang Anda beri anotasi dengan sintaks `derive`.
 
 Dalam lampiran ini, kita menyajikan rujukan untuk semua *trait* di pustaka standar
@@ -10,7 +10,7 @@ yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 
 - Operator dan metode apa saja yang diaktifkan oleh penurunan *trait* ini
 - Apa yang dilakukan implementasi *trait* yang disediakan oleh `derive`
-- Apa yang ditandakan oleh pengimplementasian *trait* itu tentang tipe tersebut
+- Apa yang ditandakan oleh pengimplementasian *trait* itu tentang type tersebut
 - Kondisi yang mengizinkan atau tidak mengizinkan Anda mengimplementasikan *trait*
   itu
 - Contoh operasi yang memerlukan *trait* itu
@@ -21,14 +21,14 @@ untuk setiap *trait* guna mengetahui detail cara mengimplementasikannya secara
 manual.
 
 *Trait* yang dicantumkan di sini adalah satu-satunya *trait* yang didefinisikan oleh
-pustaka standar yang dapat diimplementasikan pada tipe Anda memakai `derive`.
+pustaka standar yang dapat diimplementasikan pada type Anda memakai `derive`.
 *Trait* lain yang didefinisikan di pustaka standar tidak memiliki perilaku bawaan
 yang masuk akal, sehingga terserah Anda untuk mengimplementasikannya dengan cara
 yang masuk akal untuk apa yang ingin Anda capai.
 
 Contoh *trait* yang tidak dapat diturunkan adalah `Display`, yang menangani
 pemformatan untuk pengguna akhir. Anda sebaiknya selalu mempertimbangkan cara
-yang tepat untuk menampilkan suatu tipe kepada pengguna akhir. Bagian tipe mana
+yang tepat untuk menampilkan suatu type kepada pengguna akhir. Bagian type mana
 yang boleh dilihat pengguna akhir? Bagian mana yang menurut mereka relevan?
 Format data mana yang paling relevan bagi mereka? Kompilator Rust tidak memiliki
 wawasan ini, sehingga tidak dapat menyediakan perilaku bawaan yang sesuai untuk
@@ -46,8 +46,8 @@ di bagian [“Macro `derive` Kustom”][custom-derive-macros]<!-- ignore --> di 
 *Trait* `Debug` mengaktifkan pemformatan debug dalam string format, yang Anda
 tandai dengan menambahkan `:?` di dalam placeholder `{}`.
 
-*Trait* `Debug` memungkinkan Anda mencetak instance suatu tipe untuk keperluan
-debugging, sehingga Anda dan pemrogram lain yang memakai tipe Anda dapat
+*Trait* `Debug` memungkinkan Anda mencetak instance suatu type untuk keperluan
+debugging, sehingga Anda dan pemrogram lain yang memakai type Anda dapat
 memeriksa sebuah instance pada titik tertentu dalam eksekusi program.
 
 *Trait* `Debug` diperlukan, misalnya, dalam pemakaian *macro* `assert_eq!`. *Macro*
@@ -57,7 +57,7 @@ tidak sama.
 
 ### `PartialEq` dan `Eq` untuk Perbandingan Kesamaan
 
-*Trait* `PartialEq` memungkinkan Anda membandingkan instance suatu tipe untuk
+*Trait* `PartialEq` memungkinkan Anda membandingkan instance suatu type untuk
 memeriksa kesamaan dan mengaktifkan pemakaian operator `==` dan `!=`.
 
 Menurunkan `PartialEq` mengimplementasikan metode `eq`. Ketika `PartialEq`
@@ -67,13 +67,13 @@ diturunkan pada *enum*, setiap varian sama dengan dirinya sendiri dan tidak sama
 dengan varian lainnya.
 
 *Trait* `PartialEq` diperlukan, misalnya, dalam pemakaian *macro* `assert_eq!`, yang
-harus mampu membandingkan dua instance suatu tipe untuk kesamaan.
+harus mampu membandingkan dua instance suatu type untuk kesamaan.
 
 *Trait* `Eq` tidak memiliki metode. Tujuannya adalah memberi sinyal bahwa untuk
-setiap nilai dari tipe yang dianotasi, nilai itu sama dengan dirinya sendiri.
-*Trait* `Eq` hanya dapat diterapkan pada tipe yang juga mengimplementasikan
-`PartialEq`, meskipun tidak semua tipe yang mengimplementasikan `PartialEq` dapat
-mengimplementasikan `Eq`. Salah satu contohnya adalah tipe angka titik
+setiap nilai dari type yang dianotasi, nilai itu sama dengan dirinya sendiri.
+*Trait* `Eq` hanya dapat diterapkan pada type yang juga mengimplementasikan
+`PartialEq`, meskipun tidak semua type yang mengimplementasikan `PartialEq` dapat
+mengimplementasikan `Eq`. Salah satu contohnya adalah numeric type titik
 mengambang: implementasi angka titik mengambang menyatakan bahwa dua instance
 nilai not-a-number (`NaN`) tidak sama satu sama lain.
 
@@ -82,15 +82,15 @@ Contoh saat `Eq` diperlukan adalah untuk kunci dalam `HashMap<K, V>`, supaya
 
 ### `PartialOrd` dan `Ord` untuk Perbandingan Urutan
 
-*Trait* `PartialOrd` memungkinkan Anda membandingkan instance suatu tipe untuk
-keperluan pengurutan. Tipe yang mengimplementasikan `PartialOrd` dapat dipakai
+*Trait* `PartialOrd` memungkinkan Anda membandingkan instance suatu type untuk
+keperluan pengurutan. Type yang mengimplementasikan `PartialOrd` dapat dipakai
 dengan operator `<`, `>`, `<=`, dan `>=`. Anda hanya dapat menerapkan *trait*
-`PartialOrd` pada tipe yang juga mengimplementasikan `PartialEq`.
+`PartialOrd` pada type yang juga mengimplementasikan `PartialEq`.
 
 Menurunkan `PartialOrd` mengimplementasikan metode `partial_cmp`, yang
 mengembalikan `Option<Ordering>` yang akan menjadi `None` ketika nilai yang
 diberikan tidak menghasilkan urutan. Contoh nilai yang tidak menghasilkan
-urutan, meskipun sebagian besar nilai bertipe itu dapat dibandingkan, adalah
+urutan, meskipun sebagian besar nilai typed itu dapat dibandingkan, adalah
 nilai titik mengambang `NaN`. Memanggil `partial_cmp` dengan angka titik
 mengambang mana pun dan nilai titik mengambang `NaN` akan mengembalikan `None`.
 
@@ -104,11 +104,11 @@ dicantumkan kemudian.
 `rand` yang membangkitkan nilai acak dalam rentang yang ditentukan oleh ekspresi
 rentang.
 
-*Trait* `Ord` memungkinkan Anda mengetahui bahwa untuk dua nilai apa pun dari tipe
+*Trait* `Ord` memungkinkan Anda mengetahui bahwa untuk dua nilai apa pun dari type
 yang dianotasi, urutan yang valid akan selalu ada. *Trait* `Ord`
 mengimplementasikan metode `cmp`, yang mengembalikan `Ordering`, bukan
 `Option<Ordering>`, karena urutan yang valid akan selalu memungkinkan. Anda
-hanya dapat menerapkan *trait* `Ord` pada tipe yang juga mengimplementasikan
+hanya dapat menerapkan *trait* `Ord` pada type yang juga mengimplementasikan
 `PartialOrd` dan `Eq` (dan `Eq` mensyaratkan `PartialEq`). Ketika diturunkan
 pada *struct* dan *enum*, `cmp` berperilaku sama seperti implementasi hasil
 penurunan untuk `partial_cmp` pada `PartialOrd`.
@@ -125,14 +125,14 @@ Berinteraksi dengan Clone”][variables-and-data-interacting-with-clone]<!--
 ignore --> di Bab 4 untuk informasi lebih lanjut tentang `Clone`.
 
 Menurunkan `Clone` mengimplementasikan metode `clone`, yang ketika
-diimplementasikan untuk seluruh tipe, memanggil `clone` pada setiap bagian tipe
-tersebut. Artinya, semua *field* atau nilai dalam tipe itu juga harus
+diimplementasikan untuk seluruh type, memanggil `clone` pada setiap bagian type
+tersebut. Artinya, semua *field* atau nilai dalam type itu juga harus
 mengimplementasikan `Clone` untuk menurunkan `Clone`.
 
 Contoh saat `Clone` diperlukan adalah ketika memanggil metode `to_vec` pada
-*slice*. *Slice* tidak memiliki instance tipe yang dimuatnya, tetapi vektor yang
+*slice*. *Slice* tidak memiliki instance type yang dimuatnya, tetapi vektor yang
 dikembalikan dari `to_vec` perlu memiliki instance-instancenya, sehingga
-`to_vec` memanggil `clone` pada setiap item. Karena itu, tipe yang disimpan
+`to_vec` memanggil `clone` pada setiap item. Karena itu, type yang disimpan
 dalam *slice* harus mengimplementasikan `Clone`.
 
 *Trait* `Copy` memungkinkan Anda menduplikasi nilai hanya dengan menyalin bit yang
@@ -145,13 +145,13 @@ meng-overload metode tersebut dan melanggar asumsi bahwa tidak ada kode
 arbitrer yang dijalankan. Dengan demikian, semua pemrogram dapat berasumsi bahwa
 menyalin nilai akan berlangsung sangat cepat.
 
-Anda dapat menurunkan `Copy` pada tipe apa pun yang semua bagiannya
-mengimplementasikan `Copy`. Tipe yang mengimplementasikan `Copy` juga harus
-mengimplementasikan `Clone`, karena tipe yang mengimplementasikan `Copy`
+Anda dapat menurunkan `Copy` pada type apa pun yang semua bagiannya
+mengimplementasikan `Copy`. Type yang mengimplementasikan `Copy` juga harus
+mengimplementasikan `Clone`, karena type yang mengimplementasikan `Copy`
 memiliki implementasi `Clone` yang trivial dan menjalankan tugas yang sama
 seperti `Copy`.
 
-*Trait* `Copy` jarang diperlukan; tipe yang mengimplementasikan `Copy` memiliki
+*Trait* `Copy` jarang diperlukan; type yang mengimplementasikan `Copy` memiliki
 optimasi yang tersedia, artinya Anda tidak perlu memanggil `clone`, yang membuat
 kode menjadi lebih ringkas.
 
@@ -161,11 +161,11 @@ tempat.
 
 ### `Hash` untuk Memetakan Nilai ke Nilai Berukuran Tetap
 
-*Trait* `Hash` memungkinkan Anda mengambil instance suatu tipe berukuran arbitrer
+*Trait* `Hash` memungkinkan Anda mengambil instance suatu type berukuran arbitrer
 dan memetakan instance itu ke nilai berukuran tetap memakai fungsi hashing.
 Menurunkan `Hash` mengimplementasikan metode `hash`. Implementasi hasil
 penurunan metode `hash` menggabungkan hasil pemanggilan `hash` pada setiap
-bagian tipe, artinya semua *field* atau nilai juga harus mengimplementasikan
+bagian type, artinya semua *field* atau nilai juga harus mengimplementasikan
 `Hash` untuk menurunkan `Hash`.
 
 Contoh saat `Hash` diperlukan adalah ketika menyimpan kunci dalam `HashMap<K,
@@ -173,10 +173,10 @@ V>` untuk menyimpan data secara efisien.
 
 ### `Default` untuk Nilai Bawaan
 
-*Trait* `Default` memungkinkan Anda membuat nilai bawaan untuk suatu tipe.
+*Trait* `Default` memungkinkan Anda membuat nilai bawaan untuk suatu type.
 Menurunkan `Default` mengimplementasikan fungsi `default`. Implementasi hasil
-penurunan fungsi `default` memanggil fungsi `default` pada setiap bagian tipe,
-artinya semua *field* atau nilai dalam tipe itu juga harus mengimplementasikan
+penurunan fungsi `default` memanggil fungsi `default` pada setiap bagian type,
+artinya semua *field* atau nilai dalam type itu juga harus mengimplementasikan
 `Default` untuk menurunkan `Default`.
 
 Fungsi `Default::default` umum dipakai bersama sintaks update *struct* yang
@@ -189,7 +189,7 @@ menetapkan dan memakai nilai bawaan untuk *field* sisanya dengan
 *Trait* `Default` diperlukan, misalnya, ketika Anda memakai metode
 `unwrap_or_default` pada instance `Option<T>`. Jika `Option<T>`-nya adalah
 `None`, metode `unwrap_or_default` akan mengembalikan hasil `Default::default`
-untuk tipe `T` yang tersimpan dalam `Option<T>`.
+untuk type `T` yang tersimpan dalam `Option<T>`.
 
 [creating-instances-from-other-instances-with-struct-update-syntax]: ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
 [stack-only-data-copy]: ch04-01-what-is-ownership.html#stack-only-data-copy

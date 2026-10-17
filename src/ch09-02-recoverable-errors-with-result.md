@@ -17,12 +17,12 @@ enum Result<T, E> {
 }
 ```
 
-`T` dan `E` adalah parameter tipe generik: kita akan membahas *generics*
-(tipe generik) lebih detail di Bab 10. Yang perlu Anda ketahui saat ini
-adalah bahwa `T` merepresentasikan tipe nilai yang akan dikembalikan pada
-kasus sukses di dalam variant `Ok`, dan `E` merepresentasikan tipe error
+`T` dan `E` adalah type parameter generik: kita akan membahas *generics*
+(generic type) lebih detail di Bab 10. Yang perlu Anda ketahui saat ini
+adalah bahwa `T` merepresentasikan type nilai yang akan dikembalikan pada
+kasus sukses di dalam variant `Ok`, dan `E` merepresentasikan type error
 yang akan dikembalikan pada kasus gagal di dalam variant `Err`. Karena
-`Result` memiliki parameter tipe generik ini, kita dapat memakai tipe
+`Result` memiliki type parameter generik ini, kita dapat memakai type
 `Result` dan fungsi-fungsi yang didefinisikan padanya di banyak situasi
 berbeda ketika nilai sukses dan nilai error yang ingin kita kembalikan
 mungkin berbeda.
@@ -38,10 +38,10 @@ fungsi itu bisa gagal. Di Listing 9-3, kita mencoba membuka sebuah file.
 
 </Listing>
 
-Tipe kembalian `File::open` adalah `Result<T, E>`. Parameter generik `T`
-telah diisi oleh implementasi `File::open` dengan tipe nilai sukses,
-`std::fs::File`, yang merupakan handle file. Tipe `E` yang dipakai pada
-nilai error adalah `std::io::Error`. Tipe kembalian ini berarti pemanggilan
+Type kembalian `File::open` adalah `Result<T, E>`. Parameter generik `T`
+telah diisi oleh implementasi `File::open` dengan type nilai sukses,
+`std::fs::File`, yang merupakan handle file. Type `E` yang dipakai pada
+nilai error adalah `std::io::Error`. Type kembalian ini berarti pemanggilan
 `File::open` mungkin berhasil dan mengembalikan handle file yang dapat kita
 baca atau tulis. Pemanggilan fungsinya juga mungkin gagal: misalnya, file
 mungkin tidak ada, atau kita mungkin tidak memiliki izin untuk mengakses
@@ -110,7 +110,7 @@ tests to fail lol -->
 
 </Listing>
 
-Tipe nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
+Type nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
 `io::Error`, yaitu sebuah *struct* yang disediakan pustaka standar. *Struct* ini
 memiliki metode `kind`, yang dapat kita panggil untuk mendapatkan nilai
 `io::ErrorKind`. *Enum* `io::ErrorKind` disediakan pustaka standar dan
@@ -173,7 +173,7 @@ program panic pada error apa pun selain error file tidak ditemukan.
 #### Pintasan untuk Panic saat Error
 
 Memakai `match` cukup berhasil, tetapi bisa sedikit bertele-tele dan tidak
-selalu mengomunikasikan maksud dengan baik. Tipe `Result<T, E>` memiliki
+selalu mengomunikasikan maksud dengan baik. Type `Result<T, E>` memiliki
 banyak metode bantu yang didefinisikan padanya untuk melakukan berbagai
 tugas yang lebih spesifik. Metode `unwrap` adalah metode pintasan yang
 diimplementasikan persis seperti ekspresi `match` yang kita tulis di Listing
@@ -269,18 +269,18 @@ don't want to include it for rustdoc testing purposes. -->
 Fungsi ini dapat ditulis dengan cara yang jauh lebih pendek, tetapi kita
 akan memulai dengan mengerjakan banyak bagiannya secara manual untuk
 mengeksplorasi penanganan error; pada akhirnya, kita akan menunjukkan cara
-yang lebih pendek. Mari kita lihat tipe kembalian fungsinya terlebih dahulu:
+yang lebih pendek. Mari kita lihat return type fungsinya terlebih dahulu:
 `Result<String, io::Error>`. Ini berarti fungsi ini mengembalikan nilai
-bertipe `Result<T, E>`, dengan parameter generik `T` diisi tipe konkret
-`String` dan tipe generik `E` diisi tipe konkret `io::Error`.
+typed `Result<T, E>`, dengan parameter generik `T` diisi type konkret
+`String` dan generic type `E` diisi type konkret `io::Error`.
 
 Jika fungsi ini berhasil tanpa masalah apa pun, kode yang memanggil fungsi
 ini akan menerima nilai `Ok` yang memegang sebuah `String`—`username` yang
 dibaca fungsi ini dari file. Jika fungsi ini menemui masalah apa pun, kode
 pemanggil akan menerima nilai `Err` yang memegang instance `io::Error` yang
 berisi lebih banyak informasi tentang masalah apa yang terjadi. Kita
-memilih `io::Error` sebagai tipe kembalian fungsi ini karena kebetulan itu
-adalah tipe nilai error yang dikembalikan dari kedua operasi yang kita
+memilih `io::Error` sebagai return type fungsi ini karena kebetulan itu
+adalah type nilai error yang dikembalikan dari kedua operasi yang kita
 panggil di badan fungsi ini yang mungkin gagal: fungsi `File::open` dan
 metode `read_to_string`.
 
@@ -352,19 +352,19 @@ errornya diteruskan ke kode pemanggil.
 Ada perbedaan antara yang dilakukan ekspresi `match` dari Listing 9-6 dan
 yang dilakukan operator `?`: nilai error yang dipanggilkan operator `?`
 padanya melewati fungsi `from`, yang didefinisikan di *trait* `From` di
-pustaka standar, yang dipakai untuk mengonversi nilai dari satu tipe ke tipe
-lain. Ketika operator `?` memanggil fungsi `from`, tipe error yang diterima
-dikonversi menjadi tipe error yang didefinisikan di tipe kembalian fungsi
-saat ini. Ini berguna ketika sebuah fungsi mengembalikan satu tipe error
+pustaka standar, yang dipakai untuk mengonversi nilai dari satu type ke type
+lain. Ketika operator `?` memanggil fungsi `from`, type error yang diterima
+dikonversi menjadi type error yang didefinisikan di return type fungsi
+saat ini. Ini berguna ketika sebuah fungsi mengembalikan satu type error
 untuk merepresentasikan semua cara fungsi itu mungkin gagal, bahkan jika
 bagian-bagiannya mungkin gagal karena banyak alasan berbeda.
 
 Misalnya, kita dapat mengubah fungsi `read_username_from_file` di Listing
-9-7 agar mengembalikan tipe error kustom bernama `OurError` yang kita
+9-7 agar mengembalikan type error kustom bernama `OurError` yang kita
 definisikan. Jika kita juga mendefinisikan `impl From<io::Error> for
 OurError` untuk mengonstruksi instance `OurError` dari `io::Error`, maka
 pemanggilan operator `?` di badan `read_username_from_file` akan memanggil
-`from` dan mengonversi tipe errornya tanpa perlu menambahkan kode lagi ke
+`from` dan mengonversi type errornya tanpa perlu menambahkan kode lagi ke
 fungsi.
 
 Dalam konteks Listing 9-7, `?` di akhir pemanggilan `File::open` akan
@@ -428,17 +428,17 @@ kita mengerjakannya dengan cara yang lebih panjang terlebih dahulu.
 
 #### Tempat Memakai Operator `?`
 
-Operator `?` hanya dapat dipakai di fungsi yang tipe kembaliannya kompatibel
+Operator `?` hanya dapat dipakai di fungsi yang return typenya kompatibel
 dengan nilai tempat `?` dipakai. Ini karena operator `?` didefinisikan untuk
 melakukan return dini atas sebuah nilai keluar dari fungsi, dengan cara yang
 sama seperti ekspresi `match` yang kita definisikan di Listing 9-6. Di
 Listing 9-6, `match` memakai nilai `Result`, dan arm return dini
-mengembalikan nilai `Err(e)`. Tipe kembalian fungsi harus berupa `Result`
+mengembalikan nilai `Err(e)`. Type kembalian fungsi harus berupa `Result`
 supaya kompatibel dengan `return` ini.
 
 Di Listing 9-10, mari kita lihat error yang akan kita dapatkan jika kita
-memakai operator `?` di fungsi `main` dengan tipe kembalian yang tidak
-kompatibel dengan tipe nilai tempat kita memakai `?`.
+memakai operator `?` di fungsi `main` dengan return type yang tidak
+kompatibel dengan type nilai tempat kita memakai `?`.
 
 <Listing number="9-10" file-name="src/main.rs" caption="Mencoba memakai `?` di fungsi `main` yang mengembalikan `()` tidak akan terkompilasi.">
 
@@ -450,7 +450,7 @@ kompatibel dengan tipe nilai tempat kita memakai `?`.
 
 Kode ini membuka file, yang mungkin gagal. Operator `?` mengikuti nilai
 `Result` yang dikembalikan `File::open`, tetapi fungsi `main` ini memiliki
-tipe kembalian `()`, bukan `Result`. Ketika kita mengompilasi kode ini, kita
+return type `()`, bukan `Result`. Ketika kita mengompilasi kode ini, kita
 mendapat pesan error berikut:
 
 ```console
@@ -458,11 +458,11 @@ mendapat pesan error berikut:
 ```
 
 Error ini menunjukkan bahwa kita hanya diizinkan memakai operator `?` di
-fungsi yang mengembalikan `Result`, `Option`, atau tipe lain yang
+fungsi yang mengembalikan `Result`, `Option`, atau type lain yang
 mengimplementasikan `FromResidual`.
 
 Untuk memperbaiki errornya, Anda punya dua pilihan. Pilihan pertama adalah
-mengubah tipe kembalian fungsi Anda agar kompatibel dengan nilai tempat Anda
+mengubah return type fungsi Anda agar kompatibel dengan nilai tempat Anda
 memakai operator `?` selama tidak ada pembatasan yang mencegahnya. Pilihan
 lainnya adalah memakai `match` atau salah satu metode `Result<T, E>` untuk
 menangani `Result<T, E>` dengan cara apa pun yang sesuai.
@@ -519,11 +519,11 @@ memakai metode seperti metode `ok` pada `Result` atau metode `ok_or` pada
 
 Sejauh ini, semua fungsi `main` yang kita pakai mengembalikan `()`. Fungsi
 `main` istimewa karena ia adalah titik masuk dan titik keluar dari program
-yang dapat dieksekusi, dan ada pembatasan tipe kembaliannya agar program
+yang dapat dieksekusi, dan ada pembatasan return typenya agar program
 berperilaku seperti yang diharapkan.
 
 Untungnya, `main` juga dapat mengembalikan `Result<(), E>`. Listing 9-12
-berisi kode dari Listing 9-10, tetapi kita telah mengubah tipe kembalian
+berisi kode dari Listing 9-10, tetapi kita telah mengubah return type
 `main` menjadi `Result<(), Box<dyn Error>>` dan menambahkan nilai kembalian
 `Ok(())` di akhir. Kode ini kini akan terkompilasi.
 
@@ -535,14 +535,14 @@ berisi kode dari Listing 9-10, tetapi kita telah mengubah tipe kembalian
 
 </Listing>
 
-Tipe `Box<dyn Error>` adalah *trait object* (objek *trait*), yang akan kita
+Type `Box<dyn Error>` adalah *trait object* (objek *trait*), yang akan kita
 bicarakan di [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
 Bersama”][*trait*-objects]<!-- ignore --> di Bab 18. Untuk saat ini, Anda
 dapat membaca `Box<dyn Error>` sebagai “error jenis apa pun.” Memakai `?`
-pada nilai `Result` di fungsi `main` dengan tipe error `Box<dyn Error>`
+pada nilai `Result` di fungsi `main` dengan type error `Box<dyn Error>`
 diizinkan karena ini memungkinkan nilai `Err` apa pun dikembalikan lebih
 awal. Meskipun badan fungsi `main` ini hanya akan mengembalikan error
-bertipe `std::io::Error`, dengan menyebutkan `Box<dyn Error>`, tanda tangan
+typed `std::io::Error`, dengan menyebutkan `Box<dyn Error>`, tanda tangan
 ini akan tetap benar bahkan jika lebih banyak kode yang mengembalikan error
 lain ditambahkan ke badan `main`.
 
@@ -556,11 +556,11 @@ mengembalikan bilangan bulat selain `0`. Rust juga mengembalikan bilangan
 bulat dari program yang dapat dieksekusi agar kompatibel dengan konvensi
 ini.
 
-Fungsi `main` boleh mengembalikan tipe apa pun yang mengimplementasikan
+Fungsi `main` boleh mengembalikan type apa pun yang mengimplementasikan
 [trait `std::process::Termination`][termination]<!-- ignore -->, yang berisi
 fungsi `report` yang mengembalikan `ExitCode`. Lihat dokumentasi pustaka
 standar untuk informasi lebih lanjut tentang mengimplementasikan *trait*
-`Termination` untuk tipe Anda sendiri.
+`Termination` untuk type Anda sendiri.
 
 Setelah kita membahas detail pemanggilan `panic!` atau pengembalian
 `Result`, mari kita kembali ke topik tentang cara memutuskan mana yang tepat

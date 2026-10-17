@@ -9,12 +9,12 @@ kompilator bahwa kitalah yang memeriksa aturannya secara manual alih-alih
 mengandalkan kompilator untuk memeriksanya bagi kita; kita akan membahas kode
 *unsafe* lebih jauh di Bab 20.
 
-Kita dapat memakai tipe yang menggunakan pola *interior mutability* hanya ketika
+Kita dapat memakai type yang menggunakan pola *interior mutability* hanya ketika
 kita dapat memastikan bahwa aturan *borrowing* akan diikuti pada runtime,
 meskipun kompilator tidak bisa menjaminnya. Kode `unsafe` yang terlibat
-kemudian dibungkus dalam API yang aman, dan tipe luarnya tetap *immutable*.
+kemudian dibungkus dalam API yang aman, dan type luarnya tetap *immutable*.
 
-Mari kita jelajahi konsep ini dengan melihat tipe `RefCell<T>` yang mengikuti
+Mari kita jelajahi konsep ini dengan melihat type `RefCell<T>` yang mengikuti
 pola *interior mutability*.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -23,9 +23,9 @@ pola *interior mutability*.
 
 ### Menegakkan Aturan Borrowing pada Runtime
 
-Tidak seperti `Rc<T>`, tipe `RefCell<T>` merepresentasikan *ownership* tunggal
+Tidak seperti `Rc<T>`, type `RefCell<T>` merepresentasikan *ownership* tunggal
 atas data yang ditampungnya. Jadi, apa yang membuat `RefCell<T>` berbeda dari
-tipe seperti `Box<T>`? Ingat kembali aturan *borrowing* yang Anda pelajari di
+type seperti `Box<T>`? Ingat kembali aturan *borrowing* yang Anda pelajari di
 Bab 4:
 
 - Pada waktu kapan pun, Anda dapat memiliki _salah satu_: satu *mutable*
@@ -58,7 +58,7 @@ bisa memastikan kode mematuhi aturan *ownership*, ia mungkin menolak program
 yang sebenarnya benar; dalam hal ini, ia bersifat konservatif. Jika Rust
 menerima program yang salah, pengguna tidak akan bisa memercayai jaminan yang
 dibuat Rust. Namun, jika Rust menolak program yang benar, pemrogram akan
-kerepotan, tetapi tidak ada hal fatal yang dapat terjadi. Tipe `RefCell<T>`
+kerepotan, tetapi tidak ada hal fatal yang dapat terjadi. Type `RefCell<T>`
 berguna ketika Anda yakin kode Anda mengikuti aturan *borrowing* tetapi
 kompilator tidak mampu memahami dan menjamin hal itu.
 
@@ -121,12 +121,12 @@ untuk mengubah nilai *immutable* dan melihat mengapa hal itu berguna.
 
 #### Menguji dengan Mock Object
 
-Terkadang selama pengujian seorang pemrogram memakai suatu tipe sebagai
-pengganti tipe lain, untuk mengamati perilaku tertentu dan menegaskan bahwa
-perilaku itu diimplementasikan dengan benar. Tipe pengganti ini disebut
+Terkadang selama pengujian seorang pemrogram memakai suatu type sebagai
+pengganti type lain, untuk mengamati perilaku tertentu dan menegaskan bahwa
+perilaku itu diimplementasikan dengan benar. Type pengganti ini disebut
 _test double_ (pengganti dalam pengujian). Bayangkan ini seperti pemeran
 pengganti dalam pembuatan film, ketika seseorang maju menggantikan seorang
-aktor untuk melakukan adegan yang sangat rumit. *Test double* menggantikan tipe
+aktor untuk melakukan adegan yang sangat rumit. *Test double* menggantikan type
 lain ketika kita menjalankan test. _Mock object_ (objek tiruan) adalah jenis
 *test double* khusus yang mencatat apa yang terjadi selama test sehingga Anda
 dapat menegaskan bahwa tindakan yang benar telah terjadi.
@@ -233,7 +233,7 @@ lihat. Listing 15-22 menunjukkan seperti apa tampilannya.
 
 </Listing>
 
-*Field* `sent_messages` sekarang bertipe `RefCell<Vec<String>>` alih-alih
+*Field* `sent_messages` sekarang typed `RefCell<Vec<String>>` alih-alih
 `Vec<String>`. Di fungsi `new`, kita membuat instance `RefCell<Vec<String>>`
 baru di sekeliling vektor kosong itu.
 
@@ -260,8 +260,8 @@ kerjanya!
 Ketika membuat *immutable* dan *mutable* *reference*, kita memakai sintaks `&` dan
 `&mut`. Dengan `RefCell<T>`, kita memakai metode `borrow` dan `borrow_mut`,
 yang merupakan bagian dari API aman milik `RefCell<T>`. Metode `borrow`
-mengembalikan tipe *smart pointer* `Ref<T>`, dan `borrow_mut` mengembalikan
-tipe *smart pointer* `RefMut<T>`. Kedua tipe mengimplementasikan `Deref`, jadi
+mengembalikan type *smart pointer* `Ref<T>`, dan `borrow_mut` mengembalikan
+type *smart pointer* `RefMut<T>`. Kedua type mengimplementasikan `Deref`, jadi
 kita dapat memperlakukannya seperti *reference* biasa.
 
 `RefCell<T>` melacak berapa banyak *smart pointer* `Ref<T>` dan `RefMut<T>`

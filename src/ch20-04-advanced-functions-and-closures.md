@@ -8,8 +8,8 @@ dan *closure*, termasuk *pointer* fungsi dan mengembalikan *closure*.
 Kita sudah membahas cara memberikan *closure* ke fungsi; Anda juga bisa
 memberikan fungsi biasa ke fungsi! Teknik ini berguna ketika Anda ingin
 memberikan fungsi yang sudah Anda definisikan alih-alih mendefinisikan
-*closure* baru. Fungsi terkoersi menjadi tipe `fn` (dengan huruf *f* kecil),
-jangan tertukar dengan *trait* *closure* `Fn`. Tipe `fn` disebut *function
+*closure* baru. Fungsi terkoersi menjadi type `fn` (dengan huruf *f* kecil),
+jangan tertukar dengan *trait* *closure* `Fn`. Type `fn` disebut *function
 pointer* (*pointer* fungsi). Memberikan fungsi dengan *pointer* fungsi akan
 memungkinkan Anda memakai fungsi sebagai argumen untuk fungsi lain.
 
@@ -22,7 +22,7 @@ pun yang menerima parameter `i32` dan mengembalikan `i32`, dan satu nilai
 `arg`, lalu menjumlahkan hasil kedua pemanggilan fungsi itu. Fungsi `main`
 memanggil `do_twice` dengan argumen `add_one` dan `5`.
 
-<Listing number="20-28" file-name="src/main.rs" caption="Memakai tipe `fn` untuk menerima pointer fungsi sebagai argumen">
+<Listing number="20-28" file-name="src/main.rs" caption="Memakai type `fn` untuk menerima pointer fungsi sebagai argumen">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-28/src/main.rs}}
@@ -31,19 +31,19 @@ memanggil `do_twice` dengan argumen `add_one` dan `5`.
 </Listing>
 
 Kode ini mencetak `The answer is: 12`. Kita menentukan bahwa parameter `f`
-di `do_twice` adalah `fn` yang menerima satu parameter bertipe `i32` dan
+di `do_twice` adalah `fn` yang menerima satu parameter typed `i32` dan
 mengembalikan `i32`. Kita kemudian bisa memanggil `f` di tubuh `do_twice`.
 Di `main`, kita bisa memberikan nama fungsi `add_one` sebagai argumen pertama
 ke `do_twice`.
 
-Tidak seperti *closure*, `fn` adalah tipe, bukan *trait*, jadi kita menuliskan
-`fn` langsung sebagai tipe parameter alih-alih mendeklarasikan parameter tipe
+Tidak seperti *closure*, `fn` adalah type, bukan *trait*, jadi kita menuliskan
+`fn` langsung sebagai type parameter alih-alih mendeklarasikan type parameter
 generik dengan salah satu *trait* `Fn` sebagai *trait bound*.
 
 *Pointer* fungsi mengimplementasikan ketiga *trait* *closure* (`Fn`, `FnMut`, dan
 `FnOnce`), artinya Anda selalu bisa memberikan *pointer* fungsi sebagai argumen
 untuk fungsi yang mengharapkan *closure*. Sebaiknya tulis fungsi dengan memakai
-tipe generik dan salah satu *trait* *closure* supaya fungsi Anda bisa menerima
+generic type dan salah satu *trait* *closure* supaya fungsi Anda bisa menerima
 fungsi ataupun *closure*.
 
 Meskipun begitu, satu contoh situasi di mana Anda hanya ingin menerima `fn`
@@ -81,7 +81,7 @@ di seksi [“Trait Lanjutan”][advanced-traits]<!-- ignore --> karena ada banya
 fungsi bernama `to_string` yang tersedia.
 
 Di sini, kita memakai fungsi `to_string` yang didefinisikan di *trait*
-`ToString`, yang telah diimplementasikan pustaka standar untuk tipe apa pun
+`ToString`, yang telah diimplementasikan pustaka standar untuk type apa pun
 yang mengimplementasikan `Display`.
 
 Ingat kembali dari seksi [“Nilai Enum”][enum-values]<!-- ignore --> di Bab 6
@@ -110,15 +110,15 @@ yang sama, jadi pakailah gaya mana pun yang lebih jelas bagi Anda.
 
 *Closure* direpresentasikan oleh *trait*, yang berarti Anda tidak bisa
 mengembalikan *closure* secara langsung. Pada sebagian besar kasus ketika Anda
-ingin mengembalikan sebuah *trait*, Anda bisa memakai tipe konkret yang
+ingin mengembalikan sebuah *trait*, Anda bisa memakai type konkret yang
 mengimplementasikan *trait* itu sebagai nilai kembalian fungsi. Akan tetapi,
 biasanya Anda tidak bisa melakukan itu dengan *closure* karena *closure* tidak
-memiliki tipe konkret yang bisa dikembalikan; misalnya, Anda tidak diizinkan
-memakai *pointer* fungsi `fn` sebagai tipe kembalian jika *closure* itu menangkap
+memiliki type konkret yang bisa dikembalikan; misalnya, Anda tidak diizinkan
+memakai *pointer* fungsi `fn` sebagai return type jika *closure* itu menangkap
 nilai apa pun dari *scope*-nya.
 
 Sebagai gantinya, biasanya Anda akan memakai sintaks `impl Trait` yang kita
-pelajari di Bab 10. Anda bisa mengembalikan tipe fungsi apa pun, dengan
+pelajari di Bab 10. Anda bisa mengembalikan type fungsi apa pun, dengan
 memakai `Fn`, `FnOnce`, dan `FnMut`. Misalnya, kode di Listing 20-32 akan
 terkompilasi dengan baik.
 
@@ -131,14 +131,14 @@ terkompilasi dengan baik.
 </Listing>
 
 Akan tetapi, seperti yang kita catat di seksi [“Menginferensi dan
-Menganotasi Tipe *Closure*”][*closure*-types]<!-- ignore --> pada Bab 13, setiap
-*closure* juga merupakan tipenya sendiri yang berbeda. Jika Anda perlu bekerja
+Menganotasi Type *Closure*”][*closure*-types]<!-- ignore --> pada Bab 13, setiap
+*closure* juga merupakan typenya sendiri yang berbeda. Jika Anda perlu bekerja
 dengan banyak fungsi yang memiliki tanda tangan yang sama tetapi implementasi
 yang berbeda, Anda perlu memakai *trait object* untuk fungsi-fungsi itu.
 Perhatikan apa yang terjadi jika Anda menulis kode seperti yang ditunjukkan
 di Listing 20-33.
 
-<Listing file-name="src/main.rs" number="20-33" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan tipe `impl Fn`">
+<Listing file-name="src/main.rs" number="20-33" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan type `impl Fn`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-33/src/main.rs}}
@@ -149,7 +149,7 @@ di Listing 20-33.
 Di sini kita punya dua fungsi, `returns_closure` dan
 `returns_initialized_closure`, yang sama-sama mengembalikan `impl Fn(i32) ->
 i32`. Perhatikan bahwa *closure* yang mereka kembalikan berbeda, meskipun
-keduanya mengimplementasikan tipe yang sama. Jika kita mencoba
+keduanya mengimplementasikan type yang sama. Jika kita mencoba
 mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 
 ```text
@@ -157,19 +157,19 @@ mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 ```
 
 Pesan error itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
-Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
+Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu type yang
 detailnya tidak bisa kita lihat dari apa yang Rust bangun untuk kita, dan
-kita juga tidak bisa menebak tipe yang akan dihasilkan Rust untuk kita tulis
+kita juga tidak bisa menebak type yang akan dihasilkan Rust untuk kita tulis
 sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan *closure* yang
-mengimplementasikan *trait* yang sama, `Fn(i32) -> i32`, tipe opak yang
+mengimplementasikan *trait* yang sama, `Fn(i32) -> i32`, type opak yang
 dihasilkan Rust untuk masing-masing fungsi berbeda. (Ini mirip dengan cara
-Rust menghasilkan tipe konkret yang berbeda untuk blok async yang berbeda
-meskipun tipe keluarannya sama, seperti yang kita lihat di [“Tipe `Pin` dan
+Rust menghasilkan type konkret yang berbeda untuk blok async yang berbeda
+meskipun type keluarannya sama, seperti yang kita lihat di [“Type `Pin` dan
 *Trait* `Unpin`”][*future*-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
 solusi untuk masalah ini beberapa kali: Kita bisa memakai *trait object*,
 seperti di Listing 20-34.
 
-<Listing number="20-34" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan `Box<dyn Fn>` sehingga semuanya bertipe sama">
+<Listing number="20-34" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan `Box<dyn Fn>` sehingga semuanya typed sama">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-34/src/main.rs:here}}

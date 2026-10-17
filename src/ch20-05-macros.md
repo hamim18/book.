@@ -29,12 +29,12 @@ daripada kode yang Anda tulis secara manual.
 dan pelihara, yang juga merupakan salah satu peran fungsi. Akan tetapi,
 *macro* memiliki beberapa kekuatan tambahan yang tidak dimiliki fungsi.
 
-Tanda tangan fungsi harus mendeklarasikan jumlah dan tipe parameter yang
+Tanda tangan fungsi harus mendeklarasikan jumlah dan type parameter yang
 dimiliki fungsi itu. Sebaliknya, *macro* bisa menerima jumlah parameter yang
 bervariasi: Kita bisa memanggil `println!("hello")` dengan satu argumen atau
 `println!("hello {}", name)` dengan dua argumen. Selain itu, *macro*
 diekspansi sebelum kompilator menafsirkan makna kodenya, jadi sebuah *macro*
-bisa, misalnya, mengimplementasikan *trait* pada tipe tertentu. Fungsi tidak
+bisa, misalnya, mengimplementasikan *trait* pada type tertentu. Fungsi tidak
 bisa, karena ia dipanggil pada runtime dan *trait* perlu diimplementasikan
 pada waktu kompilasi.
 
@@ -80,7 +80,7 @@ let v: Vec<u32> = vec![1, 2, 3];
 
 Kita juga bisa memakai *macro* `vec!` untuk membuat vektor berisi dua integer
 atau vektor berisi lima string *slice*. Kita tidak akan bisa memakai fungsi
-untuk melakukan hal yang sama karena kita tidak tahu jumlah atau tipe
+untuk melakukan hal yang sama karena kita tidak tahu jumlah atau type
 nilainya di muka.
 
 Listing 20-35 menunjukkan definisi *macro* `vec!` yang sedikit disederhanakan.
@@ -153,7 +153,7 @@ menggantikan pemanggilan *macro* ini adalah sebagai berikut:
 ```
 
 Kita telah mendefinisikan *macro* yang bisa menerima sejumlah argumen dengan
-tipe apa pun dan bisa menghasilkan kode untuk membuat vektor berisi
+type apa pun dan bisa menghasilkan kode untuk membuat vektor berisi
 elemen-elemen yang ditentukan.
 
 Untuk mempelajari lebih lanjut cara menulis *macro*, lihat dokumentasi daring
@@ -171,7 +171,7 @@ dengan pola dan mengganti kode itu dengan kode lain seperti yang dilakukan
 atribut, dan mirip fungsi, dan semuanya bekerja dengan cara yang serupa.
 
 Saat membuat *macro* prosedural, definisinya harus berada di *crate*-nya sendiri
-dengan tipe *crate* khusus. Hal ini karena alasan teknis yang rumit yang kita
+dengan type *crate* khusus. Hal ini karena alasan teknis yang rumit yang kita
 harap bisa dihilangkan di masa depan. Di Listing 20-36, kita menunjukkan
 cara mendefinisikan *macro* prosedural, dengan `some_attribute` sebagai
 placeholder untuk memakai jenis *macro* tertentu.
@@ -189,7 +189,7 @@ pub fn some_name(input: TokenStream) -> TokenStream {
 </Listing>
 
 Fungsi yang mendefinisikan *macro* prosedural menerima `TokenStream` sebagai
-masukan dan menghasilkan `TokenStream` sebagai keluaran. Tipe `TokenStream`
+masukan dan menghasilkan `TokenStream` sebagai keluaran. Type `TokenStream`
 didefinisikan oleh *crate* `proc_macro` yang disertakan bersama Rust dan
 mewakili urutan token. Inilah inti dari *macro*: Kode sumber yang sedang
 diolah *macro* membentuk `TokenStream` masukan, dan kode yang dihasilkan *macro*
@@ -211,11 +211,11 @@ membuat bentuk lainnya berbeda.
 Mari kita buat *crate* bernama `hello_macro` yang mendefinisikan *trait*
 bernama `HelloMacro` dengan satu fungsi asosiasi bernama `hello_macro`.
 Alih-alih membuat pengguna kita mengimplementasikan *trait* `HelloMacro`
-untuk setiap tipe mereka, kita akan menyediakan *macro* prosedural sehingga
-pengguna bisa menganotasi tipe mereka dengan `#[derive(HelloMacro)]` untuk
+untuk setiap type mereka, kita akan menyediakan *macro* prosedural sehingga
+pengguna bisa mengtype annotation mereka dengan `#[derive(HelloMacro)]` untuk
 mendapatkan implementasi bawaan dari fungsi `hello_macro`. Implementasi
 bawaan itu akan mencetak `Hello, Macro! My name is TypeName!` dengan
-`TypeName` adalah nama tipe tempat *trait* ini didefinisikan. Dengan kata
+`TypeName` adalah nama type tempat *trait* ini didefinisikan. Dengan kata
 lain, kita akan menulis *crate* yang memungkinkan pemrogram lain menulis kode
 seperti Listing 20-37 dengan memakai *crate* kita.
 
@@ -257,14 +257,14 @@ diinginkan, seperti di Listing 20-39.
 
 </Listing>
 
-Akan tetapi, mereka harus menulis blok implementasi untuk setiap tipe yang
+Akan tetapi, mereka harus menulis blok implementasi untuk setiap type yang
 ingin mereka pakai dengan `hello_macro`; kita ingin membebaskan mereka dari
 keharusan melakukan pekerjaan ini.
 
 Selain itu, kita belum bisa memberikan implementasi bawaan kepada fungsi
-`hello_macro` yang akan mencetak nama tipe tempat *trait* itu
+`hello_macro` yang akan mencetak nama type tempat *trait* itu
 diimplementasikan: Rust tidak memiliki kemampuan refleksi, jadi ia tidak
-bisa mencari nama tipe itu pada runtime. Kita butuh *macro* untuk
+bisa mencari nama type itu pada runtime. Kita butuh *macro* untuk
 menghasilkan kode pada waktu kompilasi.
 
 Langkah berikutnya adalah mendefinisikan *macro* prosedural itu. Pada saat
@@ -340,7 +340,7 @@ yang mungkin ingin kita tangani menjadi jauh lebih sederhana: Menulis parser
 lengkap untuk kode Rust bukanlah tugas yang ringan.
 
 Fungsi `hello_macro_derive` akan dipanggil ketika pengguna library kita
-menuliskan `#[derive(HelloMacro)]` pada sebuah tipe. Ini dimungkinkan
+menuliskan `#[derive(HelloMacro)]` pada sebuah type. Ini dimungkinkan
 karena di sini kita menganotasi fungsi `hello_macro_derive` dengan
 `proc_macro_derive` dan menentukan nama `HelloMacro`, yang cocok dengan nama
 *trait* kita; ini adalah konvensi yang diikuti sebagian besar *macro*
@@ -403,7 +403,7 @@ yang lebih spesifik tentang apa yang salah dengan memakai `panic!` atau
 
 Sekarang setelah kita punya kode untuk mengubah kode Rust yang dianotasi
 dari `TokenStream` menjadi instance `DeriveInput`, mari kita hasilkan kode
-yang mengimplementasikan *trait* `HelloMacro` pada tipe yang dianotasi,
+yang mengimplementasikan *trait* `HelloMacro` pada type yang dianotasi,
 seperti yang ditunjukkan di Listing 20-42.
 
 <Listing number="20-42" file-name="hello_macro_derive/src/lib.rs" caption="Mengimplementasikan trait `HelloMacro` dengan memakai kode Rust yang telah di-parse">
@@ -414,7 +414,7 @@ seperti yang ditunjukkan di Listing 20-42.
 
 </Listing>
 
-Kita mendapatkan instance *struct* `Ident` yang berisi nama (identifier) tipe
+Kita mendapatkan instance *struct* `Ident` yang berisi nama (identifier) type
 yang dianotasi dengan memakai `ast.ident`. *Struct* di Listing 20-41
 menunjukkan bahwa saat kita menjalankan fungsi `impl_hello_macro` pada kode
 di Listing 20-37, `ident` yang kita dapatkan akan memiliki *field* `ident`
@@ -426,7 +426,7 @@ berisi instance *struct* `Ident` yang, saat dicetak, menjadi string
 kembalikan. Kompilator mengharapkan sesuatu yang berbeda dari hasil
 langsung eksekusi *macro* `quote!`, jadi kita perlu mengonversinya menjadi
 `TokenStream`. Kita melakukannya dengan memanggil metode `into`, yang
-mengonsumsi representasi perantara ini dan mengembalikan nilai bertipe
+mengonsumsi representasi perantara ini dan mengembalikan nilai typed
 `TokenStream` yang diwajibkan.
 
 *Macro* `quote!` juga menyediakan mekanisme templating yang sangat keren:
@@ -436,10 +436,10 @@ cara kerja *macro* biasa. Lihat [dokumentasi *crate* `quote`][quote-docs] untuk
 pengenalan yang menyeluruh.
 
 Kita ingin *macro* prosedural kita menghasilkan implementasi *trait*
-`HelloMacro` untuk tipe yang dianotasi pengguna, yang bisa kita dapatkan
+`HelloMacro` untuk type yang dianotasi pengguna, yang bisa kita dapatkan
 dengan memakai `#name`. Implementasi *trait* itu memiliki satu fungsi
 `hello_macro`, yang tubuhnya berisi fungsionalitas yang ingin kita
-sediakan: mencetak `Hello, Macro! My name is` lalu nama tipe yang dianotasi.
+sediakan: mencetak `Hello, Macro! My name is` lalu nama type yang dianotasi.
 
 *Macro* `stringify!` yang dipakai di sini sudah terpasang di dalam Rust. Ia
 menerima ekspresi Rust, seperti `1 + 2`, dan pada waktu kompilasi mengubah
@@ -497,12 +497,12 @@ prosedural. Tanda tangan fungsi definisi *macro*-nya akan tampak seperti ini:
 pub fn route(attr: TokenStream, item: TokenStream) -> TokenStream {
 ```
 
-Di sini, kita punya dua parameter bertipe `TokenStream`. Yang pertama untuk
+Di sini, kita punya dua parameter typed `TokenStream`. Yang pertama untuk
 isi atribut: bagian `GET, "/"`. Yang kedua adalah tubuh item tempat atribut
 itu melekat: dalam kasus ini, `fn index() {}` dan sisa tubuh fungsinya.
 
 Selain itu, *macro* mirip atribut bekerja dengan cara yang sama seperti *macro*
-`derive` kustom: Anda membuat *crate* dengan tipe *crate* `proc-macro` dan
+`derive` kustom: Anda membuat *crate* dengan type *crate* `proc-macro` dan
 mengimplementasikan fungsi yang menghasilkan kode yang Anda inginkan!
 
 ### Macro Mirip Fungsi

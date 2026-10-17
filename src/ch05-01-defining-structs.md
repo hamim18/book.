@@ -1,8 +1,8 @@
 ## Mendefinisikan dan Menginstansiasi Struct
 
-*Struct* mirip dengan *tuple*, yang dibahas di bagian [“Tipe Tuple”][tuples]<!--
+*Struct* mirip dengan *tuple*, yang dibahas di bagian [“Type Tuple”][tuples]<!--
 ignore -->, dalam hal keduanya menampung banyak nilai yang berkaitan. Seperti
-*tuple*, bagian-bagian sebuah *struct* dapat bertipe berbeda. Tidak seperti *tuple*,
+*tuple*, bagian-bagian sebuah *struct* dapat typed berbeda. Tidak seperti *tuple*,
 pada *struct* Anda memberi nama pada setiap bagian data sehingga jelas apa arti
 nilai-nilai tersebut. Penambahan nama ini berarti *struct* lebih fleksibel
 daripada *tuple*: Anda tidak harus mengandalkan urutan data untuk menentukan
@@ -11,7 +11,7 @@ atau mengakses nilai-nilai sebuah instance.
 Untuk mendefinisikan *struct*, kita menuliskan keyword `struct` dan memberi nama
 pada keseluruhan *struct*. Nama sebuah *struct* sebaiknya menggambarkan makna
 bagian-bagian data yang dikelompokkan bersama. Lalu, di dalam kurung kurawal,
-kita mendefinisikan nama dan tipe bagian-bagian data tersebut, yang kita sebut
+kita mendefinisikan nama dan type bagian-bagian data tersebut, yang kita sebut
 *field* (medan). Contohnya, Listing 5-1 menunjukkan sebuah *struct* yang
 menyimpan informasi tentang akun pengguna.
 
@@ -30,8 +30,8 @@ kurawal berisi pasangan _`key: value`_, dengan key adalah nama-nama *field* dan
 value adalah data yang ingin kita simpan di *field* tersebut. Kita tidak harus
 menyebutkan *field* sesuai urutan ketika kita mendeklarasikannya di dalam
 *struct*. Dengan kata lain, definisi *struct* adalah seperti templat umum untuk
-tipenya, dan instance mengisi templat itu dengan data tertentu untuk membuat
-nilai dari tipe tersebut. Contohnya, kita dapat mendeklarasikan seorang
+typenya, dan instance mengisi templat itu dengan data tertentu untuk membuat
+nilai dari type tersebut. Contohnya, kita dapat mendeklarasikan seorang
 pengguna tertentu seperti yang ditunjukkan pada Listing 5-2.
 
 <Listing number="5-2" file-name="src/main.rs" caption="Membuat instance struct `User`">
@@ -113,7 +113,7 @@ parameter `email` fungsi `build_user`. Karena *field* `email` dan parameter
 ### Membuat Instance dengan Sintaks Update Struct
 
 Sering kali berguna untuk membuat instance baru sebuah *struct* yang menyertakan
-sebagian besar nilai dari instance lain bertipe sama, tetapi mengubah sebagian
+sebagian besar nilai dari instance lain typed sama, tetapi mengubah sebagian
 di antaranya. Anda dapat melakukannya memakai sintaks update *struct*.
 
 Pertama, pada Listing 5-6 kita menunjukkan cara membuat instance `User` baru
@@ -160,7 +160,7 @@ ini karena ia memindahkan datanya, seperti yang kita lihat di bagian
 `String` baru untuk `email` maupun `username`, dan dengan demikian hanya
 memakai nilai `active` dan `sign_in_count` dari `user1`, maka `user1` akan
 tetap valid setelah `user2` dibuat. Baik `active` maupun `sign_in_count`
-adalah tipe yang mengimplementasikan *trait* `Copy`, jadi perilaku yang kita
+adalah type yang mengimplementasikan *trait* `Copy`, jadi perilaku yang kita
 bahas di bagian [“Data yang Hanya Ada di Stack: Copy”][copy]<!-- ignore -->
 akan berlaku. Dalam contoh ini kita juga masih dapat memakai `user1.email`,
 karena nilainya tidak dipindahkan keluar dari `user1`.
@@ -170,19 +170,19 @@ karena nilainya tidak dipindahkan keluar dari `user1`.
 <a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
 
 <a id="creating-different-types-with-tuple-structs"></a>
-### Membuat Tipe Berbeda dengan Tuple Struct
+### Membuat Type Berbeda dengan Tuple Struct
 
 Rust juga mendukung *struct* yang tampak mirip *tuple*, yang disebut *tuple
 struct* (*struct* *tuple*). *Tuple struct* memiliki makna tambahan yang diberikan
 oleh nama *struct*-nya, tetapi tidak memiliki nama yang terkait dengan
-*field*-fieldnya; alih-alih, ia hanya memiliki tipe dari *field*-fieldnya. *Tuple*
+*field*-fieldnya; alih-alih, ia hanya memiliki type dari *field*-fieldnya. *Tuple*
 *struct* berguna ketika Anda ingin memberi nama pada keseluruhan *tuple* dan
-menjadikan *tuple* itu tipe yang berbeda dari *tuple* lain, dan ketika menamai
+menjadikan *tuple* itu type yang berbeda dari *tuple* lain, dan ketika menamai
 setiap *field* seperti pada *struct* biasa akan terasa bertele-tele atau
 berlebihan.
 
 Untuk mendefinisikan *tuple struct*, mulailah dengan keyword `struct` dan nama
-*struct*, yang diikuti tipe-tipe di dalam *tuple*. Contohnya, di sini kita
+*struct*, yang diikuti type-type di dalam *tuple*. Contohnya, di sini kita
 mendefinisikan dan memakai dua *tuple struct* bernama `Color` dan `Point`:
 
 <Listing file-name="src/main.rs">
@@ -193,16 +193,16 @@ mendefinisikan dan memakai dua *tuple struct* bernama `Color` dan `Point`:
 
 </Listing>
 
-Perhatikan bahwa nilai `black` dan `origin` bertipe berbeda karena keduanya
+Perhatikan bahwa nilai `black` dan `origin` typed berbeda karena keduanya
 adalah instance dari *tuple struct* yang berbeda. Setiap *struct* yang Anda
-definisikan adalah tipenya sendiri, meskipun *field*-field di dalam *struct* itu
-mungkin bertipe sama. Contohnya, fungsi yang menerima parameter bertipe
-`Color` tidak dapat menerima `Point` sebagai argumen, meskipun kedua tipe itu
+definisikan adalah typenya sendiri, meskipun *field*-field di dalam *struct* itu
+mungkin typed sama. Contohnya, fungsi yang menerima parameter typed
+`Color` tidak dapat menerima `Point` sebagai argumen, meskipun kedua type itu
 tersusun dari tiga nilai `i32`. Selain itu, instance *tuple struct* mirip dengan
 *tuple* dalam hal Anda dapat mendestrukturisasinya menjadi bagian-bagian
 individualnya, dan Anda dapat memakai `.` yang diikuti indeks untuk mengakses
 sebuah nilai individual. Tidak seperti *tuple*, *tuple struct* mengharuskan Anda
-menyebutkan tipe structnya ketika mendestrukturisasi. Contohnya, kita akan
+menyebutkan type structnya ketika mendestrukturisasi. Contohnya, kita akan
 menulis `let Point(x, y, z) = origin;` untuk mendestrukturisasi nilai-nilai di
 titik `origin` menjadi variabel bernama `x`, `y`, dan `z`.
 
@@ -214,10 +214,10 @@ titik `origin` menjadi variabel bernama `x`, `y`, dan `z`.
 
 Anda juga dapat mendefinisikan *struct* yang tidak memiliki *field* apa pun!
 *Struct* ini disebut *unit-like struct* (*struct* mirip unit) karena perilakunya
-mirip `()`, tipe unit yang kita sebutkan di bagian [“Tipe
+mirip `()`, type unit yang kita sebutkan di bagian [“Type
 *Tuple*”][tuples]<!-- ignore -->. *Unit-like struct* dapat berguna ketika Anda
-perlu mengimplementasikan sebuah *trait* pada suatu tipe tetapi tidak memiliki
-data apa pun yang ingin Anda simpan di dalam tipe itu sendiri. Kita akan
+perlu mengimplementasikan sebuah *trait* pada suatu type tetapi tidak memiliki
+data apa pun yang ingin Anda simpan di dalam type itu sendiri. Kita akan
 membahas *trait* di Bab 10. Berikut contoh mendeklarasikan dan menginstansiasi
 unit *struct* bernama `AlwaysEqual`:
 
@@ -234,17 +234,17 @@ kita inginkan, lalu titik koma. Tidak perlu kurung kurawal atau tanda kurung!
 Lalu, kita bisa mendapatkan instance `AlwaysEqual` di variabel `subject`
 dengan cara yang serupa: memakai nama yang kita definisikan, tanpa kurung
 kurawal atau tanda kurung apa pun. Bayangkan nanti kita akan
-mengimplementasikan perilaku untuk tipe ini sedemikian rupa sehingga setiap
-instance `AlwaysEqual` selalu sama dengan setiap instance dari tipe lain mana
+mengimplementasikan perilaku untuk type ini sedemikian rupa sehingga setiap
+instance `AlwaysEqual` selalu sama dengan setiap instance dari type lain mana
 pun, mungkin untuk mendapatkan hasil yang diketahui demi keperluan pengujian.
 Kita tidak memerlukan data apa pun untuk mengimplementasikan perilaku itu!
 Anda akan melihat di Bab 10 cara mendefinisikan *trait* dan
-mengimplementasikannya pada tipe mana pun, termasuk *unit-like struct*.
+mengimplementasikannya pada type mana pun, termasuk *unit-like struct*.
 
 > ### Ownership pada Data Struct
 >
-> Pada definisi *struct* `User` di Listing 5-1, kita memakai tipe `String` yang
-> dimiliki alih-alih tipe string *slice* `&str`. Ini adalah pilihan yang
+> Pada definisi *struct* `User` di Listing 5-1, kita memakai type `String` yang
+> dimiliki alih-alih type string *slice* `&str`. Ini adalah pilihan yang
 > disengaja karena kita ingin setiap instance *struct* ini memiliki semua
 > datanya dan data itu tetap valid selama keseluruhan *struct* valid.
 >
@@ -318,7 +318,7 @@ mengimplementasikannya pada tipe mana pun, termasuk *unit-like struct*.
 >
 > Di Bab 10, kita akan membahas cara memperbaiki error-error ini supaya Anda
 > dapat menyimpan *reference* di dalam *struct*, tetapi untuk sekarang, kita akan
-> memperbaiki error seperti ini dengan memakai tipe yang dimiliki seperti
+> memperbaiki error seperti ini dengan memakai type yang dimiliki seperti
 > `String`, bukan *reference* seperti `&str`.
 
 <!-- manual-regeneration

@@ -100,7 +100,7 @@ bahwa thread yang dibuat itu akan sempat berjalan sama sekali!
 
 Kita dapat memperbaiki masalah thread yang dibuat tidak berjalan atau
 berakhir terlalu dini dengan menyimpan nilai kembalian `thread::spawn` di
-sebuah variabel. Tipe kembalian `thread::spawn` adalah `JoinHandle<T>`.
+sebuah variabel. Type kembalian `thread::spawn` adalah `JoinHandle<T>`.
 `JoinHandle<T>` adalah nilai yang dimiliki yang, ketika kita memanggil metode
 `join` padanya, akan menunggu thread-nya selesai. Listing 16-2 menunjukkan
 cara memakai `JoinHandle<T>` dari thread yang kita buat di Listing 16-1 dan

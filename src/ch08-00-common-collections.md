@@ -1,9 +1,9 @@
 # Koleksi Umum
 
 Pustaka standar Rust menyertakan sejumlah struktur data yang sangat berguna
-yang disebut koleksi. Sebagian besar tipe data lain merepresentasikan satu
+yang disebut koleksi. Sebagian besar data type lain merepresentasikan satu
 nilai tertentu, tetapi koleksi dapat menampung banyak nilai. Tidak seperti
-tipe built-in array dan *tuple*, data yang ditunjuk koleksi-koleksi ini
+type built-in array dan *tuple*, data yang ditunjuk koleksi-koleksi ini
 disimpan di *heap*, yang berarti banyaknya data tidak perlu diketahui pada
 waktu kompilasi dan dapat bertambah atau menyusut seiring berjalannya
 program. Setiap jenis koleksi memiliki kemampuan dan biaya yang berbeda, dan
@@ -13,7 +13,7 @@ yang sangat sering dipakai di program Rust:
 
 - Sebuah vektor memungkinkan Anda menyimpan sejumlah nilai yang jumlahnya
   dapat berubah, bersebelahan satu sama lain.
-- Sebuah *string* adalah koleksi karakter. Kita telah menyinggung tipe
+- Sebuah *string* adalah koleksi karakter. Kita telah menyinggung type
   `String` sebelumnya, tetapi di bab ini, kita akan membahasnya secara
   mendalam.
 - Sebuah hash map memungkinkan Anda mengasosiasikan sebuah nilai dengan

@@ -152,7 +152,7 @@ tampak seperti Listing 21-2.
 </Listing>
 
 Kita membawa `std::io::BufReader` dan `std::io::prelude` ke dalam *scope*
-untuk mendapatkan akses ke *trait* dan tipe yang memungkinkan kita membaca
+untuk mendapatkan akses ke *trait* dan type yang memungkinkan kita membaca
 dari dan menulis ke *stream*. Di loop `for` pada fungsi `main`, alih-alih
 mencetak pesan yang menyatakan bahwa kita membuat koneksi, kita sekarang
 memanggil fungsi `handle_connection` yang baru dan memberikan `stream`
@@ -166,7 +166,7 @@ kita.
 Kita membuat variabel bernama `http_request` untuk mengumpulkan
 baris-baris permintaan yang dikirim peramban ke server kita. Kita
 menandakan bahwa kita ingin mengumpulkan baris-baris itu ke dalam vektor
-dengan menambahkan anotasi tipe `Vec<_>`.
+dengan menambahkan type annotation `Vec<_>`.
 
 `BufReader` mengimplementasikan *trait* `std::io::BufRead`, yang menyediakan
 metode `lines`. Metode `lines` mengembalikan iterator `Result<String,

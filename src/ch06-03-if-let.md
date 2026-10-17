@@ -136,18 +136,18 @@ dan `let...else` juga ada di kotak peralatan Rust Anda.
 
 ## Ringkasan
 
-Kini kita telah membahas cara memakai *enum* untuk membuat tipe kustom yang
+Kini kita telah membahas cara memakai *enum* untuk membuat custom type yang
 dapat menjadi salah satu dari sekumpulan nilai yang dienumerasikan. Kita telah
-menunjukkan bagaimana tipe `Option<T>` milik pustaka standar membantu Anda
-memakai sistem tipe untuk mencegah error. Ketika nilai *enum* memiliki data di
+menunjukkan bagaimana type `Option<T>` milik pustaka standar membantu Anda
+memakai type system untuk mencegah error. Ketika nilai *enum* memiliki data di
 dalamnya, Anda dapat memakai `match` atau `if let` untuk mengekstrak dan
 memakai nilai-nilai itu, bergantung pada seberapa banyak kasus yang perlu Anda
 tangani.
 
 Program Rust Anda kini dapat menyatakan konsep-konsep di domain Anda dengan
-memakai *struct* dan *enum*. Membuat tipe kustom untuk dipakai di API Anda
-menjamin keamanan tipe: *compiler* (kompilator) akan memastikan fungsi-fungsi
-Anda hanya mendapatkan nilai dengan tipe yang diharapkan setiap fungsi.
+memakai *struct* dan *enum*. Membuat custom type untuk dipakai di API Anda
+menjamin keamanan type: *compiler* (kompilator) akan memastikan fungsi-fungsi
+Anda hanya mendapatkan nilai dengan type yang diharapkan setiap fungsi.
 
 Untuk menyediakan API yang tertata baik kepada pengguna Anda, yang mudah
 dipakai dan hanya mengekspos persis apa yang dibutuhkan pengguna Anda, mari

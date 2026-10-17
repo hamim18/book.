@@ -11,9 +11,9 @@ error. Rust berharap mengubah hal itu.
 
 Awalnya, tim Rust mengira bahwa menjamin keamanan memori dan mencegah masalah
 konkurensi adalah dua tantangan terpisah yang harus diselesaikan dengan metode
-yang berbeda. Seiring waktu, tim itu menemukan bahwa sistem *ownership* dan tipe
+yang berbeda. Seiring waktu, tim itu menemukan bahwa sistem *ownership* dan type
 adalah seperangkat alat yang ampuh untuk membantu mengelola keamanan memori
-_dan_ masalah konkurensi! Dengan memanfaatkan *ownership* dan pemeriksaan tipe,
+_dan_ masalah konkurensi! Dengan memanfaatkan *ownership* dan pemeriksaan type,
 banyak error konkurensi menjadi error waktu kompilasi di Rust alih-alih error
 runtime. Karena itu, alih-alih membuat Anda menghabiskan banyak waktu mencoba
 mereproduksi keadaan persis ketika bug konkurensi runtime terjadi, kode yang
@@ -50,5 +50,5 @@ Berikut topik yang akan kita bahas di bab ini:
   pesan antar-thread
 - Konkurensi _shared-state_ (state bersama), di mana beberapa thread memiliki
   akses ke sepotong data tertentu
-- *Trait* `Sync` dan `Send`, yang memperluas jaminan konkurensi Rust ke tipe
-  yang didefinisikan pengguna maupun tipe yang disediakan pustaka standar
+- *Trait* `Sync` dan `Send`, yang memperluas jaminan konkurensi Rust ke type
+  yang didefinisikan pengguna maupun type yang disediakan pustaka standar

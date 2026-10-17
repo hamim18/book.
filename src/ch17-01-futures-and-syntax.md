@@ -8,7 +8,7 @@ pada suatu titik di masa depan. (Konsep yang sama ini muncul di banyak bahasa,
 terkadang dengan nama lain seperti _task_ atau _promise_.) Rust menyediakan
 *trait* `Future` sebagai batu penyusun supaya berbagai operasi async bisa
 diimplementasikan dengan struktur data yang berbeda-beda, tetapi dengan
-antarmuka yang sama. Di Rust, *future* adalah tipe yang mengimplementasikan *trait*
+antarmuka yang sama. Di Rust, *future* adalah type yang mengimplementasikan *trait*
 `Future`. Setiap *future* menyimpan informasinya sendiri tentang kemajuan yang
 telah dibuat dan apa arti “siap”.
 
@@ -31,9 +31,9 @@ Saat menulis kode async di Rust, kita memakai kata kunci `async` dan `await`
 hampir setiap saat. Rust mengompilasinya menjadi kode yang setara dengan
 memakai *trait* `Future`, sebagaimana Rust mengompilasi perulangan `for` menjadi
 kode yang setara dengan memakai *trait* `Iterator`. Akan tetapi, karena Rust
-menyediakan *trait* `Future`, Anda juga bisa mengimplementasikannya untuk tipe
+menyediakan *trait* `Future`, Anda juga bisa mengimplementasikannya untuk type
 data Anda sendiri saat dibutuhkan. Banyak fungsi yang akan kita lihat di bab
-ini mengembalikan tipe dengan implementasi `Future` mereka sendiri. Kita akan
+ini mengembalikan type dengan implementasi `Future` mereka sendiri. Kita akan
 kembali ke definisi *trait* itu di akhir bab dan menggali lebih dalam cara
 kerjanya, tetapi detail sejauh ini sudah cukup untuk membuat kita terus
 melaju.
@@ -50,7 +50,7 @@ Anda ketahui seiring kita berjalan.
 
 Untuk menjaga fokus bab ini pada mempelajari async alih-alih menyulap berbagai
 bagian ekosistem, kita telah membuat *crate* `trpl` (`trpl` adalah singkatan dari
-“The Rust Programming Language”). *Crate* ini mengekspor ulang semua tipe,
+“The Rust Programming Language”). *Crate* ini mengekspor ulang semua type,
 *trait*, dan fungsi yang Anda perlukan, terutama dari *crate*
 [`futures`][futures-crate]<!-- ignore --> dan [`tokio`][tokio]<!-- ignore -->.
 *Crate* `futures` adalah rumah resmi eksperimen Rust untuk kode async, dan
@@ -128,8 +128,8 @@ menjalankan kode async sampai kode itu benar-benar dibutuhkan.
 > sama seperti halnya *iterator*.
 
 Setelah kita mendapatkan `response_text`, kita bisa melakukan parsing pada
-teks itu menjadi sebuah instance bertipe `Html` dengan memakai `Html::parse`.
-Alih-alih string mentah, sekarang kita punya tipe data yang bisa kita pakai
+teks itu menjadi sebuah instance typed `Html` dengan memakai `Html::parse`.
+Alih-alih string mentah, sekarang kita punya data type yang bisa kita pakai
 untuk mengolah HTML sebagai struktur data yang lebih kaya. Khususnya, kita
 bisa memakai metode `select_first` untuk menemukan instance pertama dari
 sebuah selector CSS tertentu. Dengan meneruskan string `"title"`, kita akan
@@ -164,14 +164,14 @@ menambahkan beberapa kode di `main` untuk memanggilnya, mari kita bahas
 sedikit lagi apa yang telah kita tulis dan apa artinya.
 
 Ketika Rust melihat sebuah _blok_ yang ditandai dengan kata kunci `async`,
-Rust mengompilasinya menjadi sebuah tipe data anonim yang unik yang
+Rust mengompilasinya menjadi sebuah data type anonim yang unik yang
 mengimplementasikan *trait* `Future`. Ketika Rust melihat sebuah _fungsi_ yang
 ditandai dengan `async`, Rust mengompilasinya menjadi sebuah fungsi non-async
-yang badannya adalah blok async. Tipe kembalian sebuah fungsi async adalah
-tipe dari tipe data anonim yang dibuat kompilator untuk blok async tersebut.
+yang badannya adalah blok async. Type kembalian sebuah fungsi async adalah
+type dari data type anonim yang dibuat kompilator untuk blok async tersebut.
 
 Dengan demikian, menulis `async fn` setara dengan menulis sebuah fungsi yang
-mengembalikan _future_ dari tipe kembaliannya. Bagi kompilator, definisi
+mengembalikan _future_ dari return typenya. Bagi kompilator, definisi
 fungsi seperti `async fn page_title` di Listing 17-1 kira-kira setara dengan
 fungsi non-async yang didefinisikan seperti ini:
 
@@ -194,15 +194,15 @@ Mari kita telusuri setiap bagian dari versi yang ditransformasi ini:
 
 - Kode ini memakai sintaks `impl Trait` yang kita bahas di Bab 10 pada bagian
   [“Memakai Trait sebagai Parameter”][impl-trait]<!-- ignore -->.
-- Nilai yang dikembalikan mengimplementasikan *trait* `Future` dengan tipe
-  asosiasi `Output`. Perhatikan bahwa tipe `Output`-nya adalah
-  `Option<String>`, sama dengan tipe kembalian asli dari `page_title` versi
+- Nilai yang dikembalikan mengimplementasikan *trait* `Future` dengan type
+  asosiasi `Output`. Perhatikan bahwa type `Output`-nya adalah
+  `Option<String>`, sama dengan return type asli dari `page_title` versi
   `async fn`.
 - Semua kode yang dipanggil di badan fungsi asli terbungkus di dalam blok
   `async move`. Ingat bahwa blok adalah ekspresi. Seluruh blok ini adalah
   ekspresi yang dikembalikan dari fungsi tersebut.
-- Blok async ini menghasilkan sebuah nilai bertipe `Option<String>`, seperti
-  yang baru saja dijelaskan. Nilai itu cocok dengan tipe `Output` pada tipe
+- Blok async ini menghasilkan sebuah nilai typed `Option<String>`, seperti
+  yang baru saja dijelaskan. Nilai itu cocok dengan type `Output` pada type
   kembaliannya. Ini sama saja dengan blok-blok lain yang pernah Anda lihat.
 - Badan fungsi yang baru adalah blok `async move` karena cara ia memakai
   parameter `url`. (Kita akan membahas lebih jauh tentang `async` versus
@@ -397,11 +397,11 @@ diteruskan padanya yang selesai lebih dulu.
 > kita lewati untuk saat ini.
 
 *Future* mana pun bisa “menang” secara sah, jadi tidak masuk akal untuk
-mengembalikan `Result`. Sebagai gantinya, `trpl::select` mengembalikan tipe
-yang belum pernah kita lihat, `trpl::Either`. Tipe `Either` agak mirip
+mengembalikan `Result`. Sebagai gantinya, `trpl::select` mengembalikan type
+yang belum pernah kita lihat, `trpl::Either`. Type `Either` agak mirip
 `Result` karena sama-sama punya dua kasus. Namun, tidak seperti `Result`,
 tidak ada gagasan sukses atau gagal yang tertanam di dalam `Either`.
-Sebaliknya, tipe ini memakai `Left` dan `Right` untuk menunjukkan “salah satu
+Sebaliknya, type ini memakai `Left` dan `Right` untuk menunjukkan “salah satu
 atau yang lain”:
 
 ```rust

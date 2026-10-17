@@ -282,7 +282,7 @@ bagian-bagian library yang berbeda secara terpisah dan bisa menguji detail
 implementasi privat. Pengujian integrasi memeriksa bahwa banyak bagian
 library bekerja bersama dengan benar, dan mereka memakai API publik library
 untuk menguji kode dengan cara yang sama seperti yang akan dilakukan kode
-eksternal. Meskipun sistem tipe dan aturan *ownership* Rust membantu mencegah
+eksternal. Meskipun type system dan aturan *ownership* Rust membantu mencegah
 beberapa jenis bug, pengujian tetap penting untuk mengurangi bug logika
 yang berkaitan dengan bagaimana kode Anda diharapkan berperilaku.
 

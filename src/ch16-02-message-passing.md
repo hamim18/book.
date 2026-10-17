@@ -38,7 +38,7 @@ bagian-bagian itu ke satu thread yang menggabungkan hasilnya.
 
 Pertama, di Listing 16-6, kita akan membuat *channel* tetapi tidak melakukan
 apa pun dengannya. Perhatikan bahwa ini belum akan terkompilasi karena Rust
-tidak bisa tahu tipe nilai apa yang ingin kita kirim melalui *channel* itu.
+tidak bisa tahu type nilai apa yang ingin kita kirim melalui *channel* itu.
 
 <Listing number="16-6" file-name="src/main.rs" caption="Membuat channel dan menetapkan kedua bagiannya ke `tx` dan `rx`">
 
@@ -90,7 +90,7 @@ memiliki `tx`. Thread yang dibuat perlu memiliki *transmitter* untuk bisa
 mengirim pesan melalui *channel*.
 
 *Transmitter* memiliki metode `send` yang menerima nilai yang ingin kita kirim.
-Metode `send` mengembalikan tipe `Result<T, E>`, jadi jika *receiver* telah
+Metode `send` mengembalikan type `Result<T, E>`, jadi jika *receiver* telah
 dibebaskan dan tidak ada tempat untuk mengirim nilai, operasi pengiriman akan
 mengembalikan error. Dalam contoh ini, kita memanggil `unwrap` untuk panic
 jika terjadi error. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan

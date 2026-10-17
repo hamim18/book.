@@ -3,7 +3,7 @@
 *Trait* kedua yang penting bagi pola *smart pointer* adalah `Drop`, yang
 memungkinkan Anda menyesuaikan apa yang terjadi ketika sebuah nilai akan
 keluar dari *scope*. Anda dapat menyediakan implementasi untuk *trait* `Drop` pada
-tipe apa pun, dan kode itu dapat dipakai untuk melepaskan sumber daya seperti file
+type apa pun, dan kode itu dapat dipakai untuk melepaskan sumber daya seperti file
 atau koneksi jaringan.
 
 Kita memperkenalkan `Drop` dalam konteks *smart pointer* karena fungsionalitas
@@ -11,14 +11,14 @@ Kita memperkenalkan `Drop` dalam konteks *smart pointer* karena fungsionalitas
 Sebagai contoh, ketika sebuah `Box<T>` dibebaskan, ia akan mendealokasikan
 ruang di *heap* yang ditunjuk *box* itu.
 
-Di beberapa bahasa, untuk beberapa tipe, pemrogram harus memanggil kode untuk
+Di beberapa bahasa, untuk beberapa type, pemrogram harus memanggil kode untuk
 membebaskan memori atau sumber daya setiap kali mereka selesai memakai instance
-tipe-tipe itu. Contohnya antara lain handle file, soket, dan kunci. Jika
+type-type itu. Contohnya antara lain handle file, soket, dan kunci. Jika
 pemrogram lupa, sistem bisa kelebihan beban dan crash. Di Rust, Anda dapat
 menentukan bahwa potongan kode tertentu dijalankan setiap kali sebuah nilai
 keluar dari *scope*, dan kompilator akan menyisipkan kode ini secara otomatis.
 Akibatnya, Anda tidak perlu berhati-hati menempatkan kode pembersihan di
-seluruh bagian program yang telah selesai memakai instance tipe tertentu—Anda
+seluruh bagian program yang telah selesai memakai instance type tertentu—Anda
 tetap tidak akan membocorkan resource!
 
 Anda menentukan kode yang dijalankan ketika sebuah nilai keluar dari *scope*
@@ -44,7 +44,7 @@ metode `drop`.
 *scope*. Kita mengimplementasikan *trait* `Drop` pada `CustomSmartPointer` dan
 menyediakan implementasi untuk metode `drop` yang memanggil `println!`. Badan
 metode `drop` adalah tempat Anda meletakkan logika apa pun yang ingin Anda
-jalankan ketika instance tipe Anda keluar dari *scope*. Kita mencetak beberapa
+jalankan ketika instance type Anda keluar dari *scope*. Kita mencetak beberapa
 teks di sini untuk menunjukkan secara visual kapan Rust akan memanggil `drop`.
 
 Di `main`, kita membuat dua instance `CustomSmartPointer`, lalu mencetak
@@ -63,7 +63,7 @@ Rust otomatis memanggil `drop` untuk kita ketika instance kita keluar dari
 *scope*, menjalankan kode yang kita tentukan. Variabel dibebaskan dalam urutan
 terbalik dari pembuatannya, jadi `d` dibebaskan sebelum `c`. Tujuan contoh ini
 adalah memberi Anda panduan visual tentang cara kerja metode `drop`; biasanya
-Anda akan menentukan kode pembersihan yang perlu dijalankan tipe Anda alih-alih
+Anda akan menentukan kode pembersihan yang perlu dijalankan type Anda alih-alih
 pesan cetak.
 
 <!-- Old headings. Do not remove or links may break. -->

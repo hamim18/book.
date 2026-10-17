@@ -1,52 +1,52 @@
 <a id="data-types"></a>
-## Tipe Data
+## Type Data
 
-Setiap nilai di Rust memiliki tipe data tertentu, yang memberi tahu Rust jenis
+Setiap nilai di Rust memiliki data type tertentu, yang memberi tahu Rust jenis
 data apa yang sedang ditentukan sehingga ia tahu cara mengolah data tersebut.
-Kita akan melihat dua himpunan bagian tipe data: skalar dan majemuk.
+Kita akan melihat dua himpunan bagian data type: skalar dan majemuk.
 
 Ingatlah bahwa Rust adalah bahasa yang *statically typed* (bertipe statis),
-artinya bahasa ini harus mengetahui tipe semua variabel pada waktu kompilasi.
-*Compiler* biasanya dapat menyimpulkan tipe apa yang ingin kita pakai berdasarkan
-nilainya dan cara kita memakainya. Pada kasus ketika banyak tipe yang mungkin,
-seperti ketika kita mengonversi `String` menjadi tipe numerik memakai `parse`
+artinya bahasa ini harus mengetahui type semua variabel pada waktu kompilasi.
+*Compiler* biasanya dapat menyimpulkan type apa yang ingin kita pakai berdasarkan
+nilainya dan cara kita memakainya. Pada kasus ketika banyak type yang mungkin,
+seperti ketika kita mengonversi `String` menjadi type numerik memakai `parse`
 di bagian [“Membandingkan Tebakan dengan Angka
 Rahasia”][comparing-the-guess-to-the-secret-number]<!-- ignore --> pada Bab 2,
-kita harus menambahkan anotasi tipe, seperti ini:
+kita harus menambahkan type annotation, seperti ini:
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");
 ```
 
-Jika kita tidak menambahkan anotasi tipe `: u32` yang ditunjukkan pada kode
+Jika kita tidak menambahkan type annotation `: u32` yang ditunjukkan pada kode
 sebelumnya, Rust akan menampilkan error berikut, yang berarti *compiler*
-membutuhkan lebih banyak informasi dari kita untuk mengetahui tipe mana yang
+membutuhkan lebih banyak informasi dari kita untuk mengetahui type mana yang
 ingin kita pakai:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
 ```
 
-Anda akan melihat anotasi tipe yang berbeda untuk tipe data lainnya.
+Anda akan melihat type annotation yang berbeda untuk data type lainnya.
 
-### Tipe Skalar
+### Type Skalar
 
-Tipe skalar merepresentasikan sebuah nilai tunggal. Rust memiliki empat tipe
+Type skalar merepresentasikan sebuah nilai tunggal. Rust memiliki empat type
 skalar utama: integer, bilangan floating-point, Boolean, dan karakter. Anda
 mungkin mengenalinya dari bahasa pemrograman lain. Mari kita langsung lihat
 cara kerjanya di Rust.
 
 <a id="integer-types"></a>
-#### Tipe Integer
+#### Type Integer
 
-Sebuah integer adalah angka tanpa komponen pecahan. Kita memakai satu tipe
-integer di Bab 2, yaitu tipe `u32`. Deklarasi tipe ini menandakan bahwa nilai
-yang terkait dengannya harus berupa integer tak bertanda (tipe integer bertanda
+Sebuah integer adalah angka tanpa komponen pecahan. Kita memakai satu type
+integer di Bab 2, yaitu type `u32`. Deklarasi type ini menandakan bahwa nilai
+yang terkait dengannya harus berupa integer tak bertanda (type integer bertanda
 diawali dengan `i`, bukan `u`) yang menempati ruang 32 bit. Tabel 3-1
-menunjukkan tipe integer bawaan di Rust. Kita dapat memakai salah satu dari
-varian-varian ini untuk mendeklarasikan tipe sebuah nilai integer.
+menunjukkan type integer bawaan di Rust. Kita dapat memakai salah satu dari
+varian-varian ini untuk mendeklarasikan type sebuah nilai integer.
 
-<span class="caption">Tabel 3-1: Tipe Integer di Rust</span>
+<span class="caption">Tabel 3-1: Type Integer di Rust</span>
 
 | Panjang              | Bertanda | Tak Bertanda |
 | ------- | ------- | -------- |
@@ -76,13 +76,13 @@ Varian unsigned dapat menyimpan angka dari 0 sampai 2<sup>n</sup> − 1, jadi
 sebuah `u8` dapat menyimpan angka dari 0 sampai 2<sup>8</sup> − 1, yang setara
 dengan 0 sampai 255.
 
-Selain itu, tipe `isize` dan `usize` bergantung pada arsitektur komputer tempat
+Selain itu, type `isize` dan `usize` bergantung pada arsitektur komputer tempat
 program Anda berjalan: 64 bit jika Anda berada pada arsitektur 64-bit dan 32
 bit jika Anda berada pada arsitektur 32-bit.
 
 Anda dapat menulis literal integer dalam bentuk mana pun yang ditunjukkan pada
-Tabel 3-2. Perhatikan bahwa literal angka yang bisa menjadi beberapa tipe
-numerik mengizinkan sufiks tipe, seperti `57u8`, untuk menetapkan tipenya.
+Tabel 3-2. Perhatikan bahwa literal angka yang bisa menjadi beberapa type
+numerik mengizinkan sufiks type, seperti `57u8`, untuk menetapkan typenya.
 Literal angka juga dapat memakai `_` sebagai pemisah visual agar angkanya lebih
 mudah dibaca, seperti `1_000`, yang nilainya akan sama seperti jika Anda
 menuliskan `1000`.
@@ -97,14 +97,14 @@ menuliskan `1000`.
 | Biner            | `0b1111_0000` |
 | Byte (hanya `u8`) | `b'A'`        |
 
-Jadi, bagaimana Anda tahu tipe integer mana yang harus dipakai? Jika Anda ragu,
-bawaan Rust umumnya adalah titik awal yang baik: tipe integer secara bawaan
+Jadi, bagaimana Anda tahu type integer mana yang harus dipakai? Jika Anda ragu,
+bawaan Rust umumnya adalah titik awal yang baik: type integer secara bawaan
 adalah `i32`. Situasi utama ketika Anda memakai `isize` atau `usize` adalah
 saat melakukan pengindeksan terhadap suatu koleksi.
 
 > ##### Integer Overflow
 >
-> Misalkan Anda memiliki variabel bertipe `u8` yang dapat menampung nilai
+> Misalkan Anda memiliki variabel typed `u8` yang dapat menampung nilai
 > antara 0 dan 255. Jika Anda mencoba mengubah variabel itu menjadi nilai di
 > luar rentang tersebut, seperti 256, integer overflow akan terjadi, dan ini
 > dapat menghasilkan salah satu dari dua perilaku. Ketika Anda mengompilasi
@@ -118,15 +118,15 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 > _tidak_ menyertakan pemeriksaan integer overflow yang menyebabkan panic.
 > Sebagai gantinya, jika overflow terjadi, Rust melakukan _pembungkusan
 > komplemen dua_. Singkatnya, nilai yang lebih besar daripada nilai maksimum
-> yang dapat ditampung tipe tersebut akan “membungkus” ke nilai minimum yang
-> dapat ditampung tipe tersebut. Pada kasus `u8`, nilai 256 menjadi 0, nilai
+> yang dapat ditampung type tersebut akan “membungkus” ke nilai minimum yang
+> dapat ditampung type tersebut. Pada kasus `u8`, nilai 256 menjadi 0, nilai
 > 257 menjadi 1, dan seterusnya. Program tidak akan panic, tetapi variabelnya
 > akan memiliki nilai yang mungkin bukan seperti yang Anda harapkan.
 > Mengandalkan perilaku pembungkusan integer overflow dianggap sebagai sebuah
 > error.
 >
 > Untuk menangani kemungkinan overflow secara eksplisit, Anda dapat memakai
-> keluarga metode berikut yang disediakan oleh pustaka standar untuk tipe
+> keluarga metode berikut yang disediakan oleh pustaka standar untuk type
 > numerik primitif:
 >
 > - Membungkus dalam semua mode kompilasi dengan metode `wrapping_*`, seperti 
@@ -136,13 +136,13 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 >   terjadi dengan metode `overflowing_*`.
 > - Menjenuhkan pada nilai minimum atau maksimum dengan metode `saturating_*`.
 
-#### Tipe Floating-Point
+#### Type Floating-Point
 
-Rust juga memiliki dua tipe primitif untuk *floating-point* (titik mengambang),
-yaitu angka dengan titik desimal. Tipe floating-point di Rust adalah `f32` dan
-`f64`, yang masing-masing berukuran 32 bit dan 64 bit. Tipe bawaannya adalah
+Rust juga memiliki dua primitive type untuk *floating-point* (titik mengambang),
+yaitu angka dengan titik desimal. Type floating-point di Rust adalah `f32` dan
+`f64`, yang masing-masing berukuran 32 bit dan 64 bit. Type bawaannya adalah
 `f64` karena pada CPU modern, kecepatannya kurang lebih sama dengan `f32`
-tetapi mampu memberikan presisi lebih tinggi. Semua tipe floating-point
+tetapi mampu memberikan presisi lebih tinggi. Semua type floating-point
 bersifat signed.
 
 Berikut contoh yang memperlihatkan bilangan floating-point sedang beraksi:
@@ -157,7 +157,7 @@ Bilangan floating-point direpresentasikan sesuai standar IEEE-754.
 
 #### Operasi Numerik
 
-Rust mendukung operasi matematika dasar yang Anda harapkan untuk semua tipe
+Rust mendukung operasi matematika dasar yang Anda harapkan untuk semua type
 angka: penjumlahan, pengurangan, perkalian, pembagian, dan sisa bagi. Pembagian
 integer memotong ke arah nol menuju integer terdekat. Kode berikut menunjukkan
 cara memakai setiap operasi numerik dalam pernyataan `let`:
@@ -173,11 +173,11 @@ matematika dan mengevaluasi menjadi satu nilai, yang kemudian diikat ke sebuah
 variabel. [Lampiran B][appendix_b]<!-- ignore --> memuat daftar semua operator
 yang disediakan Rust.
 
-#### Tipe Boolean
+#### Type Boolean
 
-Seperti pada sebagian besar bahasa pemrograman lain, tipe Boolean di Rust
+Seperti pada sebagian besar bahasa pemrograman lain, type Boolean di Rust
 memiliki dua nilai yang mungkin: `true` dan `false`. Ukuran Boolean adalah satu
-byte. Tipe Boolean di Rust ditulis dengan `bool`. Contohnya:
+byte. Type Boolean di Rust ditulis dengan `bool`. Contohnya:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -189,9 +189,9 @@ Cara utama memakai nilai Boolean adalah melalui kondisional, seperti ekspresi
 `if`. Kita akan membahas cara kerja ekspresi `if` di Rust pada bagian
 [“Alur Kontrol”][control-flow]<!-- ignore -->.
 
-#### Tipe Karakter
+#### Type Karakter
 
-Tipe `char` di Rust adalah tipe alfabetis paling primitif dalam bahasa ini.
+Type `char` di Rust adalah type alfabetis paling primitif dalam bahasa ini.
 Berikut beberapa contoh pendeklarasian nilai `char`:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -201,7 +201,7 @@ Berikut beberapa contoh pendeklarasian nilai `char`:
 ```
 
 Perhatikan bahwa kita menuliskan literal `char` dengan tanda kutip tunggal,
-berbeda dengan literal string yang memakai tanda kutip ganda. Tipe `char` di
+berbeda dengan literal string yang memakai tanda kutip ganda. Type `char` di
 Rust berukuran 4 byte dan merepresentasikan sebuah nilai skalar Unicode, yang
 berarti ia dapat merepresentasikan jauh lebih banyak daripada sekadar ASCII.
 Huruf beraksen; karakter Tionghoa, Jepang, dan Korea; emoji; dan spasi lebar
@@ -213,22 +213,22 @@ itu `char` di Rust. Kita akan membahas topik ini secara mendetail di
 [“Menyimpan Teks Terenkode UTF-8 dengan String”][strings]<!-- ignore --> pada
 Bab 8.
 
-### Tipe Majemuk
+### Type Majemuk
 
-Tipe majemuk dapat mengelompokkan beberapa nilai menjadi satu tipe. Rust
-memiliki dua tipe majemuk primitif: *tuple* dan array.
+Type majemuk dapat mengelompokkan beberapa nilai menjadi satu type. Rust
+memiliki dua compound type primitif: *tuple* dan array.
 
 <a id="the-tuple-type"></a>
-#### Tipe Tuple
+#### Type Tuple
 
 Sebuah *tuple* adalah cara umum untuk mengelompokkan sejumlah nilai dengan
-beragam tipe menjadi satu tipe majemuk. *Tuple* memiliki panjang yang tetap:
+beragam type menjadi satu compound type. *Tuple* memiliki panjang yang tetap:
 begitu dideklarasikan, ukurannya tidak dapat membesar atau mengecil.
 
 Kita membuat *tuple* dengan menuliskan daftar nilai yang dipisahkan koma di
-dalam tanda kurung. Setiap posisi di dalam *tuple* memiliki tipe, dan tipe
+dalam tanda kurung. Setiap posisi di dalam *tuple* memiliki type, dan type
 nilai-nilai yang berbeda di dalam *tuple* tidak harus sama. Kita menambahkan
-anotasi tipe opsional pada contoh ini:
+type annotation opsional pada contoh ini:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -266,15 +266,15 @@ Program ini membuat *tuple* `x` lalu mengakses setiap elemen *tuple* dengan mema
 indeksnya masing-masing. Seperti pada sebagian besar bahasa pemrograman, indeks
 pertama dalam sebuah *tuple* adalah 0.
 
-*Tuple* tanpa nilai apa pun memiliki nama khusus, *unit*. Nilai ini dan tipe yang
+*Tuple* tanpa nilai apa pun memiliki nama khusus, *unit*. Nilai ini dan type yang
 bersesuaian dengannya sama-sama ditulis `()` dan merepresentasikan nilai kosong
-atau tipe kembalian kosong. Ekspresi secara implisit mengembalikan nilai unit
+atau return type kosong. Ekspresi secara implisit mengembalikan nilai unit
 jika tidak mengembalikan nilai lain.
 
-#### Tipe Array
+#### Type Array
 
 Cara lain untuk memiliki koleksi berisi banyak nilai adalah dengan array.
-Tidak seperti *tuple*, setiap elemen array harus memiliki tipe yang sama. Tidak
+Tidak seperti *tuple*, setiap elemen array harus memiliki type yang sama. Tidak
 seperti array pada beberapa bahasa lain, array di Rust memiliki panjang yang
 tetap.
 
@@ -288,11 +288,11 @@ dalam kurung siku:
 ```
 
 Array berguna ketika Anda ingin data Anda dialokasikan di *stack* (tumpukan),
-sama seperti tipe-tipe lain yang telah kita lihat sejauh ini, alih-alih di
+sama seperti type-type lain yang telah kita lihat sejauh ini, alih-alih di
 *heap* (timbunan) (kita akan membahas *stack* dan *heap* lebih lanjut di
 [Bab 4][stack-and-heap]<!-- ignore -->) atau ketika Anda ingin memastikan
 bahwa Anda selalu memiliki jumlah elemen yang tetap. Meski begitu, array tidak
-sefleksibel tipe vektor. Vektor adalah tipe koleksi serupa yang disediakan oleh
+sefleksibel type vektor. Vektor adalah type koleksi serupa yang disediakan oleh
 pustaka standar yang _diizinkan_ untuk membesar atau mengecil ukurannya karena
 isinya berada di *heap*. Jika Anda ragu apakah harus memakai array atau vektor,
 kemungkinan besar Anda sebaiknya memakai vektor. [Bab 8][vectors]<!-- ignore
@@ -308,14 +308,14 @@ let months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
 ```
 
-Anda menuliskan tipe array dengan memakai kurung siku yang berisi tipe setiap
+Anda menuliskan type array dengan memakai kurung siku yang berisi type setiap
 elemen, tanda titik koma, lalu jumlah elemen dalam array, seperti ini:
 
 ```rust
 let a: [i32; 5] = [1, 2, 3, 4, 5];
 ```
 
-Di sini, `i32` adalah tipe setiap elemen. Setelah titik koma, angka `5`
+Di sini, `i32` adalah type setiap elemen. Setelah titik koma, angka `5`
 menandakan bahwa array tersebut berisi lima elemen.
 
 Anda juga dapat menginisialisasi array agar berisi nilai yang sama untuk

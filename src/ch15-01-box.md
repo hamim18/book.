@@ -1,6 +1,6 @@
 ## Memakai `Box<T>` untuk Menunjuk ke Data di Heap
 
-*Smart pointer* yang paling sederhana adalah _box_, yang tipenya ditulis
+*Smart pointer* yang paling sederhana adalah _box_, yang typenya ditulis
 `Box<T>`. _Box_ memungkinkan Anda menyimpan data di *heap* alih-alih di *stack*.
 Yang tersisa di *stack* adalah *pointer* ke data di *heap* itu. Baca kembali Bab 4
 untuk mengulas perbedaan antara *stack* dan *heap*.
@@ -9,17 +9,17 @@ untuk mengulas perbedaan antara *stack* dan *heap*.
 alih-alih di *stack*. Namun, *box* juga tidak memiliki banyak kemampuan tambahan.
 Anda paling sering akan memakainya dalam situasi-situasi berikut:
 
-- Ketika Anda memiliki tipe yang ukurannya tidak bisa diketahui pada waktu
-  kompilasi, dan Anda ingin memakai nilai bertipe itu dalam konteks yang
+- Ketika Anda memiliki type yang ukurannya tidak bisa diketahui pada waktu
+  kompilasi, dan Anda ingin memakai nilai typed itu dalam konteks yang
   menuntut ukuran yang pasti
 - Ketika Anda memiliki data dalam jumlah besar, dan Anda ingin memindahkan
   *ownership* tetapi memastikan data itu tidak akan disalin ketika Anda
   melakukannya
 - Ketika Anda ingin memiliki sebuah nilai, dan Anda hanya peduli bahwa nilai
-  itu bertipe yang mengimplementasikan *trait* tertentu alih-alih bertipe
+  itu typed yang mengimplementasikan *trait* tertentu alih-alih typed
   spesifik tertentu
 
-Kita akan menunjukkan situasi pertama di [“Mengaktifkan Tipe Rekursif dengan
+Kita akan menunjukkan situasi pertama di [“Mengaktifkan Type Rekursif dengan
 Boxes”](#enabling-recursive-types-with-boxes)<!-- ignore -->. Pada kasus
 kedua, memindahkan *ownership* data dalam jumlah besar bisa memakan waktu lama
 karena data itu disalin bolak-balik di *stack*. Untuk meningkatkan performa
@@ -63,26 +63,26 @@ Meletakkan satu nilai saja di *heap* tidak terlalu berguna, jadi Anda tidak
 akan sering memakai *box* sendirian dengan cara seperti ini. Menyimpan nilai
 seperti satu `i32` di *stack*, tempat nilai itu disimpan secara default, lebih
 tepat pada sebagian besar situasi. Mari kita lihat kasus di mana *box*
-memungkinkan kita mendefinisikan tipe yang tidak boleh kita definisikan jika
+memungkinkan kita mendefinisikan type yang tidak boleh kita definisikan jika
 kita tidak memiliki *box*.
 
 <a id="enabling-recursive-types-with-boxes"></a>
-### Mengaktifkan Tipe Rekursif dengan Boxes
+### Mengaktifkan Type Rekursif dengan Boxes
 
-Sebuah nilai bertipe _recursive type_ (tipe rekursif) dapat memiliki nilai
-lain bertipe sama sebagai bagian dari dirinya sendiri. Tipe rekursif
+Sebuah nilai typed _recursive type_ (type rekursif) dapat memiliki nilai
+lain typed sama sebagai bagian dari dirinya sendiri. Type rekursif
 menimbulkan masalah karena Rust perlu tahu pada waktu kompilasi berapa banyak
-ruang yang ditempati sebuah tipe. Namun, penyarangan nilai-nilai bertipe
+ruang yang ditempati sebuah type. Namun, penyarangan nilai-nilai typed
 rekursif secara teoretis bisa berlanjut tanpa batas, jadi Rust tidak bisa tahu
 berapa banyak ruang yang dibutuhkan nilai itu. Karena *box* memiliki ukuran yang
-diketahui, kita dapat mengaktifkan tipe rekursif dengan menyisipkan sebuah *box*
-di definisi tipe rekursif itu.
+diketahui, kita dapat mengaktifkan type rekursif dengan menyisipkan sebuah *box*
+di definisi type rekursif itu.
 
-Sebagai contoh tipe rekursif, mari kita jelajahi *cons list*. Ini adalah tipe
-data yang umum ditemukan di bahasa-bahasa pemrograman fungsional. Tipe cons
+Sebagai contoh type rekursif, mari kita jelajahi *cons list*. Ini adalah type
+data yang umum ditemukan di bahasa-bahasa pemrograman fungsional. Type cons
 list yang akan kita definisikan ini sederhana, kecuali bagian rekursinya;
 karena itu, konsep-konsep dalam contoh yang akan kita kerjakan akan berguna
-kapan pun Anda menghadapi situasi yang lebih kompleks yang melibatkan tipe
+kapan pun Anda menghadapi situasi yang lebih kompleks yang melibatkan type
 rekursif.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -115,13 +115,13 @@ yang dibahas di Bab 6, yang merupakan nilai yang tidak valid atau tidak ada.
 
 *Cons list* bukanlah struktur data yang umum dipakai di Rust. Sebagian besar
 waktu, ketika Anda memiliki list berisi item-item di Rust, `Vec<T>` adalah
-pilihan yang lebih baik. Tipe data rekursif lain yang lebih kompleks _memang_
+pilihan yang lebih baik. Type data rekursif lain yang lebih kompleks _memang_
 berguna dalam berbagai situasi, tetapi dengan memulai dari *cons list* di bab
 ini, kita dapat mengeksplorasi bagaimana *box* memungkinkan kita mendefinisikan
-tipe data rekursif tanpa banyak gangguan.
+data type rekursif tanpa banyak gangguan.
 
 Listing 15-2 memuat definisi *enum* untuk sebuah *cons list*. Perhatikan bahwa
-kode ini belum bisa dikompilasi, karena tipe `List` tidak memiliki ukuran yang
+kode ini belum bisa dikompilasi, karena type `List` tidak memiliki ukuran yang
 diketahui, yang akan kita tunjukkan.
 
 <Listing number="15-2" file-name="src/main.rs" caption="Percobaan pertama mendefinisikan enum untuk merepresentasikan struktur data cons list berisi nilai `i32`">
@@ -135,9 +135,9 @@ diketahui, yang akan kita tunjukkan.
 > Catatan: Kita mengimplementasikan *cons list* yang hanya menampung nilai
 > `i32` demi keperluan contoh ini. Kita bisa saja mengimplementasikannya
 > menggunakan *generics*, seperti yang kita bahas di Bab 10, untuk mendefinisikan
-> tipe *cons list* yang dapat menyimpan nilai bertipe apa pun.
+> type *cons list* yang dapat menyimpan nilai typed apa pun.
 
-Memakai tipe `List` untuk menyimpan list `1, 2, 3` akan tampak seperti kode
+Memakai type `List` untuk menyimpan list `1, 2, 3` akan tampak seperti kode
 di Listing 15-3.
 
 <Listing number="15-3" file-name="src/main.rs" caption="Memakai enum `List` untuk menyimpan list `1, 2, 3`">
@@ -165,15 +165,15 @@ ditunjukkan pada Listing 15-4.
 
 </Listing>
 
-Error itu menunjukkan bahwa tipe ini “memiliki ukuran tak terhingga.” Alasannya
+Error itu menunjukkan bahwa type ini “memiliki ukuran tak terhingga.” Alasannya
 adalah kita telah mendefinisikan `List` dengan sebuah variant yang rekursif:
 Variant itu langsung menampung nilai lain dari dirinya sendiri. Akibatnya,
 Rust tidak bisa memperhitungkan berapa banyak ruang yang dibutuhkannya untuk
 menyimpan nilai `List`. Mari kita uraikan mengapa kita mendapat error ini.
 Pertama, kita akan melihat cara Rust memutuskan berapa banyak ruang yang
-dibutuhkannya untuk menyimpan nilai bertipe non-rekursif.
+dibutuhkannya untuk menyimpan nilai typed non-rekursif.
 
-#### Menghitung Ukuran Tipe Non-Rekursif
+#### Menghitung Ukuran Type Non-Rekursif
 
 Ingat kembali *enum* `Message` yang kita definisikan di Listing 6-2 ketika kita
 membahas definisi *enum* di Bab 6:
@@ -191,13 +191,13 @@ paling banyak yang akan dibutuhkan nilai `Message` adalah ruang yang
 dibutuhkan untuk menyimpan variant terbesarnya.
 
 Bandingkan hal itu dengan yang terjadi ketika Rust mencoba menentukan berapa
-banyak ruang yang dibutuhkan tipe rekursif seperti *enum* `List` di Listing
+banyak ruang yang dibutuhkan type rekursif seperti *enum* `List` di Listing
 15-2. Kompilator mulai dengan melihat variant `Cons`, yang menampung sebuah
-nilai bertipe `i32` dan sebuah nilai bertipe `List`. Karena itu, `Cons`
+nilai typed `i32` dan sebuah nilai typed `List`. Karena itu, `Cons`
 membutuhkan ruang sebesar ukuran sebuah `i32` ditambah ukuran sebuah `List`.
-Untuk memperhitungkan berapa banyak memori yang dibutuhkan tipe `List`,
+Untuk memperhitungkan berapa banyak memori yang dibutuhkan type `List`,
 kompilator melihat variant-variantnya, dimulai dengan variant `Cons`. Variant
-`Cons` menampung sebuah nilai bertipe `i32` dan sebuah nilai bertipe `List`,
+`Cons` menampung sebuah nilai typed `i32` dan sebuah nilai typed `List`,
 dan proses ini berlanjut tanpa batas, seperti ditunjukkan pada Gambar 15-1.
 
 <img alt="Cons list tak terhingga: sebuah persegi panjang berlabel 'Cons' yang terbagi menjadi dua persegi panjang lebih kecil. Persegi panjang kecil pertama memuat label 'i32', dan persegi panjang kecil kedua memuat label 'Cons' beserta versi lebih kecil dari persegi panjang 'Cons' luar. Persegi panjang 'Cons' terus memuat versi dirinya yang semakin kecil sampai persegi panjang terkecil yang masih cukup besar memuat simbol tak hingga, yang menunjukkan bahwa pengulangan ini berlangsung selamanya." src="img/trpl15-01.svg" class="center" style="width: 50%;" />
@@ -209,10 +209,10 @@ variant `Cons` yang tak terhingga</span>
 
 <a id="using-boxt-to-get-a-recursive-type-with-a-known-size"></a>
 
-#### Mendapatkan Tipe Rekursif dengan Ukuran yang Diketahui
+#### Mendapatkan Type Rekursif dengan Ukuran yang Diketahui
 
 Karena Rust tidak bisa memperhitungkan berapa banyak ruang yang dialokasikan
-untuk tipe yang didefinisikan secara rekursif, kompilator memberikan error
+untuk type yang didefinisikan secara rekursif, kompilator memberikan error
 dengan saran yang membantu berikut:
 
 <!-- manual-regeneration
@@ -266,17 +266,17 @@ apa variant `Cons` sekarang.
 karena `Cons` menampung sebuah `Box`</span>
 
 *Box* hanya menyediakan indireksi dan alokasi *heap*; *box* tidak memiliki
-kemampuan khusus lain, seperti yang akan kita lihat pada tipe *smart pointer*
+kemampuan khusus lain, seperti yang akan kita lihat pada type *smart pointer*
 lainnya. *Box* juga tidak memiliki overhead performa yang ditimbulkan oleh
 kemampuan-kemampuan khusus itu, jadi *box* dapat berguna dalam kasus seperti
 *cons list* di mana indireksi adalah satu-satunya fitur yang kita butuhkan.
 Kita akan melihat lebih banyak kasus penggunaan *box* di Bab 18.
 
-Tipe `Box<T>` adalah *smart pointer* karena ia mengimplementasikan *trait*
+Type `Box<T>` adalah *smart pointer* karena ia mengimplementasikan *trait*
 `Deref`, yang memungkinkan nilai `Box<T>` diperlakukan seperti *reference*.
 Ketika sebuah nilai `Box<T>` keluar dari *scope*, data *heap* yang ditunjuk *box*
 itu juga dibersihkan karena implementasi *trait* `Drop`. Kedua *trait* ini akan
-menjadi lebih penting lagi bagi fungsionalitas yang disediakan tipe-tipe
+menjadi lebih penting lagi bagi fungsionalitas yang disediakan type-type
 *smart pointer* lain yang akan kita bahas di sisa bab ini. Mari kita jelajahi
 kedua *trait* ini lebih jauh.
 

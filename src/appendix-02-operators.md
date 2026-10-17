@@ -21,7 +21,7 @@ meng-overload operator itu dicantumkan.
 | `%`                       | `expr % expr`                                           | Sisa pembagian aritmetika                                                      | `Rem`              |
 | `%=`                      | `var %= expr`                                           | Sisa pembagian aritmetika dan penetapan                                        | `RemAssign`        |
 | `&`                       | `&expr`, `&mut expr`                                    | Peminjaman                                                                     |                    |
-| `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Tipe pointer yang dipinjam                                                     |                    |
+| `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Type pointer yang dipinjam                                                     |                    |
 | `&`                       | `expr & expr`                                           | AND bitwise                                                                    | `BitAnd`           |
 | `&=`                      | `var &= expr`                                           | AND bitwise dan penetapan                                                      | `BitAndAssign`     |
 | `&&`                      | `expr && expr`                                          | AND logis dengan evaluasi hubung singkat                                       |                    |
@@ -29,14 +29,14 @@ meng-overload operator itu dicantumkan.
 | `*=`                      | `var *= expr`                                           | Perkalian aritmetika dan penetapan                                             | `MulAssign`        |
 | `*`                       | `*expr`                                                 | Dereferensi                                                                    | `Deref`            |
 | `*`                       | `*const type`, `*mut type`                              | Pointer mentah                                                                 |                    |
-| `+`                       | `trait + trait`, `'a + trait`                           | Batasan tipe majemuk                                                           |                    |
+| `+`                       | `trait + trait`, `'a + trait`                           | Batasan compound type                                                           |                    |
 | `+`                       | `expr + expr`                                           | Penjumlahan aritmetika                                                         | `Add`              |
 | `+=`                      | `var += expr`                                           | Penjumlahan aritmetika dan penetapan                                           | `AddAssign`        |
 | `,`                       | `expr, expr`                                            | Pemisah argumen dan elemen                                                     |                    |
 | `-`                       | `- expr`                                                | Negasi aritmetika                                                              | `Neg`              |
 | `-`                       | `expr - expr`                                           | Pengurangan aritmetika                                                         | `Sub`              |
 | `-=`                      | `var -= expr`                                           | Pengurangan aritmetika dan penetapan                                           | `SubAssign`        |
-| `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Tipe kembalian fungsi dan closure                                              |                    |
+| `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Type kembalian fungsi dan closure                                              |                    |
 | `.`                       | `expr.ident`                                            | Akses field                                                                    |                    |
 | `.`                       | `expr.ident(expr, ...)`                                 | Pemanggilan metode                                                             |                    |
 | `.`                       | `expr.0`, `expr.1`, dan seterusnya                      | Pengindeksan tuple                                                             |                    |
@@ -86,7 +86,7 @@ lokasi.
 | Simbol                                                                 | Penjelasan                                                                                       |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `'ident`                                                               | Lifetime bernama atau label perulangan                                                           |
-| Digit yang langsung diikuti `u8`, `i32`, `f64`, `usize`, dan seterusnya | Literal numerik bertipe tertentu                                                                 |
+| Digit yang langsung diikuti `u8`, `i32`, `f64`, `usize`, dan seterusnya | Literal numerik typed tertentu                                                                 |
 | `"..."`                                                                | String literal                                                                                   |
 | `r"..."`, `r#"..."#`, `r##"..."##`, dan seterusnya                      | Raw string literal; karakter escape tidak diproses                                               |
 | `b"..."`                                                               | Byte string literal; membangun array berisi byte, bukan string                                   |
@@ -94,7 +94,7 @@ lokasi.
 | `'...'`                                                                | Literal karakter                                                                                 |
 | `b'...'`                                                               | Literal byte ASCII                                                                               |
 | <code>&vert;...&vert; expr</code>                                      | Closure                                                                                          |
-| `!`                                                                    | Tipe bottom yang selalu kosong untuk fungsi divergen                                             |
+| `!`                                                                    | Type bottom yang selalu kosong untuk fungsi divergen                                             |
 | `_`                                                                    | Pengikatan pola “yang diabaikan”; juga dipakai untuk membuat literal integer mudah dibaca        |
 
 Tabel B-3 menunjukkan simbol yang muncul dalam konteks *path* menuju suatu item
@@ -108,41 +108,41 @@ melalui hierarki *module*.
 | `::path`                                | Path relatif terhadap akar crate (yaitu, path yang secara eksplisit absolut)                                                  |
 | `self::path`                            | Path relatif terhadap module saat ini (yaitu, path yang secara eksplisit relatif)                                             |
 | `super::path`                           | Path relatif terhadap induk module saat ini                                                                                    |
-| `type::ident`, `<type as trait>::ident` | Konstanta, fungsi, dan tipe asosiasi                                                                                           |
-| `<type>::...`                           | Item asosiasi untuk tipe yang tidak dapat dinamai secara langsung (misalnya, `<&T>::...`, `<[T]>::...`, dan seterusnya)        |
+| `type::ident`, `<type as trait>::ident` | Konstanta, fungsi, dan associated type                                                                                           |
+| `<type>::...`                           | Item asosiasi untuk type yang tidak dapat dinamai secara langsung (misalnya, `<&T>::...`, `<[T]>::...`, dan seterusnya)        |
 | `trait::method(...)`                    | Mendisambiguasi pemanggilan metode dengan menamai trait yang mendefinisikannya                                                 |
-| `type::method(...)`                     | Mendisambiguasi pemanggilan metode dengan menamai tipe tempat metode itu didefinisikan                                         |
-| `<type as trait>::method(...)`          | Mendisambiguasi pemanggilan metode dengan menamai trait dan tipenya                                                             |
+| `type::method(...)`                     | Mendisambiguasi pemanggilan metode dengan menamai type tempat metode itu didefinisikan                                         |
+| `<type as trait>::method(...)`          | Mendisambiguasi pemanggilan metode dengan menamai trait dan typenya                                                             |
 
 Tabel B-4 menunjukkan simbol yang muncul dalam konteks pemakaian parameter
-tipe generik.
+generic type.
 
 <span class="caption">Tabel B-4: *Generics*</span>
 
 | Simbol                         | Penjelasan                                                                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path<...>`                    | Menentukan parameter untuk tipe generik dalam suatu tipe (misalnya, `Vec<u8>`)                                                                                 |
-| `path::<...>`, `method::<...>` | Menentukan parameter untuk tipe, fungsi, atau metode generik dalam suatu ekspresi; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
+| `path<...>`                    | Menentukan parameter untuk generic type dalam suatu type (misalnya, `Vec<u8>`)                                                                                 |
+| `path::<...>`, `method::<...>` | Menentukan parameter untuk type, fungsi, atau metode generik dalam suatu ekspresi; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
 | `fn ident<...> ...`            | Mendefinisikan fungsi generik                                                                                                                                  |
 | `struct ident<...> ...`        | Mendefinisikan struktur generik                                                                                                                                |
 | `enum ident<...> ...`          | Mendefinisikan enumerasi generik                                                                                                                               |
 | `impl<...> ...`                | Mendefinisikan implementasi generik                                                                                                                            |
 | `for<...> type`                | Batasan lifetime berperingkat lebih tinggi                                                                                                                     |
-| `type<ident=type>`             | Tipe generik yang satu atau beberapa associated type-nya memiliki penetapan spesifik (misalnya, `Iterator<Item=T>`)                                            |
+| `type<ident=type>`             | Type generik yang satu atau beberapa associated type-nya memiliki penetapan spesifik (misalnya, `Iterator<Item=T>`)                                            |
 
 Tabel B-5 menunjukkan simbol yang muncul dalam konteks pembatasan parameter
-tipe generik dengan *trait bound*.
+generic type dengan *trait bound*.
 
 <span class="caption">Tabel B-5: Batasan *Trait Bound*</span>
 
 | Simbol                        | Penjelasan                                                                                                                                              |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `T: U`                        | Parameter generik `T` dibatasi pada tipe-tipe yang mengimplementasikan `U`                                                                               |
-| `T: 'a`                       | Tipe generik `T` harus hidup lebih lama daripada lifetime `'a` (artinya tipe itu tidak boleh memuat reference apa pun secara transitif dengan lifetime yang lebih pendek daripada `'a`) |
-| `T: 'static`                  | Tipe generik `T` tidak memuat reference yang dipinjam selain reference `'static`                                                                         |
+| `T: U`                        | Parameter generik `T` dibatasi pada type-type yang mengimplementasikan `U`                                                                               |
+| `T: 'a`                       | Type generik `T` harus hidup lebih lama daripada lifetime `'a` (artinya type itu tidak boleh memuat reference apa pun secara transitif dengan lifetime yang lebih pendek daripada `'a`) |
+| `T: 'static`                  | Type generik `T` tidak memuat reference yang dipinjam selain reference `'static`                                                                         |
 | `'b: 'a`                      | Lifetime generik `'b` harus hidup lebih lama daripada lifetime `'a`                                                                                      |
-| `T: ?Sized`                   | Mengizinkan parameter tipe generik menjadi tipe berukuran dinamis                                                                                        |
-| `'a + trait`, `trait + trait` | Batasan tipe majemuk                                                                                                                                     |
+| `T: ?Sized`                   | Mengizinkan type parameter generik menjadi type berukuran dinamis                                                                                        |
+| `'a + trait`, `trait + trait` | Batasan compound type                                                                                                                                     |
 
 Tabel B-6 menunjukkan simbol yang muncul dalam konteks pemanggilan atau
 pendefinisian *macro* dan penentuan atribut pada suatu item.
@@ -177,12 +177,12 @@ Tabel B-8 menunjukkan konteks pemakaian tanda kurung.
 
 | Simbol                   | Penjelasan                                                                                        |
 | ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `()`                     | Tuple kosong (alias unit), baik sebagai literal maupun tipe                                        |
+| `()`                     | Tuple kosong (alias unit), baik sebagai literal maupun type                                        |
 | `(expr)`                 | Ekspresi dalam tanda kurung                                                                        |
 | `(expr,)`                | Ekspresi tuple satu elemen                                                                         |
-| `(type,)`                | Tipe tuple satu elemen                                                                             |
+| `(type,)`                | Type tuple satu elemen                                                                             |
 | `(expr, ...)`            | Ekspresi tuple                                                                                     |
-| `(type, ...)`            | Tipe tuple                                                                                         |
+| `(type, ...)`            | Type tuple                                                                                         |
 | `expr(expr, ...)`        | Ekspresi pemanggilan fungsi; juga dipakai untuk menginisialisasi `struct` tuple dan varian `enum` tuple |
 
 Tabel B-9 menunjukkan konteks pemakaian kurung kurawal.
@@ -202,6 +202,6 @@ Tabel B-10 menunjukkan konteks pemakaian kurung siku.
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `[...]`                                            | Literal array                                                                                                                  |
 | `[expr; len]`                                      | Literal array berisi `len` salinan `expr`                                                                                      |
-| `[type; len]`                                      | Tipe array berisi `len` instance dari `type`                                                                                   |
+| `[type; len]`                                      | Type array berisi `len` instance dari `type`                                                                                   |
 | `expr[expr]`                                       | Pengindeksan koleksi; dapat di-overload (`Index`, `IndexMut`)                                                                  |
 | `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Pengindeksan koleksi yang berperan sebagai slicing koleksi, memakai `Range`, `RangeFrom`, `RangeTo`, atau `RangeFull` sebagai “index” |

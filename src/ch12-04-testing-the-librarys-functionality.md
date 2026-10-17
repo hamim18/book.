@@ -97,7 +97,7 @@ kita akan mendapat error ini:
 Rust tidak dapat mengetahui mana dari kedua parameter itu yang kita perlukan
 untuk keluarannya, jadi kita perlu memberi tahunya secara eksplisit.
 Perhatikan bahwa teks bantuan itu menyarankan untuk menentukan parameter
-*lifetime* yang sama untuk semua parameter dan tipe keluarannya, dan itu tidak
+*lifetime* yang sama untuk semua parameter dan type keluarannya, dan itu tidak
 tepat! Karena `contents` adalah parameter yang memuat seluruh teks kita dan
 kita ingin mengembalikan bagian-bagian teks itu yang cocok, kita tahu bahwa
 `contents` adalah satu-satunya parameter yang seharusnya terhubung dengan

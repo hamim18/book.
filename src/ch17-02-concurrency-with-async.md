@@ -78,7 +78,7 @@ berakhir. Jika Anda ingin *task* itu berjalan sampai tuntas, Anda perlu memakai
 join handle untuk menunggu *task* pertama selesai. Dengan thread, kita memakai
 metode `join` untuk “memblokir” sampai thread itu selesai berjalan. Di Listing
 17-7, kita bisa memakai `await` untuk melakukan hal yang sama, karena *task*
-handle itu sendiri adalah sebuah *future*. Tipe `Output`-nya adalah `Result`,
+handle itu sendiri adalah sebuah *future*. Type `Output`-nya adalah `Result`,
 jadi kita juga melakukan unwrap padanya setelah menunggunya.
 
 <Listing number="17-7" caption="Memakai `await` dengan join handle untuk menjalankan sebuah task sampai tuntas" file-name="src/main.rs">
@@ -122,7 +122,7 @@ bisa menaruh setiap perulangan di blok async dan meminta runtime menjalankan
 keduanya sampai tuntas menggunakan fungsi `trpl::join`.
 
 Di bagian [“Menunggu Semua Thread Selesai”][join-handles]<!-- ignore --> di
-Bab 16, kita menunjukkan cara memakai metode `join` pada tipe `JoinHandle`
+Bab 16, kita menunjukkan cara memakai metode `join` pada type `JoinHandle`
 yang dikembalikan saat Anda memanggil `std::thread::spawn`. Fungsi
 `trpl::join` serupa, tetapi untuk *future*. Saat Anda memberinya dua *future*,
 fungsi itu menghasilkan satu *future* baru yang output-nya adalah *tuple* berisi
@@ -195,7 +195,7 @@ kasus _sebelum_ menjalankan kodenya!
 ### Mengirim Data antara Dua Task Menggunakan Message Passing
 
 Berbagi data antar-future juga akan terasa familier: kita akan memakai message
-passing lagi, tetapi kali ini dengan versi async dari tipe-tipe dan
+passing lagi, tetapi kali ini dengan versi async dari type-type dan
 fungsi-fungsinya. Kita akan menempuh jalan yang sedikit berbeda dari bagian
 [“Mentransfer Data Antar-Thread dengan Message Passing”][message-passing-threads]<!-- ignore -->
 di Bab 16 untuk mengilustrasikan sebagian perbedaan kunci antara konkurensi

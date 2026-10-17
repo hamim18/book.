@@ -1,7 +1,7 @@
 ## Menyimpan Kunci dengan Nilai yang Terkait di dalam Hash Map
 
-Yang terakhir dari koleksi umum kita adalah hash map. Tipe `HashMap<K, V>`
-menyimpan pemetaan dari kunci bertipe `K` ke nilai bertipe `V` memakai
+Yang terakhir dari koleksi umum kita adalah hash map. Type `HashMap<K, V>`
+menyimpan pemetaan dari kunci typed `K` ke nilai typed `V` memakai
 *hashing function* (fungsi hashing), yang menentukan cara ia menempatkan
 kunci dan nilai tersebut ke dalam memori. Banyak bahasa pemrograman
 mendukung struktur data semacam ini, tetapi mereka sering memakai nama yang
@@ -10,7 +10,7 @@ berbeda, seperti *hash*, *map*, *object*, *hash table*, *dictionary*, atau
 
 Hash map berguna ketika Anda ingin mencari data bukan dengan memakai indeks,
 seperti yang dapat Anda lakukan dengan vektor, melainkan dengan memakai
-kunci yang dapat bertipe apa pun. Misalnya, dalam sebuah permainan, Anda
+kunci yang dapat typed apa pun. Misalnya, dalam sebuah permainan, Anda
 dapat melacak skor setiap tim di dalam hash map yang setiap kuncinya adalah
 nama tim dan nilainya adalah skor setiap tim. Dengan diberi nama tim, Anda
 dapat mengambil skornya.
@@ -43,9 +43,9 @@ lebih sedikit dari pustaka standar; tidak ada *macro* bawaan untuk
 mengonstruksinya, misalnya.
 
 Sama seperti vektor, hash map menyimpan datanya di *heap*. `HashMap` ini
-memiliki kunci bertipe `String` dan nilai bertipe `i32`. Seperti vektor,
-hash map bersifat homogen: semua kunci harus bertipe sama, dan semua nilai
-harus bertipe sama.
+memiliki kunci typed `String` dan nilai typed `i32`. Seperti vektor,
+hash map bersifat homogen: semua kunci harus typed sama, dan semua nilai
+harus typed sama.
 
 <a id="accessing-values-in-a-hash-map"></a>
 ### Mengakses Nilai di dalam Hash Map
@@ -89,7 +89,7 @@ Blue: 10
 
 ### Mengelola Ownership di dalam Hash Map
 
-Untuk tipe yang mengimplementasikan *trait* `Copy`, seperti `i32`, nilainya
+Untuk type yang mengimplementasikan *trait* `Copy`, seperti `i32`, nilainya
 disalin ke dalam hash map. Untuk nilai yang dimiliki seperti `String`,
 nilainya akan dipindahkan dan hash map akan menjadi pemilik nilai-nilai
 tersebut, seperti yang didemonstrasikan di Listing 8-22.
@@ -225,7 +225,7 @@ tercepat yang tersedia, tetapi kompromi demi keamanan yang lebih baik yang
 datang bersama turunnya kinerja itu sepadan. Jika Anda memprofil kode Anda
 dan menemukan bahwa hash function default terlalu lambat untuk keperluan
 Anda, Anda dapat beralih ke fungsi lain dengan menentukan hasher yang
-berbeda. Sebuah *hasher* adalah tipe yang mengimplementasikan *trait*
+berbeda. Sebuah *hasher* adalah type yang mengimplementasikan *trait*
 `BuildHasher`. Kita akan membicarakan *trait* dan cara mengimplementasikannya
 di [Bab 10][traits]<!-- ignore -->. Anda tidak harus mengimplementasikan
 hasher Anda sendiri dari nol; [crates.io](https://crates.io/)<!-- ignore -->

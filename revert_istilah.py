@@ -67,6 +67,22 @@ GROUPS["tipe"] = [
     ("bertipe dinamis", "dynamically typed"),
     ("bertipe", "typed"),
     ("tipenya", "typenya"),
+    # frasa padanan yang juga muncul mandiri (asli & bentuk pasca-revert)
+    ("sistem typenya", "type systemnya"),
+    ("sistem type", "type system"),
+    ("sistem tipe", "type system"),
+    ("tipe berukuran dinamis", "dynamically sized type"),
+    ("tipe yang tidak berukuran", "unsized type"),
+    ("tipe yang berukuran", "sized type"),
+    ("tipe asosiasi", "associated type"),
+    ("type asosiasi", "associated type"),
+    ("tipe generik", "generic type"),
+    ("type generik", "generic type"),
+    ("tipe kustom", "custom type"),
+    ("type kustom", "custom type"),
+    ("tipe angka", "numeric type"),
+    ("type angka", "numeric type"),
+    ("pengetikan bebek", "duck typing"),
 ] + buat_rules([("tipe", "type")])
 
 GROUPS["dasar"] = [

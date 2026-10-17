@@ -83,15 +83,15 @@ belum akan terkompilasi, karena kita perlu memperbarui badan fungsinya.
 
 </Listing>
 
-Dokumentasi pustaka standar untuk fungsi `env::args` menunjukkan bahwa tipe
-*iterator* yang dikembalikannya adalah `std::env::Args`, dan tipe itu
+Dokumentasi pustaka standar untuk fungsi `env::args` menunjukkan bahwa type
+*iterator* yang dikembalikannya adalah `std::env::Args`, dan type itu
 mengimplementasikan *trait* `Iterator` serta mengembalikan nilai `String`.
 
 Kita telah memperbarui tanda tangan fungsi `Config::build` sehingga parameter
-`args` memiliki tipe generik dengan *trait bound* `impl Iterator<Item =
+`args` memiliki generic type dengan *trait bound* `impl Iterator<Item =
 String>` alih-alih `&[String]`. Pemakaian sintaks `impl Trait` yang kita
 bahas di bagian [“Memakai Trait sebagai Parameter”][impl-trait]<!-- ignore -->
-pada Bab 10 ini berarti `args` dapat berupa tipe apa pun yang
+pada Bab 10 ini berarti `args` dapat berupa type apa pun yang
 mengimplementasikan *trait* `Iterator` dan mengembalikan item `String`.
 
 Karena kita mengambil *ownership* atas `args` dan kita akan mengubah `args`
@@ -170,7 +170,7 @@ sederhana! Silakan membuat perubahan yang sama untuk memakai metode *iterator*
 di fungsi `search_case_insensitive` juga.
 
 Untuk penyempurnaan lebih lanjut, kembalikan sebuah *iterator* dari fungsi
-`search` dengan menghapus pemanggilan `collect` dan mengubah tipe kembaliannya
+`search` dengan menghapus pemanggilan `collect` dan mengubah return typenya
 menjadi `impl Iterator<Item = &'a str>` sehingga fungsi itu menjadi sebuah
 *iterator adapter*. Perhatikan bahwa Anda juga perlu memperbarui
 pengujian-pengujiannya! Cari di file yang besar memakai alat `minigrep` Anda

@@ -9,8 +9,8 @@ berusaha menguji sebanyak mungkin!
 *Correctness* (kebenaran) dalam program kita adalah sejauh mana kode kita
 melakukan apa yang kita maksudkan. Rust dirancang dengan tingkat kepedulian
 yang tinggi terhadap kebenaran program, tetapi kebenaran itu kompleks dan
-tidak mudah dibuktikan. Sistem tipe Rust memikul sebagian besar beban ini,
-tetapi sistem tipe tidak bisa menangkap semuanya. Karena itu, Rust
+tidak mudah dibuktikan. Sistem type Rust memikul sebagian besar beban ini,
+tetapi type system tidak bisa menangkap semuanya. Karena itu, Rust
 menyertakan dukungan untuk menulis *test* (pengujian) perangkat lunak
 terotomatisasi.
 
@@ -18,7 +18,7 @@ Katakanlah kita menulis fungsi `add_two` yang menambahkan 2 ke angka apa pun
 yang diteruskan kepadanya. Tanda tangan fungsi ini menerima sebuah integer
 sebagai parameter dan mengembalikan sebuah integer sebagai hasil. Ketika
 kita mengimplementasikan dan mengompilasi fungsi itu, Rust melakukan semua
-pemeriksaan tipe dan pemeriksaan borrow yang telah Anda pelajari sejauh ini
+pemeriksaan type dan pemeriksaan borrow yang telah Anda pelajari sejauh ini
 untuk memastikan bahwa, misalnya, kita tidak meneruskan nilai `String` atau
 *reference* yang tidak valid ke fungsi ini. Akan tetapi, Rust _tidak bisa_
 memeriksa bahwa fungsi ini akan melakukan persis apa yang kita maksudkan,

@@ -143,7 +143,7 @@ Instalasi Rust juga menyertakan salinan lokal dokumentasinya sehingga Anda
 dapat membacanya secara luring. Jalankan `rustup doc` untuk membuka
 dokumentasi lokal di peramban Anda.
 
-Kapan pun sebuah tipe atau fungsi disediakan oleh pustaka standar dan Anda
+Kapan pun sebuah type atau fungsi disediakan oleh pustaka standar dan Anda
 tidak yakin apa fungsinya atau bagaimana cara memakainya, gunakan
 dokumentasi antarmuka pemrograman aplikasi (API) untuk mengetahuinya!
 

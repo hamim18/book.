@@ -73,8 +73,8 @@ Perhatikan bahwa definisi ini memakai beberapa sintaks baru: `type Item` dan
 pada *trait* ini. Kita akan membahas *associated type* secara mendalam di Bab
 20. Untuk saat ini, yang perlu Anda ketahui hanyalah bahwa kode ini menyatakan
 bahwa mengimplementasikan *trait* `Iterator` mengharuskan Anda juga
-mendefinisikan tipe `Item`, dan tipe `Item` ini dipakai di tipe kembalian
-metode `next`. Dengan kata lain, tipe `Item` akan menjadi tipe yang
+mendefinisikan type `Item`, dan type `Item` ini dipakai di return type
+metode `next`. Dengan kata lain, type `Item` akan menjadi type yang
 dikembalikan dari *iterator*.
 
 *Trait* `Iterator` hanya mengharuskan pengimplementasinya mendefinisikan satu
@@ -175,7 +175,7 @@ adapter bersifat lazy, dan kita perlu mengonsumsi *iterator*-nya di sini.
 Untuk memperbaiki peringatan ini dan mengonsumsi *iterator*-nya, kita akan
 memakai metode `collect`, yang kita pakai bersama `env::args` di Listing 12-1.
 Metode ini mengonsumsi *iterator* dan mengumpulkan nilai-nilai hasilnya ke
-dalam tipe data koleksi.
+dalam data type koleksi.
 
 Di Listing 13-15, kita mengumpulkan hasil iterasi atas *iterator* yang
 dikembalikan dari pemanggilan `map` ke dalam sebuah vektor. Vektor ini pada

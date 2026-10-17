@@ -63,7 +63,7 @@ pernah ada variant `Err` di teks argumennya. Berikut contohnya:
 Kita membuat instance `IpAddr` dengan mengurai string yang ditulis langsung
 (hardcoded). Kita dapat melihat bahwa `127.0.0.1` adalah alamat IP yang
 valid, jadi dapat diterima untuk memakai `expect` di sini. Namun, memiliki
-string valid yang ditulis langsung tidak mengubah tipe kembalian metode
+string valid yang ditulis langsung tidak mengubah return type metode
 `parse`: kita tetap mendapat nilai `Result`, dan *compiler* tetap mengharuskan
 kita menangani `Result` itu seolah-olah variant `Err` adalah sebuah
 kemungkinan karena *compiler* tidak cukup pintar untuk melihat bahwa string
@@ -90,9 +90,9 @@ berikut:
   dengan format yang salah.
 - Kode Anda setelah titik ini perlu mengandalkan tidak berada dalam keadaan
   yang buruk ini, alih-alih memeriksa masalahnya di setiap langkah.
-- Tidak ada cara yang baik untuk menyandikan informasi ini di tipe yang Anda
+- Tidak ada cara yang baik untuk menyandikan informasi ini di type yang Anda
   pakai. Kita akan menelusuri contoh tentang apa yang kita maksud di
-  [“Menyandikan State dan Perilaku sebagai Tipe”][encoding]<!-- ignore --> di
+  [“Menyandikan State dan Perilaku sebagai Type”][encoding]<!-- ignore --> di
   Bab 18.
 
 Jika seseorang memanggil kode Anda dan meneruskan nilai yang tidak masuk
@@ -131,28 +131,28 @@ terutama ketika pelanggarannya akan menyebabkan panic, sebaiknya dijelaskan
 di dokumentasi API fungsi tersebut.
 
 Namun, memiliki banyak pemeriksaan error di semua fungsi Anda akan
-bertele-tele dan menjengkelkan. Untungnya, Anda dapat memakai sistem tipe
-Rust (dan dengan demikian pemeriksaan tipe yang dilakukan *compiler*) untuk
-melakukan banyak pemeriksaan itu untuk Anda. Jika fungsi Anda memiliki tipe
+bertele-tele dan menjengkelkan. Untungnya, Anda dapat memakai type system
+Rust (dan dengan demikian pemeriksaan type yang dilakukan *compiler*) untuk
+melakukan banyak pemeriksaan itu untuk Anda. Jika fungsi Anda memiliki type
 tertentu sebagai parameter, Anda dapat melanjutkan logika kode Anda dengan
 mengetahui bahwa *compiler* telah memastikan Anda memiliki nilai yang valid.
-Misalnya, jika Anda memiliki sebuah tipe alih-alih `Option`, program Anda
+Misalnya, jika Anda memiliki sebuah type alih-alih `Option`, program Anda
 mengharapkan memiliki _sesuatu_ alih-alih _tidak ada apa-apa_. Kode Anda
 kemudian tidak harus menangani dua kasus untuk variant `Some` dan `None`: ia
 hanya akan memiliki satu kasus untuk pasti memiliki nilai. Kode yang mencoba
 meneruskan tidak ada apa-apa ke fungsi Anda bahkan tidak akan terkompilasi,
 jadi fungsi Anda tidak perlu memeriksa kasus itu pada runtime. Contoh lain
-adalah memakai tipe bilangan bulat tak bertanda seperti `u32`, yang
+adalah memakai type bilangan bulat tak bertanda seperti `u32`, yang
 menjamin parameter tidak pernah negatif.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="creating-custom-types-for-validation"></a>
 
-### Tipe Kustom untuk Validasi
+### Type Kustom untuk Validasi
 
-Mari kita bawa gagasan memakai sistem tipe Rust untuk memastikan kita
-memiliki nilai yang valid selangkah lebih jauh dan melihat pembuatan tipe
+Mari kita bawa gagasan memakai type system Rust untuk memastikan kita
+memiliki nilai yang valid selangkah lebih jauh dan melihat pembuatan type
 kustom untuk validasi. Ingat permainan tebak angka di Bab 2 ketika kode kita
 meminta pengguna menebak angka antara 1 dan 100. Kita tidak pernah
 memvalidasi bahwa tebakan pengguna berada di antara angka-angka itu sebelum
@@ -186,15 +186,15 @@ hanya beroperasi pada nilai antara 1 dan 100, dan program memiliki banyak
 fungsi dengan persyaratan ini, memiliki pemeriksaan seperti ini di setiap
 fungsi akan melelahkan (dan mungkin memengaruhi kinerja).
 
-Sebagai gantinya, kita dapat membuat tipe baru di *module* khusus dan menaruh
-validasinya di fungsi untuk membuat instance tipe itu alih-alih mengulang
-validasinya di mana-mana. Dengan begitu, aman bagi fungsi untuk memakai tipe
+Sebagai gantinya, kita dapat membuat type baru di *module* khusus dan menaruh
+validasinya di fungsi untuk membuat instance type itu alih-alih mengulang
+validasinya di mana-mana. Dengan begitu, aman bagi fungsi untuk memakai type
 baru di tanda tangannya dan dengan yakin memakai nilai yang diterimanya.
-Listing 9-13 menunjukkan salah satu cara mendefinisikan tipe `Guess` yang
+Listing 9-13 menunjukkan salah satu cara mendefinisikan type `Guess` yang
 hanya akan membuat instance `Guess` jika fungsi `new` menerima nilai antara
 1 dan 100.
 
-<Listing number="9-13" caption="Tipe `Guess` yang hanya akan berlanjut dengan nilai antara 1 dan 100" file-name="src/guessing_game.rs">
+<Listing number="9-13" caption="Type `Guess` yang hanya akan berlanjut dengan nilai antara 1 dan 100" file-name="src/guessing_game.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/guessing_game.rs}}
@@ -210,7 +210,7 @@ kita tampilkan di sini. Di dalam file *module* baru ini, kita mendefinisikan
 
 Lalu, kita mengimplementasikan *associated function* (fungsi asosiasi)
 bernama `new` pada `Guess` yang membuat instance nilai `Guess`. Fungsi `new`
-didefinisikan memiliki satu parameter bernama `value` bertipe `i32` dan
+didefinisikan memiliki satu parameter bernama `value` typed `i32` dan
 mengembalikan `Guess`. Kode di badan fungsi `new` menguji `value` untuk
 memastikan ia berada antara 1 dan 100. Jika `value` tidak lulus uji ini,
 kita melakukan pemanggilan `panic!`, yang akan memperingatkan pemrogram yang
@@ -245,7 +245,7 @@ Fitur penanganan error Rust dirancang untuk membantu Anda menulis kode yang
 lebih tangguh. *Macro* `panic!` menandakan bahwa program Anda berada dalam
 state yang tidak dapat ditanganinya dan memungkinkan Anda menyuruh
 prosesnya berhenti alih-alih mencoba melanjutkan dengan nilai yang tidak
-valid atau tidak benar. *Enum* `Result` memakai sistem tipe Rust untuk
+valid atau tidak benar. *Enum* `Result` memakai type system Rust untuk
 mengindikasikan bahwa operasi mungkin gagal dengan cara yang dapat
 dipulihkan kode Anda. Anda dapat memakai `Result` untuk memberi tahu kode
 yang memanggil kode Anda bahwa ia juga perlu menangani kemungkinan sukses

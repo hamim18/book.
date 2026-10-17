@@ -144,23 +144,23 @@ Dengan kata lain, ada dua titik waktu penting di sini:
 
 Sejauh ini, hubungan antara *scope* dan masa berlaku variabel mirip dengan
 bahasa pemrograman lain. Sekarang kita akan membangun pemahaman ini dengan
-memperkenalkan tipe `String`.
+memperkenalkan type `String`.
 
-### Tipe `String`
+### Type `String`
 
-Untuk mengilustrasikan aturan-aturan *ownership*, kita membutuhkan tipe data
-yang lebih kompleks daripada tipe yang kita bahas di bagian [“Tipe
-Data”][data-types]<!-- ignore --> pada Bab 3. Tipe-tipe yang telah dibahas
+Untuk mengilustrasikan aturan-aturan *ownership*, kita membutuhkan data type
+yang lebih kompleks daripada type yang kita bahas di bagian [“Type
+Data”][data-types]<!-- ignore --> pada Bab 3. Type-type yang telah dibahas
 sebelumnya memiliki ukuran yang diketahui, dapat disimpan di *stack* dan
 dikeluarkan dari *stack* ketika *scope*-nya berakhir, serta dapat disalin
 dengan cepat dan sepele untuk membuat instans baru yang mandiri jika bagian
 kode lain perlu menggunakan nilai yang sama di *scope* yang berbeda. Namun,
 kita ingin melihat data yang disimpan di *heap* dan mengeksplorasi bagaimana
-Rust mengetahui kapan harus membersihkan data tersebut, dan tipe `String`
+Rust mengetahui kapan harus membersihkan data tersebut, dan type `String`
 adalah contoh yang bagus.
 
 Kita akan berkonsentrasi pada bagian-bagian `String` yang berkaitan dengan
-*ownership*. Aspek-aspek ini juga berlaku untuk tipe data kompleks lainnya,
+*ownership*. Aspek-aspek ini juga berlaku untuk data type kompleks lainnya,
 baik yang disediakan oleh *standard library* (pustaka standar) maupun yang
 Anda buat sendiri. Kita akan membahas aspek-aspek `String` yang tidak
 berkaitan dengan *ownership* di [Bab 8][ch8]<!-- ignore -->.
@@ -171,8 +171,8 @@ untuk setiap situasi ketika kita ingin menggunakan teks. Salah satu alasannya
 adalah *string literal* bersifat *immutable* (tidak dapat diubah). Alasan
 lainnya, tidak semua nilai *string* dapat diketahui ketika kita menulis kode:
 contohnya, bagaimana jika kita ingin mengambil masukan dari pengguna dan
-menyimpannya? Untuk situasi-situasi seperti inilah Rust memiliki tipe
-`String`. Tipe ini mengelola data yang dialokasikan di *heap* sehingga mampu
+menyimpannya? Untuk situasi-situasi seperti inilah Rust memiliki type
+`String`. Type ini mengelola data yang dialokasikan di *heap* sehingga mampu
 menyimpan sejumlah teks yang ukurannya belum kita ketahui pada saat
 kompilasi. Anda dapat membuat `String` dari sebuah *string literal* dengan
 menggunakan fungsi `from`, seperti berikut:
@@ -182,7 +182,7 @@ let s = String::from("hello");
 ```
 
 Operator titik dua ganda `::` memungkinkan kita menaruh fungsi `from` khusus
-ini ke dalam *namespace* (ruang nama) dari tipe `String`, alih-alih
+ini ke dalam *namespace* (ruang nama) dari type `String`, alih-alih
 menggunakan semacam nama seperti `string_from`. Kita akan membahas sintaks
 ini lebih lanjut di bagian [“Metode”][methods]<!-- ignore --> pada Bab 5,
 serta ketika kita membicarakan ruang nama dengan *module* (modul) di bagian
@@ -196,7 +196,7 @@ String jenis ini _dapat_ diubah:
 ```
 
 Jadi, apa bedanya di sini? Mengapa `String` bisa diubah sementara *string
-literal* tidak bisa? Perbedaannya terletak pada cara kedua tipe ini
+literal* tidak bisa? Perbedaannya terletak pada cara kedua type ini
 memperlakukan memori.
 
 ### Memori dan Alokasi
@@ -209,7 +209,7 @@ kita tidak bisa memasukkan seonggok memori ke dalam biner untuk setiap
 potongan teks yang ukurannya tidak diketahui pada saat kompilasi dan yang
 ukurannya mungkin berubah selama program berjalan.
 
-Dengan tipe `String`, untuk mendukung potongan teks yang *mutable* (dapat
+Dengan type `String`, untuk mendukung potongan teks yang *mutable* (dapat
 diubah) dan dapat bertumbuh, kita perlu mengalokasikan sejumlah memori di
 *heap* — yang jumlahnya tidak diketahui pada saat kompilasi — untuk menampung
 isinya. Artinya:
@@ -465,7 +465,7 @@ Namun, kode ini tampak bertentangan dengan apa yang baru saja kita
 pelajari: tidak ada pemanggilan `clone`, tetapi `x` tetap valid dan tidak
 dipindahkan ke dalam `y`.
 
-Alasannya adalah bahwa tipe-tipe seperti bilangan bulat yang ukurannya
+Alasannya adalah bahwa type-type seperti bilangan bulat yang ukurannya
 diketahui pada saat kompilasi disimpan seluruhnya di *stack*, sehingga
 salinan dari nilai sebenarnya cepat dibuat. Artinya, tidak ada alasan bagi
 kita untuk mencegah `x` tetap valid setelah kita membuat variabel `y`. Dengan
@@ -474,33 +474,33 @@ di sini, sehingga memanggil `clone` tidak akan menghasilkan apa pun yang
 berbeda dari penyalinan dangkal biasa, dan kita bisa melewatinya.
 
 Rust memiliki anotasi khusus yang disebut *trait* `Copy` yang dapat kita
-pasang pada tipe-tipe yang disimpan di *stack*, seperti bilangan bulat (kita
+pasang pada type-type yang disimpan di *stack*, seperti bilangan bulat (kita
 akan membahas *trait* lebih lanjut di [Bab 10][traits]<!-- ignore -->). Jika
-sebuah tipe mengimplementasikan *trait* `Copy`, variabel yang memakainya
+sebuah type mengimplementasikan *trait* `Copy`, variabel yang memakainya
 tidak dipindahkan, melainkan disalin secara sepele, sehingga tetap valid
 setelah ditetapkan ke variabel lain.
 
-Rust tidak mengizinkan kita memberi anotasi `Copy` pada sebuah tipe jika
-tipe tersebut, atau bagian mana pun darinya, telah mengimplementasikan
-*trait* `Drop`. Jika tipe tersebut membutuhkan sesuatu yang khusus terjadi
+Rust tidak mengizinkan kita memberi anotasi `Copy` pada sebuah type jika
+type tersebut, atau bagian mana pun darinya, telah mengimplementasikan
+*trait* `Drop`. Jika type tersebut membutuhkan sesuatu yang khusus terjadi
 ketika nilainya keluar dari *scope*, dan kita menambahkan anotasi `Copy` ke
-tipe itu, kita akan mendapatkan error waktu kompilasi. Untuk mempelajari cara
-menambahkan anotasi `Copy` pada tipe Anda guna mengimplementasikan *trait*
+type itu, kita akan mendapatkan error waktu kompilasi. Untuk mempelajari cara
+menambahkan anotasi `Copy` pada type Anda guna mengimplementasikan *trait*
 tersebut, lihat [“Trait yang Dapat Diturunkan”][derivable-traits]<!-- ignore
 --> di Lampiran C.
 
-Lalu, tipe apa saja yang mengimplementasikan *trait* `Copy`? Anda dapat
-memeriksa dokumentasi untuk tipe tertentu demi memastikannya, tetapi sebagai
+Lalu, type apa saja yang mengimplementasikan *trait* `Copy`? Anda dapat
+memeriksa dokumentasi untuk type tertentu demi memastikannya, tetapi sebagai
 aturan umum, kelompok nilai skalar sederhana mana pun dapat
 mengimplementasikan `Copy`, dan apa pun yang membutuhkan alokasi atau
 merupakan suatu bentuk sumber daya tidak dapat mengimplementasikan `Copy`.
-Berikut beberapa tipe yang mengimplementasikan `Copy`:
+Berikut beberapa type yang mengimplementasikan `Copy`:
 
-- Semua tipe bilangan bulat, seperti `u32`.
-- Tipe Boolean, `bool`, dengan nilai `true` dan `false`.
-- Semua tipe *floating point* (titik mengambang), seperti `f64`.
-- Tipe karakter, `char`.
-- *Tuple*, jika hanya berisi tipe-tipe yang juga mengimplementasikan `Copy`.
+- Semua type bilangan bulat, seperti `u32`.
+- Type Boolean, `bool`, dengan nilai `true` dan `false`.
+- Semua type *floating point* (titik mengambang), seperti `f64`.
+- Type karakter, `char`.
+- *Tuple*, jika hanya berisi type-type yang juga mengimplementasikan `Copy`.
   Misalnya, `(i32, i32)` mengimplementasikan `Copy`, tetapi `(i32, String)`
   tidak.
 

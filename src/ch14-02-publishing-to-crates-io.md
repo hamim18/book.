@@ -169,8 +169,8 @@ Di Bab 7, kita membahas cara membuat item menjadi publik dengan kata kunci
 Namun, struktur yang masuk akal bagi Anda ketika mengembangkan *crate* mungkin
 tidak begitu nyaman bagi pengguna Anda. Anda mungkin ingin mengorganisasi
 *struct* Anda dalam hierarki yang memuat beberapa tingkat, tetapi orang yang
-ingin memakai tipe yang Anda definisikan di kedalaman hierarki mungkin
-kesulitan mengetahui bahwa tipe itu ada. Mereka mungkin juga jengkel karena
+ingin memakai type yang Anda definisikan di kedalaman hierarki mungkin
+kesulitan mengetahui bahwa type itu ada. Mereka mungkin juga jengkel karena
 harus menulis `use my_crate::some_module::another_module::UsefulType;`
 alih-alih `use my_crate::UsefulType;`.
 
@@ -204,7 +204,7 @@ Gambar 14-3 menunjukkan seperti apa tampilan halaman depan dokumentasi untuk
 <span class="caption">Gambar 14-3: Halaman depan dokumentasi untuk `art`
 yang mendaftarkan modul `kinds` dan `utils`</span>
 
-Perhatikan bahwa tipe `PrimaryColor` dan `SecondaryColor` tidak terdaftar di
+Perhatikan bahwa type `PrimaryColor` dan `SecondaryColor` tidak terdaftar di
 halaman depan, begitu pula fungsi `mix`. Kita harus mengeklik `kinds` dan
 `utils` untuk melihatnya.
 
@@ -245,7 +245,7 @@ Listing 14-5.
 
 Dokumentasi API yang dihasilkan `cargo doc` untuk *crate* ini sekarang akan
 mendaftarkan dan menautkan hasil ekspor ulang di halaman depan, seperti
-ditunjukkan pada Gambar 14-4, sehingga tipe `PrimaryColor` dan
+ditunjukkan pada Gambar 14-4, sehingga type `PrimaryColor` dan
 `SecondaryColor` serta fungsi `mix` lebih mudah ditemukan.
 
 <img alt="Dokumentasi yang dirender untuk crate `art` dengan hasil ekspor ulang di halaman depan" src="img/trpl14-04.png" class="center" />
@@ -266,7 +266,7 @@ Listing 14-6.
 
 </Listing>
 
-Dalam kasus di mana ada banyak modul bersarang, mengekspor ulang tipe-tipe di
+Dalam kasus di mana ada banyak modul bersarang, mengekspor ulang type-type di
 tingkat teratas dengan `pub use` dapat membuat perbedaan yang berarti dalam
 pengalaman orang yang memakai *crate* itu. Kegunaan umum lain dari `pub use`
 adalah mengekspor ulang definisi sebuah dependensi di *crate* saat ini untuk

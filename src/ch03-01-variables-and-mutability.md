@@ -94,11 +94,11 @@ konstanta dan variabel.
 
 Pertama, Anda tidak diizinkan memakai `mut` pada konstanta. Konstanta tidak
 hanya *immutable* secara bawaan—konstanta selalu *immutable*. Anda mendeklarasikan
-konstanta dengan memakai keyword `const`, bukan keyword `let`, dan tipe
-nilainya _harus_ diberi anotasi. Kita akan membahas tipe dan anotasi tipe di
-bagian berikutnya, [“Tipe Data”][data-types]<!-- ignore -->, jadi jangan
+konstanta dengan memakai keyword `const`, bukan keyword `let`, dan type
+nilainya _harus_ diberi anotasi. Kita akan membahas type dan type annotation di
+bagian berikutnya, [“Type Data”][data-types]<!-- ignore -->, jadi jangan
 khawatir soal detailnya untuk sekarang. Cukup ketahui bahwa Anda harus selalu
-memberi anotasi pada tipenya.
+memberi anotasi pada typenya.
 
 Konstanta dapat dideklarasikan di *scope* (cakupan) mana pun, termasuk *scope*
 global, yang membuatnya berguna untuk nilai yang perlu diketahui oleh banyak
@@ -177,7 +177,7 @@ tetap *immutable* setelah transformasi itu selesai.
 
 Perbedaan lain antara `mut` dan shadowing adalah, karena kita pada dasarnya
 membuat variabel baru ketika memakai keyword `let` lagi, kita dapat mengubah
-tipe nilainya sambil memakai ulang nama yang sama. Sebagai contoh, misalkan
+type nilainya sambil memakai ulang nama yang sama. Sebagai contoh, misalkan
 program kita meminta pengguna menunjukkan berapa banyak spasi yang mereka
 inginkan di antara beberapa teks dengan memasukkan karakter spasi, lalu kita
 ingin menyimpan masukan itu sebagai angka:
@@ -186,7 +186,7 @@ ingin menyimpan masukan itu sebagai angka:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-04-shadowing-can-change-types/src/main.rs:here}}
 ```
 
-Variabel `spaces` pertama bertipe string, dan variabel `spaces` kedua bertipe
+Variabel `spaces` pertama typed string, dan variabel `spaces` kedua typed
 angka. Dengan demikian shadowing menyelamatkan kita dari keharusan memikirkan
 nama yang berbeda, seperti `spaces_str` dan `spaces_num`; kita cukup memakai
 ulang nama `spaces` yang lebih sederhana. Namun, jika kita mencoba memakai
@@ -197,7 +197,7 @@ error pada waktu kompilasi:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}
 ```
 
-Error tersebut menyatakan bahwa kita tidak diizinkan mengubah tipe sebuah
+Error tersebut menyatakan bahwa kita tidak diizinkan mengubah type sebuah
 variabel:
 
 ```console
@@ -205,7 +205,7 @@ variabel:
 ```
 
 Setelah kita mengeksplorasi cara kerja variabel, mari kita lihat lebih banyak
-tipe data yang dapat dimiliki variabel.
+data type yang dapat dimiliki variabel.
 
 [comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
 [data-types]: ch03-02-data-types.html#data-types

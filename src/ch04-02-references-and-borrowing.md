@@ -9,7 +9,7 @@ memberikan sebuah *reference* ke nilai `String` tersebut. *Reference* mirip
 dengan *pointer* karena ia adalah sebuah alamat yang dapat kita ikuti untuk
 mengakses data yang tersimpan di alamat tersebut; data itu dimiliki oleh
 variabel lain. Tidak seperti *pointer*, *reference* dijamin menunjuk ke nilai
-yang valid dari tipe tertentu selama masa hidup *reference* tersebut.
+yang valid dari type tertentu selama masa hidup *reference* tersebut.
 
 Berikut cara Anda mendefinisikan dan menggunakan fungsi `calculate_length`
 yang memiliki sebuah *reference* ke sebuah objek sebagai parameter, alih-alih
@@ -54,7 +54,7 @@ memilikinya, nilai yang ditunjuknya tidak akan dibuang ketika *reference* itu
 berhenti digunakan.
 
 Demikian pula, *signature* (tanda tangan) fungsi menggunakan `&` untuk
-menunjukkan bahwa tipe parameter `s` adalah sebuah *reference*. Mari kita
+menunjukkan bahwa type parameter `s` adalah sebuah *reference*. Mari kita
 tambahkan beberapa anotasi penjelas:
 
 ```rust

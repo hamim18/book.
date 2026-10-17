@@ -82,11 +82,11 @@ kode *unsafe*.
 
 Di Bab 4, pada seksi [“Dangling References”][dangling-references]<!-- ignore
 -->, kita menyebutkan bahwa kompilator memastikan *reference* selalu valid.
-*Unsafe* Rust memiliki dua tipe baru yang disebut *raw pointer* (*pointer*
+*Unsafe* Rust memiliki dua type baru yang disebut *raw pointer* (*pointer*
 mentah) yang mirip dengan *reference*. Seperti halnya *reference*, *raw pointer*
 bisa *immutable* (tidak dapat diubah) atau *mutable* (dapat diubah) dan
 ditulis sebagai `*const T` dan `*mut T` berturut-turut. Tanda bintang itu
-bukan operator dereferensi; ia adalah bagian dari nama tipenya. Dalam konteks
+bukan operator dereferensi; ia adalah bagian dari nama typenya. Dalam konteks
 *raw pointer*, *immutable* berarti *pointer* itu tidak bisa langsung diberi nilai
 setelah didereferensi.
 
@@ -239,7 +239,7 @@ Kita tidak bisa mengimplementasikan fungsi ini hanya dengan memakai Rust
 yang aman. Suatu percobaan mungkin tampak seperti Listing 20-5, yang tidak
 akan terkompilasi. Demi kesederhanaan, kita akan mengimplementasikan
 `split_at_mut` sebagai fungsi alih-alih metode dan hanya untuk *slice* berisi
-nilai `i32` alih-alih untuk tipe generik `T`.
+nilai `i32` alih-alih untuk generic type `T`.
 
 <Listing number="20-5" caption="Percobaan implementasi `split_at_mut` hanya dengan memakai Rust yang aman">
 
@@ -287,12 +287,12 @@ bekerja.
 
 </Listing>
 
-Ingat kembali dari seksi [“Tipe Slice”][the-slice-type]<!-- ignore --> di Bab
+Ingat kembali dari seksi [“Type Slice”][the-slice-type]<!-- ignore --> di Bab
 4 bahwa *slice* adalah *pointer* ke sejumlah data beserta panjang *slice* itu. Kita
 memakai metode `len` untuk mendapatkan panjang sebuah *slice* dan metode
 `as_mut_ptr` untuk mengakses *raw pointer* dari sebuah *slice*. Dalam kasus ini,
 karena kita memiliki *slice* *mutable* ke nilai `i32`, `as_mut_ptr` mengembalikan
-*raw pointer* dengan tipe `*mut i32`, yang kita simpan di variabel `ptr`.
+*raw pointer* dengan type `*mut i32`, yang kita simpan di variabel `ptr`.
 
 Kita mempertahankan asersi bahwa indeks `mid` berada di dalam *slice*. Lalu,
 kita sampai pada kode *unsafe*-nya: Fungsi `slice::from_raw_parts_mut`
@@ -525,11 +525,11 @@ invarian-invarian yang tidak bisa diverifikasi kompilator.
 Sebagai contoh, ingat kembali *marker trait* `Send` dan `Sync` yang kita bahas
 di seksi [“Konkurensi yang Dapat Diperluas dengan `Send` dan `Sync`”][send-and-sync]<!-- ignore
 --> di Bab 16: Kompilator mengimplementasikan *trait*-trait ini secara otomatis
-jika tipe-tipe kita seluruhnya tersusun dari tipe-tipe lain yang
+jika type-type kita seluruhnya tersusun dari type-type lain yang
 mengimplementasikan `Send` dan `Sync`. Jika kita mengimplementasikan sebuah
-tipe yang memuat tipe yang tidak mengimplementasikan `Send` atau `Sync`,
-seperti *raw pointer*, dan kita ingin menandai tipe itu sebagai `Send` atau
-`Sync`, kita harus memakai `unsafe`. Rust tidak bisa memverifikasi bahwa tipe
+type yang memuat type yang tidak mengimplementasikan `Send` atau `Sync`,
+seperti *raw pointer*, dan kita ingin menandai type itu sebagai `Send` atau
+`Sync`, kita harus memakai `unsafe`. Rust tidak bisa memverifikasi bahwa type
 kita menegakkan jaminan bahwa ia bisa dikirim lintas thread atau diakses dari
 banyak thread dengan aman; karena itu, kita perlu melakukan
 pemeriksaan-pemeriksaan itu secara manual dan menandainya dengan `unsafe`.
@@ -540,7 +540,7 @@ Tindakan terakhir yang hanya bekerja dengan `unsafe` adalah mengakses *field*
 dari sebuah *union*. *Union* mirip dengan `struct`, tetapi hanya satu *field*
 yang dideklarasikan yang dipakai pada instance tertentu dalam satu waktu.
 *Union* terutama dipakai untuk berinteraksi dengan *union* di kode C. Mengakses
-*field* *union* itu *unsafe* karena Rust tidak bisa menjamin tipe data yang sedang
+*field* *union* itu *unsafe* karena Rust tidak bisa menjamin data type yang sedang
 disimpan di dalam instance *union* itu. Anda bisa mempelajari lebih lanjut
 tentang *union* di [Rust *Reference*][unions].
 

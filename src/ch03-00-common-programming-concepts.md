@@ -6,7 +6,7 @@ pada intinya. Tidak ada satu pun konsep yang disajikan di bab ini yang unik
 bagi Rust, tetapi kita akan membahasnya dalam konteks Rust dan menjelaskan
 konvensi seputar penggunaannya.
 
-Secara khusus, Anda akan mempelajari variabel, tipe dasar, fungsi, komentar,
+Secara khusus, Anda akan mempelajari variabel, type dasar, fungsi, komentar,
 dan alur kontrol. Fondasi-fondasi ini akan ada di setiap program Rust, dan
 mempelajarinya sejak awal akan memberi Anda inti yang kuat untuk memulai.
 

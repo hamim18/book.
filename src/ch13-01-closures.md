@@ -59,10 +59,10 @@ Lagi-lagi, kode ini bisa diimplementasikan dengan banyak cara, dan di sini,
 untuk berfokus pada *closure*, kita bertahan pada konsep-konsep yang telah Anda
 pelajari, kecuali badan metode `giveaway` yang memakai sebuah *closure*. Di
 metode `giveaway`, kita menerima preferensi pengguna sebagai parameter
-bertipe `Option<ShirtColor>` dan memanggil metode `unwrap_or_else` pada
+typed `Option<ShirtColor>` dan memanggil metode `unwrap_or_else` pada
 `user_preference`. [Metode `unwrap_or_else` pada `Option<T>`][unwrap-or-else]<!--
 ignore --> didefinisikan oleh pustaka standar. Metode ini menerima satu
-argumen: sebuah *closure* tanpa argumen yang mengembalikan nilai `T` (tipe yang
+argumen: sebuah *closure* tanpa argumen yang mengembalikan nilai `T` (type yang
 sama dengan yang disimpan di *variant* `Some` dari `Option<T>`, dalam kasus
 ini `ShirtColor`). Jika `Option<T>`-nya berupa *variant* `Some`,
 `unwrap_or_else` mengembalikan nilai dari dalam `Some`. Jika `Option<T>`-nya
@@ -84,7 +84,7 @@ Menjalankan kode ini mencetak yang berikut:
 
 Satu aspek menarik di sini adalah kita telah meneruskan sebuah *closure* yang
 memanggil `self.most_stocked()` pada instance `Inventory` saat ini. Pustaka
-standar tidak perlu mengetahui apa pun tentang tipe `Inventory` atau
+standar tidak perlu mengetahui apa pun tentang type `Inventory` atau
 `ShirtColor` yang kita definisikan, ataupun logika yang ingin kita pakai dalam
 skenario ini. *Closure* itu menangkap sebuah *reference* *immutable* (tidak dapat
 diubah) ke instance `Inventory` `self` dan meneruskannya beserta kode yang
@@ -95,33 +95,33 @@ menangkap lingkungannya dengan cara seperti ini.
 
 <a id="closure-type-inference-and-annotation"></a>
 
-### Menginferensi dan Menganotasi Tipe Closure
+### Menginferensi dan Menganotasi Type Closure
 
 Ada lebih banyak perbedaan antara fungsi dan *closure*. *Closure* biasanya tidak
-mengharuskan Anda menganotasi tipe-tipe parameter atau nilai kembaliannya
-seperti fungsi `fn`. Anotasi tipe diwajibkan pada fungsi karena tipe-tipe itu
+mengharuskan Anda mengtype annotation-type parameter atau nilai kembaliannya
+seperti fungsi `fn`. Anotasi type diwajibkan pada fungsi karena type-type itu
 adalah bagian dari *interface* (antarmuka) eksplisit yang diekspos kepada
 pengguna Anda. Mendefinisikan *interface* ini secara kaku penting untuk
-memastikan bahwa semua orang sepakat tentang tipe nilai apa yang dipakai dan
+memastikan bahwa semua orang sepakat tentang type nilai apa yang dipakai dan
 dikembalikan sebuah fungsi. Sebaliknya, *closure* tidak dipakai di dalam
 *interface* yang diekspos seperti ini: *Closure* disimpan di dalam variabel, dan
 dipakai tanpa menamainya dan mengeksposnya kepada pengguna pustaka kita.
 
 *Closure* biasanya pendek dan hanya relevan di dalam konteks yang sempit, bukan
 di skenario yang sembarangan. Di dalam konteks yang terbatas ini, *compiler*
-dapat menginferensi tipe-tipe parameter dan tipe kembaliannya, mirip dengan
-kemampuannya menginferensi tipe-tipe sebagian besar variabel (ada kasus
-langka ketika *compiler* juga memerlukan anotasi tipe *closure*).
+dapat mengtype inference-type parameter dan return typenya, mirip dengan
+kemampuannya mengtype inference-type sebagian besar variabel (ada kasus
+langka ketika *compiler* juga memerlukan type annotation *closure*).
 
-Seperti halnya variabel, kita dapat menambahkan anotasi tipe jika ingin
+Seperti halnya variabel, kita dapat menambahkan type annotation jika ingin
 meningkatkan keeksplisitan dan kejelasan dengan biaya menjadi lebih
-bertele-tele daripada yang benar-benar diperlukan. Menganotasi tipe-tipe untuk
+bertele-tele daripada yang benar-benar diperlukan. Mengtype annotation-type untuk
 sebuah *closure* akan tampak seperti definisi yang ditunjukkan di Listing 13-2.
 Dalam contoh ini, kita mendefinisikan sebuah *closure* dan menyimpannya di dalam
 sebuah variabel alih-alih mendefinisikan *closure* itu di tempat kita
 meneruskannya sebagai argumen, seperti yang kita lakukan di Listing 13-1.
 
-<Listing number="13-2" file-name="src/main.rs" caption="Menambahkan anotasi tipe opsional untuk tipe parameter dan nilai kembalian di dalam closure">
+<Listing number="13-2" file-name="src/main.rs" caption="Menambahkan type annotation opsional untuk type parameter dan nilai kembalian di dalam closure">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-02/src/main.rs:here}}
@@ -129,7 +129,7 @@ meneruskannya sebagai argumen, seperti yang kita lakukan di Listing 13-1.
 
 </Listing>
 
-Dengan anotasi tipe yang ditambahkan, sintaks *closure* tampak lebih mirip
+Dengan type annotation yang ditambahkan, sintaks *closure* tampak lebih mirip
 dengan sintaks fungsi. Di sini, kita mendefinisikan sebuah fungsi yang
 menambahkan 1 ke parameternya dan sebuah *closure* dengan perilaku yang sama,
 sebagai perbandingan. Kita telah menambahkan beberapa spasi untuk
@@ -146,26 +146,26 @@ let add_one_v4 = |x|               x + 1  ;
 
 Baris pertama menunjukkan definisi fungsi dan baris kedua menunjukkan definisi
 *closure* yang dianotasi sepenuhnya. Di baris ketiga, kita menghapus anotasi
-tipe dari definisi *closure*. Di baris keempat, kita menghapus kurung
+type dari definisi *closure*. Di baris keempat, kita menghapus kurung
 kurawalnya, yang bersifat opsional karena badan *closure* hanya memiliki satu
 ekspresi. Semua ini adalah definisi yang valid dan akan menghasilkan perilaku
 yang sama ketika dipanggil. Baris `add_one_v3` dan `add_one_v4` mengharuskan
-*closure*-closure itu dievaluasi agar dapat terkompilasi karena tipe-tipenya
+*closure*-closure itu dievaluasi agar dapat terkompilasi karena type-typenya
 akan diinferensi dari pemakaiannya. Ini mirip dengan `let v = Vec::new();`
-yang memerlukan anotasi tipe ataupun nilai-nilai bertipe tertentu untuk
-dimasukkan ke dalam `Vec` agar Rust dapat menginferensi tipenya.
+yang memerlukan type annotation ataupun nilai-nilai typed tertentu untuk
+dimasukkan ke dalam `Vec` agar Rust dapat mengtype inferencenya.
 
-Untuk definisi *closure*, *compiler* akan menginferensi satu tipe konkret untuk
+Untuk definisi *closure*, *compiler* akan menginferensi satu type konkret untuk
 setiap parameternya dan untuk nilai kembaliannya. Misalnya, Listing 13-3
 menunjukkan definisi sebuah *closure* pendek yang hanya mengembalikan nilai
 yang diterimanya sebagai parameter. *Closure* ini tidak terlalu berguna kecuali
 untuk keperluan contoh ini. Perhatikan bahwa kita belum menambahkan anotasi
-tipe apa pun ke definisinya. Karena tidak ada anotasi tipe, kita dapat
-memanggil *closure* itu dengan tipe apa pun, yang telah kita lakukan di sini
+type apa pun ke definisinya. Karena tidak ada type annotation, kita dapat
+memanggil *closure* itu dengan type apa pun, yang telah kita lakukan di sini
 dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
 `example_closure` dengan sebuah integer, kita akan mendapat error.
 
-<Listing number="13-3" file-name="src/main.rs" caption="Mencoba memanggil closure yang tipe-tipenya diinferensi dengan dua tipe yang berbeda">
+<Listing number="13-3" file-name="src/main.rs" caption="Mencoba memanggil closure yang type-typenya diinferensi dengan dua type yang berbeda">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-03/src/main.rs:here}}
@@ -180,10 +180,10 @@ dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
 ```
 
 Pertama kali kita memanggil `example_closure` dengan nilai `String`,
-*compiler* menginferensi tipe `x` dan tipe kembalian *closure* itu sebagai
-`String`. Tipe-tipe itu kemudian dikunci ke dalam *closure* di
-`example_closure`, dan kita mendapat error tipe ketika selanjutnya mencoba
-memakai tipe yang berbeda dengan *closure* yang sama.
+*compiler* mengtype inference `x` dan return type *closure* itu sebagai
+`String`. Type-type itu kemudian dikunci ke dalam *closure* di
+`example_closure`, dan kita mendapat error type ketika selanjutnya mencoba
+memakai type yang berbeda dengan *closure* yang sama.
 
 <a id="capturing-references-or-moving-ownership"></a>
 ### Menangkap Reference atau Memindahkan Ownership
@@ -346,16 +346,16 @@ impl<T> Option<T> {
 }
 ```
 
-Ingat bahwa `T` adalah tipe generik yang merepresentasikan tipe nilai di dalam
-*variant* `Some` dari sebuah `Option`. Tipe `T` itu juga merupakan tipe
+Ingat bahwa `T` adalah generic type yang merepresentasikan type nilai di dalam
+*variant* `Some` dari sebuah `Option`. Type `T` itu juga merupakan type
 kembalian fungsi `unwrap_or_else`: Kode yang memanggil `unwrap_or_else` pada
 `Option<String>`, misalnya, akan mendapat sebuah `String`.
 
-Selanjutnya, perhatikan bahwa fungsi `unwrap_or_else` memiliki parameter tipe
-generik tambahan `F`. Tipe `F` adalah tipe dari parameter bernama `f`, yaitu
+Selanjutnya, perhatikan bahwa fungsi `unwrap_or_else` memiliki type parameter
+generik tambahan `F`. Type `F` adalah type dari parameter bernama `f`, yaitu
 *closure* yang kita berikan saat memanggil `unwrap_or_else`.
 
-*Trait bound* (batasan *trait*) yang ditentukan pada tipe generik `F` adalah
+*Trait bound* (batasan *trait*) yang ditentukan pada generic type `F` adalah
 `FnOnce() -> T`, yang berarti `F` harus dapat dipanggil sekali, tidak
 menerima argumen, dan mengembalikan sebuah `T`. Memakai `FnOnce` di *trait
 bound* itu mengekspresikan batasan bahwa `unwrap_or_else` tidak akan memanggil
@@ -377,7 +377,7 @@ Sekarang mari kita lihat metode pustaka standar `sort_by_key`, yang
 didefinisikan pada *slice*, untuk melihat perbedaannya dari `unwrap_or_else` dan
 alasan `sort_by_key` memakai `FnMut` alih-alih `FnOnce` untuk *trait bound*-nya.
 *Closure* itu menerima satu argumen berupa *reference* ke item saat ini di dalam
-*slice* yang sedang dipertimbangkan, dan mengembalikan nilai bertipe `K` yang
+*slice* yang sedang dipertimbangkan, dan mengembalikan nilai typed `K` yang
 dapat diurutkan. Fungsi ini berguna ketika Anda ingin mengurutkan sebuah *slice*
 berdasarkan atribut tertentu dari setiap itemnya. Di Listing 13-7, kita
 memiliki daftar instance `Rectangle`, dan kita memakai `sort_by_key` untuk
@@ -451,7 +451,7 @@ lebih dari sekali.
 
 </Listing>
 
-*Trait* `Fn` penting ketika mendefinisikan atau memakai fungsi atau tipe yang
+*Trait* `Fn` penting ketika mendefinisikan atau memakai fungsi atau type yang
 memanfaatkan *closure*. Di bagian berikutnya, kita akan membahas *iterator*.
 Banyak metode *iterator* menerima argumen *closure*, jadi ingat-ingat detail
 *closure* ini selagi kita melanjutkan!

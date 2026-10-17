@@ -38,7 +38,7 @@ Fungsi `area` seharusnya menghitung luas satu persegi panjang, tetapi fungsi
 yang kita tulis memiliki dua parameter, dan tidak jelas di bagian mana pun
 program kita bahwa kedua parameter itu saling berkaitan. Akan lebih mudah
 dibaca dan dikelola jika lebar dan tinggi dikelompokkan bersama. Kita telah
-membahas satu cara untuk melakukannya di bagian [“Tipe
+membahas satu cara untuk melakukannya di bagian [“Type
 *Tuple*”][the-tuple-type]<!-- ignore --> pada Bab 3: dengan memakai *tuple*.
 
 ### Refactoring dengan Tuple
@@ -87,11 +87,11 @@ pada Listing 5-10.
 
 Di sini, kita telah mendefinisikan sebuah *struct* dan menamainya `Rectangle`.
 Di dalam kurung kurawal, kita mendefinisikan *field*-nya sebagai `width` dan
-`height`, yang keduanya bertipe `u32`. Lalu, di dalam `main`, kita membuat
+`height`, yang keduanya typed `u32`. Lalu, di dalam `main`, kita membuat
 sebuah instance `Rectangle` tertentu yang memiliki lebar `30` dan tinggi `50`.
 
 Fungsi `area` kita kini didefinisikan dengan satu parameter, yang kita namai
-`rectangle`, yang tipenya adalah peminjaman *immutable* (tidak dapat diubah)
+`rectangle`, yang typenya adalah peminjaman *immutable* (tidak dapat diubah)
 atas instance *struct* `Rectangle`. Seperti yang disebutkan di Bab 4, kita
 ingin meminjam *struct* alih-alih mengambil *ownership* (kepemilikan). Dengan demikian, `main` mempertahankan
 kepemilikannya dan dapat terus memakai `rect1`, itulah sebabnya kita memakai
@@ -135,9 +135,9 @@ berikut:
 *Macro* `println!` dapat melakukan banyak jenis format, dan secara bawaan,
 kurung kurawalnya memberi tahu `println!` untuk memakai format yang dikenal
 sebagai `Display`: output yang ditujukan untuk konsumsi langsung oleh
-pengguna akhir. Tipe-tipe primitif yang telah kita lihat sejauh ini
+pengguna akhir. Type-primitive type yang telah kita lihat sejauh ini
 mengimplementasikan `Display` secara bawaan karena hanya ada satu cara untuk
-menampilkan `1` atau tipe primitif lain kepada pengguna. Tetapi untuk *struct*,
+menampilkan `1` atau primitive type lain kepada pengguna. Tetapi untuk *struct*,
 cara `println!` memformat output-nya kurang jelas karena ada lebih banyak
 kemungkinan tampilan: apakah Anda ingin koma atau tidak? Apakah Anda ingin
 kurung kurawalnya dicetak? Apakah semua *field* harus ditampilkan? Karena
@@ -239,12 +239,12 @@ baris 10, tempat kita men-debug ekspresi `30 * scale`, dan nilai hasilnya
 adalah `60` (format `Debug` yang diimplementasikan untuk integer hanya
 mencetak nilainya). Pemanggilan `dbg!` pada baris 14 _src/main.rs_
 mengeluarkan nilai `&rect1`, yang merupakan *struct* `Rectangle`. Keluaran ini
-memakai format `Debug` cantik milik tipe `Rectangle`. *Macro* `dbg!` bisa sangat
+memakai format `Debug` cantik milik type `Rectangle`. *Macro* `dbg!` bisa sangat
 membantu ketika Anda mencoba memahami apa yang dilakukan kode Anda!
 
 Selain *trait* `Debug`, Rust telah menyediakan sejumlah *trait* untuk kita pakai
 bersama atribut `derive` yang dapat menambahkan perilaku berguna pada
-tipe-tipe kustom kita. *Trait*-trait itu dan perilakunya tercantum di
+type-custom type kita. *Trait*-trait itu dan perilakunya tercantum di
 [Lampiran C][app-c]<!-- ignore -->. Kita akan membahas cara mengimplementasikan
 *trait*-trait ini dengan perilaku kustom serta cara membuat *trait* Anda sendiri
 di Bab 10. Ada juga banyak atribut selain `derive`; untuk informasi lebih
@@ -252,9 +252,9 @@ lanjut, lihat [bagian “Attributes” di Rust *Reference*][attributes].
 
 Fungsi `area` kita sangat spesifik: ia hanya menghitung luas persegi panjang.
 Akan membantu jika perilaku ini diikat lebih erat ke *struct* `Rectangle` kita
-karena ia tidak akan bekerja dengan tipe lain mana pun. Mari kita lihat
+karena ia tidak akan bekerja dengan type lain mana pun. Mari kita lihat
 bagaimana kita dapat terus melakukan refactoring pada kode ini dengan
-mengubah fungsi `area` menjadi metode `area` yang didefinisikan pada tipe
+mengubah fungsi `area` menjadi metode `area` yang didefinisikan pada type
 `Rectangle` kita.
 
 [the-tuple-type]: ch03-02-data-types.html#the-tuple-type

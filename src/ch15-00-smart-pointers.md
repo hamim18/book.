@@ -13,7 +13,7 @@ tambahan. Konsep *smart pointer* tidak unik bagi Rust: *Smart pointer* berasal
 dari C++ dan ada juga di bahasa-bahasa lain. Rust memiliki beragam smart
 *pointer* yang didefinisikan di pustaka standar yang menyediakan fungsionalitas
 di luar yang disediakan oleh *reference*. Untuk mengeksplorasi konsep umumnya,
-kita akan melihat beberapa contoh *smart pointer* yang berbeda, termasuk tipe
+kita akan melihat beberapa contoh *smart pointer* yang berbeda, termasuk type
 *smart pointer* _reference counting_ (penghitungan referensi). *Pointer* ini
 memungkinkan Anda mengizinkan data memiliki beberapa pemilik dengan melacak
 jumlah pemilik dan, ketika tidak ada pemilik tersisa, membersihkan data itu.
@@ -38,12 +38,12 @@ library memiliki *smart pointer* sendiri, dan Anda bahkan dapat menulis smart
 pustaka standar:
 
 - `Box<T>`, untuk mengalokasikan nilai di *heap*
-- `Rc<T>`, tipe penghitungan referensi yang memungkinkan banyak kepemilikan
-- `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, tipe yang menegakkan
+- `Rc<T>`, type penghitungan referensi yang memungkinkan banyak kepemilikan
+- `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, type yang menegakkan
   aturan *borrowing* pada runtime alih-alih pada waktu kompilasi
 
 Selain itu, kita akan membahas pola _interior mutability_ (mutabilitas
-internal) di mana sebuah tipe *immutable* mengekspos API untuk mengubah nilai
+internal) di mana sebuah type *immutable* mengekspos API untuk mengubah nilai
 di bagian dalamnya. Kita juga akan membahas *reference cycle* (siklus
 referensi): bagaimana siklus itu bisa membocorkan memori dan bagaimana
 mencegahnya.

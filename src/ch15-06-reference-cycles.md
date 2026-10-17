@@ -94,7 +94,7 @@ tersedia.
 
 Membuat *reference cycle* tidak mudah dilakukan, tetapi juga bukan mustahil.
 Jika Anda memiliki nilai `RefCell<T>` yang memuat nilai `Rc<T>` atau kombinasi
-bersarang serupa dari tipe dengan *interior mutability* dan penghitungan
+bersarang serupa dari type dengan *interior mutability* dan penghitungan
 referensi, Anda harus memastikan Anda tidak menciptakan siklus; Anda tidak
 bisa mengandalkan Rust untuk menangkapnya. Membuat *reference cycle* akan
 menjadi bug logika dalam program Anda yang harus Anda minimalisasi dengan
@@ -129,9 +129,9 @@ kapan instance `Rc<T>` dibersihkan. *Weak reference* tidak akan menyebabkan
 akan putus begitu jumlah *strong reference* dari nilai-nilai yang terlibat
 mencapai 0.
 
-Ketika Anda memanggil `Rc::downgrade`, Anda mendapat *smart pointer* bertipe
+Ketika Anda memanggil `Rc::downgrade`, Anda mendapat *smart pointer* typed
 `Weak<T>`. Alih-alih menambah `strong_count` di instance `Rc<T>` sebesar 1,
-memanggil `Rc::downgrade` menambah `weak_count` sebesar 1. Tipe `Rc<T>`
+memanggil `Rc::downgrade` menambah `weak_count` sebesar 1. Type `Rc<T>`
 memakai `weak_count` untuk melacak berapa banyak *reference* `Weak<T>` yang
 ada, serupa dengan `strong_count`. Bedanya adalah `weak_count` tidak perlu
 menjadi 0 agar instance `Rc<T>` dibersihkan.
@@ -168,7 +168,7 @@ nilai `i32`-nya sendiri serta *reference* ke nilai `Node` child-nya:
 Kita ingin sebuah `Node` memiliki child-childnya, dan kita ingin berbagi
 *ownership* itu dengan variabel supaya kita dapat mengakses setiap `Node` di
 *tree* secara langsung. Untuk melakukan ini, kita mendefinisikan item-item
-`Vec<T>` sebagai nilai bertipe `Rc<Node>`. Kita juga ingin memodifikasi *node*
+`Vec<T>` sebagai nilai typed `Rc<Node>`. Kita juga ingin memodifikasi *node*
 mana yang menjadi child dari *node* lain, jadi kita memiliki `RefCell<T>` di
 `children` di sekeliling `Vec<Rc<Node>>`.
 
@@ -196,7 +196,7 @@ akan melakukannya berikutnya.
 #### Menambahkan Reference dari Child ke Parent-nya
 
 Untuk membuat *node* child sadar akan parent-nya, kita perlu menambahkan *field*
-`parent` ke definisi *struct* `Node` kita. Kesulitannya adalah memutuskan tipe
+`parent` ke definisi *struct* `Node` kita. Kesulitannya adalah memutuskan type
 `parent` seharusnya apa. Kita tahu ia tidak bisa memuat `Rc<T>`, karena itu
 akan menciptakan *reference cycle* dengan `leaf.parent` menunjuk ke `branch`
 dan `branch.children` menunjuk ke `leaf`, yang akan menyebabkan nilai
@@ -208,7 +208,7 @@ dibebaskan. Namun, sebuah child tidak boleh memiliki parent-nya: Jika kita
 membebaskan *node* child, parent-nya harus tetap ada. Ini adalah kasus untuk
 *weak reference*!
 
-Jadi, alih-alih `Rc<T>`, kita akan membuat tipe `parent` memakai `Weak<T>`,
+Jadi, alih-alih `Rc<T>`, kita akan membuat type `parent` memakai `Weak<T>`,
 khususnya `RefCell<Weak<Node>>`. Sekarang definisi *struct* `Node` kita tampak
 seperti ini:
 
@@ -313,11 +313,11 @@ memori.
 
 Bab ini membahas cara memakai *smart pointer* untuk membuat jaminan dan
 kompromi yang berbeda dari yang dibuat Rust secara default dengan *reference*
-biasa. Tipe `Box<T>` memiliki ukuran yang diketahui dan menunjuk ke data yang
-dialokasikan di *heap*. Tipe `Rc<T>` melacak jumlah referensi ke data di *heap*
-sehingga data itu dapat memiliki beberapa pemilik. Tipe `RefCell<T>` dengan
-*interior mutability*-nya memberi kita tipe yang dapat kita pakai ketika kita
-membutuhkan tipe *immutable* tetapi perlu mengubah nilai bagian dalam tipe itu;
+biasa. Type `Box<T>` memiliki ukuran yang diketahui dan menunjuk ke data yang
+dialokasikan di *heap*. Type `Rc<T>` melacak jumlah referensi ke data di *heap*
+sehingga data itu dapat memiliki beberapa pemilik. Type `RefCell<T>` dengan
+*interior mutability*-nya memberi kita type yang dapat kita pakai ketika kita
+membutuhkan type *immutable* tetapi perlu mengubah nilai bagian dalam type itu;
 ia juga menegakkan aturan *borrowing* pada runtime alih-alih pada waktu
 kompilasi.
 

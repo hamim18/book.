@@ -38,8 +38,8 @@ Mari kita bedah `match` pada fungsi `value_in_cents`. Pertama, kita menuliskan
 keyword `match` yang diikuti sebuah ekspresi, yang pada kasus ini adalah nilai
 `coin`. Ini tampak sangat mirip dengan ekspresi kondisional yang dipakai
 bersama `if`, tetapi ada perbedaan besar: pada `if`, kondisinya harus
-mengevaluasi menjadi nilai Boolean, sedangkan di sini ia dapat bertipe apa
-pun. Tipe `coin` pada contoh ini adalah *enum* `Coin` yang kita definisikan di
+mengevaluasi menjadi nilai Boolean, sedangkan di sini ia dapat typed apa
+pun. Type `coin` pada contoh ini adalah *enum* `Coin` yang kita definisikan di
 baris pertama.
 
 Berikutnya adalah *arm*-*arm* `match`. Sebuah *arm* (lengan) memiliki dua
@@ -264,8 +264,8 @@ apa pun.
 
 Terakhir, kita akan mengubah aturan permainannya sekali lagi sehingga tidak
 ada hal lain yang terjadi pada giliran Anda jika Anda melempar selain 3 atau
-7. Kita dapat menyatakannya dengan memakai nilai unit (tipe *tuple* kosong yang
-kita sebutkan di bagian [“Tipe Tuple”][tuples]<!-- ignore -->) sebagai kode
+7. Kita dapat menyatakannya dengan memakai nilai unit (type *tuple* kosong yang
+kita sebutkan di bagian [“Type Tuple”][tuples]<!-- ignore -->) sebagai kode
 yang menyertai *arm* `_`:
 
 ```rust

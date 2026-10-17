@@ -76,9 +76,9 @@ saat ini.
 Pada baris pertama `main`, kita memanggil `env::args`, lalu segera memakai
 `collect` untuk mengubah *iterator* tersebut menjadi sebuah vektor yang memuat
 semua nilai yang dihasilkan oleh *iterator* itu. Kita dapat memakai fungsi
-`collect` untuk membuat berbagai jenis koleksi, jadi kita menganotasi tipe
+`collect` untuk membuat berbagai jenis koleksi, jadi kita mengtype annotation
 `args` secara eksplisit untuk menyatakan bahwa kita menginginkan sebuah vektor
-berisi string. Meskipun Anda sangat jarang perlu menganotasi tipe di Rust,
+berisi string. Meskipun Anda sangat jarang perlu mengtype annotation di Rust,
 `collect` adalah salah satu fungsi yang memang sering perlu Anda anotasi
 karena Rust tidak mampu menginferensi jenis koleksi yang Anda inginkan.
 

@@ -1,9 +1,9 @@
 ## Menyimpan Daftar Nilai dengan Vektor
 
-Tipe koleksi pertama yang akan kita lihat adalah `Vec<T>`, yang juga dikenal
+Type koleksi pertama yang akan kita lihat adalah `Vec<T>`, yang juga dikenal
 sebagai vektor. Vektor memungkinkan Anda menyimpan lebih dari satu nilai di
 dalam satu struktur data yang menempatkan semua nilainya bersebelahan di
-memori. Vektor hanya dapat menyimpan nilai dengan tipe yang sama. Vektor
+memori. Vektor hanya dapat menyimpan nilai dengan type yang sama. Vektor
 berguna ketika Anda memiliki daftar item, seperti baris-baris teks di sebuah
 file atau harga-harga barang di keranjang belanja.
 
@@ -12,7 +12,7 @@ file atau harga-harga barang di keranjang belanja.
 Untuk membuat vektor kosong yang baru, kita memanggil fungsi `Vec::new`,
 seperti yang ditunjukkan di Listing 8-1.
 
-<Listing number="8-1" caption="Membuat vektor kosong yang baru untuk menampung nilai bertipe `i32`">
+<Listing number="8-1" caption="Membuat vektor kosong yang baru untuk menampung nilai typed `i32`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
@@ -20,23 +20,23 @@ seperti yang ditunjukkan di Listing 8-1.
 
 </Listing>
 
-Perhatikan bahwa kita menambahkan anotasi tipe di sini. Karena kita belum
-memasukkan nilai apa pun ke dalam vektor ini, Rust tidak tahu elemen bertipe
+Perhatikan bahwa kita menambahkan type annotation di sini. Karena kita belum
+memasukkan nilai apa pun ke dalam vektor ini, Rust tidak tahu elemen typed
 apa yang ingin kita simpan. Ini poin yang penting. Vektor diimplementasikan
 memakai *generics* (tipe generik); kita akan membahas cara memakai *generics*
-dengan tipe Anda sendiri di Bab 10. Untuk saat ini, ketahuilah bahwa tipe
-`Vec<T>` yang disediakan pustaka standar dapat menampung tipe apa pun. Ketika
-kita membuat vektor untuk menampung tipe tertentu, kita dapat menyebutkan
-tipenya di dalam kurung sudut. Di Listing 8-1, kita telah memberi tahu Rust
-bahwa `Vec<T>` di `v` akan menampung elemen bertipe `i32`.
+dengan type Anda sendiri di Bab 10. Untuk saat ini, ketahuilah bahwa type
+`Vec<T>` yang disediakan pustaka standar dapat menampung type apa pun. Ketika
+kita membuat vektor untuk menampung type tertentu, kita dapat menyebutkan
+typenya di dalam kurung sudut. Di Listing 8-1, kita telah memberi tahu Rust
+bahwa `Vec<T>` di `v` akan menampung elemen typed `i32`.
 
 Lebih sering, Anda akan membuat `Vec<T>` dengan nilai awal, dan Rust akan
-menginferensi tipe nilai yang ingin Anda simpan, sehingga Anda jarang perlu
-melakukan anotasi tipe ini. Rust dengan mudah menyediakan *macro* (makro)
+mengtype inference nilai yang ingin Anda simpan, sehingga Anda jarang perlu
+melakukan type annotation ini. Rust dengan mudah menyediakan *macro* (makro)
 `vec!`, yang akan membuat vektor baru yang menampung nilai-nilai yang Anda
 berikan. Listing 8-2 membuat `Vec<i32>` baru yang menampung nilai `1`, `2`,
-dan `3`. Tipe bilangannya adalah `i32` karena itu adalah tipe bilangan bulat
-default, seperti yang kita bahas di bagian [“Tipe Data”][data-types]<!--
+dan `3`. Type bilangannya adalah `i32` karena itu adalah type bilangan bulat
+default, seperti yang kita bahas di bagian [“Type Data”][data-types]<!--
 ignore --> di Bab 3.
 
 <Listing number="8-2" caption="Membuat vektor baru yang berisi nilai-nilai">
@@ -48,7 +48,7 @@ ignore --> di Bab 3.
 </Listing>
 
 Karena kita telah memberikan nilai awal `i32`, Rust dapat menginferensi
-bahwa tipe `v` adalah `Vec<i32>`, dan anotasi tipe tidak diperlukan.
+bahwa type `v` adalah `Vec<i32>`, dan type annotation tidak diperlukan.
 Berikutnya, kita akan melihat cara memodifikasi vektor.
 
 ### Memperbarui Vektor
@@ -67,14 +67,14 @@ metode `push`, seperti yang ditunjukkan di Listing 8-3.
 Seperti variabel mana pun, jika kita ingin dapat mengubah nilainya, kita
 perlu menjadikannya *mutable* (dapat diubah) memakai kata kunci `mut`, seperti
 yang dibahas di Bab 3. Angka-angka yang kita tempatkan di dalamnya semuanya
-bertipe `i32`, dan Rust menginferensi hal ini dari datanya, jadi kita tidak
+typed `i32`, dan Rust menginferensi hal ini dari datanya, jadi kita tidak
 perlu anotasi `Vec<i32>`.
 
 ### Membaca Elemen-Elemen Vektor
 
 Ada dua cara untuk merujuk nilai yang tersimpan di vektor: lewat pengindeksan
 atau dengan memakai metode `get`. Pada contoh-contoh berikut, kita
-menganotasi tipe nilai yang dikembalikan dari fungsi-fungsi ini demi
+mengtype annotation nilai yang dikembalikan dari fungsi-fungsi ini demi
 kejelasan ekstra.
 
 Listing 8-4 menunjukkan kedua metode untuk mengakses nilai di vektor, dengan
@@ -160,7 +160,7 @@ bersebelahan di tempat vektor saat ini disimpan. Dalam kasus itu, *reference*
 ke elemen pertama akan menunjuk ke memori yang telah dibebaskan. Aturan
 *borrowing* mencegah program berakhir di situasi semacam itu.
 
-> Catatan: Untuk lebih lanjut tentang detail implementasi tipe `Vec<T>`,
+> Catatan: Untuk lebih lanjut tentang detail implementasi type `Vec<T>`,
 > lihat [“The Rustonomicon”][nomicon].
 
 ### Mengiterasi Nilai-Nilai di dalam Vektor
@@ -204,24 +204,24 @@ perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat error
 *Reference* ke vektor yang dipegang perulangan `for` mencegah modifikasi
 seluruh vektor secara bersamaan.
 
-### Memakai Enum untuk Menyimpan Beberapa Tipe
+### Memakai Enum untuk Menyimpan Beberapa Type
 
-Vektor hanya dapat menyimpan nilai yang bertipe sama. Ini bisa merepotkan;
+Vektor hanya dapat menyimpan nilai yang typed sama. Ini bisa merepotkan;
 pasti ada kasus penggunaan yang membutuhkan penyimpanan daftar item dengan
-tipe berbeda. Untungnya, variant-variant sebuah *enum* didefinisikan di bawah
-tipe *enum* yang sama, jadi ketika kita membutuhkan satu tipe untuk
-merepresentasikan elemen-elemen dengan tipe berbeda, kita dapat
+type berbeda. Untungnya, variant-variant sebuah *enum* didefinisikan di bawah
+type *enum* yang sama, jadi ketika kita membutuhkan satu type untuk
+merepresentasikan elemen-elemen dengan type berbeda, kita dapat
 mendefinisikan dan memakai *enum*!
 
 Misalnya, katakanlah kita ingin mengambil nilai dari sebuah baris di
 spreadsheet yang sebagian kolomnya berisi bilangan bulat, sebagian berisi
 angka titik mengambang, dan sebagian berisi string. Kita dapat mendefinisikan
-*enum* yang variant-nya akan menampung tipe nilai yang berbeda, dan semua
-variant *enum* akan dianggap sebagai tipe yang sama: tipe *enum* itu. Lalu, kita
+*enum* yang variant-nya akan menampung type nilai yang berbeda, dan semua
+variant *enum* akan dianggap sebagai type yang sama: type *enum* itu. Lalu, kita
 dapat membuat vektor untuk menampung *enum* itu dan, pada akhirnya, menampung
-tipe-tipe yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
+type-type yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
 
-<Listing number="8-9" caption="Mendefinisikan enum untuk menyimpan nilai dengan tipe berbeda di satu vektor">
+<Listing number="8-9" caption="Mendefinisikan enum untuk menyimpan nilai dengan type berbeda di satu vektor">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
@@ -229,17 +229,17 @@ tipe-tipe yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
 
 </Listing>
 
-Rust perlu tahu tipe apa saja yang akan berada di vektor pada waktu
+Rust perlu tahu type apa saja yang akan berada di vektor pada waktu
 kompilasi supaya ia tahu persis berapa banyak memori di *heap* yang akan
 dibutuhkan untuk menyimpan setiap elemen. Kita juga harus eksplisit tentang
-tipe apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
-menampung tipe apa pun, ada kemungkinan satu tipe atau lebih menyebabkan
+type apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
+menampung type apa pun, ada kemungkinan satu type atau lebih menyebabkan
 error pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
 *enum* ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
 kompilasi bahwa setiap kasus yang mungkin tertangani, seperti yang dibahas
 di Bab 6.
 
-Jika Anda tidak tahu himpunan tipe yang lengkap yang akan diterima program
+Jika Anda tidak tahu himpunan type yang lengkap yang akan diterima program
 pada runtime untuk disimpan di vektor, teknik *enum* tidak akan bekerja.
 Sebagai gantinya, Anda dapat memakai *trait object* (objek *trait*), yang akan
 kita bahas di Bab 18.
@@ -268,7 +268,7 @@ bilangan bulat yang ditampungnya akan dibersihkan. *Borrow checker* memastikan
 bahwa *reference* mana pun ke isi vektor hanya dipakai selama vektornya
 sendiri masih valid.
 
-Mari kita lanjut ke tipe koleksi berikutnya: `String`!
+Mari kita lanjut ke type koleksi berikutnya: `String`!
 
 [data-types]: ch03-02-data-types.html#data-types
 [nomicon]: ../nomicon/vec/vec.html

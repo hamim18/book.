@@ -55,7 +55,7 @@ berikut:
 - Selama logika parsing baris perintah Anda masih kecil, logika itu dapat
   tetap berada di fungsi `main`.
 - Ketika logika parsing baris perintah mulai menjadi rumit, ekstrak logika itu
-  dari fungsi `main` ke fungsi atau tipe lain.
+  dari fungsi `main` ke fungsi atau type lain.
 
 Tanggung jawab yang tersisa di fungsi `main` setelah proses ini sebaiknya
 dibatasi pada hal-hal berikut:
@@ -193,7 +193,7 @@ Jadi, sekarang karena tujuan fungsi `parse_config` adalah membuat sebuah
 instance `Config`, kita dapat mengubah `parse_config` dari fungsi biasa
 menjadi sebuah fungsi bernama `new` yang terasosiasi dengan *struct* `Config`.
 Perubahan ini akan membuat kode lebih idiomatis. Kita dapat membuat instance
-tipe-tipe di pustaka standar, seperti `String`, dengan memanggil `String::new`.
+type-type di pustaka standar, seperti `String`, dengan memanggil `String::new`.
 Demikian pula, dengan mengubah `parse_config` menjadi fungsi `new` yang
 terasosiasi dengan `Config`, kita akan dapat membuat instance `Config` dengan
 memanggil `Config::new`. Listing 12-7 menunjukkan perubahan yang perlu kita
@@ -279,7 +279,7 @@ memuat instance `Config` pada kasus keberhasilan dan akan menjelaskan
 masalahnya pada kasus error. Kita juga akan mengubah nama fungsinya dari `new`
 menjadi `build` karena banyak pemrogram mengharapkan fungsi `new` tidak pernah
 gagal. Ketika `Config::build` berkomunikasi dengan `main`, kita dapat memakai
-tipe `Result` untuk memberi sinyal bahwa ada masalah. Kemudian, kita dapat
+type `Result` untuk memberi sinyal bahwa ada masalah. Kemudian, kita dapat
 mengubah `main` untuk mengubah sebuah *variant* (varian) `Err` menjadi error
 yang lebih praktis bagi pengguna kita, tanpa teks pelingkup tentang
 `thread 'main'` dan `RUST_BACKTRACE` yang disebabkan oleh pemanggilan
@@ -308,7 +308,7 @@ Kita telah membuat dua perubahan di badan fungsi: Alih-alih memanggil
 `panic!` ketika pengguna tidak meneruskan cukup argumen, kini kita
 mengembalikan nilai `Err`, dan kita telah membungkus nilai kembalian `Config`
 di dalam `Ok`. Perubahan-perubahan ini membuat fungsi itu menyesuaikan diri
-dengan tipe tanda tangan barunya.
+dengan type tanda tangan barunya.
 
 Mengembalikan nilai `Err` dari `Config::build` memungkinkan fungsi `main`
 menangani nilai `Result` yang dikembalikan dari fungsi `build` dan keluar dari
@@ -419,19 +419,19 @@ badan `run`.
 
 </Listing>
 
-Di sini kita telah membuat tiga perubahan penting. Pertama, kita mengubah tipe
+Di sini kita telah membuat tiga perubahan penting. Pertama, kita mengubah type
 kembalian fungsi `run` menjadi `Result<(), Box<dyn Error>>`. Sebelumnya fungsi
-ini mengembalikan tipe *unit*, `()`, dan kita mempertahankannya sebagai nilai
+ini mengembalikan type *unit*, `()`, dan kita mempertahankannya sebagai nilai
 yang dikembalikan pada kasus `Ok`.
 
-Untuk tipe errornya, kita memakai *trait object* `Box<dyn Error>` (dan kita
+Untuk type errornya, kita memakai *trait object* `Box<dyn Error>` (dan kita
 membawa `std::error::Error` ke dalam *scope* dengan pernyataan `use` di bagian
 atas). Kita akan membahas *trait object* di [Bab 18][ch18]<!-- ignore -->.
 Untuk saat ini, cukup ketahui bahwa `Box<dyn Error>` berarti fungsi ini akan
-mengembalikan sebuah tipe yang mengimplementasikan *trait* `Error`, tetapi
-kita tidak perlu menentukan tipe tertentu apa nilai kembaliannya. Ini memberi
+mengembalikan sebuah type yang mengimplementasikan *trait* `Error`, tetapi
+kita tidak perlu menentukan type tertentu apa nilai kembaliannya. Ini memberi
 kita fleksibilitas untuk mengembalikan nilai-nilai error yang mungkin berbeda
-tipenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
+typenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
 adalah singkatan dari _dynamic_.
 
 Kedua, kita telah menghapus pemanggilan `expect` demi operator `?`, seperti
@@ -440,8 +440,8 @@ melakukan `panic!` saat ada error, `?` akan mengembalikan nilai error tersebut
 dari fungsi saat ini untuk ditangani oleh pemanggilnya.
 
 Ketiga, fungsi `run` kini mengembalikan nilai `Ok` pada kasus keberhasilan.
-Kita telah mendeklarasikan tipe keberhasilan fungsi `run` sebagai `()` di
-tanda tangannya, yang berarti kita perlu membungkus nilai tipe *unit* itu di
+Kita telah mendeklarasikan type keberhasilan fungsi `run` sebagai `()` di
+tanda tangannya, yang berarti kita perlu membungkus nilai type *unit* itu di
 dalam nilai `Ok`. Sintaks `Ok(())` ini mungkin tampak agak aneh pada awalnya.
 Tetapi memakai `()` seperti ini adalah cara idiomatis untuk menunjukkan bahwa
 kita memanggil `run` hanya demi efek sampingnya; fungsi itu tidak

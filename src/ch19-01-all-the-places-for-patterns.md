@@ -100,7 +100,7 @@ bisa menganggap pola *tuple* ini sebagai tiga pola variabel individual yang
 bersarang di dalamnya.
 
 Jika jumlah elemen pada pola tidak cocok dengan jumlah elemen pada *tuple*,
-tipe keseluruhannya tidak akan cocok dan kita akan mendapat error kompilator.
+type keseluruhannya tidak akan cocok dan kita akan mendapat error kompilator.
 Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi *tuple* dengan
 tiga elemen menjadi dua variabel, yang tidak akan berhasil.
 
@@ -112,7 +112,7 @@ tiga elemen menjadi dua variabel, yang tidak akan berhasil.
 
 </Listing>
 
-Upaya mengompilasi kode ini menghasilkan error tipe berikut:
+Upaya mengompilasi kode ini menghasilkan error type berikut:
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-02/output.txt}}
@@ -122,7 +122,7 @@ Untuk memperbaiki errornya, kita bisa mengabaikan satu atau beberapa nilai di
 *tuple* itu menggunakan `_` atau `..`, seperti yang akan Anda lihat di bagian
 [“Mengabaikan Nilai dalam Pola”][ignoring-values-in-a-pattern]<!-- ignore -->.
 Jika masalahnya adalah kita punya terlalu banyak variabel di pola, solusinya
-adalah membuat tipe-tipenya cocok dengan menghapus variabel sehingga jumlah
+adalah membuat type-typenya cocok dengan menghapus variabel sehingga jumlah
 variabel sama dengan jumlah elemen di *tuple*.
 
 ### Ekspresi Kondisional `if let`
@@ -236,7 +236,7 @@ value akan menjadi `'a'`, mencetak baris pertama dari keluaran.
 
 Parameter fungsi juga bisa menjadi pola. Kode di Listing 19-6, yang
 mendeklarasikan fungsi bernama `foo` yang menerima satu parameter bernama `x`
-bertipe `i32`, sekarang seharusnya terasa familier.
+typed `i32`, sekarang seharusnya terasa familier.
 
 <Listing number="19-6" caption="Tanda tangan fungsi yang memakai pola di parameter-parameternya">
 

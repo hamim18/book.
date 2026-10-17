@@ -18,7 +18,7 @@ jadi kita ingin segera menghentikan program.
 
 Sebagian besar bahasa tidak membedakan kedua jenis error ini dan menangani
 keduanya dengan cara yang sama, memakai mekanisme seperti *exception*. Rust
-tidak memiliki exception. Sebagai gantinya, Rust memiliki tipe `Result<T,
+tidak memiliki exception. Sebagai gantinya, Rust memiliki type `Result<T,
 E>` untuk error yang dapat dipulihkan dan macro `panic!` yang menghentikan
 eksekusi ketika program menemukan error yang tidak dapat dipulihkan. Bab ini
 pertama-tama membahas pemanggilan `panic!`, lalu membicarakan pengembalian

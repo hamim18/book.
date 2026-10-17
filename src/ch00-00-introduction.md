@@ -131,7 +131,7 @@ dengan menerapkan detail-detail yang telah Anda pelajari.
 Di **Bab 4**, Anda akan mempelajari sistem *ownership* (kepemilikan) Rust.
 **Bab 5** membahas *struct* dan metode. **Bab 6** membahas *enum*, ekspresi
 `match`, serta konstruksi alur kontrol `if let` dan `let...else`. Anda akan
-menggunakan *struct* dan *enum* untuk membuat tipe khusus.
+menggunakan *struct* dan *enum* untuk membuat type khusus.
 
 Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta
 aturan privasi untuk mengorganisasi kode Anda dan antarmuka pemrograman
@@ -141,7 +141,7 @@ menjelajahi filosofi dan teknik penanganan error Rust.
 
 **Bab 10** menggali *generics* (tipe generik), *trait*, dan *lifetime* (masa
 hidup), yang memberi Anda kemampuan untuk mendefinisikan kode yang berlaku
-untuk berbagai tipe. **Bab 11** seluruhnya membahas pengujian, yang bahkan
+untuk berbagai type. **Bab 11** seluruhnya membahas pengujian, yang bahkan
 dengan jaminan keamanan dari Rust tetap diperlukan untuk memastikan logika
 program Anda benar. Di **Bab 12**, kita akan membangun implementasi sendiri
 dari sebagian fungsionalitas alat baris perintah `grep` yang mencari teks di
@@ -166,7 +166,7 @@ prinsip-prinsip pemrograman berorientasi objek yang mungkin sudah Anda kenal.
 pola), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
 program Rust. **Bab 20** memuat aneka ragam topik lanjutan yang menarik,
 termasuk *unsafe* Rust, *macro* (makro), serta pembahasan lebih lanjut
-tentang *lifetime*, *trait*, tipe, fungsi, dan *closure*.
+tentang *lifetime*, *trait*, type, fungsi, dan *closure*.
 
 Di **Bab 21**, kita akan menyelesaikan sebuah proyek untuk
 mengimplementasikan server web multithread tingkat rendah!

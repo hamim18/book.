@@ -195,7 +195,7 @@ Berikut error pertama yang kita dapat:
 {{#include ../listings/ch21-web-server/listing-21-12/output.txt}}
 ```
 
-Bagus! Error ini memberi tahu kita bahwa kita memerlukan tipe atau *module*
+Bagus! Error ini memberi tahu kita bahwa kita memerlukan type atau *module*
 `ThreadPool`, jadi sekarang kita akan membangunnya. Implementasi
 `ThreadPool` kita akan tidak bergantung pada jenis pekerjaan yang dilakukan
 server web kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
@@ -249,10 +249,10 @@ fungsi `new` paling sederhana yang akan memiliki karakteristik itu:
 
 </Listing>
 
-Kita memilih `usize` sebagai tipe parameter `size` karena kita tahu bahwa
+Kita memilih `usize` sebagai type parameter `size` karena kita tahu bahwa
 jumlah thread negatif tidak masuk akal. Kita juga tahu kita akan memakai
 `4` ini sebagai jumlah elemen dalam koleksi thread, yang memang merupakan
-kegunaan tipe `usize`, seperti yang dibahas di seksi [“Tipe
+kegunaan type `usize`, seperti yang dibahas di seksi [“Type
 Integer”][integer-types]<!-- ignore --> pada Bab 3.
 
 Mari kita periksa kodenya lagi:
@@ -288,8 +288,8 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
         T: Send + 'static,
 ```
 
-Parameter tipe `F` adalah yang menjadi perhatian kita di sini; parameter
-tipe `T` berkaitan dengan nilai kembalian, dan itu bukan perhatian kita.
+Parameter type `F` adalah yang menjadi perhatian kita di sini; parameter
+type `T` berkaitan dengan nilai kembalian, dan itu bukan perhatian kita.
 Kita bisa melihat bahwa `spawn` memakai `FnOnce` sebagai *trait bound* pada
 `F`. Kemungkinan besar ini juga yang kita inginkan, karena pada akhirnya
 kita akan meneruskan argumen yang kita dapat di `execute` ke `spawn`. Kita
@@ -297,12 +297,12 @@ bisa semakin yakin bahwa `FnOnce` adalah *trait* yang ingin kita pakai karena
 thread untuk menjalankan sebuah permintaan hanya akan mengeksekusi *closure*
 permintaan itu satu kali, yang cocok dengan `Once` pada `FnOnce`.
 
-Parameter tipe `F` juga memiliki *trait bound* `Send` dan bound *lifetime*
+Parameter type `F` juga memiliki *trait bound* `Send` dan bound *lifetime*
 `'static`, yang berguna dalam situasi kita: Kita memerlukan `Send` untuk
 mentransfer *closure* dari satu thread ke thread lain dan `'static` karena
 kita tidak tahu berapa lama thread itu akan butuh untuk mengeksekusi. Mari
 kita buat metode `execute` pada `ThreadPool` yang akan menerima parameter
-generik bertipe `F` dengan bound-bound ini:
+generik typed `F` dengan bound-bound ini:
 
 <Listing file-name="src/lib.rs">
 
@@ -313,8 +313,8 @@ generik bertipe `F` dengan bound-bound ini:
 </Listing>
 
 Kita tetap memakai `()` setelah `FnOnce` karena `FnOnce` ini mewakili
-*closure* yang tidak menerima parameter dan mengembalikan tipe unit `()`.
-Sama seperti definisi fungsi, tipe kembalian boleh dihilangkan dari tanda
+*closure* yang tidak menerima parameter dan mengembalikan type unit `()`.
+Sama seperti definisi fungsi, return type boleh dihilangkan dari tanda
 tangannya, tetapi meskipun kita tidak punya parameter, kita tetap
 memerlukan tanda kurungnya.
 
@@ -348,7 +348,7 @@ Pertimbangkan: Apa yang akan berbeda di sini jika kita akan mengeksekusi
 Kita belum melakukan apa pun dengan parameter-parameter `new` dan
 `execute`. Mari kita implementasikan tubuh fungsi-fungsi ini dengan
 perilaku yang kita inginkan. Untuk memulai, mari kita pikirkan `new`.
-Sebelumnya kita memilih tipe tak bertanda untuk parameter `size` karena
+Sebelumnya kita memilih type tak bertanda untuk parameter `size` karena
 pool dengan jumlah thread negatif tidak masuk akal. Akan tetapi, pool
 dengan nol thread juga tidak masuk akal, padahal nol adalah `usize` yang
 sah sepenuhnya. Kita akan menambahkan kode untuk memeriksa bahwa `size`
@@ -399,11 +399,11 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
         T: Send + 'static,
 ```
 
-Fungsi `spawn` mengembalikan `JoinHandle<T>`, dengan `T` adalah tipe yang
+Fungsi `spawn` mengembalikan `JoinHandle<T>`, dengan `T` adalah type yang
 dikembalikan *closure* itu. Mari kita coba memakai `JoinHandle` juga dan
 lihat apa yang terjadi. Dalam kasus kita, *closure* yang kita berikan ke
 *thread pool* akan menangani koneksi dan tidak mengembalikan apa pun, jadi
-`T` akan menjadi tipe unit `()`.
+`T` akan menjadi type unit `()`.
 
 Kode di Listing 21-14 akan terkompilasi, tetapi ia belum membuat thread
 apa pun. Kita telah mengubah definisi `ThreadPool` untuk menampung vektor
@@ -421,7 +421,7 @@ yang memuatnya.
 </Listing>
 
 Kita telah membawa `std::thread` ke dalam *scope* di *crate* library karena
-kita memakai `thread::JoinHandle` sebagai tipe item-item di vektor pada
+kita memakai `thread::JoinHandle` sebagai type item-item di vektor pada
 `ThreadPool`.
 
 Setelah ukuran yang valid diterima, `ThreadPool` kita membuat vektor baru
@@ -552,7 +552,7 @@ yang akan mengirim pekerjaan itu ke thread-nya. Berikut rencananya:
 Mari kita mulai dengan membuat *channel* di `ThreadPool::new` dan memegang
 pengirimnya di instance `ThreadPool`, seperti yang ditunjukkan di Listing
 21-16. *Struct* `Job` tidak menampung apa pun untuk saat ini, tetapi ia akan
-menjadi tipe item yang kita kirim melalui *channel*.
+menjadi type item yang kita kirim melalui *channel*.
 
 <Listing number="21-16" file-name="src/lib.rs" caption="Mengubah `ThreadPool` untuk menyimpan pengirim channel yang mentransmisikan instance `Job`">
 
@@ -603,7 +603,7 @@ race condition (seperti yang dibahas di Bab 16).
 
 Ingat kembali *smart pointer* yang thread-safe yang dibahas di Bab 16: Untuk
 berbagi *ownership* lintas banyak thread dan memungkinkan thread-thread itu
-mengubah nilainya, kita perlu memakai `Arc<Mutex<T>>`. Tipe `Arc` akan
+mengubah nilainya, kita perlu memakai `Arc<Mutex<T>>`. Type `Arc` akan
 memungkinkan banyak instance `Worker` memiliki *receiver*, dan `Mutex` akan
 memastikan bahwa hanya satu `Worker` yang mendapat pekerjaan dari *receiver*
 pada satu waktu. Listing 21-18 menunjukkan perubahan yang perlu kita buat.
@@ -626,13 +626,13 @@ Dengan perubahan ini, kodenya terkompilasi! Kita sudah hampir sampai!
 #### Mengimplementasikan Metode `execute`
 
 Akhirnya, mari kita implementasikan metode `execute` pada `ThreadPool`.
-Kita juga akan mengubah `Job` dari *struct* menjadi alias tipe untuk *trait*
+Kita juga akan mengubah `Job` dari *struct* menjadi type alias untuk *trait*
 object yang menampung jenis *closure* yang diterima `execute`. Seperti yang
-dibahas di seksi [“Sinonim Tipe dan Alias Tipe”][type-aliases]<!-- ignore -->
-pada Bab 20, alias tipe memungkinkan kita memendekkan tipe yang panjang
+dibahas di seksi [“Sinonim Type dan Alias Type”][type-aliases]<!-- ignore -->
+pada Bab 20, type alias memungkinkan kita memendekkan type yang panjang
 demi kemudahan pemakaian. Lihat Listing 21-19.
 
-<Listing number="21-19" file-name="src/lib.rs" caption="Membuat alias tipe `Job` untuk `Box` yang menampung setiap closure lalu mengirim pekerjaan itu melalui channel">
+<Listing number="21-19" file-name="src/lib.rs" caption="Membuat type alias `Job` untuk `Box` yang menampung setiap closure lalu mengirim pekerjaan itu melalui channel">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-19/src/lib.rs:here}}
@@ -747,7 +747,7 @@ permintaan lain dengan meminta thread lain menjalankannya.
 
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
 kode di Listing 21-18, 21-19, dan 21-20 akan berbeda jika kita memakai
-*future* alih-alih *closure* untuk pekerjaan yang akan dilakukan. Tipe apa yang
+*future* alih-alih *closure* untuk pekerjaan yang akan dilakukan. Type apa yang
 akan berubah? Bagaimana tanda tangan metodenya akan berbeda, jika ada?
 Bagian kode mana yang akan tetap sama?
 

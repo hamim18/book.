@@ -1,7 +1,7 @@
 # Enums dan Pattern Matching (Pencocokan Pola)
 
 Dalam bab ini, kita akan melihat enumerasi, yang juga disebut *enum*. *Enum*
-memungkinkan Anda mendefinisikan sebuah tipe dengan menyebutkan satu per satu
+memungkinkan Anda mendefinisikan sebuah type dengan menyebutkan satu per satu
 *variant* (varian) yang mungkin. Pertama-tama kita akan mendefinisikan dan
 memakai sebuah *enum* untuk menunjukkan bagaimana *enum* dapat mengkodekan makna
 beserta data. Selanjutnya, kita akan mengeksplorasi sebuah *enum* yang sangat

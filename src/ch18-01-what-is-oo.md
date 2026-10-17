@@ -38,7 +38,7 @@ mengubah dan me-refactor bagian dalam sebuah objek tanpa perlu mengubah kode
 yang memakai objek itu.
 
 Kita membahas cara mengendalikan enkapsulasi di Bab 7: kita bisa memakai kata
-kunci `pub` untuk menentukan *module*, tipe, fungsi, dan metode mana di kode
+kunci `pub` untuk menentukan *module*, type, fungsi, dan metode mana di kode
 kita yang harus bersifat publik, dan secara bawaan semua yang lain bersifat
 privat. Contohnya, kita bisa mendefinisikan *struct* `AveragedCollection` yang
 memiliki *field* berisi vektor nilai `i32`. *Struct* itu juga bisa memiliki *field*
@@ -97,7 +97,7 @@ berorientasi objek, maka Rust memenuhi persyaratan itu. Pilihan untuk memakai
 `pub` atau tidak pada berbagai bagian kode memungkinkan enkapsulasi detail
 implementasi.
 
-### Inheritance sebagai Sistem Tipe dan sebagai Berbagi Kode
+### Inheritance sebagai Sistem Type dan sebagai Berbagi Kode
 
 _Inheritance_ (pewarisan) adalah mekanisme yang dengannya sebuah objek bisa
 mewarisi elemen dari definisi objek lain, sehingga memperoleh data dan
@@ -114,11 +114,11 @@ mengambil *inheritance* sejak awal.
 
 Anda akan memilih *inheritance* karena dua alasan utama. Salah satunya adalah
 pemakaian ulang kode: Anda bisa mengimplementasikan perilaku tertentu untuk
-satu tipe, dan *inheritance* memungkinkan Anda memakai ulang implementasi itu
-untuk tipe yang berbeda. Anda bisa melakukan ini secara terbatas di kode Rust
+satu type, dan *inheritance* memungkinkan Anda memakai ulang implementasi itu
+untuk type yang berbeda. Anda bisa melakukan ini secara terbatas di kode Rust
 menggunakan implementasi bawaan metode *trait*, yang Anda lihat di Listing 10-14
 ketika kita menambahkan implementasi bawaan metode `summarize` pada *trait*
-`Summary`. Tipe apa pun yang mengimplementasikan *trait* `Summary` akan memiliki
+`Summary`. Type apa pun yang mengimplementasikan *trait* `Summary` akan memiliki
 metode `summarize` tersedia padanya tanpa kode lebih lanjut. Ini mirip dengan
 kelas induk yang memiliki implementasi sebuah metode dan kelas anak yang
 mewarisinya juga memiliki implementasi metode itu. Kita juga bisa menimpa
@@ -126,8 +126,8 @@ implementasi bawaan metode `summarize` ketika kita mengimplementasikan *trait*
 `Summary`, yang mirip dengan kelas anak yang menimpa implementasi metode yang
 diwarisi dari kelas induk.
 
-Alasan lain untuk memakai *inheritance* berkaitan dengan sistem tipe: untuk
-memungkinkan tipe anak dipakai di tempat yang sama dengan tipe induknya. Ini
+Alasan lain untuk memakai *inheritance* berkaitan dengan type system: untuk
+memungkinkan type anak dipakai di tempat yang sama dengan type induknya. Ini
 juga disebut _polymorphism_ (polimorfisme), yang berarti Anda bisa saling
 menggantikan beberapa objek pada saat runtime jika mereka memiliki
 karakteristik tertentu yang sama.
@@ -136,12 +136,12 @@ karakteristik tertentu yang sama.
 >
 > Bagi banyak orang, polimorfisme identik dengan *inheritance*. Tetapi
 > sebenarnya ini konsep yang lebih umum yang merujuk pada kode yang bisa
-> bekerja dengan data dari berbagai tipe. Untuk *inheritance*, tipe-tipe itu
+> bekerja dengan data dari berbagai type. Untuk *inheritance*, type-type itu
 > umumnya adalah subclass.
 >
-> Rust justru memakai *generics* untuk mengabstraksi berbagai tipe yang mungkin
+> Rust justru memakai *generics* untuk mengabstraksi berbagai type yang mungkin
 > dan *trait bound* untuk menerapkan batasan pada apa yang harus disediakan
-> tipe-tipe itu. Ini terkadang disebut _bounded parametric polymorphism_
+> type-type itu. Ini terkadang disebut _bounded parametric polymorphism_
 > (polimorfisme parametrik terbatas).
 
 Rust telah memilih sekumpulan kompromi yang berbeda dengan tidak menawarkan

@@ -64,17 +64,17 @@ Coba jalankan program ini; Anda seharusnya mendapatkan keluaran berikut:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/output.txt}}
 ```
 
-Deklarasi `another_function` memiliki satu parameter bernama `x`. Tipe `x`
+Deklarasi `another_function` memiliki satu parameter bernama `x`. Type `x`
 ditentukan sebagai `i32`. Ketika kita meneruskan `5` ke `another_function`,
 *macro* (makro) `println!` meletakkan `5` pada posisi pasangan kurung kurawal
 berisi `x` di dalam string format.
 
-Dalam tanda tangan fungsi, Anda _harus_ mendeklarasikan tipe setiap parameter.
-Ini adalah keputusan yang disengaja dalam desain Rust: mewajibkan anotasi tipe
+Dalam tanda tangan fungsi, Anda _harus_ mendeklarasikan type setiap parameter.
+Ini adalah keputusan yang disengaja dalam desain Rust: mewajibkan type annotation
 dalam definisi fungsi berarti *compiler* hampir tidak pernah meminta Anda
-memakainya di bagian lain kode untuk mengetahui tipe yang Anda maksud.
+memakainya di bagian lain kode untuk mengetahui type yang Anda maksud.
 *Compiler* juga mampu memberikan pesan error yang lebih membantu jika ia tahu
-tipe apa yang diharapkan fungsi tersebut.
+type apa yang diharapkan fungsi tersebut.
 
 Ketika mendefinisikan beberapa parameter, pisahkan deklarasi parameternya
 dengan koma, seperti ini:
@@ -86,8 +86,8 @@ dengan koma, seperti ini:
 ```
 
 Contoh ini membuat fungsi bernama `print_labeled_measurement` dengan dua
-parameter. Parameter pertama bernama `value` dan bertipe `i32`. Parameter
-kedua bernama `unit_label` dan bertipe `char`. Fungsi itu lalu mencetak teks
+parameter. Parameter pertama bernama `value` dan typed `i32`. Parameter
+kedua bernama `unit_label` dan typed `char`. Fungsi itu lalu mencetak teks
 yang berisi `value` maupun `unit_label`.
 
 Mari kita coba menjalankan kode ini. Ganti program yang saat ini ada di file
@@ -191,7 +191,7 @@ Anda mengeksplorasi nilai kembalian fungsi dan ekspresi berikutnya.
 ### Fungsi dengan Nilai Kembalian
 
 Fungsi dapat mengembalikan nilai kepada kode yang memanggilnya. Kita tidak
-menamai nilai kembalian, tetapi kita harus mendeklarasikan tipenya setelah
+menamai nilai kembalian, tetapi kita harus mendeklarasikan typenya setelah
 tanda panah (`->`). Di Rust, nilai kembalian sebuah fungsi sama artinya dengan
 nilai ekspresi terakhir di dalam blok badan fungsi. Anda dapat keluar lebih
 awal dari sebuah fungsi dengan memakai keyword `return` dan menyebutkan sebuah
@@ -206,7 +206,7 @@ implisit. Berikut contoh fungsi yang mengembalikan nilai:
 
 Tidak ada pemanggilan fungsi, *macro*, ataupun pernyataan `let` di dalam fungsi
 `five`—hanya angka `5` itu sendiri. Itu adalah fungsi yang sepenuhnya valid di
-Rust. Perhatikan bahwa tipe kembalian fungsinya juga ditentukan, yaitu
+Rust. Perhatikan bahwa return type fungsinya juga ditentukan, yaitu
 `-> i32`. Coba jalankan kode ini; keluarannya seharusnya terlihat seperti ini:
 
 ```console
@@ -214,7 +214,7 @@ Rust. Perhatikan bahwa tipe kembalian fungsinya juga ditentukan, yaitu
 ```
 
 `5` di dalam `five` adalah nilai kembalian fungsi tersebut, itulah sebabnya
-tipe kembaliannya adalah `i32`. Mari kita telaah lebih mendetail. Ada dua hal
+return typenya adalah `i32`. Mari kita telaah lebih mendetail. Ada dua hal
 penting: Pertama, baris `let x = five();` menunjukkan bahwa kita memakai nilai
 kembalian sebuah fungsi untuk menginisialisasi sebuah variabel. Karena fungsi
 `five` mengembalikan `5`, baris itu sama dengan berikut ini:
@@ -223,7 +223,7 @@ kembalian sebuah fungsi untuk menginisialisasi sebuah variabel. Karena fungsi
 let x = 5;
 ```
 
-Kedua, fungsi `five` tidak memiliki parameter dan mendefinisikan tipe nilai
+Kedua, fungsi `five` tidak memiliki parameter dan mendefinisikan type nilai
 kembaliannya, tetapi badan fungsinya hanyalah `5` sendirian tanpa titik koma
 karena ia adalah ekspresi yang nilainya ingin kita kembalikan.
 
@@ -254,7 +254,7 @@ Mengompilasi kode ini akan menghasilkan error, seperti berikut:
 Pesan error utamanya, `mismatched types`, menyingkap masalah inti kode ini.
 Definisi fungsi `plus_one` menyatakan bahwa ia akan mengembalikan `i32`,
 tetapi pernyataan tidak mengevaluasi menjadi sebuah nilai, yang dinyatakan
-dengan `()`, tipe unit. Karena itu, tidak ada yang dikembalikan, yang
+dengan `()`, type unit. Karena itu, tidak ada yang dikembalikan, yang
 berkontradiksi dengan definisi fungsinya dan menghasilkan error. Pada keluaran
 ini, Rust memberikan pesan yang mungkin membantu memperbaiki masalah ini: ia
 menyarankan penghapusan titik koma, yang akan memperbaiki errornya.

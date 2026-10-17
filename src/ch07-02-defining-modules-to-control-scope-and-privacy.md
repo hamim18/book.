@@ -42,7 +42,7 @@ pengingat cara kerja *module*.
 - **Path menuju kode di dalam module**: Begitu sebuah *module* menjadi bagian
   dari *crate* Anda, Anda dapat merujuk kode di *module* tersebut dari tempat lain
   mana pun di *crate* yang sama, selama aturan privasi mengizinkannya, dengan
-  memakai *path* menuju kode tersebut. Misalnya, tipe `Asparagus` di *module*
+  memakai *path* menuju kode tersebut. Misalnya, type `Asparagus` di *module*
   garden vegetables akan ditemukan di
   `crate::garden::vegetables::Asparagus`.
 - **Privat vs. publik**: Kode di dalam sebuah *module* bersifat privat dari
@@ -56,7 +56,7 @@ pengingat cara kerja *module*.
   `crate::garden::vegetables::Asparagus`, Anda dapat membuat pintasan dengan
   `use
   crate::garden::vegetables::Asparagus;`, dan sejak saat itu Anda cukup
-  menulis `Asparagus` untuk memakai tipe tersebut di dalam *scope*.
+  menulis `Asparagus` untuk memakai type tersebut di dalam *scope*.
 
 Di sini, kita membuat sebuah *crate* binary bernama `backyard` yang
 mengilustrasikan aturan-aturan ini. Direktori *crate* tersebut, yang juga

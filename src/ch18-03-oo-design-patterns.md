@@ -83,12 +83,12 @@ kita ingin `content` mengembalikan string kosong selagi menunggu review.
 Ketika post itu menerima persetujuan, post itu seharusnya diterbitkan,
 artinya teks post itu akan dikembalikan saat `content` dipanggil.
 
-Perhatikan bahwa satu-satunya tipe dari *crate* itu yang
-kita gunakan adalah tipe `Post`. Tipe ini akan memakai pola state dan akan menampung
+Perhatikan bahwa satu-satunya type dari *crate* itu yang
+kita gunakan adalah type `Post`. Type ini akan memakai pola state dan akan menampung
 nilai yang berupa salah satu dari tiga *state object* yang merepresentasikan
 berbagai state yang bisa dialami sebuah post—draf, review, atau diterbitkan.
 Perubahan dari satu state ke state lain akan dikelola secara internal di dalam
-tipe `Post`. State-state itu berubah sebagai respons terhadap metode yang
+type `Post`. State-state itu berubah sebagai respons terhadap metode yang
 dipanggil pengguna library kita pada instance `Post`, tetapi mereka tidak
 harus mengelola perubahan state secara langsung. Selain itu, pengguna tidak
 bisa membuat kesalahan dengan state-state itu, seperti menerbitkan post
@@ -210,12 +210,12 @@ Kita memberi `Post` metode publik bernama `request_review` yang menerima
 `request_review` pada state `Post` saat ini, dan metode `request_review`
 kedua ini mengonsumsi state saat ini dan mengembalikan state baru.
 
-Kita menambahkan metode `request_review` ke *trait* `State`; semua tipe yang
+Kita menambahkan metode `request_review` ke *trait* `State`; semua type yang
 mengimplementasikan *trait* itu sekarang harus mengimplementasikan metode
 `request_review`. Perhatikan bahwa alih-alih memiliki `self`, `&self`, atau
 `&mut self` sebagai parameter pertama metode itu, kita memiliki
 `self: Box<Self>`. Sintaks ini berarti metode itu hanya valid ketika
-dipanggil pada `Box` yang menampung tipe itu. Sintaks ini mengambil
+dipanggil pada `Box` yang menampung type itu. Sintaks ini mengambil
 kepemilikan `Box<Self>`, meniadakan state lama sehingga nilai state dari
 `Post` bisa berubah menjadi state baru.
 
@@ -318,7 +318,7 @@ tidak bisa memahaminya.
 
 Pada titik ini, ketika kita memanggil `content` pada `&Box<dyn State>`, deref
 coercion akan berlaku pada `&` dan `Box` sehingga metode `content` pada
-akhirnya dipanggil pada tipe yang mengimplementasikan *trait* `State`. Artinya,
+akhirnya dipanggil pada type yang mengimplementasikan *trait* `State`. Artinya,
 kita perlu menambahkan `content` ke definisi *trait* `State`, dan di situlah
 kita akan menaruh logika konten apa yang dikembalikan bergantung pada state
 mana yang kita miliki, seperti yang ditunjukkan di Listing 18-18.
@@ -409,7 +409,7 @@ menghilangkan sebagian duplikasi, kita bisa mencoba membuat implementasi
 bawaan untuk metode `request_review` dan `approve` pada *trait* `State` yang
 mengembalikan `self`. Namun, ini tidak akan bekerja: ketika memakai `State`
 sebagai *trait object*, *trait* itu tidak tahu apa persisnya `self` yang konkret,
-jadi tipe kembaliannya tidak diketahui pada waktu kompilasi. (Ini salah satu
+jadi return typenya tidak diketahui pada waktu kompilasi. (Ini salah satu
 aturan kompatibilitas dyn yang disebutkan sebelumnya.)
 
 Duplikasi lain mencakup implementasi serupa dari metode `request_review` dan
@@ -428,13 +428,13 @@ kita bisa. Mari kita lihat beberapa perubahan yang bisa kita buat pada *crate*
 waktu kompilasi.
 
 <a id="encoding-states-and-behavior-as-types"></a>
-### Menyandikan State dan Perilaku sebagai Tipe
+### Menyandikan State dan Perilaku sebagai Type
 
 Kami akan menunjukkan cara memikirkan ulang pola state untuk mendapatkan
 sekumpulan kompromi yang berbeda. Alih-alih mengenkapsulasi state dan
 transisi sepenuhnya sehingga kode luar tidak mengetahuinya, kita akan
-menyandikan state ke dalam tipe yang berbeda. Akibatnya, sistem pemeriksaan
-tipe Rust akan mencegah upaya memakai post draf di tempat yang hanya
+menyandikan state ke dalam type yang berbeda. Akibatnya, sistem pemeriksaan
+type Rust akan mencegah upaya memakai post draf di tempat yang hanya
 mengizinkan post yang diterbitkan dengan mengeluarkan error kompilator.
 
 Mari kita pertimbangkan bagian pertama `main` di Listing 18-11:
@@ -468,7 +468,7 @@ terkompilasi. Listing 18-19 menunjukkan definisi *struct* `Post` dan *struct*
 
 Baik *struct* `Post` maupun `DraftPost` memiliki *field* privat `content` yang
 menyimpan teks post blog. Kedua *struct* tidak lagi memiliki *field* `state`
-karena kita memindahkan penyandian state ke tipe *struct*-nya. *Struct* `Post`
+karena kita memindahkan penyandian state ke type *struct*-nya. *Struct* `Post`
 akan merepresentasikan post yang diterbitkan, dan ia memiliki metode
 `content` yang mengembalikan `content` itu.
 
@@ -516,7 +516,7 @@ satu-satunya cara mendapatkan instance `Post` yang diterbitkan—yang memang
 memiliki metode `content`—adalah memanggil metode `approve` pada
 `PendingReviewPost`, dan satu-satunya cara mendapatkan `PendingReviewPost`
 adalah memanggil metode `request_review` pada `DraftPost`, kita kini telah
-menyandikan alur kerja post blog ke dalam sistem tipe.
+menyandikan alur kerja post blog ke dalam type system.
 
 Tetapi kita juga harus membuat beberapa perubahan kecil pada `main`. Metode
 `request_review` dan `approve` mengembalikan instance baru alih-alih mengubah
@@ -539,7 +539,7 @@ Perubahan yang harus kita buat pada `main` untuk menetapkan ulang `post`
 berarti implementasi ini tidak lagi sepenuhnya mengikuti pola state
 berorientasi objek: transformasi antar-state tidak lagi terenkapsulasi
 seluruhnya di dalam implementasi `Post`. Namun, keuntungan kita adalah state
-yang tidak valid kini mustahil karena sistem tipe dan pemeriksaan tipe yang
+yang tidak valid kini mustahil karena type system dan pemeriksaan type yang
 terjadi pada waktu kompilasi! Ini memastikan bug tertentu, seperti penampilan
 konten post yang belum diterbitkan, akan ditemukan sebelum sempat masuk ke
 produksi.
@@ -551,7 +551,7 @@ desain ini.
 
 Kita telah melihat bahwa meskipun Rust mampu mengimplementasikan pola desain
 berorientasi objek, pola lain, seperti menyandikan state ke dalam sistem
-tipe, juga tersedia di Rust. Pola-pola ini punya kompromi yang berbeda.
+type, juga tersedia di Rust. Pola-pola ini punya kompromi yang berbeda.
 Meskipun Anda mungkin sangat familier dengan pola berorientasi objek,
 memikirkan ulang masalah untuk memanfaatkan fitur-fitur Rust bisa memberikan
 manfaat, seperti mencegah sebagian bug pada waktu kompilasi. Pola

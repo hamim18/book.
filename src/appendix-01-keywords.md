@@ -8,7 +8,7 @@ Identifiers”][raw-identifiers]<!-- ignore -->.
 
 _Identifier_ adalah nama dari fungsi, variabel, parameter, *field* (medan)
 *struct*, *module* (modul), *crate*, konstanta, *macro* (makro), nilai static,
-atribut, tipe, *trait*, atau *lifetime* (masa hidup).
+atribut, type, *trait*, atau *lifetime* (masa hidup).
 
 [raw-identifiers]: #raw-identifiers
 
@@ -30,7 +30,7 @@ fungsionalitasnya.
 - **`enum`**: Mendefinisikan enumerasi.
 - **`extern`**: Menautkan fungsi atau variabel eksternal.
 - **`false`**: Literal Boolean false.
-- **`fn`**: Mendefinisikan fungsi atau tipe *pointer* fungsi.
+- **`fn`**: Mendefinisikan fungsi atau type *pointer* fungsi.
 - **`for`**: Melakukan perulangan atas item dari *iterator*, mengimplementasikan
   *trait*, atau menentukan *lifetime* berperingkat lebih tinggi.
 - **`if`**: Melakukan percabangan berdasarkan hasil ekspresi kondisional.
@@ -48,7 +48,7 @@ fungsionalitasnya.
   *module*.
 - **`ref`**: Mengikat berdasarkan *reference*.
 - **`return`**: Kembali dari fungsi.
-- **`Self`**: Alias tipe untuk tipe yang sedang kita definisikan atau
+- **`Self`**: Alias type untuk type yang sedang kita definisikan atau
   implementasikan.
 - **`self`**: Subjek metode atau *module* saat ini.
 - **`static`**: Variabel global atau *lifetime* yang berlangsung selama eksekusi
@@ -57,12 +57,12 @@ fungsionalitasnya.
 - **`super`**: *Module* induk dari *module* saat ini.
 - **`trait`**: Mendefinisikan *trait*.
 - **`true`**: Literal Boolean true.
-- **`type`**: Mendefinisikan alias tipe atau *associated type*.
+- **`type`**: Mendefinisikan type alias atau *associated type*.
 - **`union`**: Mendefinisikan [union][union]<!-- ignore -->; merupakan kata
   kunci hanya ketika dipakai dalam deklarasi *union*.
 - **`unsafe`**: Menandai kode, fungsi, *trait*, atau implementasi yang *unsafe*.
 - **`use`**: Membawa simbol ke dalam *scope*.
-- **`where`**: Menandai klausa yang membatasi suatu tipe.
+- **`where`**: Menandai klausa yang membatasi suatu type.
 - **`while`**: Melakukan perulangan bersyarat berdasarkan hasil suatu ekspresi.
 
 [union]: ../reference/items/unions.html

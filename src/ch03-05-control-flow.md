@@ -78,7 +78,7 @@ error:
 
 Error tersebut menandakan bahwa Rust mengharapkan `bool` tetapi mendapatkan
 integer. Tidak seperti bahasa seperti Ruby dan JavaScript, Rust tidak akan
-otomatis mencoba mengonversi tipe non-Boolean menjadi Boolean. Anda harus
+otomatis mencoba mengonversi type non-Boolean menjadi Boolean. Anda harus
 eksplisit dan selalu memberikan `if` sebuah Boolean sebagai kondisinya. Jika
 kita ingin blok kode `if` berjalan hanya ketika sebuah angka tidak sama dengan
 `0`, misalnya, kita dapat mengubah ekspresi `if` menjadi seperti berikut:
@@ -145,9 +145,9 @@ Variabel `number` akan terikat pada sebuah nilai berdasarkan hasil ekspresi
 Ingat bahwa blok kode mengevaluasi menjadi ekspresi terakhir di dalamnya, dan
 angka itu sendiri juga merupakan ekspresi. Pada kasus ini, nilai keseluruhan
 ekspresi `if` bergantung pada blok kode mana yang dieksekusi. Ini berarti
-nilai-nilai yang berpotensi menjadi hasil dari setiap arm `if` harus bertipe
+nilai-nilai yang berpotensi menjadi hasil dari setiap arm `if` harus typed
 sama; pada Listing 3-2, hasil dari arm `if` maupun arm `else` sama-sama
-integer `i32`. Jika tipenya tidak cocok, seperti pada contoh berikut, kita akan
+integer `i32`. Jika typenya tidak cocok, seperti pada contoh berikut, kita akan
 mendapatkan error:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -157,7 +157,7 @@ mendapatkan error:
 ```
 
 Ketika kita mencoba mengompilasi kode ini, kita akan mendapatkan error. Arm
-`if` dan `else` memiliki tipe nilai yang tidak kompatibel, dan Rust menunjukkan
+`if` dan `else` memiliki type nilai yang tidak kompatibel, dan Rust menunjukkan
 dengan tepat di mana letak masalahnya di dalam program:
 
 ```console
@@ -166,12 +166,12 @@ dengan tepat di mana letak masalahnya di dalam program:
 
 Ekspresi di dalam blok `if` mengevaluasi menjadi integer, dan ekspresi di
 dalam blok `else` mengevaluasi menjadi string. Ini tidak akan berhasil, karena
-variabel harus memiliki satu tipe, dan Rust perlu tahu secara pasti pada waktu
-kompilasi tipe apa variabel `number` itu. Mengetahui tipe `number`
-memungkinkan *compiler* memverifikasi bahwa tipenya valid di semua tempat kita
-memakai `number`. Rust tidak akan mampu melakukannya jika tipe `number` hanya
+variabel harus memiliki satu type, dan Rust perlu tahu secara pasti pada waktu
+kompilasi type apa variabel `number` itu. Mengetahui type `number`
+memungkinkan *compiler* memverifikasi bahwa typenya valid di semua tempat kita
+memakai `number`. Rust tidak akan mampu melakukannya jika type `number` hanya
 ditentukan pada saat runtime; *compiler* akan menjadi lebih rumit dan memberikan
-jaminan yang lebih sedikit tentang kodenya jika ia harus melacak beberapa tipe
+jaminan yang lebih sedikit tentang kodenya jika ia harus melacak beberapa type
 hipotetis untuk setiap variabel.
 
 ### Perulangan
@@ -405,7 +405,7 @@ Kode ini sedikit lebih bagus, bukan?
 ## Ringkasan
 
 Anda berhasil! Ini adalah bab yang cukup panjang: Anda telah mempelajari
-variabel, tipe data skalar dan majemuk, fungsi, komentar, ekspresi `if`, dan
+variabel, data type skalar dan majemuk, fungsi, komentar, ekspresi `if`, dan
 perulangan! Untuk berlatih dengan konsep-konsep yang dibahas dalam bab ini,
 cobalah membuat program yang melakukan hal-hal berikut:
 

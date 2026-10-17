@@ -38,7 +38,7 @@ Kita bisa memakai `slow` untuk mewakili operasi dunia nyata yang berjalan lama
 sekaligus memblokir.
 
 Di Listing 17-15, kita memakai `slow` untuk menirukan pengerjaan pekerjaan
-bertipe CPU-bound semacam ini pada sepasang *future*.
+typed CPU-bound semacam ini pada sepasang *future*.
 
 <Listing number="17-15" caption="Memanggil fungsi `slow` untuk mensimulasikan operasi yang lambat" file-name="src/main.rs">
 
@@ -209,7 +209,7 @@ Listing 17-19 menunjukkan deklarasi ini.
 
 </Listing>
 
-Itu memenuhi tujuan kita untuk tipe-tipenya. Sekarang mari kita pikirkan
+Itu memenuhi tujuan kita untuk type-typenya. Sekarang mari kita pikirkan
 _perilaku_ yang kita butuhkan: kita ingin mempertandingkan *future* yang
 diteruskan melawan durasinya. Kita bisa memakai `trpl::sleep` untuk membuat
 sebuah *future* timer dari durasi itu, dan memakai `trpl::select` untuk
