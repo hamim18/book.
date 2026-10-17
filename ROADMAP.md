@@ -102,6 +102,15 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
   `listings/`, `packages/`, `book.toml`, dll. tidak disentuh. Diperkuat
   deny rules di `.claude/settings.json` (Read/Edit/Write pada folder
   terlarang; `asli/` tetap boleh dibaca untuk review kedua).
+- Titik buta `cek_terjemahan.py` (diketahui di Tahap 5; belum diperbaiki
+  karena skrip berada di luar `src/`): (1) blok kode yang fence-nya
+  berawalan `> ` (di dalam blockquote) tidak terdeteksi sebagai blok kode
+  sehingga isinya tidak dibandingkan dengan asli; (2) inline code span
+  (backtick, termasuk yang lintas-baris) tidak dibandingkan dengan asli,
+  sehingga markup miring yang terselip di dalamnya tidak tertangkap. Kedua
+  hal ini pernah rusak (warisan sesi penerjemahan) dan sudah dibersihkan
+  manual di Tahap 5; jika skrip diperbaiki nanti, tambahkan dua pemeriksaan
+  tersebut.
 
 ## Tabel progres
 
