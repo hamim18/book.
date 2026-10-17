@@ -2,39 +2,41 @@
 
 <a id="streams"></a>
 
-## Streams: Futures in Sequence
+## Streams: Future dalam Urutan
 
-Recall how we used the receiver for our async channel earlier in this chapter
-in the [“Message Passing”][17-02-messages]<!-- ignore --> section. The async
-`recv` method produces a sequence of items over time. This is an instance of a
-much more general pattern known as a _stream_. Many concepts are naturally
-represented as streams: items becoming available in a queue, chunks of data
-being pulled incrementally from the filesystem when the full data set is too
-large for the computer’s memory, or data arriving over the network over time.
-Because streams are futures, we can use them with any other kind of future and
-combine them in interesting ways. For example, we can batch up events to avoid
-triggering too many network calls, set timeouts on sequences of long-running
-operations, or throttle user interface events to avoid doing needless work.
+Ingat kembali cara kita memakai receiver untuk channel async kita di awal bab
+ini pada bagian [“Message Passing”][17-02-messages]<!-- ignore -->. Metode
+async `recv` menghasilkan serangkaian item seiring waktu. Ini adalah instance
+dari pola yang jauh lebih umum yang dikenal sebagai _stream_. Banyak konsep
+yang secara alami direpresentasikan sebagai stream: item yang tersedia di
+antrean, potongan-potongan data yang ditarik sedikit demi sedikit dari sistem
+file ketika kumpulan datanya terlalu besar untuk memori komputer, atau data
+yang tiba melalui jaringan seiring waktu. Karena stream adalah future, kita
+bisa memakainya dengan future jenis apa pun dan menggabungkannya dengan
+cara-cara yang menarik. Contohnya, kita bisa mengelompokkan event untuk
+menghindari terlalu banyak panggilan jaringan, memasang timeout pada urutan
+operasi yang berjalan lama, atau membatasi laju event antarmuka pengguna untuk
+menghindari pekerjaan yang sia-sia.
 
-We saw a sequence of items back in Chapter 13, when we looked at the Iterator
-trait in [“The Iterator Trait and the `next` Method”][iterator-trait]<!--
-ignore --> section, but there are two differences between iterators and the
-async channel receiver. The first difference is time: iterators are
-synchronous, while the channel receiver is asynchronous. The second difference
-is the API. When working directly with `Iterator`, we call its synchronous
-`next` method. With the `trpl::Receiver` stream in particular, we called an
-asynchronous `recv` method instead. Otherwise, these APIs feel very similar,
-and that similarity isn’t a coincidence. A stream is like an asynchronous form
-of iteration. Whereas the `trpl::Receiver` specifically waits to receive
-messages, though, the general-purpose stream API is much broader: it provides
-the next item the way `Iterator` does, but asynchronously.
+Kita pernah melihat serangkaian item di Bab 13, ketika kita menelaah trait
+Iterator di bagian [“Trait `Iterator` dan Metode `next`”][iterator-trait]<!--
+ignore -->, tetapi ada dua perbedaan antara iterator dan receiver channel
+async. Perbedaan pertama adalah waktu: iterator bersifat sinkron, sementara
+receiver channel bersifat asinkron. Perbedaan kedua adalah API-nya. Saat
+bekerja langsung dengan `Iterator`, kita memanggil metode sinkronnya, `next`.
+Khusus pada stream `trpl::Receiver`, kita memanggil metode asinkron `recv`.
+Selain itu, kedua API ini terasa sangat mirip, dan kemiripan itu bukanlah
+kebetulan. Stream itu seperti bentuk iterasi yang asinkron. Akan tetapi,
+sementara `trpl::Receiver` secara khusus menunggu untuk menerima pesan, API
+stream serbaguna jauh lebih luas: API ini menyediakan item berikutnya
+sebagaimana `Iterator`, tetapi secara asinkron.
 
-The similarity between iterators and streams in Rust means we can actually
-create a stream from any iterator. As with an iterator, we can work with a
-stream by calling its `next` method and then awaiting the output, as in Listing
-17-21, which won’t compile yet.
+Kemiripan antara iterator dan stream di Rust berarti kita benar-benar bisa
+membuat sebuah stream dari iterator mana pun. Seperti halnya iterator, kita
+bisa bekerja dengan stream dengan memanggil metode `next`-nya lalu menunggu
+output-nya, seperti di Listing 17-21, yang belum bisa terkompilasi.
 
-<Listing number="17-21" caption="Creating a stream from an iterator and printing its values" file-name="src/main.rs">
+<Listing number="17-21" caption="Membuat stream dari iterator dan mencetak nilainya" file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-21/src/main.rs:stream}}
@@ -42,13 +44,15 @@ stream by calling its `next` method and then awaiting the output, as in Listing
 
 </Listing>
 
-We start with an array of numbers, which we convert to an iterator and then
-call `map` on to double all the values. Then we convert the iterator into a
-stream using the `trpl::stream_from_iter` function. Next, we loop over the
-items in the stream as they arrive with the `while let` loop.
+Kita mulai dengan array angka, yang kita ubah menjadi iterator lalu kita
+panggil `map` padanya untuk menggandakan semua nilainya. Kemudian kita ubah
+iterator itu menjadi stream menggunakan fungsi `trpl::stream_from_iter`.
+Berikutnya, kita melakukan perulangan atas item-item di stream itu saat
+mereka tiba dengan perulangan `while let`.
 
-Unfortunately, when we try to run the code, it doesn’t compile but instead
-reports that there’s no `next` method available:
+Sayangnya, saat kita mencoba menjalankan kodenya, kode itu tidak
+terkompilasi, melainkan melaporkan bahwa tidak ada metode `next` yang
+tersedia:
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-21
@@ -80,23 +84,25 @@ help: there is a method `try_next` with a similar name
    |                                        ~~~~~~~~
 ```
 
-As this output explains, the reason for the compiler error is that we need the
-right trait in scope to be able to use the `next` method. Given our discussion
-so far, you might reasonably expect that trait to be `Stream`, but it’s
-actually `StreamExt`. Short for _extension_, `Ext` is a common pattern in the
-Rust community for extending one trait with another.
+Seperti yang dijelaskan output ini, alasan galat kompilatornya adalah kita
+perlu trait yang tepat berada di scope untuk bisa memakai metode `next`.
+Mengingat pembahasan kita sejauh ini, wajar jika Anda menduga trait itu adalah
+`Stream`, tetapi sebenarnya `StreamExt`. Singkatan dari _extension_ (ekstensi),
+`Ext` adalah pola umum di komunitas Rust untuk memperluas satu trait dengan
+trait lain.
 
-The `Stream` trait defines a low-level interface that effectively combines the
-`Iterator` and `Future` traits. `StreamExt` supplies a higher-level set of APIs
-on top of `Stream`, including the `next` method as well as other utility
-methods similar to those provided by the `Iterator` trait. `Stream` and
-`StreamExt` are not yet part of Rust’s standard library, but most ecosystem
-crates use similar definitions.
+Trait `Stream` mendefinisikan antarmuka tingkat rendah yang secara efektif
+menggabungkan trait `Iterator` dan `Future`. `StreamExt` menyediakan
+sekumpulan API tingkat yang lebih tinggi di atas `Stream`, termasuk metode
+`next` serta metode-metode utilitas lain yang serupa dengan yang disediakan
+trait `Iterator`. `Stream` dan `StreamExt` belum menjadi bagian dari pustaka
+standar Rust, tetapi sebagian besar crate ekosistem memakai definisi yang
+serupa.
 
-The fix to the compiler error is to add a `use` statement for
-`trpl::StreamExt`, as in Listing 17-22.
+Perbaikan untuk galat kompilator itu adalah menambahkan pernyataan `use`
+untuk `trpl::StreamExt`, seperti di Listing 17-22.
 
-<Listing number="17-22" caption="Successfully using an iterator as the basis for a stream" file-name="src/main.rs">
+<Listing number="17-22" caption="Berhasil memakai iterator sebagai dasar sebuah stream" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-22/src/main.rs:all}}
@@ -104,9 +110,9 @@ The fix to the compiler error is to add a `use` statement for
 
 </Listing>
 
-With all those pieces put together, this code works the way we want! What’s
-more, now that we have `StreamExt` in scope, we can use all of its utility
-methods, just as with iterators.
+Dengan semua bagian itu dirangkai, kode ini bekerja sesuai keinginan kita!
+Terlebih lagi, sekarang setelah `StreamExt` berada di scope, kita bisa memakai
+semua metode utilitasnya, sama seperti halnya iterator.
 
 [17-02-messages]: ch17-02-concurrency-with-async.html#message-passing
 [iterator-trait]: ch13-02-iterators.html#the-iterator-trait-and-the-next-method

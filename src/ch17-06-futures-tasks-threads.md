@@ -1,68 +1,76 @@
-## Putting It All Together: Futures, Tasks, and Threads
+## Merangkai Semuanya: Futures, Tasks, dan Threads
 
-As we saw in [Chapter 16][ch16]<!-- ignore -->, threads provide one approach to
-concurrency. We’ve seen another approach in this chapter: using async with
-futures and streams. If you’re wondering when to choose one method over the other,
-the answer is: it depends! And in many cases, the choice isn’t threads _or_
-async but rather threads _and_ async.
+Seperti yang kita lihat di [Bab 16][ch16]<!-- ignore -->, thread menyediakan
+satu pendekatan terhadap konkurensi. Kita telah melihat pendekatan lain di bab
+ini: memakai async dengan future dan stream. Jika Anda bertanya-tanya kapan
+memilih satu metode alih-alih yang lain, jawabannya adalah: tergantung! Dan
+dalam banyak kasus, pilihannya bukan thread _atau_ async, melainkan thread
+_dan_ async.
 
-Many operating systems have supplied threading-based concurrency models for
-decades now, and many programming languages support them as a result. However,
-these models are not without their tradeoffs. On many operating systems, they
-use a fair bit of memory for each thread. Threads are also only an option when
-your operating system and hardware support them. Unlike mainstream desktop and
-mobile computers, some embedded systems don’t have an OS at all, so they also
-don’t have threads.
+Banyak sistem operasi telah menyediakan model konkurensi berbasis threading
+selama puluhan tahun, dan karena itu banyak bahasa pemrograman mendukungnya.
+Akan tetapi, model-model ini bukan tanpa kompromi. Di banyak sistem operasi,
+model ini memakai memori yang cukup banyak untuk setiap thread. Thread juga
+hanya menjadi opsi ketika sistem operasi dan perangkat keras Anda
+mendukungnya. Tidak seperti komputer desktop dan ponsel arus utama, sebagian
+sistem tertanam tidak punya OS sama sekali, jadi mereka juga tidak punya
+thread.
 
-The async model provides a different—and ultimately complementary—set of
-tradeoffs. In the async model, concurrent operations don’t require their own
-threads. Instead, they can run on tasks, as when we used `trpl::spawn_task` to
-kick off work from a synchronous function in the streams section. A task is
-similar to a thread, but instead of being managed by the operating system, it’s
-managed by library-level code: the runtime.
+Model async menyediakan sekumpulan kompromi yang berbeda—dan pada akhirnya
+saling melengkapi. Dalam model async, operasi konkuren tidak memerlukan
+thread-nya sendiri. Sebagai gantinya, operasi itu bisa berjalan pada task,
+seperti saat kita memakai `trpl::spawn_task` untuk memulai pekerjaan dari
+fungsi sinkron di bagian streams. Sebuah task mirip dengan thread, tetapi
+alih-alih dikelola oleh sistem operasi, task dikelola oleh kode tingkat
+library: runtime.
 
-There’s a reason the APIs for spawning threads and spawning tasks are so
-similar. Threads act as a boundary for sets of synchronous operations;
-concurrency is possible _between_ threads. Tasks act as a boundary for sets of
-_asynchronous_ operations; concurrency is possible both _between_ and _within_
-tasks, because a task can switch between futures in its body. Finally, futures
-are Rust’s most granular unit of concurrency, and each future may represent a
-tree of other futures. The runtime—specifically, its executor—manages tasks,
-and tasks manage futures. In that regard, tasks are similar to lightweight,
-runtime-managed threads with added capabilities that come from being managed by
-a runtime instead of by the operating system.
+Ada alasan mengapa API untuk membuat thread dan membuat task sangat mirip.
+Thread berlaku sebagai batas untuk kumpulan operasi sinkron; konkurensi
+dimungkinkan _antar_-thread. Task berlaku sebagai batas untuk kumpulan operasi
+_asinkron_; konkurensi dimungkinkan baik _antar_- maupun _di dalam_ task,
+karena sebuah task bisa beralih di antara future-future di badannya.
+Terakhir, future adalah satuan konkurensi Rust yang paling halus, dan setiap
+future bisa merepresentasikan pohon dari future-future lain. Runtime—secara
+khusus, executor-nya—mengelola task, dan task mengelola future. Dalam hal itu,
+task mirip dengan thread ringan yang dikelola runtime, dengan kemampuan
+tambahan yang berasal dari dikelola oleh runtime alih-alih oleh sistem
+operasi.
 
-This doesn’t mean that async tasks are always better than threads (or vice
-versa). Concurrency with threads is in some ways a simpler programming model
-than concurrency with `async`. That can be a strength or a weakness. Threads are
-somewhat “fire and forget”; they have no native equivalent to a future, so they
-simply run to completion without being interrupted except by the operating
-system itself.
+Ini tidak berarti task async selalu lebih baik daripada thread (atau
+sebaliknya). Konkurensi dengan thread dalam beberapa hal adalah model
+pemrograman yang lebih sederhana daripada konkurensi dengan `async`. Itu bisa
+menjadi kekuatan atau kelemahan. Thread agak “fire and forget” (dilepas dan
+dibiarkan); mereka tidak punya padanan native untuk future, jadi mereka
+langsung berjalan sampai selesai tanpa diinterupsi kecuali oleh sistem operasi
+itu sendiri.
 
-And it turns out that threads and tasks often work
-very well together, because tasks can (at least in some runtimes) be moved
-around between threads. In fact, under the hood, the runtime we’ve been
-using—including the `spawn_blocking` and `spawn_task` functions—is multithreaded
-by default! Many runtimes use an approach called _work stealing_ to
-transparently move tasks around between threads, based on how the threads are
-currently being utilized, to improve the system’s overall performance. That
-approach actually requires threads _and_ tasks, and therefore futures.
+Dan ternyata thread dan task sering bekerja sangat baik bersama-sama, karena
+task bisa (setidaknya di beberapa runtime)
+dipindahkan antar-thread. Bahkan, di balik layar, runtime yang kita pakai
+selama ini—termasuk fungsi `spawn_blocking` dan `spawn_task`—bersifat
+multithreaded secara bawaan! Banyak runtime memakai pendekatan yang disebut
+_work stealing_ (pencurian pekerjaan) untuk memindahkan task antar-thread
+secara transparan, berdasarkan cara thread-thread itu sedang dimanfaatkan,
+untuk meningkatkan performa keseluruhan sistem. Pendekatan itu sebenarnya
+memerlukan thread _dan_ task, dan karena itu juga future.
 
-When thinking about which method to use when, consider these rules of thumb:
+Saat memikirkan metode mana yang dipakai untuk situasi mana, pertimbangkan
+aturan praktis ini:
 
-- If the work is _very parallelizable_ (that is, CPU-bound), such as processing
-  a bunch of data where each part can be processed separately, threads are a
-  better choice.
-- If the work is _very concurrent_ (that is, I/O-bound), such as handling
-  messages from a bunch of different sources that may come in at different
-  intervals or different rates, async is a better choice.
+- Jika pekerjaannya _sangat dapat diparalelkan_ (artinya, terikat CPU),
+  seperti memproses sekumpulan data yang setiap bagiannya bisa diproses
+  terpisah, thread adalah pilihan yang lebih baik.
+- Jika pekerjaannya _sangat konkuren_ (artinya, terikat I/O), seperti
+  menangani pesan dari banyak sumber berbeda yang bisa datang pada selang atau
+  laju yang berbeda, async adalah pilihan yang lebih baik.
 
-And if you need both parallelism and concurrency, you don’t have to choose
-between threads and async. You can use them together freely, letting each
-play the part it’s best at. For example, Listing 17-25 shows a fairly common
-example of this kind of mix in real-world Rust code.
+Dan jika Anda butuh paralelisme sekaligus konkurensi, Anda tidak harus memilih
+antara thread dan async. Anda bisa memakai keduanya secara bebas, membiarkan
+masing-masing memainkan peran yang paling dikuasainya. Contohnya, Listing
+17-25 menunjukkan contoh yang cukup umum dari campuran semacam ini di kode
+Rust dunia nyata.
 
-<Listing number="17-25" caption="Sending messages with blocking code in a thread and awaiting the messages in an async block" file-name="src/main.rs">
+<Listing number="17-25" caption="Mengirim pesan dengan kode pemblokiran di dalam thread dan menunggu pesan-pesan itu di dalam blok async" file-name="src/main.rs">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-25/src/main.rs:all}}
@@ -70,34 +78,37 @@ example of this kind of mix in real-world Rust code.
 
 </Listing>
 
-We begin by creating an async channel, then spawning a thread that takes
-ownership of the sender side of the channel using the `move` keyword. Within
-the thread, we send the numbers 1 through 10, sleeping for a second between
-each. Finally, we run a future created with an async block passed to
-`trpl::block_on` just as we have throughout the chapter. In that future, we
-await those messages, just as in the other message-passing examples we have
-seen.
+Kita mulai dengan membuat channel async, lalu membuat sebuah thread yang
+mengambil kepemilikan sisi pengirim channel dengan memakai kata kunci `move`.
+Di dalam thread itu, kita mengirim angka 1 sampai 10, tidur selama satu detik
+di antara setiap angka. Terakhir, kita menjalankan sebuah future yang dibuat
+dengan blok async yang diteruskan ke `trpl::block_on`, sama seperti yang kita
+lakukan di sepanjang bab ini. Di dalam future itu, kita menunggu pesan-pesan
+tersebut, sama seperti contoh-contoh message passing lain yang telah kita
+lihat.
 
-To return to the scenario we opened the chapter with, imagine running a set of
-video encoding tasks using a dedicated thread (because video encoding is
-compute-bound) but notifying the UI that those operations are done with an
-async channel. There are countless examples of these kinds of combinations in
-real-world use cases.
+Untuk kembali ke skenario pembuka bab ini, bayangkan menjalankan sekumpulan
+tugas pengodean video menggunakan thread khusus (karena pengodean video
+terikat komputasi), tetapi memberi tahu UI bahwa operasi-operasi itu selesai
+dengan channel async. Ada contoh yang tak terhitung jumlahnya untuk kombinasi
+semacam ini di kasus pemakaian dunia nyata.
 
-## Summary
+## Ringkasan
 
-This isn’t the last you’ll see of concurrency in this book. The project in
-[Chapter 21][ch21]<!-- ignore --> will apply these concepts in a more realistic
-situation than the simpler examples discussed here and compare problem-solving
-with threading versus tasks and futures more directly.
+Ini bukan terakhir kalinya Anda melihat konkurensi di buku ini. Proyek di
+[Bab 21][ch21]<!-- ignore --> akan menerapkan konsep-konsep ini dalam situasi
+yang lebih realistis daripada contoh-contoh sederhana yang dibahas di sini,
+dan membandingkan pemecahan masalah dengan threading versus task dan future
+secara lebih langsung.
 
-No matter which of these approaches you choose, Rust gives you the tools you
-need to write safe, fast, concurrent code—whether for a high-throughput web
-server or an embedded operating system.
+Apa pun pendekatan yang Anda pilih di antara ini, Rust memberi Anda alat yang
+Anda butuhkan untuk menulis kode konkuren yang aman dan cepat—baik untuk
+server web berdaya tampung tinggi maupun sistem operasi tertanam.
 
-Next, we’ll talk about idiomatic ways to model problems and structure solutions
-as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms
-relate to those you might be familiar with from object-oriented programming.
+Berikutnya, kita akan membahas cara-cara yang idiomatis untuk memodelkan
+masalah dan menstrukturkan solusi seiring program Rust Anda membesar. Selain
+itu, kita akan membahas bagaimana idiom Rust berhubungan dengan idiom yang
+mungkin Anda kenal dari pemrograman berorientasi objek.
 
 [ch16]: ch16-00-concurrency.html
 [combining-futures]: ch17-03-more-futures.html#building-our-own-async-abstractions
