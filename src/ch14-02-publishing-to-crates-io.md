@@ -63,10 +63,10 @@ lazim dipakai penulis *crate* di dokumentasi mereka:
 - **Panics**: Ini adalah skenario ketika fungsi yang didokumentasikan bisa
   panic. Pemanggil fungsi yang tidak ingin programnya panic harus memastikan
   mereka tidak memanggil fungsi itu dalam situasi-situasi tersebut.
-- **Errors**: Jika fungsi mengembalikan `Result`, menjelaskan jenis galat yang
-  mungkin terjadi dan kondisi apa yang mungkin menyebabkan galat tersebut
+- **Errors**: Jika fungsi mengembalikan `Result`, menjelaskan jenis error yang
+  mungkin terjadi dan kondisi apa yang mungkin menyebabkan error tersebut
   dikembalikan dapat membantu pemanggil sehingga mereka bisa menulis kode
-  untuk menangani berbagai jenis galat dengan cara yang berbeda-beda.
+  untuk menangani berbagai jenis error dengan cara yang berbeda-beda.
 - **Safety**: Jika fungsi itu tidak aman (`unsafe`) untuk dipanggil (kita
   membahas ketidakamanan di Bab 20), seharusnya ada seksi yang menjelaskan
   mengapa fungsi itu `unsafe` dan mencakup invarian yang diharapkan fungsi
@@ -327,7 +327,7 @@ name = "guessing_game"
 
 Bahkan jika Anda telah memilih nama yang unik, saat Anda menjalankan `cargo
 publish` untuk menerbitkan *crate* pada titik ini, Anda akan mendapat peringatan
-lalu sebuah galat:
+lalu sebuah error:
 
 <!-- manual-regeneration
 Create a new package with an unregistered name, making no further modifications
@@ -348,7 +348,7 @@ Caused by:
   the remote server responded with an error (status 400 Bad Request): missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for more information on configuring these fields
 ```
 
-Ini menghasilkan galat karena Anda kehilangan beberapa informasi yang penting:
+Ini menghasilkan error karena Anda kehilangan beberapa informasi yang penting:
 Deskripsi dan lisensi diperlukan supaya orang tahu apa yang dilakukan *crate*
 Anda dan dengan ketentuan apa mereka boleh memakainya. Di _Cargo.toml_,
 tambahkan deskripsi satu-dua kalimat saja, karena deskripsi itu akan tampil

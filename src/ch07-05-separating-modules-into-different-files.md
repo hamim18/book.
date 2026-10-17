@@ -99,7 +99,7 @@ untuk kode *module* mana berarti direktori dan file akan lebih mendekati *module
 > - _src/front_of_house/hosting/mod.rs_ (gaya lama, *path* yang masih didukung)
 >
 > Jika Anda memakai kedua gaya untuk *module* yang sama, Anda akan mendapat
-> galat *compiler*. Memakai campuran kedua gaya untuk *module*-module yang
+> error *compiler*. Memakai campuran kedua gaya untuk *module*-module yang
 > berbeda di proyek yang sama diperbolehkan, tetapi mungkin membingungkan
 > orang yang menavigasi proyek Anda.
 >

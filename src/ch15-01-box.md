@@ -154,10 +154,10 @@ adalah nilai `Cons` lain yang menampung `2` dan nilai `List` lain. Nilai
 `List`, yang akhirnya berupa `Nil`, variant non-rekursif yang menandai akhir
 list.
 
-Jika kita mencoba mengompilasi kode di Listing 15-3, kita mendapat galat yang
+Jika kita mencoba mengompilasi kode di Listing 15-3, kita mendapat error yang
 ditunjukkan pada Listing 15-4.
 
-<Listing number="15-4" caption="Galat yang kita dapat ketika mencoba mendefinisikan enum rekursif">
+<Listing number="15-4" caption="Error yang kita dapat ketika mencoba mendefinisikan enum rekursif">
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
@@ -165,11 +165,11 @@ ditunjukkan pada Listing 15-4.
 
 </Listing>
 
-Galat itu menunjukkan bahwa tipe ini “memiliki ukuran tak terhingga.” Alasannya
+Error itu menunjukkan bahwa tipe ini “memiliki ukuran tak terhingga.” Alasannya
 adalah kita telah mendefinisikan `List` dengan sebuah variant yang rekursif:
 Variant itu langsung menampung nilai lain dari dirinya sendiri. Akibatnya,
 Rust tidak bisa memperhitungkan berapa banyak ruang yang dibutuhkannya untuk
-menyimpan nilai `List`. Mari kita uraikan mengapa kita mendapat galat ini.
+menyimpan nilai `List`. Mari kita uraikan mengapa kita mendapat error ini.
 Pertama, kita akan melihat cara Rust memutuskan berapa banyak ruang yang
 dibutuhkannya untuk menyimpan nilai bertipe non-rekursif.
 
@@ -212,7 +212,7 @@ variant `Cons` yang tak terhingga</span>
 #### Mendapatkan Tipe Rekursif dengan Ukuran yang Diketahui
 
 Karena Rust tidak bisa memperhitungkan berapa banyak ruang yang dialokasikan
-untuk tipe yang didefinisikan secara rekursif, kompilator memberikan galat
+untuk tipe yang didefinisikan secara rekursif, kompilator memberikan error
 dengan saran yang membantu berikut:
 
 <!-- manual-regeneration

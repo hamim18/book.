@@ -134,7 +134,7 @@ program ini dengan argumen `test` dan `sample.txt`:
 ```
 
 Hebat, programnya bekerja! Nilai-nilai argumen yang kita butuhkan tersimpan di
-variabel yang tepat. Nanti kita akan menambahkan penanganan galat untuk
+variabel yang tepat. Nanti kita akan menambahkan penanganan error untuk
 menangani situasi-situasi yang berpotensi keliru, misalnya ketika pengguna
 tidak memberikan argumen; untuk saat ini, kita akan mengabaikan situasi itu
 dan mengerjakan penambahan kemampuan membaca file.

@@ -26,7 +26,7 @@ $ cargo --version
 ```
 
 Jika Anda melihat nomor versi, berarti Cargo sudah terpasang! Jika Anda
-melihat galat, seperti `command not found`, lihat dokumentasi metode
+melihat error, seperti `command not found`, lihat dokumentasi metode
 instalasi Anda untuk menentukan cara memasang Cargo secara terpisah.
 
 ### Membuat Proyek dengan Cargo
@@ -213,7 +213,7 @@ Mari kita rekap apa yang telah kita pelajari sejauh ini tentang Cargo:
 - Kita dapat membangun dan menjalankan proyek dalam satu langkah
   menggunakan `cargo run`.
 - Kita dapat membangun proyek tanpa menghasilkan file biner untuk
-  memeriksa galat menggunakan `cargo check`.
+  memeriksa error menggunakan `cargo check`.
 - Alih-alih menyimpan hasil build di direktori yang sama dengan kode
   kita, Cargo menyimpannya di direktori _target/debug_.
 

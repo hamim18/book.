@@ -21,9 +21,9 @@ Sepanjang perjalanan, kita akan menunjukkan cara membuat alat baris perintah
 kita memakai fitur-fitur terminal yang dipakai banyak alat baris perintah
 lainnya. Kita akan membaca nilai sebuah variabel lingkungan untuk memungkinkan
 pengguna mengonfigurasi perilaku alat kita. Kita juga akan mencetak pesan
-galat ke aliran konsol standard error (`stderr`) alih-alih standard output
+error ke aliran konsol standard error (`stderr`) alih-alih standard output
 (`stdout`) sehingga, misalnya, pengguna bisa mengalihkan keluaran yang berhasil
-ke sebuah file sambil tetap melihat pesan galat di layar.
+ke sebuah file sambil tetap melihat pesan error di layar.
 
 Seorang anggota komunitas Rust, Andrew Gallant, telah membuat versi `grep`
 yang lengkap fiturnya dan sangat cepat, bernama `ripgrep`. Sebagai
@@ -36,7 +36,7 @@ sejauh ini:
 
 - Menata kode ([Bab 7][ch7]<!-- ignore -->)
 - Memakai vektor dan string ([Bab 8][ch8]<!-- ignore -->)
-- Menangani galat ([Bab 9][ch9]<!-- ignore -->)
+- Menangani error ([Bab 9][ch9]<!-- ignore -->)
 - Memakai *trait* dan *lifetime* bilamana sesuai ([Bab 10][ch10]<!-- ignore -->)
 - Menulis pengujian ([Bab 11][ch11]<!-- ignore -->)
 

@@ -345,7 +345,7 @@ Sebelumnya kita telah mengatakan bahwa ketika sebuah variabel keluar dari
 *heap* untuk variabel tersebut. Namun, Gambar 4-2 menunjukkan kedua *pointer*
 data menunjuk ke lokasi yang sama. Ini adalah sebuah masalah: ketika `s2` dan
 `s1` keluar dari *scope*, keduanya akan mencoba membebaskan memori yang sama.
-Ini dikenal sebagai galat *double free* dan merupakan salah satu *bug*
+Ini dikenal sebagai error *double free* dan merupakan salah satu *bug*
 keamanan memori yang kita sebutkan sebelumnya. Membebaskan memori dua kali
 dapat menyebabkan korupsi memori, yang berpotensi mengarah pada celah
 keamanan.
@@ -359,7 +359,7 @@ Anda mencoba menggunakan `s1` setelah `s2` dibuat; ini tidak akan berhasil:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/src/main.rs:here}}
 ```
 
-Anda akan mendapatkan galat seperti ini karena Rust mencegah Anda
+Anda akan mendapatkan error seperti ini karena Rust mencegah Anda
 menggunakan *reference* (referensi) yang telah dibatalkan validitasnya:
 
 ```console
@@ -484,7 +484,7 @@ Rust tidak mengizinkan kita memberi anotasi `Copy` pada sebuah tipe jika
 tipe tersebut, atau bagian mana pun darinya, telah mengimplementasikan
 *trait* `Drop`. Jika tipe tersebut membutuhkan sesuatu yang khusus terjadi
 ketika nilainya keluar dari *scope*, dan kita menambahkan anotasi `Copy` ke
-tipe itu, kita akan mendapatkan galat waktu kompilasi. Untuk mempelajari cara
+tipe itu, kita akan mendapatkan error waktu kompilasi. Untuk mempelajari cara
 menambahkan anotasi `Copy` pada tipe Anda guna mengimplementasikan *trait*
 tersebut, lihat [“Trait yang Dapat Diturunkan”][derivable-traits]<!-- ignore
 --> di Lampiran C.
@@ -521,7 +521,7 @@ dari *scope*.
 </Listing>
 
 Jika kita mencoba menggunakan `s` setelah pemanggilan `takes_ownership`,
-Rust akan melemparkan galat waktu kompilasi. Pemeriksaan statis ini
+Rust akan melemparkan error waktu kompilasi. Pemeriksaan statis ini
 melindungi kita dari kesalahan. Cobalah menambahkan kode ke `main` yang
 menggunakan `s` dan `x` untuk melihat di mana Anda dapat memakainya dan di
 mana aturan-aturan *ownership* mencegah Anda melakukannya.

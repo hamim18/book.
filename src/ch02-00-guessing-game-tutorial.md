@@ -252,7 +252,7 @@ yang mungkin. Setiap keadaan yang mungkin itu kita sebut *variant*
 (varian).
 
 [Bab 6][enums]<!-- ignore --> akan membahas *enum* lebih detail. Tujuan
-tipe-tipe `Result` ini adalah untuk mengodekan informasi penanganan galat.
+tipe-tipe `Result` ini adalah untuk mengodekan informasi penanganan error.
 
 *Variant* `Result` adalah `Ok` dan `Err`. *Variant* `Ok` menandakan
 operasinya berhasil, dan ia memuat nilai yang berhasil dihasilkan.
@@ -264,7 +264,7 @@ yang didefinisikan padanya. Sebuah instance `Result` memiliki [metode
 `expect`][expect]<!-- ignore --> yang dapat Anda panggil. Jika instance
 `Result` ini bernilai `Err`, `expect` akan membuat program crash dan
 menampilkan pesan yang Anda berikan sebagai argumen ke `expect`. Jika
-metode `read_line` mengembalikan `Err`, kemungkinan besar itu akibat galat
+metode `read_line` mengembalikan `Err`, kemungkinan besar itu akibat error
 yang berasal dari sistem operasi yang mendasarinya. Jika instance `Result`
 ini bernilai `Ok`, `expect` akan mengambil nilai balik yang dipegang `Ok`
 dan mengembalikan nilai itu saja kepada Anda sehingga Anda dapat
@@ -279,13 +279,13 @@ akan mendapat peringatan:
 ```
 
 Rust memperingatkan bahwa Anda belum memakai nilai `Result` yang
-dikembalikan `read_line`, menandakan bahwa program belum menangani galat
+dikembalikan `read_line`, menandakan bahwa program belum menangani error
 yang mungkin terjadi.
 
 Cara yang benar untuk meredam peringatan itu adalah menulis kode
-penanganan galat yang sesungguhnya, tetapi dalam kasus kita, kita hanya
+penanganan error yang sesungguhnya, tetapi dalam kasus kita, kita hanya
 ingin membuat program ini crash saat terjadi masalah, jadi kita dapat
-memakai `expect`. Anda akan belajar tentang pemulihan dari galat di
+memakai `expect`. Anda akan belajar tentang pemulihan dari error di
 [Bab 9][recover]<!-- ignore -->.
 
 ### Mencetak Nilai dengan Placeholder `println!`
@@ -631,7 +631,7 @@ You guessed: 5
 
 Anda seharusnya mendapat angka acak yang berbeda-beda, dan semuanya harus
 berupa angka antara 1 dan 100. Jika Anda mendapat peringatan, peringatan
-itu aman untuk diabaikan. Jika Anda mendapat galat, periksa bahwa Anda
+itu aman untuk diabaikan. Jika Anda mendapat error, periksa bahwa Anda
 memiliki `rand = "0.10.1"` di *Cargo.toml* Anda, karena versi `rand` di
 masa depan mungkin memiliki API yang berbeda, tetapi versi mana pun dalam
 seri `0.10` seharusnya bekerja dengan kode di bab ini.
@@ -706,7 +706,7 @@ anchor or snip comments
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-04/output.txt}}
 ```
 
-Inti galatnya menyatakan bahwa terdapat _tipe yang tidak cocok_. Rust
+Inti errornya menyatakan bahwa terdapat _tipe yang tidak cocok_. Rust
 memiliki sistem tipe statis yang kuat. Namun, ia juga memiliki inferensi
 tipe. Ketika kita menulis `let mut guess = String::new()`, Rust mampu
 menyimpulkan bahwa `guess` harus berupa `String` dan tidak memaksa kita
@@ -716,7 +716,7 @@ tipe angka Rust dapat memiliki nilai antara 1 dan 100: `i32`, angka
 lainnya. Kecuali ditentukan lain, Rust secara bawaan memilih `i32`, yang
 merupakan tipe `secret_number` kecuali Anda menambahkan informasi tipe di
 tempat lain yang akan membuat Rust menyimpulkan tipe angka yang berbeda.
-Alasan terjadinya galat adalah Rust tidak dapat membandingkan string
+Alasan terjadinya error adalah Rust tidak dapat membandingkan string
 dengan tipe angka.
 
 Pada akhirnya, kita ingin mengonversi `String` yang dibaca program sebagai
@@ -775,7 +775,7 @@ harus berupa `u32`. Jadi, sekarang perbandingannya akan terjadi antara dua
 nilai dengan tipe yang sama!
 
 Metode `parse` hanya akan bekerja pada karakter yang secara logis dapat
-dikonversi menjadi angka sehingga ia dapat dengan mudah menyebabkan galat.
+dikonversi menjadi angka sehingga ia dapat dengan mudah menyebabkan error.
 Jika, misalnya, string berisi `A👍%`, tidak akan ada cara untuk
 mengonversinya menjadi angka. Karena ia mungkin gagal, metode `parse`
 mengembalikan tipe `Result`, sama seperti yang dilakukan metode
@@ -924,7 +924,7 @@ menjadi `u32`, seperti yang ditunjukkan pada Listing 2-5.
 </Listing>
 
 Kita beralih dari pemanggilan `expect` ke ekspresi `match` untuk beralih
-dari crash karena galat menjadi menangani galat. Ingat bahwa `parse`
+dari crash karena error menjadi menangani error. Ingat bahwa `parse`
 mengembalikan tipe `Result` dan `Result` adalah *enum* yang memiliki
 *variant* `Ok` dan `Err`. Kita memakai ekspresi `match` di sini, seperti
 yang kita lakukan dengan hasil `Ordering` dari metode `cmp`.
@@ -938,14 +938,14 @@ baru yang kita buat.
 
 Jika `parse` _tidak_ dapat mengubah string menjadi angka, ia akan
 mengembalikan nilai `Err` yang memuat informasi lebih lanjut tentang
-galatnya. Nilai `Err` tidak cocok dengan pola `Ok(num)` di *arm* `match`
+errornya. Nilai `Err` tidak cocok dengan pola `Ok(num)` di *arm* `match`
 pertama, tetapi cocok dengan pola `Err(_)` di *arm* kedua. Garis bawah,
 `_`, adalah nilai yang menangkap apa saja; dalam contoh ini, kita
 menyatakan bahwa kita ingin mencocokkan semua nilai `Err`, apa pun
 informasi yang ada di dalamnya. Jadi, program akan mengeksekusi kode
 *arm* kedua, `continue`, yang memberi tahu program untuk lanjut ke iterasi
 `loop` berikutnya dan meminta tebakan lain. Jadi, secara efektif, program
-mengabaikan semua galat yang mungkin ditemui `parse`!
+mengabaikan semua error yang mungkin ditemui `parse`!
 
 Sekarang semua yang ada di program seharusnya bekerja sesuai harapan.
 Mari kita coba:

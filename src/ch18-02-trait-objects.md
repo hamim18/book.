@@ -211,7 +211,7 @@ metode `draw`-nya.
 Keuntungan memakai *trait object* dan sistem tipe Rust untuk menulis kode yang
 mirip dengan kode yang memakai *duck typing* adalah kita tidak pernah harus mengecek
 apakah sebuah nilai mengimplementasikan metode tertentu saat runtime atau
-khawatir mendapat galat jika sebuah nilai tidak mengimplementasikan sebuah
+khawatir mendapat error jika sebuah nilai tidak mengimplementasikan sebuah
 metode tetapi tetap kita panggil. Rust tidak akan mengompilasi kode kita jika
 nilai-nilai itu tidak mengimplementasikan *trait* yang dibutuhkan *trait object*
 tersebut.
@@ -227,14 +227,14 @@ membuat `Screen` dengan `String` sebagai component.
 
 </Listing>
 
-Kita akan mendapat galat ini karena `String` tidak mengimplementasikan *trait*
+Kita akan mendapat error ini karena `String` tidak mengimplementasikan *trait*
 `Draw`:
 
 ```console
 {{#include ../listings/ch18-oop/listing-18-10/output.txt}}
 ```
 
-Galat ini memberi tahu kita bahwa entah kita meneruskan sesuatu ke `Screen`
+Error ini memberi tahu kita bahwa entah kita meneruskan sesuatu ke `Screen`
 yang tidak kita maksudkan untuk diteruskan sehingga seharusnya meneruskan tipe
 yang berbeda, atau kita harus mengimplementasikan `Draw` pada `String` supaya
 `Screen` bisa memanggil `draw` padanya.

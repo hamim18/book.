@@ -92,9 +92,9 @@ mengirim pesan melalui *channel*.
 *Transmitter* memiliki metode `send` yang menerima nilai yang ingin kita kirim.
 Metode `send` mengembalikan tipe `Result<T, E>`, jadi jika *receiver* telah
 dibebaskan dan tidak ada tempat untuk mengirim nilai, operasi pengiriman akan
-mengembalikan galat. Dalam contoh ini, kita memanggil `unwrap` untuk panic
-jika terjadi galat. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan
-benar: Kembalilah ke Bab 9 untuk mengulas strategi penanganan galat yang
+mengembalikan error. Dalam contoh ini, kita memanggil `unwrap` untuk panic
+jika terjadi error. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan
+benar: Kembalilah ke Bab 9 untuk mengulas strategi penanganan error yang
 tepat.
 
 Di Listing 16-8, kita akan mengambil nilai dari *receiver* di thread utama. Ini
@@ -113,7 +113,7 @@ obrolan.
 memakai `recv`, singkatan dari _receive_ (menerima), yang akan memblokir
 eksekusi thread utama dan menunggu sampai sebuah nilai dikirim melalui
 *channel*. Begitu sebuah nilai terkirim, `recv` akan mengembalikannya dalam
-`Result<T, E>`. Ketika *transmitter* tertutup, `recv` akan mengembalikan galat
+`Result<T, E>`. Ketika *transmitter* tertutup, `recv` akan mengembalikan error
 untuk menandakan bahwa tidak akan ada nilai lagi yang datang.
 
 Metode `try_recv` tidak memblokir, tetapi langsung mengembalikan
@@ -147,7 +147,7 @@ Sempurna!
 ### Mentransfer Ownership Melalui Channel
 
 Aturan *ownership* memainkan peran penting dalam pengiriman pesan karena
-aturan itu membantu Anda menulis kode konkuren yang aman. Mencegah galat
+aturan itu membantu Anda menulis kode konkuren yang aman. Mencegah error
 dalam pemrograman konkuren adalah keuntungan memikirkan *ownership* di seluruh
 program Rust Anda. Mari kita lakukan eksperimen untuk menunjukkan bagaimana
 *channel* dan *ownership* bekerja sama mencegah masalah: Kita akan mencoba memakai
@@ -167,15 +167,15 @@ Di sini, kita mencoba mencetak `val` setelah mengirimkannya melalui *channel*
 lewat `tx.send`. Mengizinkan hal ini adalah ide yang buruk: Begitu nilai itu
 dikirim ke thread lain, thread itu bisa memodifikasi atau membebaskannya
 sebelum kita mencoba memakai nilai itu lagi. Berpotensi, modifikasi thread
-lain itu bisa menyebabkan galat atau hasil yang tidak terduga karena data yang
-tidak konsisten atau tidak ada. Namun, Rust memberi kita galat jika kita
+lain itu bisa menyebabkan error atau hasil yang tidak terduga karena data yang
+tidak konsisten atau tidak ada. Namun, Rust memberi kita error jika kita
 mencoba mengompilasi kode di Listing 16-9:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
 ```
 
-Kesalahan konkurensi kita telah menyebabkan galat waktu kompilasi. Fungsi
+Kesalahan konkurensi kita telah menyebabkan error waktu kompilasi. Fungsi
 `send` mengambil *ownership* atas parameternya, dan ketika nilainya dipindahkan,
 *receiver* mengambil *ownership* atasnya. Ini mencegah kita tanpa sengaja memakai
 nilai itu lagi setelah mengirimkannya; sistem *ownership* memeriksa bahwa

@@ -163,7 +163,7 @@ untuk keperluan contoh ini. Perhatikan bahwa kita belum menambahkan anotasi
 tipe apa pun ke definisinya. Karena tidak ada anotasi tipe, kita dapat
 memanggil *closure* itu dengan tipe apa pun, yang telah kita lakukan di sini
 dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
-`example_closure` dengan sebuah integer, kita akan mendapat galat.
+`example_closure` dengan sebuah integer, kita akan mendapat error.
 
 <Listing number="13-3" file-name="src/main.rs" caption="Mencoba memanggil closure yang tipe-tipenya diinferensi dengan dua tipe yang berbeda">
 
@@ -173,7 +173,7 @@ dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
 
 </Listing>
 
-*Compiler* memberi kita galat ini:
+*Compiler* memberi kita error ini:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-03/output.txt}}
@@ -182,7 +182,7 @@ dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
 Pertama kali kita memanggil `example_closure` dengan nilai `String`,
 *compiler* menginferensi tipe `x` dan tipe kembalian *closure* itu sebagai
 `String`. Tipe-tipe itu kemudian dikunci ke dalam *closure* di
-`example_closure`, dan kita mendapat galat tipe ketika selanjutnya mencoba
+`example_closure`, dan kita mendapat error tipe ketika selanjutnya mencoba
 memakai tipe yang berbeda dengan *closure* yang sama.
 
 <a id="capturing-references-or-moving-ownership"></a>
@@ -246,7 +246,7 @@ lagi setelah *closure* itu dipanggil, jadi peminjaman *mutable*-nya berakhir. Di
 antara definisi *closure* dan pemanggilan *closure*, peminjaman *immutable* untuk
 mencetak tidak diizinkan, karena tidak ada peminjaman lain yang diizinkan
 ketika ada peminjaman *mutable*. Coba tambahkan `println!` di sana untuk melihat
-pesan galat apa yang Anda dapat!
+pesan error apa yang Anda dapat!
 
 Jika Anda ingin memaksa *closure* mengambil *ownership* atas nilai-nilai yang
 dipakainya di lingkungan, meskipun badan *closure* itu tidak benar-benar
@@ -284,7 +284,7 @@ thread utama mungkin selesai lebih dulu. Jika thread utama tetap memegang
 Karena itu, *compiler* mengharuskan `list` dipindahkan ke dalam *closure* yang
 diberikan kepada thread baru supaya *reference*-nya tetap valid. Coba hapus kata
 kunci `move` atau pakai `list` di thread utama setelah *closure* didefinisikan
-untuk melihat galat kompilasi apa yang Anda dapat!
+untuk melihat error kompilasi apa yang Anda dapat!
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -426,7 +426,7 @@ keluar dari *closure* dengan mentransfer *ownership* atas `value` ke vektor
 memanggilnya untuk kedua kalinya tidak akan bekerja, karena `value` tidak lagi
 berada di lingkungan untuk dimasukkan ke dalam `sort_operations` lagi! Karena
 itu, *closure* ini hanya mengimplementasikan `FnOnce`. Ketika kita mencoba
-mengompilasi kode ini, kita mendapat galat bahwa `value` tidak dapat
+mengompilasi kode ini, kita mendapat error bahwa `value` tidak dapat
 dipindahkan keluar dari *closure* karena *closure* itu harus mengimplementasikan
 `FnMut`:
 
@@ -434,7 +434,7 @@ dipindahkan keluar dari *closure* karena *closure* itu harus mengimplementasikan
 {{#include ../listings/ch13-functional-features/listing-13-08/output.txt}}
 ```
 
-Galat itu menunjuk ke baris di badan *closure* yang memindahkan `value` keluar
+Error itu menunjuk ke baris di badan *closure* yang memindahkan `value` keluar
 dari lingkungan. Untuk memperbaikinya, kita perlu mengubah badan *closure* agar
 ia tidak memindahkan nilai keluar dari lingkungan. Menyimpan sebuah penghitung
 di lingkungan dan menaikkan nilainya di badan *closure* adalah cara yang lebih

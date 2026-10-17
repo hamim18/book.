@@ -156,7 +156,7 @@ mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 {{#include ../listings/ch20-advanced-features/listing-20-33/output.txt}}
 ```
 
-Pesan galat itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
+Pesan error itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
 Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
 detailnya tidak bisa kita lihat dari apa yang Rust bangun untuk kita, dan
 kita juga tidak bisa menebak tipe yang akan dihasilkan Rust untuk kita tulis

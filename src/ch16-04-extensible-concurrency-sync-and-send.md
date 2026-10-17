@@ -32,7 +32,7 @@ thread-safe.
 
 Karena itu, sistem tipe dan *trait bound* Rust memastikan bahwa Anda tidak
 pernah bisa tanpa sengaja mengirim nilai `Rc<T>` lintas thread secara tidak
-aman. Ketika kita mencoba melakukan ini di Listing 16-14, kita mendapat galat
+aman. Ketika kita mencoba melakukan ini di Listing 16-14, kita mendapat error
 `` the trait `Send` is not implemented for `Rc<Mutex<i32>>` ``. Ketika kita
 beralih ke `Arc<T>`, yang memang mengimplementasikan `Send`, kodenya
 terkompilasi.

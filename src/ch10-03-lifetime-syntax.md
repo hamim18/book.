@@ -46,7 +46,7 @@ sebuah *scope* luar dan sebuah *scope* dalam.
 > variabel tanpa memberikan nilai awal, sehingga nama variabelnya ada di
 > *scope* luar. Sepintas, ini mungkin tampak bertentangan dengan Rust yang
 > tidak memiliki nilai null. Akan tetapi, jika kita mencoba memakai variabel
-> sebelum memberinya nilai, kita akan mendapatkan galat waktu kompilasi,
+> sebelum memberinya nilai, kita akan mendapatkan error waktu kompilasi,
 > yang menunjukkan bahwa Rust memang tidak mengizinkan nilai null.
 
 *Scope* luar mendeklarasikan variabel bernama `r` tanpa nilai awal, dan *scope*
@@ -54,13 +54,13 @@ dalam mendeklarasikan variabel bernama `x` dengan nilai awal `5`. Di dalam
 *scope* dalam, kita mencoba menetapkan nilai `r` sebagai *reference* ke `x`.
 Kemudian, *scope* dalam berakhir, dan kita mencoba mencetak nilai di `r`.
 Kode ini tidak akan terkompilasi, karena nilai yang dirujuk `r` telah keluar
-dari *scope* sebelum kita mencoba memakainya. Berikut pesan galatnya:
+dari *scope* sebelum kita mencoba memakainya. Berikut pesan errornya:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/output.txt}}
 ```
 
-Pesan galat itu mengatakan bahwa variabel `x` “does not live long enough.”
+Pesan error itu mengatakan bahwa variabel `x` “does not live long enough.”
 Alasannya, `x` akan berada di luar *scope* ketika *scope* dalam berakhir pada
 baris 7. Akan tetapi, `r` masih valid untuk *scope* luar; karena *scope*-nya
 lebih besar, kita katakan bahwa ia “lives longer.” Jika Rust mengizinkan
@@ -93,7 +93,7 @@ tetapi ia merujuk memori dengan *lifetime* `'b`. Program ini ditolak karena
 selama *reference*-nya.
 
 Listing 10-18 memperbaiki kode itu sehingga tidak memiliki *reference*
-menggantung dan terkompilasi tanpa galat.
+menggantung dan terkompilasi tanpa error.
 
 <Listing number="10-18" caption="Reference yang valid karena datanya memiliki lifetime yang lebih panjang daripada reference-nya">
 
@@ -146,7 +146,7 @@ ditunjukkan di Listing 10-20, kode itu tidak akan terkompilasi.
 
 </Listing>
 
-Sebagai gantinya, kita mendapatkan galat berikut yang membahas tentang
+Sebagai gantinya, kita mendapatkan error berikut yang membahas tentang
 *lifetime*:
 
 ```console
@@ -167,7 +167,7 @@ seperti yang kita lakukan di Listing 10-17 dan 10-18 untuk menentukan
 apakah *reference* yang kita kembalikan akan selalu valid. *Borrow checker*
 juga tidak bisa menentukannya, karena ia tidak tahu bagaimana *lifetime* `x`
 dan `y` berhubungan dengan *lifetime* nilai kembaliannya. Untuk memperbaiki
-galat ini, kita akan menambahkan parameter *lifetime* generik yang
+error ini, kita akan menambahkan parameter *lifetime* generik yang
 mendefinisikan hubungan antarreference sehingga *borrow checker* bisa
 melakukan analisisnya.
 
@@ -253,7 +253,7 @@ fungsi, bukan di badan fungsi. Anotasi *lifetime* menjadi bagian dari kontrak
 fungsi, mirip dengan tipe-tipe di tanda tangan. Tanda tangan fungsi yang
 memuat kontrak *lifetime* membuat analisis yang dilakukan *compiler* Rust
 menjadi lebih sederhana. Jika ada masalah dengan cara sebuah fungsi
-dianotasi atau cara ia dipanggil, galat *compiler* bisa menunjuk ke bagian
+dianotasi atau cara ia dipanggil, error *compiler* bisa menunjuk ke bagian
 kode kita dan batasannya secara lebih presisi. Sebaliknya, jika *compiler*
 Rust membuat lebih banyak inferensi tentang hubungan *lifetime* yang kita
 maksudkan, *compiler* mungkin hanya bisa menunjuk pemakaian kode kita yang
@@ -302,13 +302,13 @@ Listing 10-23 tidak akan terkompilasi.
 
 </Listing>
 
-Ketika kita mencoba mengompilasi kode ini, kita mendapatkan galat berikut:
+Ketika kita mencoba mengompilasi kode ini, kita mendapatkan error berikut:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/output.txt}}
 ```
 
-Galat itu menunjukkan bahwa agar `result` valid untuk pernyataan `println!`,
+Error itu menunjukkan bahwa agar `result` valid untuk pernyataan `println!`,
 `string2` harus tetap valid sampai akhir *scope* luar. Rust mengetahui hal ini
 karena kita menganotasi *lifetime* parameter fungsi dan nilai kembaliannya
 memakai parameter *lifetime* `'a` yang sama.
@@ -372,7 +372,7 @@ ini yang tidak akan terkompilasi:
 Di sini, meskipun kita telah menentukan parameter *lifetime* `'a` untuk tipe
 kembalian, implementasi ini akan gagal terkompilasi karena *lifetime* nilai
 kembaliannya tidak berhubungan sama sekali dengan *lifetime* parameternya.
-Berikut pesan galat yang kita dapatkan:
+Berikut pesan error yang kita dapatkan:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
@@ -470,7 +470,7 @@ Anda tidak perlu menulis *lifetime* secara eksplisit.
 Aturan-aturan elision tidak memberikan inferensi penuh. Jika masih ada
 ambiguitas tentang *lifetime* yang dimiliki *reference* setelah Rust menerapkan
 aturan-aturannya, *compiler* tidak akan menebak *lifetime* *reference* yang
-tersisa. Alih-alih menebak, *compiler* akan memberikan galat yang bisa Anda
+tersisa. Alih-alih menebak, *compiler* akan memberikan error yang bisa Anda
 selesaikan dengan menambahkan anotasi *lifetime*.
 
 *Lifetime* pada parameter fungsi atau metode disebut *input lifetime*
@@ -482,7 +482,7 @@ tidak ada anotasi eksplisit. Aturan pertama berlaku untuk *lifetime* masukan,
 dan aturan kedua serta ketiga berlaku untuk *lifetime* keluaran. Jika *compiler*
 sudah sampai di akhir ketiga aturan dan masih ada *reference* yang
 *lifetime*-nya tidak bisa ia ketahui, *compiler* akan berhenti dengan sebuah
-galat. Aturan-aturan ini berlaku untuk definisi `fn` maupun blok `impl`.
+error. Aturan-aturan ini berlaku untuk definisi `fn` maupun blok `impl`.
 
 Aturan pertama adalah *compiler* menetapkan sebuah parameter *lifetime* untuk
 setiap parameter yang berupa *reference*. Dengan kata lain, fungsi dengan
@@ -549,7 +549,7 @@ Anda bisa melihat bahwa aturan kedua tidak berlaku, karena ada lebih dari
 satu *lifetime* masukan. Aturan ketiga juga tidak berlaku, karena `longest`
 adalah fungsi alih-alih metode, jadi tidak ada parameternya yang berupa
 `self`. Setelah melewati ketiga aturan, kita masih belum tahu berapa
-*lifetime* tipe kembaliannya. Inilah alasan kita mendapatkan galat ketika
+*lifetime* tipe kembaliannya. Inilah alasan kita mendapatkan error ketika
 mencoba mengompilasi kode di Listing 10-20: *compiler* telah melewati
 aturan-aturan elision *lifetime*, tetapi masih belum bisa mengetahui semua
 *lifetime* *reference* di tanda tangan itu.
@@ -619,11 +619,11 @@ let s: &'static str = "I have a static lifetime.";
 Teks string ini disimpan langsung di binary program, yang selalu tersedia.
 Karena itu, *lifetime* semua *string literal* adalah `'static`.
 
-Anda mungkin melihat saran di pesan galat untuk memakai *lifetime* `'static`.
+Anda mungkin melihat saran di pesan error untuk memakai *lifetime* `'static`.
 Namun, sebelum menentukan `'static` sebagai *lifetime* untuk sebuah
 *reference*, pikirkan apakah *reference* yang Anda miliki benar-benar hidup
 selama seluruh masa program Anda, dan apakah Anda menginginkannya. Sebagian
-besar waktu, pesan galat yang menyarankan *lifetime* `'static` muncul akibat
+besar waktu, pesan error yang menyarankan *lifetime* `'static` muncul akibat
 percobaan membuat *reference* menggantung atau ketidakcocokan *lifetime* yang
 tersedia. Dalam kasus seperti itu, solusinya adalah memperbaiki masalah
 tersebut, bukan menentukan *lifetime* `'static`.

@@ -144,14 +144,14 @@ fungsi.
 
 </Listing>
 
-Mengompilasi kode ini akan menghasilkan galat berikut:
+Mengompilasi kode ini akan menghasilkan error berikut:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
 ```
 
 Kode di Listing 8-6 mungkin terlihat seharusnya bekerja: mengapa *reference*
-ke elemen pertama harus peduli dengan perubahan di ujung vektor? Galat ini
+ke elemen pertama harus peduli dengan perubahan di ujung vektor? Error ini
 disebabkan oleh cara kerja vektor: karena vektor menempatkan nilai-nilai
 bersebelahan di memori, menambahkan elemen baru ke ujung vektor mungkin
 mengharuskan pengalokasian memori baru dan penyalinan elemen-elemen lama ke
@@ -199,7 +199,7 @@ di bagian [“Mengikuti Reference Menuju Nilai”][deref]<!-- ignore --> di Bab
 
 Mengiterasi vektor, baik secara *immutable* maupun *mutable*, aman karena aturan
 *borrow checker*. Jika kita mencoba memasukkan atau menghapus item di badan
-perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat galat
+perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat error
 *compiler* yang mirip dengan yang kita dapatkan pada kode di Listing 8-6.
 *Reference* ke vektor yang dipegang perulangan `for` mencegah modifikasi
 seluruh vektor secara bersamaan.
@@ -234,7 +234,7 @@ kompilasi supaya ia tahu persis berapa banyak memori di *heap* yang akan
 dibutuhkan untuk menyimpan setiap elemen. Kita juga harus eksplisit tentang
 tipe apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
 menampung tipe apa pun, ada kemungkinan satu tipe atau lebih menyebabkan
-galat pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
+error pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
 *enum* ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
 kompilasi bahwa setiap kasus yang mungkin tertangani, seperti yang dibahas
 di Bab 6.

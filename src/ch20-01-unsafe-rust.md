@@ -60,7 +60,7 @@ mengakses memori dengan cara yang valid.
 
 Manusia bisa salah dan kesalahan pasti akan terjadi, tetapi dengan
 mengharuskan lima operasi *unsafe* ini berada di dalam blok yang ditandai
-dengan `unsafe`, Anda akan tahu bahwa galat apa pun yang berkaitan dengan
+dengan `unsafe`, Anda akan tahu bahwa error apa pun yang berkaitan dengan
 keamanan memori pasti berada di dalam blok `unsafe`. Buatlah blok `unsafe`
 sekecil mungkin; Anda akan bersyukur nanti saat menyelidiki bug memori.
 
@@ -199,7 +199,7 @@ di tubuhnya:
 
 Kita harus memanggil fungsi `dangerous` di dalam blok `unsafe` yang terpisah.
 Jika kita berusaha memanggil `dangerous` tanpa blok `unsafe`, kita akan
-mendapat galat:
+mendapat error:
 
 ```console
 {{#include ../listings/ch20-advanced-features/output-only-01-missing-unsafe/output.txt}}
@@ -261,7 +261,7 @@ dari awal *slice* asli sampai indeks `mid`, dan satu lagi dari `mid` sampai
 akhir *slice*.
 
 Saat kita berusaha mengompilasi kode di Listing 20-5, kita akan mendapat
-galat:
+error:
 
 ```console
 {{#include ../listings/ch20-advanced-features/listing-20-05/output.txt}}
@@ -574,12 +574,12 @@ kita menjalankannya terhadap Listing 20-7.
 Miri memperingatkan kita dengan benar bahwa kita melakukan cast pada sebuah
 integer menjadi *pointer*, yang mungkin bermasalah, tetapi Miri tidak bisa
 menentukan apakah masalah itu benar ada karena ia tidak tahu bagaimana
-*pointer* itu berasal. Lalu, Miri mengembalikan galat di bagian Listing 20-7
+*pointer* itu berasal. Lalu, Miri mengembalikan error di bagian Listing 20-7
 yang memiliki perilaku tak terdefinisi karena kita memiliki *pointer*
 menggantung. Berkat Miri, sekarang kita tahu ada risiko perilaku tak
 terdefinisi, dan kita bisa memikirkan cara membuat kodenya aman. Dalam
 beberapa kasus, Miri bahkan bisa memberikan rekomendasi tentang cara
-memperbaiki galat.
+memperbaiki error.
 
 Miri tidak menangkap semua hal yang mungkin Anda lakukan salah saat menulis
 kode *unsafe*. Miri adalah alat analisis dinamis, jadi ia hanya menangkap

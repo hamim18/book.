@@ -50,7 +50,7 @@ Hebat! Kode tersebut membaca lalu mencetak isi file. Tetapi kode ini memiliki
 beberapa kelemahan. Saat ini, fungsi `main` memiliki banyak tanggung jawab:
 Secara umum, fungsi menjadi lebih jelas dan lebih mudah dirawat jika setiap
 fungsi hanya bertanggung jawab atas satu gagasan. Masalah lainnya adalah kita
-belum menangani galat sebaik mungkin. Program ini masih kecil, jadi
+belum menangani error sebaik mungkin. Program ini masih kecil, jadi
 kelemahan-kelemahan ini bukan masalah besar, tetapi seiring pertumbuhan
 program, akan semakin sulit untuk memperbaikinya secara bersih. Merupakan
 praktik yang baik untuk mulai melakukan refactoring sejak dini ketika

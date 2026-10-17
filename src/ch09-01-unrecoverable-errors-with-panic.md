@@ -1,4 +1,4 @@
-## Galat yang Tidak Dapat Dipulihkan dengan `panic!`
+## Error yang Tidak Dapat Dipulihkan dengan `panic!`
 
 Terkadang hal buruk terjadi di kode Anda, dan tidak ada yang dapat Anda
 lakukan untuk itu. Dalam kasus-kasus ini, Rust memiliki *macro* `panic!`. Ada
@@ -48,7 +48,7 @@ Ketika Anda menjalankan programnya, Anda akan melihat sesuatu seperti ini:
 {{#include ../listings/ch09-error-handling/no-listing-01-panic/output.txt}}
 ```
 
-Pemanggilan `panic!` menyebabkan pesan galat yang terdapat di dua baris
+Pemanggilan `panic!` menyebabkan pesan error yang terdapat di dua baris
 terakhir. Baris pertama menunjukkan pesan panic kita dan tempat di kode
 sumber kita tempat panic terjadi: _src/main.rs:2:5_ menunjukkan bahwa itu
 adalah baris kedua, karakter kelima dari file _src/main.rs_ kita.
@@ -56,7 +56,7 @@ adalah baris kedua, karakter kelima dari file _src/main.rs_ kita.
 Dalam kasus ini, baris yang ditunjukkan adalah bagian dari kode kita, dan
 jika kita pergi ke baris itu, kita melihat pemanggilan *macro* `panic!`. Dalam
 kasus lain, pemanggilan `panic!` mungkin berada di kode yang dipanggil kode
-kita, dan nama file serta nomor baris yang dilaporkan pesan galat akan
+kita, dan nama file serta nomor baris yang dilaporkan pesan error akan
 menjadi kode orang lain tempat *macro* `panic!` dipanggil, bukan baris kode
 kita yang akhirnya berujung ke pemanggilan `panic!`.
 
@@ -103,12 +103,12 @@ dan menolak melanjutkan. Mari kita mencobanya dan melihat hasilnya:
 {{#include ../listings/ch09-error-handling/listing-09-01/output.txt}}
 ```
 
-Galat ini menunjuk ke baris 4 dari _main.rs_ kita tempat kita mencoba
+Error ini menunjuk ke baris 4 dari _main.rs_ kita tempat kita mencoba
 mengakses indeks 99 dari vektor di `v`.
 
 Baris `note:` memberi tahu kita bahwa kita dapat menetapkan variabel
 lingkungan `RUST_BACKTRACE` untuk mendapatkan backtrace tentang apa yang
-persisnya terjadi sehingga menyebabkan galat. Sebuah *backtrace* adalah
+persisnya terjadi sehingga menyebabkan error. Sebuah *backtrace* adalah
 daftar semua fungsi yang telah dipanggil untuk sampai ke titik ini.
 Backtrace di Rust bekerja seperti di bahasa lain: kunci membaca backtrace
 adalah memulai dari atas dan membaca sampai Anda melihat file yang Anda
@@ -172,9 +172,9 @@ tindakan apa yang diambil kode dengan nilai apa sehingga menyebabkan panic
 dan apa yang seharusnya dilakukan kode sebagai gantinya.
 
 Kita akan kembali ke `panic!` dan kapan kita sebaiknya memakai dan tidak
-memakai `panic!` untuk menangani kondisi galat di bagian [“Untuk `panic!`
+memakai `panic!` untuk menangani kondisi error di bagian [“Untuk `panic!`
 atau Tidak `panic!`”][to-panic-or-not-to-panic]<!-- ignore --> nanti di bab
-ini. Berikutnya, kita akan melihat cara memulihkan diri dari galat memakai
+ini. Berikutnya, kita akan melihat cara memulihkan diri dari error memakai
 `Result`.
 
 [to-panic-or-not-to-panic]: ch09-03-to-panic-or-not-to-panic.html#to-panic-or-not-to-panic

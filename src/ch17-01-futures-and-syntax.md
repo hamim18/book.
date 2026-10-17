@@ -333,12 +333,12 @@ ini di setiap await point:
 ```
 
 Akan tetapi, menulis kode transisi antar-state secara manual akan melelahkan
-dan rawan galat, apalagi ketika nanti Anda perlu menambahkan fungsionalitas
+dan rawan error, apalagi ketika nanti Anda perlu menambahkan fungsionalitas
 dan state lain ke kode tersebut. Untungnya, kompilator Rust membuat dan
 mengelola struktur data state machine untuk kode async secara otomatis. Aturan
 peminjaman dan kepemilikan yang biasa pada struktur data tetap berlaku
 seluruhnya, dan syukurlah, kompilator juga menangani pemeriksaannya untuk kita
-serta memberikan pesan galat yang bermanfaat. Kita akan menelusuri beberapa di
+serta memberikan pesan error yang bermanfaat. Kita akan menelusuri beberapa di
 antaranya nanti di bab ini.
 
 Pada akhirnya, ada sesuatu yang harus menjalankan state machine ini, dan

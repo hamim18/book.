@@ -408,7 +408,7 @@ kita tidak mendapat peringatan tentang tidak memakai `_x`.
 Perhatikan bahwa ada perbedaan halus antara memakai `_` saja dan memakai nama
 yang diawali underscore. Sintaks `_x` tetap mengikat nilainya ke variabel,
 sedangkan `_` tidak mengikat sama sekali. Untuk menunjukkan kasus ketika
-perbedaan ini penting, Listing 19-21 akan memberi kita galat.
+perbedaan ini penting, Listing 19-21 akan memberi kita error.
 
 <Listing number="19-21" caption="Variabel tidak terpakai yang diawali underscore tetap mengikat nilainya, yang bisa mengambil kepemilikan nilai itu.">
 
@@ -418,10 +418,10 @@ perbedaan ini penting, Listing 19-21 akan memberi kita galat.
 
 </Listing>
 
-Kita akan menerima galat karena nilai `s` tetap akan dipindahkan ke `_s`,
+Kita akan menerima error karena nilai `s` tetap akan dipindahkan ke `_s`,
 yang mencegah kita memakai `s` lagi. Akan tetapi, memakai underscore saja
 tidak pernah mengikat ke nilainya. Listing 19-22 akan terkompilasi tanpa
-galat apa pun karena `s` tidak dipindahkan ke `_`.
+error apa pun karena `s` tidak dipindahkan ke `_`.
 
 <Listing number="19-22" caption="Memakai underscore tidak mengikat nilainya.">
 
@@ -475,7 +475,7 @@ Pada kode ini, nilai pertama dan terakhir dicocokkan dengan `first` dan
 
 Akan tetapi, pemakaian `..` harus tidak ambigu. Jika tidak jelas nilai mana
 yang dimaksudkan untuk dicocokkan dan mana yang harus diabaikan, Rust akan
-memberi kita galat. Listing 19-25 menunjukkan contoh pemakaian `..` secara
+memberi kita error. Listing 19-25 menunjukkan contoh pemakaian `..` secara
 ambigu, jadi kode ini tidak akan terkompilasi.
 
 <Listing number="19-25" file-name="src/main.rs" caption="Upaya memakai `..` dengan cara yang ambigu">
@@ -486,7 +486,7 @@ ambigu, jadi kode ini tidak akan terkompilasi.
 
 </Listing>
 
-Ketika kita mengompilasi contoh ini, kita mendapat galat ini:
+Ketika kita mengompilasi contoh ini, kita mendapat error ini:
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-25/output.txt}}
@@ -499,7 +499,7 @@ berarti kita ingin mengabaikan `2`, mengikat `second` ke `4`, lalu
 mengabaikan `8`, `16`, dan `32`; atau kita ingin mengabaikan `2` dan `4`,
 mengikat `second` ke `8`, lalu mengabaikan `16` dan `32`; dan seterusnya.
 Nama variabel `second` tidak berarti apa-apa secara khusus bagi Rust, jadi
-kita mendapat galat kompilator karena memakai `..` di dua tempat seperti ini
+kita mendapat error kompilator karena memakai `..` di dua tempat seperti ini
 bersifat ambigu.
 
 <!-- Old headings. Do not remove or links may break. -->

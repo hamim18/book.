@@ -108,7 +108,7 @@ publiknya.
 Mirip dengan cara kita memakai pengembangan yang digerakkan oleh pengujian
 di proyek Bab 12, di sini kita akan memakai *compiler-driven development*
 (pengembangan yang digerakkan oleh kompilator). Kita akan menulis kode yang
-memanggil fungsi-fungsi yang kita inginkan, lalu kita akan melihat galat
+memanggil fungsi-fungsi yang kita inginkan, lalu kita akan melihat error
 dari kompilator untuk menentukan apa yang harus kita ubah berikutnya agar
 kodenya bekerja. Namun, sebelum kita melakukannya, kita akan mengeksplorasi
 teknik yang tidak akan kita pakai sebagai titik awal.
@@ -188,14 +188,14 @@ kita dalam memperbaikinya.
 #### Membangun `ThreadPool` dengan Compiler-Driven Development
 
 Buat perubahan di Listing 21-12 pada _src/main.rs_, lalu mari kita pakai
-galat kompilator dari `cargo check` untuk mendorong pengembangan kita.
-Berikut galat pertama yang kita dapat:
+error kompilator dari `cargo check` untuk mendorong pengembangan kita.
+Berikut error pertama yang kita dapat:
 
 ```console
 {{#include ../listings/ch21-web-server/listing-21-12/output.txt}}
 ```
 
-Bagus! Galat ini memberi tahu kita bahwa kita memerlukan tipe atau *module*
+Bagus! Error ini memberi tahu kita bahwa kita memerlukan tipe atau *module*
 `ThreadPool`, jadi sekarang kita akan membangunnya. Implementasi
 `ThreadPool` kita akan tidak bergantung pada jenis pekerjaan yang dilakukan
 server web kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
@@ -229,13 +229,13 @@ _src/main.rs_:
 </Listing>
 
 Kode ini tetap belum akan bekerja, tetapi mari kita periksa lagi untuk
-mendapatkan galat berikutnya yang perlu kita tangani:
+mendapatkan error berikutnya yang perlu kita tangani:
 
 ```console
 {{#include ../listings/ch21-web-server/no-listing-01-define-threadpool-struct/output.txt}}
 ```
 
-Galat ini menunjukkan bahwa berikutnya kita perlu membuat associated
+Error ini menunjukkan bahwa berikutnya kita perlu membuat associated
 function bernama `new` untuk `ThreadPool`. Kita juga tahu bahwa `new` perlu
 memiliki satu parameter yang bisa menerima `4` sebagai argumen dan
 seharusnya mengembalikan instance `ThreadPool`. Mari kita implementasikan
@@ -261,7 +261,7 @@ Mari kita periksa kodenya lagi:
 {{#include ../listings/ch21-web-server/no-listing-02-impl-threadpool-new/output.txt}}
 ```
 
-Sekarang galatnya muncul karena kita tidak punya metode `execute` pada
+Sekarang errornya muncul karena kita tidak punya metode `execute` pada
 `ThreadPool`. Ingat kembali dari seksi [“Membuat Thread dalam Jumlah
 Terbatas”](#creating-a-finite-number-of-threads)<!-- ignore --> bahwa kita
 memutuskan *thread pool* kita seharusnya memiliki antarmuka yang mirip dengan
@@ -327,7 +327,7 @@ kode kita terkompilasi. Mari kita periksa lagi:
 ```
 
 Ia terkompilasi! Tetapi perhatikan bahwa jika Anda mencoba `cargo run` dan
-membuat permintaan di peramban, Anda akan melihat galat-galat di peramban
+membuat permintaan di peramban, Anda akan melihat error-error di peramban
 yang kita lihat di awal bab ini. Library kita belum benar-benar memanggil
 *closure* yang diberikan ke `execute`!
 
@@ -375,7 +375,7 @@ Alih-alih menambahkan *macro* `assert!` seperti yang kita lakukan di sini,
 kita bisa mengubah `new` menjadi `build` dan mengembalikan `Result` seperti
 yang kita lakukan dengan `Config::build` di proyek I/O pada Listing 12-9.
 Tetapi dalam kasus ini kita memutuskan bahwa mencoba membuat *thread pool*
-tanpa thread apa pun seharusnya merupakan galat yang tidak dapat
+tanpa thread apa pun seharusnya merupakan error yang tidak dapat
 dipulihkan. Jika Anda merasa tertantang, cobalah menulis fungsi bernama
 `build` dengan tanda tangan berikut untuk dibandingkan dengan fungsi `new`:
 
@@ -582,7 +582,7 @@ terkompilasi.
 Kita telah membuat beberapa perubahan kecil dan langsung: Kita memberikan
 penerima itu ke `Worker::new`, lalu kita memakainya di dalam *closure*.
 
-Ketika kita mencoba memeriksa kode ini, kita mendapat galat ini:
+Ketika kita mencoba memeriksa kode ini, kita mendapat error ini:
 
 ```console
 {{#include ../listings/ch21-web-server/listing-21-17/output.txt}}
@@ -666,16 +666,16 @@ ia mendapatkannya. Mari kita buat perubahan yang ditunjukkan di Listing
 </Listing>
 
 Di sini, pertama-tama kita memanggil `lock` pada `receiver` untuk
-memperoleh mutex-nya, lalu kita memanggil `unwrap` untuk panic pada galat
+memperoleh mutex-nya, lalu kita memanggil `unwrap` untuk panic pada error
 apa pun. Memperoleh kunci bisa gagal jika mutex berada dalam keadaan
 *poisoned* (teracuni), yang bisa terjadi jika thread lain panic saat masih
 memegang kunci alih-alih melepaskan kuncinya. Dalam situasi ini, memanggil
 `unwrap` untuk membuat thread ini panic adalah tindakan yang tepat.
-Silakan mengubah `unwrap` ini menjadi `expect` dengan pesan galat yang
+Silakan mengubah `unwrap` ini menjadi `expect` dengan pesan error yang
 bermakna bagi Anda.
 
 Jika kita mendapatkan kunci pada mutex itu, kita memanggil `recv` untuk
-menerima `Job` dari *channel*. `unwrap` terakhir melewati galat apa pun di
+menerima `Job` dari *channel*. `unwrap` terakhir melewati error apa pun di
 sini juga, yang bisa terjadi jika thread yang memegang pengirim telah
 berhenti, mirip dengan cara metode `send` mengembalikan `Err` jika
 penerimanya berhenti.

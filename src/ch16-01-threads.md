@@ -213,7 +213,7 @@ yang akan Anda lihat sebentar lagi.
 *Closure* itu memakai `v`, jadi ia akan menangkap `v` dan menjadikannya bagian
 dari lingkungan *closure*. Karena `thread::spawn` menjalankan *closure* ini di
 thread baru, seharusnya kita dapat mengakses `v` di dalam thread baru itu.
-Tetapi ketika kita mengompilasi contoh ini, kita mendapat galat berikut:
+Tetapi ketika kita mengompilasi contoh ini, kita mendapat error berikut:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-03/output.txt}}
@@ -242,8 +242,8 @@ utama langsung membebaskan `v`, memakai fungsi `drop` yang kita bahas di Bab
 15. Kemudian, ketika thread yang dibuat mulai mengeksekusi, `v` tidak lagi
 valid, jadi *reference* padanya juga tidak valid. Waduh!
 
-Untuk memperbaiki galat kompilator di Listing 16-3, kita dapat memakai saran
-dari pesan galat itu:
+Untuk memperbaiki error kompilator di Listing 16-3, kita dapat memakai saran
+dari pesan error itu:
 
 <!-- manual-regeneration
 after automatic regeneration, look at listings/ch16-fearless-concurrency/listing-16-03/output.txt and copy the relevant part
@@ -276,13 +276,13 @@ Namun, perbaikan ini tidak akan berhasil karena apa yang coba dilakukan
 Listing 16-4 dilarang karena alasan yang berbeda. Jika kita menambahkan
 `move` ke *closure* itu, kita akan memindahkan `v` ke lingkungan *closure*, dan
 kita tidak bisa lagi memanggil `drop` padanya di thread utama. Kita akan
-mendapat galat kompilator ini sebagai gantinya:
+mendapat error kompilator ini sebagai gantinya:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/output-only-01-move-drop/output.txt}}
 ```
 
-Aturan *ownership* Rust telah menyelamatkan kita lagi! Kita mendapat galat dari
+Aturan *ownership* Rust telah menyelamatkan kita lagi! Kita mendapat error dari
 kode di Listing 16-3 karena Rust bersikap konservatif dan hanya meminjam `v`
 untuk thread itu, yang berarti thread utama secara teoretis bisa membatalkan
 validitas *reference* thread yang dibuat. Dengan menyuruh Rust memindahkan

@@ -65,8 +65,8 @@ Fungsi `bind` mengembalikan `Result<T, E>`, yang menunjukkan bahwa
 pengikatan bisa saja gagal, misalnya, jika kita menjalankan dua instance
 program kita sehingga ada dua program yang mendengarkan port yang sama.
 Karena kita menulis server dasar hanya untuk tujuan belajar, kita tidak
-akan memusingkan penanganan galat semacam ini; sebagai gantinya, kita
-memakai `unwrap` untuk menghentikan program jika terjadi galat.
+akan memusingkan penanganan error semacam ini; sebagai gantinya, kita
+memakai `unwrap` untuk menghentikan program jika terjadi error.
 
 Metode `incoming` pada `TcpListener` mengembalikan *iterator* yang memberi
 kita urutan *stream* (lebih tepatnya, *stream* bertipe `TcpStream`). Sebuah
@@ -80,20 +80,20 @@ akan memproses setiap koneksi secara bergiliran dan menghasilkan
 serangkaian *stream* untuk kita tangani.
 
 Untuk saat ini, penanganan *stream* kita terdiri dari memanggil `unwrap`
-untuk mengakhiri program kita jika *stream* itu memiliki galat; jika tidak
-ada galat, program akan mencetak pesan. Kita akan menambahkan lebih banyak
+untuk mengakhiri program kita jika *stream* itu memiliki error; jika tidak
+ada error, program akan mencetak pesan. Kita akan menambahkan lebih banyak
 fungsionalitas untuk kasus sukses di listing berikutnya. Alasan kita
-mungkin menerima galat dari metode `incoming` saat client terhubung ke
+mungkin menerima error dari metode `incoming` saat client terhubung ke
 server adalah bahwa kita sebenarnya tidak mengiterasi koneksi. Sebaliknya,
 kita mengiterasi *percobaan koneksi*. Koneksi itu mungkin tidak berhasil
 karena sejumlah alasan, banyak di antaranya spesifik untuk sistem operasi.
 Misalnya, banyak sistem operasi memiliki batas jumlah koneksi terbuka
 serentak yang bisa mereka dukung; percobaan koneksi baru di luar jumlah itu
-akan menghasilkan galat sampai sebagian koneksi yang terbuka ditutup.
+akan menghasilkan error sampai sebagian koneksi yang terbuka ditutup.
 
 Mari kita coba menjalankan kode ini! Jalankan `cargo run` di terminal lalu
 muat _127.0.0.1:7878_ di peramban web. Peramban seharusnya menampilkan
-pesan galat seperti “Connection reset” karena server saat ini tidak
+pesan error seperti “Connection reset” karena server saat ini tidak
 mengirimkan data apa pun kembali. Tetapi saat Anda melihat terminal Anda,
 Anda seharusnya melihat beberapa pesan yang dicetak saat peramban terhubung
 ke server!
@@ -172,10 +172,10 @@ dengan menambahkan anotasi tipe `Vec<_>`.
 metode `lines`. Metode `lines` mengembalikan iterator `Result<String,
 std::io::Error>` dengan membelah stream data setiap kali ia melihat byte
 newline. Untuk mendapatkan setiap `String`, kita me-`map` dan me-`unwrap`
-setiap `Result`. `Result` itu mungkin galat jika datanya bukan UTF-8 yang
+setiap `Result`. `Result` itu mungkin error jika datanya bukan UTF-8 yang
 valid atau jika ada masalah saat membaca dari *stream*. Sekali lagi, program
-produksi seharusnya menangani galat-galat ini dengan lebih baik, tetapi
-kita memilih untuk menghentikan program pada kasus galat demi
+produksi seharusnya menangani error-error ini dengan lebih baik, tetapi
+kita memilih untuk menghentikan program pada kasus error demi
 kesederhanaan.
 
 Peramban menandakan akhir sebuah permintaan HTTP dengan mengirim dua
@@ -186,7 +186,7 @@ vektor, kita mencetaknya dengan format debug yang rapi supaya kita bisa
 melihat instruksi yang dikirim peramban web ke server kita.
 
 Mari kita coba kode ini! Mulai programnya dan buat permintaan di peramban
-web lagi. Perhatikan bahwa kita tetap akan mendapat halaman galat di
+web lagi. Perhatikan bahwa kita tetap akan mendapat halaman error di
 peramban, tetapi output program kita di terminal sekarang akan tampak mirip
 seperti ini:
 
@@ -323,14 +323,14 @@ pesan sukses. Lalu, kita memanggil `as_bytes` pada `response` kita untuk
 mengubah data string itu menjadi byte. Metode `write_all` pada `stream`
 menerima `&[u8]` dan mengirim byte-byte itu langsung melalui koneksi.
 Karena operasi `write_all` bisa gagal, kita memakai `unwrap` pada hasil
-galat apa pun seperti sebelumnya. Sekali lagi, dalam aplikasi sungguhan,
-Anda akan menambahkan penanganan galat di sini.
+error apa pun seperti sebelumnya. Sekali lagi, dalam aplikasi sungguhan,
+Anda akan menambahkan penanganan error di sini.
 
 Dengan perubahan ini, mari kita jalankan kode kita dan buat permintaan.
 Kita tidak lagi mencetak data apa pun ke terminal, jadi kita tidak akan
 melihat output selain output dari Cargo. Saat Anda memuat
 _127.0.0.1:7878_ di peramban web, Anda seharusnya mendapat halaman kosong,
-bukan galat. Anda baru saja menulis dengan tangan penerimaan permintaan
+bukan error. Anda baru saja menulis dengan tangan penerimaan permintaan
 HTTP dan pengiriman respons!
 
 ### Mengembalikan HTML Sungguhan
@@ -389,7 +389,7 @@ yang *well-formed* ke _/_.
 Saat ini, server web kita akan mengembalikan HTML di file itu apa pun yang
 diminta client. Mari kita tambahkan fungsionalitas untuk memeriksa bahwa
 peramban meminta _/_ sebelum mengembalikan file HTML itu dan untuk
-mengembalikan galat jika peramban meminta apa pun selain itu. Untuk ini,
+mengembalikan error jika peramban meminta apa pun selain itu. Untuk ini,
 kita perlu mengubah `handle_connection`, seperti yang ditunjukkan di
 Listing 21-6. Kode baru ini memeriksa isi permintaan yang diterima
 dibandingkan dengan apa yang kita tahu tentang tampilan permintaan ke _/_,
@@ -421,7 +421,7 @@ kode ke blok `else` untuk merespons semua permintaan lainnya.
 
 Jalankan kode ini sekarang dan minta _127.0.0.1:7878_; Anda seharusnya
 mendapat HTML di _hello.html_. Jika Anda membuat permintaan lain, seperti
-_127.0.0.1:7878/something-else_, Anda akan mendapat galat koneksi seperti
+_127.0.0.1:7878/something-else_, Anda akan mendapat error koneksi seperti
 yang Anda lihat saat menjalankan kode di Listing 21-1 dan Listing 21-2.
 
 Sekarang mari kita tambahkan kode di Listing 21-7 ke blok `else` untuk
@@ -430,7 +430,7 @@ untuk permintaan itu tidak ditemukan. Kita juga akan mengembalikan
 sebagian HTML untuk halaman yang dirender di peramban yang menunjukkan
 respons itu kepada pengguna akhir.
 
-<Listing number="21-7" file-name="src/main.rs" caption="Merespons dengan kode status 404 dan halaman galat jika yang diminta bukan */*">
+<Listing number="21-7" file-name="src/main.rs" caption="Merespons dengan kode status 404 dan halaman error jika yang diminta bukan */*">
 
 ```rust,no_run
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-07/src/main.rs:here}}
@@ -441,7 +441,7 @@ respons itu kepada pengguna akhir.
 Di sini, respons kita memiliki baris status dengan kode status 404 dan
 frasa alasan `NOT FOUND`. Isi responsnya adalah HTML di file _404.html_.
 Anda perlu membuat file _404.html_ di samping _hello.html_ untuk halaman
-galat itu; sekali lagi, silakan memakai HTML apa pun yang Anda mau, atau
+error itu; sekali lagi, silakan memakai HTML apa pun yang Anda mau, atau
 pakai contoh HTML di Listing 21-8.
 
 <Listing number="21-8" file-name="404.html" caption="Contoh konten untuk halaman yang dikirim bersama respons 404 apa pun">
@@ -455,7 +455,7 @@ pakai contoh HTML di Listing 21-8.
 Dengan perubahan ini, jalankan server Anda lagi. Meminta
 _127.0.0.1:7878_ seharusnya mengembalikan isi _hello.html_, dan permintaan
 lain apa pun, seperti _127.0.0.1:7878/foo_, seharusnya mengembalikan HTML
-galat dari _404.html_.
+error dari _404.html_.
 
 <!-- Old headings. Do not remove or links may break. -->
 

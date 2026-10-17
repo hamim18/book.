@@ -85,7 +85,7 @@ akan berhasil!
 
 </Listing>
 
-Berikut galatnya:
+Berikut errornya:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}
@@ -128,13 +128,13 @@ reference* ke `s` akan gagal:
 
 </Listing>
 
-Berikut galatnya:
+Berikut errornya:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/output.txt}}
 ```
 
-Galat ini menyatakan bahwa kode ini tidak valid karena kita tidak boleh
+Error ini menyatakan bahwa kode ini tidak valid karena kita tidak boleh
 meminjam `s` sebagai *mutable* lebih dari sekali pada satu waktu. Pinjaman
 *mutable* pertama ada di `r1` dan harus bertahan sampai ia digunakan di dalam
 `println!`, tetapi di antara pembuatan *mutable reference* itu dan
@@ -169,13 +169,13 @@ _bersamaan_:
 ```
 
 Rust memberlakukan aturan serupa untuk penggabungan *mutable reference* dan
-*immutable reference*. Kode ini menghasilkan galat:
+*immutable reference*. Kode ini menghasilkan error:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/src/main.rs:here}}
 ```
 
-Berikut galatnya:
+Berikut errornya:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}
@@ -205,7 +205,7 @@ dibuat. Kedua *scope* ini tidak saling tumpang tindih, jadi kode ini
 diizinkan: *compiler* dapat mengetahui bahwa *reference* tersebut tidak lagi
 digunakan pada titik sebelum akhir *scope*.
 
-Meskipun galat *borrowing* kadang membuat frustrasi, ingatlah bahwa
+Meskipun error *borrowing* kadang membuat frustrasi, ingatlah bahwa
 *compiler* Rust sedang menunjukkan potensi bug sejak dini (pada saat
 kompilasi, bukan pada saat *runtime*) dan menunjukkan dengan tepat di mana
 letak masalahnya. Dengan begitu, Anda tidak perlu melacak mengapa data Anda
@@ -223,7 +223,7 @@ suatu data, *compiler* akan memastikan bahwa data tersebut tidak akan keluar
 dari *scope* sebelum *reference* ke data itu keluar.
 
 Mari kita coba membuat *dangling reference* untuk melihat bagaimana Rust
-mencegahnya dengan galat waktu kompilasi:
+mencegahnya dengan error waktu kompilasi:
 
 <Listing file-name="src/main.rs">
 
@@ -233,13 +233,13 @@ mencegahnya dengan galat waktu kompilasi:
 
 </Listing>
 
-Berikut galatnya:
+Berikut errornya:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/output.txt}}
 ```
 
-Pesan galat ini merujuk pada sebuah fitur yang belum kita bahas: *lifetime*
+Pesan error ini merujuk pada sebuah fitur yang belum kita bahas: *lifetime*
 (masa hidup). Kita akan membahas *lifetime* secara mendetail di Bab 10.
 Namun, jika Anda mengabaikan bagian-bagian tentang *lifetime*, pesan ini
 memang memuat kunci mengapa kode ini bermasalah:

@@ -107,8 +107,8 @@ berhasil mengubah `i32` bagian dalam menjadi `6`.
 Sekarang mari kita coba berbagi nilai di antara beberapa thread menggunakan
 `Mutex<T>`. Kita akan menjalankan 10 thread dan menyuruh masing-masing
 menambah nilai pencacah sebesar 1, sehingga pencacahnya bergerak dari 0 ke
-10. Contoh di Listing 16-13 akan menghasilkan galat kompilator, dan kita akan
-memakai galat itu untuk belajar lebih banyak tentang pemakaian `Mutex<T>` dan
+10. Contoh di Listing 16-13 akan menghasilkan error kompilator, dan kita akan
+memakai error itu untuk belajar lebih banyak tentang pemakaian `Mutex<T>` dan
 bagaimana Rust membantu kita memakainya dengan benar.
 
 <Listing number="16-13" file-name="src/main.rs" caption="Sepuluh thread, masing-masing menambah pencacah yang dijaga oleh `Mutex<T>`">
@@ -140,10 +140,10 @@ mari kita cari tahu alasannya!
 {{#include ../listings/ch16-fearless-concurrency/listing-16-13/output.txt}}
 ```
 
-Pesan galat itu menyatakan bahwa nilai `counter` telah dipindahkan pada
+Pesan error itu menyatakan bahwa nilai `counter` telah dipindahkan pada
 iterasi perulangan sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
 memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
-galat kompilator itu dengan metode *ownership* ganda yang kita bahas di Bab 15.
+error kompilator itu dengan metode *ownership* ganda yang kita bahas di Bab 15.
 
 #### Kepemilikan Ganda dengan Banyak Thread
 
@@ -161,14 +161,14 @@ memindahkan *ownership* ke thread.
 
 </Listing>
 
-Sekali lagi, kita mengompilasi dan mendapat... galat yang berbeda! Kompilator
+Sekali lagi, kita mengompilasi dan mendapat... error yang berbeda! Kompilator
 sedang mengajari kita banyak hal:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-14/output.txt}}
 ```
 
-Wah, pesan galat itu panjang lebar sekali! Berikut bagian penting yang perlu
+Wah, pesan error itu panjang lebar sekali! Berikut bagian penting yang perlu
 difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
 Kompilator juga memberi tahu alasannya: `` the trait `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
@@ -254,7 +254,7 @@ mengizinkan kita mengubah isi di dalam `Rc<T>`, kita memakai `Mutex<T>` untuk
 mengubah isi di dalam `Arc<T>`.
 
 Detail lain yang perlu dicatat adalah bahwa Rust tidak bisa melindungi Anda
-dari semua jenis galat logika ketika Anda memakai `Mutex<T>`. Ingat dari Bab
+dari semua jenis error logika ketika Anda memakai `Mutex<T>`. Ingat dari Bab
 15 bahwa memakai `Rc<T>` datang dengan risiko menciptakan *reference cycle*,
 ketika dua nilai `Rc<T>` saling merujuk, menyebabkan kebocoran memori.
 Demikian pula, `Mutex<T>` datang dengan risiko menciptakan deadlock. Ini

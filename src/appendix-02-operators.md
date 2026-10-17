@@ -70,7 +70,7 @@ meng-overload operator itu dicantumkan.
 | <code>&vert;</code>       | <code>expr &vert; expr</code>                           | OR bitwise                                                                     | `BitOr`            |
 | <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan penetapan                                                       | `BitOrAssign`      |
 | <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan evaluasi hubung singkat                                        |                    |
-| `?`                       | `expr?`                                                 | Penerusan galat                                                                |                    |
+| `?`                       | `expr?`                                                 | Penerusan error                                                                |                    |
 
 ### Simbol Non-operator
 

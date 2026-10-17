@@ -97,7 +97,7 @@ bahwa ia akan tetap valid di masa mendatang. Perhatikan program pada Listing
 
 </Listing>
 
-Program ini terkompilasi tanpa galat apa pun, dan tetap akan terkompilasi
+Program ini terkompilasi tanpa error apa pun, dan tetap akan terkompilasi
 jika kita menggunakan `word` setelah memanggil `s.clear()`. Karena `word`
 sama sekali tidak terhubung dengan keadaan `s`, `word` tetap berisi nilai
 `5`. Kita bisa menggunakan nilai `5` itu bersama variabel `s` untuk mencoba
@@ -105,7 +105,7 @@ mengekstrak kata pertama, tetapi ini akan menjadi sebuah bug karena isi `s`
 telah berubah sejak kita menyimpan `5` di `word`.
 
 Harus mengkhawatirkan indeks di `word` yang bisa tidak sinkron dengan data di
-`s` itu melelahkan dan rawan galat! Mengelola indeks-indeks ini bahkan lebih
+`s` itu melelahkan dan rawan error! Mengelola indeks-indeks ini bahkan lebih
 rapuh jika kita menulis fungsi `second_word`. *Signature*-nya harus terlihat
 seperti ini:
 
@@ -190,7 +190,7 @@ let slice = &s[..];
 
 > Catatan: Indeks rentang *string slice* harus berada pada batas karakter
 > UTF-8 yang valid. Jika Anda mencoba membuat *string slice* di tengah-tengah
-> karakter multibyte, program Anda akan keluar dengan galat.
+> karakter multibyte, program Anda akan keluar dengan error.
 
 Dengan semua informasi ini, mari kita tulis ulang `first_word` agar
 mengembalikan sebuah *slice*. Tipe yang menandakan “string *slice*” ditulis
@@ -225,11 +225,11 @@ karena *compiler* akan memastikan bahwa *reference* ke dalam `String` tetap
 valid. Masih ingat bug pada program di Listing 4-8, ketika kita mendapatkan
 indeks akhir kata pertama tetapi lalu mengosongkan *string* sehingga indeks
 kita menjadi tidak valid? Kode itu salah secara logika tetapi tidak langsung
-menunjukkan galat. Masalahnya baru akan muncul belakangan jika kita terus
+menunjukkan error. Masalahnya baru akan muncul belakangan jika kita terus
 mencoba menggunakan indeks kata pertama dengan *string* yang telah
 dikosongkan. *Slice* membuat bug ini mustahil terjadi dan memberi tahu kita
 jauh lebih cepat bahwa ada masalah pada kode kita. Versi *slice* dari
-`first_word` akan melemparkan galat waktu kompilasi:
+`first_word` akan melemparkan error waktu kompilasi:
 
 <Listing file-name="src/main.rs">
 
@@ -239,7 +239,7 @@ jauh lebih cepat bahwa ada masalah pada kode kita. Versi *slice* dari
 
 </Listing>
 
-Berikut galat dari *compiler*:
+Berikut error dari *compiler*:
 
 ```console
 {{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
@@ -253,7 +253,7 @@ setelah pemanggilan `clear` menggunakan *reference* di dalam `word`, jadi
 melarang *mutable reference* di `clear` dan *immutable reference* di `word`
 untuk ada pada saat yang sama, dan kompilasi pun gagal. Rust tidak hanya
 membuat API kita lebih mudah digunakan, tetapi juga telah menghilangkan
-seluruh golongan galat pada saat kompilasi!
+seluruh golongan error pada saat kompilasi!
 
 <!-- Old headings. Do not remove or links may break. -->
 

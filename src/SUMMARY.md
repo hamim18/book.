@@ -45,9 +45,9 @@
   - [Menyimpan Teks Terenkode UTF-8 dengan String](ch08-02-strings.md)
   - [Menyimpan Kunci dengan Nilai yang Terkait di dalam Hash Map](ch08-03-hash-maps.md)
 
-- [Penanganan Galat](ch09-00-error-handling.md)
-  - [Galat yang Tidak Dapat Dipulihkan dengan `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
-  - [Galat yang Dapat Dipulihkan dengan `Result`](ch09-02-recoverable-errors-with-result.md)
+- [Penanganan Error](ch09-00-error-handling.md)
+  - [Error yang Tidak Dapat Dipulihkan dengan `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
+  - [Error yang Dapat Dipulihkan dengan `Result`](ch09-02-recoverable-errors-with-result.md)
   - [Untuk `panic!` atau Tidak `panic!`](ch09-03-to-panic-or-not-to-panic.md)
 
 - [Tipe Generik, Trait, dan Lifetime](ch10-00-generics.md)
@@ -63,10 +63,10 @@
 - [Proyek I/O: Membangun Program Baris Perintah](ch12-00-an-io-project.md)
   - [Menerima Argumen Baris Perintah](ch12-01-accepting-command-line-arguments.md)
   - [Membaca File](ch12-02-reading-a-file.md)
-  - [Refactoring untuk Meningkatkan Modularitas dan Penanganan Galat](ch12-03-improving-error-handling-and-modularity.md)
+  - [Refactoring untuk Meningkatkan Modularitas dan Penanganan Error](ch12-03-improving-error-handling-and-modularity.md)
   - [Menambahkan Fungsionalitas dengan Test-Driven Development](ch12-04-testing-the-librarys-functionality.md)
   - [Bekerja dengan Variabel Lingkungan](ch12-05-working-with-environment-variables.md)
-  - [Mengalihkan Galat ke Standard Error](ch12-06-writing-to-stderr-instead-of-stdout.md)
+  - [Mengalihkan Error ke Standard Error](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
 - [Fitur Bahasa Fungsional: Iterator dan Closure](ch13-00-functional-features.md)
   - [Closure](ch13-01-closures.md)

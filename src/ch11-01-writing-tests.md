@@ -452,7 +452,7 @@ kita dapatkan dari fungsi `greeting`:
 ```
 
 Sekarang ketika kita menjalankan pengujian, kita akan mendapatkan pesan
-galat yang lebih informatif:
+error yang lebih informatif:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
@@ -465,7 +465,7 @@ yang kita harapkan terjadi.
 ### Memeriksa Panic dengan `should_panic`
 
 Selain memeriksa nilai kembalian, penting untuk memeriksa bahwa kode kita
-menangani kondisi galat seperti yang kita harapkan. Sebagai contoh,
+menangani kondisi error seperti yang kita harapkan. Sebagai contoh,
 perhatikan tipe `Guess` yang kita buat di Bab 9, Listing 9-13. Kode lain
 yang memakai `Guess` bergantung pada jaminan bahwa instance `Guess` hanya
 akan berisi nilai antara 1 dan 100. Kita bisa menulis pengujian yang
@@ -476,7 +476,7 @@ Kita melakukannya dengan menambahkan atribut `should_panic` ke fungsi
 pengujian kita. Pengujian lulus jika kode di dalam fungsi itu panic;
 pengujian gagal jika kode di dalam fungsi itu tidak panic.
 
-Listing 11-8 menunjukkan pengujian yang memeriksa bahwa kondisi galat
+Listing 11-8 menunjukkan pengujian yang memeriksa bahwa kondisi error
 `Guess::new` terjadi ketika kita mengharapkannya.
 
 <Listing number="11-8" file-name="src/lib.rs" caption="Menguji bahwa sebuah kondisi akan menyebabkan `panic!`">

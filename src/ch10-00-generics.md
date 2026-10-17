@@ -81,7 +81,7 @@ program, seperti yang ditunjukkan di Listing 10-2.
 </Listing>
 
 Meskipun kode ini berfungsi, menduplikasi kode itu melelahkan dan rawan
-galat. Kita juga harus ingat untuk memperbarui kode di banyak tempat ketika
+error. Kita juga harus ingat untuk memperbarui kode di banyak tempat ketika
 kita ingin mengubahnya.
 
 Untuk menghilangkan duplikasi ini, kita akan membuat sebuah abstraksi dengan

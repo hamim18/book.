@@ -104,7 +104,7 @@ fn match(needle: &str, haystack: &str) -> bool {
 }
 ```
 
-Anda akan mendapatkan galat berikut:
+Anda akan mendapatkan error berikut:
 
 ```text
 error: expected identifier, found keyword `match`
@@ -114,7 +114,7 @@ error: expected identifier, found keyword `match`
   |    ^^^^^ expected identifier, found keyword
 ```
 
-Galat tersebut menunjukkan bahwa Anda tidak dapat memakai kata kunci `match`
+Error tersebut menunjukkan bahwa Anda tidak dapat memakai kata kunci `match`
 sebagai identifier fungsi. Untuk memakai `match` sebagai nama fungsi, Anda perlu
 memakai sintaks *raw identifier*, seperti ini:
 
@@ -130,7 +130,7 @@ fn main() {
 }
 ```
 
-Kode ini akan terkompilasi tanpa galat apa pun. Perhatikan prefiks `r#` pada
+Kode ini akan terkompilasi tanpa error apa pun. Perhatikan prefiks `r#` pada
 nama fungsi, baik pada definisinya maupun pada tempat fungsi itu dipanggil di
 dalam `main`.
 

@@ -19,7 +19,7 @@ let guess: u32 = "42".parse().expect("Not a number!");
 ```
 
 Jika kita tidak menambahkan anotasi tipe `: u32` yang ditunjukkan pada kode
-sebelumnya, Rust akan menampilkan galat berikut, yang berarti *compiler*
+sebelumnya, Rust akan menampilkan error berikut, yang berarti *compiler*
 membutuhkan lebih banyak informasi dari kita untuk mengetahui tipe mana yang
 ingin kita pakai:
 
@@ -110,8 +110,8 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 > dapat menghasilkan salah satu dari dua perilaku. Ketika Anda mengompilasi
 > dalam mode debug, Rust menyertakan pemeriksaan integer overflow yang membuat
 > program Anda panic pada saat runtime jika perilaku ini terjadi. Rust memakai
-> istilah _panicking_ ketika sebuah program keluar dengan galat; kita akan
-> membahas panic lebih dalam di bagian [“Galat yang Tidak Dapat Dipulihkan
+> istilah _panicking_ ketika sebuah program keluar dengan error; kita akan
+> membahas panic lebih dalam di bagian [“Error yang Tidak Dapat Dipulihkan
 > dengan `panic!`”][unrecoverable-errors-with-panic]<!-- ignore --> pada Bab 9.
 >
 > Ketika Anda mengompilasi dalam mode release dengan flag `--release`, Rust
@@ -123,7 +123,7 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 > 257 menjadi 1, dan seterusnya. Program tidak akan panic, tetapi variabelnya
 > akan memiliki nilai yang mungkin bukan seperti yang Anda harapkan.
 > Mengandalkan perilaku pembungkusan integer overflow dianggap sebagai sebuah
-> galat.
+> error.
 >
 > Untuk menangani kemungkinan overflow secara eksplisit, Anda dapat memakai
 > keluarga metode berikut yang disediakan oleh pustaka standar untuk tipe
@@ -379,8 +379,8 @@ index out of bounds: the len is 5 but the index is 10
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-Program ini menghasilkan galat runtime pada saat memakai nilai yang tidak
-valid dalam operasi pengindeksan. Program keluar dengan pesan galat dan tidak
+Program ini menghasilkan error runtime pada saat memakai nilai yang tidak
+valid dalam operasi pengindeksan. Program keluar dengan pesan error dan tidak
 mengeksekusi pernyataan `println!` terakhir. Ketika Anda mencoba mengakses
 sebuah elemen dengan pengindeksan, Rust akan memeriksa bahwa indeks yang Anda
 berikan lebih kecil daripada panjang array. Jika indeksnya lebih besar daripada
@@ -392,9 +392,9 @@ nanti.
 Ini adalah contoh prinsip keamanan memori Rust sedang beraksi. Pada banyak
 bahasa tingkat rendah, pemeriksaan semacam ini tidak dilakukan, dan ketika Anda
 memberikan indeks yang salah, memori yang tidak valid dapat diakses. Rust
-melindungi Anda dari galat semacam ini dengan segera keluar alih-alih
+melindungi Anda dari error semacam ini dengan segera keluar alih-alih
 mengizinkan akses memori itu dan melanjutkan eksekusi. Bab 9 membahas lebih
-lanjut penanganan galat di Rust dan cara menulis kode yang mudah dibaca dan
+lanjut penanganan error di Rust dan cara menulis kode yang mudah dibaca dan
 aman yang tidak pernah panic maupun mengizinkan akses memori yang tidak valid.
 
 [comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number

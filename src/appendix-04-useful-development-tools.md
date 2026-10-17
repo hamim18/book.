@@ -115,7 +115,7 @@ fn main() {
 
 </Listing>
 
-Menjalankan `cargo clippy` pada proyek ini menghasilkan galat berikut:
+Menjalankan `cargo clippy` pada proyek ini menghasilkan error berikut:
 
 ```text
 error: approximate value of `f{32, 64}::consts::PI` found
@@ -129,11 +129,11 @@ error: approximate value of `f{32, 64}::consts::PI` found
   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#approx_constant
 ```
 
-Galat ini memberitahukan bahwa Rust sudah memiliki konstanta `PI` yang lebih
+Error ini memberitahukan bahwa Rust sudah memiliki konstanta `PI` yang lebih
 presisi, dan bahwa program Anda akan lebih benar jika memakai konstanta itu
 saja. Anda kemudian akan mengubah kode Anda untuk memakai konstanta `PI`.
 
-Kode berikut tidak menghasilkan galat atau peringatan apa pun dari Clippy:
+Kode berikut tidak menghasilkan error atau peringatan apa pun dari Clippy:
 
 <Listing file-name="src/main.rs">
 
@@ -162,7 +162,7 @@ saling berkomunikasi. Berbagai client dapat memakai `rust-analyzer`, seperti
 Kunjungi [laman utama][rust-analyzer]<!-- ignore --> proyek `rust-analyzer`
 untuk petunjuk instalasi, lalu pasang dukungan language server di IDE Anda.
 IDE Anda akan memperoleh kemampuan seperti pelengkapan otomatis, lompat ke
-definisi, dan galat inline.
+definisi, dan error inline.
 
 [rustfmt]: https://github.com/rust-lang/rustfmt
 [editions]: appendix-05-editions.md

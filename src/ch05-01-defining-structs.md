@@ -316,9 +316,9 @@ mengimplementasikannya pada tipe mana pun, termasuk *unit-like struct*.
 > error: could not compile `structs` (bin "structs") due to 2 previous errors
 > ```
 >
-> Di Bab 10, kita akan membahas cara memperbaiki galat-galat ini supaya Anda
+> Di Bab 10, kita akan membahas cara memperbaiki error-error ini supaya Anda
 > dapat menyimpan *reference* di dalam *struct*, tetapi untuk sekarang, kita akan
-> memperbaiki galat seperti ini dengan memakai tipe yang dimiliki seperti
+> memperbaiki error seperti ini dengan memakai tipe yang dimiliki seperti
 > `String`, bukan *reference* seperti `&str`.
 
 <!-- manual-regeneration

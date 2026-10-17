@@ -102,7 +102,7 @@ Hebat! Mereka lulus. Sekarang mari kita panggil fungsi
 `search_case_insensitive` yang baru itu dari fungsi `run`. Pertama, kita akan
 menambahkan sebuah opsi konfigurasi ke *struct* `Config` untuk berpindah antara
 pencarian case-sensitive dan case-insensitive. Menambahkan *field* ini akan
-menyebabkan galat kompilasi karena kita belum menginisialisasi *field* ini di
+menyebabkan error kompilasi karena kita belum menginisialisasi *field* ini di
 mana pun:
 
 <span class="filename">Nama File: src/main.rs</span>

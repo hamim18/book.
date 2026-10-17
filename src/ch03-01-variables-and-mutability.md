@@ -26,7 +26,7 @@ kodenya dengan kode berikut, yang belum dapat dikompilasi:
 ```
 
 Simpan dan jalankan programnya dengan `cargo run`. Anda seharusnya menerima
-pesan galat mengenai galat immutability, seperti yang ditunjukkan pada
+pesan error mengenai error immutability, seperti yang ditunjukkan pada
 keluaran berikut:
 
 ```console
@@ -34,15 +34,15 @@ keluaran berikut:
 ```
 
 Contoh ini menunjukkan bagaimana *compiler* (kompilator) membantu Anda
-menemukan galat dalam program Anda. Galat dari *compiler* bisa membuat
-frustrasi, tetapi sebenarnya galat itu hanya berarti program Anda belum
-secara aman melakukan apa yang Anda inginkan; galat itu _bukan_ berarti Anda
+menemukan error dalam program Anda. Error dari *compiler* bisa membuat
+frustrasi, tetapi sebenarnya error itu hanya berarti program Anda belum
+secara aman melakukan apa yang Anda inginkan; error itu _bukan_ berarti Anda
 bukan pemrogram yang baik! Rustacean yang berpengalaman pun masih mendapatkan
-galat *compiler*.
+error *compiler*.
 
-Anda menerima pesan galat `` cannot assign twice to immutable variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang *immutable*.
+Anda menerima pesan error `` cannot assign twice to immutable variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang *immutable*.
 
-Penting bagi kita untuk mendapatkan galat pada waktu kompilasi ketika kita
+Penting bagi kita untuk mendapatkan error pada waktu kompilasi ketika kita
 mencoba mengubah nilai yang ditetapkan sebagai *immutable*, karena situasi
 seperti ini dapat menimbulkan bug. Jika satu bagian kode kita berjalan dengan
 asumsi bahwa sebuah nilai tidak akan pernah berubah dan bagian lain dari kode
@@ -170,7 +170,7 @@ berikut:
 ```
 
 Shadowing berbeda dari menandai variabel sebagai `mut` karena kita akan
-mendapatkan galat pada waktu kompilasi jika tanpa sengaja mencoba menetapkan
+mendapatkan error pada waktu kompilasi jika tanpa sengaja mencoba menetapkan
 ulang variabel ini tanpa memakai keyword `let`. Dengan memakai `let`, kita
 dapat melakukan beberapa transformasi pada sebuah nilai, tetapi variabelnya
 tetap *immutable* setelah transformasi itu selesai.
@@ -191,13 +191,13 @@ angka. Dengan demikian shadowing menyelamatkan kita dari keharusan memikirkan
 nama yang berbeda, seperti `spaces_str` dan `spaces_num`; kita cukup memakai
 ulang nama `spaces` yang lebih sederhana. Namun, jika kita mencoba memakai
 `mut` untuk hal ini, seperti yang ditunjukkan di sini, kita akan mendapatkan
-galat pada waktu kompilasi:
+error pada waktu kompilasi:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}
 ```
 
-Galat tersebut menyatakan bahwa kita tidak diizinkan mengubah tipe sebuah
+Error tersebut menyatakan bahwa kita tidak diizinkan mengubah tipe sebuah
 variabel:
 
 ```console

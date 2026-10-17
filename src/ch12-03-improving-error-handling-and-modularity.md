@@ -1,7 +1,7 @@
-## Refactoring untuk Meningkatkan Modularitas dan Penanganan Galat
+## Refactoring untuk Meningkatkan Modularitas dan Penanganan Error
 
 Untuk memperbaiki program kita, kita akan menyelesaikan empat masalah yang
-berkaitan dengan struktur program dan cara program ini menangani galat yang
+berkaitan dengan struktur program dan cara program ini menangani error yang
 mungkin terjadi. Pertama, fungsi `main` kita kini melakukan dua tugas: fungsi
 itu melakukan parsing argumen dan membaca file. Seiring pertumbuhan program
 kita, jumlah tugas terpisah yang ditangani fungsi `main` akan bertambah.
@@ -18,21 +18,21 @@ variabel di dalam *scope*, semakin sulit melacak tujuan masing-masing.
 Sebaiknya variabel-variabel konfigurasi dikelompokkan ke dalam satu struktur
 untuk memperjelas tujuannya.
 
-Masalah ketiga adalah kita telah memakai `expect` untuk mencetak pesan galat
-ketika pembacaan file gagal, tetapi pesan galat itu hanya mencetak
+Masalah ketiga adalah kita telah memakai `expect` untuk mencetak pesan error
+ketika pembacaan file gagal, tetapi pesan error itu hanya mencetak
 `Should have been able to read the file`. Membaca file dapat gagal dalam
 berbagai cara: misalnya, file itu mungkin tidak ada, atau kita mungkin tidak
 memiliki izin untuk membukanya. Saat ini, apa pun situasinya, kita akan
-mencetak pesan galat yang sama untuk semuanya, yang tidak memberi informasi
+mencetak pesan error yang sama untuk semuanya, yang tidak memberi informasi
 apa pun kepada pengguna!
 
-Keempat, kita memakai `expect` untuk menangani galat, dan jika pengguna
+Keempat, kita memakai `expect` untuk menangani error, dan jika pengguna
 menjalankan program kita tanpa memberikan cukup argumen, mereka akan mendapat
-galat `index out of bounds` dari Rust yang tidak menjelaskan masalahnya dengan
-jelas. Akan lebih baik jika seluruh kode penanganan galat berada di satu
+error `index out of bounds` dari Rust yang tidak menjelaskan masalahnya dengan
+jelas. Akan lebih baik jika seluruh kode penanganan error berada di satu
 tempat sehingga pengelola kode di masa depan hanya perlu melihat satu tempat
-jika logika penanganan galatnya perlu diubah. Menaruh seluruh kode penanganan
-galat di satu tempat juga akan memastikan bahwa kita mencetak pesan yang
+jika logika penanganan errornya perlu diubah. Menaruh seluruh kode penanganan
+error di satu tempat juga akan memastikan bahwa kita mencetak pesan yang
 bermakna bagi pengguna akhir kita.
 
 Mari kita tangani keempat masalah ini dengan melakukan refactoring pada
@@ -63,7 +63,7 @@ dibatasi pada hal-hal berikut:
 - Memanggil logika parsing baris perintah dengan nilai-nilai argumen
 - Menyiapkan konfigurasi lain apa pun
 - Memanggil fungsi `run` di _lib.rs_
-- Menangani galat jika `run` mengembalikan galat
+- Menangani error jika `run` mengembalikan error
 
 Pola ini berkaitan dengan pemisahan tanggung jawab: _main.rs_ menangani
 jalannya program dan _lib.rs_ menangani seluruh logika tugas yang sedang
@@ -213,9 +213,9 @@ menjadi `new` dan memindahkannya ke dalam sebuah blok `impl`, yang
 mengasosiasikan fungsi `new` dengan `Config`. Coba kompilasi lagi kode ini
 untuk memastikan ia bekerja.
 
-### Memperbaiki Penanganan Galat
+### Memperbaiki Penanganan Error
 
-Sekarang kita akan memperbaiki penanganan galat kita. Ingat bahwa mencoba
+Sekarang kita akan memperbaiki penanganan error kita. Ingat bahwa mencoba
 mengakses nilai-nilai di dalam vektor `args` pada indeks 1 atau indeks 2 akan
 menyebabkan program panic jika vektor itu memuat kurang dari tiga item. Coba
 jalankan program ini tanpa argumen apa pun; hasilnya akan tampak seperti ini:
@@ -225,16 +225,16 @@ jalankan program ini tanpa argumen apa pun; hasilnya akan tampak seperti ini:
 ```
 
 Baris `index out of bounds: the len is 1 but the index is 1` adalah pesan
-galat yang ditujukan untuk pemrogram. Pesan itu tidak akan membantu pengguna
+error yang ditujukan untuk pemrogram. Pesan itu tidak akan membantu pengguna
 akhir kita memahami apa yang seharusnya mereka lakukan. Mari kita perbaiki
 sekarang.
 
-#### Memperbaiki Pesan Galat
+#### Memperbaiki Pesan Error
 
 Di Listing 12-8, kita menambahkan sebuah pemeriksaan di fungsi `new` yang akan
 memverifikasi bahwa *slice* itu cukup panjang sebelum mengakses indeks 1 dan
 indeks 2. Jika *slice* itu tidak cukup panjang, program akan panic dan
-menampilkan pesan galat yang lebih baik.
+menampilkan pesan error yang lebih baik.
 
 <Listing number="12-8" file-name="src/main.rs" caption="Menambahkan pemeriksaan jumlah argumen">
 
@@ -253,20 +253,20 @@ Jika `args` memuat kurang dari tiga item, kondisi ini akan bernilai `true`,
 dan kita memanggil makro `panic!` untuk segera mengakhiri program.
 
 Dengan beberapa baris kode tambahan di `new` ini, mari kita jalankan lagi
-program tanpa argumen apa pun untuk melihat seperti apa galatnya sekarang:
+program tanpa argumen apa pun untuk melihat seperti apa errornya sekarang:
 
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-08/output.txt}}
 ```
 
-Keluaran ini lebih baik: Sekarang kita memiliki pesan galat yang masuk akal.
+Keluaran ini lebih baik: Sekarang kita memiliki pesan error yang masuk akal.
 Namun, kita juga memiliki informasi tambahan yang tidak ingin kita berikan
 kepada pengguna. Mungkin teknik yang kita pakai di Listing 9-13 bukanlah yang
 terbaik untuk dipakai di sini: Pemanggilan `panic!` lebih cocok untuk masalah
 pemrograman daripada masalah pemakaian, [seperti yang dibahas di Bab
 9][ch9-error-guidelines]<!-- ignore -->. Sebagai gantinya, kita akan memakai
 teknik lain yang Anda pelajari di Bab 9—[mengembalikan `Result`][ch9-result]<!--
-ignore --> yang menunjukkan keberhasilan ataupun galat.
+ignore --> yang menunjukkan keberhasilan ataupun error.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -276,11 +276,11 @@ ignore --> yang menunjukkan keberhasilan ataupun galat.
 
 Sebagai gantinya, kita dapat mengembalikan sebuah nilai `Result` yang akan
 memuat instance `Config` pada kasus keberhasilan dan akan menjelaskan
-masalahnya pada kasus galat. Kita juga akan mengubah nama fungsinya dari `new`
+masalahnya pada kasus error. Kita juga akan mengubah nama fungsinya dari `new`
 menjadi `build` karena banyak pemrogram mengharapkan fungsi `new` tidak pernah
 gagal. Ketika `Config::build` berkomunikasi dengan `main`, kita dapat memakai
 tipe `Result` untuk memberi sinyal bahwa ada masalah. Kemudian, kita dapat
-mengubah `main` untuk mengubah sebuah *variant* (varian) `Err` menjadi galat
+mengubah `main` untuk mengubah sebuah *variant* (varian) `Err` menjadi error
 yang lebih praktis bagi pengguna kita, tanpa teks pelingkup tentang
 `thread 'main'` dan `RUST_BACKTRACE` yang disebabkan oleh pemanggilan
 `panic!`.
@@ -300,8 +300,8 @@ listing berikutnya.
 </Listing>
 
 Fungsi `build` kita mengembalikan sebuah `Result` dengan instance `Config`
-pada kasus keberhasilan dan sebuah *string literal* pada kasus galat.
-Nilai-nilai galat kita akan selalu berupa *string literal* yang memiliki
+pada kasus keberhasilan dan sebuah *string literal* pada kasus error.
+Nilai-nilai error kita akan selalu berupa *string literal* yang memiliki
 *lifetime* (masa hidup) `'static`.
 
 Kita telah membuat dua perubahan di badan fungsi: Alih-alih memanggil
@@ -312,24 +312,24 @@ dengan tipe tanda tangan barunya.
 
 Mengembalikan nilai `Err` dari `Config::build` memungkinkan fungsi `main`
 menangani nilai `Result` yang dikembalikan dari fungsi `build` dan keluar dari
-proses dengan lebih bersih pada kasus galat.
+proses dengan lebih bersih pada kasus error.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="calling-confignew-and-handling-errors"></a>
 
-#### Memanggil `Config::build` dan Menangani Galat
+#### Memanggil `Config::build` dan Menangani Error
 
-Untuk menangani kasus galat dan mencetak pesan yang ramah pengguna, kita perlu
+Untuk menangani kasus error dan mencetak pesan yang ramah pengguna, kita perlu
 memperbarui `main` untuk menangani `Result` yang dikembalikan oleh
 `Config::build`, seperti yang ditunjukkan di Listing 12-10. Kita juga akan
 mengambil alih tanggung jawab mengeluarkan alat baris perintah ini dengan kode
-galat bukan nol dari `panic!`, lalu mengimplementasikannya secara manual.
+error bukan nol dari `panic!`, lalu mengimplementasikannya secara manual.
 Status keluar bukan nol adalah sebuah konvensi untuk memberi sinyal kepada
 proses yang memanggil program kita bahwa program itu keluar dalam keadaan
-galat.
+error.
 
-<Listing number="12-10" file-name="src/main.rs" caption="Keluar dengan kode galat jika pembuatan `Config` gagal">
+<Listing number="12-10" file-name="src/main.rs" caption="Keluar dengan kode error jika pembuatan `Config` gagal">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-10/src/main.rs:here}}
@@ -340,7 +340,7 @@ galat.
 Di listing ini, kita telah memakai sebuah metode yang belum kita bahas secara
 mendetail: `unwrap_or_else`, yang didefinisikan pada `Result<T, E>` oleh
 pustaka standar. Memakai `unwrap_or_else` memungkinkan kita mendefinisikan
-penanganan galat khusus yang bukan `panic!`. Jika `Result`-nya berupa nilai
+penanganan error khusus yang bukan `panic!`. Jika `Result`-nya berupa nilai
 `Ok`, perilaku metode ini mirip dengan `unwrap`: Ia mengembalikan nilai di
 dalamnya yang sedang dibungkus oleh `Ok`. Akan tetapi, jika nilainya berupa
 nilai `Err`, metode ini memanggil kode di dalam *closure*, yaitu sebuah fungsi
@@ -354,7 +354,7 @@ argumen `err` yang muncul di antara garis-garis vertikal itu. Kode di dalam
 
 Kita telah menambahkan baris `use` baru untuk membawa `process` dari pustaka
 standar ke dalam *scope*. Kode di dalam *closure* yang akan dijalankan pada
-kasus galat hanya terdiri dari dua baris: Kita mencetak nilai `err`, lalu
+kasus error hanya terdiri dari dua baris: Kita mencetak nilai `err`, lalu
 memanggil `process::exit`. Fungsi `process::exit` akan menghentikan program
 dengan segera dan mengembalikan angka yang diteruskan sebagai kode status
 keluar. Ini mirip dengan penanganan berbasis `panic!` yang kita pakai di
@@ -378,7 +378,7 @@ beralih ke logika programnya. Seperti yang kita nyatakan di [“Memisahkan
 Tanggung Jawab dalam Proyek Binary”](#separation-of-concerns-for-binary-projects)<!--
 ignore -->, kita akan mengekstrak sebuah fungsi bernama `run` yang akan memuat
 semua logika yang kini berada di fungsi `main` dan tidak terlibat dalam
-menyiapkan konfigurasi atau menangani galat. Setelah selesai, fungsi `main`
+menyiapkan konfigurasi atau menangani error. Setelah selesai, fungsi `main`
 akan menjadi ringkas dan mudah diverifikasi hanya dengan membacanya, dan kita
 akan dapat menulis pengujian untuk semua logika lainnya.
 
@@ -400,14 +400,14 @@ membaca file. Fungsi `run` menerima instance `Config` sebagai argumen.
 
 <a id="returning-errors-from-the-run-function"></a>
 
-#### Mengembalikan Galat dari `run`
+#### Mengembalikan Error dari `run`
 
 Dengan sisa logika program yang telah dipisahkan ke dalam fungsi `run`, kita
-dapat memperbaiki penanganan galatnya, seperti yang kita lakukan pada
+dapat memperbaiki penanganan errornya, seperti yang kita lakukan pada
 `Config::build` di Listing 12-9. Alih-alih membiarkan program panic dengan
 memanggil `expect`, fungsi `run` akan mengembalikan `Result<T, E>` ketika ada
 yang tidak beres. Ini akan memungkinkan kita untuk lebih mengonsolidasikan
-logika penanganan galat ke dalam `main` dengan cara yang ramah pengguna.
+logika penanganan error ke dalam `main` dengan cara yang ramah pengguna.
 Listing 12-12 menunjukkan perubahan yang perlu kita buat pada tanda tangan dan
 badan `run`.
 
@@ -424,19 +424,19 @@ kembalian fungsi `run` menjadi `Result<(), Box<dyn Error>>`. Sebelumnya fungsi
 ini mengembalikan tipe *unit*, `()`, dan kita mempertahankannya sebagai nilai
 yang dikembalikan pada kasus `Ok`.
 
-Untuk tipe galatnya, kita memakai *trait object* `Box<dyn Error>` (dan kita
+Untuk tipe errornya, kita memakai *trait object* `Box<dyn Error>` (dan kita
 membawa `std::error::Error` ke dalam *scope* dengan pernyataan `use` di bagian
 atas). Kita akan membahas *trait object* di [Bab 18][ch18]<!-- ignore -->.
 Untuk saat ini, cukup ketahui bahwa `Box<dyn Error>` berarti fungsi ini akan
 mengembalikan sebuah tipe yang mengimplementasikan *trait* `Error`, tetapi
 kita tidak perlu menentukan tipe tertentu apa nilai kembaliannya. Ini memberi
-kita fleksibilitas untuk mengembalikan nilai-nilai galat yang mungkin berbeda
-tipenya pada kasus-kasus galat yang berbeda. *Keyword* (kata kunci) `dyn`
+kita fleksibilitas untuk mengembalikan nilai-nilai error yang mungkin berbeda
+tipenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
 adalah singkatan dari _dynamic_.
 
 Kedua, kita telah menghapus pemanggilan `expect` demi operator `?`, seperti
 yang kita bicarakan di [Bab 9][ch9-question-mark]<!-- ignore -->. Alih-alih
-melakukan `panic!` saat ada galat, `?` akan mengembalikan nilai galat tersebut
+melakukan `panic!` saat ada error, `?` akan mengembalikan nilai error tersebut
 dari fungsi saat ini untuk ditangani oleh pemanggilnya.
 
 Ketiga, fungsi `run` kini mengembalikan nilai `Ok` pada kasus keberhasilan.
@@ -455,14 +455,14 @@ sebuah peringatan:
 ```
 
 Rust memberi tahu kita bahwa kode kita mengabaikan nilai `Result` tersebut,
-dan nilai `Result` itu mungkin menandakan terjadinya galat. Tetapi kita tidak
-memeriksa apakah ada galat atau tidak, dan *compiler* (kompilator)
-mengingatkan kita bahwa kita mungkin bermaksud menaruh kode penanganan galat
+dan nilai `Result` itu mungkin menandakan terjadinya error. Tetapi kita tidak
+memeriksa apakah ada error atau tidak, dan *compiler* (kompilator)
+mengingatkan kita bahwa kita mungkin bermaksud menaruh kode penanganan error
 di sini! Mari kita perbaiki masalah itu sekarang.
 
-#### Menangani Galat yang Dikembalikan dari `run` di dalam `main`
+#### Menangani Error yang Dikembalikan dari `run` di dalam `main`
 
-Kita akan memeriksa galat dan menanganinya memakai teknik yang mirip dengan
+Kita akan memeriksa error dan menanganinya memakai teknik yang mirip dengan
 yang kita pakai pada `Config::build` di Listing 12-10, tetapi dengan sedikit
 perbedaan:
 
@@ -476,12 +476,12 @@ Kita memakai `if let` alih-alih `unwrap_or_else` untuk memeriksa apakah `run`
 mengembalikan nilai `Err`, dan memanggil `process::exit(1)` jika demikian.
 Fungsi `run` tidak mengembalikan nilai yang ingin kita `unwrap` sebagaimana
 `Config::build` mengembalikan instance `Config`. Karena `run` mengembalikan
-`()` pada kasus keberhasilan, kita hanya peduli pada pendeteksian galat, jadi
+`()` pada kasus keberhasilan, kita hanya peduli pada pendeteksian error, jadi
 kita tidak memerlukan `unwrap_or_else` untuk mengembalikan nilai hasil unwrap,
 yang hanya akan berupa `()`.
 
 Badan dari fungsi `if let` dan `unwrap_or_else` itu sama di kedua kasus: Kita
-mencetak galatnya lalu keluar.
+mencetak errornya lalu keluar.
 
 ### Memisahkan Kode ke dalam Crate Library
 
@@ -533,7 +533,7 @@ akan memakai sebuah perulangan `for` untuk mencetak setiap baris yang
 dikembalikan dari `search` yang cocok dengan kueri. Ini juga saat yang tepat
 untuk menghapus pemanggilan `println!` di fungsi `main` yang menampilkan
 kueri dan *path* file, sehingga program kita hanya mencetak hasil pencarian
-(jika tidak ada galat yang terjadi).
+(jika tidak ada error yang terjadi).
 
 Perhatikan bahwa fungsi pencarian akan mengumpulkan semua hasil ke dalam
 sebuah vektor yang dikembalikannya sebelum pencetakan apa pun terjadi.
@@ -543,7 +543,7 @@ salah satu cara yang mungkin untuk memperbaikinya dengan memakai *iterator*
 di Bab 13.
 
 Fiuh! Itu tadi pekerjaan yang banyak, tetapi kita telah menyiapkan diri untuk
-keberhasilan di masa depan. Sekarang menangani galat menjadi jauh lebih mudah,
+keberhasilan di masa depan. Sekarang menangani error menjadi jauh lebih mudah,
 dan kita telah membuat kodenya lebih modular. Hampir semua pekerjaan kita
 mulai sekarang akan dilakukan di _src/lib.rs_.
 

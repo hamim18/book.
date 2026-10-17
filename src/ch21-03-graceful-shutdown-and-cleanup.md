@@ -46,13 +46,13 @@ menghentikan diri, lalu kita memanggil `join` pada thread instance
 `Worker` itu. Jika pemanggilan `join` gagal, kita memakai `unwrap` untuk
 membuat Rust panic dan melakukan penghentian yang tidak rapi.
 
-Berikut galat yang kita dapat saat mengompilasi kode ini:
+Berikut error yang kita dapat saat mengompilasi kode ini:
 
 ```console
 {{#include ../listings/ch21-web-server/listing-21-22/output.txt}}
 ```
 
-Galat itu memberi tahu kita bahwa kita tidak bisa memanggil `join` karena
+Error itu memberi tahu kita bahwa kita tidak bisa memanggil `join` karena
 kita hanya punya peminjaman *mutable* untuk setiap `worker` dan `join`
 mengambil *ownership* atas argumennya. Untuk menyelesaikan masalah ini, kita
 perlu memindahkan thread keluar dari instance `Worker` yang memiliki
@@ -72,7 +72,7 @@ Akan tetapi, satu-satunya saat hal ini muncul hanyalah ketika membebaskan
 tetapi ketika Anda mendapati diri Anda membungkus sesuatu yang Anda tahu
 pasti selalu ada di dalam `Option` sebagai jalan keluar seperti ini, ada
 baiknya mencari pendekatan alternatif untuk membuat kode Anda lebih bersih
-dan tidak terlalu rawan galat.
+dan tidak terlalu rawan error.
 
 Dalam kasus ini, ada alternatif yang lebih baik: metode `Vec::drain`.
 Metode ini menerima parameter range untuk menentukan item-item mana yang
@@ -90,7 +90,7 @@ seperti ini:
 
 </Listing>
 
-Ini menyelesaikan galat kompilator dan tidak memerlukan perubahan lain
+Ini menyelesaikan error kompilator dan tidak memerlukan perubahan lain
 pada kode kita. Perhatikan bahwa, karena drop bisa dipanggil saat sedang
 panic, unwrap itu juga bisa panic dan menyebabkan panic ganda, yang
 langsung membuat program crash dan mengakhiri pembersihan apa pun yang
@@ -129,11 +129,11 @@ dari `ThreadPool` dengan `Option::take`.
 Membebaskan `sender` menutup *channel*, yang menandakan bahwa tidak akan ada
 lagi pesan yang dikirim. Ketika itu terjadi, semua pemanggilan `recv` yang
 dilakukan instance `Worker` di loop tak berujung itu akan mengembalikan
-galat. Di Listing 21-24, kita mengubah loop `Worker` untuk keluar dari loop
+error. Di Listing 21-24, kita mengubah loop `Worker` untuk keluar dari loop
 dengan rapi pada kasus itu, yang berarti thread-thread itu akan selesai
 saat implementasi `drop` pada `ThreadPool` memanggil `join` pada mereka.
 
-<Listing number="21-24" file-name="src/lib.rs" caption="Keluar dari loop secara eksplisit ketika `recv` mengembalikan galat">
+<Listing number="21-24" file-name="src/lib.rs" caption="Keluar dari loop secara eksplisit ketika `recv` mengembalikan error">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-24/src/lib.rs:here}}
@@ -162,7 +162,7 @@ paling banyak ke dua item pertama. `ThreadPool` akan keluar dari *scope* di
 akhir `main`, dan implementasi `drop` akan berjalan.
 
 Mulai server dengan `cargo run` dan buat tiga permintaan. Permintaan ketiga
-seharusnya galat, dan di terminal Anda, Anda seharusnya melihat output yang
+seharusnya error, dan di terminal Anda, Anda seharusnya melihat output yang
 mirip dengan ini:
 
 <!-- manual-regeneration
@@ -205,11 +205,11 @@ terputus, lalu *thread pool* memanggil `join` untuk menunggu setiap thread
 `Worker` selesai.
 
 Perhatikan satu aspek menarik dari eksekusi khusus ini: `ThreadPool`
-membebaskan `sender`, dan sebelum ada `Worker` yang menerima galat, kita
-mencoba melakukan join pada `Worker 0`. `Worker 0` belum mendapat galat
+membebaskan `sender`, dan sebelum ada `Worker` yang menerima error, kita
+mencoba melakukan join pada `Worker 0`. `Worker 0` belum mendapat error
 dari `recv`, jadi thread utama memblokir, menunggu `Worker 0` selesai.
 Sementara itu, `Worker 3` menerima pekerjaan lalu semua thread menerima
-galat. Ketika `Worker 0` selesai, thread utama menunggu sisa instance
+error. Ketika `Worker 0` selesai, thread utama menunggu sisa instance
 `Worker` untuk selesai. Pada titik itu, mereka semua telah keluar dari
 loop-nya dan berhenti.
 
@@ -242,7 +242,7 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
 - Menambahkan lebih banyak dokumentasi ke `ThreadPool` dan metode-metode
   publiknya.
 - Menambahkan pengujian untuk fungsionalitas library itu.
-- Mengubah pemanggilan `unwrap` menjadi penanganan galat yang lebih
+- Mengubah pemanggilan `unwrap` menjadi penanganan error yang lebih
   tangguh.
 - Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
   permintaan web.

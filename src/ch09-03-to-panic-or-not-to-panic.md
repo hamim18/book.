@@ -3,14 +3,14 @@
 
 Jadi, bagaimana Anda memutuskan kapan sebaiknya memanggil `panic!` dan kapan
 sebaiknya mengembalikan `Result`? Ketika kode panic, tidak ada cara untuk
-pulih. Anda dapat memanggil `panic!` untuk situasi galat apa pun, entah ada
+pulih. Anda dapat memanggil `panic!` untuk situasi error apa pun, entah ada
 cara untuk pulih atau tidak, tetapi dengan begitu Anda membuat keputusan
 bahwa sebuah situasi tidak dapat dipulihkan atas nama kode pemanggil. Ketika
 Anda memilih mengembalikan nilai `Result`, Anda memberi kode pemanggil
 pilihan-pilihan. Kode pemanggil dapat memilih untuk mencoba pulih dengan
 cara yang sesuai untuk situasinya, atau dapat memutuskan bahwa nilai `Err`
 dalam kasus ini tidak dapat dipulihkan, sehingga ia dapat memanggil `panic!`
-dan mengubah galat yang dapat dipulihkan menjadi galat yang tidak dapat
+dan mengubah error yang dapat dipulihkan menjadi error yang tidak dapat
 dipulihkan. Karena itu, mengembalikan `Result` adalah pilihan default yang
 baik ketika Anda mendefinisikan fungsi yang mungkin gagal.
 
@@ -24,14 +24,14 @@ sebaiknya panic di kode library.
 ### Contoh, Kode Prototipe, dan Pengujian
 
 Ketika Anda menulis contoh untuk mengilustrasikan suatu konsep, menyertakan
-juga kode penanganan galat yang tangguh dapat membuat contohnya kurang
+juga kode penanganan error yang tangguh dapat membuat contohnya kurang
 jelas. Dalam contoh, sudah dimaklumi bahwa pemanggilan metode seperti
 `unwrap` yang dapat panic dimaksudkan sebagai placeholder untuk cara Anda
-ingin aplikasi Anda menangani galat, yang dapat berbeda berdasarkan apa yang
+ingin aplikasi Anda menangani error, yang dapat berbeda berdasarkan apa yang
 dilakukan sisa kode Anda.
 
 Demikian pula, metode `unwrap` dan `expect` sangat praktis ketika Anda
-membuat prototipe dan belum siap memutuskan cara menangani galat. Keduanya
+membuat prototipe dan belum siap memutuskan cara menangani error. Keduanya
 meninggalkan penanda yang jelas di kode Anda untuk saat Anda siap membuat
 program Anda lebih tangguh.
 
@@ -72,11 +72,11 @@ dari pengguna alih-alih ditulis langsung ke dalam program dan karena itu
 _memang_ memiliki kemungkinan gagal, kita tentu ingin menangani `Result` itu
 dengan cara yang lebih tangguh. Menyebutkan asumsi bahwa alamat IP ini
 ditulis langsung akan mendorong kita mengubah `expect` menjadi kode
-penanganan galat yang lebih baik jika, di masa depan, kita perlu mendapatkan
+penanganan error yang lebih baik jika, di masa depan, kita perlu mendapatkan
 alamat IP dari sumber lain.
 
 <a id="guidelines-for-error-handling"></a>
-### Panduan untuk Penanganan Galat
+### Panduan untuk Penanganan Error
 
 Disarankan agar kode Anda panic ketika ada kemungkinan kode Anda berakhir
 dalam keadaan yang buruk. Dalam konteks ini, *bad state* (keadaan yang
@@ -96,7 +96,7 @@ berikut:
   Bab 18.
 
 Jika seseorang memanggil kode Anda dan meneruskan nilai yang tidak masuk
-akal, sebaiknya kembalikan galat jika Anda bisa supaya pengguna library
+akal, sebaiknya kembalikan error jika Anda bisa supaya pengguna library
 dapat memutuskan apa yang ingin mereka lakukan dalam kasus itu. Namun,
 dalam kasus ketika melanjutkan dapat menjadi tidak aman atau berbahaya,
 pilihan terbaik mungkin adalah memanggil `panic!` dan memperingatkan orang
@@ -123,14 +123,14 @@ batas: mencoba mengakses memori yang bukan milik struktur data saat ini
 adalah masalah keamanan yang umum. Fungsi sering memiliki _kontrak_:
 perilakunya hanya dijamin jika masukannya memenuhi persyaratan tertentu.
 Panic ketika kontrak dilanggar masuk akal karena pelanggaran kontrak selalu
-mengindikasikan bug di sisi pemanggil, dan itu bukan jenis galat yang Anda
+mengindikasikan bug di sisi pemanggil, dan itu bukan jenis error yang Anda
 ingin kode pemanggilnya tangani secara eksplisit. Kenyataannya, tidak ada
 cara yang masuk akal bagi kode pemanggil untuk pulih; para _pemrogram_
 pemanggil yang perlu memperbaiki kodenya. Kontrak untuk sebuah fungsi,
 terutama ketika pelanggarannya akan menyebabkan panic, sebaiknya dijelaskan
 di dokumentasi API fungsi tersebut.
 
-Namun, memiliki banyak pemeriksaan galat di semua fungsi Anda akan
+Namun, memiliki banyak pemeriksaan error di semua fungsi Anda akan
 bertele-tele dan menjengkelkan. Untungnya, Anda dapat memakai sistem tipe
 Rust (dan dengan demikian pemeriksaan tipe yang dilakukan *compiler*) untuk
 melakukan banyak pemeriksaan itu untuk Anda. Jika fungsi Anda memiliki tipe
@@ -241,7 +241,7 @@ pemeriksaan tambahan apa pun di badannya.
 
 ## Ringkasan
 
-Fitur penanganan galat Rust dirancang untuk membantu Anda menulis kode yang
+Fitur penanganan error Rust dirancang untuk membantu Anda menulis kode yang
 lebih tangguh. *Macro* `panic!` menandakan bahwa program Anda berada dalam
 state yang tidak dapat ditanganinya dan memungkinkan Anda menyuruh
 prosesnya berhenti alih-alih mencoba melanjutkan dengan nilai yang tidak

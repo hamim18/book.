@@ -7,17 +7,17 @@ dan _parallel programming_ (pemrograman paralel), ketika bagian-bagian
 berbeda dari sebuah program berjalan pada saat yang sama, menjadi semakin
 penting seiring semakin banyak komputer memanfaatkan banyaknya prosesor yang
 mereka miliki. Secara historis, pemrograman dalam konteks ini sulit dan rawan
-galat. Rust berharap mengubah hal itu.
+error. Rust berharap mengubah hal itu.
 
 Awalnya, tim Rust mengira bahwa menjamin keamanan memori dan mencegah masalah
 konkurensi adalah dua tantangan terpisah yang harus diselesaikan dengan metode
 yang berbeda. Seiring waktu, tim itu menemukan bahwa sistem *ownership* dan tipe
 adalah seperangkat alat yang ampuh untuk membantu mengelola keamanan memori
 _dan_ masalah konkurensi! Dengan memanfaatkan *ownership* dan pemeriksaan tipe,
-banyak galat konkurensi menjadi galat waktu kompilasi di Rust alih-alih galat
+banyak error konkurensi menjadi error waktu kompilasi di Rust alih-alih error
 runtime. Karena itu, alih-alih membuat Anda menghabiskan banyak waktu mencoba
 mereproduksi keadaan persis ketika bug konkurensi runtime terjadi, kode yang
-salah akan menolak untuk dikompilasi dan menyajikan galat yang menjelaskan
+salah akan menolak untuk dikompilasi dan menyajikan error yang menjelaskan
 masalahnya. Akibatnya, Anda dapat memperbaiki kode Anda selagi mengerjakannya,
 alih-alih berpotensi setelah kode itu dikirim ke produksi. Kami menjuluki
 aspek Rust ini _fearless concurrency_ (konkurensi tanpa takut). Konkurensi

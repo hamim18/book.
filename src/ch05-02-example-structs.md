@@ -64,7 +64,7 @@ tetapi jika kita ingin menggambar persegi panjang itu di layar, hal itu akan
 berpengaruh! Kita harus ingat bahwa `width` adalah indeks *tuple* `0` dan
 `height` adalah indeks *tuple* `1`. Ini akan lebih sulit lagi untuk dipahami dan
 diingat oleh orang lain jika mereka memakai kode kita. Karena kita tidak
-menyampaikan makna data kita di dalam kode, kini lebih mudah terjadi galat.
+menyampaikan makna data kita di dalam kode, kini lebih mudah terjadi error.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -125,7 +125,7 @@ bab-bab sebelumnya. Namun, ini tidak akan berhasil.
 
 </Listing>
 
-Ketika kita mengompilasi kode ini, kita mendapatkan galat dengan pesan inti
+Ketika kita mengompilasi kode ini, kita mendapatkan error dengan pesan inti
 berikut:
 
 ```text
@@ -145,7 +145,7 @@ ambiguitas ini, Rust tidak mencoba menebak apa yang kita inginkan, dan *struct*
 tidak memiliki implementasi `Display` yang disediakan untuk dipakai bersama
 `println!` dan placeholder `{}`.
 
-Jika kita terus membaca galatnya, kita akan menemukan catatan yang membantu
+Jika kita terus membaca errornya, kita akan menemukan catatan yang membantu
 ini:
 
 ```text
@@ -159,7 +159,7 @@ kurawal memberi tahu `println!` bahwa kita ingin memakai format output bernama
 berguna bagi pengembang sehingga kita dapat melihat nilainya selagi men-debug
 kode kita.
 
-Kompilasi kodenya dengan perubahan ini. Aduh! Kita masih mendapatkan galat:
+Kompilasi kodenya dengan perubahan ini. Aduh! Kita masih mendapatkan error:
 
 ```text
 {{#include ../listings/ch05-using-structs-to-structure-related-data/output-only-01-debug/output.txt:3}}
@@ -187,7 +187,7 @@ pada Listing 5-12.
 </Listing>
 
 Sekarang ketika kita menjalankan programnya, kita tidak akan mendapatkan
-galat apa pun, dan kita akan melihat keluaran berikut:
+error apa pun, dan kita akan melihat keluaran berikut:
 
 ```console
 {{#include ../listings/ch05-using-structs-to-structure-related-data/listing-05-12/output.txt}}
@@ -213,7 +213,7 @@ hasil ekspresi itu, dan mengembalikan kepemilikan nilainya.
 > Catatan: Memanggil *macro* `dbg!` mencetak ke aliran konsol standard error
 > (`stderr`), berbeda dengan `println!`, yang mencetak ke aliran konsol
 > standard output (`stdout`). Kita akan membahas `stderr` dan `stdout` lebih
-> lanjut di [bagian “Mengalihkan Galat ke Standard Error” di Bab
+> lanjut di [bagian “Mengalihkan Error ke Standard Error” di Bab
 > 12][err]<!-- ignore -->.
 
 Berikut contoh ketika kita tertarik pada nilai yang ditetapkan ke *field*

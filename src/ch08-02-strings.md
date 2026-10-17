@@ -4,7 +4,7 @@
 Kita telah membicarakan string di Bab 4, tetapi sekarang kita akan
 melihatnya lebih mendalam. Rustacean baru biasanya tersangkut pada string
 karena kombinasi tiga alasan: kecenderungan Rust untuk mengekspos
-kemungkinan galat, string sebagai struktur data yang lebih rumit daripada
+kemungkinan error, string sebagai struktur data yang lebih rumit daripada
 perkiraan banyak pemrogram, dan UTF-8. Faktor-faktor ini berpadu dengan cara
 yang bisa terasa sulit ketika Anda datang dari bahasa pemrograman lain.
 
@@ -247,7 +247,7 @@ pun.
 Di banyak bahasa pemrograman lain, mengakses karakter individual di string
 dengan merujuknya lewat indeks adalah operasi yang valid dan umum. Namun,
 jika Anda mencoba mengakses bagian-bagian `String` memakai sintaks
-pengindeksan di Rust, Anda akan mendapat galat. Perhatikan kode tidak valid
+pengindeksan di Rust, Anda akan mendapat error. Perhatikan kode tidak valid
 di Listing 8-19.
 
 <Listing number="8-19" caption="Mencoba memakai sintaks pengindeksan dengan `String`">
@@ -258,13 +258,13 @@ di Listing 8-19.
 
 </Listing>
 
-Kode ini akan menghasilkan galat berikut:
+Kode ini akan menghasilkan error berikut:
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-19/output.txt}}
 ```
 
-Galat ini menceritakan semuanya: string Rust tidak mendukung pengindeksan.
+Error ini menceritakan semuanya: string Rust tidak mendukung pengindeksan.
 Tetapi mengapa tidak? Untuk menjawab pertanyaan itu, kita perlu membahas
 cara Rust menyimpan string di memori.
 
@@ -460,7 +460,7 @@ Rust telah memilih untuk menjadikan penanganan data `String` yang benar
 sebagai perilaku default untuk semua program Rust, yang berarti pemrogram
 harus lebih banyak berpikir untuk menangani data UTF-8 sejak awal. Kompromi
 ini mengekspos lebih banyak kerumitan string daripada yang tampak di bahasa
-pemrograman lain, tetapi ia mencegah Anda harus menangani galat yang
+pemrograman lain, tetapi ia mencegah Anda harus menangani error yang
 melibatkan karakter non-ASCII di kemudian hari dalam siklus hidup
 pengembangan Anda.
 

@@ -100,7 +100,7 @@ bisa menganggap pola *tuple* ini sebagai tiga pola variabel individual yang
 bersarang di dalamnya.
 
 Jika jumlah elemen pada pola tidak cocok dengan jumlah elemen pada *tuple*,
-tipe keseluruhannya tidak akan cocok dan kita akan mendapat galat kompilator.
+tipe keseluruhannya tidak akan cocok dan kita akan mendapat error kompilator.
 Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi *tuple* dengan
 tiga elemen menjadi dua variabel, yang tidak akan berhasil.
 
@@ -112,13 +112,13 @@ tiga elemen menjadi dua variabel, yang tidak akan berhasil.
 
 </Listing>
 
-Upaya mengompilasi kode ini menghasilkan galat tipe berikut:
+Upaya mengompilasi kode ini menghasilkan error tipe berikut:
 
 ```console
 {{#include ../listings/ch19-patterns-and-matching/listing-19-02/output.txt}}
 ```
 
-Untuk memperbaiki galatnya, kita bisa mengabaikan satu atau beberapa nilai di
+Untuk memperbaiki errornya, kita bisa mengabaikan satu atau beberapa nilai di
 *tuple* itu menggunakan `_` atau `..`, seperti yang akan Anda lihat di bagian
 [“Mengabaikan Nilai dalam Pola”][ignoring-values-in-a-pattern]<!-- ignore -->.
 Jika masalahnya adalah kita punya terlalu banyak variabel di pola, solusinya
@@ -197,7 +197,7 @@ dikirim antar-thread, tetapi dalam kasus ini memeriksa `Result` alih-alih
 
 Contoh ini mencetak `1`, `2`, lalu `3`. Metode `recv` mengambil pesan pertama
 dari sisi penerima *channel* dan mengembalikan `Ok(value)`. Ketika pertama kali
-kita melihat `recv` di Bab 16, kita melakukan unwrap pada galatnya secara
+kita melihat `recv` di Bab 16, kita melakukan unwrap pada errornya secara
 langsung, atau kita berinteraksi dengannya sebagai *iterator* menggunakan
 perulangan `for`. Akan tetapi, seperti yang ditunjukkan Listing 19-4, kita
 juga bisa memakai `while let`, karena metode `recv` mengembalikan `Ok` setiap

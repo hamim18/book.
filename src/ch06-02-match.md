@@ -198,7 +198,7 @@ memiliki bug dan tidak akan terkompilasi:
 
 Kita tidak menangani kasus `None`, jadi kode ini akan menimbulkan bug.
 Untungnya, ini adalah bug yang diketahui Rust cara menangkapnya. Jika kita
-mencoba mengompilasi kode ini, kita akan mendapatkan galat ini:
+mencoba mengompilasi kode ini, kita akan mendapatkan error ini:
 
 ```console
 {{#include ../listings/ch06-enums-and-pattern-matching/no-listing-10-non-exhaustive-match/output.txt}}

@@ -13,7 +13,7 @@ Langkah-langkah berikut memasang versi stabil terbaru dari *compiler*
 (kompilator) Rust. Jaminan stabilitas Rust memastikan bahwa semua contoh
 dalam buku ini yang terkompilasi akan tetap terkompilasi dengan versi Rust
 yang lebih baru. Keluarannya mungkin sedikit berbeda antarversi karena Rust
-sering meningkatkan pesan galat dan peringatannya. Dengan kata lain, versi
+sering meningkatkan pesan error dan peringatannya. Dengan kata lain, versi
 stabil Rust yang lebih baru mana pun yang Anda pasang menggunakan
 langkah-langkah ini seharusnya bekerja sesuai harapan dengan isi buku ini.
 
@@ -46,7 +46,7 @@ Rust is installed now. Great!
 
 Anda juga memerlukan _linker_, yaitu program yang dipakai Rust untuk
 menggabungkan keluaran hasil kompilasinya menjadi satu file. Kemungkinan
-besar Anda sudah memilikinya. Jika Anda mendapat galat linker, Anda harus
+besar Anda sudah memilikinya. Jika Anda mendapat error linker, Anda harus
 memasang *compiler* C, yang biasanya menyertakan linker. *Compiler* C juga
 berguna karena beberapa *package* (paket) Rust yang umum bergantung pada
 kode C dan akan membutuhkan *compiler* C.

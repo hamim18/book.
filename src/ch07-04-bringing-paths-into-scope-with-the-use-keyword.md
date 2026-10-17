@@ -42,7 +42,7 @@ terkompilasi.
 
 </Listing>
 
-Galat *compiler* menunjukkan bahwa pintasan itu tidak lagi berlaku di dalam
+Error *compiler* menunjukkan bahwa pintasan itu tidak lagi berlaku di dalam
 *module* `customer`:
 
 ```console
@@ -324,7 +324,7 @@ Pernyataan `use` ini membawa semua item publik yang didefinisikan di
 operator glob! Glob dapat mempersulit mengetahui nama apa saja yang berada di
 dalam *scope* dan di mana sebuah nama yang dipakai di program Anda
 didefinisikan. Selain itu, jika dependensi mengubah definisinya, apa yang
-Anda impor ikut berubah, yang dapat menyebabkan galat *compiler* ketika Anda
+Anda impor ikut berubah, yang dapat menyebabkan error *compiler* ketika Anda
 memperbarui dependensi jika dependensi itu menambahkan definisi dengan nama
 yang sama dengan definisi milik Anda di *scope* yang sama, misalnya.
 

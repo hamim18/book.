@@ -34,11 +34,11 @@ Bab 4:
 
 Dengan *reference* dan `Box<T>`, invarian aturan *borrowing* ditegakkan pada waktu
 kompilasi. Dengan `RefCell<T>`, invarian ini ditegakkan _pada runtime_. Dengan
-*reference*, jika Anda melanggar aturan ini, Anda akan mendapat galat kompilator.
+*reference*, jika Anda melanggar aturan ini, Anda akan mendapat error kompilator.
 Dengan `RefCell<T>`, jika Anda melanggar aturan ini, program Anda akan panic
 dan keluar.
 
-Keuntungan memeriksa aturan *borrowing* pada waktu kompilasi adalah galat akan
+Keuntungan memeriksa aturan *borrowing* pada waktu kompilasi adalah error akan
 tertangkap lebih awal dalam proses pengembangan, dan tidak ada dampak pada
 performa runtime karena seluruh analisis diselesaikan sebelumnya. Karena
 alasan-alasan itu, memeriksa aturan *borrowing* pada waktu kompilasi adalah
@@ -63,7 +63,7 @@ berguna ketika Anda yakin kode Anda mengikuti aturan *borrowing* tetapi
 kompilator tidak mampu memahami dan menjamin hal itu.
 
 Serupa dengan `Rc<T>`, `RefCell<T>` hanya untuk dipakai dalam skenario
-single-threaded dan akan memberi Anda galat waktu kompilasi jika Anda mencoba
+single-threaded dan akan memberi Anda error waktu kompilasi jika Anda mencoba
 memakainya dalam konteks multithreaded. Kita akan membahas cara mendapatkan
 fungsionalitas `RefCell<T>` di program multithreaded di Bab 16.
 
@@ -97,7 +97,7 @@ ini tidak akan terkompilasi:
 {{#rustdoc_include ../listings/ch15-smart-pointers/no-listing-01-cant-borrow-immutable-as-mutable/src/main.rs}}
 ```
 
-Jika Anda mencoba mengompilasi kode ini, Anda akan mendapat galat berikut:
+Jika Anda mencoba mengompilasi kode ini, Anda akan mendapat error berikut:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/no-listing-01-cant-borrow-immutable-as-mutable/output.txt}}
@@ -110,7 +110,7 @@ Kode di luar metode nilai itu tidak akan bisa mengubah nilai itu. Memakai
 *interior mutability*, tetapi `RefCell<T>` tidak sepenuhnya menghindari aturan
 *borrowing*: *Borrow checker* di kompilator mengizinkan *interior mutability* ini,
 dan aturan *borrowing* diperiksa pada runtime sebagai gantinya. Jika Anda
-melanggar aturannya, Anda akan mendapat `panic!` alih-alih galat kompilator.
+melanggar aturannya, Anda akan mendapat `panic!` alih-alih error kompilator.
 
 Mari kita kerjakan contoh praktis ketika kita dapat memakai `RefCell<T>`
 untuk mengubah nilai *immutable* dan melihat mengapa hal itu berguna.
@@ -215,7 +215,7 @@ Namun, ada satu masalah dengan test ini, seperti ditunjukkan di sini:
 
 Kita tidak bisa memodifikasi `MockMessenger` untuk melacak pesan-pesan itu,
 karena metode `send` menerima *immutable* *reference* ke `self`. Kita juga tidak
-bisa mengambil saran dari teks galat itu untuk memakai `&mut self` di metode
+bisa mengambil saran dari teks error itu untuk memakai `&mut self` di metode
 `impl` sekaligus definisi *trait*. Kita tidak ingin mengubah *trait* `Messenger`
 semata-mata demi pengujian. Sebagai gantinya, kita perlu mencari cara membuat
 kode test kita bekerja dengan benar dengan desain yang sudah ada.
@@ -271,7 +271,7 @@ jumlah pinjaman *immutable* yang aktif. Ketika sebuah nilai `Ref<T>` keluar dari
 kompilasi, `RefCell<T>` mengizinkan kita memiliki banyak pinjaman *immutable*
 atau satu pinjaman *mutable* pada titik waktu mana pun.
 
-Jika kita mencoba melanggar aturan ini, alih-alih mendapat galat kompilator
+Jika kita mencoba melanggar aturan ini, alih-alih mendapat error kompilator
 seperti yang terjadi dengan *reference*, implementasi `RefCell<T>` akan panic
 pada runtime. Listing 15-23 menunjukkan modifikasi implementasi `send` di
 Listing 15-22. Kita sengaja mencoba membuat dua pinjaman *mutable* yang aktif
@@ -290,7 +290,7 @@ Kita membuat variabel `one_borrow` untuk *smart pointer* `RefMut<T>` yang
 dikembalikan dari `borrow_mut`. Kemudian, kita membuat pinjaman *mutable* lain
 dengan cara yang sama di variabel `two_borrow`. Ini membuat dua *mutable*
 *reference* di *scope* yang sama, yang tidak diizinkan. Ketika kita menjalankan
-test untuk library kita, kode di Listing 15-23 akan terkompilasi tanpa galat,
+test untuk library kita, kode di Listing 15-23 akan terkompilasi tanpa error,
 tetapi testnya akan gagal:
 
 ```console
@@ -301,7 +301,7 @@ Perhatikan bahwa kode itu panic dengan pesan `already borrowed:
 BorrowMutError`. Beginilah `RefCell<T>` menangani pelanggaran aturan
 *borrowing* pada runtime.
 
-Memilih untuk menangkap galat *borrowing* pada runtime alih-alih pada waktu
+Memilih untuk menangkap error *borrowing* pada runtime alih-alih pada waktu
 kompilasi, seperti yang kita lakukan di sini, berarti Anda berpotensi
 menemukan kesalahan dalam kode Anda lebih lambat dalam proses pengembangan:
 bisa jadi baru ketahuan ketika kode Anda sudah di-deploy ke produksi. Selain

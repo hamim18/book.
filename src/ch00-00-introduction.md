@@ -42,7 +42,7 @@ sistem:
 - Alat pemformatan `rustfmt` menjamin gaya penulisan kode yang konsisten
   di antara para pengembang.
 - Rust Language Server mendukung integrasi lingkungan pengembangan terpadu
-  (IDE) untuk pelengkapan kode dan pesan galat sebaris.
+  (IDE) untuk pelengkapan kode dan pesan error sebaris.
 
 Dengan menggunakan alat-alat ini dan alat-alat lain di ekosistem Rust, para
 pengembang dapat tetap produktif saat menulis kode tingkat sistem.
@@ -137,7 +137,7 @@ Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta
 aturan privasi untuk mengorganisasi kode Anda dan antarmuka pemrograman
 aplikasi (API) publiknya. **Bab 8** membahas beberapa struktur data koleksi
 umum yang disediakan pustaka standar: vektor, string, dan hash map. **Bab 9**
-menjelajahi filosofi dan teknik penanganan galat Rust.
+menjelajahi filosofi dan teknik penanganan error Rust.
 
 **Bab 10** menggali *generics* (tipe generik), *trait*, dan *lifetime* (masa
 hidup), yang memberi Anda kemampuan untuk mendefinisikan kode yang berlaku
@@ -187,14 +187,14 @@ cocok untuk Anda.
 
 <span id="ferris"></span>
 
-Bagian penting dari proses belajar Rust adalah belajar membaca pesan galat
+Bagian penting dari proses belajar Rust adalah belajar membaca pesan error
 yang ditampilkan *compiler*: pesan-pesan ini akan memandu Anda menuju kode
 yang berfungsi. Karena itu, kita akan memberikan banyak contoh yang tidak
-terkompilasi beserta pesan galat yang akan ditampilkan *compiler* pada setiap
+terkompilasi beserta pesan error yang akan ditampilkan *compiler* pada setiap
 situasi. Perlu Anda ketahui bahwa jika Anda mengetik dan menjalankan sebuah
 contoh secara acak, contoh tersebut mungkin tidak terkompilasi! Pastikan Anda
 membaca teks di sekitarnya untuk melihat apakah contoh yang coba Anda
-jalankan memang sengaja dibuat agar menghasilkan galat. Pada kebanyakan
+jalankan memang sengaja dibuat agar menghasilkan error. Pada kebanyakan
 situasi, kita akan memandu Anda ke versi yang benar dari setiap kode yang
 tidak terkompilasi. Ferris juga akan membantu Anda membedakan kode yang
 memang tidak dimaksudkan untuk berfungsi:

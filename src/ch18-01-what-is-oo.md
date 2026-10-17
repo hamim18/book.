@@ -150,7 +150,7 @@ daripada yang diperlukan. Subclass tidak selalu harus berbagi semua
 karakteristik kelas induknya, tetapi dengan *inheritance* mereka akan
 melakukannya. Ini bisa membuat desain program kurang fleksibel. Ini juga
 memunculkan kemungkinan memanggil metode pada subclass yang tidak masuk akal
-atau menyebabkan galat karena metode itu tidak berlaku untuk subclass
+atau menyebabkan error karena metode itu tidak berlaku untuk subclass
 tersebut. Selain itu, beberapa bahasa hanya mengizinkan _single inheritance_
 (pewarisan tunggal) (artinya subclass hanya bisa mewarisi dari satu kelas),
 yang semakin membatasi fleksibilitas desain program.

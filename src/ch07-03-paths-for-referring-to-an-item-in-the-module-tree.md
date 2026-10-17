@@ -74,9 +74,9 @@ ingin memindahkan definisi kode dan pemanggilan item secara independen satu
 sama lain.
 
 Mari kita coba mengompilasi Listing 7-3 dan mencari tahu mengapa listing itu
-belum bisa dikompilasi! Galat yang kita dapatkan ditunjukkan di Listing 7-4.
+belum bisa dikompilasi! Error yang kita dapatkan ditunjukkan di Listing 7-4.
 
-<Listing number="7-4" caption="Galat compiler dari membangun kode di Listing 7-3">
+<Listing number="7-4" caption="Error compiler dari membangun kode di Listing 7-3">
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
@@ -84,7 +84,7 @@ belum bisa dikompilasi! Galat yang kita dapatkan ditunjukkan di Listing 7-4.
 
 </Listing>
 
-Pesan galatnya mengatakan bahwa *module* `hosting` bersifat privat. Dengan kata
+Pesan errornya mengatakan bahwa *module* `hosting` bersifat privat. Dengan kata
 lain, kita memiliki *path* yang benar untuk *module* `hosting` dan fungsi
 `add_to_waitlist`, tetapi Rust tidak mengizinkan kita memakainya karena Rust
 tidak memiliki akses ke bagian-bagian privat tersebut. Di Rust, semua item
@@ -112,7 +112,7 @@ memakai kata kunci `pub` untuk menjadikan sebuah item publik.
 <a id="exposing-paths-with-the-pub-keyword"></a>
 ### Mengekspos Path dengan Kata Kunci `pub`
 
-Mari kita kembali ke galat di Listing 7-4 yang memberi tahu kita bahwa *module*
+Mari kita kembali ke error di Listing 7-4 yang memberi tahu kita bahwa *module*
 `hosting` bersifat privat. Kita ingin fungsi `eat_at_restaurant` di *module*
 induk memiliki akses ke fungsi `add_to_waitlist` di *module* anak, jadi kita
 menandai *module* `hosting` dengan kata kunci `pub`, seperti yang ditunjukkan
@@ -126,10 +126,10 @@ di Listing 7-5.
 
 </Listing>
 
-Sayangnya, kode di Listing 7-5 tetap menghasilkan galat *compiler*, seperti
+Sayangnya, kode di Listing 7-5 tetap menghasilkan error *compiler*, seperti
 yang ditunjukkan di Listing 7-6.
 
-<Listing number="7-6" caption="Galat compiler dari membangun kode di Listing 7-5">
+<Listing number="7-6" caption="Error compiler dari membangun kode di Listing 7-5">
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
@@ -148,7 +148,7 @@ lakukan hanya dengan menjadikan *module* publik; kita perlu melangkah lebih
 jauh dan memilih untuk menjadikan satu item atau lebih di dalam *module* ikut
 publik.
 
-Galat di Listing 7-6 mengatakan bahwa fungsi `add_to_waitlist` bersifat
+Error di Listing 7-6 mengatakan bahwa fungsi `add_to_waitlist` bersifat
 privat. Aturan privasi berlaku untuk *struct*, *enum*, fungsi, dan metode, juga
 *module*.
 
@@ -278,7 +278,7 @@ Karena *field* `toast` di *struct* `back_of_house::Breakfast` publik, di
 notasi titik. Perhatikan bahwa kita tidak dapat memakai *field*
 `seasonal_fruit` di `eat_at_restaurant`, karena `seasonal_fruit` privat. Coba
 batalkan komentar pada baris yang mengubah nilai *field* `seasonal_fruit` untuk
-melihat galat apa yang Anda dapatkan!
+melihat error apa yang Anda dapatkan!
 
 Juga, perhatikan bahwa karena `back_of_house::Breakfast` memiliki *field*
 privat, *struct* tersebut perlu menyediakan *associated function* (fungsi

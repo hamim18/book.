@@ -88,7 +88,7 @@ mengasumsikan kita membuat string *slice* dari `query` dan bukan `contents`, ia
 akan melakukan pemeriksaan keamanannya secara keliru.
 
 Jika kita lupa anotasi *lifetime*-nya dan mencoba mengompilasi fungsi ini,
-kita akan mendapat galat ini:
+kita akan mendapat error ini:
 
 ```console
 {{#include ../listings/ch12-an-io-project/output-only-02-missing-lifetimes/output.txt}}

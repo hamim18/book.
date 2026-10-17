@@ -268,7 +268,7 @@ _Cargo.lock_ tingkat teratas sekarang memuat informasi tentang dependensi
 workspace, kita tidak dapat memakainya di *crate* lain di workspace kecuali kita
 menambahkan `rand` ke file _Cargo.toml_ mereka juga. Sebagai contoh, jika kita
 menambahkan `use rand;` ke file _adder/src/main.rs_ untuk *package* `adder`,
-kita akan mendapat galat:
+kita akan mendapat error:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-03-use-rand/add

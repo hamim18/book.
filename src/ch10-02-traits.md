@@ -424,9 +424,9 @@ tipe generik untuk mengurangi duplikasi, tetapi juga memberi tahu *compiler*
 bahwa kita ingin tipe generiknya memiliki perilaku tertentu. *Compiler*
 kemudian bisa memakai informasi *trait bound* untuk memeriksa bahwa semua tipe
 konkret yang dipakai bersama kode kita memberikan perilaku yang benar. Dalam
-bahasa *dynamically typed* (bertipe dinamis), kita akan mendapatkan galat di
+bahasa *dynamically typed* (bertipe dinamis), kita akan mendapatkan error di
 *runtime* jika kita memanggil metode pada tipe yang tidak mendefinisikan
-metode tersebut. Namun, Rust memindahkan galat-galat ini ke waktu kompilasi
+metode tersebut. Namun, Rust memindahkan error-error ini ke waktu kompilasi
 sehingga kita dipaksa memperbaiki masalahnya bahkan sebelum kode kita bisa
 berjalan. Selain itu, kita tidak perlu menulis kode yang memeriksa perilaku
 di runtime, karena kita sudah memeriksanya di waktu kompilasi. Melakukannya

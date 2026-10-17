@@ -1,6 +1,6 @@
-## Galat yang Dapat Dipulihkan dengan `Result`
+## Error yang Dapat Dipulihkan dengan `Result`
 
-Sebagian besar galat tidak cukup serius untuk mengharuskan program berhenti
+Sebagian besar error tidak cukup serius untuk mengharuskan program berhenti
 sepenuhnya. Terkadang, ketika sebuah fungsi gagal, ada alasan yang dapat Anda
 tafsirkan dan tanggapi dengan mudah. Misalnya, jika Anda mencoba membuka
 sebuah file dan operasi itu gagal karena filenya tidak ada, Anda mungkin
@@ -20,11 +20,11 @@ enum Result<T, E> {
 `T` dan `E` adalah parameter tipe generik: kita akan membahas *generics*
 (tipe generik) lebih detail di Bab 10. Yang perlu Anda ketahui saat ini
 adalah bahwa `T` merepresentasikan tipe nilai yang akan dikembalikan pada
-kasus sukses di dalam variant `Ok`, dan `E` merepresentasikan tipe galat
+kasus sukses di dalam variant `Ok`, dan `E` merepresentasikan tipe error
 yang akan dikembalikan pada kasus gagal di dalam variant `Err`. Karena
 `Result` memiliki parameter tipe generik ini, kita dapat memakai tipe
 `Result` dan fungsi-fungsi yang didefinisikan padanya di banyak situasi
-berbeda ketika nilai sukses dan nilai galat yang ingin kita kembalikan
+berbeda ketika nilai sukses dan nilai error yang ingin kita kembalikan
 mungkin berbeda.
 
 Mari kita panggil sebuah fungsi yang mengembalikan nilai `Result` karena
@@ -41,18 +41,18 @@ fungsi itu bisa gagal. Di Listing 9-3, kita mencoba membuka sebuah file.
 Tipe kembalian `File::open` adalah `Result<T, E>`. Parameter generik `T`
 telah diisi oleh implementasi `File::open` dengan tipe nilai sukses,
 `std::fs::File`, yang merupakan handle file. Tipe `E` yang dipakai pada
-nilai galat adalah `std::io::Error`. Tipe kembalian ini berarti pemanggilan
+nilai error adalah `std::io::Error`. Tipe kembalian ini berarti pemanggilan
 `File::open` mungkin berhasil dan mengembalikan handle file yang dapat kita
 baca atau tulis. Pemanggilan fungsinya juga mungkin gagal: misalnya, file
 mungkin tidak ada, atau kita mungkin tidak memiliki izin untuk mengakses
 file itu. Fungsi `File::open` perlu punya cara memberi tahu kita apakah ia
 berhasil atau gagal dan sekaligus memberi kita handle file atau informasi
-galat. Informasi ini persis seperti yang disampaikan *enum* `Result`.
+error. Informasi ini persis seperti yang disampaikan *enum* `Result`.
 
 Pada kasus ketika `File::open` berhasil, nilai di variabel
 `greeting_file_result` akan berupa instance `Ok` yang berisi handle file.
 Pada kasus ketika ia gagal, nilai di `greeting_file_result` akan berupa
-instance `Err` yang berisi lebih banyak informasi tentang jenis galat yang
+instance `Err` yang berisi lebih banyak informasi tentang jenis error yang
 terjadi.
 
 Kita perlu menambahkan kode ke Listing 9-3 untuk mengambil tindakan yang
@@ -88,7 +88,7 @@ menjalankan kode ini, kita akan melihat output berikut dari *macro* `panic!`:
 
 Seperti biasa, output ini memberi tahu kita dengan tepat apa yang salah.
 
-### Mencocokkan Galat yang Berbeda
+### Mencocokkan Error yang Berbeda
 
 Kode di Listing 9-4 akan `panic!` apa pun alasan `File::open` gagal. Namun,
 kita ingin mengambil tindakan yang berbeda untuk alasan kegagalan yang
@@ -99,7 +99,7 @@ file—kita tetap ingin kodenya `panic!` dengan cara yang sama seperti di
 Listing 9-4. Untuk ini, kita menambahkan ekspresi `match` bagian dalam,
 seperti yang ditunjukkan di Listing 9-5.
 
-<Listing number="9-5" file-name="src/main.rs" caption="Menangani berbagai jenis galat dengan berbagai cara">
+<Listing number="9-5" file-name="src/main.rs" caption="Menangani berbagai jenis error dengan berbagai cara">
 
 <!-- ignore this test because otherwise it creates hello.txt which causes other
 tests to fail lol -->
@@ -114,7 +114,7 @@ Tipe nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
 `io::Error`, yaitu sebuah *struct* yang disediakan pustaka standar. *Struct* ini
 memiliki metode `kind`, yang dapat kita panggil untuk mendapatkan nilai
 `io::ErrorKind`. *Enum* `io::ErrorKind` disediakan pustaka standar dan
-memiliki variant-variant yang merepresentasikan berbagai jenis galat yang
+memiliki variant-variant yang merepresentasikan berbagai jenis error yang
 mungkin dihasilkan dari operasi `io`. Variant yang ingin kita pakai adalah
 `ErrorKind::NotFound`, yang mengindikasikan bahwa file yang kita coba buka
 belum ada. Jadi, kita mencocokkan `greeting_file_result`, tetapi kita juga
@@ -124,9 +124,9 @@ Kondisi yang ingin kita periksa di match bagian dalam adalah apakah nilai
 yang dikembalikan `error.kind()` adalah variant `NotFound` dari *enum*
 `ErrorKind`. Jika ya, kita mencoba membuat file dengan `File::create`.
 Namun, karena `File::create` juga bisa gagal, kita membutuhkan arm kedua di
-ekspresi `match` bagian dalam. Ketika file tidak dapat dibuat, pesan galat
+ekspresi `match` bagian dalam. Ketika file tidak dapat dibuat, pesan error
 yang berbeda dicetak. Arm kedua dari `match` bagian luar tetap sama, jadi
-program panic pada galat apa pun selain galat file tidak ditemukan.
+program panic pada error apa pun selain error file tidak ditemukan.
 
 > #### Alternatif untuk Memakai `match` dengan `Result<T, E>`
 >
@@ -164,13 +164,13 @@ program panic pada galat apa pun selain galat file tidak ditemukan.
 > contoh ini setelah Anda membaca Bab 13 dan carilah metode
 > `unwrap_or_else` di dokumentasi pustaka standar. Banyak lagi metode
 > semacam ini yang dapat merapikan ekspresi `match` bersarang yang besar
-> ketika Anda berurusan dengan galat.
+> ketika Anda berurusan dengan error.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="shortcuts-for-panic-on-error-unwrap-and-expect"></a>
 
-#### Pintasan untuk Panic saat Galat
+#### Pintasan untuk Panic saat Error
 
 Memakai `match` cukup berhasil, tetapi bisa sedikit bertele-tele dan tidak
 selalu mengomunikasikan maksud dengan baik. Tipe `Result<T, E>` memiliki
@@ -191,7 +191,7 @@ beraksi:
 </Listing>
 
 Jika kita menjalankan kode ini tanpa file _hello.txt_, kita akan melihat
-pesan galat dari pemanggilan `panic!` yang dilakukan metode `unwrap`:
+pesan error dari pemanggilan `panic!` yang dilakukan metode `unwrap`:
 
 <!-- manual-regeneration
 cd listings/ch09-error-handling/no-listing-04-unwrap
@@ -204,8 +204,8 @@ thread 'main' panicked at src/main.rs:4:49:
 called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
-Demikian pula, metode `expect` juga memungkinkan kita memilih pesan galat
-`panic!`. Memakai `expect` alih-alih `unwrap` dan memberikan pesan galat
+Demikian pula, metode `expect` juga memungkinkan kita memilih pesan error
+`panic!`. Memakai `expect` alih-alih `unwrap` dan memberikan pesan error
 yang baik dapat menyampaikan maksud Anda dan mempermudah pelacakan sumber
 panic. Sintaks `expect` terlihat seperti ini:
 
@@ -218,7 +218,7 @@ panic. Sintaks `expect` terlihat seperti ini:
 </Listing>
 
 Kita memakai `expect` dengan cara yang sama seperti `unwrap`: untuk
-mengembalikan handle file atau memanggil *macro* `panic!`. Pesan galat yang
+mengembalikan handle file atau memanggil *macro* `panic!`. Pesan error yang
 dipakai `expect` dalam pemanggilannya ke `panic!` adalah parameter yang kita
 berikan ke `expect`, bukan pesan `panic!` default yang dipakai `unwrap`.
 Inilah tampilannya:
@@ -240,21 +240,21 @@ operasi itu diharapkan selalu berhasil. Dengan begitu, jika asumsi Anda
 ternyata salah, Anda memiliki lebih banyak informasi untuk dipakai dalam
 men-debug.
 
-### Meneruskan Galat
+### Meneruskan Error
 
 Ketika implementasi sebuah fungsi memanggil sesuatu yang mungkin gagal,
-alih-alih menangani galatnya di dalam fungsi itu sendiri, Anda dapat
-mengembalikan galatnya ke kode pemanggil supaya kode itu dapat memutuskan
+alih-alih menangani errornya di dalam fungsi itu sendiri, Anda dapat
+mengembalikan errornya ke kode pemanggil supaya kode itu dapat memutuskan
 apa yang harus dilakukan. Ini dikenal sebagai *propagating* (meneruskan)
-galat dan memberi lebih banyak kendali kepada kode pemanggil, yang mungkin
-memiliki lebih banyak informasi atau logika yang menentukan bagaimana galat
+error dan memberi lebih banyak kendali kepada kode pemanggil, yang mungkin
+memiliki lebih banyak informasi atau logika yang menentukan bagaimana error
 itu harus ditangani daripada yang Anda miliki dalam konteks kode Anda.
 
 Misalnya, Listing 9-6 menunjukkan fungsi yang membaca nama pengguna dari
 sebuah file. Jika file tidak ada atau tidak dapat dibaca, fungsi ini akan
-mengembalikan galat-galat itu ke kode yang memanggil fungsi tersebut.
+mengembalikan error-error itu ke kode yang memanggil fungsi tersebut.
 
-<Listing number="9-6" file-name="src/main.rs" caption="Sebuah fungsi yang mengembalikan galat ke kode pemanggil memakai `match`">
+<Listing number="9-6" file-name="src/main.rs" caption="Sebuah fungsi yang mengembalikan error ke kode pemanggil memakai `match`">
 
 <!-- Deliberately not using rustdoc_include here; the `main` function in the
 file panics. We do want to include it for reader experimentation purposes, but
@@ -268,7 +268,7 @@ don't want to include it for rustdoc testing purposes. -->
 
 Fungsi ini dapat ditulis dengan cara yang jauh lebih pendek, tetapi kita
 akan memulai dengan mengerjakan banyak bagiannya secara manual untuk
-mengeksplorasi penanganan galat; pada akhirnya, kita akan menunjukkan cara
+mengeksplorasi penanganan error; pada akhirnya, kita akan menunjukkan cara
 yang lebih pendek. Mari kita lihat tipe kembalian fungsinya terlebih dahulu:
 `Result<String, io::Error>`. Ini berarti fungsi ini mengembalikan nilai
 bertipe `Result<T, E>`, dengan parameter generik `T` diisi tipe konkret
@@ -280,7 +280,7 @@ dibaca fungsi ini dari file. Jika fungsi ini menemui masalah apa pun, kode
 pemanggil akan menerima nilai `Err` yang memegang instance `io::Error` yang
 berisi lebih banyak informasi tentang masalah apa yang terjadi. Kita
 memilih `io::Error` sebagai tipe kembalian fungsi ini karena kebetulan itu
-adalah tipe nilai galat yang dikembalikan dari kedua operasi yang kita
+adalah tipe nilai error yang dikembalikan dari kedua operasi yang kita
 panggil di badan fungsi ini yang mungkin gagal: fungsi `File::open` dan
 metode `read_to_string`.
 
@@ -289,9 +289,9 @@ menangani nilai `Result` dengan `match` yang mirip dengan `match` di Listing
 9-4. Jika `File::open` berhasil, handle file di variabel pola `file` menjadi
 nilai di variabel *mutable* `username_file` dan fungsinya berlanjut. Pada
 kasus `Err`, alih-alih memanggil `panic!`, kita memakai kata kunci `return`
-untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai galat
+untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai error
 dari `File::open`, yang kini berada di variabel pola `e`, kembali ke kode
-pemanggil sebagai nilai galat fungsi ini.
+pemanggil sebagai nilai error fungsi ini.
 
 Jadi, jika kita memiliki handle file di `username_file`, fungsi kemudian
 membuat `String` baru di variabel `username` dan memanggil metode
@@ -301,8 +301,8 @@ karena ia mungkin gagal, meskipun `File::open` berhasil. Jadi, kita
 membutuhkan `match` lain untuk menangani `Result` itu: jika `read_to_string`
 berhasil, fungsi kita pun berhasil, dan kita mengembalikan nama pengguna
 dari file yang kini berada di `username` yang dibungkus dalam `Ok`. Jika
-`read_to_string` gagal, kita mengembalikan nilai galatnya dengan cara yang
-sama seperti kita mengembalikan nilai galat di `match` yang menangani nilai
+`read_to_string` gagal, kita mengembalikan nilai errornya dengan cara yang
+sama seperti kita mengembalikan nilai error di `match` yang menangani nilai
 kembalian `File::open`. Namun, kita tidak perlu menulis `return` secara
 eksplisit, karena ini adalah ekspresi terakhir di fungsi.
 
@@ -313,10 +313,10 @@ itu. Jika kode pemanggil mendapat nilai `Err`, ia dapat memanggil `panic!`
 dan membuat program crash, memakai nama pengguna default, atau mencari nama
 pengguna dari tempat selain file, misalnya. Kita tidak memiliki cukup
 informasi tentang apa yang sebenarnya ingin dilakukan kode pemanggil, jadi
-kita meneruskan semua informasi keberhasilan atau galat ke atas untuk
+kita meneruskan semua informasi keberhasilan atau error ke atas untuk
 ditangani dengan tepat.
 
-Pola meneruskan galat ini begitu umum di Rust sehingga Rust menyediakan
+Pola meneruskan error ini begitu umum di Rust sehingga Rust menyediakan
 operator tanda tanya `?` untuk mempermudahnya.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -329,7 +329,7 @@ Listing 9-7 menunjukkan implementasi `read_username_from_file` yang
 fungsionalitasnya sama dengan Listing 9-6, tetapi implementasi ini memakai
 operator `?`.
 
-<Listing number="9-7" file-name="src/main.rs" caption="Sebuah fungsi yang mengembalikan galat ke kode pemanggil memakai operator `?`">
+<Listing number="9-7" file-name="src/main.rs" caption="Sebuah fungsi yang mengembalikan error ke kode pemanggil memakai operator `?`">
 
 <!-- Deliberately not using rustdoc_include here; the `main` function in the
 file panics. We do want to include it for reader experimentation purposes, but
@@ -347,29 +347,29 @@ untuk menangani nilai `Result` di Listing 9-6. Jika nilai `Result` adalah
 `Ok`, nilai di dalam `Ok` akan dikembalikan dari ekspresi ini, dan program
 akan berlanjut. Jika nilainya `Err`, `Err` akan dikembalikan dari seluruh
 fungsi seolah-olah kita memakai kata kunci `return`, sehingga nilai
-galatnya diteruskan ke kode pemanggil.
+errornya diteruskan ke kode pemanggil.
 
 Ada perbedaan antara yang dilakukan ekspresi `match` dari Listing 9-6 dan
-yang dilakukan operator `?`: nilai galat yang dipanggilkan operator `?`
+yang dilakukan operator `?`: nilai error yang dipanggilkan operator `?`
 padanya melewati fungsi `from`, yang didefinisikan di *trait* `From` di
 pustaka standar, yang dipakai untuk mengonversi nilai dari satu tipe ke tipe
-lain. Ketika operator `?` memanggil fungsi `from`, tipe galat yang diterima
-dikonversi menjadi tipe galat yang didefinisikan di tipe kembalian fungsi
-saat ini. Ini berguna ketika sebuah fungsi mengembalikan satu tipe galat
+lain. Ketika operator `?` memanggil fungsi `from`, tipe error yang diterima
+dikonversi menjadi tipe error yang didefinisikan di tipe kembalian fungsi
+saat ini. Ini berguna ketika sebuah fungsi mengembalikan satu tipe error
 untuk merepresentasikan semua cara fungsi itu mungkin gagal, bahkan jika
 bagian-bagiannya mungkin gagal karena banyak alasan berbeda.
 
 Misalnya, kita dapat mengubah fungsi `read_username_from_file` di Listing
-9-7 agar mengembalikan tipe galat kustom bernama `OurError` yang kita
+9-7 agar mengembalikan tipe error kustom bernama `OurError` yang kita
 definisikan. Jika kita juga mendefinisikan `impl From<io::Error> for
 OurError` untuk mengonstruksi instance `OurError` dari `io::Error`, maka
 pemanggilan operator `?` di badan `read_username_from_file` akan memanggil
-`from` dan mengonversi tipe galatnya tanpa perlu menambahkan kode lagi ke
+`from` dan mengonversi tipe errornya tanpa perlu menambahkan kode lagi ke
 fungsi.
 
 Dalam konteks Listing 9-7, `?` di akhir pemanggilan `File::open` akan
 mengembalikan nilai di dalam `Ok` ke variabel `username_file`. Jika terjadi
-galat, operator `?` akan keluar lebih awal dari seluruh fungsi dan
+error, operator `?` akan keluar lebih awal dari seluruh fungsi dan
 memberikan nilai `Err` apa pun kepada kode pemanggil. Hal yang sama berlaku
 untuk `?` di akhir pemanggilan `read_to_string`.
 
@@ -396,7 +396,7 @@ fungsi; bagian itu tidak berubah. Alih-alih membuat variabel
 hasil `File::open("hello.txt")?`. Kita masih memiliki `?` di akhir
 pemanggilan `read_to_string`, dan kita tetap mengembalikan nilai `Ok` yang
 berisi `username` ketika `File::open` dan `read_to_string` sama-sama
-berhasil alih-alih mengembalikan galat. Fungsionalitasnya lagi-lagi sama
+berhasil alih-alih mengembalikan error. Fungsionalitasnya lagi-lagi sama
 dengan Listing 9-6 dan Listing 9-7; ini hanya cara penulisan yang berbeda
 dan lebih ergonomis.
 
@@ -419,7 +419,7 @@ Membaca file ke dalam string adalah operasi yang cukup umum, jadi pustaka
 standar menyediakan fungsi `fs::read_to_string` yang praktis yang membuka
 file, membuat `String` baru, membaca isi file, menaruh isinya ke `String`
 itu, dan mengembalikannya. Tentu saja, memakai `fs::read_to_string` tidak
-memberi kita kesempatan untuk menjelaskan semua penanganan galatnya, jadi
+memberi kita kesempatan untuk menjelaskan semua penanganan errornya, jadi
 kita mengerjakannya dengan cara yang lebih panjang terlebih dahulu.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -436,7 +436,7 @@ Listing 9-6, `match` memakai nilai `Result`, dan arm return dini
 mengembalikan nilai `Err(e)`. Tipe kembalian fungsi harus berupa `Result`
 supaya kompatibel dengan `return` ini.
 
-Di Listing 9-10, mari kita lihat galat yang akan kita dapatkan jika kita
+Di Listing 9-10, mari kita lihat error yang akan kita dapatkan jika kita
 memakai operator `?` di fungsi `main` dengan tipe kembalian yang tidak
 kompatibel dengan tipe nilai tempat kita memakai `?`.
 
@@ -451,23 +451,23 @@ kompatibel dengan tipe nilai tempat kita memakai `?`.
 Kode ini membuka file, yang mungkin gagal. Operator `?` mengikuti nilai
 `Result` yang dikembalikan `File::open`, tetapi fungsi `main` ini memiliki
 tipe kembalian `()`, bukan `Result`. Ketika kita mengompilasi kode ini, kita
-mendapat pesan galat berikut:
+mendapat pesan error berikut:
 
 ```console
 {{#include ../listings/ch09-error-handling/listing-09-10/output.txt}}
 ```
 
-Galat ini menunjukkan bahwa kita hanya diizinkan memakai operator `?` di
+Error ini menunjukkan bahwa kita hanya diizinkan memakai operator `?` di
 fungsi yang mengembalikan `Result`, `Option`, atau tipe lain yang
 mengimplementasikan `FromResidual`.
 
-Untuk memperbaiki galatnya, Anda punya dua pilihan. Pilihan pertama adalah
+Untuk memperbaiki errornya, Anda punya dua pilihan. Pilihan pertama adalah
 mengubah tipe kembalian fungsi Anda agar kompatibel dengan nilai tempat Anda
 memakai operator `?` selama tidak ada pembatasan yang mencegahnya. Pilihan
 lainnya adalah memakai `match` atau salah satu metode `Result<T, E>` untuk
 menangani `Result<T, E>` dengan cara apa pun yang sesuai.
 
-Pesan galatnya juga menyebutkan bahwa `?` dapat dipakai dengan nilai
+Pesan errornya juga menyebutkan bahwa `?` dapat dipakai dengan nilai
 `Option<T>` juga. Seperti halnya memakai `?` pada `Result`, Anda hanya dapat
 memakai `?` pada `Option` di fungsi yang mengembalikan `Option`. Perilaku
 operator `?` ketika dipanggil pada `Option<T>` mirip dengan perilakunya
@@ -538,12 +538,12 @@ berisi kode dari Listing 9-10, tetapi kita telah mengubah tipe kembalian
 Tipe `Box<dyn Error>` adalah *trait object* (objek *trait*), yang akan kita
 bicarakan di [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
 Bersama”][*trait*-objects]<!-- ignore --> di Bab 18. Untuk saat ini, Anda
-dapat membaca `Box<dyn Error>` sebagai “galat jenis apa pun.” Memakai `?`
-pada nilai `Result` di fungsi `main` dengan tipe galat `Box<dyn Error>`
+dapat membaca `Box<dyn Error>` sebagai “error jenis apa pun.” Memakai `?`
+pada nilai `Result` di fungsi `main` dengan tipe error `Box<dyn Error>`
 diizinkan karena ini memungkinkan nilai `Err` apa pun dikembalikan lebih
-awal. Meskipun badan fungsi `main` ini hanya akan mengembalikan galat
+awal. Meskipun badan fungsi `main` ini hanya akan mengembalikan error
 bertipe `std::io::Error`, dengan menyebutkan `Box<dyn Error>`, tanda tangan
-ini akan tetap benar bahkan jika lebih banyak kode yang mengembalikan galat
+ini akan tetap benar bahkan jika lebih banyak kode yang mengembalikan error
 lain ditambahkan ke badan `main`.
 
 Ketika fungsi `main` mengembalikan `Result<(), E>`, program yang dapat
@@ -551,7 +551,7 @@ dieksekusi akan keluar dengan nilai `0` jika `main` mengembalikan `Ok(())`
 dan akan keluar dengan nilai bukan nol jika `main` mengembalikan nilai
 `Err`. Program yang dapat dieksekusi yang ditulis dalam C mengembalikan
 bilangan bulat ketika keluar: program yang keluar dengan sukses
-mengembalikan bilangan bulat `0`, dan program yang mengalami galat
+mengembalikan bilangan bulat `0`, dan program yang mengalami error
 mengembalikan bilangan bulat selain `0`. Rust juga mengembalikan bilangan
 bulat dari program yang dapat dieksekusi agar kompatibel dengan konvensi
 ini.

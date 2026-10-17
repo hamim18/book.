@@ -20,7 +20,7 @@ berbeda bergantung pada keberhasilan atau kegagalan.
 
 Secara umum, Anda tidak perlu khawatir tentang perbedaan antara pola
 *refutable* dan *irrefutable*; tetapi, Anda perlu familier dengan konsep
-refutabilitas supaya bisa merespons ketika Anda melihatnya di pesan galat.
+refutabilitas supaya bisa merespons ketika Anda melihatnya di pesan error.
 Dalam kasus-kasus itu, Anda perlu mengubah pola atau konstruksi yang Anda
 pakai bersama polanya, bergantung pada perilaku kode yang dimaksudkan.
 
@@ -49,7 +49,7 @@ telah mencoba memakai pola *refutable* di tempat pola *irrefutable* dibutuhkan:
 ```
 
 Karena kita tidak mencakup (dan tidak bisa mencakup!) setiap nilai yang valid
-dengan pola `Some(x)`, Rust dengan benar menghasilkan galat kompilator.
+dengan pola `Some(x)`, Rust dengan benar menghasilkan error kompilator.
 
 Jika kita memiliki pola *refutable* di tempat pola *irrefutable* dibutuhkan, kita
 bisa memperbaikinya dengan mengubah kode yang memakai pola itu: alih-alih

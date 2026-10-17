@@ -233,14 +233,14 @@ Dollar Mistake,” Tony Hoare, penemu null, berkata:
 > *reference* benar-benar aman, dengan pemeriksaan yang dilakukan otomatis oleh
 > *compiler*. Tetapi saya tidak kuasa menahan godaan untuk memasukkan null
 > *reference*, semata-mata karena begitu mudah diimplementasikan. Ini telah
-> menyebabkan galat, kerentanan, dan crash sistem yang tak terhitung
+> menyebabkan error, kerentanan, dan crash sistem yang tak terhitung
 > banyaknya, yang mungkin telah menimbulkan penderitaan dan kerusakan senilai
 > satu miliar dolar dalam empat puluh tahun terakhir.
 
 Masalah dengan nilai null adalah, jika Anda mencoba memakai nilai null
-sebagai nilai tidak-null, Anda akan mendapatkan semacam galat. Karena sifat
+sebagai nilai tidak-null, Anda akan mendapatkan semacam error. Karena sifat
 null-atau-tidak-null ini merata di mana-mana, sangatlah mudah untuk membuat
-galat semacam ini.
+error semacam ini.
 
 Namun, konsep yang coba diungkapkan null tetaplah berguna: null adalah nilai
 yang saat ini tidak valid atau tidak ada karena suatu alasan.
@@ -299,13 +299,13 @@ akan terkompilasi, karena ia mencoba menambahkan `i8` ke `Option<i8>`:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-07-cant-use-option-directly/src/main.rs:here}}
 ```
 
-Jika kita menjalankan kode ini, kita mendapatkan pesan galat seperti ini:
+Jika kita menjalankan kode ini, kita mendapatkan pesan error seperti ini:
 
 ```console
 {{#include ../listings/ch06-enums-and-pattern-matching/no-listing-07-cant-use-option-directly/output.txt}}
 ```
 
-Sengit! Pada dasarnya, pesan galat ini berarti Rust tidak memahami cara
+Sengit! Pada dasarnya, pesan error ini berarti Rust tidak memahami cara
 menambahkan `i8` dan `Option<i8>`, karena keduanya adalah tipe yang berbeda.
 Ketika kita memiliki nilai bertipe seperti `i8` di Rust, *compiler* akan
 memastikan bahwa kita selalu memiliki nilai yang valid. Kita dapat melangkah

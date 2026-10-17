@@ -303,7 +303,7 @@ Output ini bukan yang kita inginkan. Kita ingin memanggil fungsi `baby_name`
 yang menjadi bagian dari *trait* `Animal` yang kita implementasikan pada `Dog`
 supaya kode itu mencetak `A baby dog is called a puppy`. Teknik menentukan
 nama *trait* yang kita pakai di Listing 20-19 tidak membantu di sini; jika kita
-mengubah `main` menjadi kode di Listing 20-21, kita akan mendapat galat
+mengubah `main` menjadi kode di Listing 20-21, kita akan mendapat error
 kompilasi.
 
 <Listing number="20-21" file-name="src/main.rs" caption="Berusaha memanggil fungsi `baby_name` dari trait `Animal`, tetapi Rust tidak tahu implementasi mana yang dipakai">
@@ -317,7 +317,7 @@ kompilasi.
 Karena `Animal::baby_name` tidak memiliki parameter `self`, dan mungkin ada
 tipe-tipe lain yang mengimplementasikan *trait* `Animal`, Rust tidak bisa
 menentukan implementasi `Animal::baby_name` mana yang kita inginkan. Kita
-akan mendapat galat kompilator berikut:
+akan mendapat error kompilator berikut:
 
 ```console
 {{#include ../listings/ch20-advanced-features/listing-20-21/output.txt}}
@@ -410,7 +410,7 @@ Karena kita telah menentukan bahwa `OutlinePrint` memerlukan *trait*
 `Display`, kita bisa memakai fungsi `to_string` yang diimplementasikan secara
 otomatis untuk tipe apa pun yang mengimplementasikan `Display`. Jika kita
 mencoba memakai `to_string` tanpa menambahkan tanda titik dua dan menuliskan
-*trait* `Display` setelah nama *trait*, kita akan mendapat galat yang menyatakan
+*trait* `Display` setelah nama *trait*, kita akan mendapat error yang menyatakan
 bahwa tidak ada metode bernama `to_string` yang ditemukan untuk tipe `&Self`
 di *scope* saat ini.
 
@@ -426,7 +426,7 @@ Mari kita lihat apa yang terjadi saat kita mencoba mengimplementasikan
 
 </Listing>
 
-Kita mendapat galat yang menyatakan bahwa `Display` diperlukan tetapi belum
+Kita mendapat error yang menyatakan bahwa `Display` diperlukan tetapi belum
 diimplementasikan:
 
 ```console

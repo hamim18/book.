@@ -111,7 +111,7 @@ kita punya satu arm dengan pola `( $( $x:expr ),* )`, diikuti oleh `=>` dan
 blok kode yang dikaitkan dengan pola ini. Jika polanya cocok, blok kode yang
 terkait akan dihasilkan. Mengingat ini satu-satunya pola di *macro* ini, hanya
 ada satu cara pencocokan yang valid; pola lain mana pun akan menghasilkan
-galat. *Macro* yang lebih kompleks akan memiliki lebih dari satu arm.
+error. *Macro* yang lebih kompleks akan memiliki lebih dari satu arm.
 
 Sintaks pola yang valid dalam definisi *macro* berbeda dari sintaks pola yang
 dibahas di Bab 19 karena pola *macro* dicocokkan dengan struktur kode Rust,
@@ -394,10 +394,10 @@ yang dimodifikasi itu.
 
 Anda mungkin menyadari bahwa di sini kita memanggil `unwrap` untuk membuat
 fungsi `hello_macro_derive` panic jika pemanggilan fungsi `syn::parse`
-gagal. *Macro* prosedural kita perlu panic saat terjadi galat karena fungsi
+gagal. *Macro* prosedural kita perlu panic saat terjadi error karena fungsi
 `proc_macro_derive` harus mengembalikan `TokenStream`, bukan `Result`, agar
 sesuai dengan API *macro* prosedural. Kami menyederhanakan contoh ini dengan
-memakai `unwrap`; di kode produksi, Anda sebaiknya memberikan pesan galat
+memakai `unwrap`; di kode produksi, Anda sebaiknya memberikan pesan error
 yang lebih spesifik tentang apa yang salah dengan memakai `panic!` atau
 `expect`.
 
@@ -542,7 +542,7 @@ Fiuh! Sekarang Anda memiliki beberapa fitur Rust di kotak perkakas Anda
 yang mungkin tidak akan sering Anda pakai, tetapi Anda akan tahu bahwa
 fitur-fitur itu tersedia dalam keadaan yang sangat khusus. Kami telah
 memperkenalkan beberapa topik yang rumit supaya saat Anda menemukannya
-dalam saran pesan galat atau di kode orang lain, Anda bisa mengenali
+dalam saran pesan error atau di kode orang lain, Anda bisa mengenali
 konsep dan sintaks ini. Pakailah bab ini sebagai rujukan untuk memandu Anda
 menuju solusi.
 

@@ -70,7 +70,7 @@ nilai `char`. Perhatikan bahwa kode ini belum bisa dikompilasi.
 
 </Listing>
 
-Jika kita mengompilasi kode ini sekarang, kita akan mendapatkan galat
+Jika kita mengompilasi kode ini sekarang, kita akan mendapatkan error
 berikut:
 
 ```console
@@ -79,7 +79,7 @@ berikut:
 
 Teks bantuannya menyebut `std::cmp::PartialOrd`, yang merupakan sebuah
 *trait*, dan kita akan membahas *trait* di bagian berikutnya. Untuk sekarang,
-ketahuilah bahwa galat ini menyatakan bahwa badan `largest` tidak akan
+ketahuilah bahwa error ini menyatakan bahwa badan `largest` tidak akan
 berfungsi untuk semua tipe yang mungkin menjadi `T`. Karena kita ingin
 membandingkan nilai bertipe `T` di dalam badan fungsi, kita hanya bisa
 memakai tipe-tipe yang nilainya bisa diurutkan. Untuk memungkinkan
@@ -131,7 +131,7 @@ Dalam contoh ini, ketika kita menetapkan nilai integer `5` ke `x`, kita
 memberi tahu *compiler* bahwa tipe generik `T` akan berupa integer untuk
 instance `Point<T>` ini. Kemudian, ketika kita menentukan `4.0` untuk `y`,
 yang telah kita definisikan bertipe sama dengan `x`, kita akan mendapatkan
-galat ketidakcocokan tipe seperti ini:
+error ketidakcocokan tipe seperti ini:
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
@@ -194,7 +194,7 @@ enum Result<T, E> {
 varian: `Ok`, yang menampung sebuah nilai bertipe `T`, dan `Err`, yang
 menampung sebuah nilai bertipe `E`. Definisi ini memudahkan kita memakai *enum*
 `Result` di mana pun kita memiliki operasi yang mungkin berhasil
-(mengembalikan nilai bertipe `T`) atau gagal (mengembalikan galat bertipe
+(mengembalikan nilai bertipe `T`) atau gagal (mengembalikan error bertipe
 `E`). Nyatanya, inilah yang kita pakai untuk membuka file di Listing 9-3,
 ketika `T` diisi dengan tipe `std::fs::File` jika file berhasil dibuka dan
 `E` diisi dengan tipe `std::io::Error` ketika ada masalah saat membuka file.

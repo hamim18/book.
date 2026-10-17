@@ -93,21 +93,21 @@ ditunjukkan pada Listing 15-15.
 
 </Listing>
 
-Ketika kita mencoba mengompilasi kode ini, kita akan mendapat galat berikut:
+Ketika kita mencoba mengompilasi kode ini, kita akan mendapat error berikut:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-15/output.txt}}
 ```
 
-Pesan galat ini menyatakan bahwa kita tidak diizinkan memanggil `drop` secara
-eksplisit. Pesan galat itu memakai istilah _destructor_ (destruktor), yang
+Pesan error ini menyatakan bahwa kita tidak diizinkan memanggil `drop` secara
+eksplisit. Pesan error itu memakai istilah _destructor_ (destruktor), yang
 merupakan istilah pemrograman umum untuk fungsi yang membersihkan sebuah
 instance. Sebuah _destructor_ serupa dengan _constructor_ (konstruktor), yang
 membuat instance. Fungsi `drop` di Rust adalah salah satu destructor khusus.
 
 Rust tidak mengizinkan kita memanggil `drop` secara eksplisit, karena Rust
 tetap akan otomatis memanggil `drop` pada nilai itu di akhir `main`. Ini akan
-menyebabkan galat *double free* karena Rust akan mencoba membersihkan nilai yang
+menyebabkan error *double free* karena Rust akan mencoba membersihkan nilai yang
 sama dua kali.
 
 Kita tidak bisa mematikan penyisipan otomatis `drop` ketika sebuah nilai

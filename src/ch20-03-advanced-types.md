@@ -70,7 +70,7 @@ yang menerima parameter `i32`. Akan tetapi, dengan memakai cara ini, kita
 tidak mendapatkan manfaat pemeriksaan tipe yang kita dapatkan dari pola
 newtype yang dibahas sebelumnya. Dengan kata lain, jika kita
 mencampuradukkan nilai `Kilometers` dan `i32` di suatu tempat, kompilator
-tidak akan memberi kita galat.
+tidak akan memberi kita error.
 
 Kasus pemakaian utama sinonim tipe adalah mengurangi pengulangan. Misalnya,
 kita mungkin memiliki tipe yang panjang seperti ini:
@@ -80,7 +80,7 @@ Box<dyn Fn() + Send + 'static>
 ```
 
 Menulis tipe yang panjang ini di tanda tangan fungsi dan sebagai anotasi tipe
-di seluruh kode bisa melelahkan dan rawan galat. Bayangkan memiliki proyek
+di seluruh kode bisa melelahkan dan rawan error. Bayangkan memiliki proyek
 yang penuh dengan kode seperti di Listing 20-25.
 
 <Listing number="20-25" caption="Memakai tipe yang panjang di banyak tempat">
@@ -113,7 +113,7 @@ Alias tipe juga umum dipakai bersama tipe `Result<T, E>` untuk mengurangi
 pengulangan. Perhatikan modul `std::io` di pustaka standar. Operasi I/O
 sering kali mengembalikan `Result<T, E>` untuk menangani situasi ketika
 operasi gagal bekerja. Library ini memiliki *struct* `std::io::Error` yang
-mewakili semua galat I/O yang mungkin terjadi. Banyak fungsi di `std::io`
+mewakili semua error I/O yang mungkin terjadi. Banyak fungsi di `std::io`
 mengembalikan `Result<T, E>` dengan `E` berupa `std::io::Error`, seperti
 fungsi-fungsi berikut di *trait* `Write`:
 

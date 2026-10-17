@@ -51,7 +51,7 @@ membandingkan nilai sebenarnya. Begitu kita melakukan dereferensi pada `y`,
 kita memiliki akses ke nilai integer yang ditunjuk `y` untuk kita bandingkan
 dengan `5`.
 
-Jika kita mencoba menulis `assert_eq!(5, y);` saja, kita akan mendapat galat
+Jika kita mencoba menulis `assert_eq!(5, y);` saja, kita akan mendapat error
 kompilasi ini:
 
 ```console
@@ -130,7 +130,7 @@ cara melakukan dereferensi pada `MyBox`.
 
 </Listing>
 
-Berikut galat kompilasi yang dihasilkan:
+Berikut error kompilasi yang dihasilkan:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-09/output.txt}}

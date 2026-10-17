@@ -305,7 +305,7 @@ Kita memanggil metode `as_ref` pada `Option` karena kita menginginkan
 *reference* ke nilai di dalam `Option` alih-alih kepemilikan nilainya. Karena
 `state` adalah `Option<Box<dyn State>>`, ketika kita memanggil `as_ref`,
 sebuah `Option<&Box<dyn State>>` dikembalikan. Jika kita tidak memanggil
-`as_ref`, kita akan mendapat galat karena kita tidak bisa memindahkan `state`
+`as_ref`, kita akan mendapat error karena kita tidak bisa memindahkan `state`
 keluar dari `&self` yang dipinjam dari parameter fungsi.
 
 Kita kemudian memanggil metode `unwrap`, yang kita tahu tidak akan pernah
@@ -424,7 +424,7 @@ di Bab 20).
 Dengan mengimplementasikan pola state persis seperti yang didefinisikan untuk
 bahasa berorientasi objek, kita tidak memanfaatkan kekuatan Rust sepenuh yang
 kita bisa. Mari kita lihat beberapa perubahan yang bisa kita buat pada *crate*
-`blog` yang bisa menjadikan state dan transisi yang tidak valid sebagai galat
+`blog` yang bisa menjadikan state dan transisi yang tidak valid sebagai error
 waktu kompilasi.
 
 <a id="encoding-states-and-behavior-as-types"></a>
@@ -435,7 +435,7 @@ sekumpulan kompromi yang berbeda. Alih-alih mengenkapsulasi state dan
 transisi sepenuhnya sehingga kode luar tidak mengetahuinya, kita akan
 menyandikan state ke dalam tipe yang berbeda. Akibatnya, sistem pemeriksaan
 tipe Rust akan mencegah upaya memakai post draf di tempat yang hanya
-mengizinkan post yang diterbitkan dengan mengeluarkan galat kompilator.
+mengizinkan post yang diterbitkan dengan mengeluarkan error kompilator.
 
 Mari kita pertimbangkan bagian pertama `main` di Listing 18-11:
 
@@ -452,7 +452,7 @@ Kita tetap mengaktifkan pembuatan post baru di state draf menggunakan
 memiliki metode `content` pada post draf yang mengembalikan string kosong,
 kita akan membuatnya sedemikian rupa sehingga post draf tidak memiliki metode
 `content` sama sekali. Dengan begitu, jika kita mencoba mendapatkan konten
-post draf, kita akan mendapat galat kompilator yang memberi tahu kita metode
+post draf, kita akan mendapat error kompilator yang memberi tahu kita metode
 itu tidak ada. Hasilnya, mustahil bagi kita untuk secara tidak sengaja
 menampilkan konten post draf di produksi karena kode itu bahkan tidak akan
 terkompilasi. Listing 18-19 menunjukkan definisi *struct* `Post` dan *struct*
@@ -482,7 +482,7 @@ ke `content` seperti sebelumnya, tetapi perhatikan bahwa `DraftPost` tidak
 memiliki metode `content` yang terdefinisi! Jadi sekarang program memastikan
 semua post dimulai sebagai post draf, dan post draf tidak memiliki konten yang
 tersedia untuk ditampilkan. Upaya apa pun untuk mengakali batasan-batasan ini
-akan menghasilkan galat kompilator.
+akan menghasilkan error kompilator.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -511,7 +511,7 @@ masing-masing menjadi `PendingReviewPost` dan `Post` yang diterbitkan. Dengan ca
 kita tidak akan punya instance `DraftPost` yang tersisa setelah kita memanggil
 `request_review` padanya, dan seterusnya. *Struct* `PendingReviewPost` tidak
 memiliki metode `content` yang terdefinisi padanya, jadi mencoba membaca
-kontennya menghasilkan galat kompilator, sama seperti `DraftPost`. Karena
+kontennya menghasilkan error kompilator, sama seperti `DraftPost`. Karena
 satu-satunya cara mendapatkan instance `Post` yang diterbitkan—yang memang
 memiliki metode `content`—adalah memanggil metode `approve` pada
 `PendingReviewPost`, dan satu-satunya cara mendapatkan `PendingReviewPost`

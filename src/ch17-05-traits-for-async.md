@@ -151,7 +151,7 @@ bisa terkompilasi.
 </Listing>
 
 Kita menaruh setiap *future* di dalam `Box` untuk menjadikannya _trait object_,
-sama seperti yang kita lakukan di bagian “Mengembalikan Galat dari `run`” di
+sama seperti yang kita lakukan di bagian “Mengembalikan Error dari `run`” di
 Bab 12. (Kita akan membahas *trait object* secara mendetail di Bab 18.) Memakai
 *trait object* memungkinkan kita memperlakukan setiap *future* anonim yang
 dihasilkan tipe-tipe ini sebagai tipe yang sama, karena semuanya
@@ -166,7 +166,7 @@ Anda tidak bisa menaruh dua *struct* tulisan tangan yang berbeda di dalam
 
 Kemudian kita meneruskan koleksi *future* itu ke fungsi `trpl::join_all` dan
 menunggu hasilnya. Namun, ini tidak terkompilasi; berikut bagian yang relevan
-dari pesan galatnya.
+dari pesan errornya.
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-23
@@ -194,10 +194,10 @@ note: required by a bound in `futures_util::future::join_all::JoinAll`
    |        ^^^^^^ required by this bound in `JoinAll`
 ```
 
-Catatan dalam pesan galat ini memberi tahu kita bahwa kita sebaiknya memakai
+Catatan dalam pesan error ini memberi tahu kita bahwa kita sebaiknya memakai
 *macro* `pin!` untuk mem-_pin_ nilai-nilai itu, yang berarti menaruhnya di dalam
 tipe `Pin` yang menjamin nilai-nilai itu tidak akan dipindahkan di memori.
-Pesan galat itu mengatakan pinning diperlukan karena `dyn Future<Output = ()>`
+Pesan error itu mengatakan pinning diperlukan karena `dyn Future<Output = ()>`
 perlu mengimplementasikan *trait* `Unpin` dan saat ini belum
 mengimplementasikannya.
 
@@ -259,7 +259,7 @@ dimiliki `Rc` dan `Arc` dengan penghitungan referensi; `Pin` murni alat yang
 bisa dipakai kompilator untuk menegakkan batasan pada pemakaian *pointer*.
 
 Mengingat bahwa `await` diimplementasikan dalam bentuk pemanggilan `poll`
-mulai menjelaskan pesan galat yang kita lihat sebelumnya, tetapi itu dalam
+mulai menjelaskan pesan error yang kita lihat sebelumnya, tetapi itu dalam
 bentuk `Unpin`, bukan `Pin`. Jadi, bagaimana persisnya hubungan `Pin` dengan
 `Unpin`, dan mengapa `Future` membutuhkan `self` berada di dalam tipe `Pin`
 untuk memanggil `poll`?
@@ -424,7 +424,7 @@ mengimplementasikan `Unpin` alih-alih `!Unpin`.
 
 </figure>
 
-Sekarang kita cukup tahu untuk memahami galat yang dilaporkan untuk
+Sekarang kita cukup tahu untuk memahami error yang dilaporkan untuk
 pemanggilan `join_all` dari Listing 17-23. Awalnya kita mencoba memindahkan
 future yang dihasilkan blok async ke dalam `Vec<Box<dyn Future<Output =
 ()>>>`, tetapi seperti yang telah kita lihat, future-future itu mungkin punya
@@ -449,7 +449,7 @@ menghapus *future* dari vektor pada saat runtime dan menggabungkan semuanya.
 `Pin` dan `Unpin` kebanyakan penting untuk membangun library tingkat yang
 lebih rendah, atau ketika Anda membangun runtime itu sendiri, alih-alih untuk
 kode Rust sehari-hari. Akan tetapi, saat Anda melihat *trait*-trait ini di pesan
-galat, sekarang Anda akan punya gambaran yang lebih baik tentang cara
+error, sekarang Anda akan punya gambaran yang lebih baik tentang cara
 memperbaiki kode Anda!
 
 > Catatan: Kombinasi `Pin` dan `Unpin` ini memungkinkan implementasi yang aman

@@ -259,7 +259,7 @@ Dokumentasi API pustaka standar menjelaskan metode-metode yang dimiliki
 vektor, string, dan hash map yang akan membantu latihan-latihan ini!
 
 Kita mulai masuk ke program yang lebih kompleks yang operasinya dapat gagal,
-jadi ini waktu yang tepat untuk membahas penanganan galat. Kita akan
+jadi ini waktu yang tepat untuk membahas penanganan error. Kita akan
 melakukannya selanjutnya!
 
 [validating-references-with-lifetimes]: ch10-03-lifetime-syntax.html#validating-references-with-lifetimes

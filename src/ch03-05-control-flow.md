@@ -60,7 +60,7 @@ Jalankan programnya lagi, dan lihat keluarannya:
 ```
 
 Perlu dicatat juga bahwa kondisi pada kode ini _harus_ berupa `bool`. Jika
-kondisinya bukan `bool`, kita akan mendapatkan galat. Contohnya, coba jalankan
+kondisinya bukan `bool`, kita akan mendapatkan error. Contohnya, coba jalankan
 kode berikut:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -70,13 +70,13 @@ kode berikut:
 ```
 
 Kondisi `if` mengevaluasi menjadi nilai `3` kali ini, dan Rust melemparkan
-galat:
+error:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}
 ```
 
-Galat tersebut menandakan bahwa Rust mengharapkan `bool` tetapi mendapatkan
+Error tersebut menandakan bahwa Rust mengharapkan `bool` tetapi mendapatkan
 integer. Tidak seperti bahasa seperti Ruby dan JavaScript, Rust tidak akan
 otomatis mencoba mengonversi tipe non-Boolean menjadi Boolean. Anda harus
 eksplisit dan selalu memberikan `if` sebuah Boolean sebagai kondisinya. Jika
@@ -148,7 +148,7 @@ ekspresi `if` bergantung pada blok kode mana yang dieksekusi. Ini berarti
 nilai-nilai yang berpotensi menjadi hasil dari setiap arm `if` harus bertipe
 sama; pada Listing 3-2, hasil dari arm `if` maupun arm `else` sama-sama
 integer `i32`. Jika tipenya tidak cocok, seperti pada contoh berikut, kita akan
-mendapatkan galat:
+mendapatkan error:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -156,7 +156,7 @@ mendapatkan galat:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/src/main.rs}}
 ```
 
-Ketika kita mencoba mengompilasi kode ini, kita akan mendapatkan galat. Arm
+Ketika kita mencoba mengompilasi kode ini, kita akan mendapatkan error. Arm
 `if` dan `else` memiliki tipe nilai yang tidak kompatibel, dan Rust menunjukkan
 dengan tepat di mana letak masalahnya di dalam program:
 
@@ -351,7 +351,7 @@ Kelima nilai array muncul di terminal, seperti yang diharapkan. Meskipun
 `index` akan mencapai nilai `5` pada suatu titik, perulangan berhenti
 mengeksekusi sebelum mencoba mengambil nilai keenam dari array.
 
-Akan tetapi, pendekatan ini rawan galat; kita dapat membuat program panic jika
+Akan tetapi, pendekatan ini rawan error; kita dapat membuat program panic jika
 nilai indeks atau kondisi pengujiannya salah. Contohnya, jika Anda mengubah
 definisi array `a` menjadi empat elemen tetapi lupa memperbarui kondisinya
 menjadi `while index < 4`, kodenya akan panic. Pendekatan ini juga lambat,

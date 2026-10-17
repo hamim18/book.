@@ -73,7 +73,7 @@ Dalam tanda tangan fungsi, Anda _harus_ mendeklarasikan tipe setiap parameter.
 Ini adalah keputusan yang disengaja dalam desain Rust: mewajibkan anotasi tipe
 dalam definisi fungsi berarti *compiler* hampir tidak pernah meminta Anda
 memakainya di bagian lain kode untuk mengetahui tipe yang Anda maksud.
-*Compiler* juga mampu memberikan pesan galat yang lebih membantu jika ia tahu
+*Compiler* juga mampu memberikan pesan error yang lebih membantu jika ia tahu
 tipe apa yang diharapkan fungsi tersebut.
 
 Ketika mendefinisikan beberapa parameter, pisahkan deklarasi parameternya
@@ -136,7 +136,7 @@ memanggil fungsi bukanlah pernyataan.)
 
 Pernyataan tidak mengembalikan nilai. Karena itu, Anda tidak dapat menetapkan
 pernyataan `let` ke variabel lain, seperti yang coba dilakukan kode berikut;
-Anda akan mendapatkan galat:
+Anda akan mendapatkan error:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -144,7 +144,7 @@ Anda akan mendapatkan galat:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/src/main.rs}}
 ```
 
-Ketika Anda menjalankan program ini, galat yang Anda dapatkan terlihat seperti
+Ketika Anda menjalankan program ini, error yang Anda dapatkan terlihat seperti
 ini:
 
 ```console
@@ -245,16 +245,16 @@ mengubahnya dari ekspresi menjadi pernyataan?
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/src/main.rs}}
 ```
 
-Mengompilasi kode ini akan menghasilkan galat, seperti berikut:
+Mengompilasi kode ini akan menghasilkan error, seperti berikut:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
 ```
 
-Pesan galat utamanya, `mismatched types`, menyingkap masalah inti kode ini.
+Pesan error utamanya, `mismatched types`, menyingkap masalah inti kode ini.
 Definisi fungsi `plus_one` menyatakan bahwa ia akan mengembalikan `i32`,
 tetapi pernyataan tidak mengevaluasi menjadi sebuah nilai, yang dinyatakan
 dengan `()`, tipe unit. Karena itu, tidak ada yang dikembalikan, yang
-berkontradiksi dengan definisi fungsinya dan menghasilkan galat. Pada keluaran
+berkontradiksi dengan definisi fungsinya dan menghasilkan error. Pada keluaran
 ini, Rust memberikan pesan yang mungkin membantu memperbaiki masalah ini: ia
-menyarankan penghapusan titik koma, yang akan memperbaiki galatnya.
+menyarankan penghapusan titik koma, yang akan memperbaiki errornya.
