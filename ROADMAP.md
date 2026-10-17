@@ -767,6 +767,17 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 ## Masalah terbuka
 
+- **PENDING (Tahap 6, untuk sesi berikutnya)**: pemeriksaan visual pengguna
+  terhadap PDF jilid 1 & 2 (`cetak/keluaran/rust-book-id-jilid-*.pdf`;
+  pratinjau PNG `j1-*`/`j2-*` di folder yang sama, tidak di-commit):
+  (1) daftar isi hal. 3 — nomor "Bab N" muncul, nomor halaman benar;
+  (2) blok kode — mono 8,5 pt, latar kelabu, tanpa nomor baris; lipatan
+  baris panjang bertanda ↪ (cek `j2-302.png`/`j2-303.png`, baris 241
+  karakter); (3) kotak catatan berlatar krem dengan garis kiri (`j1-94.png`);
+  (4) tabel Ferris (SVG) tampil utuh (`j1-12.png`); (5) setiap bab mulai
+  halaman baru; (6) temuan janggal lain. Perbaikan memakai mode dev
+  (`./cetak/dev-bab.sh <id>`), lalu rebuild penuh; titik potong jilid
+  final ditentukan setelahnya.
 - **SELESAI (Tahap 5)**: semua masalah anchor di bawah ini (heading
   diterjemahkan → tautan `file.html#anchor` rusak) ditangani dengan
   menambahkan tag `<a id="...">` pada heading tujuan di `src/`; pemindaian
