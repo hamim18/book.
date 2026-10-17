@@ -75,9 +75,23 @@ Istilah bertanda "tetap" tidak diberi padanan.
 | smart pointer | *smart pointer* (penunjuk pintar) |
 | pattern matching | *pattern matching* (pencocokan pola) |
 | compiler | *compiler* (kompilator) |
-| error handling | penanganan galat |
+| error / error handling | error (polos) / penanganan error |
 | unsafe | *unsafe* (tetap) |
 | macro | *macro* (makro) |
+
+**Kebijakan istilah 2026-10-17 (disetujui pengguna)**: istilah teknis ditulis
+dalam bahasa Inggris di prosa. Kata pinjaman yang umum di kalangan pemrogram
+Indonesia ditulis polos tanpa miring (error, variable, method, collection,
+pattern, loop, vector, type, constant, statement, expression, return value,
+test/testing, programmer, standard library, dependency, tool, command line,
+source file, input/output, request, response, connection, protocol, concurrency,
+queue, counter, edition, dll.); istilah yang di bagian lain buku sudah miring
+tetap miring (*compiler*, *ownership*, *keyword*, *channel*, dll.). Padanan
+Indonesia tetap muncul dalam kurung pada kemunculan pertama per bab untuk
+istilah yang memang punya pola itu; padanan lengkap Inggris–Indonesia disusun
+sebagai glosarium di akhir buku (dikerjakan di Tahap 3/poin 3 ROADMAP). Daftar
+lengkap perubahan ada di `ROADMAP.md` (Log keputusan istilah, entri 2026-10-17);
+alat bantu `revert_istilah.py` di akar repo untuk perubahan serupa berikutnya.
 
 Istilah yang belum ada di tabel: tanyakan padaku atau tambahkan ke tabel ini
 lebih dulu, lalu gunakan secara konsisten di seluruh buku.

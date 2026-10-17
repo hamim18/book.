@@ -55,6 +55,16 @@ Diperbarui di akhir setiap sesi.
     di `cetak/keluaran/`.
 - Sedang dikerjakan: Tahap 6 — cetak B5; menunggu pemeriksaan visual
   pengguna (lihat `cetak/README.md`).
+- **Kebijakan istilah 2026-10-17 (disetujui pengguna, dikerjakan tuntas)**: semua
+  istilah teknis glosarium kembali ditulis dalam bahasa Inggris di prosa
+  (±4.500 pergantian di seluruh `src/`, 8 commit: `0b3de5d` s/d `93d07ae`).
+  Kata pinjaman umum polos (error, variable, method, type, loop, test, ...),
+  istilah yang sudah miring tetap miring (*compiler*, *ownership*, ...).
+  "galat" diganti "error" polos; "penanganan galat" → "penanganan error";
+  padanan dalam kurung yang sudah ada dipertahankan; padanan lengkap akan
+  disusun sebagai glosarium Inggris–Indonesia di akhir buku (poin 3).
+  `cek_terjemahan.py` 112/112 OK, `mdbook build` tanpa peringatan,
+  `mdbook test` exit 0. Detail per istilah: lihat Log keputusan istilah.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -732,6 +742,50 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | enthusiasts | para penggemar | Kata Pengantar |
 | advocates (verba) | mengadvokasi | Kata Pengantar |
 
+## Kebijakan istilah 2026-10-17 — pengembalian ke bahasa Inggris
+
+Keputusan pengguna (sesi 2026-10-17): kata Inggris yang umum di dunia
+pemrograman tidak diterjemahkan; padanan Indonesia disusun sebagai glosarium
+di akhir buku (dikerjakan di poin 3). Aturan hasil keputusan:
+- Istilah yang **sebelumnya ditulis penuh Indonesia** kini memakai bahasa
+  Inggris: **polos** untuk kata pinjaman umum; **miring** untuk istilah yang
+  di bagian lain buku memang sudah miring.
+- Padanan dalam kurung yang sudah ada di prosa (`*ownership* (kepemilikan)`)
+  **dipertahankan**.
+- Heading ikut berubah; anchor terjaga lewat tag `<a id>` Tahap 5; label
+  SUMMARY disinkronkan dengan heading final.
+- Verba turunan tetap Indonesia (meminjam, mengalokasikan, menetapkan,
+  menangkap, menyalin, memproses); kata di luar glosarium tetap Indonesia
+  (fungsi, nilai, angka, perangkat lunak, pekerjaan, aturan praktis, dll.).
+
+**Polos** (penggantian per kelompok; alat: `revert_istilah.py` di akar repo):
+| Kelompok | Istilah |
+|---|---|
+| error | galat→error; pesan/penanganan/rawan galat→pesan/penanganan/rawan error; galat kompilator→error *compiler* |
+| tipe | tipe→type; tipe data→data type; tipe majemuk→compound type; tipe primitif→primitive type; tipe kembalian→return type; anotasi tipe→type annotation; inferensi tipe→type inference; alias/sinonim/parameter tipe→type alias/synonym/parameter; teori tipe→type theory; bertipe→typed; statis/dinamis→statically/dynamically typed; sistem tipe→type system; tipe asosiasi→associated type; tipe generik→generic type; tipe kustom→custom type; tipe angka→numeric type; tipe berukuran dinamis→dynamically sized type; tipe yang (tidak) berukuran→(un)sized type; pengetikan bebek→duck typing |
+| dasar | variabel→variable (lingkungan/konfigurasi→environment/configuration variable); konstanta→constant; pernyataan→statement; ekspresi→expression; nilai kembalian→return value; perulangan→loop (tak berujung→infinite loop; label→loop label); alur kontrol→control flow; bahasa tingkat rendah→low-level language; titik mengambang→floating point; masukan/keluaran→input/output (standar→standard input/output; pengguna→user input); pembangkit angka acak→random number generator; spasi lebar nol→zero-width space; whitespace (ch02, konteks trim) |
+| OOP | metode→method; koleksi→collection; pola→pattern (newtype/state→newtype/state pattern); vektor→vector |
+| lain | pemrogram→programmer; pustaka standar→standard library; dependensi→dependency (+manager); baris perintah→command line; file sumber→source file; alat→tool; sistem kontrol versi→version control system; keamanan memori→memory safety; ruang nama→namespace; konkurensi/konkuren→concurrency/concurrent; pengiriman pesan→message passing; asinkron→asynchronous; pemrograman fungsional/konkuren/paralel/asinkron→functional/concurrent/parallel/asynchronous programming; pemrograman berorientasi objek→object-oriented programming; pemrograman sistem tingkat rendah→low-level systems programming; pengembangan yang digerakkan oleh pengujian/kompilator→test-driven/compiler-driven development; pemrosesan→processing; penyaringan→filtering; pengguna akhir→end user; luring→offline; peramban web→web browser; server web→web server; pembelajaran mesin→machine learning; denda performa→performance penalty; pengujian→test (unit/integrasi→unit/integration test); pemisahan tanggung jawab→separation of concerns; alur kerja→workflow; keadaan internal→internal state; keadaan yang buruk→bad state; state bersama→shared state; akhir masa pakai→end of life |
+| bab 16–21 & lampiran | kueri→query; antrean→queue; permintaan→request (baris→request line); respons→response; protokol→protocol; koneksi→connection (percobaan→connection attempt); baris status→status line; kode status→status code; frasa alasan→reason phrase; kapasitas→capacity; kelaparan→starvation; hambatan performa→performance bottleneck; percobaan ulang→retries; batu penyusun→building block; ekspresivitas→expressiveness; pemeriksaan batas→bounds checking; pencacah→counter; glosarium→glossary; pelengkapan otomatis→autocompletion; edisi→edition; regresi→regression; prioritas→precedence; sisa pembagian→remainder; evaluasi hubung singkat→short-circuit evaluation; model/jadwal kereta→train model/schedule; pengirim/penerima→sender/receiver (bab 16: *transmitter*/*receiver*); handoff (ch17); saluran stable→stable channel |
+
+**Miring** (mengikuti gaya istilah yang sudah miring di bagian lain buku):
+kompilator→*compiler*; kepemilikan→*ownership*; pemilik→*owner*;
+peminjaman→*borrowing*; referensi→*reference*; masa hidup→*lifetime*;
+cakupan→*scope* (bab 11: coverage polos); pemindahan→*move*;
+dapat/tidak dapat diubah→*mutable*/*immutable*; tanda tangan→*signature*;
+penunjuk→*pointer*; alokasi/pengalokasi→*allocation*/*allocator*
+(pengalokasi memori→*memory allocator*); tumpukan→*stack*; timbunan→*heap*;
+menggantung→*dangling*; perilaku tak terdefinisi→*undefined behavior*;
+salinan dangkal/dalam→*shallow copy*/*deep copy*; kebocoran memori→*memory leak*;
+memori bersama→*shared memory*; kata kunci→*keyword*; saluran→*channel*;
+mutabilitas→mutability (polos).
+
+**Tetap Indonesia** (di luar glosarium atau kata biasa): fungsi, nilai, angka,
+memori (kata tunggal), perangkat lunak/keras, pekerjaan, pengiriman,
+penyerahan tanggung jawab (ch12), aturan praktis, kaos, ukuran sepatu,
+persediaan, milis, penampungan hewan, kokoh, dan verba turunan (meminjam,
+mengalokasikan, menetapkan, menangkap, menyalin, memproses, menyaring).
+
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
 - Heading: istilah teknis ditulis tanpa miring dan tanpa padanan
@@ -792,18 +846,12 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   dimiringkan pada SETIAP kemunculan di prosa (bukan hanya kemunculan
   pertama), sesuai pilihan pengguna; istilah berkapital di awal kalimat ikut
   dirapikan. Dicatat juga di seksi Konvensi.
-- **BARU (Tahap 5), mohon konfirmasi**: istilah "performance penalty"
-  diterjemahkan "denda performa" (keputusan glosarium bab 13; konsisten di
-  bab 13, 15, 16, 20), tetapi reviewer bab 15 mengusulkan "penalti performa"
-  karena "denda" bernuansa hukuman uang. Mana yang resmi?
-- **BARU (Tahap 5), catatan**: bab 02 menerjemahkan *whitespace* menjadi
-  "spasi" (keputusan glosarium bab 02). Teknisnya kurang tepat karena `trim`
-  juga menghapus `\r\n`; reviewer mengusulkan mempertahankan *whitespace*.
-  Dipertahankan dulu sesuai glosarium; ubah bila pengguna setuju.
-- Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
-  dengan pemakaian buku ("galat", "penanganan galat"). Mohon konfirmasi
-  pemakaian mana yang dianggap resmi, lalu sinkronkan tabel glosarium dengan
-  log istilah (item lama, masih terbuka).
+- **SELESAI (kebijakan 2026-10-17)**: "performance penalty" kini ditulis
+  dalam bahasa Inggris (denda performa → performance penalty).
+- **SELESAI (kebijakan 2026-10-17)**: ch02 memakai *whitespace* di konteks
+  `trim`/pemisah masukan (dulu "spasi"); "spasi" untuk karakter spasi tetap.
+- **SELESAI (kebijakan 2026-10-17)**: glosarium CLAUDE.md disinkronkan —
+  "error | error (polos)", "error handling | penanganan error".
 
 - Keputusan Tahap 4 (Pendahuluan), mohon konfirmasi:
   - Judul buku di `title-page.md` dipertahankan “The Rust Programming
