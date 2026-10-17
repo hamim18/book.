@@ -115,7 +115,7 @@ def baca_revert():
     indo = set()
     for aturan in revert_istilah.GROUPS.values():
         for lama, baru in aturan:
-            indo.add(lama.lower())
+            indo.add(kata_polos(lama).lower())
     hasil = []
     for aturan in revert_istilah.GROUPS.values():
         for lama, baru in aturan:
@@ -124,8 +124,15 @@ def baca_revert():
             kata = [w for w in re.sub(r"[*_]", "", eng).split() if w]
             if any(k.lower() in indo or k.lower().endswith("nya") for k in kata):
                 continue
-            hasil.append((bersih_eng(eng), lama))
+            hasil.append((bersih_eng(eng), kata_polos(lama)))
     return hasil
+
+
+def kata_polos(s: str) -> str:
+    """Sisi Indonesia di GROUPS revert_istilah adalah pola regex
+    (\\b + kata ter-escape + \\b); kembalikan kata aslinya."""
+    s = s.replace("\\b", "").replace("\\", "")
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def bersih_eng(eng: str):
@@ -139,10 +146,13 @@ def pasangan_unik(pasangan):
         polos = re.sub(r"[*_`]", "", eng).lower()
         if not polos or polos in ("tetap",):
             continue
+        # padanan sama dengan istilahnya → tak bermakna, tampilkan "—"
+        if indo is not None and re.sub(r"[*_`]", "", indo).lower() == polos:
+            indo = None
         if polos not in kunci:
-            # padanan sama dengan istilahnya → tak bermakna, tampilkan "—"
-            if indo is not None and re.sub(r"[*_`]", "", indo).lower() == polos:
-                indo = None
+            kunci[polos] = (eng, indo)
+        elif "*" in eng and "*" not in kunci[polos][0]:
+            # utamakan versi miring (cocok dengan prosa) bila ada
             kunci[polos] = (eng, indo)
     return [kunci[k] for k in sorted(kunci)]
 
