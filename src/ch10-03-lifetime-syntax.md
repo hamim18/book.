@@ -452,16 +452,16 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 
 Setelah menulis banyak kode Rust, tim Rust menemukan bahwa pemrogram Rust
 memasukkan anotasi *lifetime* yang sama berulang-ulang dalam situasi-situasi
-tertentu. Situasi-situasi ini dapat diprediksi dan mengikuti beberapa pola
-deterministik. Para pengembang memprogram pola-pola ini ke dalam kode
+tertentu. Situasi-situasi ini dapat diprediksi dan mengikuti beberapa pattern
+deterministik. Para pengembang memprogram pattern-pattern ini ke dalam kode
 *compiler* sehingga *borrow checker* bisa menginferensi *lifetime* dalam
 situasi-situasi itu tanpa memerlukan anotasi eksplisit.
 
-Sepenggal sejarah Rust ini relevan karena ada kemungkinan lebih banyak pola
+Sepenggal sejarah Rust ini relevan karena ada kemungkinan lebih banyak pattern
 deterministik yang akan muncul dan ditambahkan ke *compiler*. Di masa depan,
 anotasi *lifetime* yang diperlukan mungkin menjadi lebih sedikit lagi.
 
-Pola-pola yang diprogram ke dalam analisis *reference* Rust disebut
+Pattern-pattern yang diprogram ke dalam analisis *reference* Rust disebut
 *lifetime elision rules* (aturan elision *lifetime*). Ini bukan aturan yang
 harus dipatuhi pemrogram; ini adalah sekumpulan kasus tertentu yang akan
 dipertimbangkan *compiler*, dan jika kode Anda cocok dengan kasus-kasus ini,
@@ -473,7 +473,7 @@ aturan-aturannya, *compiler* tidak akan menebak *lifetime* *reference* yang
 tersisa. Alih-alih menebak, *compiler* akan memberikan error yang bisa Anda
 selesaikan dengan menambahkan anotasi *lifetime*.
 
-*Lifetime* pada parameter fungsi atau metode disebut *input lifetime*
+*Lifetime* pada parameter fungsi atau method disebut *input lifetime*
 (*lifetime* input), dan *lifetime* pada return value disebut *output
 lifetime* (*lifetime* output).
 
@@ -495,9 +495,9 @@ Aturan kedua adalah, jika ada tepat satu parameter *lifetime* input,
 foo<'a>(x: &'a i32) -> &'a i32`.
 
 Aturan ketiga adalah, jika ada beberapa parameter *lifetime* input, tetapi
-salah satunya adalah `&self` atau `&mut self` karena ini adalah metode,
+salah satunya adalah `&self` atau `&mut self` karena ini adalah method,
 *lifetime* `self` ditetapkan untuk semua parameter *lifetime* output. Aturan
-ketiga ini membuat metode jauh lebih enak dibaca dan ditulis karena lebih
+ketiga ini membuat method jauh lebih enak dibaca dan ditulis karena lebih
 sedikit simbol yang diperlukan.
 
 Mari kita berperan sebagai *compiler*. Kita akan menerapkan aturan-aturan ini
@@ -547,41 +547,41 @@ fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &str {
 
 Anda bisa melihat bahwa aturan kedua tidak berlaku, karena ada lebih dari
 satu *lifetime* input. Aturan ketiga juga tidak berlaku, karena `longest`
-adalah fungsi alih-alih metode, jadi tidak ada parameternya yang berupa
+adalah fungsi alih-alih method, jadi tidak ada parameternya yang berupa
 `self`. Setelah melewati ketiga aturan, kita masih belum tahu berapa
 *lifetime* return typenya. Inilah alasan kita mendapatkan error ketika
 mencoba mengompilasi kode di Listing 10-20: *compiler* telah melewati
 aturan-aturan elision *lifetime*, tetapi masih belum bisa mengetahui semua
 *lifetime* *reference* di tanda tangan itu.
 
-Karena aturan ketiga sebenarnya hanya berlaku di tanda tangan metode, kita
+Karena aturan ketiga sebenarnya hanya berlaku di tanda tangan method, kita
 akan melihat *lifetime* dalam konteks itu berikutnya untuk memahami alasan
 aturan ketiga membuat kita tidak perlu menganotasi *lifetime* di tanda tangan
-metode terlalu sering.
+method terlalu sering.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="lifetime-annotations-in-method-definitions"></a>
 
-### Dalam Definisi Metode
+### Dalam Definisi Method
 
-Ketika kita mengimplementasikan metode pada *struct* yang memiliki *lifetime*,
+Ketika kita mengimplementasikan method pada *struct* yang memiliki *lifetime*,
 kita memakai sintaks yang sama seperti sintaks type parameter generik,
 seperti yang ditunjukkan di Listing 10-11. Tempat kita mendeklarasikan dan
 memakai parameter *lifetime* bergantung pada apakah parameter itu terkait
-dengan *field* *struct* atau dengan parameter dan return value metode.
+dengan *field* *struct* atau dengan parameter dan return value method.
 
 Nama-nama *lifetime* untuk *field* *struct* selalu perlu dideklarasikan setelah
 kata kunci `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
 tersebut merupakan bagian dari type *struct*.
 
-Di tanda tangan metode dalam blok `impl`, *reference* mungkin terikat dengan
+Di tanda tangan method dalam blok `impl`, *reference* mungkin terikat dengan
 *lifetime* *reference* di *field* *struct*, atau mungkin independen. Selain itu,
 aturan-aturan elision *lifetime* sering membuat anotasi *lifetime* tidak
-diperlukan di tanda tangan metode. Mari kita lihat beberapa contoh memakai
+diperlukan di tanda tangan method. Mari kita lihat beberapa contoh memakai
 *struct* bernama `ImportantExcerpt` yang kita definisikan di Listing 10-24.
 
-Pertama, kita akan memakai metode bernama `level` yang satu-satunya
+Pertama, kita akan memakai method bernama `level` yang satu-satunya
 parameternya adalah *reference* ke `self` dan return valuenya berupa
 `i32`, yang bukan *reference* ke apa pun:
 

@@ -216,12 +216,12 @@ memberi *macro* `assert!` sebuah argumen yang bernilai Boolean. Jika nilainya
 *macro* `assert!` membantu kita memeriksa bahwa kode kita berfungsi sesuai
 yang kita maksudkan.
 
-Di Bab 5, Listing 5-15, kita memakai *struct* `Rectangle` dan metode
+Di Bab 5, Listing 5-15, kita memakai *struct* `Rectangle` dan method
 `can_hold`, yang diulang di sini di Listing 11-5. Mari kita letakkan kode
 ini di file _src/lib.rs_, lalu menulis beberapa pengujian untuknya memakai
 *macro* `assert!`.
 
-<Listing number="11-5" file-name="src/lib.rs" caption="Struct `Rectangle` dan metode `can_hold`-nya dari Bab 5">
+<Listing number="11-5" file-name="src/lib.rs" caption="Struct `Rectangle` dan method `can_hold`-nya dari Bab 5">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs}}
@@ -229,9 +229,9 @@ ini di file _src/lib.rs_, lalu menulis beberapa pengujian untuknya memakai
 
 </Listing>
 
-Metode `can_hold` mengembalikan sebuah Boolean, yang berarti ini adalah
+Method `can_hold` mengembalikan sebuah Boolean, yang berarti ini adalah
 kasus pemakaian yang sempurna untuk *macro* `assert!`. Di Listing 11-6, kita
-menulis pengujian yang melatih metode `can_hold` dengan membuat instance
+menulis pengujian yang melatih method `can_hold` dengan membuat instance
 `Rectangle` yang memiliki lebar 8 dan tinggi 7, lalu menegaskan bahwa ia
 bisa menampung instance `Rectangle` lain yang memiliki lebar 5 dan tinggi 1.
 
@@ -283,7 +283,7 @@ Karena hasil yang benar dari fungsi `can_hold` dalam kasus ini adalah
 
 Dua pengujian lulus! Sekarang mari kita lihat apa yang terjadi pada hasil
 pengujian kita ketika kita memasukkan bug ke dalam kode kita. Kita akan
-mengubah implementasi metode `can_hold` dengan mengganti tanda lebih besar
+mengubah implementasi method `can_hold` dengan mengganti tanda lebih besar
 dari (`>`) menjadi tanda lebih kecil dari (`<`) ketika ia membandingkan
 lebarnya:
 

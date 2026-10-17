@@ -37,9 +37,9 @@ selama lima detik sebelum merespons.
 
 Kita beralih dari `if` ke `match` sekarang setelah kita punya tiga kasus.
 Kita perlu mencocokkan secara eksplisit terhadap *slice* dari `request_line`
-untuk mencocokkan pola dengan nilai string literalnya; `match` tidak
+untuk mencocokkan pattern dengan nilai string literalnya; `match` tidak
 melakukan referencing dan dereferencing otomatis, seperti yang dilakukan
-metode kesamaan.
+method kesamaan.
 
 Arm pertama sama dengan blok `if` dari Listing 21-9. Arm kedua mencocokkan
 permintaan ke _/sleep_. Ketika permintaan itu diterima, server akan tidur
@@ -251,7 +251,7 @@ fungsi `new` paling sederhana yang akan memiliki karakteristik itu:
 
 Kita memilih `usize` sebagai type parameter `size` karena kita tahu bahwa
 jumlah thread negatif tidak masuk akal. Kita juga tahu kita akan memakai
-`4` ini sebagai jumlah elemen dalam koleksi thread, yang memang merupakan
+`4` ini sebagai jumlah elemen dalam collection thread, yang memang merupakan
 kegunaan type `usize`, seperti yang dibahas di seksi [“Type
 Integer”][integer-types]<!-- ignore --> pada Bab 3.
 
@@ -261,7 +261,7 @@ Mari kita periksa kodenya lagi:
 {{#include ../listings/ch21-web-server/no-listing-02-impl-threadpool-new/output.txt}}
 ```
 
-Sekarang errornya muncul karena kita tidak punya metode `execute` pada
+Sekarang errornya muncul karena kita tidak punya method `execute` pada
 `ThreadPool`. Ingat kembali dari seksi [“Membuat Thread dalam Jumlah
 Terbatas”](#creating-a-finite-number-of-threads)<!-- ignore --> bahwa kita
 memutuskan *thread pool* kita seharusnya memiliki antarmuka yang mirip dengan
@@ -269,7 +269,7 @@ memutuskan *thread pool* kita seharusnya memiliki antarmuka yang mirip dengan
 supaya ia menerima *closure* yang diberikan kepadanya dan memberikannya
 kepada thread yang menganggur di pool untuk dijalankan.
 
-Kita akan mendefinisikan metode `execute` pada `ThreadPool` untuk menerima
+Kita akan mendefinisikan method `execute` pada `ThreadPool` untuk menerima
 *closure* sebagai parameter. Ingat kembali dari [“Memindahkan Nilai yang
 Ditangkap Keluar dari *Closure*”][moving-out-of-closures]<!-- ignore --> pada
 Bab 13 bahwa kita bisa menerima *closure* sebagai parameter dengan tiga *trait*
@@ -301,7 +301,7 @@ Parameter type `F` juga memiliki *trait bound* `Send` dan bound *lifetime*
 `'static`, yang berguna dalam situasi kita: Kita memerlukan `Send` untuk
 mentransfer *closure* dari satu thread ke thread lain dan `'static` karena
 kita tidak tahu berapa lama thread itu akan butuh untuk mengeksekusi. Mari
-kita buat metode `execute` pada `ThreadPool` yang akan menerima parameter
+kita buat method `execute` pada `ThreadPool` yang akan menerima parameter
 generik typed `F` dengan bound-bound ini:
 
 <Listing file-name="src/lib.rs">
@@ -318,7 +318,7 @@ Sama seperti definisi fungsi, return type boleh dihilangkan dari tanda
 tangannya, tetapi meskipun kita tidak punya parameter, kita tetap
 memerlukan tanda kurungnya.
 
-Sekali lagi, ini adalah implementasi paling sederhana dari metode
+Sekali lagi, ini adalah implementasi paling sederhana dari method
 `execute`: Ia tidak melakukan apa pun, tetapi kita hanya berusaha membuat
 kode kita terkompilasi. Mari kita periksa lagi:
 
@@ -406,13 +406,13 @@ lihat apa yang terjadi. Dalam kasus kita, *closure* yang kita berikan ke
 `T` akan menjadi type unit `()`.
 
 Kode di Listing 21-14 akan terkompilasi, tetapi ia belum membuat thread
-apa pun. Kita telah mengubah definisi `ThreadPool` untuk menampung vektor
-instance `thread::JoinHandle<()>`, menginisialisasi vektor itu dengan
+apa pun. Kita telah mengubah definisi `ThreadPool` untuk menampung vector
+instance `thread::JoinHandle<()>`, menginisialisasi vector itu dengan
 kapasitas `size`, menyiapkan loop `for` yang akan menjalankan sebagian kode
 untuk membuat thread-thread itu, dan mengembalikan instance `ThreadPool`
 yang memuatnya.
 
-<Listing number="21-14" file-name="src/lib.rs" caption="Membuat vektor untuk `ThreadPool` agar menampung thread-threadnya">
+<Listing number="21-14" file-name="src/lib.rs" caption="Membuat vector untuk `ThreadPool` agar menampung thread-threadnya">
 
 ```rust,ignore,not_desired_behavior
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-14/src/lib.rs:here}}
@@ -421,14 +421,14 @@ yang memuatnya.
 </Listing>
 
 Kita telah membawa `std::thread` ke dalam *scope* di *crate* library karena
-kita memakai `thread::JoinHandle` sebagai type item-item di vektor pada
+kita memakai `thread::JoinHandle` sebagai type item-item di vector pada
 `ThreadPool`.
 
-Setelah ukuran yang valid diterima, `ThreadPool` kita membuat vektor baru
+Setelah ukuran yang valid diterima, `ThreadPool` kita membuat vector baru
 yang bisa menampung `size` item. Fungsi `with_capacity` melakukan tugas
 yang sama dengan `Vec::new` tetapi dengan satu perbedaan penting: Ia
-mengalokasikan ruang di vektor di muka. Karena kita tahu kita perlu
-menyimpan `size` elemen di vektor itu, melakukan alokasi ini di muka
+mengalokasikan ruang di vector di muka. Karena kita tahu kita perlu
+menyimpan `size` elemen di vector itu, melakukan alokasi ini di muka
 sedikit lebih efisien daripada memakai `Vec::new`, yang mengubah ukurannya
 sendiri saat elemen-elemen dimasukkan.
 
@@ -459,9 +459,9 @@ Bayangkan orang-orang yang bekerja di dapur sebuah restoran: Para pekerja
 menunggu sampai pesanan masuk dari pelanggan, lalu mereka bertanggung jawab
 mengambil pesanan-pesanan itu dan memenuhinya.
 
-Alih-alih menyimpan vektor instance `JoinHandle<()>` di *thread pool*, kita
+Alih-alih menyimpan vector instance `JoinHandle<()>` di *thread pool*, kita
 akan menyimpan instance *struct* `Worker`. Setiap `Worker` akan menyimpan
-satu instance `JoinHandle<()>`. Lalu, kita akan mengimplementasikan metode
+satu instance `JoinHandle<()>`. Lalu, kita akan mengimplementasikan method
 pada `Worker` yang akan menerima *closure* berisi kode untuk dijalankan dan
 mengirimnya ke thread yang sudah berjalan untuk dieksekusi. Kita juga akan
 memberi setiap `Worker` sebuah `id` supaya kita bisa membedakan antara
@@ -474,13 +474,13 @@ kita menyiapkan `Worker` dengan cara ini:
 
 1. Mendefinisikan *struct* `Worker` yang menampung `id` dan
    `JoinHandle<()>`.
-2. Mengubah `ThreadPool` untuk menampung vektor instance `Worker`.
+2. Mengubah `ThreadPool` untuk menampung vector instance `Worker`.
 3. Mendefinisikan fungsi `Worker::new` yang menerima nomor `id` dan
    mengembalikan instance `Worker` yang menampung `id` itu dan sebuah
    thread yang dibuat dengan *closure* kosong.
 4. Di `ThreadPool::new`, memakai pencacah loop `for` untuk menghasilkan
    `id`, membuat `Worker` baru dengan `id` itu, dan menyimpan `Worker`
-   tersebut di vektor.
+   tersebut di vector.
 
 Jika Anda siap untuk tantangan, cobalah mengimplementasikan perubahan ini
 sendiri sebelum melihat kode di Listing 21-15.
@@ -499,7 +499,7 @@ modifikasi-modifikasi sebelumnya.
 Kita telah mengubah nama *field* pada `ThreadPool` dari `threads` menjadi
 `workers` karena sekarang ia menampung instance `Worker`, bukan instance
 `JoinHandle<()>`. Kita memakai pencacah di loop `for` sebagai argumen
-untuk `Worker::new`, dan kita menyimpan setiap `Worker` baru di vektor
+untuk `Worker::new`, dan kita menyimpan setiap `Worker` baru di vector
 bernama `workers`.
 
 Kode eksternal (seperti server kita di _src/main.rs_) tidak perlu tahu
@@ -514,7 +514,7 @@ instance `JoinHandle<()>` yang dibuat dengan membuat thread baru memakai
 > seluruh server kita panic, meskipun pembuatan sebagian thread mungkin
 > berhasil. Demi kesederhanaan, perilaku ini tidak apa-apa, tetapi dalam
 > implementasi *thread pool* produksi, kemungkinan besar Anda ingin memakai
-> [`std::thread::Builder`][builder]<!-- ignore --> dan metode
+> [`std::thread::Builder`][builder]<!-- ignore --> dan method
 > [`spawn`][builder-spawn]<!-- ignore -->-nya yang mengembalikan `Result`.
 
 Kode ini akan terkompilasi dan akan menyimpan jumlah instance `Worker`
@@ -526,7 +526,7 @@ lihat cara melakukannya berikutnya.
 
 Masalah berikutnya yang akan kita tangani adalah *closure* yang diberikan ke
 `thread::spawn` sama sekali tidak melakukan apa pun. Saat ini, kita
-mendapatkan *closure* yang ingin kita eksekusi di metode `execute`. Tetapi
+mendapatkan *closure* yang ingin kita eksekusi di method `execute`. Tetapi
 kita perlu memberikan *closure* kepada `thread::spawn` untuk dijalankan saat
 kita membuat setiap `Worker` selama pembuatan `ThreadPool`.
 
@@ -544,7 +544,7 @@ yang akan mengirim pekerjaan itu ke thread-nya. Berikut rencananya:
 2. Setiap `Worker` akan memegang penerimanya.
 3. Kita akan membuat *struct* `Job` baru yang akan menampung *closure* yang
    ingin kita kirim melalui *channel*.
-4. Metode `execute` akan mengirim pekerjaan yang ingin ia eksekusi melalui
+4. Method `execute` akan mengirim pekerjaan yang ingin ia eksekusi melalui
    pengirim.
 5. Di thread-nya, `Worker` akan melakukan loop pada penerimanya dan
    mengeksekusi *closure* dari pekerjaan apa pun yang ia terima.
@@ -623,9 +623,9 @@ hitungan referensinya supaya instance `Worker` bisa berbagi *ownership* atas
 
 Dengan perubahan ini, kodenya terkompilasi! Kita sudah hampir sampai!
 
-#### Mengimplementasikan Metode `execute`
+#### Mengimplementasikan Method `execute`
 
-Akhirnya, mari kita implementasikan metode `execute` pada `ThreadPool`.
+Akhirnya, mari kita implementasikan method `execute` pada `ThreadPool`.
 Kita juga akan mengubah `Job` dari *struct* menjadi type alias untuk *trait*
 object yang menampung jenis *closure* yang diterima `execute`. Seperti yang
 dibahas di seksi [“Sinonim Type dan Alias Type”][type-aliases]<!-- ignore -->
@@ -677,7 +677,7 @@ bermakna bagi Anda.
 Jika kita mendapatkan kunci pada mutex itu, kita memanggil `recv` untuk
 menerima `Job` dari *channel*. `unwrap` terakhir melewati error apa pun di
 sini juga, yang bisa terjadi jika thread yang memegang pengirim telah
-berhenti, mirip dengan cara metode `send` mengembalikan `Err` jika
+berhenti, mirip dengan cara method `send` mengembalikan `Err` jika
 penerimanya berhenti.
 
 Pemanggilan `recv` memblokir, jadi jika belum ada pekerjaan, thread saat
@@ -748,7 +748,7 @@ permintaan lain dengan meminta thread lain menjalankannya.
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
 kode di Listing 21-18, 21-19, dan 21-20 akan berbeda jika kita memakai
 *future* alih-alih *closure* untuk pekerjaan yang akan dilakukan. Type apa yang
-akan berubah? Bagaimana tanda tangan metodenya akan berbeda, jika ada?
+akan berubah? Bagaimana tanda tangan methodnya akan berbeda, jika ada?
 Bagian kode mana yang akan tetap sama?
 
 Setelah mempelajari loop `while let` di Bab 17 dan Bab 19, Anda mungkin
@@ -766,9 +766,9 @@ ditunjukkan di Listing 21-21.
 Kode ini terkompilasi dan berjalan, tetapi tidak menghasilkan perilaku
 threading yang diinginkan: Permintaan yang lambat tetap akan membuat
 permintaan lain menunggu untuk diproses. Alasannya agak tidak kentara:
-*Struct* `Mutex` tidak memiliki metode `unlock` publik karena *ownership* atas
+*Struct* `Mutex` tidak memiliki method `unlock` publik karena *ownership* atas
 kuncinya didasarkan pada *lifetime* `MutexGuard<T>` di dalam
-`LockResult<MutexGuard<T>>` yang dikembalikan metode `lock`. Pada waktu
+`LockResult<MutexGuard<T>>` yang dikembalikan method `lock`. Pada waktu
 kompilasi, *borrow checker* kemudian bisa menegakkan aturan bahwa sumber
 daya yang dijaga oleh `Mutex` tidak bisa diakses kecuali kita memegang
 kuncinya. Akan tetapi, implementasi ini juga bisa mengakibatkan kuncinya

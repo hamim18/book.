@@ -67,7 +67,7 @@ Ini tidak akan terkompilasi sampai kita memperbarui `Config::build` juga.
 </Listing>
 
 Fungsi `env::args` mengembalikan sebuah *iterator*! Alih-alih mengumpulkan
-nilai-nilai *iterator* ke dalam sebuah vektor lalu meneruskan *slice* ke
+nilai-nilai *iterator* ke dalam sebuah vector lalu meneruskan *slice* ke
 `Config::build`, sekarang kita meneruskan *ownership* atas *iterator* yang
 dikembalikan dari `env::args` ke `Config::build` secara langsung.
 
@@ -102,14 +102,14 @@ dalam spesifikasi parameter `args` untuk membuatnya *mutable*.
 
 <a id="using-iterator-trait-methods-instead-of-indexing"></a>
 
-#### Memakai Metode Trait `Iterator`
+#### Memakai Method Trait `Iterator`
 
 Selanjutnya, kita akan memperbaiki badan `Config::build`. Karena `args`
 mengimplementasikan *trait* `Iterator`, kita tahu bahwa kita dapat memanggil
-metode `next` padanya! Listing 13-20 memperbarui kode dari Listing 12-23
-untuk memakai metode `next`.
+method `next` padanya! Listing 13-20 memperbarui kode dari Listing 12-23
+untuk memakai method `next`.
 
-<Listing number="13-20" file-name="src/main.rs" caption="Mengubah badan `Config::build` untuk memakai metode iterator">
+<Listing number="13-20" file-name="src/main.rs" caption="Mengubah badan `Config::build` untuk memakai method iterator">
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/main.rs:here}}
@@ -145,15 +145,15 @@ Listing 12-19.
 </Listing>
 
 Kita dapat menulis kode ini dengan cara yang lebih ringkas memakai
-metode-metode *iterator adapter*. Melakukannya juga memungkinkan kita
-menghindari vektor `results` *mutable* perantara. Gaya pemrograman fungsional
+method-method *iterator adapter*. Melakukannya juga memungkinkan kita
+menghindari vector `results` *mutable* perantara. Gaya pemrograman fungsional
 lebih suka meminimalkan jumlah keadaan *mutable* untuk membuat kode lebih
 jelas. Menghapus keadaan *mutable* mungkin memungkinkan penyempurnaan di masa
 depan untuk membuat pencarian berjalan secara paralel karena kita tidak harus
-mengelola akses konkuren ke vektor `results`. Listing 13-22 menunjukkan
+mengelola akses konkuren ke vector `results`. Listing 13-22 menunjukkan
 perubahan ini.
 
-<Listing number="13-22" file-name="src/lib.rs" caption="Memakai metode iterator adapter di dalam implementasi fungsi `search`">
+<Listing number="13-22" file-name="src/lib.rs" caption="Memakai method iterator adapter di dalam implementasi fungsi `search`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-22/src/lib.rs:here}}
@@ -165,8 +165,8 @@ Ingat bahwa tujuan fungsi `search` adalah mengembalikan semua baris di
 `contents` yang memuat `query`. Mirip dengan contoh `filter` di Listing 13-16,
 kode ini memakai adapter `filter` untuk menyimpan hanya baris-baris yang
 membuat `line.contains(query)` mengembalikan `true`. Kita lalu mengumpulkan
-baris-baris yang cocok ke dalam vektor lain dengan `collect`. Jauh lebih
-sederhana! Silakan membuat perubahan yang sama untuk memakai metode *iterator*
+baris-baris yang cocok ke dalam vector lain dengan `collect`. Jauh lebih
+sederhana! Silakan membuat perubahan yang sama untuk memakai method *iterator*
 di fungsi `search_case_insensitive` juga.
 
 Untuk penyempurnaan lebih lanjut, kembalikan sebuah *iterator* dari fungsi
@@ -194,7 +194,7 @@ semua hasilnya sebelum mengembalikannya, alih-alih mengembalikan
 *iterator*. Sedikit lebih sulit untuk membiasakan diri pada awalnya, tetapi
 begitu Anda mendapat pemahaman tentang berbagai *iterator adapter* dan apa yang
 mereka lakukan, *iterator* bisa jadi lebih mudah dipahami. Alih-alih
-mengutak-atik berbagai bagian loop dan membangun vektor-vektor baru,
+mengutak-atik berbagai bagian loop dan membangun vector-vector baru,
 kode berfokus pada tujuan tingkat tinggi dari loop tersebut. Ini
 mengabstraksikan sebagian kode yang umum dijumpai sehingga lebih mudah
 melihat konsep-konsep yang unik untuk kode ini, seperti kondisi penyaringan

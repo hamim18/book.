@@ -6,7 +6,7 @@ Langkah pertama adalah memasang Rust. Kita akan mengunduh Rust melalui
 terkaitnya. Anda memerlukan koneksi internet untuk pengunduhan ini.
 
 > Catatan: Jika karena suatu alasan Anda memilih untuk tidak memakai
-> `rustup`, silakan lihat [halaman Metode Instalasi Rust Lainnya][otherinstall]
+> `rustup`, silakan lihat [halaman Method Instalasi Rust Lainnya][otherinstall]
 > untuk opsi lebih lanjut.
 
 Langkah-langkah berikut memasang versi stabil terbaru dari *compiler*

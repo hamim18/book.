@@ -2,7 +2,7 @@
 ## Type Slice
 
 *Slice* memungkinkan Anda merujuk pada urutan elemen yang berkesinambungan di
-dalam sebuah [koleksi](ch08-00-common-collections.md)<!-- ignore -->. *Slice*
+dalam sebuah [collection](ch08-00-common-collections.md)<!-- ignore -->. *Slice*
 adalah salah satu jenis *reference*, jadi ia tidak memiliki *ownership*.
 
 Berikut sebuah soal pemrograman kecil: tulis sebuah fungsi yang menerima
@@ -43,14 +43,14 @@ Listing 4-7.
 
 Karena kita perlu menelusuri `String` elemen demi elemen dan memeriksa apakah
 suatu nilai adalah spasi, kita akan mengonversi `String` kita menjadi array
-berisi byte menggunakan metode `as_bytes`.
+berisi byte menggunakan method `as_bytes`.
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}
 ```
 
 Selanjutnya, kita membuat sebuah *iterator* untuk array byte tersebut
-menggunakan metode `iter`:
+menggunakan method `iter`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
@@ -58,20 +58,20 @@ menggunakan metode `iter`:
 
 Kita akan membahas *iterator* secara lebih mendetail di [Bab
 13][ch13]<!-- ignore -->. Untuk sekarang, ketahuilah bahwa `iter` adalah
-metode yang mengembalikan setiap elemen dalam sebuah koleksi, dan bahwa
+method yang mengembalikan setiap elemen dalam sebuah collection, dan bahwa
 `enumerate` membungkus hasil dari `iter` dan mengembalikan setiap elemen
 sebagai bagian dari sebuah *tuple*. Elemen pertama dari *tuple* yang
 dikembalikan `enumerate` adalah indeksnya, dan elemen kedua adalah
 *reference* ke elemen tersebut. Ini sedikit lebih praktis daripada
 menghitung indeksnya sendiri.
 
-Karena metode `enumerate` mengembalikan sebuah *tuple*, kita dapat
-menggunakan pola untuk mendestrukturisasi *tuple* tersebut. Kita akan
-membahas pola lebih lanjut di [Bab 6][ch6]<!-- ignore -->. Di dalam
-loop `for`, kita menentukan sebuah pola yang memuat `i` untuk indeks
+Karena method `enumerate` mengembalikan sebuah *tuple*, kita dapat
+menggunakan pattern untuk mendestrukturisasi *tuple* tersebut. Kita akan
+membahas pattern lebih lanjut di [Bab 6][ch6]<!-- ignore -->. Di dalam
+loop `for`, kita menentukan sebuah pattern yang memuat `i` untuk indeks
 dalam *tuple* dan `&item` untuk byte tunggal dalam *tuple*. Karena kita
 mendapatkan *reference* ke elemen dari `.iter().enumerate()`, kita
-menggunakan `&` di dalam pola tersebut.
+menggunakan `&` di dalam pattern tersebut.
 
 Di dalam loop `for`, kita mencari byte yang merepresentasikan spasi
 menggunakan sintaks literal byte. Jika kita menemukan spasi, kita
@@ -301,7 +301,7 @@ Jika kita memiliki `String`, kita dapat meneruskan *slice* dari `String`
 tersebut atau *reference* ke `String` tersebut. Fleksibilitas ini
 memanfaatkan *deref coercion*, sebuah fitur yang akan kita bahas di bagian
 [“Menggunakan Deref Coercions di dalam Fungsi dan
-Metode”][deref-coercions]<!-- ignore --> pada Bab 15.
+Method”][deref-coercions]<!-- ignore --> pada Bab 15.
 
 Mendefinisikan fungsi yang menerima *string slice* alih-alih *reference* ke
 `String` membuat API kita lebih umum dan berguna tanpa kehilangan
@@ -338,9 +338,9 @@ assert_eq!(slice, &[2, 3]);
 
 *Slice* ini typed `&[i32]`. Cara kerjanya sama dengan *string slice*, yaitu
 dengan menyimpan *reference* ke elemen pertama dan sebuah panjang. Anda akan
-menggunakan *slice* semacam ini untuk berbagai jenis koleksi lainnya. Kita
-akan membahas koleksi-koleksi ini secara mendetail ketika kita membicarakan
-vektor di Bab 8.
+menggunakan *slice* semacam ini untuk berbagai jenis collection lainnya. Kita
+akan membahas collection-collection ini secara mendetail ketika kita membicarakan
+vector di Bab 8.
 
 ## Ringkasan
 

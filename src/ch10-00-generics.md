@@ -13,7 +13,7 @@ nilai yang tidak diketahui untuk menjalankan kode yang sama pada banyak nilai
 konkret. Nyatanya, kita sudah memakai *generics* di Bab 6 dengan `Option<T>`,
 di Bab 8 dengan `Vec<T>` dan `HashMap<K, V>`, serta di Bab 9 dengan
 `Result<T, E>`. Di bab ini, Anda akan mengeksplorasi cara mendefinisikan
-type, fungsi, dan metode Anda sendiri dengan *generics*!
+type, fungsi, dan method Anda sendiri dengan *generics*!
 
 Pertama, kita akan meninjau cara mengekstrak fungsi untuk mengurangi
 duplikasi kode. Kemudian, kita akan memakai teknik yang sama untuk membuat

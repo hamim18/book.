@@ -38,19 +38,19 @@ fungsionalitasnya.
 - **`in`**: Bagian dari sintaks loop `for`.
 - **`let`**: Mengikat variable.
 - **`loop`**: Melakukan loop tanpa syarat.
-- **`match`**: Mencocokkan nilai dengan pola.
+- **`match`**: Mencocokkan nilai dengan pattern.
 - **`mod`**: Mendefinisikan *module*.
 - **`move`**: Membuat *closure* mengambil kepemilikan atas semua yang
   ditangkapnya.
 - **`mut`**: Menandai mutabilitas pada *reference*, *raw pointer*, atau pengikatan
-  pola.
+  pattern.
 - **`pub`**: Menandai visibilitas publik pada *field* *struct*, blok `impl`, atau
   *module*.
 - **`ref`**: Mengikat berdasarkan *reference*.
 - **`return`**: Kembali dari fungsi.
 - **`Self`**: Alias type untuk type yang sedang kita definisikan atau
   implementasikan.
-- **`self`**: Subjek metode atau *module* saat ini.
+- **`self`**: Subjek method atau *module* saat ini.
 - **`static`**: Variable global atau *lifetime* yang berlangsung selama eksekusi
   program.
 - **`struct`**: Mendefinisikan struktur.

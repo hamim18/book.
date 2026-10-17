@@ -1,27 +1,27 @@
 <a id="methods"></a>
-## Metode
+## Method
 
-Metode mirip dengan fungsi: kita mendeklarasikannya dengan keyword `fn` dan
+Method mirip dengan fungsi: kita mendeklarasikannya dengan keyword `fn` dan
 sebuah nama, ia dapat memiliki parameter dan return value, dan ia berisi
-sejumlah kode yang dijalankan ketika metodenya dipanggil dari tempat lain.
-Tidak seperti fungsi, metode didefinisikan di dalam konteks sebuah *struct*
+sejumlah kode yang dijalankan ketika methodnya dipanggil dari tempat lain.
+Tidak seperti fungsi, method didefinisikan di dalam konteks sebuah *struct*
 (atau *enum* atau *trait object*, yang kita bahas masing-masing di
 [Bab 6][enums]<!-- ignore --> dan [Bab 18][trait-objects]<!-- ignore -->), dan
 parameter pertamanya selalu `self`, yang merepresentasikan instance *struct*
-tempat metode itu dipanggil.
+tempat method itu dipanggil.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="defining-methods"></a>
 
 <a id="method-syntax"></a>
-### Sintaks Metode
+### Sintaks Method
 
 Mari kita ubah fungsi `area` yang memiliki instance `Rectangle` sebagai
-parameter, dan sebagai gantinya membuat metode `area` yang didefinisikan pada
+parameter, dan sebagai gantinya membuat method `area` yang didefinisikan pada
 *struct* `Rectangle`, seperti yang ditunjukkan pada Listing 5-13.
 
-<Listing number="5-13" file-name="src/main.rs" caption="Mendefinisikan metode `area` pada struct `Rectangle`">
+<Listing number="5-13" file-name="src/main.rs" caption="Mendefinisikan method `area` pada struct `Rectangle`">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-13/src/main.rs}}
@@ -36,18 +36,18 @@ ke dalam kurung kurawal `impl` dan mengubah parameter pertama (dan pada kasus
 ini, satu-satunya) menjadi `self` di tanda tangan dan di semua tempat dalam
 badannya. Di `main`, tempat kita memanggil fungsi `area` dan meneruskan
 `rect1` sebagai argumen, kita kini dapat memakai *method syntax* (sintaks
-metode) untuk memanggil metode `area` pada instance `Rectangle` kita. Method
+method) untuk memanggil method `area` pada instance `Rectangle` kita. Method
 syntax diletakkan setelah instance: kita menambahkan titik yang diikuti nama
-metode, tanda kurung, dan argumen apa pun.
+method, tanda kurung, dan argumen apa pun.
 
 Pada tanda tangan `area`, kita memakai `&self`, bukan `rectangle: &Rectangle`.
 `&self` sebenarnya adalah singkatan dari `self: &Self`. Di dalam blok `impl`,
-type `Self` adalah alias untuk type yang menjadi sasaran blok `impl` itu. Metode
+type `Self` adalah alias untuk type yang menjadi sasaran blok `impl` itu. Method
 harus memiliki parameter bernama `self` typed `Self` sebagai parameter
 pertamanya, jadi Rust mengizinkan Anda menyingkatnya hanya dengan nama `self`
 di posisi parameter pertama. Perhatikan bahwa kita tetap perlu memakai `&` di
-depan singkatan `self` untuk menandakan bahwa metode ini meminjam instance
-`Self`, sama seperti yang kita lakukan di `rectangle: &Rectangle`. Metode
+depan singkatan `self` untuk menandakan bahwa method ini meminjam instance
+`Self`, sama seperti yang kita lakukan di `rectangle: &Rectangle`. Method
 dapat mengambil kepemilikan `self`, meminjam `self` secara *immutable*
 (tidak dapat diubah) seperti yang kita lakukan di sini, atau meminjam `self`
 secara *mutable* (dapat diubah), sama seperti parameter lainnya.
@@ -55,22 +55,22 @@ secara *mutable* (dapat diubah), sama seperti parameter lainnya.
 Kita memilih `&self` di sini dengan alasan yang sama ketika kita memakai
 `&Rectangle` pada versi fungsinya: kita tidak ingin mengambil kepemilikan, dan
 kita hanya ingin membaca data di dalam *struct*, bukan menulisnya. Jika kita
-ingin mengubah instance tempat metode dipanggil sebagai bagian dari pekerjaan
-metodenya, kita akan memakai `&mut self` sebagai parameter pertama. Memiliki
-metode yang mengambil kepemilikan instance dengan hanya memakai `self` sebagai
-parameter pertama jarang terjadi; teknik ini biasanya dipakai ketika metode
+ingin mengubah instance tempat method dipanggil sebagai bagian dari pekerjaan
+methodnya, kita akan memakai `&mut self` sebagai parameter pertama. Memiliki
+method yang mengambil kepemilikan instance dengan hanya memakai `self` sebagai
+parameter pertama jarang terjadi; teknik ini biasanya dipakai ketika method
 mengubah `self` menjadi sesuatu yang lain dan Anda ingin mencegah pemanggilnya
 memakai instance aslinya setelah transformasi itu.
 
-Alasan utama memakai metode alih-alih fungsi, selain menyediakan method
-syntax dan tidak perlu mengulang type `self` di setiap tanda tangan metode,
+Alasan utama memakai method alih-alih fungsi, selain menyediakan method
+syntax dan tidak perlu mengulang type `self` di setiap tanda tangan method,
 adalah untuk pengorganisasian. Kita telah meletakkan semua hal yang dapat kita
 lakukan dengan instance sebuah type dalam satu blok `impl`, alih-alih membuat
 pengguna kode kita di masa depan mencari kemampuan `Rectangle` di berbagai
 tempat pada pustaka yang kita sediakan.
 
-Perhatikan bahwa kita dapat memilih untuk memberi metode nama yang sama dengan
-salah satu *field* *struct*. Contohnya, kita dapat mendefinisikan metode pada
+Perhatikan bahwa kita dapat memilih untuk memberi method nama yang sama dengan
+salah satu *field* *struct*. Contohnya, kita dapat mendefinisikan method pada
 `Rectangle` yang juga bernama `width`:
 
 <Listing file-name="src/main.rs">
@@ -81,41 +81,41 @@ salah satu *field* *struct*. Contohnya, kita dapat mendefinisikan metode pada
 
 </Listing>
 
-Di sini, kita memilih untuk membuat metode `width` mengembalikan `true` jika
+Di sini, kita memilih untuk membuat method `width` mengembalikan `true` jika
 nilai pada *field* `width` instance lebih besar daripada `0` dan `false` jika
-nilainya `0`: kita dapat memakai *field* di dalam metode dengan nama yang sama
+nilainya `0`: kita dapat memakai *field* di dalam method dengan nama yang sama
 untuk tujuan apa pun. Di `main`, ketika kita mengikuti `rect1.width` dengan
-tanda kurung, Rust tahu bahwa yang kita maksud adalah metode `width`. Ketika
+tanda kurung, Rust tahu bahwa yang kita maksud adalah method `width`. Ketika
 kita tidak memakai tanda kurung, Rust tahu bahwa yang kita maksud adalah *field*
 `width`.
 
-Sering kali, tetapi tidak selalu, ketika kita memberi sebuah metode nama yang
-sama dengan sebuah *field*, kita ingin metode itu hanya mengembalikan nilai di
-dalam *field* dan tidak melakukan hal lain. Metode seperti ini disebut *getter*,
+Sering kali, tetapi tidak selalu, ketika kita memberi sebuah method nama yang
+sama dengan sebuah *field*, kita ingin method itu hanya mengembalikan nilai di
+dalam *field* dan tidak melakukan hal lain. Method seperti ini disebut *getter*,
 dan Rust tidak mengimplementasikannya secara otomatis untuk *field* *struct*
 seperti yang dilakukan beberapa bahasa lain. Getter berguna karena Anda dapat
-membuat *field*-nya privat tetapi metodenya publik, sehingga memungkinkan akses
+membuat *field*-nya privat tetapi methodnya publik, sehingga memungkinkan akses
 baca-saja ke *field* itu sebagai bagian dari API publik type tersebut. Kita akan
-membahas apa itu publik dan privat serta cara menetapkan *field* atau metode
+membahas apa itu publik dan privat serta cara menetapkan *field* atau method
 sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 
 <a id="wheres-the---operator"></a>
 > ### Di Mana Operator `->`?
 >
-> Di C dan C++, dua operator berbeda dipakai untuk memanggil metode: Anda
-> memakai `.` jika memanggil metode pada objeknya secara langsung dan `->`
-> jika memanggil metode pada penunjuk ke objek itu dan perlu mendereferensi
+> Di C dan C++, dua operator berbeda dipakai untuk memanggil method: Anda
+> memakai `.` jika memanggil method pada objeknya secara langsung dan `->`
+> jika memanggil method pada penunjuk ke objek itu dan perlu mendereferensi
 > penunjuknya terlebih dahulu. Dengan kata lain, jika `object` adalah sebuah
 > penunjuk, `object->something()` serupa dengan `(*object).something()`.
 >
 > Rust tidak memiliki padanan operator `->`; sebagai gantinya, Rust memiliki
 > fitur yang disebut *automatic referencing and dereferencing* (referensi dan
-> dereferensi otomatis). Memanggil metode adalah salah satu dari sedikit
+> dereferensi otomatis). Memanggil method adalah salah satu dari sedikit
 > tempat di Rust yang memiliki perilaku ini.
 >
-> Begini cara kerjanya: ketika Anda memanggil metode dengan
+> Begini cara kerjanya: ketika Anda memanggil method dengan
 > `object.something()`, Rust secara otomatis menambahkan `&`, `&mut`, atau `*`
-> supaya `object` cocok dengan tanda tangan metodenya. Dengan kata lain,
+> supaya `object` cocok dengan tanda tangan methodnya. Dengan kata lain,
 > keduanya berikut ini sama:
 >
 > <!-- CAN'T EXTRACT SEE BUG https://github.com/rust-lang/mdBook/issues/1127 -->
@@ -142,24 +142,24 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 > ```
 >
 > Yang pertama tampak jauh lebih bersih. Perilaku referensi otomatis ini
-> bekerja karena metode memiliki *receiver* (penerima) yang jelas—type dari
-> `self`. Dengan mengetahui penerima dan nama sebuah metode, Rust dapat
-> memastikan secara definitif apakah metodenya membaca (`&self`), mengubah
+> bekerja karena method memiliki *receiver* (penerima) yang jelas—type dari
+> `self`. Dengan mengetahui penerima dan nama sebuah method, Rust dapat
+> memastikan secara definitif apakah methodnya membaca (`&self`), mengubah
 > (`&mut self`), atau mengonsumsi (`self`). Fakta bahwa Rust membuat
-> peminjaman menjadi implisit untuk penerima metode adalah bagian besar dari
+> peminjaman menjadi implisit untuk penerima method adalah bagian besar dari
 > menjadikan *ownership* (kepemilikan) ergonomis dalam praktik.
 
-### Metode dengan Parameter Lebih Banyak
+### Method dengan Parameter Lebih Banyak
 
-Mari kita berlatih memakai metode dengan mengimplementasikan metode kedua
+Mari kita berlatih memakai method dengan mengimplementasikan method kedua
 pada *struct* `Rectangle`. Kali ini kita ingin sebuah instance `Rectangle`
 menerima instance `Rectangle` lain dan mengembalikan `true` jika `Rectangle`
 kedua dapat muat sepenuhnya di dalam `self` (`Rectangle` pertama); jika tidak,
 ia seharusnya mengembalikan `false`. Artinya, setelah kita mendefinisikan
-metode `can_hold`, kita ingin dapat menulis program yang ditunjukkan pada
+method `can_hold`, kita ingin dapat menulis program yang ditunjukkan pada
 Listing 5-14.
 
-<Listing number="5-14" file-name="src/main.rs" caption="Memakai metode `can_hold` yang belum ditulis">
+<Listing number="5-14" file-name="src/main.rs" caption="Memakai method `can_hold` yang belum ditulis">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-14/src/main.rs}}
@@ -176,21 +176,21 @@ Can rect1 hold rect2? true
 Can rect1 hold rect3? false
 ```
 
-Kita tahu bahwa kita ingin mendefinisikan sebuah metode, jadi ia akan berada
-di dalam blok `impl Rectangle`. Nama metodenya adalah `can_hold`, dan ia akan
+Kita tahu bahwa kita ingin mendefinisikan sebuah method, jadi ia akan berada
+di dalam blok `impl Rectangle`. Nama methodnya adalah `can_hold`, dan ia akan
 menerima peminjaman *immutable* atas `Rectangle` lain sebagai parameter. Kita
-bisa tahu type parameternya dengan melihat kode yang memanggil metodenya:
+bisa tahu type parameternya dengan melihat kode yang memanggil methodnya:
 `rect1.can_hold(&rect2)` meneruskan `&rect2`, yang merupakan peminjaman
 *immutable* atas `rect2`, sebuah instance `Rectangle`. Ini masuk akal karena
 kita hanya perlu membaca `rect2` (bukan menulis, yang berarti kita akan butuh
 peminjaman *mutable*), dan kita ingin `main` mempertahankan kepemilikan `rect2`
-supaya kita dapat memakainya lagi setelah memanggil metode `can_hold`. Nilai
+supaya kita dapat memakainya lagi setelah memanggil method `can_hold`. Nilai
 kembalian `can_hold` adalah Boolean, dan implementasinya akan memeriksa
 apakah lebar dan tinggi `self` masing-masing lebih besar daripada lebar dan
-tinggi `Rectangle` yang lain. Mari kita tambahkan metode `can_hold` yang baru
+tinggi `Rectangle` yang lain. Mari kita tambahkan method `can_hold` yang baru
 ke blok `impl` dari Listing 5-13, seperti yang ditunjukkan pada Listing 5-15.
 
-<Listing number="5-15" file-name="src/main.rs" caption="Mengimplementasikan metode `can_hold` pada `Rectangle` yang menerima instance `Rectangle` lain sebagai parameter">
+<Listing number="5-15" file-name="src/main.rs" caption="Mengimplementasikan method `can_hold` pada `Rectangle` yang menerima instance `Rectangle` lain sebagai parameter">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-15/src/main.rs:here}}
@@ -199,7 +199,7 @@ ke blok `impl` dari Listing 5-13, seperti yang ditunjukkan pada Listing 5-15.
 </Listing>
 
 Ketika kita menjalankan kode ini dengan fungsi `main` pada Listing 5-14,
-kita akan mendapatkan output yang kita inginkan. Metode dapat menerima
+kita akan mendapatkan output yang kita inginkan. Method dapat menerima
 banyak parameter yang kita tambahkan ke tanda tangan setelah parameter
 `self`, dan parameter-parameter itu bekerja persis seperti parameter pada
 fungsi.
@@ -210,11 +210,11 @@ Semua fungsi yang didefinisikan di dalam blok `impl` disebut *associated
 function* (fungsi asosiasi) karena ia terkait dengan type yang disebutkan
 setelah `impl`. Kita dapat mendefinisikan *associated function* yang tidak
 memiliki `self` sebagai parameter pertamanya (dan dengan demikian bukan
-metode) karena ia tidak memerlukan instance dari typenya untuk bekerja. Kita
+method) karena ia tidak memerlukan instance dari typenya untuk bekerja. Kita
 telah memakai satu fungsi seperti ini: fungsi `String::from` yang didefinisikan
 pada type `String`.
 
-*Associated function* yang bukan metode sering dipakai sebagai konstruktor yang
+*Associated function* yang bukan method sering dipakai sebagai konstruktor yang
 mengembalikan instance baru *struct*. Fungsi seperti ini sering disebut `new`,
 tetapi `new` bukanlah nama istimewa dan tidak dibangun ke dalam bahasa.
 Contohnya, kita dapat memilih untuk menyediakan *associated function* bernama
@@ -242,7 +242,7 @@ ruang nama yang dibuat oleh *module* (modul). Kita akan membahas *module* di
 
 Setiap *struct* diizinkan memiliki beberapa blok `impl`. Contohnya, Listing 5-15
 setara dengan kode yang ditunjukkan pada Listing 5-16, yang menempatkan setiap
-metode di blok `impl`-nya sendiri.
+method di blok `impl`-nya sendiri.
 
 <Listing number="5-16" caption="Menulis ulang Listing 5-15 memakai beberapa blok `impl`">
 
@@ -252,7 +252,7 @@ metode di blok `impl`-nya sendiri.
 
 </Listing>
 
-Tidak ada alasan untuk memisahkan metode-metode ini ke beberapa blok `impl` di
+Tidak ada alasan untuk memisahkan method-method ini ke beberapa blok `impl` di
 sini, tetapi ini adalah sintaks yang valid. Kita akan melihat kasus ketika
 beberapa blok `impl` berguna di Bab 10, tempat kita membahas generic type dan
 *trait*.
@@ -263,7 +263,7 @@ beberapa blok `impl` berguna di Bab 10, tempat kita membahas generic type dan
 Dengan memakai *struct*, Anda dapat menjaga bagian-bagian data yang berkaitan
 tetap saling terhubung dan memberi nama pada setiap bagiannya untuk membuat
 kode Anda jelas. Di dalam blok `impl`, Anda dapat mendefinisikan fungsi yang
-terkait dengan type Anda, dan metode adalah salah satu jenis associated
+terkait dengan type Anda, dan method adalah salah satu jenis associated
 function yang memungkinkan Anda menentukan perilaku yang dimiliki instance
 *struct* Anda.
 

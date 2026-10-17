@@ -88,7 +88,7 @@ Pesan errornya mengatakan bahwa *module* `hosting` bersifat privat. Dengan kata
 lain, kita memiliki *path* yang benar untuk *module* `hosting` dan fungsi
 `add_to_waitlist`, tetapi Rust tidak mengizinkan kita memakainya karena Rust
 tidak memiliki akses ke bagian-bagian privat tersebut. Di Rust, semua item
-(fungsi, metode, *struct*, *enum*, *module*, dan constant) bersifat privat
+(fungsi, method, *struct*, *enum*, *module*, dan constant) bersifat privat
 terhadap *module* induknya secara default. Jika Anda ingin menjadikan item
 seperti fungsi atau *struct* privat, Anda menempatkannya di dalam sebuah
 *module*.
@@ -149,7 +149,7 @@ jauh dan memilih untuk menjadikan satu item atau lebih di dalam *module* ikut
 publik.
 
 Error di Listing 7-6 mengatakan bahwa fungsi `add_to_waitlist` bersifat
-privat. Aturan privasi berlaku untuk *struct*, *enum*, fungsi, dan metode, juga
+privat. Aturan privasi berlaku untuk *struct*, *enum*, fungsi, dan method, juga
 *module*.
 
 Mari kita jadikan fungsi `add_to_waitlist` publik dengan menambahkan kata
@@ -199,7 +199,7 @@ tertarik pada topik ini, lihat [Rust API Guidelines][api-guidelines].
 > Kita telah menyebutkan bahwa sebuah *package* dapat berisi _src/main.rs_
 > sebagai *crate root* binary dan juga _src/lib.rs_ sebagai *crate root* library,
 > dan kedua *crate* tersebut akan memiliki nama *package* secara default.
-> Biasanya, *package* dengan pola berisi library dan *crate* binary seperti ini
+> Biasanya, *package* dengan pattern berisi library dan *crate* binary seperti ini
 > akan memiliki kode yang cukup sedikit di *crate* binary untuk memulai sebuah
 > file yang dapat dieksekusi yang memanggil kode yang didefinisikan di *crate*
 > library. Ini memungkinkan proyek lain menikmati fungsionalitas terbanyak

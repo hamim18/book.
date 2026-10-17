@@ -305,7 +305,7 @@ loop. Selama kondisinya `true`, loop berjalan. Ketika kondisinya
 tidak lagi `true`, program memanggil `break`, menghentikan loop. Perilaku
 seperti ini mungkin diimplementasikan memakai kombinasi `loop`, `if`, `else`,
 dan `break`; Anda boleh mencobanya sekarang dalam sebuah program, jika mau.
-Akan tetapi, pola ini sangat umum sehingga Rust memiliki konstruk bahasa
+Akan tetapi, pattern ini sangat umum sehingga Rust memiliki konstruk bahasa
 bawaan untuk itu, yang disebut loop `while`. Pada Listing 3-3, kita
 memakai `while` untuk membuat program berulang tiga kali, menghitung mundur
 setiap kali, lalu setelah loop, mencetak sebuah pesan dan keluar.
@@ -324,13 +324,13 @@ sebuah kondisi mengevaluasi menjadi `true`, kodenya berjalan; jika tidak,
 program keluar dari loop.
 
 <a id="looping-through-a-collection-with-for"></a>
-#### Melakukan Loop pada Koleksi dengan `for`
+#### Melakukan Loop pada Collection dengan `for`
 
 Anda dapat memilih memakai konstruk `while` untuk melakukan loop pada
-elemen-elemen sebuah koleksi, seperti array. Contohnya, loop pada
+elemen-elemen sebuah collection, seperti array. Contohnya, loop pada
 Listing 3-4 mencetak setiap elemen di dalam array `a`.
 
-<Listing number="3-4" file-name="src/main.rs" caption="Melakukan loop pada setiap elemen koleksi dengan loop `while`">
+<Listing number="3-4" file-name="src/main.rs" caption="Melakukan loop pada setiap elemen collection dengan loop `while`">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}
@@ -360,10 +360,10 @@ kondisional apakah indeks berada di dalam batas array pada setiap iterasi
 loop.
 
 Sebagai alternatif yang lebih ringkas, Anda dapat memakai loop `for` dan
-mengeksekusi beberapa kode untuk setiap item dalam sebuah koleksi. Loop
+mengeksekusi beberapa kode untuk setiap item dalam sebuah collection. Loop
 `for` terlihat seperti kode pada Listing 3-5.
 
-<Listing number="3-5" file-name="src/main.rs" caption="Melakukan loop pada setiap elemen koleksi dengan loop `for`">
+<Listing number="3-5" file-name="src/main.rs" caption="Melakukan loop pada setiap elemen collection dengan loop `for`">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-05/src/main.rs}}
@@ -380,7 +380,7 @@ lebih efisien karena indeks tidak perlu dibandingkan dengan panjang array pada
 setiap iterasi.
 
 Dengan memakai loop `for`, Anda tidak perlu ingat untuk mengubah kode
-lain jika Anda mengubah jumlah nilai dalam array, tidak seperti pada metode
+lain jika Anda mengubah jumlah nilai dalam array, tidak seperti pada method
 yang dipakai di Listing 3-4.
 
 Keamanan dan keringkasan loop `for` menjadikannya konstruk loop
@@ -391,7 +391,7 @@ akan memakai loop `for`. Caranya adalah memakai `Range`, yang disediakan
 oleh pustaka standar, yang membangkitkan semua angka secara berurutan mulai
 dari satu angka dan berakhir sebelum angka lain.
 
-Berikut tampilan hitung mundurnya jika memakai loop `for` dan metode
+Berikut tampilan hitung mundurnya jika memakai loop `for` dan method
 lain yang belum kita bahas, `rev`, untuk membalikkan range:
 
 <span class="filename">Nama File: src/main.rs</span>

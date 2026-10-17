@@ -65,7 +65,7 @@ dibatasi pada hal-hal berikut:
 - Memanggil fungsi `run` di _lib.rs_
 - Menangani error jika `run` mengembalikan error
 
-Pola ini berkaitan dengan pemisahan tanggung jawab: _main.rs_ menangani
+Pattern ini berkaitan dengan pemisahan tanggung jawab: _main.rs_ menangani
 jalannya program dan _lib.rs_ menangani seluruh logika tugas yang sedang
 dikerjakan. Karena Anda tidak dapat menguji fungsi `main` secara langsung,
 struktur ini memungkinkan Anda menguji seluruh logika program Anda dengan
@@ -88,10 +88,10 @@ definisikan di _src/main.rs_.
 
 </Listing>
 
-Kita masih mengumpulkan argumen baris perintah ke dalam sebuah vektor, tetapi
+Kita masih mengumpulkan argumen baris perintah ke dalam sebuah vector, tetapi
 alih-alih menetapkan nilai argumen pada indeks 1 ke variable `query` dan nilai
 argumen pada indeks 2 ke variable `file_path` di dalam fungsi `main`, kita
-meneruskan seluruh vektor tersebut ke fungsi `parse_config`. Fungsi
+meneruskan seluruh vector tersebut ke fungsi `parse_config`. Fungsi
 `parse_config` kemudian memegang logika yang menentukan argumen mana yang masuk
 ke variable mana, lalu meneruskan nilai-nilainya kembali ke `main`. Kita masih
 membuat variable `query` dan `file_path` di `main`, tetapi `main` tidak lagi
@@ -145,7 +145,7 @@ nilai-nilai itu, yang berarti kita akan melanggar aturan *borrowing*
 atas nilai-nilai di dalam `args`.
 
 Ada sejumlah cara untuk mengelola data `String`; rute termudah, meskipun agak
-tidak efisien, adalah memanggil metode `clone` pada nilai-nilai tersebut. Cara
+tidak efisien, adalah memanggil method `clone` pada nilai-nilai tersebut. Cara
 ini akan membuat salinan penuh dari data tersebut untuk dimiliki oleh instance
 `Config`, yang memakan lebih banyak waktu dan memori daripada menyimpan sebuah
 *reference* ke data string itu. Akan tetapi, meng-clone data juga membuat kode
@@ -157,7 +157,7 @@ kesederhanaan adalah pertukaran yang layak.
 >
 > Ada kecenderungan di antara banyak Rustaceans untuk menghindari pemakaian
 > `clone` untuk menyelesaikan masalah *ownership* karena biaya runtime-nya. Di
-> [Bab 13][ch13]<!-- ignore -->, Anda akan mempelajari cara memakai metode
+> [Bab 13][ch13]<!-- ignore -->, Anda akan mempelajari cara memakai method
 > yang lebih efisien dalam situasi semacam ini. Tetapi untuk saat ini, tidak
 > apa-apa menyalin beberapa string untuk terus membuat kemajuan karena Anda
 > hanya akan membuat salinan-salinan ini sekali dan *path* file serta string
@@ -216,8 +216,8 @@ untuk memastikan ia bekerja.
 ### Memperbaiki Penanganan Error
 
 Sekarang kita akan memperbaiki penanganan error kita. Ingat bahwa mencoba
-mengakses nilai-nilai di dalam vektor `args` pada indeks 1 atau indeks 2 akan
-menyebabkan program panic jika vektor itu memuat kurang dari tiga item. Coba
+mengakses nilai-nilai di dalam vector `args` pada indeks 1 atau indeks 2 akan
+menyebabkan program panic jika vector itu memuat kurang dari tiga item. Coba
 jalankan program ini tanpa argumen apa pun; hasilnya akan tampak seperti ini:
 
 ```console
@@ -337,13 +337,13 @@ error.
 
 </Listing>
 
-Di listing ini, kita telah memakai sebuah metode yang belum kita bahas secara
+Di listing ini, kita telah memakai sebuah method yang belum kita bahas secara
 mendetail: `unwrap_or_else`, yang didefinisikan pada `Result<T, E>` oleh
 pustaka standar. Memakai `unwrap_or_else` memungkinkan kita mendefinisikan
 penanganan error khusus yang bukan `panic!`. Jika `Result`-nya berupa nilai
-`Ok`, perilaku metode ini mirip dengan `unwrap`: Ia mengembalikan nilai di
+`Ok`, perilaku method ini mirip dengan `unwrap`: Ia mengembalikan nilai di
 dalamnya yang sedang dibungkus oleh `Ok`. Akan tetapi, jika nilainya berupa
-nilai `Err`, metode ini memanggil kode di dalam *closure*, yaitu sebuah fungsi
+nilai `Err`, method ini memanggil kode di dalam *closure*, yaitu sebuah fungsi
 anonim yang kita definisikan dan teruskan sebagai argumen ke `unwrap_or_else`.
 Kita akan membahas *closure* secara lebih mendetail di [Bab 13][ch13]<!--
 ignore -->. Untuk saat ini, Anda hanya perlu tahu bahwa `unwrap_or_else` akan
@@ -536,7 +536,7 @@ kueri dan *path* file, sehingga program kita hanya mencetak hasil pencarian
 (jika tidak ada error yang terjadi).
 
 Perhatikan bahwa fungsi pencarian akan mengumpulkan semua hasil ke dalam
-sebuah vektor yang dikembalikannya sebelum pencetakan apa pun terjadi.
+sebuah vector yang dikembalikannya sebelum pencetakan apa pun terjadi.
 Implementasi ini bisa lambat menampilkan hasil saat mencari di file-file
 besar, karena hasilnya tidak dicetak begitu ditemukan; kita akan membahas
 salah satu cara yang mungkin untuk memperbaikinya dengan memakai *iterator*

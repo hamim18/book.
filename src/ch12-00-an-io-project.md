@@ -35,7 +35,7 @@ Proyek `grep` kita akan memadukan sejumlah konsep yang telah Anda pelajari
 sejauh ini:
 
 - Menata kode ([Bab 7][ch7]<!-- ignore -->)
-- Memakai vektor dan string ([Bab 8][ch8]<!-- ignore -->)
+- Memakai vector dan string ([Bab 8][ch8]<!-- ignore -->)
 - Menangani error ([Bab 9][ch9]<!-- ignore -->)
 - Memakai *trait* dan *lifetime* bilamana sesuai ([Bab 10][ch10]<!-- ignore -->)
 - Menulis pengujian ([Bab 11][ch11]<!-- ignore -->)

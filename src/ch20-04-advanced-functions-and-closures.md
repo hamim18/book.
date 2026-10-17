@@ -52,12 +52,12 @@ memiliki *closure*: Fungsi C bisa menerima fungsi sebagai argumen, tetapi C
 tidak memiliki *closure*.
 
 Sebagai contoh situasi di mana Anda bisa memakai *closure* yang didefinisikan
-secara inline ataupun fungsi bernama, mari kita lihat pemakaian metode `map`
-yang disediakan *trait* `Iterator` di pustaka standar. Untuk memakai metode
-`map` guna mengubah vektor berisi angka menjadi vektor berisi string, kita
+secara inline ataupun fungsi bernama, mari kita lihat pemakaian method `map`
+yang disediakan *trait* `Iterator` di pustaka standar. Untuk memakai method
+`map` guna mengubah vector berisi angka menjadi vector berisi string, kita
 bisa memakai *closure*, seperti di Listing 20-29.
 
-<Listing number="20-29" caption="Memakai closure dengan metode `map` untuk mengubah angka menjadi string">
+<Listing number="20-29" caption="Memakai closure dengan method `map` untuk mengubah angka menjadi string">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-29/src/main.rs:here}}
@@ -68,7 +68,7 @@ bisa memakai *closure*, seperti di Listing 20-29.
 Atau kita bisa memberikan fungsi bernama sebagai argumen `map`, bukan
 *closure*. Listing 20-30 menunjukkan tampilannya.
 
-<Listing number="20-30" caption="Memakai fungsi `String::to_string` dengan metode `map` untuk mengubah angka menjadi string">
+<Listing number="20-30" caption="Memakai fungsi `String::to_string` dengan method `map` untuk mengubah angka menjadi string">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-30/src/main.rs:here}}
@@ -89,10 +89,10 @@ bahwa nama setiap varian *enum* yang kita definisikan juga menjadi fungsi
 penginisialisasi. Kita bisa memakai fungsi-fungsi penginisialisasi ini
 sebagai *pointer* fungsi yang mengimplementasikan *trait*-trait *closure*, yang
 berarti kita bisa memberikan fungsi-fungsi penginisialisasi itu sebagai
-argumen untuk metode yang menerima *closure*, seperti terlihat di Listing
+argumen untuk method yang menerima *closure*, seperti terlihat di Listing
 20-31.
 
-<Listing number="20-31" caption="Memakai penginisialisasi enum dengan metode `map` untuk membuat instance `Status` dari angka">
+<Listing number="20-31" caption="Memakai penginisialisasi enum dengan method `map` untuk membuat instance `Status` dari angka">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-31/src/main.rs:here}}

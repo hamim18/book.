@@ -14,6 +14,6 @@ bersaing menjelaskan apa itu OOP, dan menurut sebagian definisi itu Rust
 berorientasi objek, tetapi menurut yang lain tidak. Di bab ini, kita akan
 mengeksplorasi karakteristik-karakteristik tertentu yang umumnya dianggap
 berorientasi objek dan bagaimana karakteristik itu diterjemahkan ke Rust yang
-idiomatis. Kami kemudian akan menunjukkan cara mengimplementasikan pola desain
+idiomatis. Kami kemudian akan menunjukkan cara mengimplementasikan pattern desain
 berorientasi objek di Rust dan membahas kompromi melakukannya dibandingkan
 mengimplementasikan solusi menggunakan sebagian kekuatan Rust.

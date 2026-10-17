@@ -101,7 +101,7 @@ bahwa thread yang dibuat itu akan sempat berjalan sama sekali!
 Kita dapat memperbaiki masalah thread yang dibuat tidak berjalan atau
 berakhir terlalu dini dengan menyimpan return value `thread::spawn` di
 sebuah variable. Type kembalian `thread::spawn` adalah `JoinHandle<T>`.
-`JoinHandle<T>` adalah nilai yang dimiliki yang, ketika kita memanggil metode
+`JoinHandle<T>` adalah nilai yang dimiliki yang, ketika kita memanggil method
 `join` padanya, akan menunggu thread-nya selesai. Listing 16-2 menunjukkan
 cara memakai `JoinHandle<T>` dari thread yang kita buat di Listing 16-1 dan
 cara memanggil `join` untuk memastikan thread yang dibuat selesai sebelum
@@ -198,11 +198,11 @@ Perhatikan di Listing 16-1 bahwa *closure* yang kita berikan ke `thread::spawn`
 tidak menerima argumen: Kita tidak memakai data apa pun dari thread utama di
 kode thread yang dibuat. Untuk memakai data dari thread utama di thread yang
 dibuat, *closure* thread yang dibuat itu harus menangkap nilai yang
-dibutuhkannya. Listing 16-3 menunjukkan upaya membuat vektor di thread utama
+dibutuhkannya. Listing 16-3 menunjukkan upaya membuat vector di thread utama
 dan memakainya di thread yang dibuat. Namun, ini belum akan berhasil, seperti
 yang akan Anda lihat sebentar lagi.
 
-<Listing number="16-3" file-name="src/main.rs" caption="Mencoba memakai vektor yang dibuat oleh thread utama di thread lain">
+<Listing number="16-3" file-name="src/main.rs" caption="Mencoba memakai vector yang dibuat oleh thread utama di thread lain">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-03/src/main.rs}}
@@ -292,7 +292,7 @@ cara yang sama, kita kemudian melanggar aturan *ownership* ketika mencoba
 memakai `v` di thread utama. Kata kunci `move` menimpa default konservatif
 Rust berupa peminjaman; ia tidak mengizinkan kita melanggar aturan *ownership*.
 
-Sekarang setelah kita membahas apa itu thread dan metode-metode yang
+Sekarang setelah kita membahas apa itu thread dan method-method yang
 disediakan API thread, mari kita lihat beberapa situasi ketika kita dapat
 memakai thread.
 

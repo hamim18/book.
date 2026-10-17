@@ -26,9 +26,9 @@
 - [Menggunakan Struct untuk Menyusun Data yang Berkaitan](ch05-00-structs.md)
   - [Mendefinisikan dan Menginstansiasi Struct](ch05-01-defining-structs.md)
   - [Contoh Program yang Memakai Struct](ch05-02-example-structs.md)
-  - [Metode](ch05-03-method-syntax.md)
+  - [Method](ch05-03-method-syntax.md)
 
-- [Enums dan Pattern Matching (Pencocokan Pola)](ch06-00-enums.md)
+- [Enums dan Pattern Matching (Pencocokan Pattern)](ch06-00-enums.md)
   - [Mendefinisikan Enum](ch06-01-defining-an-enum.md)
   - [Konstruk Alur Kontrol `match`](ch06-02-match.md)
   - [Alur Kontrol yang Ringkas dengan `if let` dan `let...else`](ch06-03-if-let.md)
@@ -40,8 +40,8 @@
   - [Membawa Path ke dalam Scope dengan Kata Kunci `use`](ch07-04-bringing-paths-into-scope-with-the-use-keyword.md)
   - [Memisahkan Module ke dalam File yang Berbeda](ch07-05-separating-modules-into-different-files.md)
 
-- [Koleksi Umum](ch08-00-common-collections.md)
-  - [Menyimpan Daftar Nilai dengan Vektor](ch08-01-vectors.md)
+- [Collection Umum](ch08-00-common-collections.md)
+  - [Menyimpan Daftar Nilai dengan Vector](ch08-01-vectors.md)
   - [Menyimpan Teks Terenkode UTF-8 dengan String](ch08-02-strings.md)
   - [Menyimpan Kunci dengan Nilai yang Terkait di dalam Hash Map](ch08-03-hash-maps.md)
 
@@ -86,7 +86,7 @@
   - [Memperlakukan Smart Pointer Seperti Reference Biasa](ch15-02-deref.md)
   - [Menjalankan Kode pada Saat Pembersihan dengan Trait `Drop`](ch15-03-drop.md)
   - [`Rc<T>`, Smart Pointer dengan Penghitungan Referensi](ch15-04-rc.md)
-  - [`RefCell<T>` dan Pola Interior Mutability](ch15-05-interior-mutability.md)
+  - [`RefCell<T>` dan Pattern Interior Mutability](ch15-05-interior-mutability.md)
   - [Reference Cycle Dapat Membocorkan Memori](ch15-06-reference-cycles.md)
 
 - [Konkurensi Tanpa Takut](ch16-00-concurrency.md)
@@ -106,12 +106,12 @@
 - [Fitur-Fitur Pemrograman Berorientasi Objek](ch18-00-oop.md)
   - [Karakteristik Bahasa Berorientasi Objek](ch18-01-what-is-oo.md)
   - [Memakai Trait Object untuk Mengabstraksi Perilaku Bersama](ch18-02-trait-objects.md)
-  - [Mengimplementasikan Pola Desain Berorientasi Objek](ch18-03-oo-design-patterns.md)
+  - [Mengimplementasikan Pattern Desain Berorientasi Objek](ch18-03-oo-design-patterns.md)
 
-- [Pola dan Pencocokan](ch19-00-patterns.md)
-  - [Semua Tempat Pola Bisa Dipakai](ch19-01-all-the-places-for-patterns.md)
-  - [Refutabilitas: Apakah Sebuah Pola Mungkin Gagal Cocok](ch19-02-refutability.md)
-  - [Sintaks Pola](ch19-03-pattern-syntax.md)
+- [Pattern dan Pencocokan](ch19-00-patterns.md)
+  - [Semua Tempat Pattern Bisa Dipakai](ch19-01-all-the-places-for-patterns.md)
+  - [Refutabilitas: Apakah Sebuah Pattern Mungkin Gagal Cocok](ch19-02-refutability.md)
+  - [Sintaks Pattern](ch19-03-pattern-syntax.md)
 
 - [Fitur Lanjutan](ch20-00-advanced-features.md)
   - [Unsafe Rust](ch20-01-unsafe-rust.md)

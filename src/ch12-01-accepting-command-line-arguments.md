@@ -35,15 +35,15 @@ oleh pustaka standar Rust. Fungsi ini mengembalikan sebuah *iterator* atas
 argumen-argumen baris perintah yang diteruskan ke `minigrep`. Kita akan
 membahas *iterator* secara menyeluruh di [Bab 13][ch13]<!-- ignore -->. Untuk
 saat ini, Anda hanya perlu mengetahui dua hal tentang *iterator*: *Iterator*
-menghasilkan serangkaian nilai, dan kita dapat memanggil metode `collect` pada
-sebuah *iterator* untuk mengubahnya menjadi sebuah koleksi, seperti vektor,
+menghasilkan serangkaian nilai, dan kita dapat memanggil method `collect` pada
+sebuah *iterator* untuk mengubahnya menjadi sebuah collection, seperti vector,
 yang memuat semua elemen yang dihasilkan oleh *iterator* tersebut.
 
 Kode di Listing 12-1 memungkinkan program `minigrep` Anda membaca semua
 argumen baris perintah yang diteruskan kepadanya, lalu mengumpulkan nilainya
-ke dalam sebuah vektor.
+ke dalam sebuah vector.
 
-<Listing number="12-1" file-name="src/main.rs" caption="Mengumpulkan argumen baris perintah ke dalam sebuah vektor dan mencetaknya">
+<Listing number="12-1" file-name="src/main.rs" caption="Mengumpulkan argumen baris perintah ke dalam sebuah vector dan mencetaknya">
 
 ```rust
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-01/src/main.rs}}
@@ -74,15 +74,15 @@ saat ini.
 > lebih rumit untuk diolah daripada nilai `String`.
 
 Pada baris pertama `main`, kita memanggil `env::args`, lalu segera memakai
-`collect` untuk mengubah *iterator* tersebut menjadi sebuah vektor yang memuat
+`collect` untuk mengubah *iterator* tersebut menjadi sebuah vector yang memuat
 semua nilai yang dihasilkan oleh *iterator* itu. Kita dapat memakai fungsi
-`collect` untuk membuat berbagai jenis koleksi, jadi kita mengtype annotation
-`args` secara eksplisit untuk menyatakan bahwa kita menginginkan sebuah vektor
+`collect` untuk membuat berbagai jenis collection, jadi kita mengtype annotation
+`args` secara eksplisit untuk menyatakan bahwa kita menginginkan sebuah vector
 berisi string. Meskipun Anda sangat jarang perlu mengtype annotation di Rust,
 `collect` adalah salah satu fungsi yang memang sering perlu Anda anotasi
-karena Rust tidak mampu menginferensi jenis koleksi yang Anda inginkan.
+karena Rust tidak mampu menginferensi jenis collection yang Anda inginkan.
 
-Akhirnya, kita mencetak vektor tersebut memakai *macro* (makro) debug. Mari
+Akhirnya, kita mencetak vector tersebut memakai *macro* (makro) debug. Mari
 kita coba menjalankan kode ini, mula-mula tanpa argumen lalu dengan dua
 argumen:
 
@@ -94,7 +94,7 @@ argumen:
 {{#include ../listings/ch12-an-io-project/output-only-01-with-args/output.txt}}
 ```
 
-Perhatikan bahwa nilai pertama di dalam vektor itu adalah
+Perhatikan bahwa nilai pertama di dalam vector itu adalah
 `"target/debug/minigrep"`, yaitu nama binary kita. Ini cocok dengan perilaku
 daftar argumen di C, yang memungkinkan program memakai nama yang digunakan
 untuk memanggilnya saat dieksekusi. Akses ke nama program sering kali berguna
@@ -118,8 +118,8 @@ bagian program selanjutnya. Kita melakukannya di Listing 12-2.
 
 </Listing>
 
-Seperti yang kita lihat saat mencetak vektor tersebut, nama program menempati
-nilai pertama di dalam vektor pada `args[0]`, jadi kita memulai argumen dari
+Seperti yang kita lihat saat mencetak vector tersebut, nama program menempati
+nilai pertama di dalam vector pada `args[0]`, jadi kita memulai argumen dari
 indeks 1. Argumen pertama yang diterima `minigrep` adalah string yang kita
 cari, jadi kita menaruh sebuah *reference* (referensi) ke argumen pertama di
 dalam variable `query`. Argumen kedua adalah *path* file, jadi kita menaruh

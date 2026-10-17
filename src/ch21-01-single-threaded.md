@@ -68,7 +68,7 @@ Karena kita menulis server dasar hanya untuk tujuan belajar, kita tidak
 akan memusingkan penanganan error semacam ini; sebagai gantinya, kita
 memakai `unwrap` untuk menghentikan program jika terjadi error.
 
-Metode `incoming` pada `TcpListener` mengembalikan *iterator* yang memberi
+Method `incoming` pada `TcpListener` mengembalikan *iterator* yang memberi
 kita urutan *stream* (lebih tepatnya, *stream* bertipe `TcpStream`). Sebuah
 _stream_ tunggal mewakili koneksi terbuka antara client dan server.
 _Koneksi_ adalah nama untuk seluruh proses permintaan dan respons di mana
@@ -83,7 +83,7 @@ Untuk saat ini, penanganan *stream* kita terdiri dari memanggil `unwrap`
 untuk mengakhiri program kita jika *stream* itu memiliki error; jika tidak
 ada error, program akan mencetak pesan. Kita akan menambahkan lebih banyak
 fungsionalitas untuk kasus sukses di listing berikutnya. Alasan kita
-mungkin menerima error dari metode `incoming` saat client terhubung ke
+mungkin menerima error dari method `incoming` saat client terhubung ke
 server adalah bahwa kita sebenarnya tidak mengiterasi koneksi. Sebaliknya,
 kita mengiterasi *percobaan koneksi*. Koneksi itu mungkin tidak berhasil
 karena sejumlah alasan, banyak di antaranya spesifik untuk sistem operasi.
@@ -160,16 +160,16 @@ kepadanya.
 
 Di fungsi `handle_connection`, kita membuat instance `BufReader` baru yang
 membungkus sebuah *reference* ke `stream`. `BufReader` menambahkan buffering
-dengan mengelola pemanggilan metode-metode *trait* `std::io::Read` untuk
+dengan mengelola pemanggilan method-method *trait* `std::io::Read` untuk
 kita.
 
 Kita membuat variable bernama `http_request` untuk mengumpulkan
 baris-baris permintaan yang dikirim peramban ke server kita. Kita
-menandakan bahwa kita ingin mengumpulkan baris-baris itu ke dalam vektor
+menandakan bahwa kita ingin mengumpulkan baris-baris itu ke dalam vector
 dengan menambahkan type annotation `Vec<_>`.
 
 `BufReader` mengimplementasikan *trait* `std::io::BufRead`, yang menyediakan
-metode `lines`. Metode `lines` mengembalikan iterator `Result<String,
+method `lines`. Method `lines` mengembalikan iterator `Result<String,
 std::io::Error>` dengan membelah stream data setiap kali ia melihat byte
 newline. Untuk mendapatkan setiap `String`, kita me-`map` dan me-`unwrap`
 setiap `Result`. `Result` itu mungkin error jika datanya bukan UTF-8 yang
@@ -182,7 +182,7 @@ Peramban menandakan akhir sebuah permintaan HTTP dengan mengirim dua
 karakter newline berturut-turut, jadi untuk mendapatkan satu permintaan
 dari *stream*, kita mengambil baris-baris sampai kita mendapat baris yang
 berupa string kosong. Setelah kita mengumpulkan baris-baris itu ke dalam
-vektor, kita mencetaknya dengan format debug yang rapi supaya kita bisa
+vector, kita mencetaknya dengan format debug yang rapi supaya kita bisa
 melihat instruksi yang dikirim peramban web ke server kita.
 
 Mari kita coba kode ini! Mulai programnya dan buat permintaan di peramban
@@ -248,7 +248,7 @@ message-body
 
 Baris pertama adalah *baris permintaan* yang memuat informasi tentang apa
 yang diminta client. Bagian pertama dari baris permintaan menunjukkan
-metode yang dipakai, seperti `GET` atau `POST`, yang menggambarkan
+method yang dipakai, seperti `GET` atau `POST`, yang menggambarkan
 bagaimana client membuat permintaan ini. Client kita memakai permintaan
 `GET`, yang berarti ia meminta informasi.
 
@@ -268,7 +268,7 @@ sisa data permintaan. Perhatikan bahwa saat CRLF dicetak, kita melihat
 awal baris baru, bukan `\r\n`.
 
 Melihat data baris permintaan yang kita terima dari menjalankan program
-kita sejauh ini, kita melihat bahwa `GET` adalah metodenya, _/_ adalah URI
+kita sejauh ini, kita melihat bahwa `GET` adalah methodnya, _/_ adalah URI
 permintaannya, dan `HTTP/1.1` adalah versinya.
 
 Setelah baris permintaan, baris-baris tersisa mulai dari `Host:` dan
@@ -320,7 +320,7 @@ terhadap permintaan yang sukses! Dari fungsi `handle_connection`, hapus
 
 Baris baru pertama mendefinisikan variable `response` yang menyimpan data
 pesan sukses. Lalu, kita memanggil `as_bytes` pada `response` kita untuk
-mengubah data string itu menjadi byte. Metode `write_all` pada `stream`
+mengubah data string itu menjadi byte. Method `write_all` pada `stream`
 menerima `&[u8]` dan mengirim byte-byte itu langsung melalui koneksi.
 Karena operasi `write_all` bisa gagal, kita memakai `unwrap` pada hasil
 error apa pun seperti sebelumnya. Sekali lagi, dalam aplikasi sungguhan,
@@ -405,7 +405,7 @@ berbeda.
 </Listing>
 
 Kita hanya akan melihat baris pertama dari permintaan HTTP, jadi alih-alih
-membaca seluruh permintaan ke dalam vektor, kita memanggil `next` untuk
+membaca seluruh permintaan ke dalam vector, kita memanggil `next` untuk
 mendapatkan item pertama dari *iterator*. `unwrap` pertama menangani
 `Option` itu dan menghentikan program jika *iterator* tidak memiliki item.
 `unwrap` kedua menangani `Result` dan memiliki efek yang sama dengan
@@ -483,7 +483,7 @@ kode yang dihasilkan setelah mengganti blok `if` dan `else` yang besar itu.
 Sekarang blok `if` dan `else` hanya mengembalikan nilai yang sesuai untuk
 baris status dan nama file di dalam *tuple*; lalu kita memakai destructuring
 untuk menetapkan kedua nilai itu ke `status_line` dan `filename` dengan
-memakai pola di statement `let`, seperti yang dibahas di Bab 19.
+memakai pattern di statement `let`, seperti yang dibahas di Bab 19.
 
 Kode yang sebelumnya diduplikasi sekarang berada di luar blok `if` dan
 `else` dan memakai variable `status_line` dan `filename`. Ini membuat

@@ -8,12 +8,12 @@ kemungkinan error, string sebagai struktur data yang lebih rumit daripada
 perkiraan banyak pemrogram, dan UTF-8. Faktor-faktor ini berpadu dengan cara
 yang bisa terasa sulit ketika Anda datang dari bahasa pemrograman lain.
 
-Kita membahas string dalam konteks koleksi karena string diimplementasikan
-sebagai koleksi byte, ditambah beberapa metode untuk menyediakan
+Kita membahas string dalam konteks collection karena string diimplementasikan
+sebagai collection byte, ditambah beberapa method untuk menyediakan
 fungsionalitas yang berguna ketika byte-byte itu ditafsirkan sebagai teks.
 Di bagian ini, kita akan membicarakan operasi-operasi pada `String` yang
-dimiliki setiap type koleksi, seperti membuat, memperbarui, dan membaca.
-Kita juga akan membahas cara-cara `String` berbeda dari koleksi lainnya,
+dimiliki setiap type collection, seperti membuat, memperbarui, dan membaca.
+Kita juga akan membahas cara-cara `String` berbeda dari collection lainnya,
 yaitu bagaimana pengindeksan ke dalam `String` menjadi rumit karena
 perbedaan antara cara manusia dan komputer menafsirkan data `String`.
 
@@ -44,7 +44,7 @@ terenkode UTF-8.
 
 Banyak operasi yang sama yang tersedia pada `Vec<T>` juga tersedia pada
 `String`, karena `String` sebenarnya diimplementasikan sebagai *wrapper*
-(pembungkus) di sekitar vektor byte dengan beberapa jaminan, pembatasan, dan
+(pembungkus) di sekitar vector byte dengan beberapa jaminan, pembatasan, dan
 kemampuan ekstra. Contoh fungsi yang bekerja dengan cara yang sama pada
 `Vec<T>` dan `String` adalah fungsi `new` untuk membuat sebuah instance,
 yang ditunjukkan di Listing 8-11.
@@ -59,11 +59,11 @@ yang ditunjukkan di Listing 8-11.
 
 Baris ini membuat string kosong baru bernama `s`, yang kemudian dapat kita
 isi dengan data. Sering kali, kita akan memiliki data awal yang ingin kita
-pakai untuk memulai string. Untuk itu, kita memakai metode `to_string`, yang
+pakai untuk memulai string. Untuk itu, kita memakai method `to_string`, yang
 tersedia pada type apa pun yang mengimplementasikan *trait* `Display`,
 seperti halnya *string literal*. Listing 8-12 menunjukkan dua contoh.
 
-<Listing number="8-12" caption="Memakai metode `to_string` untuk membuat `String` dari string literal">
+<Listing number="8-12" caption="Memakai method `to_string` untuk membuat `String` dari string literal">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
@@ -119,10 +119,10 @@ Selain itu, Anda dapat dengan mudah memakai operator `+` atau *macro*
 
 #### Menambahkan dengan `push_str` atau `push`
 
-Kita dapat memperbesar `String` dengan memakai metode `push_str` untuk
+Kita dapat memperbesar `String` dengan memakai method `push_str` untuk
 menambahkan sebuah string *slice*, seperti yang ditunjukkan di Listing 8-15.
 
-<Listing number="8-15" caption="Menambahkan sebuah string slice ke `String` memakai metode `push_str`">
+<Listing number="8-15" caption="Menambahkan sebuah string slice ke `String` memakai method `push_str`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
@@ -130,7 +130,7 @@ menambahkan sebuah string *slice*, seperti yang ditunjukkan di Listing 8-15.
 
 </Listing>
 
-Setelah dua baris ini, `s` akan berisi `foobar`. Metode `push_str` menerima
+Setelah dua baris ini, `s` akan berisi `foobar`. Method `push_str` menerima
 string *slice* karena kita belum tentu ingin mengambil *ownership* parameter.
 Misalnya, pada kode di Listing 8-16, kita ingin dapat memakai `s2` setelah
 menambahkan isinya ke `s1`.
@@ -143,13 +143,13 @@ menambahkan isinya ke `s1`.
 
 </Listing>
 
-Jika metode `push_str` mengambil *ownership* `s2`, kita tidak akan dapat
+Jika method `push_str` mengambil *ownership* `s2`, kita tidak akan dapat
 mencetak nilainya di baris terakhir. Namun, kode ini bekerja seperti yang
 kita harapkan!
 
-Metode `push` menerima satu karakter sebagai parameter dan menambahkannya ke
+Method `push` menerima satu karakter sebagai parameter dan menambahkannya ke
 `String`. Listing 8-17 menambahkan huruf _l_ ke sebuah `String` memakai
-metode `push`.
+method `push`.
 
 <Listing number="8-17" caption="Menambahkan satu karakter ke nilai `String` memakai `push`">
 
@@ -182,8 +182,8 @@ caranya adalah memakai operator `+`, seperti yang ditunjukkan di Listing
 
 String `s3` akan berisi `Hello, world!`. Alasan `s1` tidak lagi valid
 setelah penambahan, dan alasan kita memakai *reference* ke `s2`, berkaitan
-dengan tanda tangan metode yang dipanggil ketika kita memakai operator `+`.
-Operator `+` memakai metode `add`, yang tanda tangannya terlihat seperti
+dengan tanda tangan method yang dipanggil ketika kita memakai operator `+`.
+Operator `+` memakai method `add`, yang tanda tangannya terlihat seperti
 ini:
 
 ```rust,ignore
@@ -192,7 +192,7 @@ fn add(self, s: &str) -> String {
 
 Di pustaka standar, Anda akan melihat `add` didefinisikan memakai *generics*
 dan associated type. Di sini, kita telah menggantinya dengan type konkret,
-yang memang terjadi ketika kita memanggil metode ini dengan nilai `String`.
+yang memang terjadi ketika kita memanggil method ini dengan nilai `String`.
 Kita akan membahas *generics* di Bab 10. Tanda tangan ini memberi kita
 petunjuk yang kita perlukan untuk memahami bagian-bagian rumit dari operator
 `+`.
@@ -206,7 +206,7 @@ Jadi, mengapa Listing 8-18 bisa dikompilasi?
 
 Alasan kita dapat memakai `&s2` di pemanggilan `add` adalah bahwa *compiler*
 dapat mengoersi argumen `&String` menjadi `&str`. Ketika kita memanggil
-metode `add`, Rust memakai *deref coercion*, yang di sini mengubah `&s2`
+method `add`, Rust memakai *deref coercion*, yang di sini mengubah `&s2`
 menjadi `&s2[..]`. Kita akan membahas *deref coercion* lebih mendalam di Bab
 15. Karena `add` tidak mengambil *ownership* parameter `s`, `s2` akan tetap
 menjadi `String` yang valid setelah operasi ini.
@@ -278,7 +278,7 @@ yang ini:
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:spanish}}
 ```
 
-Dalam kasus ini, `len` akan menjadi `4`, yang berarti vektor yang menyimpan
+Dalam kasus ini, `len` akan menjadi `4`, yang berarti vector yang menyimpan
 string `"Hola"` panjangnya 4 byte. Setiap huruf ini memakan 1 byte ketika
 dienkode dalam UTF-8. Namun, baris berikut mungkin mengejutkan Anda
 (perhatikan bahwa string ini dimulai dengan huruf kapital Sirilik _Ze_,
@@ -328,7 +328,7 @@ melihat string dari sudut pandang Rust: sebagai byte, nilai skalar, dan
 kita sebut _huruf_).
 
 Jika kita melihat kata Hindi “नमस्ते” yang ditulis dalam aksara Devanagari,
-kata itu tersimpan sebagai vektor berisi nilai `u8` yang terlihat seperti
+kata itu tersimpan sebagai vector berisi nilai `u8` yang terlihat seperti
 ini:
 
 ```text
@@ -388,7 +388,7 @@ yang berarti `s` akan menjadi `Зд`.
 
 Jika kita mencoba memotong hanya sebagian byte sebuah karakter dengan
 sesuatu seperti `&hello[0..1]`, Rust akan panic pada runtime dengan cara
-yang sama seperti jika indeks tidak valid diakses di vektor:
+yang sama seperti jika indeks tidak valid diakses di vector:
 
 ```console
 {{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
@@ -405,7 +405,7 @@ melakukannya dapat membuat program Anda crash.
 
 Cara terbaik untuk mengoperasikan potongan-potongan string adalah dengan
 eksplisit tentang apakah Anda menginginkan karakter atau byte. Untuk nilai
-skalar Unicode individual, pakai metode `chars`. Memanggil `chars` pada
+skalar Unicode individual, pakai method `chars`. Memanggil `chars` pada
 “Зд” memisahkan dan mengembalikan dua nilai typed `char`, dan Anda dapat
 mengiterasi hasilnya untuk mengakses setiap elemen:
 
@@ -422,7 +422,7 @@ Kode ini akan mencetak yang berikut:
 д
 ```
 
-Sebagai alternatif, metode `bytes` mengembalikan setiap byte mentah, yang
+Sebagai alternatif, method `bytes` mengembalikan setiap byte mentah, yang
 mungkin cocok untuk domain Anda:
 
 ```rust
@@ -467,7 +467,7 @@ pengembangan Anda.
 Kabar baiknya adalah pustaka standar menawarkan banyak fungsionalitas yang
 dibangun di atas type `String` dan `&str` untuk membantu menangani
 situasi-situasi rumit ini dengan benar. Pastikan untuk memeriksa
-dokumentasinya untuk metode-metode bermanfaat seperti `contains` untuk
+dokumentasinya untuk method-method bermanfaat seperti `contains` untuk
 mencari di dalam string dan `replace` untuk mengganti bagian string dengan
 string lain.
 

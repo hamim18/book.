@@ -47,7 +47,7 @@ huruf kapital _R_ dan cocok dengan baris `"Trust me."` meskipun keduanya
 memiliki kapitalisasi yang berbeda dari kuerinya. Ini adalah pengujian kita
 yang gagal, dan ia akan gagal terkompilasi karena kita belum mendefinisikan
 fungsi `search_case_insensitive`. Silakan tambahkan implementasi kerangka yang
-selalu mengembalikan vektor kosong, mirip dengan yang kita lakukan untuk
+selalu mengembalikan vector kosong, mirip dengan yang kita lakukan untuk
 fungsi `search` di Listing 12-16, untuk melihat pengujiannya terkompilasi lalu
 gagal.
 
@@ -83,7 +83,7 @@ karena memanggil `to_lowercase` menciptakan data baru, bukan mereferensikan
 data yang sudah ada. Misalnya kuerinya adalah `"rUsT"`: String *slice* itu tidak
 memuat huruf kecil `u` atau `t` yang dapat kita pakai, jadi kita harus
 mengalokasikan sebuah `String` baru yang memuat `"rust"`. Ketika kita
-meneruskan `query` sebagai argumen ke metode `contains` sekarang, kita perlu
+meneruskan `query` sebagai argumen ke method `contains` sekarang, kita perlu
 menambahkan ampersand karena tanda tangan `contains` didefinisikan untuk
 menerima sebuah string *slice*.
 
@@ -148,13 +148,13 @@ environment variable itu jika environment variablenya ditetapkan ke nilai apa
 pun. Fungsi itu akan mengembalikan *variant* `Err` jika variable
 lingkungannya tidak ditetapkan.
 
-Kita memakai metode `is_ok` pada `Result` untuk memeriksa apakah variable
+Kita memakai method `is_ok` pada `Result` untuk memeriksa apakah variable
 lingkungan itu ditetapkan, yang berarti program seharusnya melakukan
 pencarian case-insensitive. Jika environment variable `IGNORE_CASE` tidak
 ditetapkan ke apa pun, `is_ok` akan mengembalikan `false` dan program akan
 melakukan pencarian case-sensitive. Kita tidak peduli pada _nilai_ variable
 lingkungan itu, hanya apakah ia ditetapkan atau tidak, jadi kita memeriksa
-`is_ok` alih-alih memakai `unwrap`, `expect`, atau metode-metode lain yang
+`is_ok` alih-alih memakai `unwrap`, `expect`, atau method-method lain yang
 telah kita lihat pada `Result`.
 
 Kita meneruskan nilai di variable `ignore_case` ke instance `Config` sehingga

@@ -13,15 +13,15 @@ karakteristik itu dan apakah Rust mendukungnya.
 Buku _Design Patterns: Elements of Reusable Object-Oriented Software_ karya
 Erich Gamma, Richard Helm, Ralph Johnson, dan John Vlissides
 (Addison-Wesley, 1994), yang dalam bahasa sehari-hari disebut sebagai buku
-_The Gang of Four_ (Geng Empat), adalah katalog pola desain berorientasi
+_The Gang of Four_ (Geng Empat), adalah katalog pattern desain berorientasi
 objek. Buku itu mendefinisikan OOP sebagai berikut:
 
 > Program berorientasi objek tersusun dari objek. Sebuah **objek** memaketkan
 > data dan prosedur yang mengoperasikan data tersebut. Prosedur itu biasanya
-> disebut **metode** atau **operasi**.
+> disebut **method** atau **operasi**.
 
 Menggunakan definisi ini, Rust berorientasi objek: *struct* dan *enum* memiliki
-data, dan blok `impl` menyediakan metode pada *struct* dan *enum*. Meskipun *struct*
+data, dan blok `impl` menyediakan method pada *struct* dan *enum*. Meskipun *struct*
 dan *enum* yang bermetode tidak _disebut_ objek, keduanya menyediakan
 fungsionalitas yang sama, menurut definisi objek dari Gang of Four.
 
@@ -38,16 +38,16 @@ mengubah dan me-refactor bagian dalam sebuah objek tanpa perlu mengubah kode
 yang memakai objek itu.
 
 Kita membahas cara mengendalikan enkapsulasi di Bab 7: kita bisa memakai kata
-kunci `pub` untuk menentukan *module*, type, fungsi, dan metode mana di kode
+kunci `pub` untuk menentukan *module*, type, fungsi, dan method mana di kode
 kita yang harus bersifat publik, dan secara bawaan semua yang lain bersifat
 privat. Contohnya, kita bisa mendefinisikan *struct* `AveragedCollection` yang
-memiliki *field* berisi vektor nilai `i32`. *Struct* itu juga bisa memiliki *field*
-yang berisi rata-rata dari nilai-nilai di vektor itu, artinya rata-rata tidak
+memiliki *field* berisi vector nilai `i32`. *Struct* itu juga bisa memiliki *field*
+yang berisi rata-rata dari nilai-nilai di vector itu, artinya rata-rata tidak
 harus dihitung setiap kali seseorang membutuhkannya. Dengan kata lain,
 `AveragedCollection` akan menyimpan rata-rata hasil perhitungannya di cache
 untuk kita. Listing 18-1 memuat definisi *struct* `AveragedCollection`.
 
-<Listing number="18-1" file-name="src/lib.rs" caption="Struct `AveragedCollection` yang memelihara daftar integer dan rata-rata item-item di dalam koleksinya">
+<Listing number="18-1" file-name="src/lib.rs" caption="Struct `AveragedCollection` yang memelihara daftar integer dan rata-rata item-item di dalam collectionnya">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-01/src/lib.rs}}
@@ -59,10 +59,10 @@ untuk kita. Listing 18-1 memuat definisi *struct* `AveragedCollection`.
 *field*-field di dalam *struct* tetap privat. Ini penting dalam kasus ini karena
 kita ingin memastikan bahwa setiap kali sebuah nilai ditambahkan atau dihapus
 dari daftar, rata-ratanya juga diperbarui. Kita melakukannya dengan
-mengimplementasikan metode `add`, `remove`, dan `average` pada *struct* itu,
+mengimplementasikan method `add`, `remove`, dan `average` pada *struct* itu,
 seperti yang ditunjukkan di Listing 18-2.
 
-<Listing number="18-2" file-name="src/lib.rs" caption="Implementasi metode publik `add`, `remove`, dan `average` pada `AveragedCollection`">
+<Listing number="18-2" file-name="src/lib.rs" caption="Implementasi method publik `add`, `remove`, dan `average` pada `AveragedCollection`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-02/src/lib.rs:here}}
@@ -70,25 +70,25 @@ seperti yang ditunjukkan di Listing 18-2.
 
 </Listing>
 
-Metode publik `add`, `remove`, dan `average` adalah satu-satunya cara untuk
+Method publik `add`, `remove`, dan `average` adalah satu-satunya cara untuk
 mengakses atau mengubah data di instance `AveragedCollection`. Ketika sebuah
-item ditambahkan ke `list` menggunakan metode `add` atau dihapus menggunakan
-metode `remove`, implementasi masing-masing memanggil metode privat
+item ditambahkan ke `list` menggunakan method `add` atau dihapus menggunakan
+method `remove`, implementasi masing-masing memanggil method privat
 `update_average` yang menangani pembaruan *field* `average` juga.
 
 Kita membiarkan *field* `list` dan `average` privat supaya tidak ada cara bagi
 kode eksternal untuk menambah atau menghapus item langsung ke atau dari *field*
 `list`; jika tidak, *field* `average` bisa menjadi tidak sinkron ketika `list`
-berubah. Metode `average` mengembalikan nilai di *field* `average`, sehingga
+berubah. Method `average` mengembalikan nilai di *field* `average`, sehingga
 kode eksternal bisa membaca `average` tetapi tidak mengubahnya.
 
 Karena kita telah mengenkapsulasi detail implementasi *struct*
 `AveragedCollection`, kita bisa dengan mudah mengubah aspek-aspeknya, seperti
 struktur datanya, di masa depan. Misalnya, kita bisa memakai `HashSet<i32>`
-alih-alih `Vec<i32>` untuk *field* `list`. Selama tanda tangan metode publik
+alih-alih `Vec<i32>` untuk *field* `list`. Selama tanda tangan method publik
 `add`, `remove`, dan `average` tetap sama, kode yang memakai
 `AveragedCollection` tidak perlu berubah. Jika kita membuat `list` publik,
-belum tentu demikian halnya: `HashSet<i32>` dan `Vec<i32>` memiliki metode
+belum tentu demikian halnya: `HashSet<i32>` dan `Vec<i32>` memiliki method
 yang berbeda untuk menambah dan menghapus item, jadi kode eksternal kemungkinan
 besar harus berubah jika ia mengubah `list` secara langsung.
 
@@ -105,7 +105,7 @@ perilaku objek induknya tanpa Anda harus mendefinisikannya lagi.
 
 Jika sebuah bahasa harus memiliki *inheritance* untuk dianggap berorientasi
 objek, maka Rust bukan bahasa seperti itu. Tidak ada cara untuk
-mendefinisikan *struct* yang mewarisi *field* dan implementasi metode *struct*
+mendefinisikan *struct* yang mewarisi *field* dan implementasi method *struct*
 induknya tanpa memakai *macro*.
 
 Akan tetapi, jika Anda terbiasa memiliki *inheritance* di perangkat pemrograman
@@ -116,14 +116,14 @@ Anda akan memilih *inheritance* karena dua alasan utama. Salah satunya adalah
 pemakaian ulang kode: Anda bisa mengimplementasikan perilaku tertentu untuk
 satu type, dan *inheritance* memungkinkan Anda memakai ulang implementasi itu
 untuk type yang berbeda. Anda bisa melakukan ini secara terbatas di kode Rust
-menggunakan implementasi bawaan metode *trait*, yang Anda lihat di Listing 10-14
-ketika kita menambahkan implementasi bawaan metode `summarize` pada *trait*
+menggunakan implementasi bawaan method *trait*, yang Anda lihat di Listing 10-14
+ketika kita menambahkan implementasi bawaan method `summarize` pada *trait*
 `Summary`. Type apa pun yang mengimplementasikan *trait* `Summary` akan memiliki
-metode `summarize` tersedia padanya tanpa kode lebih lanjut. Ini mirip dengan
-kelas induk yang memiliki implementasi sebuah metode dan kelas anak yang
-mewarisinya juga memiliki implementasi metode itu. Kita juga bisa menimpa
-implementasi bawaan metode `summarize` ketika kita mengimplementasikan *trait*
-`Summary`, yang mirip dengan kelas anak yang menimpa implementasi metode yang
+method `summarize` tersedia padanya tanpa kode lebih lanjut. Ini mirip dengan
+kelas induk yang memiliki implementasi sebuah method dan kelas anak yang
+mewarisinya juga memiliki implementasi method itu. Kita juga bisa menimpa
+implementasi bawaan method `summarize` ketika kita mengimplementasikan *trait*
+`Summary`, yang mirip dengan kelas anak yang menimpa implementasi method yang
 diwarisi dari kelas induk.
 
 Alasan lain untuk memakai *inheritance* berkaitan dengan type system: untuk
@@ -149,8 +149,8 @@ Rust telah memilih sekumpulan kompromi yang berbeda dengan tidak menawarkan
 daripada yang diperlukan. Subclass tidak selalu harus berbagi semua
 karakteristik kelas induknya, tetapi dengan *inheritance* mereka akan
 melakukannya. Ini bisa membuat desain program kurang fleksibel. Ini juga
-memunculkan kemungkinan memanggil metode pada subclass yang tidak masuk akal
-atau menyebabkan error karena metode itu tidak berlaku untuk subclass
+memunculkan kemungkinan memanggil method pada subclass yang tidak masuk akal
+atau menyebabkan error karena method itu tidak berlaku untuk subclass
 tersebut. Selain itu, beberapa bahasa hanya mengizinkan _single inheritance_
 (pewarisan tunggal) (artinya subclass hanya bisa mewarisi dari satu kelas),
 yang semakin membatasi fleksibilitas desain program.

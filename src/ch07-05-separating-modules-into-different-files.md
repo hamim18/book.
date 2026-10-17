@@ -130,7 +130,7 @@ pendek untuk beberapa pemakaian item di *scope* itu. Kode *module* bersifat
 privat secara default, tetapi Anda dapat menjadikan definisi publik dengan
 menambahkan kata kunci `pub`.
 
-Di bab berikutnya, kita akan melihat beberapa struktur data koleksi di
+Di bab berikutnya, kita akan melihat beberapa struktur data collection di
 pustaka standar yang dapat Anda pakai di kode yang tertata rapi.
 
 [paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

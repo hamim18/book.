@@ -183,18 +183,18 @@ fungsi yang menerima pesan jenis apa pun, tidak seperti dengan *enum* `Message`
 yang didefinisikan pada Listing 6-2, yang merupakan satu type.
 
 Ada satu kemiripan lagi antara *enum* dan *struct*: sama seperti kita dapat
-mendefinisikan metode pada *struct* dengan `impl`, kita juga dapat
-mendefinisikan metode pada *enum*. Berikut metode bernama `call` yang dapat kita
+mendefinisikan method pada *struct* dengan `impl`, kita juga dapat
+mendefinisikan method pada *enum*. Berikut method bernama `call` yang dapat kita
 definisikan pada *enum* `Message` kita:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-05-methods-on-enums/src/main.rs:here}}
 ```
 
-Badan metodenya akan memakai `self` untuk mendapatkan nilai tempat metode itu
+Badan methodnya akan memakai `self` untuk mendapatkan nilai tempat method itu
 dipanggil. Pada contoh ini, kita telah membuat variable `m` yang memiliki
 nilai `Message::Write(String::from("hello"))`, dan itulah yang akan menjadi
-`self` di badan metode `call` ketika `m.call()` dijalankan.
+`self` di badan method `call` ketika `m.call()` dijalankan.
 
 Mari kita lihat *enum* lain di pustaka standar yang sangat umum dan berguna:
 `Option`.
@@ -330,9 +330,9 @@ membatasi meratanya null dan meningkatkan keamanan kode Rust.
 
 Jadi, bagaimana cara mengeluarkan nilai `T` dari *variant* `Some` ketika Anda
 memiliki nilai typed `Option<T>` supaya Anda dapat memakai nilai itu? *Enum*
-`Option<T>` memiliki banyak metode yang berguna dalam berbagai situasi; Anda
+`Option<T>` memiliki banyak method yang berguna dalam berbagai situasi; Anda
 dapat melihatnya di [dokumentasinya][docs]<!-- ignore -->. Membiasakan diri
-dengan metode-metode pada `Option<T>` akan sangat berguna dalam perjalanan
+dengan method-method pada `Option<T>` akan sangat berguna dalam perjalanan
 Anda bersama Rust.
 
 Secara umum, untuk memakai nilai `Option<T>`, Anda ingin memiliki kode yang

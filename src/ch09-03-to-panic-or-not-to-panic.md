@@ -25,18 +25,18 @@ sebaiknya panic di kode library.
 
 Ketika Anda menulis contoh untuk mengilustrasikan suatu konsep, menyertakan
 juga kode penanganan error yang tangguh dapat membuat contohnya kurang
-jelas. Dalam contoh, sudah dimaklumi bahwa pemanggilan metode seperti
+jelas. Dalam contoh, sudah dimaklumi bahwa pemanggilan method seperti
 `unwrap` yang dapat panic dimaksudkan sebagai placeholder untuk cara Anda
 ingin aplikasi Anda menangani error, yang dapat berbeda berdasarkan apa yang
 dilakukan sisa kode Anda.
 
-Demikian pula, metode `unwrap` dan `expect` sangat praktis ketika Anda
+Demikian pula, method `unwrap` dan `expect` sangat praktis ketika Anda
 membuat prototipe dan belum siap memutuskan cara menangani error. Keduanya
 meninggalkan penanda yang jelas di kode Anda untuk saat Anda siap membuat
 program Anda lebih tangguh.
 
-Jika pemanggilan metode gagal dalam sebuah pengujian, Anda ingin seluruh
-pengujian gagal, bahkan jika metode itu bukan fungsionalitas yang sedang
+Jika pemanggilan method gagal dalam sebuah pengujian, Anda ingin seluruh
+pengujian gagal, bahkan jika method itu bukan fungsionalitas yang sedang
 diuji. Karena `panic!` adalah cara sebuah pengujian ditandai gagal,
 memanggil `unwrap` atau `expect` adalah persis yang seharusnya terjadi.
 
@@ -63,7 +63,7 @@ pernah ada variant `Err` di teks argumennya. Berikut contohnya:
 Kita membuat instance `IpAddr` dengan mengurai string yang ditulis langsung
 (hardcoded). Kita dapat melihat bahwa `127.0.0.1` adalah alamat IP yang
 valid, jadi dapat diterima untuk memakai `expect` di sini. Namun, memiliki
-string valid yang ditulis langsung tidak mengubah return type metode
+string valid yang ditulis langsung tidak mengubah return type method
 `parse`: kita tetap mendapat nilai `Result`, dan *compiler* tetap mengharuskan
 kita menangani `Result` itu seolah-olah variant `Err` adalah sebuah
 kemungkinan karena *compiler* tidak cukup pintar untuk melihat bahwa string
@@ -223,10 +223,10 @@ dokumentasi API yang Anda buat di Bab 14. Jika `value` lulus uji, kita
 membuat `Guess` baru dengan *field* `value`-nya ditetapkan ke parameter
 `value` dan mengembalikan `Guess` itu.
 
-Berikutnya, kita mengimplementasikan metode bernama `value` yang meminjam
-`self`, tidak memiliki parameter lain, dan mengembalikan `i32`. Metode
+Berikutnya, kita mengimplementasikan method bernama `value` yang meminjam
+`self`, tidak memiliki parameter lain, dan mengembalikan `i32`. Method
 semacam ini kadang disebut *getter* karena tujuannya adalah mengambil
-sebagian data dari *field*-fieldnya dan mengembalikannya. Metode publik ini
+sebagian data dari *field*-fieldnya dan mengembalikannya. Method publik ini
 diperlukan karena *field* `value` dari *struct* `Guess` bersifat privat. Penting
 bahwa *field* `value` privat sehingga kode yang memakai *struct* `Guess` tidak
 diizinkan menetapkan `value` secara langsung: kode di luar *module*

@@ -22,7 +22,7 @@ ujung aliran air.
 Sebuah *channel* memiliki dua bagian: *transmitter* dan *receiver*. Bagian
 *transmitter* adalah lokasi di hulu tempat Anda meletakkan bebek karet ke
 sungai, dan bagian *receiver* adalah tempat bebek karet itu berakhir di hilir.
-Satu bagian kode Anda memanggil metode pada *transmitter* dengan data yang ingin
+Satu bagian kode Anda memanggil method pada *transmitter* dengan data yang ingin
 Anda kirim, dan bagian lain memeriksa ujung penerima untuk pesan yang datang.
 Sebuah *channel* dikatakan _closed_ (tertutup) jika bagian *transmitter* atau
 *receiver*-nya dibebaskan.
@@ -64,8 +64,8 @@ ujung pengirim—*transmitter*—dan elemen keduanya adalah ujung penerima—*re
 Singkatan `tx` dan `rx` secara tradisional dipakai di banyak bidang untuk
 _transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variable
 kita seperti itu untuk menandai masing-masing ujung. Kita memakai statement
-`let` dengan pola yang mendestrukturisasi *tuple*; kita akan membahas pemakaian
-pola dalam statement `let` dan destrukturisasi di Bab 19. Untuk sekarang,
+`let` dengan pattern yang mendestrukturisasi *tuple*; kita akan membahas pemakaian
+pattern dalam statement `let` dan destrukturisasi di Bab 19. Untuk sekarang,
 cukup ketahui bahwa memakai statement `let` dengan cara ini adalah pendekatan
 praktis untuk mengekstrak bagian-bagian *tuple* yang dikembalikan
 `mpsc::channel`.
@@ -89,8 +89,8 @@ memakai `move` untuk memindahkan `tx` ke *closure* supaya thread yang dibuat
 memiliki `tx`. Thread yang dibuat perlu memiliki *transmitter* untuk bisa
 mengirim pesan melalui *channel*.
 
-*Transmitter* memiliki metode `send` yang menerima nilai yang ingin kita kirim.
-Metode `send` mengembalikan type `Result<T, E>`, jadi jika *receiver* telah
+*Transmitter* memiliki method `send` yang menerima nilai yang ingin kita kirim.
+Method `send` mengembalikan type `Result<T, E>`, jadi jika *receiver* telah
 dibebaskan dan tidak ada tempat untuk mengirim nilai, operasi pengiriman akan
 mengembalikan error. Dalam contoh ini, kita memanggil `unwrap` untuk panic
 jika terjadi error. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan
@@ -109,14 +109,14 @@ obrolan.
 
 </Listing>
 
-*Receiver* memiliki dua metode yang berguna: `recv` dan `try_recv`. Kita
+*Receiver* memiliki dua method yang berguna: `recv` dan `try_recv`. Kita
 memakai `recv`, singkatan dari _receive_ (menerima), yang akan memblokir
 eksekusi thread utama dan menunggu sampai sebuah nilai dikirim melalui
 *channel*. Begitu sebuah nilai terkirim, `recv` akan mengembalikannya dalam
 `Result<T, E>`. Ketika *transmitter* tertutup, `recv` akan mengembalikan error
 untuk menandakan bahwa tidak akan ada nilai lagi yang datang.
 
-Metode `try_recv` tidak memblokir, tetapi langsung mengembalikan
+Method `try_recv` tidak memblokir, tetapi langsung mengembalikan
 `Result<T, E>`: nilai `Ok` yang menampung pesan jika ada yang tersedia dan
 nilai `Err` jika kali ini tidak ada pesan. Memakai `try_recv` berguna jika
 thread ini memiliki pekerjaan lain selagi menunggu pesan: Kita bisa menulis
@@ -204,7 +204,7 @@ detik di antara setiap pesan.
 
 </Listing>
 
-Kali ini, thread yang dibuat memiliki vektor berisi string yang ingin kita
+Kali ini, thread yang dibuat memiliki vector berisi string yang ingin kita
 kirim ke thread utama. Kita mengiterasinya, mengirim masing-masing satu per
 satu, dan berhenti sejenak di antara setiap pengiriman dengan memanggil fungsi
 `thread::sleep` dengan nilai `Duration` satu detik.
@@ -281,5 +281,5 @@ bereksperimen dengan `thread::sleep`, memberinya berbagai nilai di thread yang
 berbeda, setiap penjalanan akan semakin nondeterministik dan menghasilkan
 output yang berbeda setiap kali.
 
-Sekarang setelah kita melihat cara kerja *channel*, mari kita lihat metode
+Sekarang setelah kita melihat cara kerja *channel*, mari kita lihat method
 konkurensi yang berbeda.

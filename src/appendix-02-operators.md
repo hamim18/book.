@@ -38,13 +38,13 @@ meng-overload operator itu dicantumkan.
 | `-=`                      | `var -= expr`                                           | Pengurangan aritmetika dan penetapan                                           | `SubAssign`        |
 | `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Type kembalian fungsi dan closure                                              |                    |
 | `.`                       | `expr.ident`                                            | Akses field                                                                    |                    |
-| `.`                       | `expr.ident(expr, ...)`                                 | Pemanggilan metode                                                             |                    |
+| `.`                       | `expr.ident(expr, ...)`                                 | Pemanggilan method                                                             |                    |
 | `.`                       | `expr.0`, `expr.1`, dan seterusnya                      | Pengindeksan tuple                                                             |                    |
 | `..`                      | `..`, `expr..`, `..expr`, `expr..expr`                  | Literal rentang eksklusif-kanan                                                | `PartialOrd`       |
 | `..=`                     | `..=expr`, `expr..=expr`                                | Literal rentang inklusif-kanan                                                 | `PartialOrd`       |
 | `..`                      | `..expr`                                                | Sintaks update literal struct                                                  |                    |
-| `..`                      | `variant(x, ..)`, `struct_type { x, .. }`               | Pengikatan pola “dan sisanya”                                                  |                    |
-| `...`                     | `expr...expr`                                           | (Usang, pakai `..=` saja) Di dalam pola: pola rentang inklusif                 |                    |
+| `..`                      | `variant(x, ..)`, `struct_type { x, .. }`               | Pengikatan pattern “dan sisanya”                                                  |                    |
+| `...`                     | `expr...expr`                                           | (Usang, pakai `..=` saja) Di dalam pattern: pattern rentang inklusif                 |                    |
 | `/`                       | `expr / expr`                                           | Pembagian aritmetika                                                           | `Div`              |
 | `/=`                      | `var /= expr`                                           | Pembagian aritmetika dan penetapan                                             | `DivAssign`        |
 | `:`                       | `pat: type`, `ident: type`                              | Batasan                                                                        |                    |
@@ -63,10 +63,10 @@ meng-overload operator itu dicantumkan.
 | `>=`                      | `expr >= expr`                                          | Perbandingan lebih dari atau sama dengan                                       | `PartialOrd`       |
 | `>>`                      | `expr >> expr`                                          | Pergeseran kanan                                                               | `Shr`              |
 | `>>=`                     | `var >>= expr`                                          | Pergeseran kanan dan penetapan                                                 | `ShrAssign`        |
-| `@`                       | `ident @ pat`                                           | Pengikatan pola                                                                |                    |
+| `@`                       | `ident @ pat`                                           | Pengikatan pattern                                                                |                    |
 | `^`                       | `expr ^ expr`                                           | OR eksklusif bitwise                                                           | `BitXor`           |
 | `^=`                      | `var ^= expr`                                           | OR eksklusif bitwise dan penetapan                                             | `BitXorAssign`     |
-| <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Alternatif pola                                                                |                    |
+| <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Alternatif pattern                                                                |                    |
 | <code>&vert;</code>       | <code>expr &vert; expr</code>                           | OR bitwise                                                                     | `BitOr`            |
 | <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan penetapan                                                       | `BitOrAssign`      |
 | <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan evaluasi hubung singkat                                        |                    |
@@ -76,7 +76,7 @@ meng-overload operator itu dicantumkan.
 
 Tabel-tabel berikut memuat semua simbol yang tidak berfungsi sebagai operator;
 artinya, simbol-simbol itu tidak berperilaku seperti pemanggilan fungsi atau
-metode.
+method.
 
 Tabel B-2 menunjukkan simbol yang muncul sendirian dan berlaku di berbagai
 lokasi.
@@ -95,7 +95,7 @@ lokasi.
 | `b'...'`                                                               | Literal byte ASCII                                                                               |
 | <code>&vert;...&vert; expr</code>                                      | Closure                                                                                          |
 | `!`                                                                    | Type bottom yang selalu kosong untuk fungsi divergen                                             |
-| `_`                                                                    | Pengikatan pola “yang diabaikan”; juga dipakai untuk membuat literal integer mudah dibaca        |
+| `_`                                                                    | Pengikatan pattern “yang diabaikan”; juga dipakai untuk membuat literal integer mudah dibaca        |
 
 Tabel B-3 menunjukkan simbol yang muncul dalam konteks *path* menuju suatu item
 melalui hierarki *module*.
@@ -110,9 +110,9 @@ melalui hierarki *module*.
 | `super::path`                           | Path relatif terhadap induk module saat ini                                                                                    |
 | `type::ident`, `<type as trait>::ident` | Constant, fungsi, dan associated type                                                                                           |
 | `<type>::...`                           | Item asosiasi untuk type yang tidak dapat dinamai secara langsung (misalnya, `<&T>::...`, `<[T]>::...`, dan seterusnya)        |
-| `trait::method(...)`                    | Mendisambiguasi pemanggilan metode dengan menamai trait yang mendefinisikannya                                                 |
-| `type::method(...)`                     | Mendisambiguasi pemanggilan metode dengan menamai type tempat metode itu didefinisikan                                         |
-| `<type as trait>::method(...)`          | Mendisambiguasi pemanggilan metode dengan menamai trait dan typenya                                                             |
+| `trait::method(...)`                    | Mendisambiguasi pemanggilan method dengan menamai trait yang mendefinisikannya                                                 |
+| `type::method(...)`                     | Mendisambiguasi pemanggilan method dengan menamai type tempat method itu didefinisikan                                         |
+| `<type as trait>::method(...)`          | Mendisambiguasi pemanggilan method dengan menamai trait dan typenya                                                             |
 
 Tabel B-4 menunjukkan simbol yang muncul dalam konteks pemakaian parameter
 generic type.
@@ -122,7 +122,7 @@ generic type.
 | Simbol                         | Penjelasan                                                                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `path<...>`                    | Menentukan parameter untuk generic type dalam suatu type (misalnya, `Vec<u8>`)                                                                                 |
-| `path::<...>`, `method::<...>` | Menentukan parameter untuk type, fungsi, atau metode generik dalam suatu expression; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
+| `path::<...>`, `method::<...>` | Menentukan parameter untuk type, fungsi, atau method generik dalam suatu expression; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
 | `fn ident<...> ...`            | Mendefinisikan fungsi generik                                                                                                                                  |
 | `struct ident<...> ...`        | Mendefinisikan struktur generik                                                                                                                                |
 | `enum ident<...> ...`          | Mendefinisikan enumerasi generik                                                                                                                               |
@@ -203,5 +203,5 @@ Tabel B-10 menunjukkan konteks pemakaian kurung siku.
 | `[...]`                                            | Literal array                                                                                                                  |
 | `[expr; len]`                                      | Literal array berisi `len` salinan `expr`                                                                                      |
 | `[type; len]`                                      | Type array berisi `len` instance dari `type`                                                                                   |
-| `expr[expr]`                                       | Pengindeksan koleksi; dapat di-overload (`Index`, `IndexMut`)                                                                  |
-| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Pengindeksan koleksi yang berperan sebagai slicing koleksi, memakai `Range`, `RangeFrom`, `RangeTo`, atau `RangeFull` sebagai “index” |
+| `expr[expr]`                                       | Pengindeksan collection; dapat di-overload (`Index`, `IndexMut`)                                                                  |
+| `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Pengindeksan collection yang berperan sebagai slicing collection, memakai `Range`, `RangeFrom`, `RangeTo`, atau `RangeFull` sebagai “index” |

@@ -20,7 +20,7 @@ Berikut rencana kita untuk membangun server web itu:
 
 <span class="caption">Gambar 21-1: Proyek akhir kita bersama</span>
 
-Sebelum kita mulai, ada dua hal yang perlu kita sampaikan. Pertama, metode
+Sebelum kita mulai, ada dua hal yang perlu kita sampaikan. Pertama, method
 yang akan kita pakai bukanlah cara terbaik untuk membangun server web dengan
 Rust. Anggota komunitas telah menerbitkan sejumlah *crate* siap produksi yang
 tersedia di [crates.io](https://crates.io/)<!-- ignore --> yang menyediakan

@@ -1,11 +1,11 @@
-## Sintaks Pola
+## Sintaks Pattern
 
-Pada bagian ini, kita menghimpun semua sintaks yang valid pada pola dan
+Pada bagian ini, kita menghimpun semua sintaks yang valid pada pattern dan
 membahas mengapa serta kapan Anda mungkin ingin memakai masing-masing.
 
 ### Mencocokkan Literal
 
-Seperti yang Anda lihat di Bab 6, Anda bisa mencocokkan pola terhadap literal
+Seperti yang Anda lihat di Bab 6, Anda bisa mencocokkan pattern terhadap literal
 secara langsung. Kode berikut memberi beberapa contoh:
 
 ```rust
@@ -18,16 +18,16 @@ tertentu.
 
 ### Mencocokkan Variable Bernama
 
-Variable bernama adalah pola *irrefutable* yang cocok dengan nilai apa pun, dan
+Variable bernama adalah pattern *irrefutable* yang cocok dengan nilai apa pun, dan
 kita telah memakainya berkali-kali di buku ini. Akan tetapi, ada satu
 kerumitan ketika Anda memakai variable bernama di expression `match`, `if let`,
 atau `while let`. Karena setiap jenis expression ini memulai *scope* baru,
-variable yang dideklarasikan sebagai bagian dari pola di dalam expression ini
+variable yang dideklarasikan sebagai bagian dari pattern di dalam expression ini
 akan melakukan shadowing terhadap variable bernama sama di luar konstruksi
 itu, sebagaimana halnya semua variable. Di Listing 19-11, kita
 mendeklarasikan variable bernama `x` dengan nilai `Some(5)` dan variable `y`
 dengan nilai `10`. Kita kemudian membuat expression `match` pada nilai `x`.
-Lihat pola-pola di arm match dan `println!` di akhir, dan coba tebak apa yang
+Lihat pattern-pattern di arm match dan `println!` di akhir, dan coba tebak apa yang
 akan dicetak kode itu sebelum menjalankannya atau membaca lebih lanjut.
 
 <Listing number="19-11" file-name="src/main.rs" caption="Expression `match` dengan arm yang memperkenalkan variable baru yang melakukan shadowing terhadap variable `y` yang sudah ada">
@@ -38,11 +38,11 @@ akan dicetak kode itu sebelum menjalankannya atau membaca lebih lanjut.
 
 </Listing>
 
-Mari kita telusuri apa yang terjadi saat expression `match` berjalan. Pola di
+Mari kita telusuri apa yang terjadi saat expression `match` berjalan. Pattern di
 arm match pertama tidak cocok dengan nilai `x` yang didefinisikan, jadi kode
 berlanjut.
 
-Pola di arm match kedua memperkenalkan variable baru bernama `y` yang akan
+Pattern di arm match kedua memperkenalkan variable baru bernama `y` yang akan
 cocok dengan nilai apa pun di dalam nilai `Some`. Karena kita berada di *scope*
 baru di dalam expression `match`, ini variable `y` yang baru, bukan `y` yang
 kita deklarasikan di awal dengan nilai `10`. Binding `y` baru ini akan cocok
@@ -50,9 +50,9 @@ dengan nilai apa pun di dalam `Some`, yaitu yang kita miliki di `x`. Karena
 itu, `y` baru ini mengikat nilai bagian dalam `Some` di `x`. Nilai itu adalah
 `5`, jadi expression untuk arm itu dijalankan dan mencetak `Matched, y = 5`.
 
-Jika `x` adalah nilai `None` alih-alih `Some(5)`, pola di dua arm pertama
+Jika `x` adalah nilai `None` alih-alih `Some(5)`, pattern di dua arm pertama
 tidak akan cocok, jadi nilainya akan cocok dengan underscore. Kita tidak
-memperkenalkan variable `x` pada pola arm underscore, jadi `x` di expression
+memperkenalkan variable `x` pada pattern arm underscore, jadi `x` di expression
 itu tetaplah `x` luar yang belum di-shadow. Dalam kasus hipotetis ini,
 `match` akan mencetak `Default case, x = None`.
 
@@ -69,10 +69,10 @@ dengan *Match Guard*”](#adding-conditionals-with-match-guards)<!-- ignore -->.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="multiple-patterns"></a>
 
-### Mencocokkan Banyak Pola
+### Mencocokkan Banyak Pattern
 
-Pada expression `match`, Anda bisa mencocokkan banyak pola menggunakan sintaks
-`|`, yang merupakan operator pola _or_. Contohnya, pada kode berikut, kita
+Pada expression `match`, Anda bisa mencocokkan banyak pattern menggunakan sintaks
+`|`, yang merupakan operator pattern _or_. Contohnya, pada kode berikut, kita
 mencocokkan nilai `x` terhadap arm-arm match, yang pertamanya memiliki opsi
 _or_, artinya jika nilai `x` cocok dengan salah satu nilai di arm itu, kode
 arm itu akan berjalan:
@@ -86,7 +86,7 @@ Kode ini mencetak `one or two`.
 ### Mencocokkan Rentang Nilai dengan `..=`
 
 Sintaks `..=` memungkinkan kita mencocokkan rentang nilai yang inklusif. Pada
-kode berikut, ketika sebuah pola cocok dengan salah satu nilai di dalam
+kode berikut, ketika sebuah pattern cocok dengan salah satu nilai di dalam
 rentang yang diberikan, arm itu akan dijalankan:
 
 ```rust
@@ -111,12 +111,12 @@ Berikut contoh memakai rentang nilai `char`:
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/no-listing-04-ranges-of-char/src/main.rs:here}}
 ```
 
-Rust bisa mengetahui bahwa `'c'` berada di dalam rentang pola pertama dan
+Rust bisa mengetahui bahwa `'c'` berada di dalam rentang pattern pertama dan
 mencetak `early ASCII letter`.
 
 ### Mendestrukturisasi untuk Memecah Nilai
 
-Kita juga bisa memakai pola untuk mendestrukturisasi *struct*, *enum*, dan *tuple*
+Kita juga bisa memakai pattern untuk mendestrukturisasi *struct*, *enum*, dan *tuple*
 untuk memakai bagian-bagian berbeda dari nilai-nilai ini. Mari kita telusuri
 setiap nilai.
 
@@ -127,7 +127,7 @@ setiap nilai.
 #### Struct
 
 Listing 19-12 menunjukkan *struct* `Point` dengan dua *field*, `x` dan `y`, yang
-bisa kita pecah menggunakan pola dengan statement `let`.
+bisa kita pecah menggunakan pattern dengan statement `let`.
 
 <Listing number="19-12" file-name="src/main.rs" caption="Mendestrukturisasi field-field struct menjadi variable-variable terpisah">
 
@@ -138,15 +138,15 @@ bisa kita pecah menggunakan pola dengan statement `let`.
 </Listing>
 
 Kode ini membuat variable `a` dan `b` yang cocok dengan nilai *field* `x` dan
-`y` dari *struct* `p`. Contoh ini menunjukkan bahwa nama variable pada pola
+`y` dari *struct* `p`. Contoh ini menunjukkan bahwa nama variable pada pattern
 tidak harus sama dengan nama *field* *struct*. Akan tetapi, umum untuk
 menyesuaikan nama variable dengan nama *field* supaya lebih mudah mengingat
 variable mana yang berasal dari *field* mana. Karena pemakaian umum ini, dan
 karena menulis `let Point { x: x, y: y } = p;` mengandung banyak duplikasi,
-Rust punya bentuk singkat untuk pola yang mencocokkan *field* *struct*: Anda
+Rust punya bentuk singkat untuk pattern yang mencocokkan *field* *struct*: Anda
 hanya perlu mencantumkan nama *field* *struct*, dan variable yang dibuat dari
-pola itu akan memiliki nama yang sama. Listing 19-13 berperilaku sama dengan
-kode di Listing 19-12, tetapi variable yang dibuat di pola `let` adalah `x`
+pattern itu akan memiliki nama yang sama. Listing 19-13 berperilaku sama dengan
+kode di Listing 19-12, tetapi variable yang dibuat di pattern `let` adalah `x`
 dan `y` alih-alih `a` dan `b`.
 
 <Listing number="19-13" file-name="src/main.rs" caption="Mendestrukturisasi field struct menggunakan bentuk singkat field struct">
@@ -162,7 +162,7 @@ dari variable `p`. Hasilnya adalah variable `x` dan `y` memuat nilai dari
 *struct* `p`.
 
 Kita juga bisa mendestrukturisasi dengan nilai literal sebagai bagian dari
-pola *struct* alih-alih membuat variable untuk semua *field*. Melakukannya
+pattern *struct* alih-alih membuat variable untuk semua *field*. Melakukannya
 memungkinkan kita menguji sebagian *field* untuk nilai tertentu sambil membuat
 variable untuk mendestrukturisasi *field* lainnya.
 
@@ -170,7 +170,7 @@ Di Listing 19-14, kita punya expression `match` yang memisahkan nilai `Point`
 menjadi tiga kasus: titik yang terletak tepat di sumbu `x` (yang benar ketika
 `y = 0`), di sumbu `y` (`x = 0`), atau tidak di sumbu mana pun.
 
-<Listing number="19-14" file-name="src/main.rs" caption="Mendestrukturisasi dan mencocokkan nilai literal dalam satu pola">
+<Listing number="19-14" file-name="src/main.rs" caption="Mendestrukturisasi dan mencocokkan nilai literal dalam satu pattern">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-14/src/main.rs:here}}
@@ -180,7 +180,7 @@ menjadi tiga kasus: titik yang terletak tepat di sumbu `x` (yang benar ketika
 
 Arm pertama akan cocok dengan titik mana pun yang terletak di sumbu `x`
 dengan menentukan bahwa *field* `y` cocok jika nilainya cocok dengan literal
-`0`. Pola itu tetap membuat variable `x` yang bisa kita pakai di kode untuk
+`0`. Pattern itu tetap membuat variable `x` yang bisa kita pakai di kode untuk
 arm ini.
 
 Serupa, arm kedua cocok dengan titik mana pun di sumbu `y` dengan menentukan
@@ -191,7 +191,7 @@ bahwa *field* `x` cocok jika nilainya `0` dan membuat variable `y` untuk nilai
 Pada contoh ini, nilai `p` cocok dengan arm kedua karena `x` memuat `0`, jadi
 kode ini akan mencetak `On the y axis at 7`.
 
-Ingat bahwa expression `match` berhenti memeriksa arm begitu menemukan pola
+Ingat bahwa expression `match` berhenti memeriksa arm begitu menemukan pattern
 pertama yang cocok, jadi meskipun `Point { x: 0, y: 0 }` berada di sumbu `x`
 dan sumbu `y`, kode ini hanya akan mencetak `On the x axis at 0`.
 
@@ -202,10 +202,10 @@ dan sumbu `y`, kode ini hanya akan mencetak `On the x axis at 0`.
 #### Enum
 
 Kita telah mendestrukturisasi *enum* di buku ini (contohnya, Listing 6-5 di Bab
-6), tetapi kita belum secara eksplisit membahas bahwa pola untuk
+6), tetapi kita belum secara eksplisit membahas bahwa pattern untuk
 mendestrukturisasi *enum* berpadanan dengan cara data yang tersimpan di dalam
 *enum* itu didefinisikan. Sebagai contoh, di Listing 19-15, kita memakai *enum*
-`Message` dari Listing 6-2 dan menulis `match` dengan pola yang akan
+`Message` dari Listing 6-2 dan menulis `match` dengan pattern yang akan
 mendestrukturisasi setiap nilai bagian dalamnya.
 
 <Listing number="19-15" file-name="src/main.rs" caption="Mendestrukturisasi varian enum yang menampung berbagai jenis nilai">
@@ -221,10 +221,10 @@ ubah nilai `msg` untuk melihat kode dari arm-arm lain berjalan.
 
 Untuk varian *enum* tanpa data apa pun, seperti `Message::Quit`, kita tidak bisa
 mendestrukturisasi nilainya lebih jauh. Kita hanya bisa mencocokkan nilai
-literal `Message::Quit`, dan tidak ada variable pada pola itu.
+literal `Message::Quit`, dan tidak ada variable pada pattern itu.
 
 Untuk varian *enum* yang mirip *struct*, seperti `Message::Move`, kita bisa
-memakai pola yang mirip dengan pola yang kita tentukan untuk mencocokkan
+memakai pattern yang mirip dengan pattern yang kita tentukan untuk mencocokkan
 *struct*. Setelah nama varian, kita menaruh kurung kurawal lalu mencantumkan
 *field*-field dengan variable supaya kita memecah bagian-bagiannya untuk dipakai
 di kode untuk arm ini. Di sini kita memakai bentuk singkat seperti yang kita
@@ -232,8 +232,8 @@ lakukan di Listing 19-13.
 
 Untuk varian *enum* yang mirip *tuple*, seperti `Message::Write` yang menampung
 *tuple* dengan satu elemen dan `Message::ChangeColor` yang menampung *tuple*
-dengan tiga elemen, polanya mirip dengan pola yang kita tentukan untuk
-mencocokkan *tuple*. Jumlah variable pada pola harus sama dengan jumlah elemen
+dengan tiga elemen, patternnya mirip dengan pattern yang kita tentukan untuk
+mencocokkan *tuple*. Jumlah variable pada pattern harus sama dengan jumlah elemen
 pada varian yang kita cocokkan.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -256,9 +256,9 @@ RGB dan HSV pada pesan `ChangeColor`, seperti yang ditunjukkan di Listing
 
 </Listing>
 
-Pola arm pertama pada expression `match` cocok dengan varian *enum*
-`Message::ChangeColor` yang memuat varian `Color::Rgb`; kemudian, pola itu
-mengikat tiga nilai `i32` bagian dalam. Pola arm kedua juga cocok dengan
+Pattern arm pertama pada expression `match` cocok dengan varian *enum*
+`Message::ChangeColor` yang memuat varian `Color::Rgb`; kemudian, pattern itu
+mengikat tiga nilai `i32` bagian dalam. Pattern arm kedua juga cocok dengan
 varian *enum* `Message::ChangeColor`, tetapi *enum* bagian dalamnya cocok dengan
 `Color::Hsv`. Kita bisa menentukan kondisi kompleks ini dalam satu expression
 `match`, meskipun ada dua *enum* yang terlibat.
@@ -269,7 +269,7 @@ varian *enum* `Message::ChangeColor`, tetapi *enum* bagian dalamnya cocok dengan
 
 #### Struct dan Tuple
 
-Kita bisa mencampur, mencocokkan, dan menyarangkan pola destrukturisasi
+Kita bisa mencampur, mencocokkan, dan menyarangkan pattern destrukturisasi
 dengan cara yang bahkan lebih kompleks. Contoh berikut menunjukkan
 destrukturisasi rumit tempat kita menyarangkan *struct* dan *tuple* di dalam
 sebuah *tuple* dan mendestrukturisasi semua nilai primitifnya:
@@ -282,21 +282,21 @@ Kode ini memungkinkan kita memecah type kompleks menjadi bagian-bagian
 komponennya supaya kita bisa memakai nilai-nilai yang kita minati secara
 terpisah.
 
-Mendestrukturisasi dengan pola adalah cara yang nyaman untuk memakai
+Mendestrukturisasi dengan pattern adalah cara yang nyaman untuk memakai
 bagian-bagian nilai, seperti nilai dari setiap *field* di *struct*, secara
 terpisah satu sama lain.
 
 <a id="ignoring-values-in-a-pattern"></a>
-### Mengabaikan Nilai dalam Pola
+### Mengabaikan Nilai dalam Pattern
 
-Anda telah melihat bahwa terkadang berguna untuk mengabaikan nilai pada pola,
+Anda telah melihat bahwa terkadang berguna untuk mengabaikan nilai pada pattern,
 seperti pada arm terakhir `match`, untuk mendapatkan catch-all yang tidak
 benar-benar melakukan apa pun tetapi memperhitungkan semua nilai yang
 mungkin tersisa. Ada beberapa cara untuk mengabaikan seluruh nilai atau
-sebagian nilai pada pola: memakai pola `_` (yang telah Anda lihat), memakai
-pola `_` di dalam pola lain, memakai nama yang diawali underscore, atau
+sebagian nilai pada pattern: memakai pattern `_` (yang telah Anda lihat), memakai
+pattern `_` di dalam pattern lain, memakai nama yang diawali underscore, atau
 memakai `..` untuk mengabaikan sisa nilai. Mari kita jelajahi bagaimana dan
-mengapa memakai masing-masing pola ini.
+mengapa memakai masing-masing pattern ini.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -304,9 +304,9 @@ mengapa memakai masing-masing pola ini.
 
 #### Seluruh Nilai dengan `_`
 
-Kita telah memakai underscore sebagai pola wildcard yang akan cocok dengan
+Kita telah memakai underscore sebagai pattern wildcard yang akan cocok dengan
 nilai apa pun tetapi tidak mengikat ke nilainya. Ini sangat berguna sebagai
-arm terakhir di expression `match`, tetapi kita juga bisa memakainya di pola
+arm terakhir di expression `match`, tetapi kita juga bisa memakainya di pattern
 mana pun, termasuk parameter fungsi, seperti yang ditunjukkan di Listing
 19-17.
 
@@ -336,7 +336,7 @@ terpakai, yang akan Anda dapatkan jika memakai nama.
 
 #### Sebagian Nilai dengan `_` Bersarang
 
-Kita juga bisa memakai `_` di dalam pola lain untuk mengabaikan sebagian
+Kita juga bisa memakai `_` di dalam pattern lain untuk mengabaikan sebagian
 nilai saja, misalnya ketika kita ingin menguji sebagian nilai saja tetapi
 tidak memakai bagian lain di kode yang ingin kita jalankan. Listing 19-18
 menunjukkan kode yang bertanggung jawab mengelola nilai sebuah pengaturan.
@@ -344,7 +344,7 @@ Persyaratan bisnisnya adalah pengguna tidak boleh diizinkan menimpa
 kustomisasi yang sudah ada dari sebuah pengaturan, tetapi boleh menghapus
 nilai pengaturan itu dan memberinya nilai jika saat ini belum diset.
 
-<Listing number="19-18" caption="Memakai underscore di dalam pola yang mencocokkan varian `Some` ketika kita tidak perlu memakai nilai di dalam `Some`">
+<Listing number="19-18" caption="Memakai underscore di dalam pattern yang mencocokkan varian `Some` ketika kita tidak perlu memakai nilai di dalam `Some`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-18/src/main.rs:here}}
@@ -360,10 +360,10 @@ Dalam kasus itu, kita mencetak alasan tidak mengubah `setting_value`, dan
 nilai itu tidak jadi diubah.
 
 Dalam semua kasus lain (jika `setting_value` atau `new_setting_value` adalah
-`None`) yang diekspresikan oleh pola `_` di arm kedua, kita ingin mengizinkan
+`None`) yang diekspresikan oleh pattern `_` di arm kedua, kita ingin mengizinkan
 `new_setting_value` menjadi `setting_value`.
 
-Kita juga bisa memakai underscore di beberapa tempat dalam satu pola untuk
+Kita juga bisa memakai underscore di beberapa tempat dalam satu pattern untuk
 mengabaikan nilai-nilai tertentu. Listing 19-19 menunjukkan contoh
 mengabaikan nilai kedua dan keempat pada *tuple* berisi lima item.
 
@@ -440,9 +440,9 @@ pun; ia tidak dipindahkan.
 
 Dengan nilai yang punya banyak bagian, kita bisa memakai sintaks `..` untuk
 memakai bagian-bagian tertentu dan mengabaikan sisanya, menghindari kebutuhan
-mencantumkan underscore untuk setiap nilai yang diabaikan. Pola `..`
+mencantumkan underscore untuk setiap nilai yang diabaikan. Pattern `..`
 mengabaikan bagian mana pun dari nilai yang belum kita cocokkan secara
-eksplisit di sisa pola. Di Listing 19-23, kita punya *struct* `Point` yang
+eksplisit di sisa pattern. Di Listing 19-23, kita punya *struct* `Point` yang
 menampung koordinat di ruang tiga dimensi. Pada expression `match`, kita ingin
 mengoperasikan koordinat `x` saja dan mengabaikan nilai di *field* `y` dan `z`.
 
@@ -454,7 +454,7 @@ mengoperasikan koordinat `x` saja dan mengabaikan nilai di *field* `y` dan `z`.
 
 </Listing>
 
-Kita mencantumkan nilai `x` lalu menyertakan pola `..` saja. Ini lebih cepat
+Kita mencantumkan nilai `x` lalu menyertakan pattern `..` saja. Ini lebih cepat
 daripada harus mencantumkan `y: _` dan `z: _`, terutama saat kita bekerja
 dengan *struct* yang punya banyak *field* dalam situasi ketika hanya satu atau
 dua *field* yang relevan.
@@ -510,18 +510,18 @@ bersifat ambigu.
 ### Menambahkan Kondisional dengan Match Guard
 
 _Match guard_ (pengawal match) adalah kondisi `if` tambahan, yang ditentukan
-setelah pola pada arm `match`, yang juga harus cocok agar arm itu dipilih.
+setelah pattern pada arm `match`, yang juga harus cocok agar arm itu dipilih.
 *Match guard* berguna untuk mengekspresikan gagasan yang lebih kompleks
-daripada yang diizinkan pola saja. Akan tetapi, perhatikan bahwa *match guard*
+daripada yang diizinkan pattern saja. Akan tetapi, perhatikan bahwa *match guard*
 hanya tersedia pada expression `match`, bukan pada expression `if let` atau
 `while let`.
 
-Kondisi itu bisa memakai variable yang dibuat di pola. Listing 19-26
-menunjukkan `match` yang arm pertamanya memiliki pola `Some(x)` dan juga
+Kondisi itu bisa memakai variable yang dibuat di pattern. Listing 19-26
+menunjukkan `match` yang arm pertamanya memiliki pattern `Some(x)` dan juga
 memiliki *match guard* `if x % 2 == 0` (yang akan bernilai `true` jika angkanya
 genap).
 
-<Listing number="19-26" caption="Menambahkan match guard ke sebuah pola">
+<Listing number="19-26" caption="Menambahkan match guard ke sebuah pattern">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-26/src/main.rs:here}}
@@ -530,7 +530,7 @@ genap).
 </Listing>
 
 Contoh ini akan mencetak `The number 4 is even`. Ketika `num` dibandingkan
-dengan pola di arm pertama, ia cocok karena `Some(4)` cocok dengan `Some(x)`.
+dengan pattern di arm pertama, ia cocok karena `Some(4)` cocok dengan `Some(x)`.
 Kemudian, *match guard* memeriksa apakah sisa pembagian `x` dengan 2 sama
 dengan 0, dan karena memang begitu, arm pertama dipilih.
 
@@ -540,13 +540,13 @@ kemudian akan pergi ke arm kedua, yang akan cocok karena arm kedua tidak
 memiliki *match guard* dan karena itu cocok dengan varian `Some` mana pun.
 
 Tidak ada cara untuk mengekspresikan kondisi `if x % 2 == 0` di dalam sebuah
-pola, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
+pattern, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
 ini. Sisi buruk dari ekspresivitas tambahan ini adalah kompilator tidak
 mencoba memeriksa ekshaustivitas ketika expression *match guard* terlibat.
 
 Saat membahas Listing 19-11, kita menyebutkan bahwa kita bisa memakai match
-guard untuk memecahkan masalah shadowing pola kita. Ingat bahwa kita membuat
-variable baru di dalam pola pada expression `match` alih-alih memakai variable
+guard untuk memecahkan masalah shadowing pattern kita. Ingat bahwa kita membuat
+variable baru di dalam pattern pada expression `match` alih-alih memakai variable
 di luar `match`. Variable baru itu berarti kita tidak bisa menguji nilai
 variable luar. Listing 19-27 menunjukkan cara memakai *match guard* untuk
 memperbaiki masalah ini.
@@ -559,27 +559,27 @@ memperbaiki masalah ini.
 
 </Listing>
 
-Kode ini sekarang akan mencetak `Default case, x = Some(5)`. Pola di arm
+Kode ini sekarang akan mencetak `Default case, x = Some(5)`. Pattern di arm
 match kedua tidak memperkenalkan variable `y` baru yang akan melakukan
 shadowing terhadap `y` luar, yang berarti kita bisa memakai `y` luar di match
-guard. Alih-alih menentukan polanya sebagai `Some(y)`, yang akan melakukan
+guard. Alih-alih menentukan patternnya sebagai `Some(y)`, yang akan melakukan
 shadowing terhadap `y` luar, kita menentukan `Some(n)`. Ini membuat variable
 baru `n` yang tidak melakukan shadowing terhadap apa pun karena tidak ada
 variable `n` di luar `match`.
 
-*Match guard* `if n == y` bukanlah pola dan karena itu tidak memperkenalkan
+*Match guard* `if n == y` bukanlah pattern dan karena itu tidak memperkenalkan
 variable baru. `y` ini _adalah_ `y` luar alih-alih `y` baru yang
 menaunginya, dan kita bisa mencari nilai yang sama dengan nilai `y` luar
 dengan membandingkan `n` dengan `y`.
 
 Anda juga bisa memakai operator _or_ `|` di *match guard* untuk menentukan
-beberapa pola; kondisi *match guard* akan berlaku untuk semua pola itu. Listing
-19-28 menunjukkan prioritas ketika menggabungkan pola yang memakai `|` dengan
+beberapa pattern; kondisi *match guard* akan berlaku untuk semua pattern itu. Listing
+19-28 menunjukkan prioritas ketika menggabungkan pattern yang memakai `|` dengan
 *match guard*. Bagian penting dari contoh ini adalah bahwa *match guard* `if y`
 berlaku untuk `4`, `5`, _dan_ `6`, meskipun mungkin terlihat seperti `if y`
 hanya berlaku untuk `6`.
 
-<Listing number="19-28" caption="Menggabungkan beberapa pola dengan match guard">
+<Listing number="19-28" caption="Menggabungkan beberapa pattern dengan match guard">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-28/src/main.rs:here}}
@@ -589,12 +589,12 @@ hanya berlaku untuk `6`.
 
 Kondisi match menyatakan bahwa arm itu hanya cocok jika nilai `x` sama
 dengan `4`, `5`, atau `6` _dan_ jika `y` bernilai `true`. Ketika kode ini
-berjalan, pola arm pertama cocok karena `x` adalah `4`, tetapi *match guard*
+berjalan, pattern arm pertama cocok karena `x` adalah `4`, tetapi *match guard*
 `if y` bernilai `false`, jadi arm pertama tidak dipilih. Kode berlanjut ke
 arm kedua, yang cocok, dan program ini mencetak `no`. Alasannya adalah
-kondisi `if` berlaku untuk seluruh pola `4 | 5 | 6`, bukan hanya untuk nilai
+kondisi `if` berlaku untuk seluruh pattern `4 | 5 | 6`, bukan hanya untuk nilai
 terakhir `6`. Dengan kata lain, prioritas *match guard* dalam hubungannya
-dengan sebuah pola berperilaku seperti ini:
+dengan sebuah pattern berperilaku seperti ini:
 
 ```text
 (4 | 5 | 6) if y => ...
@@ -617,12 +617,12 @@ menggunakan operator `|`, arm itu akan cocok dan program akan mencetak `yes`.
 ### Memakai Binding `@`
 
 Operator _at_ `@` memungkinkan kita membuat variable yang menampung sebuah
-nilai pada saat yang sama kita menguji nilai itu untuk kecocokan pola. Di
+nilai pada saat yang sama kita menguji nilai itu untuk kecocokan pattern. Di
 Listing 19-29, kita ingin menguji bahwa *field* `id` dari `Message::Hello`
 berada di dalam rentang `3..=7`. Kita juga ingin mengikat nilainya ke
 variable `id` supaya bisa kita pakai di kode yang terkait dengan arm itu.
 
-<Listing number="19-29" caption="Memakai `@` untuk mengikat ke nilai di dalam pola sambil mengujinya">
+<Listing number="19-29" caption="Memakai `@` untuk mengikat ke nilai di dalam pattern sambil mengujinya">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-29/src/main.rs:here}}
@@ -633,12 +633,12 @@ variable `id` supaya bisa kita pakai di kode yang terkait dengan arm itu.
 Contoh ini akan mencetak `Found an id in range: 5`. Dengan menentukan `id @`
 sebelum rentang `3..=7`, kita menangkap nilai apa pun yang cocok dengan
 rentang itu ke variable bernama `id` sambil juga menguji bahwa nilainya cocok
-dengan pola rentangnya.
+dengan pattern rentangnya.
 
-Di arm kedua, tempat kita hanya menentukan rentang di polanya, kode yang
+Di arm kedua, tempat kita hanya menentukan rentang di patternnya, kode yang
 terkait dengan arm itu tidak memiliki variable yang memuat nilai aktual *field*
 `id`. Nilai *field* `id` bisa saja 10, 11, atau 12, tetapi kode yang menyertai
-pola itu tidak tahu yang mana. Kode pola itu tidak bisa memakai nilai dari
+pattern itu tidak tahu yang mana. Kode pattern itu tidak bisa memakai nilai dari
 *field* `id` karena kita belum menyimpan nilai `id` di variable.
 
 Di arm terakhir, tempat kita menentukan variable tanpa rentang, kita memang
@@ -646,19 +646,19 @@ memiliki nilainya untuk dipakai di kode arm itu dalam variable bernama `id`.
 Alasannya adalah kita telah memakai sintaks bentuk singkat *field* *struct*.
 Tetapi kita belum menerapkan pengujian apa pun pada nilai di *field* `id` di
 arm ini, seperti yang kita lakukan di dua arm pertama: nilai apa pun akan
-cocok dengan pola ini.
+cocok dengan pattern ini.
 
 Memakai `@` memungkinkan kita menguji sebuah nilai dan menyimpannya di
-variable dalam satu pola.
+variable dalam satu pattern.
 
 ## Ringkasan
 
-Pola di Rust sangat berguna untuk membedakan berbagai jenis data. Ketika
-dipakai di expression `match`, Rust memastikan pola-pola Anda mencakup setiap
-nilai yang mungkin, atau program Anda tidak akan terkompilasi. Pola di
+Pattern di Rust sangat berguna untuk membedakan berbagai jenis data. Ketika
+dipakai di expression `match`, Rust memastikan pattern-pattern Anda mencakup setiap
+nilai yang mungkin, atau program Anda tidak akan terkompilasi. Pattern di
 statement `let` dan parameter fungsi membuat konstruksi-konstruksi itu lebih
 berguna, memungkinkan destrukturisasi nilai menjadi bagian-bagian yang lebih
-kecil dan menetapkan bagian-bagian itu ke variable. Kita bisa membuat pola
+kecil dan menetapkan bagian-bagian itu ke variable. Kita bisa membuat pattern
 sederhana atau kompleks sesuai kebutuhan kita.
 
 Berikutnya, untuk bab kedua terakhir buku ini, kita akan melihat beberapa

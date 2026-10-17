@@ -3,7 +3,7 @@
 Kita memakai *generics* untuk membuat definisi item seperti tanda tangan
 fungsi atau *struct*, yang kemudian bisa kita pakai dengan banyak data type
 konkret yang berbeda. Mari kita lihat dulu cara mendefinisikan fungsi,
-*struct*, *enum*, dan metode dengan memakai *generics*. Kemudian, kita akan
+*struct*, *enum*, dan method dengan memakai *generics*. Kemudian, kita akan
 membahas bagaimana *generics* memengaruhi kinerja kode.
 
 ### Dalam Definisi Fungsi
@@ -203,14 +203,14 @@ Ketika Anda mengenali situasi dalam kode Anda dengan beberapa definisi
 *struct* atau *enum* yang hanya berbeda pada type nilai yang ditampungnya, Anda
 bisa menghindari duplikasi dengan memakai generic type.
 
-### Dalam Definisi Metode
+### Dalam Definisi Method
 
-Kita bisa mengimplementasikan metode pada *struct* dan *enum* (seperti yang kita
+Kita bisa mengimplementasikan method pada *struct* dan *enum* (seperti yang kita
 lakukan di Bab 5) dan memakai generic type dalam definisinya juga. Listing
 10-9 menunjukkan *struct* `Point<T>` yang kita definisikan di Listing 10-6
-dengan sebuah metode bernama `x` yang diimplementasikan padanya.
+dengan sebuah method bernama `x` yang diimplementasikan padanya.
 
-<Listing number="10-9" file-name="src/main.rs" caption="Mengimplementasikan metode bernama `x` pada struct `Point<T>` yang akan mengembalikan reference ke field `x` typed `T`">
+<Listing number="10-9" file-name="src/main.rs" caption="Mengimplementasikan method bernama `x` pada struct `Point<T>` yang akan mengembalikan reference ke field `x` typed `T`">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-09/src/main.rs}}
@@ -218,23 +218,23 @@ dengan sebuah metode bernama `x` yang diimplementasikan padanya.
 
 </Listing>
 
-Di sini, kita telah mendefinisikan metode bernama `x` pada `Point<T>` yang
+Di sini, kita telah mendefinisikan method bernama `x` pada `Point<T>` yang
 mengembalikan sebuah *reference* ke data di dalam *field* `x`.
 
 Perhatikan bahwa kita harus mendeklarasikan `T` tepat setelah `impl` supaya
 kita bisa memakai `T` untuk menyatakan bahwa kita sedang mengimplementasikan
-metode pada type `Point<T>`. Dengan mendeklarasikan `T` sebagai generic type
+method pada type `Point<T>`. Dengan mendeklarasikan `T` sebagai generic type
 setelah `impl`, Rust bisa mengidentifikasi bahwa type di dalam kurung sudut
 pada `Point` adalah generic type, bukan type konkret. Kita bisa saja memilih
 nama yang berbeda untuk parameter generik ini daripada parameter generik
 yang dideklarasikan dalam definisi *struct*, tetapi memakai nama yang sama
-sudah menjadi konvensi. Jika Anda menulis metode di dalam `impl` yang
-mendeklarasikan generic type, metode itu akan didefinisikan pada instance
+sudah menjadi konvensi. Jika Anda menulis method di dalam `impl` yang
+mendeklarasikan generic type, method itu akan didefinisikan pada instance
 mana pun dari type tersebut, apa pun type konkret yang akhirnya menggantikan
 generic typenya.
 
 Kita juga bisa menentukan batasan pada generic type ketika mendefinisikan
-metode pada type tersebut. Misalnya, kita bisa mengimplementasikan metode
+method pada type tersebut. Misalnya, kita bisa mengimplementasikan method
 hanya pada instance `Point<f32>`, alih-alih pada instance `Point<T>` dengan
 generic type apa pun. Di Listing 10-10, kita memakai type konkret `f32`,
 artinya kita tidak mendeklarasikan type apa pun setelah `impl`.
@@ -247,20 +247,20 @@ artinya kita tidak mendeklarasikan type apa pun setelah `impl`.
 
 </Listing>
 
-Kode ini berarti type `Point<f32>` akan memiliki metode
+Kode ini berarti type `Point<f32>` akan memiliki method
 `distance_from_origin`; instance lain `Point<T>` yang `T`-nya bukan typed
-`f32` tidak akan memiliki metode ini. Metode tersebut mengukur seberapa jauh
+`f32` tidak akan memiliki method ini. Method tersebut mengukur seberapa jauh
 titik kita dari titik pada koordinat (0.0, 0.0) dan memakai operasi matematis
 yang hanya tersedia untuk type floating point.
 
 Parameter generic type dalam definisi *struct* tidak selalu sama dengan yang
-Anda pakai di tanda tangan metode *struct* yang sama. Listing 10-11 memakai
+Anda pakai di tanda tangan method *struct* yang sama. Listing 10-11 memakai
 generic type `X1` dan `Y1` untuk *struct* `Point` dan `X2` serta `Y2` untuk
-tanda tangan metode `mixup` agar contohnya lebih jelas. Metode ini membuat
+tanda tangan method `mixup` agar contohnya lebih jelas. Method ini membuat
 sebuah instance `Point` baru dengan nilai `x` dari `Point` `self` (typed
 `X1`) dan nilai `y` dari `Point` yang diteruskan (typed `Y2`).
 
-<Listing number="10-11" file-name="src/main.rs" caption="Metode yang memakai generic type yang berbeda dari definisi struct-nya">
+<Listing number="10-11" file-name="src/main.rs" caption="Method yang memakai generic type yang berbeda dari definisi struct-nya">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-11/src/main.rs}}
@@ -279,10 +279,10 @@ Variable `p2` adalah *struct* `Point` yang memiliki *string slice* untuk `x`
 
 Tujuan contoh ini adalah untuk memperlihatkan situasi ketika sebagian
 parameter generik dideklarasikan dengan `impl` dan sebagian lagi
-dideklarasikan dengan definisi metode. Di sini, parameter generik `X1` dan
+dideklarasikan dengan definisi method. Di sini, parameter generik `X1` dan
 `Y1` dideklarasikan setelah `impl` karena mereka menyertai definisi *struct*.
 Parameter generik `X2` dan `Y2` dideklarasikan setelah `fn mixup` karena
-mereka hanya relevan untuk metode tersebut.
+mereka hanya relevan untuk method tersebut.
 
 <a id="performance-of-code-using-generics"></a>
 ### Kinerja Kode yang Memakai Generics

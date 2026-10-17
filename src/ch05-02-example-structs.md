@@ -254,7 +254,7 @@ Fungsi `area` kita sangat spesifik: ia hanya menghitung luas persegi panjang.
 Akan membantu jika perilaku ini diikat lebih erat ke *struct* `Rectangle` kita
 karena ia tidak akan bekerja dengan type lain mana pun. Mari kita lihat
 bagaimana kita dapat terus melakukan refactoring pada kode ini dengan
-mengubah fungsi `area` menjadi metode `area` yang didefinisikan pada type
+mengubah fungsi `area` menjadi method `area` yang didefinisikan pada type
 `Rectangle` kita.
 
 [the-tuple-type]: ch03-02-data-types.html#the-tuple-type

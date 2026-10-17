@@ -69,7 +69,7 @@ beberapa thread, seperti yang Anda lihat di [“Akses Bersama ke
 Karena type yang tersusun seluruhnya dari type lain yang mengimplementasikan
 *trait* `Send` dan `Sync` juga otomatis mengimplementasikan `Send` dan `Sync`,
 kita tidak harus mengimplementasikan *trait*-trait itu secara manual. Sebagai
-*marker trait*, keduanya bahkan tidak memiliki metode untuk diimplementasikan.
+*marker trait*, keduanya bahkan tidak memiliki method untuk diimplementasikan.
 Keduanya hanya berguna untuk menegakkan invarian yang terkait dengan
 konkurensi.
 

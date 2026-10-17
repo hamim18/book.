@@ -14,7 +14,7 @@ tentang Rust, kita bisa masuk ke seluk-beluknya.
 ### Mendefinisikan Trait dengan Type Asosiasi
 
 *Associated type* (tipe asosiasi) menghubungkan type placeholder dengan
-sebuah *trait* sedemikian rupa sehingga definisi-definisi metode *trait* itu bisa
+sebuah *trait* sedemikian rupa sehingga definisi-definisi method *trait* itu bisa
 memakai type placeholder tersebut di tanda tangan mereka. Pengimplementasi
 sebuah *trait* akan menentukan type konkret yang akan dipakai sebagai pengganti
 type placeholder untuk implementasi tertentu. Dengan begitu, kita bisa
@@ -40,9 +40,9 @@ seperti yang ditunjukkan di Listing 20-13.
 
 </Listing>
 
-Type `Item` adalah placeholder, dan definisi metode `next` menunjukkan bahwa
+Type `Item` adalah placeholder, dan definisi method `next` menunjukkan bahwa
 ia akan mengembalikan nilai typed `Option<Self::Item>`. Pengimplementasi
-*trait* `Iterator` akan menentukan type konkret untuk `Item`, dan metode `next`
+*trait* `Iterator` akan menentukan type konkret untuk `Item`, dan method `next`
 akan mengembalikan `Option` yang berisi nilai dari type konkret itu.
 
 Type asosiasi mungkin tampak seperti konsep yang mirip dengan *generics*,
@@ -78,7 +78,7 @@ kita bisa memiliki banyak implementasi `Iterator` untuk `Counter`. Dengan
 kata lain, ketika sebuah *trait* memiliki parameter generik, *trait* itu bisa
 diimplementasikan untuk sebuah type berkali-kali, dengan mengubah type
 konkret parameter-type parameter generiknya setiap kali. Saat kita memakai
-metode `next` pada `Counter`, kita harus memberikan type annotation untuk
+method `next` pada `Counter`, kita harus memberikan type annotation untuk
 menunjukkan implementasi `Iterator` mana yang ingin kita pakai.
 
 Dengan associated type, kita tidak perlu mengtype annotation, karena kita tidak
@@ -125,10 +125,10 @@ melakukannya dengan mengimplementasikan *trait* `Add` pada *struct* `Point`.
 
 </Listing>
 
-Metode `add` menjumlahkan nilai `x` dari dua instance `Point` dan nilai `y`
+Method `add` menjumlahkan nilai `x` dari dua instance `Point` dan nilai `y`
 dari dua instance `Point` untuk membuat sebuah `Point` baru. *Trait* `Add`
 memiliki associated type bernama `Output` yang menentukan type yang
-dikembalikan dari metode `add`.
+dikembalikan dari method `add`.
 
 Type generik bawaan pada kode ini berada di dalam *trait* `Add`. Berikut
 definisinya:
@@ -142,10 +142,10 @@ trait Add<Rhs=Self> {
 ```
 
 Kode ini seharusnya tampak familier secara umum: sebuah *trait* dengan satu
-metode dan satu associated type. Bagian barunya adalah `Rhs=Self`: Sintaks ini
+method dan satu associated type. Bagian barunya adalah `Rhs=Self`: Sintaks ini
 disebut *default type parameter* (parameter tipe bawaan). Parameter type
 generik `Rhs` (singkatan dari “right-hand side”, sisi kanan) mendefinisikan
-type parameter `rhs` di metode `add`. Jika kita tidak menentukan type konkret
+type parameter `rhs` di method `add`. Jika kita tidak menentukan type konkret
 untuk `Rhs` saat mengimplementasikan *trait* `Add`, type `Rhs` akan menjadi
 `Self` secara bawaan, yaitu type tempat kita mengimplementasikan `Add`.
 
@@ -156,9 +156,9 @@ lihat contoh implementasi *trait* `Add` di mana kita ingin menyesuaikan type
 
 Kita punya dua *struct*, `Millimeters` dan `Meters`, yang menyimpan nilai
 dalam satuan yang berbeda. Pembungkusan tipis terhadap type yang sudah ada
-di dalam *struct* lain ini dikenal sebagai *newtype pattern* (pola newtype),
+di dalam *struct* lain ini dikenal sebagai *newtype pattern* (newtype pattern),
 yang kita jelaskan lebih detail di seksi [“Mengimplementasikan *Trait*
-Eksternal dengan Pola Newtype”][newtype]<!-- ignore -->. Kita ingin
+Eksternal dengan Pattern Newtype”][newtype]<!-- ignore -->. Kita ingin
 menjumlahkan nilai dalam milimeter dengan nilai dalam meter dan membuat
 implementasi `Add` melakukan konversinya dengan benar. Kita bisa
 mengimplementasikan `Add` untuk `Millimeters` dengan `Meters` sebagai `Rhs`,
@@ -199,22 +199,22 @@ merusak kode implementasi yang sudah ada.
 <a id="fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name"></a>
 <a id="disambiguating-between-methods-with-the-same-name"></a>
 
-### Mendisambiguasi Metode dengan Nama yang Sama
+### Mendisambiguasi Method dengan Nama yang Sama
 
-Tidak ada apa pun di Rust yang mencegah sebuah *trait* memiliki metode dengan
-nama yang sama dengan metode *trait* lain, dan Rust juga tidak mencegah Anda
+Tidak ada apa pun di Rust yang mencegah sebuah *trait* memiliki method dengan
+nama yang sama dengan method *trait* lain, dan Rust juga tidak mencegah Anda
 mengimplementasikan kedua *trait* itu pada satu type. Anda juga bisa
-mengimplementasikan sebuah metode langsung pada type dengan nama yang sama
-dengan metode-metode dari *trait*.
+mengimplementasikan sebuah method langsung pada type dengan nama yang sama
+dengan method-method dari *trait*.
 
-Saat memanggil metode-metode dengan nama yang sama, Anda perlu memberi tahu
+Saat memanggil method-method dengan nama yang sama, Anda perlu memberi tahu
 Rust mana yang ingin Anda pakai. Perhatikan kode di Listing 20-17, tempat
 kita mendefinisikan dua *trait*, `Pilot` dan `Wizard`, yang sama-sama memiliki
-metode bernama `fly`. Kita kemudian mengimplementasikan kedua *trait* itu pada
-type `Human` yang sudah memiliki metode bernama `fly` yang
-diimplementasikan padanya. Setiap metode `fly` melakukan hal yang berbeda.
+method bernama `fly`. Kita kemudian mengimplementasikan kedua *trait* itu pada
+type `Human` yang sudah memiliki method bernama `fly` yang
+diimplementasikan padanya. Setiap method `fly` melakukan hal yang berbeda.
 
-<Listing number="20-17" file-name="src/main.rs" caption="Dua trait didefinisikan dengan metode `fly` dan diimplementasikan pada type `Human`, dan sebuah metode `fly` diimplementasikan langsung pada `Human`.">
+<Listing number="20-17" file-name="src/main.rs" caption="Dua trait didefinisikan dengan method `fly` dan diimplementasikan pada type `Human`, dan sebuah method `fly` diimplementasikan langsung pada `Human`.">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-17/src/main.rs:here}}
@@ -223,7 +223,7 @@ diimplementasikan padanya. Setiap metode `fly` melakukan hal yang berbeda.
 </Listing>
 
 Saat kita memanggil `fly` pada sebuah instance `Human`, kompilator secara
-bawaan memanggil metode yang diimplementasikan langsung pada type itu,
+bawaan memanggil method yang diimplementasikan langsung pada type itu,
 seperti yang ditunjukkan di Listing 20-18.
 
 <Listing number="20-18" file-name="src/main.rs" caption="Memanggil `fly` pada instance `Human`">
@@ -235,14 +235,14 @@ seperti yang ditunjukkan di Listing 20-18.
 </Listing>
 
 Menjalankan kode ini akan mencetak `*waving arms furiously*`, yang
-menunjukkan bahwa Rust memanggil metode `fly` yang diimplementasikan
+menunjukkan bahwa Rust memanggil method `fly` yang diimplementasikan
 langsung pada `Human`.
 
-Untuk memanggil metode `fly` dari *trait* `Pilot` ataupun *trait* `Wizard`, kita
-perlu memakai sintaks yang lebih eksplisit untuk menentukan metode `fly`
+Untuk memanggil method `fly` dari *trait* `Pilot` ataupun *trait* `Wizard`, kita
+perlu memakai sintaks yang lebih eksplisit untuk menentukan method `fly`
 mana yang kita maksud. Listing 20-19 menunjukkan sintaks ini.
 
-<Listing number="20-19" file-name="src/main.rs" caption="Menentukan metode `fly` dari trait mana yang ingin kita panggil">
+<Listing number="20-19" file-name="src/main.rs" caption="Menentukan method `fly` dari trait mana yang ingin kita panggil">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-19/src/main.rs:here}}
@@ -250,7 +250,7 @@ mana yang kita maksud. Listing 20-19 menunjukkan sintaks ini.
 
 </Listing>
 
-Menuliskan nama *trait* sebelum nama metode memperjelas kepada Rust
+Menuliskan nama *trait* sebelum nama method memperjelas kepada Rust
 implementasi `fly` mana yang ingin kita panggil. Kita juga bisa menulis
 `Human::fly(&person)`, yang setara dengan `person.fly()` yang kita pakai di
 Listing 20-19, tetapi ini sedikit lebih panjang untuk ditulis jika kita tidak
@@ -262,19 +262,19 @@ Menjalankan kode ini mencetak hal berikut:
 {{#include ../listings/ch20-advanced-features/listing-20-19/output.txt}}
 ```
 
-Karena metode `fly` menerima parameter `self`, jika kita memiliki dua *type*
+Karena method `fly` menerima parameter `self`, jika kita memiliki dua *type*
 yang sama-sama mengimplementasikan satu *trait*, Rust bisa menentukan
 implementasi *trait* mana yang dipakai berdasarkan type dari `self`.
 
-Akan tetapi, *associated function* (fungsi asosiasi) yang bukan metode tidak
+Akan tetapi, *associated function* (fungsi asosiasi) yang bukan method tidak
 memiliki parameter `self`. Ketika ada banyak type atau *trait* yang
-mendefinisikan fungsi non-metode dengan nama fungsi yang sama, Rust tidak
+mendefinisikan fungsi non-method dengan nama fungsi yang sama, Rust tidak
 selalu tahu type mana yang Anda maksud kecuali Anda memakai sintaks *fully
 qualified*. Misalnya, di Listing 20-20, kita membuat *trait* untuk sebuah
 penampungan hewan yang ingin menamai semua bayi anjing dengan nama Spot.
-Kita membuat *trait* `Animal` dengan fungsi asosiasi non-metode `baby_name`.
+Kita membuat *trait* `Animal` dengan fungsi asosiasi non-method `baby_name`.
 *Trait* `Animal` diimplementasikan untuk *struct* `Dog`, yang padanya kita juga
-menyediakan fungsi asosiasi non-metode `baby_name` secara langsung.
+menyediakan fungsi asosiasi non-method `baby_name` secara langsung.
 
 <Listing number="20-20" file-name="src/main.rs" caption="Sebuah trait dengan fungsi asosiasi dan sebuah type dengan fungsi asosiasi bernama sama yang juga mengimplementasikan trait itu">
 
@@ -337,7 +337,7 @@ cara memakai sintaks fully qualified.
 </Listing>
 
 Kita memberikan Rust sebuah type annotation di dalam kurung sudut, yang
-menunjukkan bahwa kita ingin memanggil metode `baby_name` dari *trait*
+menunjukkan bahwa kita ingin memanggil method `baby_name` dari *trait*
 `Animal` sebagaimana diimplementasikan pada `Dog`, dengan menyatakan bahwa
 kita ingin memperlakukan type `Dog` sebagai `Animal` untuk pemanggilan fungsi
 ini. Kode ini sekarang akan mencetak apa yang kita inginkan:
@@ -352,9 +352,9 @@ Secara umum, sintaks fully qualified didefinisikan sebagai berikut:
 <Type as Trait>::function(receiver_if_method, next_arg, ...);
 ```
 
-Untuk fungsi asosiasi yang bukan metode, tidak akan ada *receiver*
+Untuk fungsi asosiasi yang bukan method, tidak akan ada *receiver*
 (penerima): Yang ada hanya daftar argumen-argumen lain. Anda bisa memakai
-sintaks fully qualified di setiap tempat Anda memanggil fungsi atau metode.
+sintaks fully qualified di setiap tempat Anda memanggil fungsi atau method.
 Akan tetapi, Anda boleh menghilangkan bagian mana pun dari sintaks ini yang
 bisa disimpulkan Rust dari informasi lain di program. Anda hanya perlu
 memakai sintaks yang lebih panjang ini pada kasus ketika ada banyak
@@ -375,7 +375,7 @@ melakukan ini supaya definisi *trait* Anda bisa memakai item-item asosiasi dari
 dari *trait* Anda.
 
 Sebagai contoh, katakanlah kita ingin membuat *trait* `OutlinePrint` dengan
-metode `outline_print` yang akan mencetak sebuah nilai yang diberikan dengan
+method `outline_print` yang akan mencetak sebuah nilai yang diberikan dengan
 format yang dibingkai tanda bintang. Artinya, jika ada *struct* `Point` yang
 mengimplementasikan *trait* `Display` dari pustaka standar sehingga
 menghasilkan `(x, y)`, saat kita memanggil `outline_print` pada instance
@@ -390,7 +390,7 @@ hal berikut:
 **********
 ```
 
-Dalam implementasi metode `outline_print`, kita ingin memakai fungsionalitas
+Dalam implementasi method `outline_print`, kita ingin memakai fungsionalitas
 *trait* `Display`. Karena itu, kita perlu menentukan bahwa *trait* `OutlinePrint`
 hanya akan bekerja untuk type-type yang juga mengimplementasikan `Display`
 dan menyediakan fungsionalitas yang dibutuhkan `OutlinePrint`. Kita bisa
@@ -411,7 +411,7 @@ Karena kita telah menentukan bahwa `OutlinePrint` memerlukan *trait*
 otomatis untuk type apa pun yang mengimplementasikan `Display`. Jika kita
 mencoba memakai `to_string` tanpa menambahkan tanda titik dua dan menuliskan
 *trait* `Display` setelah nama *trait*, kita akan mendapat error yang menyatakan
-bahwa tidak ada metode bernama `to_string` yang ditemukan untuk type `&Self`
+bahwa tidak ada method bernama `to_string` yang ditemukan untuk type `&Self`
 di *scope* saat ini.
 
 Mari kita lihat apa yang terjadi saat kita mencoba mengimplementasikan
@@ -454,13 +454,13 @@ instance `Point` untuk menampilkannya di dalam bingkai tanda bintang.
 <a id="using-the-newtype-pattern-to-implement-external-traits"></a>
 
 <a id="implementing-external-traits-with-the-newtype-pattern"></a>
-### Mengimplementasikan Trait Eksternal dengan Pola Newtype
+### Mengimplementasikan Trait Eksternal dengan Pattern Newtype
 
 Di seksi [“Mengimplementasikan Trait pada Suatu Type”][implementing-a-trait-on-a-type]<!--
 ignore --> pada Bab 10, kita menyebutkan *orphan rule* yang menyatakan bahwa
 kita hanya boleh mengimplementasikan sebuah *trait* pada sebuah type jika *trait*
 atau type itu, atau keduanya, bersifat lokal bagi *crate* kita. Batasan ini
-bisa diakali dengan memakai pola newtype, yang melibatkan pembuatan type baru
+bisa diakali dengan memakai newtype pattern, yang melibatkan pembuatan type baru
 di dalam *tuple struct*. (Kita membahas *tuple struct* di seksi [“Membuat Type
 Berbeda dengan *Tuple Struct*”][*tuple*-structs]<!-- ignore --> pada Bab 5.)
 *Tuple struct* itu akan memiliki satu *field* dan menjadi wrapper tipis di
@@ -468,7 +468,7 @@ sekeliling type yang ingin kita implementasikan *trait*-nya. Dengan begitu,
 type wrapper itu bersifat lokal bagi *crate* kita, dan kita bisa
 mengimplementasikan *trait* itu pada wrapper. *Newtype* adalah istilah yang
 berasal dari bahasa pemrograman Haskell. Tidak ada denda performa runtime
-untuk memakai pola ini, dan type wrapper-nya dihilangkan pada waktu
+untuk memakai pattern ini, dan type wrapper-nya dihilangkan pada waktu
 kompilasi.
 
 Sebagai contoh, katakanlah kita ingin mengimplementasikan `Display` pada
@@ -492,20 +492,20 @@ indeks 0 di *tuple* itu. Kemudian, kita bisa memakai fungsionalitas *trait*
 `Display` pada `Wrapper`.
 
 Kekurangan dari teknik ini adalah `Wrapper` adalah type baru, jadi ia tidak
-memiliki metode-metode dari nilai yang disimpannya. Kita harus
-mengimplementasikan semua metode `Vec<T>` langsung pada `Wrapper` sedemikian
-rupa sehingga metode-metode itu mendelegasikan ke `self.0`, yang
+memiliki method-method dari nilai yang disimpannya. Kita harus
+mengimplementasikan semua method `Vec<T>` langsung pada `Wrapper` sedemikian
+rupa sehingga method-method itu mendelegasikan ke `self.0`, yang
 memungkinkan kita memperlakukan `Wrapper` persis seperti `Vec<T>`. Jika kita
-ingin type baru itu memiliki semua metode yang dimiliki type di dalamnya,
+ingin type baru itu memiliki semua method yang dimiliki type di dalamnya,
 mengimplementasikan *trait* `Deref` pada `Wrapper` untuk mengembalikan type di
 dalamnya akan menjadi solusi (kita membahas implementasi *trait* `Deref` di
 seksi [“Memperlakukan Smart Pointer Seperti Reference Biasa”][smart-pointer-deref]<!-- ignore
---> pada Bab 15). Jika kita tidak ingin type `Wrapper` memiliki semua metode
+--> pada Bab 15). Jika kita tidak ingin type `Wrapper` memiliki semua method
 type di dalamnya—misalnya, untuk membatasi perilaku type `Wrapper`—kita
-harus mengimplementasikan secara manual hanya metode-metode yang memang kita
+harus mengimplementasikan secara manual hanya method-method yang memang kita
 inginkan.
 
-Pola newtype ini juga berguna bahkan ketika tidak ada *trait* yang terlibat.
+Pattern newtype ini juga berguna bahkan ketika tidak ada *trait* yang terlibat.
 Mari kita alihkan fokus dan melihat beberapa cara lanjutan untuk berinteraksi
 dengan type system Rust.
 

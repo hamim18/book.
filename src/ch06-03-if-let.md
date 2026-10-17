@@ -1,7 +1,7 @@
 ## Alur Kontrol yang Ringkas dengan `if let` dan `let...else`
 
 Sintaks `if let` memungkinkan Anda menggabungkan `if` dan `let` menjadi cara
-yang lebih ringkas untuk menangani nilai yang cocok dengan satu pola sambil
+yang lebih ringkas untuk menangani nilai yang cocok dengan satu pattern sambil
 mengabaikan sisanya. Perhatikan program pada Listing 6-6 yang melakukan match
 pada nilai `Option<u8>` di variable `config_max` tetapi hanya ingin
 mengeksekusi kode jika nilainya adalah *variant* (varian) `Some`.
@@ -15,7 +15,7 @@ mengeksekusi kode jika nilainya adalah *variant* (varian) `Some`.
 </Listing>
 
 Jika nilainya `Some`, kita mencetak nilai di dalam *variant* `Some` dengan
-mengikat nilai itu ke variable `max` di dalam pola. Kita tidak ingin melakukan
+mengikat nilai itu ke variable `max` di dalam pattern. Kita tidak ingin melakukan
 apa pun dengan nilai `None`. Untuk memenuhi expression `match`, kita harus
 menambahkan `_ => ()` setelah memproses satu *variant* saja, yang merupakan
 kode boilerplate yang menjengkelkan untuk ditulis.
@@ -28,13 +28,13 @@ memakai `if let`. Kode berikut berperilaku sama seperti `match` pada Listing
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-12-if-let/src/main.rs:here}}
 ```
 
-Sintaks `if let` menerima sebuah pola dan sebuah expression yang dipisahkan
+Sintaks `if let` menerima sebuah pattern dan sebuah expression yang dipisahkan
 tanda sama dengan. Ia bekerja sama seperti `match`, ketika expressionnya
-diberikan ke `match` dan polanya adalah *arm* (lengan) pertamanya. Pada kasus
-ini, polanya adalah `Some(max)`, dan `max` mengikat nilai di dalam `Some`.
+diberikan ke `match` dan patternnya adalah *arm* (lengan) pertamanya. Pada kasus
+ini, patternnya adalah `Some(max)`, dan `max` mengikat nilai di dalam `Some`.
 Kita kemudian dapat memakai `max` di badan blok `if let` dengan cara yang sama
 seperti kita memakai `max` pada *arm* `match` yang bersesuaian. Kode di blok
-`if let` hanya berjalan jika nilainya cocok dengan polanya.
+`if let` hanya berjalan jika nilainya cocok dengan patternnya.
 
 Memakai `if let` berarti lebih sedikit mengetik, lebih sedikit indentasi, dan
 lebih sedikit kode boilerplate. Namun, Anda kehilangan pemeriksaan *exhaustive* (ekshaustif)
@@ -44,7 +44,7 @@ dalam situasi Anda dan apakah memperoleh keringkasan adalah pengorbanan yang
 sepadan untuk kehilangan pemeriksaan *exhaustive*.
 
 Dengan kata lain, Anda dapat menganggap `if let` sebagai gula sintaks untuk
-`match` yang menjalankan kode ketika nilainya cocok dengan satu pola, lalu
+`match` yang menjalankan kode ketika nilainya cocok dengan satu pattern, lalu
 mengabaikan semua nilai lain.
 
 Kita dapat menyertakan `else` bersama `if let`. Blok kode yang menyertai
@@ -67,11 +67,11 @@ Atau kita dapat memakai expression `if let` dan `else`, seperti ini:
 
 ## Tetap di “Happy Path” dengan `let...else`
 
-Pola yang umum adalah melakukan suatu perhitungan ketika ada nilai dan
+Pattern yang umum adalah melakukan suatu perhitungan ketika ada nilai dan
 mengembalikan nilai bawaan jika tidak. Melanjutkan contoh koin dengan nilai
 `UsState`, jika kita ingin mengatakan sesuatu yang lucu bergantung pada
 seberapa tua negara bagian pada quarter itu, kita dapat menambahkan sebuah
-metode pada `UsState` untuk memeriksa usia sebuah negara bagian, seperti ini:
+method pada `UsState` untuk memeriksa usia sebuah negara bagian, seperti ini:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-07/src/main.rs:state}}
@@ -108,11 +108,11 @@ serupa dengan `match`.)
 Namun, cara ini juga agak menjengkelkan untuk diikuti! Satu cabang `if let`
 menghasilkan nilai, dan yang lainnya keluar dari fungsi sepenuhnya.
 
-Untuk membuat pola umum ini lebih enak dinyatakan, Rust memiliki `let...else`.
-Sintaks `let...else` menerima pola di sisi kiri dan expression di sisi kanan,
+Untuk membuat pattern umum ini lebih enak dinyatakan, Rust memiliki `let...else`.
+Sintaks `let...else` menerima pattern di sisi kiri dan expression di sisi kanan,
 sangat mirip dengan `if let`, tetapi ia tidak memiliki cabang `if`, hanya
-cabang `else`. Jika polanya cocok, ia akan mengikat nilai dari pola di *scope* (cakupan)
-luar. Jika polanya _tidak_ cocok, program akan mengalir ke *arm* `else`, yang
+cabang `else`. Jika patternnya cocok, ia akan mengikat nilai dari pattern di *scope* (cakupan)
+luar. Jika patternnya _tidak_ cocok, program akan mengalir ke *arm* `else`, yang
 harus keluar dari fungsi.
 
 Pada Listing 6-9, Anda dapat melihat bagaimana tampilan Listing 6-8 ketika

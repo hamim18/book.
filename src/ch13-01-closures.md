@@ -37,7 +37,7 @@ memakai sebuah *enum* bernama `ShirtColor` yang memiliki *variant* `Red` dan
 `Blue` (membatasi jumlah warna yang tersedia demi kesederhanaan). Kita
 merepresentasikan persediaan perusahaan dengan *struct* `Inventory` yang
 memiliki sebuah *field* bernama `shirts` berisi `Vec<ShirtColor>` yang
-merepresentasikan warna-warna kaos yang saat ini tersedia. Metode `giveaway`
+merepresentasikan warna-warna kaos yang saat ini tersedia. Method `giveaway`
 yang didefinisikan pada `Inventory` menerima preferensi warna kaos yang
 opsional dari pemenang kaos gratis, dan mengembalikan warna kaos yang akan
 didapat orang tersebut. Susunan ini ditunjukkan di Listing 13-1.
@@ -52,16 +52,16 @@ didapat orang tersebut. Susunan ini ditunjukkan di Listing 13-1.
 
 `store` yang didefinisikan di `main` memiliki dua kaos biru dan satu kaos
 merah tersisa untuk dibagikan dalam promosi edisi terbatas ini. Kita memanggil
-metode `giveaway` untuk seorang pengguna dengan preferensi kaos merah dan
+method `giveaway` untuk seorang pengguna dengan preferensi kaos merah dan
 seorang pengguna tanpa preferensi apa pun.
 
 Lagi-lagi, kode ini bisa diimplementasikan dengan banyak cara, dan di sini,
 untuk berfokus pada *closure*, kita bertahan pada konsep-konsep yang telah Anda
-pelajari, kecuali badan metode `giveaway` yang memakai sebuah *closure*. Di
-metode `giveaway`, kita menerima preferensi pengguna sebagai parameter
-typed `Option<ShirtColor>` dan memanggil metode `unwrap_or_else` pada
-`user_preference`. [Metode `unwrap_or_else` pada `Option<T>`][unwrap-or-else]<!--
-ignore --> didefinisikan oleh pustaka standar. Metode ini menerima satu
+pelajari, kecuali badan method `giveaway` yang memakai sebuah *closure*. Di
+method `giveaway`, kita menerima preferensi pengguna sebagai parameter
+typed `Option<ShirtColor>` dan memanggil method `unwrap_or_else` pada
+`user_preference`. [Method `unwrap_or_else` pada `Option<T>`][unwrap-or-else]<!--
+ignore --> didefinisikan oleh pustaka standar. Method ini menerima satu
 argumen: sebuah *closure* tanpa argumen yang mengembalikan nilai `T` (type yang
 sama dengan yang disimpan di *variant* `Some` dari `Option<T>`, dalam kasus
 ini `ShirtColor`). Jika `Option<T>`-nya berupa *variant* `Some`,
@@ -88,7 +88,7 @@ standar tidak perlu mengetahui apa pun tentang type `Inventory` atau
 `ShirtColor` yang kita definisikan, ataupun logika yang ingin kita pakai dalam
 skenario ini. *Closure* itu menangkap sebuah *reference* *immutable* (tidak dapat
 diubah) ke instance `Inventory` `self` dan meneruskannya beserta kode yang
-kita tentukan ke metode `unwrap_or_else`. Sebaliknya, fungsi tidak mampu
+kita tentukan ke method `unwrap_or_else`. Sebaliknya, fungsi tidak mampu
 menangkap lingkungannya dengan cara seperti ini.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -196,7 +196,7 @@ berdasarkan apa yang dilakukan badan fungsi itu terhadap nilai-nilai yang
 ditangkap.
 
 Di Listing 13-4, kita mendefinisikan sebuah *closure* yang menangkap sebuah
-*reference* *immutable* ke vektor bernama `list` karena *closure* itu hanya
+*reference* *immutable* ke vector bernama `list` karena *closure* itu hanya
 memerlukan *reference* *immutable* untuk mencetak nilainya.
 
 <Listing number="13-4" file-name="src/main.rs" caption="Mendefinisikan dan memanggil closure yang menangkap reference immutable">
@@ -222,7 +222,7 @@ dipanggil. Kode ini terkompilasi, berjalan, dan mencetak:
 ```
 
 Selanjutnya, di Listing 13-5, kita mengubah badan *closure* sehingga *closure* itu
-menambahkan sebuah elemen ke vektor `list`. *Closure* itu kini menangkap sebuah
+menambahkan sebuah elemen ke vector `list`. *Closure* itu kini menangkap sebuah
 *reference* *mutable*.
 
 <Listing number="13-5" file-name="src/main.rs" caption="Mendefinisikan dan memanggil closure yang menangkap reference mutable">
@@ -259,7 +259,7 @@ membahas thread dan alasan Anda ingin memakainya secara mendetail di Bab 16
 ketika kita berbicara tentang konkurensi, tetapi untuk saat ini, mari kita
 menelaah secara singkat pembuatan thread baru memakai *closure* yang memerlukan
 kata kunci `move`. Listing 13-6 menunjukkan Listing 13-4 yang dimodifikasi
-untuk mencetak vektor di thread baru alih-alih di thread utama.
+untuk mencetak vector di thread baru alih-alih di thread utama.
 
 <Listing number="13-6" file-name="src/main.rs" caption="Memakai `move` untuk memaksa closure bagi thread itu mengambil ownership atas `list`">
 
@@ -329,7 +329,7 @@ menangani nilai-nilainya:
   dipanggil lebih dari sekali tanpa mengubah lingkungannya, yang penting dalam
   kasus seperti memanggil sebuah *closure* berkali-kali secara konkuren.
 
-Mari kita lihat definisi metode `unwrap_or_else` pada `Option<T>` yang kita
+Mari kita lihat definisi method `unwrap_or_else` pada `Option<T>` yang kita
 pakai di Listing 13-1:
 
 ```rust,ignore
@@ -369,11 +369,11 @@ dan sefleksibel mungkin.
 > dari lingkungan, kita dapat memakai nama fungsi alih-alih *closure* di tempat
 > yang memerlukan sesuatu yang mengimplementasikan salah satu *trait* `Fn`.
 > Misalnya, pada nilai `Option<Vec<T>>`, kita dapat memanggil
-> `unwrap_or_else(Vec::new)` untuk mendapat vektor baru yang kosong jika
+> `unwrap_or_else(Vec::new)` untuk mendapat vector baru yang kosong jika
 > nilainya `None`. *Compiler* secara otomatis mengimplementasikan *trait* `Fn`
 > mana pun yang berlaku untuk sebuah definisi fungsi.
 
-Sekarang mari kita lihat metode pustaka standar `sort_by_key`, yang
+Sekarang mari kita lihat method pustaka standar `sort_by_key`, yang
 didefinisikan pada *slice*, untuk melihat perbedaannya dari `unwrap_or_else` dan
 alasan `sort_by_key` memakai `FnMut` alih-alih `FnOnce` untuk *trait bound*-nya.
 *Closure* itu menerima satu argumen berupa *reference* ke item saat ini di dalam
@@ -419,9 +419,9 @@ nilai keluar dari lingkungan. *Compiler* tidak akan mengizinkan kita memakai
 Ini adalah cara yang dibuat-buat dan berbelit (yang tidak bekerja) untuk
 mencoba menghitung berapa kali `sort_by_key` memanggil *closure* ketika
 mengurutkan `list`. Kode ini berusaha melakukan penghitungan itu dengan
-memasukkan `value`—sebuah `String` dari lingkungan *closure*—ke dalam vektor
+memasukkan `value`—sebuah `String` dari lingkungan *closure*—ke dalam vector
 `sort_operations`. *Closure* itu menangkap `value` lalu memindahkan `value`
-keluar dari *closure* dengan mentransfer *ownership* atas `value` ke vektor
+keluar dari *closure* dengan mentransfer *ownership* atas `value` ke vector
 `sort_operations`. *Closure* ini hanya dapat dipanggil sekali; mencoba
 memanggilnya untuk kedua kalinya tidak akan bekerja, karena `value` tidak lagi
 berada di lingkungan untuk dimasukkan ke dalam `sort_operations` lagi! Karena
@@ -453,7 +453,7 @@ lebih dari sekali.
 
 *Trait* `Fn` penting ketika mendefinisikan atau memakai fungsi atau type yang
 memanfaatkan *closure*. Di bagian berikutnya, kita akan membahas *iterator*.
-Banyak metode *iterator* menerima argumen *closure*, jadi ingat-ingat detail
+Banyak method *iterator* menerima argumen *closure*, jadi ingat-ingat detail
 *closure* ini selagi kita melanjutkan!
 
 [unwrap-or-else]: ../std/option/enum.Option.html#method.unwrap_or_else

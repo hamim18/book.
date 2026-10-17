@@ -10,11 +10,11 @@ sedikit berbeda. Kita juga akan membahas type `!` dan type berukuran dinamis.
 
 <a id="using-the-newtype-pattern-for-type-safety-and-abstraction"></a>
 
-### Keamanan Type dan Abstraksi dengan Pola Newtype
+### Keamanan Type dan Abstraksi dengan Pattern Newtype
 
 Seksi ini mengasumsikan Anda telah membaca seksi sebelumnya,
-[“Mengimplementasikan Trait Eksternal dengan Pola Newtype”][newtype]<!-- ignore -->.
-Pola newtype juga berguna untuk tugas-tugas di luar yang sudah kita bahas
+[“Mengimplementasikan Trait Eksternal dengan Pattern Newtype”][newtype]<!-- ignore -->.
+Pattern newtype juga berguna untuk tugas-tugas di luar yang sudah kita bahas
 sejauh ini, termasuk menegakkan secara statis bahwa nilai-nilai tidak pernah
 tertukar dan menunjukkan satuan dari sebuah nilai. Anda sudah melihat contoh
 pemakaian newtype untuk menunjukkan satuan di Listing 20-16: Ingat kembali
@@ -23,7 +23,7 @@ sebuah newtype. Jika kita menulis fungsi dengan parameter typed
 `Millimeters`, kita tidak akan bisa mengompilasi program yang tanpa sengaja
 mencoba memanggil fungsi itu dengan nilai typed `Meters` atau `u32` polos.
 
-Kita juga bisa memakai pola newtype untuk mengabstraksi beberapa detail
+Kita juga bisa memakai newtype pattern untuk mengabstraksi beberapa detail
 implementasi sebuah type: Type baru itu bisa mengekspos API publik yang
 berbeda dari API type privat di dalamnya.
 
@@ -31,9 +31,9 @@ Newtype juga bisa menyembunyikan implementasi internal. Misalnya, kita bisa
 menyediakan type `People` untuk membungkus `HashMap<i32, String>` yang
 menyimpan ID seseorang yang dikaitkan dengan namanya. Kode yang memakai
 `People` hanya akan berinteraksi dengan API publik yang kita sediakan,
-seperti metode untuk menambahkan string nama ke koleksi `People`; kode itu
+seperti method untuk menambahkan string nama ke collection `People`; kode itu
 tidak perlu tahu bahwa secara internal kita menetapkan ID `i32` untuk
-nama-nama itu. Pola newtype adalah cara yang ringan untuk mencapai enkapsulasi
+nama-nama itu. Pattern newtype adalah cara yang ringan untuk mencapai enkapsulasi
 guna menyembunyikan detail implementasi, yang kita bahas di seksi
 [“Enkapsulasi yang Menyembunyikan Detail
 Implementasi”][encapsulation-that-hides-implementation-details]<!-- ignore -->
@@ -67,7 +67,7 @@ diperlakukan sama dengan nilai typed `i32`:
 Karena `Kilometers` dan `i32` adalah type yang sama, kita bisa menjumlahkan
 nilai dari kedua type itu dan bisa memberikan nilai `Kilometers` ke fungsi
 yang menerima parameter `i32`. Akan tetapi, dengan memakai cara ini, kita
-tidak mendapatkan manfaat pemeriksaan type yang kita dapatkan dari pola
+tidak mendapatkan manfaat pemeriksaan type yang kita dapatkan dari pattern
 newtype yang dibahas sebelumnya. Dengan kata lain, jika kita
 mencampuradukkan nilai `Kilometers` dan `i32` di suatu tempat, kompilator
 tidak akan memberi kita error.
@@ -140,7 +140,7 @@ tampak seperti ini:
 Alias type membantu dalam dua hal: Ia membuat kode lebih mudah ditulis *dan*
 ia memberi kita antarmuka yang konsisten di seluruh `std::io`. Karena ia
 adalah alias, ia hanyalah `Result<T, E>` yang lain, yang berarti kita bisa
-memakai metode apa pun yang bekerja pada `Result<T, E>` dengannya, serta
+memakai method apa pun yang bekerja pada `Result<T, E>` dengannya, serta
 sintaks khusus seperti operator `?`.
 
 ### Type Never yang Tidak Pernah Mengembalikan

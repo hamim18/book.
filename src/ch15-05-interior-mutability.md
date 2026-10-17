@@ -1,21 +1,21 @@
-## `RefCell<T>` dan Pola Interior Mutability
+## `RefCell<T>` dan Pattern Interior Mutability
 
-_Interior mutability_ (mutabilitas internal) adalah pola desain di Rust yang
+_Interior mutability_ (mutabilitas internal) adalah pattern desain di Rust yang
 memungkinkan Anda mengubah data meskipun ada *immutable* *reference* ke data itu;
 biasanya, tindakan ini dilarang oleh aturan *borrowing*. Untuk mengubah data,
-pola ini memakai kode `unsafe` di dalam struktur data untuk melenturkan aturan
+pattern ini memakai kode `unsafe` di dalam struktur data untuk melenturkan aturan
 Rust yang biasa mengatur perubahan dan peminjaman. Kode *unsafe* memberi tahu
 kompilator bahwa kitalah yang memeriksa aturannya secara manual alih-alih
 mengandalkan kompilator untuk memeriksanya bagi kita; kita akan membahas kode
 *unsafe* lebih jauh di Bab 20.
 
-Kita dapat memakai type yang menggunakan pola *interior mutability* hanya ketika
+Kita dapat memakai type yang menggunakan pattern *interior mutability* hanya ketika
 kita dapat memastikan bahwa aturan *borrowing* akan diikuti pada runtime,
 meskipun kompilator tidak bisa menjaminnya. Kode `unsafe` yang terlibat
 kemudian dibungkus dalam API yang aman, dan type luarnya tetap *immutable*.
 
 Mari kita jelajahi konsep ini dengan melihat type `RefCell<T>` yang mengikuti
-pola *interior mutability*.
+pattern *interior mutability*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -79,7 +79,7 @@ Berikut rekap alasan memilih `Box<T>`, `Rc<T>`, atau `RefCell<T>`:
   runtime, Anda dapat mengubah nilai di dalam `RefCell<T>` bahkan ketika
   `RefCell<T>` itu *immutable*.
 
-Mengubah nilai di dalam nilai yang *immutable* adalah pola *interior mutability*.
+Mengubah nilai di dalam nilai yang *immutable* adalah pattern *interior mutability*.
 Mari kita lihat situasi ketika *interior mutability* berguna dan periksa
 bagaimana hal itu mungkin.
 
@@ -104,8 +104,8 @@ Jika Anda mencoba mengompilasi kode ini, Anda akan mendapat error berikut:
 ```
 
 Namun, ada situasi ketika akan berguna bagi sebuah nilai untuk mengubah
-dirinya sendiri di dalam metodenya tetapi tampak *immutable* bagi kode lain.
-Kode di luar metode nilai itu tidak akan bisa mengubah nilai itu. Memakai
+dirinya sendiri di dalam methodnya tetapi tampak *immutable* bagi kode lain.
+Kode di luar method nilai itu tidak akan bisa mengubah nilai itu. Memakai
 `RefCell<T>` adalah salah satu cara untuk memperoleh kemampuan memiliki
 *interior mutability*, tetapi `RefCell<T>` tidak sepenuhnya menghindari aturan
 *borrowing*: *Borrow checker* di kompilator mengizinkan *interior mutability* ini,
@@ -161,10 +161,10 @@ Listing 15-20 menunjukkan kode library itu.
 </Listing>
 
 Satu bagian penting dari kode ini adalah bahwa *trait* `Messenger` memiliki satu
-metode bernama `send` yang menerima *immutable* *reference* ke `self` dan teks
+method bernama `send` yang menerima *immutable* *reference* ke `self` dan teks
 pesannya. *Trait* ini adalah antarmuka yang perlu diimplementasikan *mock object*
 kita supaya mock itu dapat dipakai dengan cara yang sama seperti objek asli.
-Bagian penting lainnya adalah bahwa kita ingin menguji perilaku metode
+Bagian penting lainnya adalah bahwa kita ingin menguji perilaku method
 `set_value` pada `LimitTracker`. Kita dapat mengubah apa yang kita berikan
 untuk parameter `value`, tetapi `set_value` tidak mengembalikan apa pun untuk
 kita buat asersi. Kita ingin bisa menyatakan bahwa jika kita membuat
@@ -175,7 +175,7 @@ yang sesuai ketika kita memberikan angka yang berbeda untuk `value`.
 Kita membutuhkan *mock object* yang, alih-alih mengirim email atau pesan teks
 ketika kita memanggil `send`, hanya akan melacak pesan yang diperintahkan
 untuk dikirim. Kita dapat membuat instance baru dari *mock object*, membuat
-`LimitTracker` yang memakai *mock object* itu, memanggil metode `set_value` pada
+`LimitTracker` yang memakai *mock object* itu, memanggil method `set_value` pada
 `LimitTracker`, lalu memeriksa bahwa *mock object* itu memiliki pesan yang kita
 harapkan. Listing 15-21 menunjukkan upaya mengimplementasikan *mock object*
 untuk melakukan hal itu, tetapi *borrow checker* tidak mengizinkannya.
@@ -194,7 +194,7 @@ diperintahkan untuk dikirim. Kita juga mendefinisikan *associated function*
 `new` untuk memudahkan pembuatan nilai `MockMessenger` baru yang dimulai
 dengan daftar pesan kosong. Kita kemudian mengimplementasikan *trait*
 `Messenger` untuk `MockMessenger` supaya kita dapat memberikan
-`MockMessenger` kepada `LimitTracker`. Dalam definisi metode `send`, kita
+`MockMessenger` kepada `LimitTracker`. Dalam definisi method `send`, kita
 mengambil pesan yang diberikan sebagai parameter dan menyimpannya di daftar
 `sent_messages` milik `MockMessenger`.
 
@@ -203,7 +203,7 @@ diperintahkan untuk menetapkan `value` menjadi sesuatu yang lebih dari 75
 persen nilai `max`. Pertama, kita membuat `MockMessenger` baru, yang akan
 dimulai dengan daftar pesan kosong. Kemudian, kita membuat `LimitTracker` baru
 dan memberinya *reference* ke `MockMessenger` baru itu dan nilai `max` sebesar
-`100`. Kita memanggil metode `set_value` pada `LimitTracker` dengan nilai
+`100`. Kita memanggil method `set_value` pada `LimitTracker` dengan nilai
 `80`, yang lebih dari 75 persen dari 100. Lalu, kita menegaskan bahwa daftar
 pesan yang dilacak `MockMessenger` sekarang seharusnya memuat satu pesan.
 
@@ -214,14 +214,14 @@ Namun, ada satu masalah dengan test ini, seperti ditunjukkan di sini:
 ```
 
 Kita tidak bisa memodifikasi `MockMessenger` untuk melacak pesan-pesan itu,
-karena metode `send` menerima *immutable* *reference* ke `self`. Kita juga tidak
-bisa mengambil saran dari teks error itu untuk memakai `&mut self` di metode
+karena method `send` menerima *immutable* *reference* ke `self`. Kita juga tidak
+bisa mengambil saran dari teks error itu untuk memakai `&mut self` di method
 `impl` sekaligus definisi *trait*. Kita tidak ingin mengubah *trait* `Messenger`
 semata-mata demi pengujian. Sebagai gantinya, kita perlu mencari cara membuat
 kode test kita bekerja dengan benar dengan desain yang sudah ada.
 
 Ini adalah situasi ketika *interior mutability* dapat membantu! Kita akan
-menyimpan `sent_messages` di dalam `RefCell<T>`, dan kemudian metode `send`
+menyimpan `sent_messages` di dalam `RefCell<T>`, dan kemudian method `send`
 akan bisa memodifikasi `sent_messages` untuk menyimpan pesan yang telah kita
 lihat. Listing 15-22 menunjukkan seperti apa tampilannya.
 
@@ -235,18 +235,18 @@ lihat. Listing 15-22 menunjukkan seperti apa tampilannya.
 
 *Field* `sent_messages` sekarang typed `RefCell<Vec<String>>` alih-alih
 `Vec<String>`. Di fungsi `new`, kita membuat instance `RefCell<Vec<String>>`
-baru di sekeliling vektor kosong itu.
+baru di sekeliling vector kosong itu.
 
-Untuk implementasi metode `send`, parameter pertamanya tetap pinjaman
+Untuk implementasi method `send`, parameter pertamanya tetap pinjaman
 *immutable* atas `self`, yang cocok dengan definisi *trait*. Kita memanggil
 `borrow_mut` pada `RefCell<Vec<String>>` di `self.sent_messages` untuk
 mendapatkan *mutable* *reference* ke nilai di dalam `RefCell<Vec<String>>`, yaitu
-vektor itu. Kemudian, kita dapat memanggil `push` pada *mutable* *reference* ke
-vektor itu untuk melacak pesan yang dikirim selama test.
+vector itu. Kemudian, kita dapat memanggil `push` pada *mutable* *reference* ke
+vector itu untuk melacak pesan yang dikirim selama test.
 
 Perubahan terakhir yang harus kita buat ada di asersi: Untuk melihat berapa
-banyak item di dalam vektor bagian dalam, kita memanggil `borrow` pada
-`RefCell<Vec<String>>` untuk mendapatkan *immutable* *reference* ke vektor itu.
+banyak item di dalam vector bagian dalam, kita memanggil `borrow` pada
+`RefCell<Vec<String>>` untuk mendapatkan *immutable* *reference* ke vector itu.
 
 Sekarang setelah Anda melihat cara memakai `RefCell<T>`, mari kita selami cara
 kerjanya!
@@ -258,8 +258,8 @@ kerjanya!
 #### Melacak Borrows pada Runtime
 
 Ketika membuat *immutable* dan *mutable* *reference*, kita memakai sintaks `&` dan
-`&mut`. Dengan `RefCell<T>`, kita memakai metode `borrow` dan `borrow_mut`,
-yang merupakan bagian dari API aman milik `RefCell<T>`. Metode `borrow`
+`&mut`. Dengan `RefCell<T>`, kita memakai method `borrow` dan `borrow_mut`,
+yang merupakan bagian dari API aman milik `RefCell<T>`. Method `borrow`
 mengembalikan type *smart pointer* `Ref<T>`, dan `borrow_mut` mengembalikan
 type *smart pointer* `RefMut<T>`. Kedua type mengimplementasikan `Deref`, jadi
 kita dapat memperlakukannya seperti *reference* biasa.
@@ -357,7 +357,7 @@ Setelah membuat list di `a`, `b`, dan `c`, kita ingin menambahkan 10 ke nilai
 di dalam `value`. Kita melakukan ini dengan memanggil `borrow_mut` pada
 `value`, yang memakai fitur dereferensi otomatis yang kita bahas di [“Di Mana
 Operator `->`?”][wheres-the---operator]<!-- ignore --> di Bab 5 untuk
-melakukan dereferensi `Rc<T>` ke nilai `RefCell<T>` bagian dalam. Metode
+melakukan dereferensi `Rc<T>` ke nilai `RefCell<T>` bagian dalam. Method
 `borrow_mut` mengembalikan *smart pointer* `RefMut<T>`, dan kita memakai
 operator dereferensi padanya dan mengubah nilai bagian dalam.
 
@@ -369,7 +369,7 @@ memiliki nilai yang telah dimodifikasi, `15`, alih-alih `5`:
 ```
 
 Teknik ini cukup rapi! Dengan memakai `RefCell<T>`, kita memiliki nilai `List`
-yang tampak dari luar *immutable*. Tetapi kita dapat memakai metode-metode pada
+yang tampak dari luar *immutable*. Tetapi kita dapat memakai method-method pada
 `RefCell<T>` yang menyediakan akses ke *interior mutability*-nya sehingga kita
 dapat memodifikasi data kita ketika kita perlu. Pemeriksaan aturan *borrowing*
 pada runtime melindungi kita dari data race, dan terkadang layak menukar

@@ -129,14 +129,14 @@ setelah itu, Anda dapat kembali ke Bab 2 saat ingin mengerjakan sebuah proyek
 dengan menerapkan detail-detail yang telah Anda pelajari.
 
 Di **Bab 4**, Anda akan mempelajari sistem *ownership* (kepemilikan) Rust.
-**Bab 5** membahas *struct* dan metode. **Bab 6** membahas *enum*, expression
+**Bab 5** membahas *struct* dan method. **Bab 6** membahas *enum*, expression
 `match`, serta konstruksi control flow `if let` dan `let...else`. Anda akan
 menggunakan *struct* dan *enum* untuk membuat type khusus.
 
 Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta
 aturan privasi untuk mengorganisasi kode Anda dan antarmuka pemrograman
-aplikasi (API) publiknya. **Bab 8** membahas beberapa struktur data koleksi
-umum yang disediakan pustaka standar: vektor, string, dan hash map. **Bab 9**
+aplikasi (API) publiknya. **Bab 8** membahas beberapa struktur data collection
+umum yang disediakan pustaka standar: vector, string, dan hash map. **Bab 9**
 menjelajahi filosofi dan teknik penanganan error Rust.
 
 **Bab 10** menggali *generics* (tipe generik), *trait*, dan *lifetime* (masa
@@ -162,8 +162,8 @@ konkurensi ringan yang dimungkinkan oleh ketiganya.
 
 **Bab 18** membahas bagaimana idiom-idiom Rust dibandingkan dengan
 prinsip-prinsip pemrograman berorientasi objek yang mungkin sudah Anda kenal.
-**Bab 19** adalah referensi tentang pola dan *pattern matching* (pencocokan
-pola), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
+**Bab 19** adalah referensi tentang pattern dan *pattern matching* (pencocokan
+pattern), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
 program Rust. **Bab 20** memuat aneka ragam topik lanjutan yang menarik,
 termasuk *unsafe* Rust, *macro* (makro), serta pembahasan lebih lanjut
 tentang *lifetime*, *trait*, type, fungsi, dan *closure*.

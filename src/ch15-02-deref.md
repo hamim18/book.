@@ -148,9 +148,9 @@ dereferensi dengan operator `*`, kita mengimplementasikan *trait* `Deref`.
 
 Seperti yang dibahas di [“Mengimplementasikan *Trait* pada Suatu
 Type”][impl-trait]<!-- ignore --> di Bab 10, untuk mengimplementasikan sebuah
-*trait* kita perlu menyediakan implementasi untuk metode-metode yang diwajibkan
+*trait* kita perlu menyediakan implementasi untuk method-method yang diwajibkan
 *trait* itu. *Trait* `Deref`, yang disediakan pustaka standar, mewajibkan kita
-mengimplementasikan satu metode bernama `deref` yang meminjam `self` dan
+mengimplementasikan satu method bernama `deref` yang meminjam `self` dan
 mengembalikan *reference* ke data bagian dalam. Listing 15-10 memuat
 implementasi `Deref` untuk ditambahkan ke definisi `MyBox<T>`.
 
@@ -167,7 +167,7 @@ untuk dipakai oleh *trait* `Deref`. *Associated type* adalah cara yang sedikit
 berbeda dalam mendeklarasikan parameter generik, tetapi Anda tidak perlu
 mengkhawatirkannya untuk sekarang; kita akan membahasnya lebih jauh di Bab 20.
 
-Kita mengisi badan metode `deref` dengan `&self.0` sehingga `deref`
+Kita mengisi badan method `deref` dengan `&self.0` sehingga `deref`
 mengembalikan *reference* ke nilai yang ingin kita akses dengan operator `*`;
 ingat kembali dari [“Membuat Type Berbeda dengan Tuple Struct”][tuple-structs]<!--
 ignore --> di Bab 5 bahwa `.0` mengakses nilai pertama dalam *tuple struct*.
@@ -175,8 +175,8 @@ Fungsi `main` di Listing 15-9 yang memanggil `*` pada nilai `MyBox<T>` sekarang
 terkompilasi, dan asersinya lulus!
 
 Tanpa *trait* `Deref`, kompilator hanya bisa melakukan dereferensi pada
-*reference* `&`. Metode `deref` memberi kompilator kemampuan untuk mengambil
-nilai typed apa pun yang mengimplementasikan `Deref` dan memanggil metode
+*reference* `&`. Method `deref` memberi kompilator kemampuan untuk mengambil
+nilai typed apa pun yang mengimplementasikan `Deref` dan memanggil method
 `deref` untuk mendapatkan *reference* yang ia tahu cara melakukan dereferensi
 padanya.
 
@@ -187,21 +187,21 @@ menjalankan kode ini:
 *(y.deref())
 ```
 
-Rust menggantikan operator `*` dengan panggilan ke metode `deref` lalu sebuah
+Rust menggantikan operator `*` dengan panggilan ke method `deref` lalu sebuah
 dereferensi biasa sehingga kita tidak perlu memikirkan apakah kita perlu
-memanggil metode `deref` atau tidak. Fitur Rust ini memungkinkan kita menulis
+memanggil method `deref` atau tidak. Fitur Rust ini memungkinkan kita menulis
 kode yang berfungsi identik entah kita memiliki *reference* biasa ataupun type
 yang mengimplementasikan `Deref`.
 
-Alasan metode `deref` mengembalikan *reference* ke nilai, dan dereferensi biasa
+Alasan method `deref` mengembalikan *reference* ke nilai, dan dereferensi biasa
 di luar tanda kurung pada `*(y.deref())` tetap diperlukan, berkaitan dengan
-sistem *ownership*. Jika metode `deref` mengembalikan nilainya langsung
+sistem *ownership*. Jika method `deref` mengembalikan nilainya langsung
 alih-alih *reference* ke nilai itu, nilai itu akan dipindahkan keluar dari
 `self`. Kita tidak ingin mengambil *ownership* nilai bagian dalam `MyBox<T>`
 dalam kasus ini maupun di sebagian besar kasus ketika kita memakai operator
 dereferensi.
 
-Perhatikan bahwa operator `*` digantikan dengan panggilan ke metode `deref`
+Perhatikan bahwa operator `*` digantikan dengan panggilan ke method `deref`
 lalu panggilan ke operator `*` tepat satu kali, setiap kali kita memakai `*`
 di kode kita. Karena substitusi operator `*` itu tidak berulang tanpa batas,
 kita berakhir dengan data typed `i32`, yang cocok dengan `5` di `assert_eq!`
@@ -212,22 +212,22 @@ pada Listing 15-9.
 <a id="implicit-deref-coercions-with-functions-and-methods"></a>
 <a id="using-deref-coercions-in-functions-and-methods"></a>
 
-### Menggunakan Deref Coercions di dalam Fungsi dan Metode
+### Menggunakan Deref Coercions di dalam Fungsi dan Method
 
 _Deref coercion_ mengubah sebuah *reference* ke type yang mengimplementasikan
 *trait* `Deref` menjadi *reference* ke type lain. Sebagai contoh, *deref coercion*
 dapat mengubah `&String` menjadi `&str` karena `String` mengimplementasikan
 *trait* `Deref` sedemikian rupa sehingga ia mengembalikan `&str`. *Deref coercion*
-adalah kemudahan yang dilakukan Rust pada argumen fungsi dan metode, dan ia
+adalah kemudahan yang dilakukan Rust pada argumen fungsi dan method, dan ia
 hanya bekerja pada type yang mengimplementasikan *trait* `Deref`. *Deref coercion*
 terjadi secara otomatis ketika kita memberikan *reference* ke nilai typed
-tertentu sebagai argumen ke fungsi atau metode yang tidak cocok dengan type
-parameter dalam definisi fungsi atau metode itu. Serangkaian panggilan ke
-metode `deref` mengubah type yang kita berikan menjadi type yang dibutuhkan
+tertentu sebagai argumen ke fungsi atau method yang tidak cocok dengan type
+parameter dalam definisi fungsi atau method itu. Serangkaian panggilan ke
+method `deref` mengubah type yang kita berikan menjadi type yang dibutuhkan
 parameter.
 
 *Deref coercion* ditambahkan ke Rust supaya pemrogram yang menulis panggilan
-fungsi dan metode tidak perlu menambahkan sebanyak itu *reference* dan
+fungsi dan method tidak perlu menambahkan sebanyak itu *reference* dan
 dereferensi eksplisit dengan `&` dan `*`. Fitur *deref coercion* juga
 memungkinkan kita menulis lebih banyak kode yang dapat bekerja untuk *reference*
 ataupun *smart pointer*.

@@ -184,7 +184,7 @@ let s = String::from("hello");
 Operator titik dua ganda `::` memungkinkan kita menaruh fungsi `from` khusus
 ini ke dalam *namespace* (ruang nama) dari type `String`, alih-alih
 menggunakan semacam nama seperti `string_from`. Kita akan membahas sintaks
-ini lebih lanjut di bagian [“Metode”][methods]<!-- ignore --> pada Bab 5,
+ini lebih lanjut di bagian [“Method”][methods]<!-- ignore --> pada Bab 5,
 serta ketika kita membicarakan ruang nama dengan *module* (modul) di bagian
 [“*Path* untuk Merujuk Item di dalam Pohon
 Modul”][*paths*-module-tree]<!-- ignore --> pada Bab 7.
@@ -248,12 +248,12 @@ khusus untuk kita. Fungsi ini bernama `drop`, dan di sinilah penulis `String`
 dapat meletakkan kode untuk mengembalikan memorinya. Rust memanggil `drop`
 secara otomatis pada kurung kurawal penutup.
 
-> Catatan: Di C++, pola pembebasan sumber daya pada akhir *lifetime* (masa
+> Catatan: Di C++, pattern pembebasan sumber daya pada akhir *lifetime* (masa
 > hidup) suatu item ini kadang disebut *Resource Acquisition Is
 > Initialization* (RAII). Fungsi `drop` di Rust akan terasa familier bagi Anda
-> jika pernah menggunakan pola RAII.
+> jika pernah menggunakan pattern RAII.
 
-Pola ini berdampak besar pada cara penulisan kode Rust. Saat ini pola ini
+Pattern ini berdampak besar pada cara penulisan kode Rust. Saat ini pattern ini
 mungkin tampak sederhana, tetapi perilaku kode bisa jadi tidak terduga dalam
 situasi yang lebih rumit, yaitu ketika kita ingin beberapa variable
 menggunakan data yang telah kita alokasikan di *heap*. Mari kita telusuri
@@ -432,12 +432,12 @@ dibebaskan. Ketika kita mencetak nilainya di akhir, hasilnya adalah
 #### Variable dan Data yang Berinteraksi dengan Clone
 
 Jika kita _memang_ ingin menyalin secara mendalam data *heap* dari `String`,
-bukan hanya data *stack*-nya, kita dapat menggunakan sebuah metode yang umum
-dipakai bernama `clone`. Kita akan membahas sintaks metode di Bab 5, tetapi
-karena metode adalah fitur yang umum di banyak bahasa pemrograman, Anda
+bukan hanya data *stack*-nya, kita dapat menggunakan sebuah method yang umum
+dipakai bernama `clone`. Kita akan membahas sintaks method di Bab 5, tetapi
+karena method adalah fitur yang umum di banyak bahasa pemrograman, Anda
 mungkin sudah pernah melihatnya.
 
-Berikut contoh metode `clone` yang sedang digunakan:
+Berikut contoh method `clone` yang sedang digunakan:
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-05-clone/src/main.rs:here}}
@@ -540,7 +540,7 @@ serupa seperti pada Listing 4-3.
 
 </Listing>
 
-Kepemilikan sebuah variable mengikuti pola yang sama setiap kali: menetapkan
+Kepemilikan sebuah variable mengikuti pattern yang sama setiap kali: menetapkan
 sebuah nilai ke variable lain akan memindahkannya. Ketika sebuah variable
 yang memuat data di *heap* keluar dari *scope*, nilainya akan dibersihkan
 oleh `drop` kecuali kepemilikan datanya telah dipindahkan ke variable lain.

@@ -69,10 +69,10 @@ untuk mencari tahu bagian kode kita yang menyebabkan masalah. Untuk memahami
 cara memakai backtrace `panic!`, mari kita lihat contoh lain dan seperti apa
 rasanya ketika pemanggilan `panic!` datang dari sebuah library karena bug di
 kode kita, alih-alih dari kode kita yang memanggil *macro* itu secara
-langsung. Listing 9-1 memiliki kode yang mencoba mengakses indeks di vektor
+langsung. Listing 9-1 memiliki kode yang mencoba mengakses indeks di vector
 di luar jangkauan indeks yang valid.
 
-<Listing number="9-1" file-name="src/main.rs" caption="Mencoba mengakses elemen melewati ujung vektor, yang akan menyebabkan pemanggilan `panic!`">
+<Listing number="9-1" file-name="src/main.rs" caption="Mencoba mengakses elemen melewati ujung vector, yang akan menyebabkan pemanggilan `panic!`">
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-01/src/main.rs}}
@@ -80,8 +80,8 @@ di luar jangkauan indeks yang valid.
 
 </Listing>
 
-Di sini, kita mencoba mengakses elemen ke-100 dari vektor kita (yang berada
-pada indeks 99 karena pengindeksan dimulai dari nol), tetapi vektornya hanya
+Di sini, kita mencoba mengakses elemen ke-100 dari vector kita (yang berada
+pada indeks 99 karena pengindeksan dimulai dari nol), tetapi vectornya hanya
 memiliki tiga elemen. Dalam situasi ini, Rust akan panic. Memakai `[]`
 seharusnya mengembalikan sebuah elemen, tetapi jika Anda memberikan indeks
 yang tidak valid, tidak ada elemen yang dapat dikembalikan Rust di sini yang
@@ -104,7 +104,7 @@ dan menolak melanjutkan. Mari kita mencobanya dan melihat hasilnya:
 ```
 
 Error ini menunjuk ke baris 4 dari _main.rs_ kita tempat kita mencoba
-mengakses indeks 99 dari vektor di `v`.
+mengakses indeks 99 dari vector di `v`.
 
 Baris `note:` memberi tahu kita bahwa kita dapat menetapkan variable
 lingkungan `RUST_BACKTRACE` untuk mendapatkan backtrace tentang apa yang
@@ -167,7 +167,7 @@ tidak ingin program kita panic, kita harus memulai penyelidikan kita di
 lokasi yang ditunjuk oleh baris pertama yang menyebut file yang kita tulis.
 Di Listing 9-1, tempat kita sengaja menulis kode yang akan panic, cara
 memperbaiki panic-nya adalah dengan tidak meminta elemen di luar jangkauan
-indeks vektor. Ketika kode Anda panic di masa depan, Anda perlu mencari tahu
+indeks vector. Ketika kode Anda panic di masa depan, Anda perlu mencari tahu
 tindakan apa yang diambil kode dengan nilai apa sehingga menyebabkan panic
 dan apa yang seharusnya dilakukan kode sebagai gantinya.
 

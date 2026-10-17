@@ -13,7 +13,7 @@ itu tidak akan pernah mencapai 0, dan nilainya tidak akan pernah dibebaskan.
 ### Membuat Reference Cycle
 
 Mari kita lihat bagaimana *reference cycle* bisa terjadi dan bagaimana
-mencegahnya, dimulai dengan definisi *enum* `List` dan metode `tail` di Listing
+mencegahnya, dimulai dengan definisi *enum* `List` dan method `tail` di Listing
 15-25.
 
 <Listing number="15-25" file-name="src/main.rs" caption="Definisi cons list yang menampung `RefCell<T>` supaya kita dapat memodifikasi apa yang dirujuk variant `Cons`">
@@ -28,7 +28,7 @@ Kita memakai variasi lain dari definisi `List` di Listing 15-5. Elemen kedua
 di variant `Cons` sekarang adalah `RefCell<Rc<List>>`, artinya alih-alih
 memiliki kemampuan memodifikasi nilai `i32` seperti yang kita lakukan di
 Listing 15-24, kita ingin memodifikasi nilai `List` yang ditunjuk variant
-`Cons`. Kita juga menambahkan metode `tail` untuk memudahkan kita mengakses
+`Cons`. Kita juga menambahkan method `tail` untuk memudahkan kita mengakses
 item kedua jika kita memiliki variant `Cons`.
 
 Di Listing 15-26, kita menambahkan fungsi `main` yang memakai definisi di
@@ -51,9 +51,9 @@ menampung nilai `List` lain di variable `b` yang memuat nilai `10` dan
 menunjuk ke list di `a`.
 
 Kita memodifikasi `a` supaya menunjuk ke `b` alih-alih `Nil`, menciptakan
-sebuah siklus. Kita melakukannya dengan memakai metode `tail` untuk
+sebuah siklus. Kita melakukannya dengan memakai method `tail` untuk
 mendapatkan *reference* ke `RefCell<Rc<List>>` di `a`, yang kita letakkan di
-variable `link`. Kemudian, kita memakai metode `borrow_mut` pada
+variable `link`. Kemudian, kita memakai method `borrow_mut` pada
 `RefCell<Rc<List>>` untuk mengubah nilai di dalamnya dari `Rc<List>` yang
 menampung nilai `Nil` menjadi `Rc<List>` di `b`.
 
@@ -138,7 +138,7 @@ menjadi 0 agar instance `Rc<T>` dibersihkan.
 
 Karena nilai yang dirujuk `Weak<T>` mungkin telah dibebaskan, untuk melakukan
 apa pun dengan nilai yang ditunjuk `Weak<T>` Anda harus memastikan nilai itu
-masih ada. Lakukan ini dengan memanggil metode `upgrade` pada instance
+masih ada. Lakukan ini dengan memanggil method `upgrade` pada instance
 `Weak<T>`, yang akan mengembalikan `Option<Rc<T>>`. Anda akan mendapat hasil
 `Some` jika nilai `Rc<T>` belum dibebaskan dan hasil `None` jika nilai
 `Rc<T>` telah dibebaskan. Karena `upgrade` mengembalikan `Option<Rc<T>>`,
@@ -235,7 +235,7 @@ Membuat *node* `leaf` tampak serupa dengan Listing 15-27 kecuali *field*
 *reference* `Weak<Node>` baru yang kosong.
 
 Pada titik ini, ketika kita mencoba mendapatkan *reference* ke parent `leaf`
-dengan memakai metode `upgrade`, kita mendapat nilai `None`. Kita melihat ini
+dengan memakai method `upgrade`, kita mendapat nilai `None`. Kita melihat ini
 di output dari statement `println!` pertama:
 
 ```text
@@ -247,7 +247,7 @@ Ketika kita membuat *node* `branch`, ia juga akan memiliki *reference*
 parent. Kita tetap memiliki `leaf` sebagai salah satu child dari `branch`.
 Begitu kita memiliki instance `Node` di `branch`, kita dapat memodifikasi
 `leaf` untuk memberinya *reference* `Weak<Node>` ke parent-nya. Kita memakai
-metode `borrow_mut` pada `RefCell<Weak<Node>>` di *field* `parent` milik
+method `borrow_mut` pada `RefCell<Weak<Node>>` di *field* `parent` milik
 `leaf`, lalu kita memakai fungsi `Rc::downgrade` untuk membuat *reference*
 `Weak<Node>` ke `branch` dari `Rc<Node>` di `branch`.
 

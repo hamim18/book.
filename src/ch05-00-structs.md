@@ -10,7 +10,7 @@ baik untuk mengelompokkan data.
 
 Kita akan menunjukkan cara mendefinisikan dan menginstansiasi *struct*. Kita
 akan membahas cara mendefinisikan *associated function* (fungsi asosiasi),
-khususnya jenis *associated function* yang disebut metode, untuk menentukan
+khususnya jenis *associated function* yang disebut method, untuk menentukan
 perilaku yang terkait dengan sebuah type *struct*. *Struct* dan *enum* (dibahas di
 Bab 6) adalah blok penyusun untuk membuat type baru di dalam domain program
 Anda guna memanfaatkan sepenuhnya pemeriksaan type pada waktu kompilasi milik

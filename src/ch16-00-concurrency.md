@@ -10,7 +10,7 @@ mereka miliki. Secara historis, pemrograman dalam konteks ini sulit dan rawan
 error. Rust berharap mengubah hal itu.
 
 Awalnya, tim Rust mengira bahwa menjamin keamanan memori dan mencegah masalah
-konkurensi adalah dua tantangan terpisah yang harus diselesaikan dengan metode
+konkurensi adalah dua tantangan terpisah yang harus diselesaikan dengan method
 yang berbeda. Seiring waktu, tim itu menemukan bahwa sistem *ownership* dan type
 adalah seperangkat alat yang ampuh untuk membantu mengelola keamanan memori
 _dan_ masalah konkurensi! Dengan memanfaatkan *ownership* dan pemeriksaan type,

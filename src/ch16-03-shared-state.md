@@ -1,7 +1,7 @@
 ## Konkurensi Shared-State
 
 *Message passing* adalah cara yang baik untuk menangani konkurensi, tetapi itu
-bukan satu-satunya cara. Metode lain adalah membiarkan beberapa thread
+bukan satu-satunya cara. Method lain adalah membiarkan beberapa thread
 mengakses data bersama yang sama. Perhatikan kembali bagian slogan dari
 dokumentasi bahasa Go ini: “Do not communicate by sharing memory.”
 
@@ -68,7 +68,7 @@ konteks single-threaded, seperti ditunjukkan pada Listing 16-12.
 </Listing>
 
 Seperti banyak type lain, kita membuat `Mutex<T>` menggunakan associated
-function `new`. Untuk mengakses data di dalam mutex, kita memakai metode
+function `new`. Untuk mengakses data di dalam mutex, kita memakai method
 `lock` untuk memperoleh lock. Panggilan ini akan memblokir thread saat ini
 sehingga ia tidak bisa melakukan pekerjaan apa pun sampai giliran kita
 memiliki lock.
@@ -124,7 +124,7 @@ seperti yang kita lakukan di Listing 16-12. Selanjutnya, kita membuat 10
 thread dengan mengiterasi range angka. Kita memakai `thread::spawn` dan
 memberikan *closure* yang sama kepada semua thread: *closure* yang memindahkan
 counter ke dalam thread, memperoleh lock pada `Mutex<T>` dengan memanggil
-metode `lock`, lalu menambahkan 1 ke nilai di dalam mutex. Ketika sebuah
+method `lock`, lalu menambahkan 1 ke nilai di dalam mutex. Ketika sebuah
 thread selesai menjalankan *closure*-nya, `num` akan keluar dari *scope* dan
 melepas lock sehingga thread lain dapat memperolehnya.
 
@@ -143,7 +143,7 @@ mari kita cari tahu alasannya!
 Pesan error itu menyatakan bahwa nilai `counter` telah dipindahkan pada
 iterasi loop sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
 memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
-error kompilator itu dengan metode *ownership* ganda yang kita bahas di Bab 15.
+error kompilator itu dengan method *ownership* ganda yang kita bahas di Bab 15.
 
 #### Kepemilikan Ganda dengan Banyak Thread
 

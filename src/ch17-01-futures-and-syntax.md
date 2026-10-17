@@ -100,12 +100,12 @@ Pertama, kita mendefinisikan sebuah fungsi bernama `page_title` dan menandainya
 dengan kata kunci `async`. Kemudian kita memakai fungsi `trpl::get` untuk
 mengambil URL apa pun yang diteruskan, lalu menambahkan kata kunci `await`
 untuk menunggu responsnya. Untuk mendapatkan teks dari `response`, kita
-memanggil metode `text`-nya dan sekali lagi menunggunya dengan kata kunci
+memanggil method `text`-nya dan sekali lagi menunggunya dengan kata kunci
 `await`. Kedua langkah ini asinkron. Untuk fungsi `get`, kita harus menunggu
 server mengirim balik bagian pertama dari responsnya, yang akan mencakup
 header HTTP, cookie, dan seterusnya, dan bisa dikirim terpisah dari badan
 respons. Apalagi jika badannya sangat besar, semuanya bisa butuh waktu untuk
-tiba. Karena kita harus menunggu _keseluruhan_ respons tiba, metode `text` juga
+tiba. Karena kita harus menunggu _keseluruhan_ respons tiba, method `text` juga
 bersifat async.
 
 Kita harus menunggu kedua *future* ini secara eksplisit, karena *future* di Rust
@@ -114,8 +114,8 @@ kata kunci `await`. (Bahkan, Rust akan menampilkan peringatan kompilator jika
 Anda tidak memakai sebuah *future*.) Ini mungkin mengingatkan Anda pada
 pembahasan *iterator* di bagian [“Memproses Serangkaian Item dengan
 *Iterator*”][*iterators*-lazy]<!-- ignore --> di Bab 13. *Iterator* tidak melakukan
-apa pun kecuali Anda memanggil metode `next`-nya—baik secara langsung maupun
-dengan memakai loop `for` atau metode seperti `map` yang memakai `next`
+apa pun kecuali Anda memanggil method `next`-nya—baik secara langsung maupun
+dengan memakai loop `for` atau method seperti `map` yang memakai `next`
 di balik layar. Begitu pula, *future* tidak melakukan apa pun kecuali Anda
 memintanya secara eksplisit. Sifat malas ini memungkinkan Rust menghindari
 menjalankan kode async sampai kode itu benar-benar dibutuhkan.
@@ -131,11 +131,11 @@ Setelah kita mendapatkan `response_text`, kita bisa melakukan parsing pada
 teks itu menjadi sebuah instance typed `Html` dengan memakai `Html::parse`.
 Alih-alih string mentah, sekarang kita punya data type yang bisa kita pakai
 untuk mengolah HTML sebagai struktur data yang lebih kaya. Khususnya, kita
-bisa memakai metode `select_first` untuk menemukan instance pertama dari
+bisa memakai method `select_first` untuk menemukan instance pertama dari
 sebuah selector CSS tertentu. Dengan meneruskan string `"title"`, kita akan
 mendapatkan elemen `<title>` pertama di dalam dokumen, jika ada. Karena
 mungkin saja tidak ada elemen yang cocok, `select_first` mengembalikan sebuah
-`Option<ElementRef>`. Terakhir, kita memakai metode `Option::map`, yang
+`Option<ElementRef>`. Terakhir, kita memakai method `Option::map`, yang
 memungkinkan kita mengolah item di dalam `Option` jika item itu ada, dan tidak
 melakukan apa pun jika tidak ada. (Di sini kita juga bisa memakai expression
 `match`, tetapi `map` lebih idiomatis.) Di dalam badan fungsi yang kita
@@ -146,7 +146,7 @@ mendapatkan isinya, yang berupa `String`. Pada akhirnya, kita memiliki sebuah
 Perhatikan bahwa kata kunci `await` dari Rust berada _setelah_ expression yang
 Anda tunggu, bukan sebelumnya. Artinya, kata kunci ini bersifat _postfix_. Ini
 mungkin berbeda dari yang biasa Anda lihat jika Anda pernah memakai `async` di
-bahasa lain, tetapi di Rust ini membuat rantai metode jauh lebih nyaman
+bahasa lain, tetapi di Rust ini membuat rantai method jauh lebih nyaman
 dipakai. Hasilnya, kita bisa mengubah badan `page_title` untuk merantaikan
 pemanggilan fungsi `trpl::get` dan `text` dengan `await` di antaranya, seperti
 yang ditunjukkan di Listing 17-2.
@@ -227,7 +227,7 @@ ditunjukkan di Listing 17-3. Sayangnya, kode ini belum terkompilasi.
 
 </Listing>
 
-Kita mengikuti pola yang sama dengan yang kita pakai untuk mendapatkan
+Kita mengikuti pattern yang sama dengan yang kita pakai untuk mendapatkan
 argumen baris perintah di bagian [“Menerima Argumen Baris
 Perintah”][cli-args]<!-- ignore --> di Bab 12. Kemudian kita meneruskan argumen
 URL itu ke `page_title` dan menunggu hasilnya. Karena nilai yang dihasilkan

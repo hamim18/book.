@@ -1,6 +1,6 @@
 ## Menyimpan Kunci dengan Nilai yang Terkait di dalam Hash Map
 
-Yang terakhir dari koleksi umum kita adalah hash map. Type `HashMap<K, V>`
+Yang terakhir dari collection umum kita adalah hash map. Type `HashMap<K, V>`
 menyimpan pemetaan dari kunci typed `K` ke nilai typed `V` memakai
 *hashing function* (fungsi hashing), yang menentukan cara ia menempatkan
 kunci dan nilai tersebut ke dalam memori. Banyak bahasa pemrograman
@@ -9,7 +9,7 @@ berbeda, seperti *hash*, *map*, *object*, *hash table*, *dictionary*, atau
 *associative array*, untuk menyebut beberapa saja.
 
 Hash map berguna ketika Anda ingin mencari data bukan dengan memakai indeks,
-seperti yang dapat Anda lakukan dengan vektor, melainkan dengan memakai
+seperti yang dapat Anda lakukan dengan vector, melainkan dengan memakai
 kunci yang dapat typed apa pun. Misalnya, dalam sebuah permainan, Anda
 dapat melacak skor setiap tim di dalam hash map yang setiap kuncinya adalah
 nama tim dan nilainya adalah skor setiap tim. Dengan diberi nama tim, Anda
@@ -36,14 +36,14 @@ memulai dengan 50.
 </Listing>
 
 Perhatikan bahwa kita perlu terlebih dahulu `use` `HashMap` dari bagian
-collections pustaka standar. Dari tiga koleksi umum kita, yang satu ini
+collections pustaka standar. Dari tiga collection umum kita, yang satu ini
 paling jarang dipakai, jadi ia tidak termasuk dalam fitur-fitur yang dibawa
 ke dalam *scope* secara otomatis di *prelude*. Hash map juga mendapat dukungan
 lebih sedikit dari pustaka standar; tidak ada *macro* bawaan untuk
 mengonstruksinya, misalnya.
 
-Sama seperti vektor, hash map menyimpan datanya di *heap*. `HashMap` ini
-memiliki kunci typed `String` dan nilai typed `i32`. Seperti vektor,
+Sama seperti vector, hash map menyimpan datanya di *heap*. `HashMap` ini
+memiliki kunci typed `String` dan nilai typed `i32`. Seperti vector,
 hash map bersifat homogen: semua kunci harus typed sama, dan semua nilai
 harus typed sama.
 
@@ -51,7 +51,7 @@ harus typed sama.
 ### Mengakses Nilai di dalam Hash Map
 
 Kita dapat mengeluarkan sebuah nilai dari hash map dengan memberikan
-kuncinya ke metode `get`, seperti yang ditunjukkan di Listing 8-21.
+kuncinya ke method `get`, seperti yang ditunjukkan di Listing 8-21.
 
 <Listing number="8-21" caption="Mengakses skor untuk tim Blue yang tersimpan di hash map">
 
@@ -62,14 +62,14 @@ kuncinya ke metode `get`, seperti yang ditunjukkan di Listing 8-21.
 </Listing>
 
 Di sini, `score` akan memiliki nilai yang terasosiasi dengan tim Blue, dan
-hasilnya adalah `10`. Metode `get` mengembalikan `Option<&V>`; jika tidak
+hasilnya adalah `10`. Method `get` mengembalikan `Option<&V>`; jika tidak
 ada nilai untuk kunci itu di hash map, `get` akan mengembalikan `None`.
 Program ini menangani `Option` dengan memanggil `copied` untuk mendapatkan
 `Option<i32>` alih-alih `Option<&i32>`, lalu `unwrap_or` untuk menetapkan
 `score` menjadi nol jika `scores` tidak memiliki entri untuk kunci itu.
 
 Kita dapat mengiterasi setiap pasangan kunci-nilai di hash map dengan cara
-yang mirip seperti yang kita lakukan dengan vektor, memakai loop
+yang mirip seperti yang kita lakukan dengan vector, memakai loop
 `for`:
 
 ```rust
@@ -156,14 +156,14 @@ memang ada di hash map, nilai yang ada harus tetap seperti apa adanya; jika
 kunci itu tidak ada, masukkan kunci itu dan sebuah nilai untuknya.
 
 Hash map memiliki API khusus untuk ini yang disebut `entry` yang menerima
-kunci yang ingin Anda periksa sebagai parameter. Nilai kembalian metode
+kunci yang ingin Anda periksa sebagai parameter. Nilai kembalian method
 `entry` adalah *enum* bernama `Entry` yang merepresentasikan nilai yang
 mungkin ada atau tidak ada. Katakanlah kita ingin memeriksa apakah kunci
 untuk tim Yellow memiliki nilai yang terasosiasi dengannya. Jika tidak, kita
 ingin memasukkan nilai `50`, dan begitu pula untuk tim Blue. Memakai API
 `entry`, kodenya terlihat seperti Listing 8-24.
 
-<Listing number="8-24" caption="Memakai metode `entry` untuk hanya memasukkan jika kuncinya belum memiliki nilai">
+<Listing number="8-24" caption="Memakai method `entry` untuk hanya memasukkan jika kuncinya belum memiliki nilai">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-24/src/main.rs:here}}
@@ -171,7 +171,7 @@ ingin memasukkan nilai `50`, dan begitu pula untuk tim Blue. Memakai API
 
 </Listing>
 
-Metode `or_insert` pada `Entry` didefinisikan untuk mengembalikan *reference*
+Method `or_insert` pada `Entry` didefinisikan untuk mengembalikan *reference*
 *mutable* ke nilai untuk kunci `Entry` yang bersangkutan jika kunci itu ada,
 dan jika tidak, ia memasukkan parameter sebagai nilai baru untuk kunci ini
 dan mengembalikan *reference* *mutable* ke nilai baru tersebut. Teknik ini jauh
@@ -207,8 +207,8 @@ mungkin melihat pasangan kunci-nilai yang sama dicetak dalam urutan yang
 berbeda: ingat dari [“Mengakses Nilai di dalam Hash Map”][access]<!-- ignore
 --> bahwa mengiterasi hash map terjadi dalam urutan sembarang.
 
-Metode `split_whitespace` mengembalikan sebuah *iterator* atas subslice,
-dipisahkan oleh spasi, dari nilai di `text`. Metode `or_insert`
+Method `split_whitespace` mengembalikan sebuah *iterator* atas subslice,
+dipisahkan oleh spasi, dari nilai di `text`. Method `or_insert`
 mengembalikan *reference* *mutable* (`&mut V`) ke nilai untuk kunci yang
 ditentukan. Di sini, kita menyimpan *reference* *mutable* itu di variable
 `count`, jadi untuk menetapkan nilai itu, kita harus mendereferensi `count`
@@ -236,27 +236,27 @@ hasher yang mengimplementasikan banyak algoritme hashing yang umum.
 
 ## Ringkasan
 
-Vektor, string, dan hash map akan menyediakan banyak fungsionalitas yang
+Vector, string, dan hash map akan menyediakan banyak fungsionalitas yang
 diperlukan program ketika Anda perlu menyimpan, mengakses, dan memodifikasi
 data. Berikut beberapa latihan yang sekarang seharusnya mampu Anda
 selesaikan:
 
-1. Diberikan daftar bilangan bulat, pakai vektor dan kembalikan median
+1. Diberikan daftar bilangan bulat, pakai vector dan kembalikan median
    (saat diurutkan, nilai pada posisi tengah) dan modus (nilai yang paling
    sering muncul; hash map akan membantu di sini) dari daftar tersebut.
 1. Ubah string menjadi Pig Latin. Konsonan pertama setiap kata dipindahkan
    ke akhir kata dan _ay_ ditambahkan, sehingga _first_ menjadi _irst-fay_.
    Kata yang dimulai dengan vokal mendapat tambahan _hay_ di akhirnya
    (_apple_ menjadi _apple-hay_). Ingat-ingat detail tentang enkode UTF-8!
-1. Dengan memakai hash map dan vektor, buat antarmuka teks untuk
+1. Dengan memakai hash map dan vector, buat antarmuka teks untuk
    memungkinkan pengguna menambahkan nama pegawai ke sebuah departemen di
    sebuah perusahaan; misalnya, “Add Sally to Engineering” atau “Add Amir
    to Sales.” Lalu, biarkan pengguna mengambil daftar semua orang di sebuah
    departemen atau semua orang di perusahaan menurut departemen, diurutkan
    menurut abjad.
 
-Dokumentasi API pustaka standar menjelaskan metode-metode yang dimiliki
-vektor, string, dan hash map yang akan membantu latihan-latihan ini!
+Dokumentasi API pustaka standar menjelaskan method-method yang dimiliki
+vector, string, dan hash map yang akan membantu latihan-latihan ini!
 
 Kita mulai masuk ke program yang lebih kompleks yang operasinya dapat gagal,
 jadi ini waktu yang tepat untuk membahas penanganan error. Kita akan

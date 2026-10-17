@@ -40,11 +40,11 @@ bagian.
 
 Pertama, associated type `Output` dari `Future` menyatakan apa yang dihasilkan
 *future* itu. Ini serupa dengan associated type `Item` untuk *trait* `Iterator`.
-Kedua, `Future` memiliki metode `poll`, yang menerima *reference* `Pin` khusus
+Kedua, `Future` memiliki method `poll`, yang menerima *reference* `Pin` khusus
 untuk parameter `self`-nya dan *reference* *mutable* ke type `Context`, lalu
 mengembalikan `Poll<Self::Output>`. Sebentar lagi kita akan membahas lebih
 banyak tentang `Pin` dan `Context`. Untuk saat ini, mari kita fokus pada apa
-yang dikembalikan metode itu, yaitu type `Poll`:
+yang dikembalikan method itu, yaitu type `Poll`:
 
 ```rust
 pub enum Poll<T> {
@@ -136,13 +136,13 @@ membuat *future* itu kembali tidur ketika ia belum siap.
 ### Type `Pin` dan Trait `Unpin`
 
 Kembali di Listing 17-13, kita memakai *macro* `trpl::join!` untuk menunggu
-tiga *future*. Akan tetapi, lazim untuk memiliki koleksi seperti vektor yang
+tiga *future*. Akan tetapi, lazim untuk memiliki collection seperti vector yang
 memuat sejumlah *future* yang jumlahnya tidak akan diketahui sampai runtime.
 Mari kita ubah Listing 17-13 menjadi kode di Listing 17-23 yang menaruh ketiga
-*future* itu ke dalam vektor dan memanggil fungsi `trpl::join_all`, yang belum
+*future* itu ke dalam vector dan memanggil fungsi `trpl::join_all`, yang belum
 bisa terkompilasi.
 
-<Listing number="17-23" caption="Menunggu future-future di dalam koleksi"  file-name="src/main.rs">
+<Listing number="17-23" caption="Menunggu future-future di dalam collection"  file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-23/src/main.rs:here}}
@@ -164,7 +164,7 @@ untuk setiap blok async, bahkan ketika type outputnya identik. Sama seperti
 Anda tidak bisa menaruh dua *struct* tulisan tangan yang berbeda di dalam
 `Vec`, Anda tidak bisa mencampur *enum* hasil kompilator.
 
-Kemudian kita meneruskan koleksi *future* itu ke fungsi `trpl::join_all` dan
+Kemudian kita meneruskan collection *future* itu ke fungsi `trpl::join_all` dan
 menunggu hasilnya. Namun, ini tidak terkompilasi; berikut bagian yang relevan
 dari pesan errornya.
 
@@ -208,9 +208,9 @@ itu generik atas type `F`, yang dibatasi agar mengimplementasikan *trait*
 setiap tempat kita ingin menunggu *future*.
 
 Akan tetapi, di sini kita tidak menunggu sebuah *future* secara langsung.
-Sebaliknya, kita membangun *future* baru, JoinAll, dengan meneruskan koleksi
+Sebaliknya, kita membangun *future* baru, JoinAll, dengan meneruskan collection
 *future* ke fungsi `join_all`. Tanda tangan untuk `join_all` mensyaratkan bahwa
-type item-item di koleksi itu semuanya mengimplementasikan *trait* `Future`, dan
+type item-item di collection itu semuanya mengimplementasikan *trait* `Future`, dan
 `Box<T>` mengimplementasikan `Future` hanya jika `T` yang dibungkusnya adalah
 *future* yang mengimplementasikan *trait* `Unpin`.
 
@@ -235,14 +235,14 @@ benar-benar tahu kapan harus mengecek sebuah *future* tertentu sambil tetap
 bersifat malas. Sekali lagi, detail cara kerjanya berada di luar cakupan bab
 ini, dan Anda umumnya hanya perlu memikirkannya saat menulis implementasi
 `Future` kustom. Kita akan berfokus pada type untuk `self`, karena ini kali
-pertama kita melihat metode yang `self`-nya punya type annotation. Anotasi type
+pertama kita melihat method yang `self`-nya punya type annotation. Anotasi type
 untuk `self` bekerja seperti type annotation untuk parameter fungsi lain, tetapi
 dengan dua perbedaan kunci:
 
-- Anotasi itu memberi tahu Rust type `self` yang harus dipenuhi agar metode
+- Anotasi itu memberi tahu Rust type `self` yang harus dipenuhi agar method
   itu bisa dipanggil.
 - Anotasi itu tidak bisa berupa type sembarang. Anotasi ini dibatasi pada type
-  tempat metode itu diimplementasikan, *reference* atau *smart pointer* ke type
+  tempat method itu diimplementasikan, *reference* atau *smart pointer* ke type
   itu, atau `Pin` yang membungkus *reference* ke type itu.
 
 Kita akan melihat lebih banyak sintaks ini di [Bab 18][ch-18]<!-- ignore -->.
@@ -435,7 +435,7 @@ dipindahkan. Listing 17-24 menunjukkan cara memperbaiki kodenya dengan
 memanggil *macro* `pin!` di tempat ketiga *future* itu didefinisikan dan
 menyesuaikan type *trait object*-nya.
 
-<Listing number="17-24" caption="Mem-pin future-future itu agar bisa dipindahkan ke dalam vektor">
+<Listing number="17-24" caption="Mem-pin future-future itu agar bisa dipindahkan ke dalam vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-24/src/main.rs:here}}
@@ -444,7 +444,7 @@ menyesuaikan type *trait object*-nya.
 </Listing>
 
 Contoh ini sekarang terkompilasi dan berjalan, dan kita bisa menambahkan atau
-menghapus *future* dari vektor pada saat runtime dan menggabungkan semuanya.
+menghapus *future* dari vector pada saat runtime dan menggabungkan semuanya.
 
 `Pin` dan `Unpin` kebanyakan penting untuk membangun library tingkat yang
 lebih rendah, atau ketika Anda membangun runtime itu sendiri, alih-alih untuk
@@ -480,8 +480,8 @@ seluruh ekosistem.
 
 Mari kita tinjau definisi *trait* `Iterator` dan `Future` sebelum melihat
 bagaimana *trait* `Stream` menggabungkan keduanya. Dari `Iterator`, kita punya
-gagasan tentang urutan: metode `next`-nya menyediakan `Option<Self::Item>`.
-Dari `Future`, kita punya gagasan tentang kesiapan seiring waktu: metode
+gagasan tentang urutan: method `next`-nya menyediakan `Option<Self::Item>`.
+Dari `Future`, kita punya gagasan tentang kesiapan seiring waktu: method
 `poll`-nya menyediakan `Poll<Self::Output>`. Untuk merepresentasikan urutan
 item yang menjadi siap seiring waktu, kita mendefinisikan *trait* `Stream` yang
 menggabungkan kedua fitur itu:
@@ -505,8 +505,8 @@ yang dihasilkan *stream* itu. Ini mirip dengan `Iterator`, yang itemnya bisa
 nol hingga banyak, dan tidak seperti `Future`, yang selalu punya satu
 `Output`, bahkan jika itu type unit `()`.
 
-`Stream` juga mendefinisikan metode untuk mendapatkan item-item itu. Kita
-menamainya `poll_next`, untuk memperjelas bahwa metode itu melakukan polling
+`Stream` juga mendefinisikan method untuk mendapatkan item-item itu. Kita
+menamainya `poll_next`, untuk memperjelas bahwa method itu melakukan polling
 dengan cara yang sama seperti `Future::poll` dan menghasilkan urutan item
 dengan cara yang sama seperti `Iterator::next`. Type kembaliannya
 menggabungkan `Poll` dengan `Option`. Type luarnya adalah `Poll`, karena ia
@@ -524,8 +524,8 @@ Urutan”][streams]<!-- ignore -->, kita tidak memakai `poll_next` _atau_
 `Stream`, melainkan `next` dan `StreamExt`. Tentu saja, kita _bisa_ bekerja
 langsung dalam bentuk API `poll_next` dengan menulis sendiri state machine
 `Stream` kita, sama seperti kita _bisa_ bekerja dengan *future* secara langsung
-melalui metode `poll` mereka. Akan tetapi, memakai `await` jauh lebih nyaman,
-dan *trait* `StreamExt` menyediakan metode `next` supaya kita bisa melakukan
+melalui method `poll` mereka. Akan tetapi, memakai `await` jauh lebih nyaman,
+dan *trait* `StreamExt` menyediakan method `next` supaya kita bisa melakukan
 persis itu:
 
 ```rust
@@ -548,20 +548,20 @@ in traits, since the lack thereof is the reason they do not yet have this.
 >
 > Type `Next` itu adalah `struct` yang mengimplementasikan `Future` dan
 > memungkinkan kita menamai *lifetime* *reference* ke `self` dengan
-> `Next<'_, Self>`, sehingga `await` bisa bekerja dengan metode ini.
+> `Next<'_, Self>`, sehingga `await` bisa bekerja dengan method ini.
 
-*Trait* `StreamExt` juga merupakan rumah bagi semua metode menarik yang tersedia
+*Trait* `StreamExt` juga merupakan rumah bagi semua method menarik yang tersedia
 untuk dipakai dengan *stream*. `StreamExt` diimplementasikan secara otomatis
 untuk setiap type yang mengimplementasikan `Stream`, tetapi *trait*-trait ini
 didefinisikan terpisah untuk memungkinkan komunitas mengembangkan API
 kenyamanan secara iteratif tanpa memengaruhi *trait* dasarnya.
 
 Pada versi `StreamExt` yang dipakai *crate* `trpl`, *trait* itu tidak hanya
-mendefinisikan metode `next`, tetapi juga menyediakan implementasi bawaan
+mendefinisikan method `next`, tetapi juga menyediakan implementasi bawaan
 `next` yang menangani detail pemanggilan `Stream::poll_next` dengan benar.
 Artinya, bahkan ketika Anda perlu menulis data type streaming Anda sendiri,
 Anda _hanya_ perlu mengimplementasikan `Stream`, lalu siapa pun yang memakai
-data type Anda bisa memakai `StreamExt` dan metode-metodenya secara otomatis.
+data type Anda bisa memakai `StreamExt` dan method-methodnya secara otomatis.
 
 Itu saja yang akan kita bahas untuk detail tingkat rendah dari *trait*-trait
 ini. Sebagai penutup, mari kita pertimbangkan bagaimana *future* (termasuk

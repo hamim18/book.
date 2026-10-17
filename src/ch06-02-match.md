@@ -6,18 +6,18 @@
 ## Konstruk Alur Kontrol `match`
 
 Rust memiliki konstruk control flow yang sangat tangguh bernama `match` yang
-memungkinkan Anda membandingkan sebuah nilai dengan serangkaian pola, lalu
-mengeksekusi kode berdasarkan pola mana yang cocok. Pola dapat tersusun dari
+memungkinkan Anda membandingkan sebuah nilai dengan serangkaian pattern, lalu
+mengeksekusi kode berdasarkan pattern mana yang cocok. Pattern dapat tersusun dari
 nilai literal, nama variable, wildcard, dan banyak hal lain; [Bab
-19][ch19-00-patterns]<!-- ignore --> membahas semua jenis pola yang berbeda
-dan apa yang dilakukannya. Kekuatan `match` berasal dari ekspresivitas polanya
+19][ch19-00-patterns]<!-- ignore --> membahas semua jenis pattern yang berbeda
+dan apa yang dilakukannya. Kekuatan `match` berasal dari ekspresivitas patternnya
 dan fakta bahwa *compiler* (kompilator) memastikan semua kasus yang mungkin
 tertangani.
 
 Bayangkan expression `match` seperti mesin penyortir koin: koin-koin meluncur
 menuruni lintasan yang memiliki lubang-lubang dengan berbagai ukuran, dan
 setiap koin jatuh melalui lubang pertama yang ditemuinya yang pas untuk ukurannya.
-Dengan cara yang sama, nilai melewati setiap pola dalam `match`, dan pada pola
+Dengan cara yang sama, nilai melewati setiap pattern dalam `match`, dan pada pattern
 pertama yang “muat” dengan nilai itu, nilai tersebut jatuh ke blok kode
 terkait untuk dipakai selama eksekusi.
 
@@ -26,7 +26,7 @@ Kita dapat menulis sebuah fungsi yang menerima koin AS yang tidak diketahui
 dan, dengan cara yang mirip mesin penghitung, menentukan koin apa itu dan
 mengembalikan nilainya dalam sen, seperti yang ditunjukkan pada Listing 6-3.
 
-<Listing number="6-3" caption="Sebuah enum dan expression `match` yang memakai varian-varian enum sebagai polanya">
+<Listing number="6-3" caption="Sebuah enum dan expression `match` yang memakai varian-varian enum sebagai patternnya">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
@@ -43,14 +43,14 @@ pun. Type `coin` pada contoh ini adalah *enum* `Coin` yang kita definisikan di
 baris pertama.
 
 Berikutnya adalah *arm*-*arm* `match`. Sebuah *arm* (lengan) memiliki dua
-bagian: pola dan kode. Arm pertama di sini memiliki pola berupa nilai
-`Coin::Penny`, lalu operator `=>` yang memisahkan pola dan kode yang
+bagian: pattern dan kode. Arm pertama di sini memiliki pattern berupa nilai
+`Coin::Penny`, lalu operator `=>` yang memisahkan pattern dan kode yang
 dijalankan. Kode pada kasus ini hanyalah nilai `1`. Setiap *arm* dipisahkan dari
 *arm* berikutnya dengan koma.
 
 Ketika expression `match` dieksekusi, ia membandingkan nilai hasilnya dengan
-pola setiap *arm*, secara berurutan. Jika sebuah pola cocok dengan nilainya,
-kode yang terkait dengan pola itu dieksekusi. Jika pola itu tidak cocok dengan
+pattern setiap *arm*, secara berurutan. Jika sebuah pattern cocok dengan nilainya,
+kode yang terkait dengan pattern itu dieksekusi. Jika pattern itu tidak cocok dengan
 nilainya, eksekusi berlanjut ke *arm* berikutnya, mirip seperti mesin penyortir
 koin. Kita dapat memiliki *arm* sebanyak yang kita butuhkan: pada Listing 6-3,
 `match` kita memiliki empat *arm*.
@@ -63,7 +63,7 @@ Biasanya kita tidak memakai kurung kurawal jika kode *arm* match pendek, seperti
 pada Listing 6-3 yang setiap *arm*-nya hanya mengembalikan sebuah nilai. Jika
 Anda ingin menjalankan beberapa baris kode di dalam *arm* match, Anda harus
 memakai kurung kurawal, dan koma setelah *arm* itu bersifat opsional. Contohnya,
-kode berikut mencetak “Lucky penny!” setiap kali metodenya dipanggil dengan
+kode berikut mencetak “Lucky penny!” setiap kali methodnya dipanggil dengan
 `Coin::Penny`, tetapi ia tetap mengembalikan nilai terakhir bloknya, yaitu
 `1`:
 
@@ -72,10 +72,10 @@ kode berikut mencetak “Lucky penny!” setiap kali metodenya dipanggil dengan
 ```
 
 <a id="patterns-that-bind-to-values"></a>
-### Pola yang Mengikat Nilai
+### Pattern yang Mengikat Nilai
 
 Fitur *arm* match lain yang berguna adalah kemampuannya untuk mengikat
-bagian-bagian nilai yang cocok dengan polanya. Inilah cara kita mengekstrak
+bagian-bagian nilai yang cocok dengan patternnya. Inilah cara kita mengekstrak
 nilai dari *variant* (varian) *enum*.
 
 Sebagai contoh, mari kita ubah salah satu *variant* *enum* kita agar menampung
@@ -99,10 +99,10 @@ Bayangkan seorang teman sedang mencoba mengumpulkan kelima puluh koin quarter
 negara bagian. Sambil memilah uang receh kita berdasarkan jenis koinnya, kita
 juga akan menyebutkan nama negara bagian yang terkait dengan setiap quarter
 sehingga jika itu salah satu yang belum dimiliki teman kita, ia dapat
-menambahkannya ke koleksinya.
+menambahkannya ke collectionnya.
 
 Pada expression match untuk kode ini, kita menambahkan variable bernama `state`
-ke pola yang mencocokkan nilai *variant* `Coin::Quarter`. Ketika
+ke pattern yang mencocokkan nilai *variant* `Coin::Quarter`. Ketika
 `Coin::Quarter` cocok, variable `state` akan mengikat nilai negara bagian
 quarter tersebut. Lalu, kita dapat memakai `state` di kode untuk *arm* itu,
 seperti ini:
@@ -123,7 +123,7 @@ itu dengan setiap *arm* match, tidak ada yang cocok sampai kita mencapai
 
 <a id="matching-with-optiont"></a>
 
-### Pola `match` untuk `Option<T>`
+### Pattern `match` untuk `Option<T>`
 
 
 Pada bagian sebelumnya, kita ingin mengeluarkan nilai `T` di dalamnya dari
@@ -156,7 +156,7 @@ memiliki nilai `Some(5)`. Kita lalu membandingkannya dengan setiap *arm* match:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:first_arm}}
 ```
 
-Nilai `Some(5)` tidak cocok dengan pola `None`, jadi kita melanjutkan ke *arm*
+Nilai `Some(5)` tidak cocok dengan pattern `None`, jadi kita melanjutkan ke *arm*
 berikutnya:
 
 ```rust,ignore
@@ -181,14 +181,14 @@ mengembalikan nilai `None` di sisi kanan `=>`. Karena *arm* pertama cocok, tidak
 ada *arm* lain yang dibandingkan.
 
 Menggabungkan `match` dan *enum* berguna dalam banyak situasi. Anda akan sering
-melihat pola ini di kode Rust: `match` terhadap sebuah *enum*, mengikat variable
+melihat pattern ini di kode Rust: `match` terhadap sebuah *enum*, mengikat variable
 ke data di dalamnya, lalu mengeksekusi kode berdasarkan itu. Pada awalnya agak
 rumit, tetapi begitu Anda terbiasa, Anda akan berharap fitur ini ada di semua
 bahasa. Fitur ini selalu menjadi favorit pengguna.
 
 ### Match Bersifat Ekshaustif
 
-Ada satu aspek lain dari `match` yang perlu kita bahas: pola-pola *arm* harus
+Ada satu aspek lain dari `match` yang perlu kita bahas: pattern-pattern *arm* harus
 mencakup semua kemungkinan. Perhatikan versi fungsi `plus_one` kita ini, yang
 memiliki bug dan tidak akan terkompilasi:
 
@@ -205,14 +205,14 @@ mencoba mengompilasi kode ini, kita akan mendapatkan error ini:
 ```
 
 Rust tahu bahwa kita tidak mencakup semua kasus yang mungkin dan bahkan tahu
-pola mana yang kita lupakan! Match di Rust bersifat *exhaustive* (ekshaustif):
+pattern mana yang kita lupakan! Match di Rust bersifat *exhaustive* (ekshaustif):
 kita harus menuntaskan semua kemungkinan sampai yang terakhir agar kodenya
 valid. Khususnya pada kasus `Option<T>`, ketika Rust mencegah kita lupa
 menangani kasus `None` secara eksplisit, ia melindungi kita dari menganggap
 bahwa kita memiliki nilai ketika mungkin saja nilainya null, sehingga
 kesalahan senilai satu miliar dolar yang dibahas sebelumnya menjadi mustahil.
 
-### Pola Catch-All dan Placeholder `_`
+### Pattern Catch-All dan Placeholder `_`
 
 Dengan *enum*, kita juga dapat mengambil tindakan khusus untuk beberapa nilai
 tertentu, tetapi untuk semua nilai lain mengambil satu tindakan bawaan.
@@ -229,23 +229,23 @@ mengimplementasikannya sungguhan berada di luar cakupan contoh ini:
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-15-binding-catchall/src/main.rs:here}}
 ```
 
-Untuk dua *arm* pertama, polanya adalah nilai literal `3` dan `7`. Untuk *arm*
-terakhir yang mencakup semua nilai lain yang mungkin, polanya adalah variable
+Untuk dua *arm* pertama, patternnya adalah nilai literal `3` dan `7`. Untuk *arm*
+terakhir yang mencakup semua nilai lain yang mungkin, patternnya adalah variable
 yang kita pilih namai `other`. Kode yang berjalan untuk *arm* `other` memakai
 variable itu dengan meneruskannya ke fungsi `move_player`.
 
 Kode ini terkompilasi, meskipun kita belum mendaftarkan semua nilai yang
-mungkin dimiliki `u8`, karena pola terakhir akan mencocokkan semua nilai yang
-tidak didaftarkan secara khusus. Pola catch-all ini memenuhi persyaratan
+mungkin dimiliki `u8`, karena pattern terakhir akan mencocokkan semua nilai yang
+tidak didaftarkan secara khusus. Pattern catch-all ini memenuhi persyaratan
 bahwa `match` harus ekshaustif. Perhatikan bahwa kita harus meletakkan *arm*
-catch-all paling akhir karena pola dievaluasi secara berurutan. Seandainya
+catch-all paling akhir karena pattern dievaluasi secara berurutan. Seandainya
 kita meletakkan *arm* catch-all lebih awal, *arm*-*arm* lain tidak akan pernah
 berjalan, jadi Rust akan memperingatkan kita jika kita menambahkan *arm* setelah
 catch-all!
 
-Rust juga memiliki pola yang dapat kita pakai ketika kita menginginkan
-catch-all tetapi tidak ingin _memakai_ nilai pada pola catch-all itu: `_`
-adalah pola khusus yang mencocokkan nilai apa pun dan tidak mengikat nilai
+Rust juga memiliki pattern yang dapat kita pakai ketika kita menginginkan
+catch-all tetapi tidak ingin _memakai_ nilai pada pattern catch-all itu: `_`
+adalah pattern khusus yang mencocokkan nilai apa pun dan tidak mengikat nilai
 itu. Ini memberi tahu Rust bahwa kita tidak akan memakai nilainya, jadi Rust
 tidak akan memperingatkan kita tentang variable yang tidak terpakai.
 
@@ -273,10 +273,10 @@ yang menyertai *arm* `_`:
 ```
 
 Di sini, kita memberi tahu Rust secara eksplisit bahwa kita tidak akan memakai
-nilai lain mana pun yang tidak cocok dengan pola pada *arm* sebelumnya, dan kita
+nilai lain mana pun yang tidak cocok dengan pattern pada *arm* sebelumnya, dan kita
 tidak ingin menjalankan kode apa pun pada kasus ini.
 
-Masih ada lagi tentang pola dan pencocokan yang akan kita bahas di
+Masih ada lagi tentang pattern dan pencocokan yang akan kita bahas di
 [Bab 19][ch19-00-patterns]<!-- ignore -->. Untuk sekarang, kita akan
 melanjutkan ke sintaks `if let`, yang dapat berguna pada situasi ketika
 expression `match` agak bertele-tele.

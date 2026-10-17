@@ -26,7 +26,7 @@ $ cargo --version
 ```
 
 Jika Anda melihat nomor versi, berarti Cargo sudah terpasang! Jika Anda
-melihat error, seperti `command not found`, lihat dokumentasi metode
+melihat error, seperti `command not found`, lihat dokumentasi method
 instalasi Anda untuk menentukan cara memasang Cargo secara terpisah.
 
 ### Membuat Proyek dengan Cargo

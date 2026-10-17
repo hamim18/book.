@@ -41,7 +41,7 @@ superpowers* (kekuatan super *unsafe*). Kekuatan super itu mencakup kemampuan
 untuk:
 
 1. Melakukan dereferensi terhadap sebuah *raw pointer*.
-1. Memanggil fungsi atau metode *unsafe*.
+1. Memanggil fungsi atau method *unsafe*.
 1. Mengakses atau mengubah variable static yang *mutable*.
 1. Mengimplementasikan *trait* yang *unsafe*.
 1. Mengakses *field* dari `union`.
@@ -66,7 +66,7 @@ sekecil mungkin; Anda akan bersyukur nanti saat menyelidiki bug memori.
 
 Untuk mengisolasi kode *unsafe* sebisa mungkin, sebaiknya kode semacam itu
 dibungkus di dalam abstraksi yang aman dan menyediakan API yang aman, yang
-akan kita bahas nanti di bab ini saat kita menelaah fungsi dan metode *unsafe*.
+akan kita bahas nanti di bab ini saat kita menelaah fungsi dan method *unsafe*.
 Sebagian pustaka standar diimplementasikan sebagai abstraksi yang aman di
 atas kode *unsafe* yang telah diaudit. Membungkus kode *unsafe* di dalam
 abstraksi yang aman mencegah pemakaian `unsafe` bocor ke semua tempat di mana
@@ -178,11 +178,11 @@ abstraksi yang aman yang tidak dipahami oleh *borrow checker*. Kita akan
 memperkenalkan fungsi *unsafe* lalu melihat contoh abstraksi yang aman yang
 memakai kode *unsafe*.
 
-### Memanggil Fungsi atau Metode Unsafe
+### Memanggil Fungsi atau Method Unsafe
 
 Jenis operasi kedua yang bisa Anda lakukan di dalam blok *unsafe* adalah
-memanggil fungsi *unsafe*. Fungsi dan metode *unsafe* tampak persis seperti
-fungsi dan metode biasa, tetapi mereka memiliki tambahan `unsafe` sebelum
+memanggil fungsi *unsafe*. Fungsi dan method *unsafe* tampak persis seperti
+fungsi dan method biasa, tetapi mereka memiliki tambahan `unsafe` sebelum
 bagian definisi lainnya. Kata kunci `unsafe` dalam konteks ini menandakan
 bahwa fungsi itu memiliki persyaratan yang perlu kita tegakkan saat
 memanggilnya, karena Rust tidak bisa menjamin bahwa kita telah memenuhi
@@ -222,7 +222,7 @@ menandai seluruh fungsi itu sebagai *unsafe*. Bahkan, membungkus kode *unsafe* d
 dalam fungsi yang aman adalah abstraksi yang umum. Sebagai contoh, mari kita
 pelajari fungsi `split_at_mut` dari pustaka standar, yang memerlukan sedikit
 kode *unsafe*. Kita akan menelusuri bagaimana kita bisa mengimplementasikannya.
-Metode yang aman ini didefinisikan pada *slice* *mutable*: Metode ini mengambil
+Method yang aman ini didefinisikan pada *slice* *mutable*: Method ini mengambil
 satu *slice* dan menjadikannya dua dengan membelah *slice* itu pada indeks yang
 diberikan sebagai argumen. Listing 20-4 menunjukkan cara memakai
 `split_at_mut`.
@@ -238,7 +238,7 @@ diberikan sebagai argumen. Listing 20-4 menunjukkan cara memakai
 Kita tidak bisa mengimplementasikan fungsi ini hanya dengan memakai Rust
 yang aman. Suatu percobaan mungkin tampak seperti Listing 20-5, yang tidak
 akan terkompilasi. Demi kesederhanaan, kita akan mengimplementasikan
-`split_at_mut` sebagai fungsi alih-alih metode dan hanya untuk *slice* berisi
+`split_at_mut` sebagai fungsi alih-alih method dan hanya untuk *slice* berisi
 nilai `i32` alih-alih untuk generic type `T`.
 
 <Listing number="20-5" caption="Percobaan implementasi `split_at_mut` hanya dengan memakai Rust yang aman">
@@ -289,7 +289,7 @@ bekerja.
 
 Ingat kembali dari seksi [“Type Slice”][the-slice-type]<!-- ignore --> di Bab
 4 bahwa *slice* adalah *pointer* ke sejumlah data beserta panjang *slice* itu. Kita
-memakai metode `len` untuk mendapatkan panjang sebuah *slice* dan metode
+memakai method `len` untuk mendapatkan panjang sebuah *slice* dan method
 `as_mut_ptr` untuk mengakses *raw pointer* dari sebuah *slice*. Dalam kasus ini,
 karena kita memiliki *slice* *mutable* ke nilai `i32`, `as_mut_ptr` mengembalikan
 *raw pointer* dengan type `*mut i32`, yang kita simpan di variable `ptr`.
@@ -298,13 +298,13 @@ Kita mempertahankan asersi bahwa indeks `mid` berada di dalam *slice*. Lalu,
 kita sampai pada kode *unsafe*-nya: Fungsi `slice::from_raw_parts_mut`
 menerima sebuah *raw pointer* dan sebuah panjang, lalu ia membuat sebuah *slice*.
 Kita memakai fungsi ini untuk membuat *slice* yang dimulai dari `ptr` dan
-panjangnya `mid` item. Kemudian, kita memanggil metode `add` pada `ptr`
+panjangnya `mid` item. Kemudian, kita memanggil method `add` pada `ptr`
 dengan `mid` sebagai argumen untuk mendapatkan *raw pointer* yang dimulai di
 `mid`, dan kita membuat *slice* dengan memakai *pointer* itu serta sisa jumlah
 item setelah `mid` sebagai panjangnya.
 
 Fungsi `slice::from_raw_parts_mut` bersifat *unsafe* karena ia menerima raw
-*pointer* dan harus percaya bahwa *pointer* itu valid. Metode `add` pada raw
+*pointer* dan harus percaya bahwa *pointer* itu valid. Method `add` pada raw
 *pointer* juga *unsafe* karena ia harus percaya bahwa lokasi offsetnya juga
 merupakan *pointer* yang valid. Karena itu, kita harus meletakkan blok `unsafe`
 di sekeliling pemanggilan kita terhadap `slice::from_raw_parts_mut` dan `add`
@@ -505,7 +505,7 @@ dilakukan dengan aman.
 ### Mengimplementasikan Trait yang Unsafe
 
 Kita bisa memakai `unsafe` untuk mengimplementasikan *trait* yang *unsafe*.
-Sebuah *trait* bersifat *unsafe* ketika setidaknya satu dari metodenya memiliki
+Sebuah *trait* bersifat *unsafe* ketika setidaknya satu dari methodnya memiliki
 suatu invarian yang tidak bisa diverifikasi oleh kompilator. Kita
 mendeklarasikan bahwa sebuah *trait* adalah `unsafe` dengan menambahkan kata
 kunci `unsafe` sebelum `trait` dan menandai implementasi *trait* itu sebagai

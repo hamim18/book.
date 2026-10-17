@@ -58,10 +58,10 @@ Jika kita menjalankan pengujian ini, saat ini ia akan gagal karena makro
 `unimplemented!` melakukan panic dengan pesan “not implemented”. Sesuai
 prinsip TDD, kita akan mengambil langkah kecil dengan menambahkan kode
 secukupnya agar pengujian itu tidak panic saat memanggil fungsinya, yaitu
-dengan mendefinisikan fungsi `search` agar selalu mengembalikan vektor kosong,
+dengan mendefinisikan fungsi `search` agar selalu mengembalikan vector kosong,
 seperti yang ditunjukkan di Listing 12-16. Setelah itu, pengujian ini
-seharusnya terkompilasi dan gagal karena vektor kosong tidak cocok dengan
-vektor yang memuat baris `"safe, fast, productive."`.
+seharusnya terkompilasi dan gagal karena vector kosong tidak cocok dengan
+vector yang memuat baris `"safe, fast, productive."`.
 
 <Listing number="12-16" file-name="src/lib.rs" caption="Mendefinisikan fungsi `search` secukupnya sehingga pemanggilannya tidak akan panic">
 
@@ -76,7 +76,7 @@ eksplisit `'a` di tanda tangan `search` dan memakai *lifetime* itu bersama
 argumen `contents` dan return valuenya. Ingat kembali di [Bab
 10][ch10-lifetimes]<!-- ignore --> bahwa parameter *lifetime* menentukan
 *lifetime* argumen mana yang terhubung dengan *lifetime* return value.
-Dalam kasus ini, kita menunjukkan bahwa vektor yang dikembalikan harus memuat
+Dalam kasus ini, kita menunjukkan bahwa vector yang dikembalikan harus memuat
 string *slice* yang mereferensikan *slice*-slice dari argumen `contents` (bukan
 argumen `query`).
 
@@ -111,7 +111,7 @@ contoh-contoh di bagian [“Memvalidasi *Reference* dengan
 
 ### Menulis Kode agar Pengujian Lulus
 
-Saat ini, pengujian kita gagal karena kita selalu mengembalikan vektor
+Saat ini, pengujian kita gagal karena kita selalu mengembalikan vector
 kosong. Untuk memperbaikinya dan mengimplementasikan `search`, program kita
 perlu mengikuti langkah-langkah ini:
 
@@ -124,9 +124,9 @@ perlu mengikuti langkah-langkah ini:
 Mari kita kerjakan setiap langkah, dimulai dari melakukan iterasi pada
 baris-baris.
 
-#### Melakukan Iterasi pada Baris-Baris dengan Metode `lines`
+#### Melakukan Iterasi pada Baris-Baris dengan Method `lines`
 
-Rust memiliki sebuah metode yang membantu untuk menangani iterasi string baris
+Rust memiliki sebuah method yang membantu untuk menangani iterasi string baris
 demi baris, yang dengan tepat dinamai `lines`, dan bekerja seperti yang
 ditunjukkan di Listing 12-17. Perhatikan bahwa ini belum akan terkompilasi.
 
@@ -138,18 +138,18 @@ ditunjukkan di Listing 12-17. Perhatikan bahwa ini belum akan terkompilasi.
 
 </Listing>
 
-Metode `lines` mengembalikan sebuah *iterator*. Kita akan membahas *iterator*
+Method `lines` mengembalikan sebuah *iterator*. Kita akan membahas *iterator*
 secara mendalam di [Bab 13][ch13-iterators]<!-- ignore -->. Tetapi ingat
 bahwa Anda pernah melihat cara memakai *iterator* seperti ini di [Listing
 3-5][ch3-iter]<!-- ignore -->, tempat kita memakai loop `for` dengan
 sebuah *iterator* untuk menjalankan sebagian kode pada setiap item di dalam
-sebuah koleksi.
+sebuah collection.
 
 #### Mencari Kueri di Setiap Baris
 
 Selanjutnya, kita akan memeriksa apakah baris saat ini memuat string kueri
-kita. Untungnya, string memiliki metode yang membantu bernama `contains` yang
-melakukan ini untuk kita! Tambahkan pemanggilan metode `contains` di fungsi
+kita. Untungnya, string memiliki method yang membantu bernama `contains` yang
+melakukan ini untuk kita! Tambahkan pemanggilan method `contains` di fungsi
 `search`, seperti yang ditunjukkan di Listing 12-18. Perhatikan bahwa ini
 masih belum akan terkompilasi.
 
@@ -169,9 +169,9 @@ nyatakan di tanda tangan fungsi.
 
 Untuk menyelesaikan fungsi ini, kita perlu sebuah cara untuk menyimpan
 baris-baris yang cocok dan ingin kita kembalikan. Untuk itu, kita dapat
-membuat sebuah vektor *mutable* sebelum loop `for` dan memanggil metode
-`push` untuk menyimpan sebuah `line` di dalam vektor. Setelah loop
-`for`, kita mengembalikan vektor tersebut, seperti yang ditunjukkan di Listing
+membuat sebuah vector *mutable* sebelum loop `for` dan memanggil method
+`push` untuk menyimpan sebuah `line` di dalam vector. Setelah loop
+`for`, kita mengembalikan vector tersebut, seperti yang ditunjukkan di Listing
 12-19.
 
 <Listing number="12-19" file-name="src/lib.rs" caption="Menyimpan baris-baris yang cocok agar kita dapat mengembalikannya">

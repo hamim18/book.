@@ -112,7 +112,7 @@ tests to fail lol -->
 
 Type nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
 `io::Error`, yaitu sebuah *struct* yang disediakan pustaka standar. *Struct* ini
-memiliki metode `kind`, yang dapat kita panggil untuk mendapatkan nilai
+memiliki method `kind`, yang dapat kita panggil untuk mendapatkan nilai
 `io::ErrorKind`. *Enum* `io::ErrorKind` disediakan pustaka standar dan
 memiliki variant-variant yang merepresentasikan berbagai jenis error yang
 mungkin dihasilkan dari operasi `io`. Variant yang ingin kita pakai adalah
@@ -132,12 +132,12 @@ program panic pada error apa pun selain error file tidak ditemukan.
 >
 > Banyak sekali `match`-nya! Expression `match` sangat berguna tetapi juga
 > sangat primitif. Di Bab 13, Anda akan mempelajari *closure*, yang dipakai
-> bersama banyak metode yang didefinisikan pada `Result<T, E>`.
-> Metode-metode ini dapat lebih ringkas daripada memakai `match` ketika
+> bersama banyak method yang didefinisikan pada `Result<T, E>`.
+> Method-method ini dapat lebih ringkas daripada memakai `match` ketika
 > menangani nilai `Result<T, E>` di kode Anda.
 >
 > Misalnya, ini cara lain untuk menulis logika yang sama seperti yang
-> ditunjukkan di Listing 9-5, kali ini memakai *closure* dan metode
+> ditunjukkan di Listing 9-5, kali ini memakai *closure* dan method
 > `unwrap_or_else`:
 >
 > <!-- CAN'T EXTRACT SEE https://github.com/rust-lang/mdBook/issues/1127 -->
@@ -161,8 +161,8 @@ program panic pada error apa pun selain error file tidak ditemukan.
 >
 > Meskipun kode ini berperilaku sama dengan Listing 9-5, ia tidak memuat
 > expression `match` apa pun dan lebih bersih untuk dibaca. Kembalilah ke
-> contoh ini setelah Anda membaca Bab 13 dan carilah metode
-> `unwrap_or_else` di dokumentasi pustaka standar. Banyak lagi metode
+> contoh ini setelah Anda membaca Bab 13 dan carilah method
+> `unwrap_or_else` di dokumentasi pustaka standar. Banyak lagi method
 > semacam ini yang dapat merapikan expression `match` bersarang yang besar
 > ketika Anda berurusan dengan error.
 
@@ -174,8 +174,8 @@ program panic pada error apa pun selain error file tidak ditemukan.
 
 Memakai `match` cukup berhasil, tetapi bisa sedikit bertele-tele dan tidak
 selalu mengomunikasikan maksud dengan baik. Type `Result<T, E>` memiliki
-banyak metode bantu yang didefinisikan padanya untuk melakukan berbagai
-tugas yang lebih spesifik. Metode `unwrap` adalah metode pintasan yang
+banyak method bantu yang didefinisikan padanya untuk melakukan berbagai
+tugas yang lebih spesifik. Method `unwrap` adalah method pintasan yang
 diimplementasikan persis seperti expression `match` yang kita tulis di Listing
 9-4. Jika nilai `Result` adalah variant `Ok`, `unwrap` akan mengembalikan
 nilai di dalam `Ok`. Jika `Result` adalah variant `Err`, `unwrap` akan
@@ -191,7 +191,7 @@ beraksi:
 </Listing>
 
 Jika kita menjalankan kode ini tanpa file _hello.txt_, kita akan melihat
-pesan error dari pemanggilan `panic!` yang dilakukan metode `unwrap`:
+pesan error dari pemanggilan `panic!` yang dilakukan method `unwrap`:
 
 <!-- manual-regeneration
 cd listings/ch09-error-handling/no-listing-04-unwrap
@@ -204,7 +204,7 @@ thread 'main' panicked at src/main.rs:4:49:
 called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
 ```
 
-Demikian pula, metode `expect` juga memungkinkan kita memilih pesan error
+Demikian pula, method `expect` juga memungkinkan kita memilih pesan error
 `panic!`. Memakai `expect` alih-alih `unwrap` dan memberikan pesan error
 yang baik dapat menyampaikan maksud Anda dan mempermudah pelacakan sumber
 panic. Sintaks `expect` terlihat seperti ini:
@@ -282,21 +282,21 @@ berisi lebih banyak informasi tentang masalah apa yang terjadi. Kita
 memilih `io::Error` sebagai return type fungsi ini karena kebetulan itu
 adalah type nilai error yang dikembalikan dari kedua operasi yang kita
 panggil di badan fungsi ini yang mungkin gagal: fungsi `File::open` dan
-metode `read_to_string`.
+method `read_to_string`.
 
 Badan fungsi dimulai dengan memanggil fungsi `File::open`. Lalu, kita
 menangani nilai `Result` dengan `match` yang mirip dengan `match` di Listing
-9-4. Jika `File::open` berhasil, handle file di variable pola `file` menjadi
+9-4. Jika `File::open` berhasil, handle file di variable pattern `file` menjadi
 nilai di variable *mutable* `username_file` dan fungsinya berlanjut. Pada
 kasus `Err`, alih-alih memanggil `panic!`, kita memakai kata kunci `return`
 untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai error
-dari `File::open`, yang kini berada di variable pola `e`, kembali ke kode
+dari `File::open`, yang kini berada di variable pattern `e`, kembali ke kode
 pemanggil sebagai nilai error fungsi ini.
 
 Jadi, jika kita memiliki handle file di `username_file`, fungsi kemudian
-membuat `String` baru di variable `username` dan memanggil metode
+membuat `String` baru di variable `username` dan memanggil method
 `read_to_string` pada handle file di `username_file` untuk membaca isi file
-ke dalam `username`. Metode `read_to_string` juga mengembalikan `Result`
+ke dalam `username`. Method `read_to_string` juga mengembalikan `Result`
 karena ia mungkin gagal, meskipun `File::open` berhasil. Jadi, kita
 membutuhkan `match` lain untuk menangani `Result` itu: jika `read_to_string`
 berhasil, fungsi kita pun berhasil, dan kita mengembalikan nama pengguna
@@ -316,7 +316,7 @@ informasi tentang apa yang sebenarnya ingin dilakukan kode pemanggil, jadi
 kita meneruskan semua informasi keberhasilan atau error ke atas untuk
 ditangani dengan tepat.
 
-Pola meneruskan error ini begitu umum di Rust sehingga Rust menyediakan
+Pattern meneruskan error ini begitu umum di Rust sehingga Rust menyediakan
 operator tanda tanya `?` untuk mempermudahnya.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -375,10 +375,10 @@ untuk `?` di akhir pemanggilan `read_to_string`.
 
 Operator `?` menghilangkan banyak boilerplate dan membuat implementasi
 fungsi ini lebih sederhana. Kita bahkan dapat mempersingkat kode ini lebih
-jauh dengan merangkai pemanggilan metode tepat setelah `?`, seperti yang
+jauh dengan merangkai pemanggilan method tepat setelah `?`, seperti yang
 ditunjukkan di Listing 9-8.
 
-<Listing number="9-8" file-name="src/main.rs" caption="Merangkai pemanggilan metode setelah operator `?`">
+<Listing number="9-8" file-name="src/main.rs" caption="Merangkai pemanggilan method setelah operator `?`">
 
 <!-- Deliberately not using rustdoc_include here; the `main` function in the
 file panics. We do want to include it for reader experimentation purposes, but
@@ -464,7 +464,7 @@ mengimplementasikan `FromResidual`.
 Untuk memperbaiki errornya, Anda punya dua pilihan. Pilihan pertama adalah
 mengubah return type fungsi Anda agar kompatibel dengan nilai tempat Anda
 memakai operator `?` selama tidak ada pembatasan yang mencegahnya. Pilihan
-lainnya adalah memakai `match` atau salah satu metode `Result<T, E>` untuk
+lainnya adalah memakai `match` atau salah satu method `Result<T, E>` untuk
 menangani `Result<T, E>` dengan cara apa pun yang sesuai.
 
 Pesan errornya juga menyebutkan bahwa `?` dapat dipakai dengan nilai
@@ -487,7 +487,7 @@ baris pertama di teks yang diberikan.
 
 Fungsi ini mengembalikan `Option<char>` karena mungkin ada karakter di
 sana, tetapi mungkin juga tidak ada. Kode ini menerima argumen string *slice*
-`text` dan memanggil metode `lines` padanya, yang mengembalikan *iterator*
+`text` dan memanggil method `lines` padanya, yang mengembalikan *iterator*
 atas baris-baris di string. Karena fungsi ini ingin memeriksa baris
 pertama, ia memanggil `next` pada *iterator* untuk mendapatkan nilai pertama
 dari *iterator*. Jika `text` adalah string kosong, pemanggilan `next` ini akan
@@ -507,14 +507,14 @@ ia akan dikembalikan di dalam variant `Some`. Operator `?` di tengah memberi
 kita cara yang ringkas untuk mengekspresikan logika ini, yang memungkinkan
 kita mengimplementasikan fungsi dalam satu baris. Jika kita tidak dapat
 memakai operator `?` pada `Option`, kita harus mengimplementasikan logika
-ini memakai lebih banyak pemanggilan metode atau expression `match`.
+ini memakai lebih banyak pemanggilan method atau expression `match`.
 
 Perhatikan bahwa Anda dapat memakai operator `?` pada `Result` di fungsi
 yang mengembalikan `Result`, dan Anda dapat memakai operator `?` pada
 `Option` di fungsi yang mengembalikan `Option`, tetapi Anda tidak dapat
 mencampur keduanya. Operator `?` tidak akan mengonversi `Result` menjadi
 `Option` atau sebaliknya secara otomatis; dalam kasus-kasus itu, Anda dapat
-memakai metode seperti metode `ok` pada `Result` atau metode `ok_or` pada
+memakai method seperti method `ok` pada `Result` atau method `ok_or` pada
 `Option` untuk melakukan konversi secara eksplisit.
 
 Sejauh ini, semua fungsi `main` yang kita pakai mengembalikan `()`. Fungsi

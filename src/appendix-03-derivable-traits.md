@@ -8,7 +8,7 @@ yang Anda beri anotasi dengan sintaks `derive`.
 Dalam lampiran ini, kita menyajikan rujukan untuk semua *trait* di pustaka standar
 yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 
-- Operator dan metode apa saja yang diaktifkan oleh penurunan *trait* ini
+- Operator dan method apa saja yang diaktifkan oleh penurunan *trait* ini
 - Apa yang dilakukan implementasi *trait* yang disediakan oleh `derive`
 - Apa yang ditandakan oleh pengimplementasian *trait* itu tentang type tersebut
 - Kondisi yang mengizinkan atau tidak mengizinkan Anda mengimplementasikan *trait*
@@ -60,7 +60,7 @@ tidak sama.
 *Trait* `PartialEq` memungkinkan Anda membandingkan instance suatu type untuk
 memeriksa kesamaan dan mengaktifkan pemakaian operator `==` dan `!=`.
 
-Menurunkan `PartialEq` mengimplementasikan metode `eq`. Ketika `PartialEq`
+Menurunkan `PartialEq` mengimplementasikan method `eq`. Ketika `PartialEq`
 diturunkan pada *struct*, dua instance dianggap sama hanya jika _semua_ *field* sama,
 dan instance-instance itu tidak sama jika _salah satu_ *field* tidak sama. Ketika
 diturunkan pada *enum*, setiap varian sama dengan dirinya sendiri dan tidak sama
@@ -69,7 +69,7 @@ dengan varian lainnya.
 *Trait* `PartialEq` diperlukan, misalnya, dalam pemakaian *macro* `assert_eq!`, yang
 harus mampu membandingkan dua instance suatu type untuk kesamaan.
 
-*Trait* `Eq` tidak memiliki metode. Tujuannya adalah memberi sinyal bahwa untuk
+*Trait* `Eq` tidak memiliki method. Tujuannya adalah memberi sinyal bahwa untuk
 setiap nilai dari type yang dianotasi, nilai itu sama dengan dirinya sendiri.
 *Trait* `Eq` hanya dapat diterapkan pada type yang juga mengimplementasikan
 `PartialEq`, meskipun tidak semua type yang mengimplementasikan `PartialEq` dapat
@@ -87,7 +87,7 @@ keperluan pengurutan. Type yang mengimplementasikan `PartialOrd` dapat dipakai
 dengan operator `<`, `>`, `<=`, dan `>=`. Anda hanya dapat menerapkan *trait*
 `PartialOrd` pada type yang juga mengimplementasikan `PartialEq`.
 
-Menurunkan `PartialOrd` mengimplementasikan metode `partial_cmp`, yang
+Menurunkan `PartialOrd` mengimplementasikan method `partial_cmp`, yang
 mengembalikan `Option<Ordering>` yang akan menjadi `None` ketika nilai yang
 diberikan tidak menghasilkan urutan. Contoh nilai yang tidak menghasilkan
 urutan, meskipun sebagian besar nilai typed itu dapat dibandingkan, adalah
@@ -100,13 +100,13 @@ dalam definisi *struct*. Ketika diturunkan pada *enum*, varian *enum* yang
 dideklarasikan lebih awal dalam definisi *enum* dianggap kurang dari varian yang
 dicantumkan kemudian.
 
-*Trait* `PartialOrd` diperlukan, misalnya, untuk metode `gen_range` dari *crate*
+*Trait* `PartialOrd` diperlukan, misalnya, untuk method `gen_range` dari *crate*
 `rand` yang membangkitkan nilai acak dalam rentang yang ditentukan oleh expression
 rentang.
 
 *Trait* `Ord` memungkinkan Anda mengetahui bahwa untuk dua nilai apa pun dari type
 yang dianotasi, urutan yang valid akan selalu ada. *Trait* `Ord`
-mengimplementasikan metode `cmp`, yang mengembalikan `Ordering`, bukan
+mengimplementasikan method `cmp`, yang mengembalikan `Ordering`, bukan
 `Option<Ordering>`, karena urutan yang valid akan selalu memungkinkan. Anda
 hanya dapat menerapkan *trait* `Ord` pada type yang juga mengimplementasikan
 `PartialOrd` dan `Eq` (dan `Eq` mensyaratkan `PartialEq`). Ketika diturunkan
@@ -124,13 +124,13 @@ arbitrer serta menyalin data di *heap*. Lihat bagian [“Variable dan Data yang
 Berinteraksi dengan Clone”][variables-and-data-interacting-with-clone]<!--
 ignore --> di Bab 4 untuk informasi lebih lanjut tentang `Clone`.
 
-Menurunkan `Clone` mengimplementasikan metode `clone`, yang ketika
+Menurunkan `Clone` mengimplementasikan method `clone`, yang ketika
 diimplementasikan untuk seluruh type, memanggil `clone` pada setiap bagian type
 tersebut. Artinya, semua *field* atau nilai dalam type itu juga harus
 mengimplementasikan `Clone` untuk menurunkan `Clone`.
 
-Contoh saat `Clone` diperlukan adalah ketika memanggil metode `to_vec` pada
-*slice*. *Slice* tidak memiliki instance type yang dimuatnya, tetapi vektor yang
+Contoh saat `Clone` diperlukan adalah ketika memanggil method `to_vec` pada
+*slice*. *Slice* tidak memiliki instance type yang dimuatnya, tetapi vector yang
 dikembalikan dari `to_vec` perlu memiliki instance-instancenya, sehingga
 `to_vec` memanggil `clone` pada setiap item. Karena itu, type yang disimpan
 dalam *slice* harus mengimplementasikan `Clone`.
@@ -140,8 +140,8 @@ tersimpan di *stack*; tidak ada kode arbitrer yang diperlukan. Lihat bagian
 [“Data yang Hanya Ada di Stack: Copy”][stack-only-data-copy]<!-- ignore --> di
 Bab 4 untuk informasi lebih lanjut tentang `Copy`.
 
-*Trait* `Copy` tidak mendefinisikan metode apa pun untuk mencegah pemrogram
-meng-overload metode tersebut dan melanggar asumsi bahwa tidak ada kode
+*Trait* `Copy` tidak mendefinisikan method apa pun untuk mencegah pemrogram
+meng-overload method tersebut dan melanggar asumsi bahwa tidak ada kode
 arbitrer yang dijalankan. Dengan demikian, semua pemrogram dapat berasumsi bahwa
 menyalin nilai akan berlangsung sangat cepat.
 
@@ -163,8 +163,8 @@ tempat.
 
 *Trait* `Hash` memungkinkan Anda mengambil instance suatu type berukuran arbitrer
 dan memetakan instance itu ke nilai berukuran tetap memakai fungsi hashing.
-Menurunkan `Hash` mengimplementasikan metode `hash`. Implementasi hasil
-penurunan metode `hash` menggabungkan hasil pemanggilan `hash` pada setiap
+Menurunkan `Hash` mengimplementasikan method `hash`. Implementasi hasil
+penurunan method `hash` menggabungkan hasil pemanggilan `hash` pada setiap
 bagian type, artinya semua *field* atau nilai juga harus mengimplementasikan
 `Hash` untuk menurunkan `Hash`.
 
@@ -186,9 +186,9 @@ ignore --> di Bab 5. Anda dapat mengkustomisasi beberapa *field* *struct*, lalu
 menetapkan dan memakai nilai bawaan untuk *field* sisanya dengan
 `..Default::default()`.
 
-*Trait* `Default` diperlukan, misalnya, ketika Anda memakai metode
+*Trait* `Default` diperlukan, misalnya, ketika Anda memakai method
 `unwrap_or_default` pada instance `Option<T>`. Jika `Option<T>`-nya adalah
-`None`, metode `unwrap_or_default` akan mengembalikan hasil `Default::default`
+`None`, method `unwrap_or_default` akan mengembalikan hasil `Default::default`
 untuk type `T` yang tersimpan dalam `Option<T>`.
 
 [creating-instances-from-other-instances-with-struct-update-syntax]: ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax

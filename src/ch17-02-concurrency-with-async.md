@@ -76,7 +76,7 @@ Versi ini berhenti begitu loop `for` di badan blok async utama selesai,
 karena *task* yang dibuat oleh `spawn_task` dimatikan saat fungsi `main`
 berakhir. Jika Anda ingin *task* itu berjalan sampai tuntas, Anda perlu memakai
 join handle untuk menunggu *task* pertama selesai. Dengan thread, kita memakai
-metode `join` untuk “memblokir” sampai thread itu selesai berjalan. Di Listing
+method `join` untuk “memblokir” sampai thread itu selesai berjalan. Di Listing
 17-7, kita bisa memakai `await` untuk melakukan hal yang sama, karena *task*
 handle itu sendiri adalah sebuah *future*. Type `Output`-nya adalah `Result`,
 jadi kita juga melakukan unwrap padanya setelah menunggunya.
@@ -122,7 +122,7 @@ bisa menaruh setiap loop di blok async dan meminta runtime menjalankan
 keduanya sampai tuntas menggunakan fungsi `trpl::join`.
 
 Di bagian [“Menunggu Semua Thread Selesai”][join-handles]<!-- ignore --> di
-Bab 16, kita menunjukkan cara memakai metode `join` pada type `JoinHandle`
+Bab 16, kita menunjukkan cara memakai method `join` pada type `JoinHandle`
 yang dikembalikan saat Anda memanggil `std::thread::spawn`. Fungsi
 `trpl::join` serupa, tetapi untuk *future*. Saat Anda memberinya dua *future*,
 fungsi itu menghasilkan satu *future* baru yang output-nya adalah *tuple* berisi
@@ -214,15 +214,15 @@ thread terpisah.
 Di sini, kita memakai `trpl::channel`, versi async dari API *channel*
 banyak-produsen, satu-konsumen yang kita pakai dengan thread di Bab 16. Versi
 async dari API ini hanya sedikit berbeda dari versi berbasis threadnya: versi
-ini memakai `rx` yang *mutable* alih-alih *immutable*, dan metode `recv`-nya
+ini memakai `rx` yang *mutable* alih-alih *immutable*, dan method `recv`-nya
 menghasilkan sebuah *future* yang perlu kita tunggu alih-alih langsung
 menghasilkan nilainya. Sekarang kita bisa mengirim pesan dari pengirim ke
 penerima. Perhatikan bahwa kita tidak perlu membuat thread terpisah atau
 bahkan *task*; kita cukup menunggu pemanggilan `rx.recv`.
 
-Metode `Receiver::recv` yang sinkron di `std::mpsc::channel` memblokir sampai
-ia menerima sebuah pesan. Metode `trpl::Receiver::recv` tidak, karena metode
-itu async. Alih-alih memblokir, metode itu menyerahkan kontrol kembali ke
+Method `Receiver::recv` yang sinkron di `std::mpsc::channel` memblokir sampai
+ia menerima sebuah pesan. Method `trpl::Receiver::recv` tidak, karena method
+itu async. Alih-alih memblokir, method itu menyerahkan kontrol kembali ke
 runtime sampai sebuah pesan diterima atau sisi pengirim *channel* ditutup.
 Sebaliknya, kita tidak menunggu pemanggilan `send`, karena pemanggilan itu
 tidak memblokir. Memang tidak perlu, karena *channel* yang menjadi tujuan
@@ -266,7 +266,7 @@ jadi kita perlu memakai loop yang belum pernah kita lihat: loop
 kondisional `while let`. Ini adalah versi loop dari konstruksi `if let`
 yang kita lihat di bagian [“Alur Kontrol yang Ringkas dengan `if let` dan
 `let...else`”][if-let]<!-- ignore --> di Bab 6. Loop ini akan terus
-berjalan selama pola yang ditentukannya terus cocok dengan nilainya.
+berjalan selama pattern yang ditentukannya terus cocok dengan nilainya.
 
 Pemanggilan `rx.recv` menghasilkan sebuah *future*, yang kita tunggu. Runtime
 akan menjeda *future* itu sampai ia siap. Begitu sebuah pesan tiba, *future* itu
@@ -401,7 +401,7 @@ kembali berakhir di infinite loop yang sama dengan saat kita mulai.
 Terakhir, kita beralih dari `trpl::join` ke `trpl::join!` untuk menangani
 *future* tambahan: *macro* `join!` menunggu sejumlah *future* sembarang yang
 jumlahnya kita ketahui pada waktu kompilasi. Kita akan membahas penungguan
-koleksi *future* dengan jumlah yang tidak diketahui nanti di bab ini.
+collection *future* dengan jumlah yang tidak diketahui nanti di bab ini.
 
 Sekarang kita melihat semua pesan dari kedua *future* pengirim, dan karena
 *future*-future pengirim itu memakai penundaan yang sedikit berbeda setelah

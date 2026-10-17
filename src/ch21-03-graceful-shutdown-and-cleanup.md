@@ -4,7 +4,7 @@ Kode di Listing 21-20 merespons permintaan secara asinkron melalui
 pemakaian *thread pool*, seperti yang kita maksudkan. Kita mendapat beberapa
 peringatan tentang *field* `workers`, `id`, dan `thread` yang tidak kita
 pakai secara langsung yang mengingatkan kita bahwa kita belum membersihkan
-apa pun. Saat kita memakai metode <kbd>ctrl</kbd>-<kbd>C</kbd> yang kurang
+apa pun. Saat kita memakai method <kbd>ctrl</kbd>-<kbd>C</kbd> yang kurang
 elegan untuk menghentikan thread utama, semua thread lain juga langsung
 dihentikan, bahkan jika mereka sedang berada di tengah-tengah melayani
 sebuah permintaan.
@@ -59,7 +59,7 @@ perlu memindahkan thread keluar dari instance `Worker` yang memiliki
 `thread` supaya `join` bisa mengonsumsi thread itu. Salah satu caranya
 adalah mengambil pendekatan yang sama seperti yang kita ambil di Listing
 18-15. Jika `Worker` menampung `Option<thread::JoinHandle<()>>`, kita bisa
-memanggil metode `take` pada `Option` itu untuk memindahkan nilainya keluar
+memanggil method `take` pada `Option` itu untuk memindahkan nilainya keluar
 dari varian `Some` dan meninggalkan varian `None` di tempatnya. Dengan kata
 lain, `Worker` yang sedang berjalan akan memiliki varian `Some` di
 `thread`, dan saat kita ingin membersihkan `Worker`, kita mengganti `Some`
@@ -74,10 +74,10 @@ pasti selalu ada di dalam `Option` sebagai jalan keluar seperti ini, ada
 baiknya mencari pendekatan alternatif untuk membuat kode Anda lebih bersih
 dan tidak terlalu rawan error.
 
-Dalam kasus ini, ada alternatif yang lebih baik: metode `Vec::drain`.
-Metode ini menerima parameter range untuk menentukan item-item mana yang
-akan dihapus dari vektor dan mengembalikan *iterator* berisi item-item itu.
-Memberikan sintaks range `..` akan menghapus *semua* nilai dari vektor.
+Dalam kasus ini, ada alternatif yang lebih baik: method `Vec::drain`.
+Method ini menerima parameter range untuk menentukan item-item mana yang
+akan dihapus dari vector dan mengembalikan *iterator* berisi item-item itu.
+Memberikan sintaks range `..` akan menghapus *semua* nilai dari vector.
 
 Jadi, kita perlu memperbarui implementasi `drop` pada `ThreadPool` menjadi
 seperti ini:
@@ -157,7 +157,7 @@ Anda tidak akan ingin server web di dunia nyata berhenti setelah melayani
 hanya dua permintaan. Kode ini hanya menunjukkan bahwa penghentian yang
 rapi dan pembersihannya bekerja dengan baik.
 
-Metode `take` didefinisikan di *trait* `Iterator` dan membatasi iterasi
+Method `take` didefinisikan di *trait* `Iterator` dan membatasi iterasi
 paling banyak ke dua item pertama. `ThreadPool` akan keluar dari *scope* di
 akhir `main`, dan implementasi `drop` akan berjalan.
 
@@ -239,7 +239,7 @@ Berikut kode lengkapnya sebagai rujukan:
 Kita masih bisa melakukan lebih banyak hal di sini! Jika Anda ingin terus
 menyempurnakan proyek ini, berikut beberapa gagasan:
 
-- Menambahkan lebih banyak dokumentasi ke `ThreadPool` dan metode-metode
+- Menambahkan lebih banyak dokumentasi ke `ThreadPool` dan method-method
   publiknya.
 - Menambahkan pengujian untuk fungsionalitas library itu.
 - Mengubah pemanggilan `unwrap` menjadi penanganan error yang lebih

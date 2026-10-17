@@ -20,7 +20,7 @@ Secara lebih spesifik, kita akan membahas:
   daripada yang mungkin Anda kira!)
 
 Kita telah membahas beberapa fitur Rust lain, seperti *pattern matching*
-(pencocokan pola) dan *enum*, yang juga dipengaruhi gaya fungsional. Karena
+(pencocokan pattern) dan *enum*, yang juga dipengaruhi gaya fungsional. Karena
 menguasai *closure* dan *iterator* merupakan bagian penting dari menulis kode Rust
 yang cepat dan idiomatis, kita akan mendedikasikan seluruh bab ini untuk
 mereka.

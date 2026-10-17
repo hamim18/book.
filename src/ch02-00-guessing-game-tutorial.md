@@ -3,7 +3,7 @@
 Mari kita langsung menyelami Rust dengan mengerjakan sebuah proyek praktik
 bersama-sama! Bab ini memperkenalkan Anda pada beberapa konsep Rust yang umum
 dengan menunjukkan cara memakainya di program sungguhan. Anda akan belajar
-tentang `let`, `match`, metode, *associated function* (fungsi asosiasi),
+tentang `let`, `match`, method, *associated function* (fungsi asosiasi),
 *crate* eksternal, dan lainnya! Di bab-bab berikutnya, kita akan
 mengeksplorasi gagasan-gagasan ini lebih detail. Di bab ini, Anda hanya akan
 berlatih dasarnya.
@@ -196,7 +196,7 @@ sebagai `std::io::stdin`. Fungsi `stdin` mengembalikan instance
 [`std::io::Stdin`][iostdin]<!-- ignore -->, yaitu type yang
 merepresentasikan handle ke standard input untuk terminal Anda.
 
-Berikutnya, baris `.read_line(&mut guess)` memanggil metode
+Berikutnya, baris `.read_line(&mut guess)` memanggil method
 [`read_line`][read_line]<!-- ignore --> pada handle standard input untuk
 mendapatkan input dari pengguna. Kita juga meneruskan `&mut guess`
 sebagai argumen ke `read_line` untuk memberi tahu string mana yang akan
@@ -204,7 +204,7 @@ dipakai untuk menyimpan user input. Tugas penuh `read_line` adalah
 mengambil apa pun yang diketik pengguna ke standard input dan
 menambahkannya ke sebuah string (tanpa menimpa isinya), jadi karena itulah
 kita meneruskan string tersebut sebagai argumen. Argumen string itu harus
-*mutable* agar metodenya dapat mengubah isi string tersebut.
+*mutable* agar methodnya dapat mengubah isi string tersebut.
 
 Tanda `&` menandakan bahwa argumen ini adalah sebuah *reference*
 (referensi), yang memberi Anda cara untuk memungkinkan banyak bagian kode
@@ -226,7 +226,7 @@ alih-alih `&guess` untuk membuatnya *mutable*. (Bab 4 akan menjelaskan
 
 Kita masih mengerjakan baris kode ini. Sekarang kita membahas baris teks
 ketiga, tetapi perhatikan bahwa baris itu masih bagian dari satu baris
-kode logis yang sama. Bagian berikutnya adalah metode ini:
+kode logis yang sama. Bagian berikutnya adalah method ini:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:expect}}
@@ -240,7 +240,7 @@ io::stdin().read_line(&mut guess).expect("Failed to read line");
 
 Namun, satu baris panjang sulit dibaca, jadi sebaiknya dibagi. Sering kali
 bijak untuk menyisipkan baris baru dan spasi lain untuk membantu memecah
-baris-baris panjang ketika Anda memanggil metode dengan sintaks
+baris-baris panjang ketika Anda memanggil method dengan sintaks
 `.method_name()`. Sekarang mari kita bahas apa yang dilakukan baris ini.
 
 Seperti yang disebutkan sebelumnya, `read_line` memasukkan apa pun yang
@@ -259,12 +259,12 @@ operasinya berhasil, dan ia memuat nilai yang berhasil dihasilkan.
 *Variant* `Err` berarti operasinya gagal, dan ia memuat informasi tentang
 bagaimana atau mengapa operasi itu gagal.
 
-Nilai typed `Result`, seperti nilai dari type mana pun, memiliki metode
-yang didefinisikan padanya. Sebuah instance `Result` memiliki [metode
+Nilai typed `Result`, seperti nilai dari type mana pun, memiliki method
+yang didefinisikan padanya. Sebuah instance `Result` memiliki [method
 `expect`][expect]<!-- ignore --> yang dapat Anda panggil. Jika instance
 `Result` ini bernilai `Err`, `expect` akan membuat program crash dan
 menampilkan pesan yang Anda berikan sebagai argumen ke `expect`. Jika
-metode `read_line` mengembalikan `Err`, kemungkinan besar itu akibat error
+method `read_line` mengembalikan `Err`, kemungkinan besar itu akibat error
 yang berasal dari sistem operasi yang mendasarinya. Jika instance `Result`
 ini bernilai `Ok`, `expect` akan mengambil nilai balik yang dipegang `Ok`
 dan mengembalikan nilai itu saja kepada Anda sehingga Anda dapat
@@ -574,18 +574,18 @@ Pertama, kita menambahkan baris `use rand::prelude::*;`. *Module*
 Berikutnya, kita menambahkan dua baris di tengah. Pada baris pertama, kita
 memanggil fungsi `rand::rng` yang memberi kita random number generator
 tertentu yang akan kita pakai: pembangkit yang lokal untuk thread eksekusi
-saat ini dan di-seed oleh sistem operasi. Kemudian, kita memanggil metode
-`random_range` pada random number generator itu. Metode ini didefinisikan
+saat ini dan di-seed oleh sistem operasi. Kemudian, kita memanggil method
+`random_range` pada random number generator itu. Method ini didefinisikan
 oleh *trait* `RngExt` yang merupakan bagian dari *module* `rand::prelude`
 yang kita bawa ke dalam *scope* dengan statement `use rand::prelude::*;`.
-Metode `random_range` menerima expression range sebagai argumen dan
+Method `random_range` menerima expression range sebagai argumen dan
 menghasilkan angka acak dalam range tersebut. Jenis expression range yang
 kita pakai di sini berbentuk `start..=end` dan bersifat inklusif pada
 batas bawah dan atasnya, jadi kita perlu menentukan `1..=100` untuk
 meminta angka antara 1 dan 100.
 
 > Catatan: Anda tidak akan langsung tahu apa yang harus dibawa ke dalam
-> *scope* dan metode serta fungsi apa yang harus dipanggil dari sebuah
+> *scope* dan method serta fungsi apa yang harus dipanggil dari sebuah
 > *crate*, jadi setiap *crate* memiliki dokumentasi berisi petunjuk
 > pemakaiannya. Fitur rapi lain dari Cargo adalah bahwa menjalankan
 > perintah `cargo doc --open` akan membangun dokumentasi yang disediakan
@@ -659,8 +659,8 @@ Pertama, kita menambahkan statement `use` lain, membawa type bernama
 dua nilai.
 
 Kemudian, kita menambahkan lima baris baru di bagian bawah yang memakai
-type `Ordering`. Metode `cmp` membandingkan dua nilai dan dapat dipanggil
-pada apa pun yang dapat dibandingkan. Metode ini menerima sebuah
+type `Ordering`. Method `cmp` membandingkan dua nilai dan dapat dipanggil
+pada apa pun yang dapat dibandingkan. Method ini menerima sebuah
 *reference* ke apa pun yang ingin Anda bandingkan dengannya: Di sini, ia
 membandingkan `guess` dengan `secret_number`. Lalu, ia mengembalikan
 *variant* dari *enum* `Ordering` yang kita bawa ke dalam *scope* dengan
@@ -670,10 +670,10 @@ untuk memutuskan apa yang harus dilakukan berikutnya berdasarkan *variant*
 `guess` dan `secret_number`.
 
 Sebuah expression `match` terdiri atas *arm* (lengan). Sebuah *arm* terdiri
-atas sebuah pola untuk dicocokkan, dan kode yang harus dijalankan jika
-nilai yang diberikan ke `match` sesuai dengan pola *arm* tersebut. Rust
-mengambil nilai yang diberikan ke `match` dan memeriksa pola tiap *arm*
-secara bergiliran. Pola dan konstruksi `match` adalah fitur Rust yang
+atas sebuah pattern untuk dicocokkan, dan kode yang harus dijalankan jika
+nilai yang diberikan ke `match` sesuai dengan pattern *arm* tersebut. Rust
+mengambil nilai yang diberikan ke `match` dan memeriksa pattern tiap *arm*
+secara bergiliran. Pattern dan konstruksi `match` adalah fitur Rust yang
 ampuh: Keduanya memungkinkan Anda mengekspresikan berbagai situasi yang
 mungkin dihadapi kode Anda, dan memastikan Anda menangani semuanya.
 Fitur-fitur ini akan dibahas secara detail masing-masing di Bab 6 dan
@@ -683,12 +683,12 @@ Mari kita telusuri sebuah contoh dengan expression `match` yang kita pakai
 di sini. Katakanlah pengguna menebak 50 dan angka rahasia yang dihasilkan
 secara acak kali ini adalah 38.
 
-Ketika kode membandingkan 50 dengan 38, metode `cmp` akan mengembalikan
+Ketika kode membandingkan 50 dengan 38, method `cmp` akan mengembalikan
 `Ordering::Greater` karena 50 lebih besar daripada 38. Expression `match`
-menerima nilai `Ordering::Greater` dan mulai memeriksa pola tiap *arm*. Ia
-melihat pola *arm* pertama, `Ordering::Less`, dan melihat bahwa nilai
+menerima nilai `Ordering::Greater` dan mulai memeriksa pattern tiap *arm*. Ia
+melihat pattern *arm* pertama, `Ordering::Less`, dan melihat bahwa nilai
 `Ordering::Greater` tidak cocok dengan `Ordering::Less`, jadi ia
-mengabaikan kode di *arm* itu dan berpindah ke *arm* berikutnya. Pola
+mengabaikan kode di *arm* itu dan berpindah ke *arm* berikutnya. Pattern
 *arm* berikutnya adalah `Ordering::Greater`, yang _memang_ cocok dengan
 `Ordering::Greater`! Kode terkait di *arm* itu akan dieksekusi dan
 mencetak `Too big!` ke layar. Expression `match` berakhir setelah kecocokan
@@ -748,7 +748,7 @@ type ke type lain.
 
 Kita mengikat variable baru ini ke expression `guess.trim().parse()`.
 `guess` dalam expression itu merujuk ke variable `guess` asli yang berisi
-input sebagai string. Metode `trim` pada instance `String` akan
+input sebagai string. Method `trim` pada instance `String` akan
 menghapus spasi apa pun di awal dan akhir, yang harus kita lakukan sebelum
 kita dapat mengonversi string itu ke `u32`, yang hanya dapat memuat data
 numerik. Pengguna harus menekan <kbd>enter</kbd> untuk memenuhi
@@ -756,10 +756,10 @@ numerik. Pengguna harus menekan <kbd>enter</kbd> untuk memenuhi
 ke string. Misalnya, jika pengguna mengetik <kbd>5</kbd> dan menekan
 <kbd>enter</kbd>, `guess` tampak seperti ini: `5\n`. `\n` mewakili
 “newline”. (Di Windows, menekan <kbd>enter</kbd> menghasilkan carriage
-return dan newline, `\r\n`.) Metode `trim` menghapus `\n` atau `\r\n`,
+return dan newline, `\r\n`.) Method `trim` menghapus `\n` atau `\r\n`,
 sehingga hasilnya hanya `5`.
 
-[Metode `parse` pada string][parse]<!-- ignore --> mengonversi string ke
+[Method `parse` pada string][parse]<!-- ignore --> mengonversi string ke
 type lain. Di sini, kita memakainya untuk mengonversi dari string ke
 angka. Kita perlu memberi tahu Rust numeric type persis yang kita inginkan
 dengan memakai `let guess: u32`. Titik dua (`:`) setelah `guess` memberi
@@ -774,15 +774,15 @@ Selain itu, anotasi `u32` dalam contoh program ini dan perbandingan dengan
 harus berupa `u32`. Jadi, sekarang perbandingannya akan terjadi antara dua
 nilai dengan type yang sama!
 
-Metode `parse` hanya akan bekerja pada karakter yang secara logis dapat
+Method `parse` hanya akan bekerja pada karakter yang secara logis dapat
 dikonversi menjadi angka sehingga ia dapat dengan mudah menyebabkan error.
 Jika, misalnya, string berisi `A👍%`, tidak akan ada cara untuk
-mengonversinya menjadi angka. Karena ia mungkin gagal, metode `parse`
-mengembalikan type `Result`, sama seperti yang dilakukan metode
+mengonversinya menjadi angka. Karena ia mungkin gagal, method `parse`
+mengembalikan type `Result`, sama seperti yang dilakukan method
 `read_line` (dibahas sebelumnya di [“Menangani Kemungkinan Kegagalan
 dengan `Result`”](#handling-potential-failure-with-result)<!-- ignore -->).
 Kita akan memperlakukan `Result` ini dengan cara yang sama, yaitu memakai
-metode `expect` lagi. Jika `parse` mengembalikan *variant* `Result` `Err`
+method `expect` lagi. Jika `parse` mengembalikan *variant* `Result` `Err`
 karena ia tidak dapat membuat angka dari string itu, pemanggilan `expect`
 akan membuat permainan crash dan mencetak pesan yang kita berikan. Jika
 `parse` dapat mengonversi string menjadi angka, ia akan mengembalikan
@@ -927,19 +927,19 @@ Kita beralih dari pemanggilan `expect` ke expression `match` untuk beralih
 dari crash karena error menjadi menangani error. Ingat bahwa `parse`
 mengembalikan type `Result` dan `Result` adalah *enum* yang memiliki
 *variant* `Ok` dan `Err`. Kita memakai expression `match` di sini, seperti
-yang kita lakukan dengan hasil `Ordering` dari metode `cmp`.
+yang kita lakukan dengan hasil `Ordering` dari method `cmp`.
 
 Jika `parse` berhasil mengubah string menjadi angka, ia akan mengembalikan
 nilai `Ok` yang memuat angka hasilnya. Nilai `Ok` itu akan cocok dengan
-pola *arm* pertama, dan expression `match` akan langsung mengembalikan nilai
+pattern *arm* pertama, dan expression `match` akan langsung mengembalikan nilai
 `num` yang dihasilkan `parse` dan dimasukkan ke dalam nilai `Ok`. Angka itu
 akan berakhir tepat di tempat yang kita inginkan, yaitu di variable `guess`
 baru yang kita buat.
 
 Jika `parse` _tidak_ dapat mengubah string menjadi angka, ia akan
 mengembalikan nilai `Err` yang memuat informasi lebih lanjut tentang
-errornya. Nilai `Err` tidak cocok dengan pola `Ok(num)` di *arm* `match`
-pertama, tetapi cocok dengan pola `Err(_)` di *arm* kedua. Garis bawah,
+errornya. Nilai `Err` tidak cocok dengan pattern `Ok(num)` di *arm* `match`
+pertama, tetapi cocok dengan pattern `Err(_)` di *arm* kedua. Garis bawah,
 `_`, adalah nilai yang menangkap apa saja; dalam contoh ini, kita
 menyatakan bahwa kita ingin mencocokkan semua nilai `Err`, apa pun
 informasi yang ada di dalamnya. Jadi, program akan mengeksekusi kode
@@ -1008,7 +1008,7 @@ konsep-konsep ini lebih detail. Bab 3 membahas konsep yang dimiliki
 sebagian besar bahasa pemrograman, seperti variable, data type, dan
 fungsi, serta menunjukkan cara memakainya di Rust. Bab 4 mengeksplorasi
 *ownership*, fitur yang membuat Rust berbeda dari bahasa lain. Bab 5
-membahas *struct* dan sintaks metode, dan Bab 6 menjelaskan cara kerja
+membahas *struct* dan sintaks method, dan Bab 6 menjelaskan cara kerja
 *enum*.
 
 [prelude]: ../std/prelude/index.html

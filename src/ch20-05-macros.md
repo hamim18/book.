@@ -60,26 +60,26 @@ Bentuk *macro* yang paling banyak dipakai di Rust adalah *declarative macro*
 deklaratif memungkinkan Anda menulis sesuatu yang mirip dengan expression
 `match` di Rust. Seperti yang dibahas di Bab 6, expression `match` adalah
 struktur kontrol yang menerima sebuah expression, membandingkan nilai yang
-dihasilkan expression itu dengan pola-pola, lalu menjalankan kode yang
-dikaitkan dengan pola yang cocok. *Macro* juga membandingkan sebuah nilai
-dengan pola-pola yang dikaitkan dengan kode tertentu: Dalam situasi ini,
+dihasilkan expression itu dengan pattern-pattern, lalu menjalankan kode yang
+dikaitkan dengan pattern yang cocok. *Macro* juga membandingkan sebuah nilai
+dengan pattern-pattern yang dikaitkan dengan kode tertentu: Dalam situasi ini,
 nilainya adalah kode sumber Rust literal yang diberikan ke *macro*;
-pola-polanya dibandingkan dengan struktur kode sumber itu; dan kode yang
-dikaitkan dengan setiap pola, saat cocok, menggantikan kode yang diberikan
+pattern-patternnya dibandingkan dengan struktur kode sumber itu; dan kode yang
+dikaitkan dengan setiap pattern, saat cocok, menggantikan kode yang diberikan
 ke *macro*. Semua ini terjadi selama kompilasi.
 
 Untuk mendefinisikan *macro*, Anda memakai konstruk `macro_rules!`. Mari kita
 telusuri cara memakai `macro_rules!` dengan melihat bagaimana *macro* `vec!`
 didefinisikan. Bab 8 membahas cara kita memakai *macro* `vec!` untuk membuat
-vektor baru dengan nilai-nilai tertentu. Misalnya, *macro* berikut membuat
-vektor baru berisi tiga integer:
+vector baru dengan nilai-nilai tertentu. Misalnya, *macro* berikut membuat
+vector baru berisi tiga integer:
 
 ```rust
 let v: Vec<u32> = vec![1, 2, 3];
 ```
 
-Kita juga bisa memakai *macro* `vec!` untuk membuat vektor berisi dua integer
-atau vektor berisi lima string *slice*. Kita tidak akan bisa memakai fungsi
+Kita juga bisa memakai *macro* `vec!` untuk membuat vector berisi dua integer
+atau vector berisi lima string *slice*. Kita tidak akan bisa memakai fungsi
 untuk melakukan hal yang sama karena kita tidak tahu jumlah atau type
 nilainya di muka.
 
@@ -107,38 +107,38 @@ yang kita definisikan *tanpa* tanda seru. Nama itu, dalam kasus ini `vec`,
 diikuti oleh kurung kurawal yang menandakan tubuh definisi *macro*.
 
 Struktur di tubuh `vec!` mirip dengan struktur expression `match`. Di sini
-kita punya satu arm dengan pola `( $( $x:expr ),* )`, diikuti oleh `=>` dan
-blok kode yang dikaitkan dengan pola ini. Jika polanya cocok, blok kode yang
-terkait akan dihasilkan. Mengingat ini satu-satunya pola di *macro* ini, hanya
-ada satu cara pencocokan yang valid; pola lain mana pun akan menghasilkan
+kita punya satu arm dengan pattern `( $( $x:expr ),* )`, diikuti oleh `=>` dan
+blok kode yang dikaitkan dengan pattern ini. Jika patternnya cocok, blok kode yang
+terkait akan dihasilkan. Mengingat ini satu-satunya pattern di *macro* ini, hanya
+ada satu cara pencocokan yang valid; pattern lain mana pun akan menghasilkan
 error. *Macro* yang lebih kompleks akan memiliki lebih dari satu arm.
 
-Sintaks pola yang valid dalam definisi *macro* berbeda dari sintaks pola yang
-dibahas di Bab 19 karena pola *macro* dicocokkan dengan struktur kode Rust,
-bukan dengan nilai. Mari kita telusuri arti bagian-bagian pola di Listing
-20-29; untuk sintaks pola *macro* selengkapnya, lihat [Rust *Reference*][ref].
+Sintaks pattern yang valid dalam definisi *macro* berbeda dari sintaks pattern yang
+dibahas di Bab 19 karena pattern *macro* dicocokkan dengan struktur kode Rust,
+bukan dengan nilai. Mari kita telusuri arti bagian-bagian pattern di Listing
+20-29; untuk sintaks pattern *macro* selengkapnya, lihat [Rust *Reference*][ref].
 
-Pertama, kita memakai sepasang tanda kurung untuk melingkupi seluruh pola.
+Pertama, kita memakai sepasang tanda kurung untuk melingkupi seluruh pattern.
 Kita memakai tanda dolar (`$`) untuk mendeklarasikan variable di sistem
-*macro* yang akan memuat kode Rust yang cocok dengan polanya. Tanda dolar
+*macro* yang akan memuat kode Rust yang cocok dengan patternnya. Tanda dolar
 memperjelas bahwa ini adalah variable *macro*, bukan variable Rust biasa.
 Berikutnya ada sepasang tanda kurung yang menangkap nilai-nilai yang cocok
-dengan pola di dalam tanda kurung itu untuk dipakai di kode penggantinya.
+dengan pattern di dalam tanda kurung itu untuk dipakai di kode penggantinya.
 Di dalam `$()` ada `$x:expr`, yang mencocokkan expression Rust mana pun dan
 memberi expression itu nama `$x`.
 
 Koma yang mengikuti `$()` menunjukkan bahwa karakter koma pemisah literal
 harus muncul di antara setiap instance kode yang cocok dengan kode di dalam
-`$()`. `*` menentukan bahwa pola itu mencocokkan nol atau lebih dari apa pun
+`$()`. `*` menentukan bahwa pattern itu mencocokkan nol atau lebih dari apa pun
 yang mendahului `*`.
 
-Saat kita memanggil *macro* ini dengan `vec![1, 2, 3];`, pola `$x` cocok tiga
+Saat kita memanggil *macro* ini dengan `vec![1, 2, 3];`, pattern `$x` cocok tiga
 kali dengan tiga expression `1`, `2`, dan `3`.
 
-Sekarang mari kita lihat pola di tubuh kode yang dikaitkan dengan arm ini:
+Sekarang mari kita lihat pattern di tubuh kode yang dikaitkan dengan arm ini:
 `temp_vec.push()` di dalam `$()*` dihasilkan untuk setiap bagian yang cocok
-dengan `$()` di polanya, nol kali atau lebih, bergantung pada berapa kali
-pola itu cocok. `$x` diganti dengan setiap expression yang cocok. Saat kita
+dengan `$()` di patternnya, nol kali atau lebih, bergantung pada berapa kali
+pattern itu cocok. `$x` diganti dengan setiap expression yang cocok. Saat kita
 memanggil *macro* ini dengan `vec![1, 2, 3];`, kode yang dihasilkan untuk
 menggantikan pemanggilan *macro* ini adalah sebagai berikut:
 
@@ -153,7 +153,7 @@ menggantikan pemanggilan *macro* ini adalah sebagai berikut:
 ```
 
 Kita telah mendefinisikan *macro* yang bisa menerima sejumlah argumen dengan
-type apa pun dan bisa menghasilkan kode untuk membuat vektor berisi
+type apa pun dan bisa menghasilkan kode untuk membuat vector berisi
 elemen-elemen yang ditentukan.
 
 Untuk mempelajari lebih lanjut cara menulis *macro*, lihat dokumentasi daring
@@ -166,7 +166,7 @@ Bentuk *macro* yang kedua adalah *macro* prosedural, yang bertindak lebih
 seperti fungsi (dan merupakan jenis prosedur). *Procedural macro* (*macro*
 prosedural) menerima sejumlah kode sebagai input, bekerja pada kode itu,
 dan menghasilkan sejumlah kode sebagai output, alih-alih mencocokkan
-dengan pola dan mengganti kode itu dengan kode lain seperti yang dilakukan
+dengan pattern dan mengganti kode itu dengan kode lain seperti yang dilakukan
 *macro* deklaratif. Tiga jenis *macro* prosedural adalah `derive` kustom, mirip
 atribut, dan mirip fungsi, dan semuanya bekerja dengan cara yang serupa.
 
@@ -425,7 +425,7 @@ berisi instance *struct* `Ident` yang, saat dicetak, menjadi string
 *Macro* `quote!` memungkinkan kita mendefinisikan kode Rust yang ingin kita
 kembalikan. Kompilator mengharapkan sesuatu yang berbeda dari hasil
 langsung eksekusi *macro* `quote!`, jadi kita perlu mengonversinya menjadi
-`TokenStream`. Kita melakukannya dengan memanggil metode `into`, yang
+`TokenStream`. Kita melakukannya dengan memanggil method `into`, yang
 mengonsumsi representasi perantara ini dan mengembalikan nilai typed
 `TokenStream` yang diwajibkan.
 

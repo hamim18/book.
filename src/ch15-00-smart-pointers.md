@@ -31,7 +31,7 @@ menyesuaikan kode yang dijalankan ketika sebuah instance *smart pointer* keluar
 dari *scope*. Di bab ini, kita akan membahas kedua *trait* ini dan menunjukkan
 mengapa keduanya penting bagi *smart pointer*.
 
-Mengingat pola *smart pointer* adalah pola desain umum yang sering dipakai di
+Mengingat pattern *smart pointer* adalah pattern desain umum yang sering dipakai di
 Rust, bab ini tidak akan membahas setiap *smart pointer* yang ada. Banyak
 library memiliki *smart pointer* sendiri, dan Anda bahkan dapat menulis smart
 *pointer* Anda sendiri. Kita akan membahas *smart pointer* yang paling umum di
@@ -42,7 +42,7 @@ pustaka standar:
 - `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, type yang menegakkan
   aturan *borrowing* pada runtime alih-alih pada waktu kompilasi
 
-Selain itu, kita akan membahas pola _interior mutability_ (mutabilitas
+Selain itu, kita akan membahas pattern _interior mutability_ (mutabilitas
 internal) di mana sebuah type *immutable* mengekspos API untuk mengubah nilai
 di bagian dalamnya. Kita juga akan membahas *reference cycle* (siklus
 referensi): bagaimana siklus itu bisa membocorkan memori dan bagaimana

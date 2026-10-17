@@ -14,8 +14,8 @@ Di bab ini, kita akan membahas:
 - *Unsafe* Rust: Cara memilih untuk tidak memakai sebagian jaminan Rust dan
   mengambil tanggung jawab untuk menegakkan jaminan itu secara manual
 - *Trait* lanjutan: Type asosiasi, type parameter bawaan, sintaks fully
-  qualified, *supertrait*, dan pola newtype dalam kaitannya dengan *trait*
-- Type lanjutan: Lebih jauh tentang pola newtype, type alias, type never,
+  qualified, *supertrait*, dan newtype pattern dalam kaitannya dengan *trait*
+- Type lanjutan: Lebih jauh tentang newtype pattern, type alias, type never,
   dan type berukuran dinamis
 - Fungsi dan *closure* lanjutan: *Pointer* fungsi dan mengembalikan *closure*
 - *Macro*: Cara mendefinisikan kode yang mendefinisikan lebih banyak kode pada

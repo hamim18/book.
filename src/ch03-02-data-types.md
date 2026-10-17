@@ -100,7 +100,7 @@ menuliskan `1000`.
 Jadi, bagaimana Anda tahu type integer mana yang harus dipakai? Jika Anda ragu,
 bawaan Rust umumnya adalah titik awal yang baik: type integer secara bawaan
 adalah `i32`. Situasi utama ketika Anda memakai `isize` atau `usize` adalah
-saat melakukan pengindeksan terhadap suatu koleksi.
+saat melakukan pengindeksan terhadap suatu collection.
 
 > ##### Integer Overflow
 >
@@ -126,15 +126,15 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 > error.
 >
 > Untuk menangani kemungkinan overflow secara eksplisit, Anda dapat memakai
-> keluarga metode berikut yang disediakan oleh pustaka standar untuk type
+> keluarga method berikut yang disediakan oleh pustaka standar untuk type
 > numerik primitif:
 >
-> - Membungkus dalam semua mode kompilasi dengan metode `wrapping_*`, seperti 
+> - Membungkus dalam semua mode kompilasi dengan method `wrapping_*`, seperti 
 >   `wrapping_add`.
-> - Mengembalikan nilai `None` jika terjadi overflow dengan metode `checked_*`.
+> - Mengembalikan nilai `None` jika terjadi overflow dengan method `checked_*`.
 > - Mengembalikan nilai beserta sebuah Boolean yang menandakan apakah overflow
->   terjadi dengan metode `overflowing_*`.
-> - Menjenuhkan pada nilai minimum atau maksimum dengan metode `saturating_*`.
+>   terjadi dengan method `overflowing_*`.
+> - Menjenuhkan pada nilai minimum atau maksimum dengan method `saturating_*`.
 
 #### Type Floating-Point
 
@@ -238,7 +238,7 @@ type annotation opsional pada contoh ini:
 
 Variable `tup` terikat pada keseluruhan *tuple* karena *tuple* dianggap sebagai
 satu elemen majemuk tunggal. Untuk mengambil nilai-nilai individual dari
-sebuah *tuple*, kita dapat memakai *pattern matching* (pencocokan pola) untuk
+sebuah *tuple*, kita dapat memakai *pattern matching* (pencocokan pattern) untuk
 mendestrukturisasi nilai *tuple*, seperti ini:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -248,7 +248,7 @@ mendestrukturisasi nilai *tuple*, seperti ini:
 ```
 
 Program ini mula-mula membuat sebuah *tuple* dan mengikatnya ke variable `tup`.
-Lalu program memakai sebuah pola dengan `let` untuk mengambil `tup` dan
+Lalu program memakai sebuah pattern dengan `let` untuk mengambil `tup` dan
 mengubahnya menjadi tiga variable terpisah, `x`, `y`, dan `z`. Ini disebut
 *destructuring* (destrukturisasi) karena ia memecah satu *tuple* menjadi tiga
 bagian. Terakhir, program mencetak nilai `y`, yaitu `6.4`.
@@ -273,7 +273,7 @@ jika tidak mengembalikan nilai lain.
 
 #### Type Array
 
-Cara lain untuk memiliki koleksi berisi banyak nilai adalah dengan array.
+Cara lain untuk memiliki collection berisi banyak nilai adalah dengan array.
 Tidak seperti *tuple*, setiap elemen array harus memiliki type yang sama. Tidak
 seperti array pada beberapa bahasa lain, array di Rust memiliki panjang yang
 tetap.
@@ -292,15 +292,15 @@ sama seperti type-type lain yang telah kita lihat sejauh ini, alih-alih di
 *heap* (timbunan) (kita akan membahas *stack* dan *heap* lebih lanjut di
 [Bab 4][stack-and-heap]<!-- ignore -->) atau ketika Anda ingin memastikan
 bahwa Anda selalu memiliki jumlah elemen yang tetap. Meski begitu, array tidak
-sefleksibel type vektor. Vektor adalah type koleksi serupa yang disediakan oleh
+sefleksibel type vector. Vector adalah type collection serupa yang disediakan oleh
 pustaka standar yang _diizinkan_ untuk membesar atau mengecil ukurannya karena
-isinya berada di *heap*. Jika Anda ragu apakah harus memakai array atau vektor,
-kemungkinan besar Anda sebaiknya memakai vektor. [Bab 8][vectors]<!-- ignore
---> membahas vektor secara lebih mendetail.
+isinya berada di *heap*. Jika Anda ragu apakah harus memakai array atau vector,
+kemungkinan besar Anda sebaiknya memakai vector. [Bab 8][vectors]<!-- ignore
+--> membahas vector secara lebih mendetail.
 
 Namun, array lebih berguna ketika Anda tahu bahwa jumlah elemennya tidak akan
 perlu berubah. Contohnya, jika Anda memakai nama-nama bulan dalam sebuah
-program, Anda mungkin akan memakai array alih-alih vektor karena Anda tahu
+program, Anda mungkin akan memakai array alih-alih vector karena Anda tahu
 array itu akan selalu berisi 12 elemen:
 
 ```rust

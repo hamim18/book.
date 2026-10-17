@@ -3,7 +3,7 @@
 Seperti yang kita lihat di [Bab 16][ch16]<!-- ignore -->, thread menyediakan
 satu pendekatan terhadap konkurensi. Kita telah melihat pendekatan lain di bab
 ini: memakai async dengan *future* dan *stream*. Jika Anda bertanya-tanya kapan
-memilih satu metode alih-alih yang lain, jawabannya adalah: tergantung! Dan
+memilih satu method alih-alih yang lain, jawabannya adalah: tergantung! Dan
 dalam banyak kasus, pilihannya bukan thread _atau_ async, melainkan thread
 _dan_ async.
 
@@ -54,7 +54,7 @@ secara transparan, berdasarkan cara thread-thread itu sedang dimanfaatkan,
 untuk meningkatkan performa keseluruhan sistem. Pendekatan itu sebenarnya
 memerlukan thread _dan_ *task*, dan karena itu juga *future*.
 
-Saat memikirkan metode mana yang dipakai untuk situasi mana, pertimbangkan
+Saat memikirkan method mana yang dipakai untuk situasi mana, pertimbangkan
 aturan praktis ini:
 
 - Jika pekerjaannya _sangat dapat diparalelkan_ (artinya, terikat CPU),

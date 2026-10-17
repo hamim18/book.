@@ -168,7 +168,7 @@ berjalan serial padahal Anda mengharapkannya berjalan konkuren!
 <a id="building-our-own-async-abstractions"></a>
 ### Membangun Abstraksi Async Kita Sendiri
 
-Kita juga bisa menyusun *future* bersama-sama untuk menciptakan pola baru.
+Kita juga bisa menyusun *future* bersama-sama untuk menciptakan pattern baru.
 Contohnya, kita bisa membangun fungsi `timeout` dengan batu penyusun async
 yang sudah kita miliki. Saat selesai, hasilnya akan menjadi batu penyusun lain
 yang bisa kita pakai untuk menciptakan lebih banyak abstraksi async.

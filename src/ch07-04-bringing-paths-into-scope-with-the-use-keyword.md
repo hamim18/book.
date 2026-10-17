@@ -331,9 +331,9 @@ yang sama dengan definisi milik Anda di *scope* yang sama, misalnya.
 Operator glob sering dipakai saat menguji untuk membawa semua yang sedang
 diuji ke dalam *module* `tests`; kita akan membahasnya di [“Cara Menulis
 Pengujian”][writing-tests]<!-- ignore --> di Bab 11. Operator glob juga
-kadang dipakai sebagai bagian dari pola prelude: lihat [dokumentasi pustaka
+kadang dipakai sebagai bagian dari pattern prelude: lihat [dokumentasi pustaka
 standar](../std/prelude/index.html#other-preludes)<!-- ignore --> untuk
-informasi lebih lanjut tentang pola itu.
+informasi lebih lanjut tentang pattern itu.
 
 [ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api
 [rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
