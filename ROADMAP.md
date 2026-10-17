@@ -53,9 +53,9 @@ Diperbarui di akhir setiap sesi.
     ±10 detik untuk iterasi gaya.
   - Menunggu pemeriksaan visual pengguna; pratinjau PNG halaman terpilih
     di `cetak/keluaran/`.
-- Sedang dikerjakan: Tahap 6 — cetak B5 + poin 3 (susunan buku lengkap);
-  menunggu pemeriksaan visual pengguna (lihat `cetak/README.md`) dan isian
-  data pribadi untuk halaman penerjemah/edisi/koreksi.
+- Sedang dikerjakan: Tahap 6 — cetak B5 + poin 3 (susunan buku lengkap,
+  kedua jilid lengkap, nama penerjemah "AI"); menunggu pemeriksaan visual
+  pengguna (lihat `cetak/README.md`; pratinjau PNG di `cetak/keluaran/`).
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak
