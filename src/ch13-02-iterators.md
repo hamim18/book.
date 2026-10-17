@@ -20,19 +20,19 @@ berguna.
 
 </Listing>
 
-*Iterator* itu disimpan di variabel `v1_iter`. Setelah membuat sebuah
+*Iterator* itu disimpan di variable `v1_iter`. Setelah membuat sebuah
 *iterator*, kita dapat memakainya dengan berbagai cara. Di Listing 3-5, kita
-melakukan iterasi atas sebuah array memakai perulangan `for` untuk menjalankan
+melakukan iterasi atas sebuah array memakai loop `for` untuk menjalankan
 sebagian kode pada setiap itemnya. Di balik layar, ini secara implisit
 membuat lalu mengonsumsi sebuah *iterator*, tetapi kita melewatkan bagaimana
 persisnya itu bekerja sampai sekarang.
 
 Pada contoh di Listing 13-11, kita memisahkan pembuatan *iterator* dari
-pemakaian *iterator* di dalam perulangan `for`. Ketika perulangan `for`
+pemakaian *iterator* di dalam loop `for`. Ketika loop `for`
 dipanggil memakai *iterator* di `v1_iter`, setiap elemen di dalam *iterator*
-dipakai dalam satu iterasi perulangan, yang mencetak setiap nilainya.
+dipakai dalam satu iterasi loop, yang mencetak setiap nilainya.
 
-<Listing number="13-11" file-name="src/main.rs" caption="Memakai iterator di dalam perulangan `for`">
+<Listing number="13-11" file-name="src/main.rs" caption="Memakai iterator di dalam loop `for`">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-11/src/main.rs:here}}
@@ -42,9 +42,9 @@ dipakai dalam satu iterasi perulangan, yang mencetak setiap nilainya.
 
 Di bahasa-bahasa yang tidak memiliki *iterator* dari pustaka standarnya, Anda
 kemungkinan akan menulis fungsionalitas yang sama ini dengan memulai sebuah
-variabel pada indeks 0, memakai variabel itu untuk mengindeks ke dalam vektor
-untuk mendapat sebuah nilai, dan menaikkan nilai variabel itu di dalam
-perulangan sampai mencapai jumlah total item di dalam vektor.
+variable pada indeks 0, memakai variable itu untuk mengindeks ke dalam vektor
+untuk mendapat sebuah nilai, dan menaikkan nilai variable itu di dalam
+loop sampai mencapai jumlah total item di dalam vektor.
 
 *Iterator* menangani semua logika itu untuk Anda, mengurangi kode berulang
 yang berpotensi Anda kacaukan. *Iterator* memberi Anda lebih banyak
@@ -99,7 +99,7 @@ Perhatikan bahwa kita perlu membuat `v1_iter` *mutable*: Memanggil metode
 *iterator* untuk melacak posisinya di dalam urutan. Dengan kata lain, kode ini
 _mengonsumsi_, atau menghabiskan, *iterator* itu. Setiap pemanggilan `next`
 memakan satu item dari *iterator*. Kita tidak perlu membuat `v1_iter`
-*mutable* ketika memakai perulangan `for`, karena perulangan itu mengambil
+*mutable* ketika memakai loop `for`, karena loop itu mengambil
 *ownership* atas `v1_iter` dan membuatnya *mutable* di belakang layar.
 
 Perhatikan juga bahwa nilai-nilai yang kita dapat dari pemanggilan `next`
@@ -216,7 +216,7 @@ dalam *iterator* yang dihasilkan oleh `filter`. Jika *closure* mengembalikan
 `false`, nilainya tidak akan disertakan.
 
 Di Listing 13-16, kita memakai `filter` dengan sebuah *closure* yang menangkap
-variabel `shoe_size` dari lingkungannya untuk melakukan iterasi atas koleksi
+variable `shoe_size` dari lingkungannya untuk melakukan iterasi atas koleksi
 instance *struct* `Shoe`. *Closure* itu hanya akan mengembalikan sepatu-sepatu
 yang ukurannya sesuai.
 

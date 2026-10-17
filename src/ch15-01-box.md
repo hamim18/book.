@@ -51,7 +51,7 @@ Listing 15-1 menunjukkan cara memakai *box* untuk menyimpan nilai `i32` di *heap
 
 </Listing>
 
-Kita mendefinisikan variabel `b` agar memiliki nilai sebuah `Box` yang
+Kita mendefinisikan variable `b` agar memiliki nilai sebuah `Box` yang
 menunjuk ke nilai `5`, yang dialokasikan di *heap*. Program ini akan mencetak
 `b = 5`; dalam kasus ini, kita dapat mengakses data di dalam *box* dengan cara
 yang serupa seperti jika data itu berada di *stack*. Sama seperti nilai yang

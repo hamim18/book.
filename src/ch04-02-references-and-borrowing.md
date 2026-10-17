@@ -8,7 +8,7 @@ dipindahkan ke dalam `calculate_length`. Sebagai gantinya, kita dapat
 memberikan sebuah *reference* ke nilai `String` tersebut. *Reference* mirip
 dengan *pointer* karena ia adalah sebuah alamat yang dapat kita ikuti untuk
 mengakses data yang tersimpan di alamat tersebut; data itu dimiliki oleh
-variabel lain. Tidak seperti *pointer*, *reference* dijamin menunjuk ke nilai
+variable lain. Tidak seperti *pointer*, *reference* dijamin menunjuk ke nilai
 yang valid dari type tertentu selama masa hidup *reference* tersebut.
 
 Berikut cara Anda mendefinisikan dan menggunakan fungsi `calculate_length`
@@ -23,8 +23,8 @@ mengambil *ownership* dari nilai tersebut:
 
 </Listing>
 
-Pertama, perhatikan bahwa semua kode *tuple* dalam deklarasi variabel dan
-nilai kembalian fungsi sudah tidak ada. Kedua, perhatikan bahwa kita
+Pertama, perhatikan bahwa semua kode *tuple* dalam deklarasi variable dan
+return value fungsi sudah tidak ada. Kedua, perhatikan bahwa kita
 meneruskan `&s1` ke dalam `calculate_length` dan, pada definisinya, kita
 menerima `&String`, bukan `String`. Tanda ampersand ini merepresentasikan
 *reference*, dan memungkinkan Anda merujuk ke suatu nilai tanpa mengambil
@@ -61,7 +61,7 @@ tambahkan beberapa anotasi penjelas:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}
 ```
 
-*Scope* tempat variabel `s` berlaku sama dengan *scope* parameter fungsi mana
+*Scope* tempat variable `s` berlaku sama dengan *scope* parameter fungsi mana
 pun, tetapi nilai yang ditunjuk oleh *reference* tidak dibuang ketika `s`
 berhenti digunakan, karena `s` tidak memiliki *ownership*. Ketika fungsi
 menerima *reference* sebagai parameter alih-alih nilai sebenarnya, kita tidak
@@ -91,7 +91,7 @@ Berikut errornya:
 {{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}
 ```
 
-Sama seperti variabel yang bersifat *immutable* secara bawaan, *reference*
+Sama seperti variable yang bersifat *immutable* secara bawaan, *reference*
 juga demikian. Kita tidak diizinkan mengubah sesuatu yang kita miliki
 *reference*-nya.
 
@@ -262,7 +262,7 @@ Mari kita cermati dengan saksama apa yang terjadi pada setiap tahap kode
 
 Karena `s` dibuat di dalam `dangle`, ketika kode `dangle` selesai, `s` akan
 didealokasikan. Namun, kita mencoba mengembalikan sebuah *reference* ke
-variabel itu. Artinya, *reference* ini akan menunjuk ke `String` yang tidak
+variable itu. Artinya, *reference* ini akan menunjuk ke `String` yang tidak
 valid. Itu tidak bagus! Rust tidak akan mengizinkan kita melakukannya.
 
 Solusinya di sini adalah mengembalikan `String`-nya secara langsung:

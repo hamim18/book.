@@ -41,7 +41,7 @@ fn main() {
 }
 ```
 
-Di sini, kita mendefinisikan variabel `x` sebagai *mutable* (dapat diubah),
+Di sini, kita mendefinisikan variable `x` sebagai *mutable* (dapat diubah),
 tetapi kita tidak pernah benar-benar mengubahnya. Rust memperingatkan kita soal
 itu:
 
@@ -82,7 +82,7 @@ fn main() {
 }
 ```
 
-Variabel `x` sekarang *immutable*, dan peringatannya tidak lagi muncul.
+Variable `x` sekarang *immutable*, dan peringatannya tidak lagi muncul.
 
 Anda juga dapat memakai perintah `cargo fix` untuk memindahkan kode Anda dari
 satu edisi Rust ke edisi lainnya. Edisi dibahas di [Lampiran E][editions]<!--
@@ -101,7 +101,7 @@ $ cargo clippy
 ```
 
 Sebagai contoh, katakanlah Anda menulis program yang memakai aproksimasi
-konstanta matematis, seperti pi, seperti yang dilakukan program ini:
+constant matematis, seperti pi, seperti yang dilakukan program ini:
 
 <Listing file-name="src/main.rs">
 
@@ -129,9 +129,9 @@ error: approximate value of `f{32, 64}::consts::PI` found
   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#approx_constant
 ```
 
-Error ini memberitahukan bahwa Rust sudah memiliki konstanta `PI` yang lebih
-presisi, dan bahwa program Anda akan lebih benar jika memakai konstanta itu
-saja. Anda kemudian akan mengubah kode Anda untuk memakai konstanta `PI`.
+Error ini memberitahukan bahwa Rust sudah memiliki constant `PI` yang lebih
+presisi, dan bahwa program Anda akan lebih benar jika memakai constant itu
+saja. Anda kemudian akan mengubah kode Anda untuk memakai constant `PI`.
 
 Kode berikut tidak menghasilkan error atau peringatan apa pun dari Clippy:
 

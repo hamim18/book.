@@ -46,7 +46,7 @@ _compute-bound_ (terikat komputasi). Operasi ini dibatasi oleh kecepatan
 pemrosesan data potensial komputer di dalam CPU atau GPU, dan seberapa banyak
 kecepatan itu bisa dicurahkan untuk operasi tersebut. Unduhan video adalah
 contoh operasi _I/O-bound_ (terikat I/O), karena operasi ini dibatasi oleh
-kecepatan masukan dan keluaran komputer; operasi ini hanya bisa secepat
+kecepatan input dan output komputer; operasi ini hanya bisa secepat
 pengiriman data melintasi jaringan.
 
 Pada kedua contoh itu, interupsi tak terlihat dari sistem operasi menyediakan

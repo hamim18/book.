@@ -5,10 +5,10 @@ tanpa menyadarinya! Bagian ini membahas semua tempat pola valid.
 
 ### Arm `match`
 
-Seperti yang dibahas di Bab 6, kita memakai pola di arm ekspresi `match`.
-Secara formal, ekspresi `match` didefinisikan sebagai kata kunci `match`,
+Seperti yang dibahas di Bab 6, kita memakai pola di arm expression `match`.
+Secara formal, expression `match` didefinisikan sebagai kata kunci `match`,
 sebuah nilai untuk dicocokkan, dan satu atau lebih arm match yang terdiri dari
-sebuah pola dan ekspresi yang dijalankan jika nilainya cocok dengan pola arm
+sebuah pola dan expression yang dijalankan jika nilainya cocok dengan pola arm
 itu, seperti ini:
 
 <!--
@@ -22,8 +22,8 @@ itu, seperti ini:
     <em>PATTERN</em> => <em>EXPRESSION</em>,
 }</code></pre>
 
-Contohnya, berikut ekspresi `match` dari Listing 6-5 yang mencocokkan nilai
-`Option<i32>` pada variabel `x`:
+Contohnya, berikut expression `match` dari Listing 6-5 yang mencocokkan nilai
+`Option<i32>` pada variable `x`:
 
 ```rust,ignore
 match x {
@@ -32,36 +32,36 @@ match x {
 }
 ```
 
-Pola pada ekspresi `match` ini adalah `None` dan `Some(i)` di sebelah kiri
+Pola pada expression `match` ini adalah `None` dan `Some(i)` di sebelah kiri
 setiap panah.
 
-Salah satu persyaratan ekspresi `match` adalah ia harus ekshaustif, dalam arti
-semua kemungkinan nilai pada ekspresi `match` harus diperhitungkan. Salah satu
+Salah satu persyaratan expression `match` adalah ia harus ekshaustif, dalam arti
+semua kemungkinan nilai pada expression `match` harus diperhitungkan. Salah satu
 cara memastikan Anda telah mencakup semua kemungkinan adalah dengan memiliki
-pola catch-all untuk arm terakhir: contohnya, nama variabel yang cocok dengan
+pola catch-all untuk arm terakhir: contohnya, nama variable yang cocok dengan
 nilai apa pun tidak akan pernah gagal dan dengan demikian mencakup semua kasus
 yang tersisa.
 
 Pola khusus `_` akan cocok dengan apa pun, tetapi ia tidak pernah mengikat ke
-variabel, jadi ia sering dipakai di arm match terakhir. Pola `_` bisa berguna
+variable, jadi ia sering dipakai di arm match terakhir. Pola `_` bisa berguna
 ketika Anda ingin mengabaikan nilai apa pun yang tidak ditentukan, misalnya.
 Kita akan membahas pola `_` secara lebih mendetail di [“Mengabaikan Nilai
 dalam Pola”][ignoring-values-in-a-pattern]<!-- ignore --> nanti di bab ini.
 
-### Pernyataan `let`
+### Statement `let`
 
 Sebelum bab ini, kita hanya secara eksplisit membahas pemakaian pola dengan
 `match` dan `if let`, tetapi sebenarnya kita telah memakai pola di tempat lain
-juga, termasuk pada pernyataan `let`. Contohnya, perhatikan penetapan variabel
+juga, termasuk pada statement `let`. Contohnya, perhatikan penetapan variable
 sederhana dengan `let` ini:
 
 ```rust
 let x = 5;
 ```
 
-Setiap kali Anda memakai pernyataan `let` seperti ini, Anda telah memakai
+Setiap kali Anda memakai statement `let` seperti ini, Anda telah memakai
 pola, meskipun Anda mungkin tidak menyadarinya! Secara lebih formal,
-pernyataan `let` terlihat seperti ini:
+statement `let` terlihat seperti ini:
 
 <!--
   Manually formatted rather than using Markdown intentionally: Markdown does not
@@ -72,19 +72,19 @@ pernyataan `let` terlihat seperti ini:
 <code>let <em>PATTERN</em> = <em>EXPRESSION</em>;</code>
 </pre>
 
-Pada pernyataan seperti `let x = 5;` dengan nama variabel di slot PATTERN,
-nama variabel itu hanyalah bentuk pola yang sangat sederhana. Rust
-membandingkan ekspresi dengan polanya dan menetapkan nama apa pun yang
+Pada statement seperti `let x = 5;` dengan nama variable di slot PATTERN,
+nama variable itu hanyalah bentuk pola yang sangat sederhana. Rust
+membandingkan expression dengan polanya dan menetapkan nama apa pun yang
 ditemukannya. Jadi, pada contoh `let x = 5;`, `x` adalah pola yang berarti
-“ikat apa yang cocok di sini ke variabel `x`.” Karena nama `x` adalah
+“ikat apa yang cocok di sini ke variable `x`.” Karena nama `x` adalah
 keseluruhan polanya, pola ini secara efektif berarti “ikat semuanya ke
-variabel `x`, apa pun nilainya.”
+variable `x`, apa pun nilainya.”
 
 Untuk melihat aspek pencocokan pola dari `let` dengan lebih jelas,
 perhatikan Listing 19-1, yang memakai pola dengan `let` untuk
 mendestrukturisasi sebuah *tuple*.
 
-<Listing number="19-1" caption="Memakai pola untuk mendestrukturisasi tuple dan membuat tiga variabel sekaligus">
+<Listing number="19-1" caption="Memakai pola untuk mendestrukturisasi tuple dan membuat tiga variable sekaligus">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-01/src/main.rs:here}}
@@ -96,15 +96,15 @@ Di sini, kita mencocokkan sebuah *tuple* terhadap sebuah pola. Rust
 membandingkan nilai `(1, 2, 3)` dengan pola `(x, y, z)` dan melihat bahwa
 nilai itu cocok dengan polanya—artinya, ia melihat bahwa jumlah elemen
 keduanya sama—jadi Rust mengikat `1` ke `x`, `2` ke `y`, dan `3` ke `z`. Anda
-bisa menganggap pola *tuple* ini sebagai tiga pola variabel individual yang
+bisa menganggap pola *tuple* ini sebagai tiga pola variable individual yang
 bersarang di dalamnya.
 
 Jika jumlah elemen pada pola tidak cocok dengan jumlah elemen pada *tuple*,
 type keseluruhannya tidak akan cocok dan kita akan mendapat error kompilator.
 Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi *tuple* dengan
-tiga elemen menjadi dua variabel, yang tidak akan berhasil.
+tiga elemen menjadi dua variable, yang tidak akan berhasil.
 
-<Listing number="19-2" caption="Membuat pola secara keliru dengan variabel yang jumlahnya tidak cocok dengan jumlah elemen pada tuple">
+<Listing number="19-2" caption="Membuat pola secara keliru dengan variable yang jumlahnya tidak cocok dengan jumlah elemen pada tuple">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-02/src/main.rs:here}}
@@ -121,28 +121,28 @@ Upaya mengompilasi kode ini menghasilkan error type berikut:
 Untuk memperbaiki errornya, kita bisa mengabaikan satu atau beberapa nilai di
 *tuple* itu menggunakan `_` atau `..`, seperti yang akan Anda lihat di bagian
 [“Mengabaikan Nilai dalam Pola”][ignoring-values-in-a-pattern]<!-- ignore -->.
-Jika masalahnya adalah kita punya terlalu banyak variabel di pola, solusinya
-adalah membuat type-typenya cocok dengan menghapus variabel sehingga jumlah
-variabel sama dengan jumlah elemen di *tuple*.
+Jika masalahnya adalah kita punya terlalu banyak variable di pola, solusinya
+adalah membuat type-typenya cocok dengan menghapus variable sehingga jumlah
+variable sama dengan jumlah elemen di *tuple*.
 
-### Ekspresi Kondisional `if let`
+### Expression Kondisional `if let`
 
-Di Bab 6, kita membahas cara memakai ekspresi `if let` terutama sebagai cara
+Di Bab 6, kita membahas cara memakai expression `if let` terutama sebagai cara
 yang lebih singkat untuk menulis yang setara dengan `match` yang hanya
 mencocokkan satu kasus. Secara opsional, `if let` bisa memiliki `else` yang
 sesuai dan berisi kode untuk dijalankan jika pola di `if let` tidak cocok.
 
 Listing 19-3 menunjukkan bahwa kita juga bisa mencampur dan mencocokkan
-ekspresi `if let`, `else if`, dan `else if let`. Melakukannya memberi kita
-lebih banyak fleksibilitas daripada ekspresi `match`, yang dengannya kita
+expression `if let`, `else if`, dan `else if let`. Melakukannya memberi kita
+lebih banyak fleksibilitas daripada expression `match`, yang dengannya kita
 hanya bisa mengekspresikan satu nilai untuk dibandingkan dengan pola-pola
 itu. Selain itu, Rust tidak mengharuskan kondisi-kondisi pada rangkaian arm
 `if let`, `else if`, dan `else if let` saling berkaitan.
 
 Kode di Listing 19-3 menentukan warna apa yang akan dijadikan latar belakang
 Anda berdasarkan serangkaian pemeriksaan untuk beberapa kondisi. Untuk contoh
-ini, kita telah membuat variabel dengan nilai yang ditulis langsung (hardcoded) yang mungkin diterima
-program sungguhan dari masukan pengguna.
+ini, kita telah membuat variable dengan nilai yang ditulis langsung (hardcoded) yang mungkin diterima
+program sungguhan dari user input.
 
 <Listing number="19-3" file-name="src/main.rs" caption="Mencampur `if let`, `else if`, `else if let`, dan `else`">
 
@@ -163,31 +163,31 @@ Struktur kondisional ini memungkinkan kita mendukung persyaratan yang
 kompleks. Dengan nilai yang ditulis langsung (hardcoded) yang kita punya di sini, contoh ini akan
 mencetak `Using purple as the background color`.
 
-Anda bisa melihat bahwa `if let` juga bisa memperkenalkan variabel baru yang
-melakukan shadowing terhadap variabel yang sudah ada dengan cara yang sama
+Anda bisa melihat bahwa `if let` juga bisa memperkenalkan variable baru yang
+melakukan shadowing terhadap variable yang sudah ada dengan cara yang sama
 seperti yang bisa dilakukan arm `match`: baris `if let Ok(age) = age`
-memperkenalkan variabel `age` baru yang memuat nilai di dalam varian `Ok`,
-melakukan shadowing terhadap variabel `age` yang sudah ada. Ini berarti kita
+memperkenalkan variable `age` baru yang memuat nilai di dalam varian `Ok`,
+melakukan shadowing terhadap variable `age` yang sudah ada. Ini berarti kita
 perlu menaruh kondisi `if age > 30` di dalam blok itu: kita tidak bisa
 menggabungkan dua kondisi ini menjadi `if let Ok(age) = age && age > 30`.
 `age` baru yang ingin kita bandingkan dengan 30 tidak valid sampai *scope* baru
 dimulai dengan kurung kurawal.
 
-Kekurangan memakai ekspresi `if let` adalah kompilator tidak memeriksa
-ekshaustivitas, sedangkan pada ekspresi `match` ia memeriksanya. Jika kita
+Kekurangan memakai expression `if let` adalah kompilator tidak memeriksa
+ekshaustivitas, sedangkan pada expression `match` ia memeriksanya. Jika kita
 menghilangkan blok `else` terakhir dan karenanya melewatkan penanganan
 beberapa kasus, kompilator tidak akan memperingatkan kita tentang kemungkinan
 bug logika itu.
 
-### Perulangan Kondisional `while let`
+### Loop Kondisional `while let`
 
-Serupa konstruksinya dengan `if let`, perulangan kondisional `while let`
-memungkinkan perulangan `while` berjalan selama sebuah pola terus cocok. Di
-Listing 19-4, kita menunjukkan perulangan `while let` yang menunggu pesan yang
+Serupa konstruksinya dengan `if let`, loop kondisional `while let`
+memungkinkan loop `while` berjalan selama sebuah pola terus cocok. Di
+Listing 19-4, kita menunjukkan loop `while let` yang menunggu pesan yang
 dikirim antar-thread, tetapi dalam kasus ini memeriksa `Result` alih-alih
 `Option`.
 
-<Listing number="19-4" caption="Memakai perulangan `while let` untuk mencetak nilai selama `rx.recv()` mengembalikan `Ok`">
+<Listing number="19-4" caption="Memakai loop `while let` untuk mencetak nilai selama `rx.recv()` mengembalikan `Ok`">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-04/src/main.rs:here}}
@@ -199,20 +199,20 @@ Contoh ini mencetak `1`, `2`, lalu `3`. Metode `recv` mengambil pesan pertama
 dari sisi penerima *channel* dan mengembalikan `Ok(value)`. Ketika pertama kali
 kita melihat `recv` di Bab 16, kita melakukan unwrap pada errornya secara
 langsung, atau kita berinteraksi dengannya sebagai *iterator* menggunakan
-perulangan `for`. Akan tetapi, seperti yang ditunjukkan Listing 19-4, kita
+loop `for`. Akan tetapi, seperti yang ditunjukkan Listing 19-4, kita
 juga bisa memakai `while let`, karena metode `recv` mengembalikan `Ok` setiap
 kali pesan tiba, selama pengirimnya ada, dan kemudian menghasilkan `Err`
 begitu sisi pengirim terputus.
 
-### Perulangan `for`
+### Loop `for`
 
-Pada perulangan `for`, nilai yang langsung mengikuti kata kunci `for` adalah
+Pada loop `for`, nilai yang langsung mengikuti kata kunci `for` adalah
 sebuah pola. Contohnya, pada `for x in y`, `x` adalah polanya. Listing 19-5
-mendemonstrasikan cara memakai pola di perulangan `for` untuk
-mendestrukturisasi, atau memecah, sebuah *tuple* sebagai bagian dari perulangan
+mendemonstrasikan cara memakai pola di loop `for` untuk
+mendestrukturisasi, atau memecah, sebuah *tuple* sebagai bagian dari loop
 `for`.
 
-<Listing number="19-5" caption="Memakai pola di perulangan `for` untuk mendestrukturisasi tuple">
+<Listing number="19-5" caption="Memakai pola di loop `for` untuk mendestrukturisasi tuple">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-05/src/main.rs:here}}
@@ -230,7 +230,7 @@ Kita mengadaptasi sebuah *iterator* menggunakan metode `enumerate` sehingga ia
 menghasilkan sebuah nilai dan indeks untuk nilai itu, ditempatkan ke dalam
 sebuah *tuple*. Nilai pertama yang dihasilkan adalah *tuple* `(0, 'a')`. Ketika
 nilai ini dicocokkan dengan pola `(index, value)`, index akan menjadi `0` dan
-value akan menjadi `'a'`, mencetak baris pertama dari keluaran.
+value akan menjadi `'a'`, mencetak baris pertama dari output.
 
 ### Parameter Fungsi
 

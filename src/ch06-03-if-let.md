@@ -3,7 +3,7 @@
 Sintaks `if let` memungkinkan Anda menggabungkan `if` dan `let` menjadi cara
 yang lebih ringkas untuk menangani nilai yang cocok dengan satu pola sambil
 mengabaikan sisanya. Perhatikan program pada Listing 6-6 yang melakukan match
-pada nilai `Option<u8>` di variabel `config_max` tetapi hanya ingin
+pada nilai `Option<u8>` di variable `config_max` tetapi hanya ingin
 mengeksekusi kode jika nilainya adalah *variant* (varian) `Some`.
 
 <Listing number="6-6" caption="`match` yang hanya peduli mengeksekusi kode ketika nilainya `Some`">
@@ -15,8 +15,8 @@ mengeksekusi kode jika nilainya adalah *variant* (varian) `Some`.
 </Listing>
 
 Jika nilainya `Some`, kita mencetak nilai di dalam *variant* `Some` dengan
-mengikat nilai itu ke variabel `max` di dalam pola. Kita tidak ingin melakukan
-apa pun dengan nilai `None`. Untuk memenuhi ekspresi `match`, kita harus
+mengikat nilai itu ke variable `max` di dalam pola. Kita tidak ingin melakukan
+apa pun dengan nilai `None`. Untuk memenuhi expression `match`, kita harus
 menambahkan `_ => ()` setelah memproses satu *variant* saja, yang merupakan
 kode boilerplate yang menjengkelkan untuk ditulis.
 
@@ -28,8 +28,8 @@ memakai `if let`. Kode berikut berperilaku sama seperti `match` pada Listing
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-12-if-let/src/main.rs:here}}
 ```
 
-Sintaks `if let` menerima sebuah pola dan sebuah ekspresi yang dipisahkan
-tanda sama dengan. Ia bekerja sama seperti `match`, ketika ekspresinya
+Sintaks `if let` menerima sebuah pola dan sebuah expression yang dipisahkan
+tanda sama dengan. Ia bekerja sama seperti `match`, ketika expressionnya
 diberikan ke `match` dan polanya adalah *arm* (lengan) pertamanya. Pada kasus
 ini, polanya adalah `Some(max)`, dan `max` mengikat nilai di dalam `Some`.
 Kita kemudian dapat memakai `max` di badan blok `if let` dengan cara yang sama
@@ -48,18 +48,18 @@ Dengan kata lain, Anda dapat menganggap `if let` sebagai gula sintaks untuk
 mengabaikan semua nilai lain.
 
 Kita dapat menyertakan `else` bersama `if let`. Blok kode yang menyertai
-`else` sama dengan blok kode yang akan menyertai kasus `_` pada ekspresi
+`else` sama dengan blok kode yang akan menyertai kasus `_` pada expression
 `match` yang setara dengan `if let` dan `else` tersebut. Ingat definisi *enum*
 `Coin` pada Listing 6-4, di mana *variant* `Quarter` juga menampung nilai
 `UsState`. Jika kita ingin menghitung semua koin selain quarter yang kita
 lihat sambil mengumumkan negara bagian pada koin-koin quarter, kita dapat
-melakukannya dengan ekspresi `match`, seperti ini:
+melakukannya dengan expression `match`, seperti ini:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-13-count-and-announce-match/src/main.rs:here}}
 ```
 
-Atau kita dapat memakai ekspresi `if let` dan `else`, seperti ini:
+Atau kita dapat memakai expression `if let` dan `else`, seperti ini:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-14-count-and-announce-if-let-else/src/main.rs:here}}
@@ -78,7 +78,7 @@ metode pada `UsState` untuk memeriksa usia sebuah negara bagian, seperti ini:
 ```
 
 Lalu, kita dapat memakai `if let` untuk melakukan match pada jenis koinnya,
-dengan memperkenalkan variabel `state` di dalam badan kondisinya, seperti
+dengan memperkenalkan variable `state` di dalam badan kondisinya, seperti
 pada Listing 6-7.
 
 <Listing number="6-7" caption="Memeriksa apakah sebuah negara bagian sudah ada pada tahun 1900 dengan memakai kondisional bersarang di dalam `if let`">
@@ -90,9 +90,9 @@ pada Listing 6-7.
 </Listing>
 
 Itu menyelesaikan pekerjaannya, tetapi ia mendorong pekerjaannya ke badan
-pernyataan `if let`, dan jika pekerjaan yang dilakukan lebih rumit, mungkin
+statement `if let`, dan jika pekerjaan yang dilakukan lebih rumit, mungkin
 sulit untuk mengikuti dengan tepat bagaimana cabang-cabang tingkat atas
-saling berhubungan. Kita juga dapat memanfaatkan fakta bahwa ekspresi
+saling berhubungan. Kita juga dapat memanfaatkan fakta bahwa expression
 menghasilkan nilai, entah untuk menghasilkan `state` dari `if let` atau untuk
 keluar lebih awal, seperti pada Listing 6-8. (Anda juga dapat melakukan hal
 serupa dengan `match`.)
@@ -109,7 +109,7 @@ Namun, cara ini juga agak menjengkelkan untuk diikuti! Satu cabang `if let`
 menghasilkan nilai, dan yang lainnya keluar dari fungsi sepenuhnya.
 
 Untuk membuat pola umum ini lebih enak dinyatakan, Rust memiliki `let...else`.
-Sintaks `let...else` menerima pola di sisi kiri dan ekspresi di sisi kanan,
+Sintaks `let...else` menerima pola di sisi kiri dan expression di sisi kanan,
 sangat mirip dengan `if let`, tetapi ia tidak memiliki cabang `if`, hanya
 cabang `else`. Jika polanya cocok, ia akan mengikat nilai dari pola di *scope* (cakupan)
 luar. Jika polanya _tidak_ cocok, program akan mengalir ke *arm* `else`, yang
@@ -127,7 +127,7 @@ memakai `let...else` menggantikan `if let`.
 </Listing>
 
 Perhatikan bahwa dengan cara ini ia tetap berada di “happy path” pada badan
-utama fungsi, tanpa memiliki alur kontrol yang berbeda secara signifikan
+utama fungsi, tanpa memiliki control flow yang berbeda secara signifikan
 untuk dua cabang seperti yang dilakukan `if let`.
 
 Jika Anda berada dalam situasi ketika program Anda memiliki logika yang

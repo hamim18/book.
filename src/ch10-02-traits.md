@@ -69,7 +69,7 @@ Sekarang setelah kita mendefinisikan tanda tangan yang diinginkan untuk
 metode-metode *trait* `Summary`, kita bisa mengimplementasikannya pada
 type-type di agregator media kita. Listing 10-13 menunjukkan implementasi
 *trait* `Summary` pada *struct* `NewsArticle` yang memakai judul berita,
-penulis, dan lokasi untuk membuat nilai kembalian `summarize`. Untuk *struct*
+penulis, dan lokasi untuk membuat return value `summarize`. Untuk *struct*
 `SocialPost`, kita mendefinisikan `summarize` sebagai nama pengguna yang
 diikuti seluruh teks post, dengan asumsi bahwa konten post sudah dibatasi
 menjadi 280 karakter.
@@ -333,7 +333,7 @@ dan return typenya berdekatan, mirip fungsi tanpa banyak *trait bound*.
 
 ### Mengembalikan Type yang Mengimplementasikan Trait
 
-Kita juga bisa memakai sintaks `impl Trait` di posisi nilai kembalian untuk
+Kita juga bisa memakai sintaks `impl Trait` di posisi return value untuk
 mengembalikan nilai typed tertentu yang mengimplementasikan sebuah *trait*,
 seperti yang ditunjukkan di sini:
 

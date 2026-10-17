@@ -57,10 +57,10 @@ definisikan di mana saja dan panggil di mana saja.
 Bentuk *macro* yang paling banyak dipakai di Rust adalah *declarative macro*
 (macro deklaratif). Macro ini kadang juga disebut “macros by example,”
 “*macro* `macro_rules!`,” atau sekadar “*macro*.” Pada intinya, *macro*
-deklaratif memungkinkan Anda menulis sesuatu yang mirip dengan ekspresi
-`match` di Rust. Seperti yang dibahas di Bab 6, ekspresi `match` adalah
-struktur kontrol yang menerima sebuah ekspresi, membandingkan nilai yang
-dihasilkan ekspresi itu dengan pola-pola, lalu menjalankan kode yang
+deklaratif memungkinkan Anda menulis sesuatu yang mirip dengan expression
+`match` di Rust. Seperti yang dibahas di Bab 6, expression `match` adalah
+struktur kontrol yang menerima sebuah expression, membandingkan nilai yang
+dihasilkan expression itu dengan pola-pola, lalu menjalankan kode yang
 dikaitkan dengan pola yang cocok. *Macro* juga membandingkan sebuah nilai
 dengan pola-pola yang dikaitkan dengan kode tertentu: Dalam situasi ini,
 nilainya adalah kode sumber Rust literal yang diberikan ke *macro*;
@@ -106,7 +106,7 @@ Kita kemudian memulai definisi *macro* dengan `macro_rules!` dan nama *macro*
 yang kita definisikan *tanpa* tanda seru. Nama itu, dalam kasus ini `vec`,
 diikuti oleh kurung kurawal yang menandakan tubuh definisi *macro*.
 
-Struktur di tubuh `vec!` mirip dengan struktur ekspresi `match`. Di sini
+Struktur di tubuh `vec!` mirip dengan struktur expression `match`. Di sini
 kita punya satu arm dengan pola `( $( $x:expr ),* )`, diikuti oleh `=>` dan
 blok kode yang dikaitkan dengan pola ini. Jika polanya cocok, blok kode yang
 terkait akan dihasilkan. Mengingat ini satu-satunya pola di *macro* ini, hanya
@@ -119,13 +119,13 @@ bukan dengan nilai. Mari kita telusuri arti bagian-bagian pola di Listing
 20-29; untuk sintaks pola *macro* selengkapnya, lihat [Rust *Reference*][ref].
 
 Pertama, kita memakai sepasang tanda kurung untuk melingkupi seluruh pola.
-Kita memakai tanda dolar (`$`) untuk mendeklarasikan variabel di sistem
+Kita memakai tanda dolar (`$`) untuk mendeklarasikan variable di sistem
 *macro* yang akan memuat kode Rust yang cocok dengan polanya. Tanda dolar
-memperjelas bahwa ini adalah variabel *macro*, bukan variabel Rust biasa.
+memperjelas bahwa ini adalah variable *macro*, bukan variable Rust biasa.
 Berikutnya ada sepasang tanda kurung yang menangkap nilai-nilai yang cocok
 dengan pola di dalam tanda kurung itu untuk dipakai di kode penggantinya.
-Di dalam `$()` ada `$x:expr`, yang mencocokkan ekspresi Rust mana pun dan
-memberi ekspresi itu nama `$x`.
+Di dalam `$()` ada `$x:expr`, yang mencocokkan expression Rust mana pun dan
+memberi expression itu nama `$x`.
 
 Koma yang mengikuti `$()` menunjukkan bahwa karakter koma pemisah literal
 harus muncul di antara setiap instance kode yang cocok dengan kode di dalam
@@ -133,12 +133,12 @@ harus muncul di antara setiap instance kode yang cocok dengan kode di dalam
 yang mendahului `*`.
 
 Saat kita memanggil *macro* ini dengan `vec![1, 2, 3];`, pola `$x` cocok tiga
-kali dengan tiga ekspresi `1`, `2`, dan `3`.
+kali dengan tiga expression `1`, `2`, dan `3`.
 
 Sekarang mari kita lihat pola di tubuh kode yang dikaitkan dengan arm ini:
 `temp_vec.push()` di dalam `$()*` dihasilkan untuk setiap bagian yang cocok
 dengan `$()` di polanya, nol kali atau lebih, bergantung pada berapa kali
-pola itu cocok. `$x` diganti dengan setiap ekspresi yang cocok. Saat kita
+pola itu cocok. `$x` diganti dengan setiap expression yang cocok. Saat kita
 memanggil *macro* ini dengan `vec![1, 2, 3];`, kode yang dihasilkan untuk
 menggantikan pemanggilan *macro* ini adalah sebagai berikut:
 
@@ -164,8 +164,8 @@ dimulai oleh Daniel Keep dan dilanjutkan oleh Lukas Wirth.
 
 Bentuk *macro* yang kedua adalah *macro* prosedural, yang bertindak lebih
 seperti fungsi (dan merupakan jenis prosedur). *Procedural macro* (*macro*
-prosedural) menerima sejumlah kode sebagai masukan, bekerja pada kode itu,
-dan menghasilkan sejumlah kode sebagai keluaran, alih-alih mencocokkan
+prosedural) menerima sejumlah kode sebagai input, bekerja pada kode itu,
+dan menghasilkan sejumlah kode sebagai output, alih-alih mencocokkan
 dengan pola dan mengganti kode itu dengan kode lain seperti yang dilakukan
 *macro* deklaratif. Tiga jenis *macro* prosedural adalah `derive` kustom, mirip
 atribut, dan mirip fungsi, dan semuanya bekerja dengan cara yang serupa.
@@ -189,11 +189,11 @@ pub fn some_name(input: TokenStream) -> TokenStream {
 </Listing>
 
 Fungsi yang mendefinisikan *macro* prosedural menerima `TokenStream` sebagai
-masukan dan menghasilkan `TokenStream` sebagai keluaran. Type `TokenStream`
+input dan menghasilkan `TokenStream` sebagai output. Type `TokenStream`
 didefinisikan oleh *crate* `proc_macro` yang disertakan bersama Rust dan
 mewakili urutan token. Inilah inti dari *macro*: Kode sumber yang sedang
-diolah *macro* membentuk `TokenStream` masukan, dan kode yang dihasilkan *macro*
-adalah `TokenStream` keluaran. Fungsi itu juga memiliki atribut yang melekat
+diolah *macro* membentuk `TokenStream` input, dan kode yang dihasilkan *macro*
+adalah `TokenStream` output. Fungsi itu juga memiliki atribut yang melekat
 padanya yang menentukan jenis *macro* prosedural mana yang kita buat. Kita
 bisa memiliki banyak jenis *macro* prosedural di *crate* yang sama.
 
@@ -386,7 +386,7 @@ menggambarkan segala jenis kode Rust; lihat [dokumentasi `syn` untuk
 
 Sebentar lagi kita akan mendefinisikan fungsi `impl_hello_macro`, tempat
 kita membangun kode Rust baru yang ingin kita sertakan. Tetapi sebelum itu,
-perhatikan bahwa keluaran *macro* `derive` kita juga berupa `TokenStream`.
+perhatikan bahwa output *macro* `derive` kita juga berupa `TokenStream`.
 `TokenStream` yang dikembalikan ditambahkan ke kode yang ditulis pengguna
 *crate* kita, sehingga saat mereka mengompilasi *crate* mereka, mereka akan
 mendapatkan fungsionalitas tambahan yang kita sediakan di `TokenStream`
@@ -418,7 +418,7 @@ Kita mendapatkan instance *struct* `Ident` yang berisi nama (identifier) type
 yang dianotasi dengan memakai `ast.ident`. *Struct* di Listing 20-41
 menunjukkan bahwa saat kita menjalankan fungsi `impl_hello_macro` pada kode
 di Listing 20-37, `ident` yang kita dapatkan akan memiliki *field* `ident`
-dengan nilai `"Pancakes"`. Jadi, variabel `name` di Listing 20-42 akan
+dengan nilai `"Pancakes"`. Jadi, variable `name` di Listing 20-42 akan
 berisi instance *struct* `Ident` yang, saat dicetak, menjadi string
 `"Pancakes"`, yaitu nama *struct* di Listing 20-37.
 
@@ -431,7 +431,7 @@ mengonsumsi representasi perantara ini dan mengembalikan nilai typed
 
 *Macro* `quote!` juga menyediakan mekanisme templating yang sangat keren:
 Kita bisa menulis `#name`, dan `quote!` akan menggantinya dengan nilai di
-variabel `name`. Anda bahkan bisa melakukan pengulangan yang mirip dengan
+variable `name`. Anda bahkan bisa melakukan pengulangan yang mirip dengan
 cara kerja *macro* biasa. Lihat [dokumentasi *crate* `quote`][quote-docs] untuk
 pengenalan yang menyeluruh.
 
@@ -442,11 +442,11 @@ dengan memakai `#name`. Implementasi *trait* itu memiliki satu fungsi
 sediakan: mencetak `Hello, Macro! My name is` lalu nama type yang dianotasi.
 
 *Macro* `stringify!` yang dipakai di sini sudah terpasang di dalam Rust. Ia
-menerima ekspresi Rust, seperti `1 + 2`, dan pada waktu kompilasi mengubah
-ekspresi itu menjadi *string literal*, seperti `"1 + 2"`. Ini berbeda dari
-`format!` atau `println!`, yang merupakan *macro* yang mengevaluasi ekspresi
-lalu mengubah hasilnya menjadi `String`. Ada kemungkinan masukan `#name`
-adalah ekspresi yang harus dicetak secara literal, jadi kita memakai
+menerima expression Rust, seperti `1 + 2`, dan pada waktu kompilasi mengubah
+expression itu menjadi *string literal*, seperti `"1 + 2"`. Ini berbeda dari
+`format!` atau `println!`, yang merupakan *macro* yang mengevaluasi expression
+lalu mengubah hasilnya menjadi `String`. Ada kemungkinan input `#name`
+adalah expression yang harus dicetak secara literal, jadi kita memakai
 `stringify!`. Memakai `stringify!` juga menghemat satu alokasi dengan
 mengubah `#name` menjadi *string literal* pada waktu kompilasi.
 
@@ -522,8 +522,8 @@ adalah *macro* `sql!` yang bisa dipanggil seperti berikut:
 let sql = sql!(SELECT * FROM posts WHERE id=1);
 ```
 
-*Macro* ini akan melakukan parsing pernyataan SQL di dalamnya dan memeriksa
-bahwa pernyataan itu benar secara sintaksis, pemrosesan yang jauh lebih
+*Macro* ini akan melakukan parsing statement SQL di dalamnya dan memeriksa
+bahwa statement itu benar secara sintaksis, pemrosesan yang jauh lebih
 kompleks daripada yang bisa dilakukan *macro* `macro_rules!`. *Macro* `sql!`
 akan didefinisikan seperti ini:
 

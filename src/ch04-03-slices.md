@@ -68,12 +68,12 @@ menghitung indeksnya sendiri.
 Karena metode `enumerate` mengembalikan sebuah *tuple*, kita dapat
 menggunakan pola untuk mendestrukturisasi *tuple* tersebut. Kita akan
 membahas pola lebih lanjut di [Bab 6][ch6]<!-- ignore -->. Di dalam
-perulangan `for`, kita menentukan sebuah pola yang memuat `i` untuk indeks
+loop `for`, kita menentukan sebuah pola yang memuat `i` untuk indeks
 dalam *tuple* dan `&item` untuk byte tunggal dalam *tuple*. Karena kita
 mendapatkan *reference* ke elemen dari `.iter().enumerate()`, kita
 menggunakan `&` di dalam pola tersebut.
 
-Di dalam perulangan `for`, kita mencari byte yang merepresentasikan spasi
+Di dalam loop `for`, kita mencari byte yang merepresentasikan spasi
 menggunakan sintaks literal byte. Jika kita menemukan spasi, kita
 mengembalikan posisinya. Jika tidak, kita mengembalikan panjang *string*
 menggunakan `s.len()`.
@@ -100,7 +100,7 @@ bahwa ia akan tetap valid di masa mendatang. Perhatikan program pada Listing
 Program ini terkompilasi tanpa error apa pun, dan tetap akan terkompilasi
 jika kita menggunakan `word` setelah memanggil `s.clear()`. Karena `word`
 sama sekali tidak terhubung dengan keadaan `s`, `word` tetap berisi nilai
-`5`. Kita bisa menggunakan nilai `5` itu bersama variabel `s` untuk mencoba
+`5`. Kita bisa menggunakan nilai `5` itu bersama variable `s` untuk mencoba
 mengekstrak kata pertama, tetapi ini akan menjadi sebuah bug karena isi `s`
 telah berubah sejak kita menyimpan `5` di `word`.
 
@@ -115,7 +115,7 @@ fn second_word(s: &String) -> (usize, usize) {
 
 Sekarang kita melacak indeks awal _dan_ indeks akhir, dan kita memiliki lebih
 banyak lagi nilai yang dihitung dari data pada keadaan tertentu tetapi sama
-sekali tidak terikat pada keadaan itu. Ada tiga variabel yang tidak saling
+sekali tidak terikat pada keadaan itu. Ada tiga variable yang tidak saling
 berhubungan bertebaran yang harus dijaga agar tetap sinkron.
 
 Untungnya, Rust memiliki solusi untuk masalah ini: *string slice*.

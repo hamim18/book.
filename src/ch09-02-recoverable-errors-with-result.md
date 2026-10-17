@@ -49,7 +49,7 @@ file itu. Fungsi `File::open` perlu punya cara memberi tahu kita apakah ia
 berhasil atau gagal dan sekaligus memberi kita handle file atau informasi
 error. Informasi ini persis seperti yang disampaikan *enum* `Result`.
 
-Pada kasus ketika `File::open` berhasil, nilai di variabel
+Pada kasus ketika `File::open` berhasil, nilai di variable
 `greeting_file_result` akan berupa instance `Ok` yang berisi handle file.
 Pada kasus ketika ia gagal, nilai di `greeting_file_result` akan berupa
 instance `Err` yang berisi lebih banyak informasi tentang jenis error yang
@@ -57,10 +57,10 @@ terjadi.
 
 Kita perlu menambahkan kode ke Listing 9-3 untuk mengambil tindakan yang
 berbeda bergantung pada nilai yang dikembalikan `File::open`. Listing 9-4
-menunjukkan satu cara menangani `Result` memakai alat dasar, ekspresi
+menunjukkan satu cara menangani `Result` memakai alat dasar, expression
 `match` yang kita bahas di Bab 6.
 
-<Listing number="9-4" file-name="src/main.rs" caption="Memakai ekspresi `match` untuk menangani variant `Result` yang mungkin dikembalikan">
+<Listing number="9-4" file-name="src/main.rs" caption="Memakai expression `match` untuk menangani variant `Result` yang mungkin dikembalikan">
 
 ```rust,should_panic
 {{#rustdoc_include ../listings/ch09-error-handling/listing-09-04/src/main.rs}}
@@ -73,7 +73,7 @@ dibawa ke dalam *scope* oleh *prelude*, jadi kita tidak perlu menuliskan
 `Result::` sebelum variant `Ok` dan `Err` di arm-arm `match`.
 
 Ketika hasilnya `Ok`, kode ini akan mengembalikan nilai `file` bagian dalam
-dari variant `Ok`, lalu kita menetapkan nilai handle file itu ke variabel
+dari variant `Ok`, lalu kita menetapkan nilai handle file itu ke variable
 `greeting_file`. Setelah `match`, kita dapat memakai handle file untuk
 membaca atau menulis.
 
@@ -96,7 +96,7 @@ berbeda. Jika `File::open` gagal karena filenya tidak ada, kita ingin
 membuat file itu dan mengembalikan handle ke file baru. Jika `File::open`
 gagal karena alasan lain—misalnya, karena kita tidak memiliki izin membuka
 file—kita tetap ingin kodenya `panic!` dengan cara yang sama seperti di
-Listing 9-4. Untuk ini, kita menambahkan ekspresi `match` bagian dalam,
+Listing 9-4. Untuk ini, kita menambahkan expression `match` bagian dalam,
 seperti yang ditunjukkan di Listing 9-5.
 
 <Listing number="9-5" file-name="src/main.rs" caption="Menangani berbagai jenis error dengan berbagai cara">
@@ -124,13 +124,13 @@ Kondisi yang ingin kita periksa di match bagian dalam adalah apakah nilai
 yang dikembalikan `error.kind()` adalah variant `NotFound` dari *enum*
 `ErrorKind`. Jika ya, kita mencoba membuat file dengan `File::create`.
 Namun, karena `File::create` juga bisa gagal, kita membutuhkan arm kedua di
-ekspresi `match` bagian dalam. Ketika file tidak dapat dibuat, pesan error
+expression `match` bagian dalam. Ketika file tidak dapat dibuat, pesan error
 yang berbeda dicetak. Arm kedua dari `match` bagian luar tetap sama, jadi
 program panic pada error apa pun selain error file tidak ditemukan.
 
 > #### Alternatif untuk Memakai `match` dengan `Result<T, E>`
 >
-> Banyak sekali `match`-nya! Ekspresi `match` sangat berguna tetapi juga
+> Banyak sekali `match`-nya! Expression `match` sangat berguna tetapi juga
 > sangat primitif. Di Bab 13, Anda akan mempelajari *closure*, yang dipakai
 > bersama banyak metode yang didefinisikan pada `Result<T, E>`.
 > Metode-metode ini dapat lebih ringkas daripada memakai `match` ketika
@@ -160,10 +160,10 @@ program panic pada error apa pun selain error file tidak ditemukan.
 > ```
 >
 > Meskipun kode ini berperilaku sama dengan Listing 9-5, ia tidak memuat
-> ekspresi `match` apa pun dan lebih bersih untuk dibaca. Kembalilah ke
+> expression `match` apa pun dan lebih bersih untuk dibaca. Kembalilah ke
 > contoh ini setelah Anda membaca Bab 13 dan carilah metode
 > `unwrap_or_else` di dokumentasi pustaka standar. Banyak lagi metode
-> semacam ini yang dapat merapikan ekspresi `match` bersarang yang besar
+> semacam ini yang dapat merapikan expression `match` bersarang yang besar
 > ketika Anda berurusan dengan error.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -176,7 +176,7 @@ Memakai `match` cukup berhasil, tetapi bisa sedikit bertele-tele dan tidak
 selalu mengomunikasikan maksud dengan baik. Type `Result<T, E>` memiliki
 banyak metode bantu yang didefinisikan padanya untuk melakukan berbagai
 tugas yang lebih spesifik. Metode `unwrap` adalah metode pintasan yang
-diimplementasikan persis seperti ekspresi `match` yang kita tulis di Listing
+diimplementasikan persis seperti expression `match` yang kita tulis di Listing
 9-4. Jika nilai `Result` adalah variant `Ok`, `unwrap` akan mengembalikan
 nilai di dalam `Ok`. Jika `Result` adalah variant `Err`, `unwrap` akan
 memanggil macro `panic!` untuk kita. Berikut contoh `unwrap` yang sedang
@@ -286,15 +286,15 @@ metode `read_to_string`.
 
 Badan fungsi dimulai dengan memanggil fungsi `File::open`. Lalu, kita
 menangani nilai `Result` dengan `match` yang mirip dengan `match` di Listing
-9-4. Jika `File::open` berhasil, handle file di variabel pola `file` menjadi
-nilai di variabel *mutable* `username_file` dan fungsinya berlanjut. Pada
+9-4. Jika `File::open` berhasil, handle file di variable pola `file` menjadi
+nilai di variable *mutable* `username_file` dan fungsinya berlanjut. Pada
 kasus `Err`, alih-alih memanggil `panic!`, kita memakai kata kunci `return`
 untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai error
-dari `File::open`, yang kini berada di variabel pola `e`, kembali ke kode
+dari `File::open`, yang kini berada di variable pola `e`, kembali ke kode
 pemanggil sebagai nilai error fungsi ini.
 
 Jadi, jika kita memiliki handle file di `username_file`, fungsi kemudian
-membuat `String` baru di variabel `username` dan memanggil metode
+membuat `String` baru di variable `username` dan memanggil metode
 `read_to_string` pada handle file di `username_file` untuk membaca isi file
 ke dalam `username`. Metode `read_to_string` juga mengembalikan `Result`
 karena ia mungkin gagal, meskipun `File::open` berhasil. Jadi, kita
@@ -304,7 +304,7 @@ dari file yang kini berada di `username` yang dibungkus dalam `Ok`. Jika
 `read_to_string` gagal, kita mengembalikan nilai errornya dengan cara yang
 sama seperti kita mengembalikan nilai error di `match` yang menangani nilai
 kembalian `File::open`. Namun, kita tidak perlu menulis `return` secara
-eksplisit, karena ini adalah ekspresi terakhir di fungsi.
+eksplisit, karena ini adalah expression terakhir di fungsi.
 
 Kode yang memanggil kode ini kemudian akan menangani penerimaan nilai `Ok`
 yang berisi nama pengguna atau nilai `Err` yang berisi `io::Error`. Terserah
@@ -342,14 +342,14 @@ don't want to include it for rustdoc testing purposes. -->
 </Listing>
 
 `?` yang ditempatkan setelah nilai `Result` didefinisikan untuk bekerja
-dengan cara yang hampir sama dengan ekspresi `match` yang kita definisikan
+dengan cara yang hampir sama dengan expression `match` yang kita definisikan
 untuk menangani nilai `Result` di Listing 9-6. Jika nilai `Result` adalah
-`Ok`, nilai di dalam `Ok` akan dikembalikan dari ekspresi ini, dan program
+`Ok`, nilai di dalam `Ok` akan dikembalikan dari expression ini, dan program
 akan berlanjut. Jika nilainya `Err`, `Err` akan dikembalikan dari seluruh
 fungsi seolah-olah kita memakai kata kunci `return`, sehingga nilai
 errornya diteruskan ke kode pemanggil.
 
-Ada perbedaan antara yang dilakukan ekspresi `match` dari Listing 9-6 dan
+Ada perbedaan antara yang dilakukan expression `match` dari Listing 9-6 dan
 yang dilakukan operator `?`: nilai error yang dipanggilkan operator `?`
 padanya melewati fungsi `from`, yang didefinisikan di *trait* `From` di
 pustaka standar, yang dipakai untuk mengonversi nilai dari satu type ke type
@@ -368,7 +368,7 @@ pemanggilan operator `?` di badan `read_username_from_file` akan memanggil
 fungsi.
 
 Dalam konteks Listing 9-7, `?` di akhir pemanggilan `File::open` akan
-mengembalikan nilai di dalam `Ok` ke variabel `username_file`. Jika terjadi
+mengembalikan nilai di dalam `Ok` ke variable `username_file`. Jika terjadi
 error, operator `?` akan keluar lebih awal dari seluruh fungsi dan
 memberikan nilai `Err` apa pun kepada kode pemanggil. Hal yang sama berlaku
 untuk `?` di akhir pemanggilan `read_to_string`.
@@ -391,7 +391,7 @@ don't want to include it for rustdoc testing purposes. -->
 </Listing>
 
 Kita telah memindahkan pembuatan `String` baru di `username` ke awal
-fungsi; bagian itu tidak berubah. Alih-alih membuat variabel
+fungsi; bagian itu tidak berubah. Alih-alih membuat variable
 `username_file`, kita merangkai pemanggilan `read_to_string` langsung pada
 hasil `File::open("hello.txt")?`. Kita masih memiliki `?` di akhir
 pemanggilan `read_to_string`, dan kita tetap mengembalikan nilai `Ok` yang
@@ -431,7 +431,7 @@ kita mengerjakannya dengan cara yang lebih panjang terlebih dahulu.
 Operator `?` hanya dapat dipakai di fungsi yang return typenya kompatibel
 dengan nilai tempat `?` dipakai. Ini karena operator `?` didefinisikan untuk
 melakukan return dini atas sebuah nilai keluar dari fungsi, dengan cara yang
-sama seperti ekspresi `match` yang kita definisikan di Listing 9-6. Di
+sama seperti expression `match` yang kita definisikan di Listing 9-6. Di
 Listing 9-6, `match` memakai nilai `Result`, dan arm return dini
 mengembalikan nilai `Err(e)`. Type kembalian fungsi harus berupa `Result`
 supaya kompatibel dengan `return` ini.
@@ -473,7 +473,7 @@ memakai `?` pada `Option` di fungsi yang mengembalikan `Option`. Perilaku
 operator `?` ketika dipanggil pada `Option<T>` mirip dengan perilakunya
 ketika dipanggil pada `Result<T, E>`: jika nilainya `None`, `None` akan
 dikembalikan lebih awal dari fungsi pada titik itu. Jika nilainya `Some`,
-nilai di dalam `Some` adalah nilai hasil ekspresi, dan fungsi berlanjut.
+nilai di dalam `Some` adalah nilai hasil expression, dan fungsi berlanjut.
 Listing 9-11 memiliki contoh fungsi yang menemukan karakter terakhir dari
 baris pertama di teks yang diberikan.
 
@@ -507,7 +507,7 @@ ia akan dikembalikan di dalam variant `Some`. Operator `?` di tengah memberi
 kita cara yang ringkas untuk mengekspresikan logika ini, yang memungkinkan
 kita mengimplementasikan fungsi dalam satu baris. Jika kita tidak dapat
 memakai operator `?` pada `Option`, kita harus mengimplementasikan logika
-ini memakai lebih banyak pemanggilan metode atau ekspresi `match`.
+ini memakai lebih banyak pemanggilan metode atau expression `match`.
 
 Perhatikan bahwa Anda dapat memakai operator `?` pada `Result` di fungsi
 yang mengembalikan `Result`, dan Anda dapat memakai operator `?` pada
@@ -524,7 +524,7 @@ berperilaku seperti yang diharapkan.
 
 Untungnya, `main` juga dapat mengembalikan `Result<(), E>`. Listing 9-12
 berisi kode dari Listing 9-10, tetapi kita telah mengubah return type
-`main` menjadi `Result<(), Box<dyn Error>>` dan menambahkan nilai kembalian
+`main` menjadi `Result<(), Box<dyn Error>>` dan menambahkan return value
 `Ok(())` di akhir. Kode ini kini akan terkompilasi.
 
 <Listing number="9-12" file-name="src/main.rs" caption="Mengubah `main` agar mengembalikan `Result<(), E>` memungkinkan pemakaian operator `?` pada nilai `Result`.">

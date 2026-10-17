@@ -34,7 +34,7 @@ Konsep yang berkaitan adalah *scope* (cakupan): konteks bersarang tempat kode
 ditulis memiliki sekumpulan nama yang didefinisikan sebagai “berada di dalam
 *scope*”. Ketika membaca, menulis, dan mengompilasi kode, pemrogram dan
 *compiler* (kompilator) perlu tahu apakah sebuah nama pada titik tertentu
-merujuk ke variabel, fungsi, *struct*, *enum*, *module*, konstanta, atau item lain,
+merujuk ke variable, fungsi, *struct*, *enum*, *module*, constant, atau item lain,
 dan apa makna item tersebut. Anda dapat membuat *scope* dan mengubah nama-nama
 mana yang berada di dalam atau di luar *scope*. Anda tidak dapat memiliki dua
 item dengan nama yang sama di dalam *scope* yang sama; tersedia perangkat untuk

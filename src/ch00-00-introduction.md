@@ -129,8 +129,8 @@ setelah itu, Anda dapat kembali ke Bab 2 saat ingin mengerjakan sebuah proyek
 dengan menerapkan detail-detail yang telah Anda pelajari.
 
 Di **Bab 4**, Anda akan mempelajari sistem *ownership* (kepemilikan) Rust.
-**Bab 5** membahas *struct* dan metode. **Bab 6** membahas *enum*, ekspresi
-`match`, serta konstruksi alur kontrol `if let` dan `let...else`. Anda akan
+**Bab 5** membahas *struct* dan metode. **Bab 6** membahas *enum*, expression
+`match`, serta konstruksi control flow `if let` dan `let...else`. Anda akan
 menggunakan *struct* dan *enum* untuk membuat type khusus.
 
 Di **Bab 7**, Anda akan mempelajari sistem *module* (modul) Rust serta

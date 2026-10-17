@@ -355,7 +355,7 @@ tersebar di seluruh `Post`.
 > kemungkinan state post sebagai varian. Itu tentu solusi yang mungkin; coba
 > saja dan bandingkan hasil akhirnya untuk melihat mana yang Anda sukai! Salah
 > satu kekurangan memakai *enum* adalah setiap tempat yang mengecek nilai *enum*
-> itu akan membutuhkan ekspresi `match` atau yang serupa untuk menangani
+> itu akan membutuhkan expression `match` atau yang serupa untuk menangani
 > setiap varian yang mungkin. Ini bisa menjadi lebih berulang daripada solusi
 > *trait object* ini.
 
@@ -374,13 +374,13 @@ diterbitkan bisa berperilaku: implementasi *trait* `State` pada *struct*
 `Published`.
 
 Jika kita membuat implementasi alternatif yang tidak memakai pola state, kita
-mungkin memakai ekspresi `match` di metode-metode pada `Post` atau bahkan di
+mungkin memakai expression `match` di metode-metode pada `Post` atau bahkan di
 kode `main` yang mengecek state post dan mengubah perilaku di tempat-tempat
 itu. Itu berarti kita harus melihat di beberapa tempat untuk memahami semua
 implikasi post yang berada di state diterbitkan.
 
 Dengan pola state, metode-metode `Post` dan tempat-tempat kita memakai `Post`
-tidak membutuhkan ekspresi `match`, dan untuk menambahkan state baru, kita
+tidak membutuhkan expression `match`, dan untuk menambahkan state baru, kita
 hanya perlu menambahkan *struct* baru dan mengimplementasikan metode *trait* pada
 satu *struct* itu di satu lokasi.
 

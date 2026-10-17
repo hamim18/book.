@@ -6,8 +6,8 @@ dapat dipakai sebagai *identifier* (pengidentifikasi), kecuali sebagai *raw
 identifier* (identifier mentah), seperti yang kita bahas di bagian [“Raw
 Identifiers”][raw-identifiers]<!-- ignore -->.
 
-_Identifier_ adalah nama dari fungsi, variabel, parameter, *field* (medan)
-*struct*, *module* (modul), *crate*, konstanta, *macro* (makro), nilai static,
+_Identifier_ adalah nama dari fungsi, variable, parameter, *field* (medan)
+*struct*, *module* (modul), *crate*, constant, *macro* (makro), nilai static,
 atribut, type, *trait*, atau *lifetime* (masa hidup).
 
 [raw-identifiers]: #raw-identifiers
@@ -18,26 +18,26 @@ Berikut adalah daftar kata kunci yang sedang dipakai, beserta penjelasan
 fungsionalitasnya.
 
 - **`as`**: Melakukan casting primitif, mendisambiguasi *trait* tertentu yang
-  memuat suatu item, atau mengganti nama item dalam pernyataan `use`.
+  memuat suatu item, atau mengganti nama item dalam statement `use`.
 - **`async`**: Mengembalikan `Future` alih-alih memblokir thread saat ini.
 - **`await`**: Menangguhkan eksekusi sampai hasil `Future` siap.
-- **`break`**: Keluar dari perulangan dengan segera.
-- **`const`**: Mendefinisikan item konstanta atau *raw pointer* konstan.
-- **`continue`**: Melanjutkan ke iterasi perulangan berikutnya.
+- **`break`**: Keluar dari loop dengan segera.
+- **`const`**: Mendefinisikan item constant atau *raw pointer* konstan.
+- **`continue`**: Melanjutkan ke iterasi loop berikutnya.
 - **`crate`**: Di dalam *module* *path*, merujuk ke akar *crate*.
 - **`dyn`**: Dispatch dinamis ke *trait object*.
-- **`else`**: Cadangan untuk konstruk alur kontrol `if` dan `if let`.
+- **`else`**: Cadangan untuk konstruk control flow `if` dan `if let`.
 - **`enum`**: Mendefinisikan enumerasi.
-- **`extern`**: Menautkan fungsi atau variabel eksternal.
+- **`extern`**: Menautkan fungsi atau variable eksternal.
 - **`false`**: Literal Boolean false.
 - **`fn`**: Mendefinisikan fungsi atau type *pointer* fungsi.
-- **`for`**: Melakukan perulangan atas item dari *iterator*, mengimplementasikan
+- **`for`**: Melakukan loop atas item dari *iterator*, mengimplementasikan
   *trait*, atau menentukan *lifetime* berperingkat lebih tinggi.
-- **`if`**: Melakukan percabangan berdasarkan hasil ekspresi kondisional.
+- **`if`**: Melakukan percabangan berdasarkan hasil expression kondisional.
 - **`impl`**: Mengimplementasikan fungsionalitas inherent atau *trait*.
-- **`in`**: Bagian dari sintaks perulangan `for`.
-- **`let`**: Mengikat variabel.
-- **`loop`**: Melakukan perulangan tanpa syarat.
+- **`in`**: Bagian dari sintaks loop `for`.
+- **`let`**: Mengikat variable.
+- **`loop`**: Melakukan loop tanpa syarat.
 - **`match`**: Mencocokkan nilai dengan pola.
 - **`mod`**: Mendefinisikan *module*.
 - **`move`**: Membuat *closure* mengambil kepemilikan atas semua yang
@@ -51,7 +51,7 @@ fungsionalitasnya.
 - **`Self`**: Alias type untuk type yang sedang kita definisikan atau
   implementasikan.
 - **`self`**: Subjek metode atau *module* saat ini.
-- **`static`**: Variabel global atau *lifetime* yang berlangsung selama eksekusi
+- **`static`**: Variable global atau *lifetime* yang berlangsung selama eksekusi
   program.
 - **`struct`**: Mendefinisikan struktur.
 - **`super`**: *Module* induk dari *module* saat ini.
@@ -63,7 +63,7 @@ fungsionalitasnya.
 - **`unsafe`**: Menandai kode, fungsi, *trait*, atau implementasi yang *unsafe*.
 - **`use`**: Membawa simbol ke dalam *scope*.
 - **`where`**: Menandai klausa yang membatasi suatu type.
-- **`while`**: Melakukan perulangan bersyarat berdasarkan hasil suatu ekspresi.
+- **`while`**: Melakukan loop bersyarat berdasarkan hasil suatu expression.
 
 [union]: ../reference/items/unions.html
 

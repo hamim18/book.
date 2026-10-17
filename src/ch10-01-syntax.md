@@ -10,7 +10,7 @@ membahas bagaimana *generics* memengaruhi kinerja kode.
 
 Saat mendefinisikan fungsi yang memakai *generics*, kita menempatkan *generics*
 di tanda tangan fungsi, tepat di tempat kita biasanya menentukan data type
-parameter dan nilai kembaliannya. Melakukannya membuat kode kita lebih
+parameter dan return valuenya. Melakukannya membuat kode kita lebih
 fleksibel dan menyediakan lebih banyak fungsionalitas bagi pemanggil fungsi
 kita sekaligus mencegah duplikasi kode.
 
@@ -251,7 +251,7 @@ Kode ini berarti type `Point<f32>` akan memiliki metode
 `distance_from_origin`; instance lain `Point<T>` yang `T`-nya bukan typed
 `f32` tidak akan memiliki metode ini. Metode tersebut mengukur seberapa jauh
 titik kita dari titik pada koordinat (0.0, 0.0) dan memakai operasi matematis
-yang hanya tersedia untuk type titik mengambang.
+yang hanya tersedia untuk type floating point.
 
 Parameter generic type dalam definisi *struct* tidak selalu sama dengan yang
 Anda pakai di tanda tangan metode *struct* yang sama. Listing 10-11 memakai
@@ -270,10 +270,10 @@ sebuah instance `Point` baru dengan nilai `x` dari `Point` `self` (typed
 
 Di dalam `main`, kita telah mendefinisikan sebuah `Point` yang memiliki
 `i32` untuk `x` (dengan nilai `5`) dan `f64` untuk `y` (dengan nilai `10.4`).
-Variabel `p2` adalah *struct* `Point` yang memiliki *string slice* untuk `x`
+Variable `p2` adalah *struct* `Point` yang memiliki *string slice* untuk `x`
 (dengan nilai `"Hello"`) dan `char` untuk `y` (dengan nilai `c`). Memanggil
 `mixup` pada `p1` dengan argumen `p2` menghasilkan `p3`, yang akan memiliki
-`i32` untuk `x` karena `x` berasal dari `p1`. Variabel `p3` akan memiliki
+`i32` untuk `x` karena `x` berasal dari `p1`. Variable `p3` akan memiliki
 `char` untuk `y` karena `y` berasal dari `p2`. Panggilan *macro* (makro)
 `println!` akan mencetak `p3.x = 5, p3.y = c`.
 

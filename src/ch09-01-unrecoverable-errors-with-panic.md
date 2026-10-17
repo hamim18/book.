@@ -7,7 +7,7 @@ membuat kode kita panic (seperti mengakses array melewati ujungnya) atau
 dengan memanggil *macro* `panic!` secara eksplisit. Dalam kedua kasus, kita
 menyebabkan panic di program kita. Secara default, panic ini akan mencetak
 pesan kegagalan, melakukan unwinding, membersihkan tumpukan, dan berhenti.
-Lewat sebuah variabel lingkungan, Anda juga dapat membuat Rust menampilkan
+Lewat sebuah environment variable, Anda juga dapat membuat Rust menampilkan
 tumpukan panggilan ketika panic terjadi agar lebih mudah melacak sumber
 panic.
 
@@ -106,7 +106,7 @@ dan menolak melanjutkan. Mari kita mencobanya dan melihat hasilnya:
 Error ini menunjuk ke baris 4 dari _main.rs_ kita tempat kita mencoba
 mengakses indeks 99 dari vektor di `v`.
 
-Baris `note:` memberi tahu kita bahwa kita dapat menetapkan variabel
+Baris `note:` memberi tahu kita bahwa kita dapat menetapkan variable
 lingkungan `RUST_BACKTRACE` untuk mendapatkan backtrace tentang apa yang
 persisnya terjadi sehingga menyebabkan error. Sebuah *backtrace* adalah
 daftar semua fungsi yang telah dipanggil untuk sampai ke titik ini.
@@ -116,7 +116,7 @@ tulis. Di situlah tempat masalah bermula. Baris-baris di atas titik itu
 adalah kode yang telah dipanggil kode Anda; baris-baris di bawahnya adalah
 kode yang memanggil kode Anda. Baris-baris sebelum-dan-sesudah ini mungkin
 mencakup kode inti Rust, kode pustaka standar, atau *crate* yang sedang Anda
-pakai. Mari kita coba mendapatkan backtrace dengan menetapkan variabel
+pakai. Mari kita coba mendapatkan backtrace dengan menetapkan variable
 lingkungan `RUST_BACKTRACE` ke nilai apa pun kecuali `0`. Listing 9-2
 menunjukkan output yang mirip dengan yang akan Anda lihat.
 
@@ -127,7 +127,7 @@ copy the backtrace output below
 check the backtrace number mentioned in the text below the listing
 -->
 
-<Listing number="9-2" caption="Backtrace yang dihasilkan pemanggilan `panic!` yang ditampilkan ketika variabel lingkungan `RUST_BACKTRACE` ditetapkan">
+<Listing number="9-2" caption="Backtrace yang dihasilkan pemanggilan `panic!` yang ditampilkan ketika environment variable `RUST_BACKTRACE` ditetapkan">
 
 ```console
 $ RUST_BACKTRACE=1 cargo run

@@ -86,7 +86,7 @@ satu struktur data yang sangat umum: string.
 >
 > Ketika kode Anda memanggil sebuah fungsi, nilai-nilai yang diteruskan ke
 > fungsi tersebut (termasuk, mungkin, *pointer* ke data di *heap*) dan
-> variabel-variabel lokal fungsi itu didorong ke *stack*. Ketika fungsi
+> variable-variable lokal fungsi itu didorong ke *stack*. Ketika fungsi
 > selesai, nilai-nilai tersebut dikeluarkan dari *stack*.
 >
 > Melacak bagian kode mana yang menggunakan data apa di *heap*, meminimalkan
@@ -106,7 +106,7 @@ ini saat kita menelusuri contoh-contoh yang mengilustrasikannya:
 - Hanya boleh ada satu *owner* pada satu waktu.
 - Ketika *owner* keluar dari *scope* (cakupan), nilai tersebut akan dibuang.
 
-### Scope Variabel
+### Scope Variable
 
 Karena kita sudah melewati sintaks dasar Rust, kita tidak akan menyertakan
 semua kode `fn main() {` dalam contoh-contohnya. Jadi, jika Anda mengikuti
@@ -116,20 +116,20 @@ ringkas, sehingga kita bisa berfokus pada detail yang sebenarnya, bukan pada
 kode boilerplate.
 
 Sebagai contoh pertama dari *ownership*, kita akan melihat *scope* dari
-beberapa variabel. *Scope* adalah rentang di dalam program tempat sebuah item
-berlaku. Perhatikan variabel berikut:
+beberapa variable. *Scope* adalah rentang di dalam program tempat sebuah item
+berlaku. Perhatikan variable berikut:
 
 ```rust
 let s = "hello";
 ```
 
-Variabel `s` merujuk pada sebuah *string literal*, yaitu nilai *string* yang
-ditulis langsung ke dalam teks program kita. Variabel ini berlaku mulai dari
+Variable `s` merujuk pada sebuah *string literal*, yaitu nilai *string* yang
+ditulis langsung ke dalam teks program kita. Variable ini berlaku mulai dari
 titik ketika ia dideklarasikan sampai akhir *scope* saat ini. Listing 4-1
 menampilkan sebuah program dengan komentar yang memberi keterangan di bagian
-mana variabel `s` berlaku.
+mana variable `s` berlaku.
 
-<Listing number="4-1" caption="Sebuah variabel dan scope tempat ia berlaku">
+<Listing number="4-1" caption="Sebuah variable dan scope tempat ia berlaku">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
@@ -142,7 +142,7 @@ Dengan kata lain, ada dua titik waktu penting di sini:
 - Ketika `s` masuk _ke dalam_ *scope*, ia berlaku.
 - Ia tetap berlaku sampai keluar _dari_ *scope*.
 
-Sejauh ini, hubungan antara *scope* dan masa berlaku variabel mirip dengan
+Sejauh ini, hubungan antara *scope* dan masa berlaku variable mirip dengan
 bahasa pemrograman lain. Sekarang kita akan membangun pemahaman ini dengan
 memperkenalkan type `String`.
 
@@ -170,7 +170,7 @@ langsung di dalam program kita. *String literal* praktis, tetapi tidak cocok
 untuk setiap situasi ketika kita ingin menggunakan teks. Salah satu alasannya
 adalah *string literal* bersifat *immutable* (tidak dapat diubah). Alasan
 lainnya, tidak semua nilai *string* dapat diketahui ketika kita menulis kode:
-contohnya, bagaimana jika kita ingin mengambil masukan dari pengguna dan
+contohnya, bagaimana jika kita ingin mengambil input dari pengguna dan
 menyimpannya? Untuk situasi-situasi seperti inilah Rust memiliki type
 `String`. Type ini mengelola data yang dialokasikan di *heap* sehingga mampu
 menyimpan sejumlah teks yang ukurannya belum kita ketahui pada saat
@@ -229,12 +229,12 @@ bertanggung jawab untuk mengenali kapan memori tidak lagi digunakan dan
 memanggil kode untuk membebaskannya secara eksplisit, sama seperti saat kita
 memintanya. Melakukan hal ini dengan benar secara historis merupakan masalah
 pemrograman yang sulit. Jika kita lupa, kita akan membuang-buang memori. Jika
-kita melakukannya terlalu dini, kita akan mendapatkan variabel yang tidak
+kita melakukannya terlalu dini, kita akan mendapatkan variable yang tidak
 valid. Jika kita melakukannya dua kali, itu juga sebuah bug. Kita harus
 memasangkan tepat satu `allocate` dengan tepat satu `free`.
 
 Rust mengambil jalan yang berbeda: memori dikembalikan secara otomatis
-begitu variabel yang memilikinya keluar dari *scope*. Berikut versi contoh
+begitu variable yang memilikinya keluar dari *scope*. Berikut versi contoh
 *scope* dari Listing 4-1 dengan menggunakan `String`, bukan *string literal*:
 
 ```rust
@@ -243,7 +243,7 @@ begitu variabel yang memilikinya keluar dari *scope*. Berikut versi contoh
 
 Ada satu titik yang alami di mana kita dapat mengembalikan memori yang
 dibutuhkan `String` kita kepada *allocator*: ketika `s` keluar dari *scope*.
-Ketika sebuah variabel keluar dari *scope*, Rust memanggil sebuah fungsi
+Ketika sebuah variable keluar dari *scope*, Rust memanggil sebuah fungsi
 khusus untuk kita. Fungsi ini bernama `drop`, dan di sinilah penulis `String`
 dapat meletakkan kode untuk mengembalikan memorinya. Rust memanggil `drop`
 secara otomatis pada kurung kurawal penutup.
@@ -255,7 +255,7 @@ secara otomatis pada kurung kurawal penutup.
 
 Pola ini berdampak besar pada cara penulisan kode Rust. Saat ini pola ini
 mungkin tampak sederhana, tetapi perilaku kode bisa jadi tidak terduga dalam
-situasi yang lebih rumit, yaitu ketika kita ingin beberapa variabel
+situasi yang lebih rumit, yaitu ketika kita ingin beberapa variable
 menggunakan data yang telah kita alokasikan di *heap*. Mari kita telusuri
 beberapa situasi tersebut sekarang.
 
@@ -264,13 +264,13 @@ beberapa situasi tersebut sekarang.
 <a id="ways-variables-and-data-interact-move"></a>
 
 <a id="variables-and-data-interacting-with-move"></a>
-#### Variabel dan Data yang Berinteraksi dengan Move
+#### Variable dan Data yang Berinteraksi dengan Move
 
-Beberapa variabel dapat berinteraksi dengan data yang sama dengan berbagai
+Beberapa variable dapat berinteraksi dengan data yang sama dengan berbagai
 cara di Rust. Listing 4-2 menampilkan contoh yang menggunakan sebuah bilangan
 bulat.
 
-<Listing number="4-2" caption="Menetapkan nilai bilangan bulat dari variabel `x` ke `y`">
+<Listing number="4-2" caption="Menetapkan nilai bilangan bulat dari variable `x` ke `y`">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-02/src/main.rs:here}}
@@ -280,7 +280,7 @@ bulat.
 
 Kita mungkin bisa menebak apa yang dilakukan kode ini: “ikat nilai `5` ke
 `x`; lalu buat salinan nilai di `x` dan ikat ke `y`.” Sekarang kita punya dua
-variabel, `x` dan `y`, dan keduanya bernilai `5`. Inilah yang memang terjadi,
+variable, `x` dan `y`, dan keduanya bernilai `5`. Inilah yang memang terjadi,
 karena bilangan bulat adalah nilai sederhana dengan ukuran yang pasti dan
 tetap, dan kedua nilai `5` ini didorong ke *stack*.
 
@@ -325,7 +325,7 @@ lain, representasi data di dalam memori tampak seperti pada Gambar 4-2.
 kedua string di stack, dan keduanya menunjuk ke data string yang sama di
 heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Gambar 4-2: Representasi di dalam memori dari variabel
+<span class="caption">Gambar 4-2: Representasi di dalam memori dari variable
 `s2` yang memiliki salinan *pointer*, panjang, dan kapasitas dari `s1`</span>
 
 Representasi ini _tidak_ tampak seperti Gambar 4-3, yang merupakan bentuk
@@ -340,9 +340,9 @@ heap." src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 <span class="caption">Gambar 4-3: Kemungkinan lain dari apa yang mungkin
 dilakukan `s2 = s1` jika Rust ikut menyalin data *heap*</span>
 
-Sebelumnya kita telah mengatakan bahwa ketika sebuah variabel keluar dari
+Sebelumnya kita telah mengatakan bahwa ketika sebuah variable keluar dari
 *scope*, Rust secara otomatis memanggil fungsi `drop` dan membersihkan memori
-*heap* untuk variabel tersebut. Namun, Gambar 4-2 menunjukkan kedua *pointer*
+*heap* untuk variable tersebut. Namun, Gambar 4-2 menunjukkan kedua *pointer*
 data menunjuk ke lokasi yang sama. Ini adalah sebuah masalah: ketika `s2` dan
 `s1` keluar dari *scope*, keduanya akan mencoba membebaskan memori yang sama.
 Ini dikenal sebagai error *double free* dan merupakan salah satu *bug*
@@ -370,7 +370,7 @@ Jika Anda pernah mendengar istilah *shallow copy* (salinan dangkal) dan
 *deep copy* (salinan dalam) saat bekerja dengan bahasa lain, konsep menyalin
 *pointer*, panjang, dan kapasitas tanpa menyalin datanya mungkin terdengar
 seperti membuat salinan dangkal. Namun, karena Rust juga membatalkan
-validitas variabel pertama, alih-alih disebut salinan dangkal, proses ini
+validitas variable pertama, alih-alih disebut salinan dangkal, proses ini
 dikenal sebagai *move* (pemindahan). Dalam contoh ini, kita dapat mengatakan
 bahwa `s1` telah *moved* (dipindahkan) ke dalam `s2`. Jadi, yang sebenarnya
 terjadi ditunjukkan pada Gambar 4-4.
@@ -397,7 +397,7 @@ penyalinan _otomatis_ apa pun dapat dianggap murah dari segi kinerja saat
 
 Kebalikannya juga berlaku untuk hubungan antara *scope*, *ownership*, dan
 memori yang dibebaskan melalui fungsi `drop`. Ketika Anda menetapkan nilai
-yang sepenuhnya baru kepada variabel yang sudah ada, Rust akan memanggil
+yang sepenuhnya baru kepada variable yang sudah ada, Rust akan memanggil
 `drop` dan segera membebaskan memori nilai aslinya. Perhatikan kode berikut,
 misalnya:
 
@@ -405,7 +405,7 @@ misalnya:
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04b-replacement-drop/src/main.rs:here}}
 ```
 
-Awalnya kita mendeklarasikan variabel `s` dan mengikatnya ke sebuah `String`
+Awalnya kita mendeklarasikan variable `s` dan mengikatnya ke sebuah `String`
 dengan nilai `"hello"`. Lalu, kita segera membuat `String` baru dengan nilai
 `"ahoy"` dan menetapkannya ke `s`. Pada titik ini, tidak ada apa pun yang
 merujuk ke nilai asli di *heap*. Gambar 4-5 mengilustrasikan data di *stack*
@@ -429,7 +429,7 @@ dibebaskan. Ketika kita mencetak nilainya di akhir, hasilnya adalah
 <a id="ways-variables-and-data-interact-clone"></a>
 
 <a id="variables-and-data-interacting-with-clone"></a>
-#### Variabel dan Data yang Berinteraksi dengan Clone
+#### Variable dan Data yang Berinteraksi dengan Clone
 
 Jika kita _memang_ ingin menyalin secara mendalam data *heap* dari `String`,
 bukan hanya data *stack*-nya, kita dapat menggunakan sebuah metode yang umum
@@ -468,7 +468,7 @@ dipindahkan ke dalam `y`.
 Alasannya adalah bahwa type-type seperti bilangan bulat yang ukurannya
 diketahui pada saat kompilasi disimpan seluruhnya di *stack*, sehingga
 salinan dari nilai sebenarnya cepat dibuat. Artinya, tidak ada alasan bagi
-kita untuk mencegah `x` tetap valid setelah kita membuat variabel `y`. Dengan
+kita untuk mencegah `x` tetap valid setelah kita membuat variable `y`. Dengan
 kata lain, tidak ada perbedaan antara penyalinan dalam dan penyalinan dangkal
 di sini, sehingga memanggil `clone` tidak akan menghasilkan apa pun yang
 berbeda dari penyalinan dangkal biasa, dan kita bisa melewatinya.
@@ -476,9 +476,9 @@ berbeda dari penyalinan dangkal biasa, dan kita bisa melewatinya.
 Rust memiliki anotasi khusus yang disebut *trait* `Copy` yang dapat kita
 pasang pada type-type yang disimpan di *stack*, seperti bilangan bulat (kita
 akan membahas *trait* lebih lanjut di [Bab 10][traits]<!-- ignore -->). Jika
-sebuah type mengimplementasikan *trait* `Copy`, variabel yang memakainya
+sebuah type mengimplementasikan *trait* `Copy`, variable yang memakainya
 tidak dipindahkan, melainkan disalin secara sepele, sehingga tetap valid
-setelah ditetapkan ke variabel lain.
+setelah ditetapkan ke variable lain.
 
 Rust tidak mengizinkan kita memberi anotasi `Copy` pada sebuah type jika
 type tersebut, atau bagian mana pun darinya, telah mengimplementasikan
@@ -498,7 +498,7 @@ Berikut beberapa type yang mengimplementasikan `Copy`:
 
 - Semua type bilangan bulat, seperti `u32`.
 - Type Boolean, `bool`, dengan nilai `true` dan `false`.
-- Semua type *floating point* (titik mengambang), seperti `f64`.
+- Semua type *floating point* (floating point), seperti `f64`.
 - Type karakter, `char`.
 - *Tuple*, jika hanya berisi type-type yang juga mengimplementasikan `Copy`.
   Misalnya, `(i32, i32)` mengimplementasikan `Copy`, tetapi `(i32, String)`
@@ -507,9 +507,9 @@ Berikut beberapa type yang mengimplementasikan `Copy`:
 ### Ownership dan Fungsi
 
 Mekanisme penerusan sebuah nilai ke sebuah fungsi serupa dengan mekanisme
-penetapan nilai ke sebuah variabel. Meneruskan variabel ke sebuah fungsi akan
+penetapan nilai ke sebuah variable. Meneruskan variable ke sebuah fungsi akan
 memindahkan atau menyalin, sama seperti penetapan. Listing 4-3 memuat contoh
-dengan beberapa anotasi yang menunjukkan di mana variabel masuk dan keluar
+dengan beberapa anotasi yang menunjukkan di mana variable masuk dan keluar
 dari *scope*.
 
 <Listing number="4-3" file-name="src/main.rs" caption="Fungsi-fungsi dengan ownership dan scope yang diberi anotasi">
@@ -532,7 +532,7 @@ Mengembalikan nilai juga dapat memindahkan *ownership*. Listing 4-4
 menampilkan contoh fungsi yang mengembalikan sebuah nilai, dengan anotasi
 serupa seperti pada Listing 4-3.
 
-<Listing number="4-4" file-name="src/main.rs" caption="Memindahkan ownership dari nilai-nilai kembalian">
+<Listing number="4-4" file-name="src/main.rs" caption="Memindahkan ownership dari nilai-return value">
 
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-04/src/main.rs}}
@@ -540,10 +540,10 @@ serupa seperti pada Listing 4-3.
 
 </Listing>
 
-Kepemilikan sebuah variabel mengikuti pola yang sama setiap kali: menetapkan
-sebuah nilai ke variabel lain akan memindahkannya. Ketika sebuah variabel
+Kepemilikan sebuah variable mengikuti pola yang sama setiap kali: menetapkan
+sebuah nilai ke variable lain akan memindahkannya. Ketika sebuah variable
 yang memuat data di *heap* keluar dari *scope*, nilainya akan dibersihkan
-oleh `drop` kecuali kepemilikan datanya telah dipindahkan ke variabel lain.
+oleh `drop` kecuali kepemilikan datanya telah dipindahkan ke variable lain.
 
 Meskipun cara ini berhasil, mengambil *ownership* lalu mengembalikannya lagi
 pada setiap fungsi agak melelahkan. Bagaimana jika kita ingin membiarkan

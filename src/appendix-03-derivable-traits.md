@@ -41,7 +41,7 @@ Mengimplementasikan `derive` melibatkan pemakaian *macro* prosedural, yang dibah
 di bagian [“Macro `derive` Kustom”][custom-derive-macros]<!-- ignore --> di Bab
 20.
 
-### `Debug` untuk Keluaran Pemrogram
+### `Debug` untuk Output Pemrogram
 
 *Trait* `Debug` mengaktifkan pemformatan debug dalam string format, yang Anda
 tandai dengan menambahkan `:?` di dalam placeholder `{}`.
@@ -74,7 +74,7 @@ setiap nilai dari type yang dianotasi, nilai itu sama dengan dirinya sendiri.
 *Trait* `Eq` hanya dapat diterapkan pada type yang juga mengimplementasikan
 `PartialEq`, meskipun tidak semua type yang mengimplementasikan `PartialEq` dapat
 mengimplementasikan `Eq`. Salah satu contohnya adalah numeric type titik
-mengambang: implementasi angka titik mengambang menyatakan bahwa dua instance
+mengambang: implementasi angka floating point menyatakan bahwa dua instance
 nilai not-a-number (`NaN`) tidak sama satu sama lain.
 
 Contoh saat `Eq` diperlukan adalah untuk kunci dalam `HashMap<K, V>`, supaya
@@ -91,8 +91,8 @@ Menurunkan `PartialOrd` mengimplementasikan metode `partial_cmp`, yang
 mengembalikan `Option<Ordering>` yang akan menjadi `None` ketika nilai yang
 diberikan tidak menghasilkan urutan. Contoh nilai yang tidak menghasilkan
 urutan, meskipun sebagian besar nilai typed itu dapat dibandingkan, adalah
-nilai titik mengambang `NaN`. Memanggil `partial_cmp` dengan angka titik
-mengambang mana pun dan nilai titik mengambang `NaN` akan mengembalikan `None`.
+nilai floating point `NaN`. Memanggil `partial_cmp` dengan angka titik
+mengambang mana pun dan nilai floating point `NaN` akan mengembalikan `None`.
 
 Ketika diturunkan pada *struct*, `PartialOrd` membandingkan dua instance dengan
 membandingkan nilai di setiap *field* sesuai urutan kemunculan *field* tersebut
@@ -101,7 +101,7 @@ dideklarasikan lebih awal dalam definisi *enum* dianggap kurang dari varian yang
 dicantumkan kemudian.
 
 *Trait* `PartialOrd` diperlukan, misalnya, untuk metode `gen_range` dari *crate*
-`rand` yang membangkitkan nilai acak dalam rentang yang ditentukan oleh ekspresi
+`rand` yang membangkitkan nilai acak dalam rentang yang ditentukan oleh expression
 rentang.
 
 *Trait* `Ord` memungkinkan Anda mengetahui bahwa untuk dua nilai apa pun dari type
@@ -120,7 +120,7 @@ struktur data yang menyimpan data berdasarkan urutan sortir nilainya.
 
 *Trait* `Clone` memungkinkan Anda secara eksplisit membuat salinan dalam dari
 sebuah nilai, dan proses duplikasinya mungkin melibatkan menjalankan kode
-arbitrer serta menyalin data di *heap*. Lihat bagian [“Variabel dan Data yang
+arbitrer serta menyalin data di *heap*. Lihat bagian [“Variable dan Data yang
 Berinteraksi dengan Clone”][variables-and-data-interacting-with-clone]<!--
 ignore --> di Bab 4 untuk informasi lebih lanjut tentang `Clone`.
 

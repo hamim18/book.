@@ -49,8 +49,8 @@ meng-overload operator itu dicantumkan.
 | `/=`                      | `var /= expr`                                           | Pembagian aritmetika dan penetapan                                             | `DivAssign`        |
 | `:`                       | `pat: type`, `ident: type`                              | Batasan                                                                        |                    |
 | `:`                       | `ident: expr`                                           | Penginisialisasi field struct                                                  |                    |
-| `:`                       | `'a: loop {...}`                                        | Label perulangan                                                               |                    |
-| `;`                       | `expr;`                                                 | Terminator pernyataan dan item                                                 |                    |
+| `:`                       | `'a: loop {...}`                                        | Label loop                                                               |                    |
+| `;`                       | `expr;`                                                 | Terminator statement dan item                                                 |                    |
 | `;`                       | `[...; len]`                                            | Bagian dari sintaks array berukuran tetap                                      |                    |
 | `<<`                      | `expr << expr`                                          | Pergeseran kiri                                                                | `Shl`              |
 | `<<=`                     | `var <<= expr`                                          | Pergeseran kiri dan penetapan                                                  | `ShlAssign`        |
@@ -85,7 +85,7 @@ lokasi.
 
 | Simbol                                                                 | Penjelasan                                                                                       |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `'ident`                                                               | Lifetime bernama atau label perulangan                                                           |
+| `'ident`                                                               | Lifetime bernama atau loop label                                                           |
 | Digit yang langsung diikuti `u8`, `i32`, `f64`, `usize`, dan seterusnya | Literal numerik typed tertentu                                                                 |
 | `"..."`                                                                | String literal                                                                                   |
 | `r"..."`, `r#"..."#`, `r##"..."##`, dan seterusnya                      | Raw string literal; karakter escape tidak diproses                                               |
@@ -108,7 +108,7 @@ melalui hierarki *module*.
 | `::path`                                | Path relatif terhadap akar crate (yaitu, path yang secara eksplisit absolut)                                                  |
 | `self::path`                            | Path relatif terhadap module saat ini (yaitu, path yang secara eksplisit relatif)                                             |
 | `super::path`                           | Path relatif terhadap induk module saat ini                                                                                    |
-| `type::ident`, `<type as trait>::ident` | Konstanta, fungsi, dan associated type                                                                                           |
+| `type::ident`, `<type as trait>::ident` | Constant, fungsi, dan associated type                                                                                           |
 | `<type>::...`                           | Item asosiasi untuk type yang tidak dapat dinamai secara langsung (misalnya, `<&T>::...`, `<[T]>::...`, dan seterusnya)        |
 | `trait::method(...)`                    | Mendisambiguasi pemanggilan metode dengan menamai trait yang mendefinisikannya                                                 |
 | `type::method(...)`                     | Mendisambiguasi pemanggilan metode dengan menamai type tempat metode itu didefinisikan                                         |
@@ -122,7 +122,7 @@ generic type.
 | Simbol                         | Penjelasan                                                                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `path<...>`                    | Menentukan parameter untuk generic type dalam suatu type (misalnya, `Vec<u8>`)                                                                                 |
-| `path::<...>`, `method::<...>` | Menentukan parameter untuk type, fungsi, atau metode generik dalam suatu ekspresi; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
+| `path::<...>`, `method::<...>` | Menentukan parameter untuk type, fungsi, atau metode generik dalam suatu expression; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
 | `fn ident<...> ...`            | Mendefinisikan fungsi generik                                                                                                                                  |
 | `struct ident<...> ...`        | Mendefinisikan struktur generik                                                                                                                                |
 | `enum ident<...> ...`          | Mendefinisikan enumerasi generik                                                                                                                               |
@@ -178,12 +178,12 @@ Tabel B-8 menunjukkan konteks pemakaian tanda kurung.
 | Simbol                   | Penjelasan                                                                                        |
 | ------------------------ | ------------------------------------------------------------------------------------------------- |
 | `()`                     | Tuple kosong (alias unit), baik sebagai literal maupun type                                        |
-| `(expr)`                 | Ekspresi dalam tanda kurung                                                                        |
-| `(expr,)`                | Ekspresi tuple satu elemen                                                                         |
+| `(expr)`                 | Expression dalam tanda kurung                                                                        |
+| `(expr,)`                | Expression tuple satu elemen                                                                         |
 | `(type,)`                | Type tuple satu elemen                                                                             |
-| `(expr, ...)`            | Ekspresi tuple                                                                                     |
+| `(expr, ...)`            | Expression tuple                                                                                     |
 | `(type, ...)`            | Type tuple                                                                                         |
-| `expr(expr, ...)`        | Ekspresi pemanggilan fungsi; juga dipakai untuk menginisialisasi `struct` tuple dan varian `enum` tuple |
+| `expr(expr, ...)`        | Expression pemanggilan fungsi; juga dipakai untuk menginisialisasi `struct` tuple dan varian `enum` tuple |
 
 Tabel B-9 menunjukkan konteks pemakaian kurung kurawal.
 
@@ -191,7 +191,7 @@ Tabel B-9 menunjukkan konteks pemakaian kurung kurawal.
 
 | Konteks      | Penjelasan     |
 | ------------ | -------------- |
-| `{...}`      | Ekspresi blok  |
+| `{...}`      | Expression blok  |
 | `Type {...}` | Literal struct |
 
 Tabel B-10 menunjukkan konteks pemakaian kurung siku.

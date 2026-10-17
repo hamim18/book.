@@ -89,7 +89,7 @@ Hello, world!
 ```
 
 Apa pun sistem operasi Anda, string `Hello, world!` seharusnya tercetak ke
-terminal. Jika Anda tidak melihat keluaran ini, lihat kembali bagian
+terminal. Jika Anda tidak melihat output ini, lihat kembali bagian
 [“Pemecahan Masalah”][troubleshooting]<!-- ignore --> dari bagian Instalasi
 untuk cara meminta bantuan.
 
@@ -152,7 +152,7 @@ Kedua, Anda melihat string `"Hello, world!"`. Kita meneruskan string ini
 sebagai argumen ke `println!`, lalu string tersebut dicetak ke layar.
 
 Ketiga, kita mengakhiri baris dengan titik koma (`;`), yang menandakan
-bahwa ekspresi ini telah selesai dan ekspresi berikutnya siap dimulai.
+bahwa expression ini telah selesai dan expression berikutnya siap dimulai.
 Sebagian besar baris kode Rust diakhiri dengan titik koma.
 
 <!-- Old headings. Do not remove or links may break. -->

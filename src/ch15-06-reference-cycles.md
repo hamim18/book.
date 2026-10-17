@@ -34,7 +34,7 @@ item kedua jika kita memiliki variant `Cons`.
 Di Listing 15-26, kita menambahkan fungsi `main` yang memakai definisi di
 Listing 15-25. Kode ini membuat list di `a` dan list di `b` yang menunjuk ke
 list di `a`. Kemudian, kode itu memodifikasi list di `a` untuk menunjuk ke
-`b`, menciptakan *reference cycle*. Ada pernyataan `println!` di sepanjang
+`b`, menciptakan *reference cycle*. Ada statement `println!` di sepanjang
 jalan untuk menunjukkan jumlah referensi pada berbagai titik dalam proses ini.
 
 <Listing number="15-26" file-name="src/main.rs" caption="Membuat reference cycle dari dua nilai `List` yang saling menunjuk">
@@ -45,20 +45,20 @@ jalan untuk menunjukkan jumlah referensi pada berbagai titik dalam proses ini.
 
 </Listing>
 
-Kita membuat instance `Rc<List>` yang menampung nilai `List` di variabel `a`
+Kita membuat instance `Rc<List>` yang menampung nilai `List` di variable `a`
 dengan list awal `5, Nil`. Kita kemudian membuat instance `Rc<List>` yang
-menampung nilai `List` lain di variabel `b` yang memuat nilai `10` dan
+menampung nilai `List` lain di variable `b` yang memuat nilai `10` dan
 menunjuk ke list di `a`.
 
 Kita memodifikasi `a` supaya menunjuk ke `b` alih-alih `Nil`, menciptakan
 sebuah siklus. Kita melakukannya dengan memakai metode `tail` untuk
 mendapatkan *reference* ke `RefCell<Rc<List>>` di `a`, yang kita letakkan di
-variabel `link`. Kemudian, kita memakai metode `borrow_mut` pada
+variable `link`. Kemudian, kita memakai metode `borrow_mut` pada
 `RefCell<Rc<List>>` untuk mengubah nilai di dalamnya dari `Rc<List>` yang
 menampung nilai `Nil` menjadi `Rc<List>` di `b`.
 
 Ketika kita menjalankan kode ini, dengan `println!` terakhir tetap
-dikomentari untuk sementara, kita akan mendapat keluaran ini:
+dikomentari untuk sementara, kita akan mendapat output ini:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-26/output.txt}}
@@ -66,7 +66,7 @@ dikomentari untuk sementara, kita akan mendapat keluaran ini:
 
 Jumlah referensi instance `Rc<List>` di `a` dan `b` adalah 2 setelah kita
 mengubah list di `a` untuk menunjuk ke `b`. Di akhir `main`, Rust membebaskan
-variabel `b`, yang mengurangi jumlah referensi instance `Rc<List>` `b` dari 2
+variable `b`, yang mengurangi jumlah referensi instance `Rc<List>` `b` dari 2
 menjadi 1. Memori yang dimiliki `Rc<List>` di *heap* tidak akan dibebaskan pada
 titik ini karena jumlah referensinya 1, bukan 0. Kemudian, Rust membebaskan
 `a`, yang juga mengurangi jumlah referensi instance `Rc<List>` `a` dari 2
@@ -166,7 +166,7 @@ nilai `i32`-nya sendiri serta *reference* ke nilai `Node` child-nya:
 ```
 
 Kita ingin sebuah `Node` memiliki child-childnya, dan kita ingin berbagi
-*ownership* itu dengan variabel supaya kita dapat mengakses setiap `Node` di
+*ownership* itu dengan variable supaya kita dapat mengakses setiap `Node` di
 *tree* secara langsung. Untuk melakukan ini, kita mendefinisikan item-item
 `Vec<T>` sebagai nilai typed `Rc<Node>`. Kita juga ingin memodifikasi *node*
 mana yang menjadi child dari *node* lain, jadi kita memiliki `RefCell<T>` di
@@ -236,7 +236,7 @@ Membuat *node* `leaf` tampak serupa dengan Listing 15-27 kecuali *field*
 
 Pada titik ini, ketika kita mencoba mendapatkan *reference* ke parent `leaf`
 dengan memakai metode `upgrade`, kita mendapat nilai `None`. Kita melihat ini
-di keluaran dari pernyataan `println!` pertama:
+di output dari statement `println!` pertama:
 
 ```text
 leaf parent = None
@@ -263,7 +263,7 @@ children: RefCell { value: [Node { value: 3, parent: RefCell { value: (Weak) },
 children: RefCell { value: [] } }] } })
 ```
 
-Tidak adanya keluaran tak terhingga menunjukkan bahwa kode ini tidak
+Tidak adanya output tak terhingga menunjukkan bahwa kode ini tidak
 menciptakan *reference cycle*. Kita juga dapat mengetahuinya dengan melihat
 nilai yang kita dapat dari memanggil `Rc::strong_count` dan `Rc::weak_count`.
 
@@ -299,7 +299,7 @@ kita tidak mendapat kebocoran memori apa pun!
 
 Jika kita mencoba mengakses parent `leaf` setelah akhir *scope* itu, kita akan
 mendapat `None` lagi. Di akhir program, `Rc<Node>` di `leaf` memiliki strong
-count 1 dan weak count 0 karena variabel `leaf` kini menjadi satu-satunya
+count 1 dan weak count 0 karena variable `leaf` kini menjadi satu-satunya
 *reference* ke `Rc<Node>` itu lagi.
 
 Semua logika yang mengelola jumlah dan pembebasan nilai sudah tertanam di

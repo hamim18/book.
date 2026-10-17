@@ -52,7 +52,7 @@ ke dalam sebuah vektor.
 </Listing>
 
 Pertama, kita membawa *module* (modul) `std::env` ke dalam *scope* (cakupan)
-dengan pernyataan `use` sehingga kita dapat memakai fungsi `args`-nya.
+dengan statement `use` sehingga kita dapat memakai fungsi `args`-nya.
 Perhatikan bahwa fungsi `std::env::args` bersarang di dalam dua tingkat modul.
 Seperti yang kita bahas di [Bab 7][ch7-idiomatic-use]<!-- ignore -->, ketika
 fungsi yang diinginkan bersarang di dalam lebih dari satu modul, kita memilih
@@ -103,14 +103,14 @@ berdasarkan alias baris perintah yang dipakai untuk memanggil program
 tersebut. Tetapi untuk keperluan bab ini, kita akan mengabaikannya dan hanya
 menyimpan dua argumen yang kita butuhkan.
 
-### Menyimpan Nilai Argumen di dalam Variabel
+### Menyimpan Nilai Argumen di dalam Variable
 
 Saat ini program sudah dapat mengakses nilai-nilai yang diberikan sebagai
 argumen baris perintah. Sekarang kita perlu menyimpan nilai kedua argumen
-tersebut di dalam variabel agar kita dapat memakai nilai-nilai itu di seluruh
+tersebut di dalam variable agar kita dapat memakai nilai-nilai itu di seluruh
 bagian program selanjutnya. Kita melakukannya di Listing 12-2.
 
-<Listing number="12-2" file-name="src/main.rs" caption="Membuat variabel untuk menampung argumen kueri dan argumen path file">
+<Listing number="12-2" file-name="src/main.rs" caption="Membuat variable untuk menampung argumen kueri dan argumen path file">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-02/src/main.rs}}
@@ -122,10 +122,10 @@ Seperti yang kita lihat saat mencetak vektor tersebut, nama program menempati
 nilai pertama di dalam vektor pada `args[0]`, jadi kita memulai argumen dari
 indeks 1. Argumen pertama yang diterima `minigrep` adalah string yang kita
 cari, jadi kita menaruh sebuah *reference* (referensi) ke argumen pertama di
-dalam variabel `query`. Argumen kedua adalah *path* file, jadi kita menaruh
-sebuah *reference* ke argumen kedua di dalam variabel `file_path`.
+dalam variable `query`. Argumen kedua adalah *path* file, jadi kita menaruh
+sebuah *reference* ke argumen kedua di dalam variable `file_path`.
 
-Kita mencetak nilai variabel-variabel ini untuk sementara guna membuktikan
+Kita mencetak nilai variable-variable ini untuk sementara guna membuktikan
 bahwa kode ini bekerja seperti yang kita inginkan. Mari kita jalankan lagi
 program ini dengan argumen `test` dan `sample.txt`:
 
@@ -134,7 +134,7 @@ program ini dengan argumen `test` dan `sample.txt`:
 ```
 
 Hebat, programnya bekerja! Nilai-nilai argumen yang kita butuhkan tersimpan di
-variabel yang tepat. Nanti kita akan menambahkan penanganan error untuk
+variable yang tepat. Nanti kita akan menambahkan penanganan error untuk
 menangani situasi-situasi yang berpotensi keliru, misalnya ketika pengguna
 tidak memberikan argumen; untuk saat ini, kita akan mengabaikan situasi itu
 dan mengerjakan penambahan kemampuan membaca file.

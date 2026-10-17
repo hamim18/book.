@@ -64,7 +64,7 @@ metode `push`, seperti yang ditunjukkan di Listing 8-3.
 
 </Listing>
 
-Seperti variabel mana pun, jika kita ingin dapat mengubah nilainya, kita
+Seperti variable mana pun, jika kita ingin dapat mengubah nilainya, kita
 perlu menjadikannya *mutable* (dapat diubah) memakai kata kunci `mut`, seperti
 yang dibahas di Bab 3. Angka-angka yang kita tempatkan di dalamnya semuanya
 typed `i32`, dan Rust menginferensi hal ini dari datanya, jadi kita tidak
@@ -167,11 +167,11 @@ ke elemen pertama akan menunjuk ke memori yang telah dibebaskan. Aturan
 
 Untuk mengakses setiap elemen di vektor secara bergantian, kita akan
 mengiterasi semua elemen alih-alih memakai indeks untuk mengakses satu per
-satu. Listing 8-7 menunjukkan cara memakai perulangan `for` untuk
+satu. Listing 8-7 menunjukkan cara memakai loop `for` untuk
 mendapatkan *reference* *immutable* ke setiap elemen di vektor berisi nilai
 `i32` dan mencetaknya.
 
-<Listing number="8-7" caption="Mencetak setiap elemen di vektor dengan mengiterasi elemen-elemennya memakai perulangan `for`">
+<Listing number="8-7" caption="Mencetak setiap elemen di vektor dengan mengiterasi elemen-elemennya memakai loop `for`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
@@ -180,7 +180,7 @@ mendapatkan *reference* *immutable* ke setiap elemen di vektor berisi nilai
 </Listing>
 
 Kita juga dapat mengiterasi *reference* *mutable* ke setiap elemen di vektor
-*mutable* untuk membuat perubahan pada semua elemen. Perulangan `for` di
+*mutable* untuk membuat perubahan pada semua elemen. Loop `for` di
 Listing 8-8 akan menambahkan `50` ke setiap elemen.
 
 <Listing number="8-8" caption="Mengiterasi reference mutable ke elemen-elemen di vektor">
@@ -199,9 +199,9 @@ di bagian [“Mengikuti Reference Menuju Nilai”][deref]<!-- ignore --> di Bab
 
 Mengiterasi vektor, baik secara *immutable* maupun *mutable*, aman karena aturan
 *borrow checker*. Jika kita mencoba memasukkan atau menghapus item di badan
-perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat error
+loop `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat error
 *compiler* yang mirip dengan yang kita dapatkan pada kode di Listing 8-6.
-*Reference* ke vektor yang dipegang perulangan `for` mencegah modifikasi
+*Reference* ke vektor yang dipegang loop `for` mencegah modifikasi
 seluruh vektor secara bersamaan.
 
 ### Memakai Enum untuk Menyimpan Beberapa Type
@@ -215,7 +215,7 @@ mendefinisikan dan memakai *enum*!
 
 Misalnya, katakanlah kita ingin mengambil nilai dari sebuah baris di
 spreadsheet yang sebagian kolomnya berisi bilangan bulat, sebagian berisi
-angka titik mengambang, dan sebagian berisi string. Kita dapat mendefinisikan
+angka floating point, dan sebagian berisi string. Kita dapat mendefinisikan
 *enum* yang variant-nya akan menampung type nilai yang berbeda, dan semua
 variant *enum* akan dianggap sebagai type yang sama: type *enum* itu. Lalu, kita
 dapat membuat vektor untuk menampung *enum* itu dan, pada akhirnya, menampung
@@ -235,7 +235,7 @@ dibutuhkan untuk menyimpan setiap elemen. Kita juga harus eksplisit tentang
 type apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
 menampung type apa pun, ada kemungkinan satu type atau lebih menyebabkan
 error pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
-*enum* ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
+*enum* ditambah expression `match` berarti Rust akan memastikan pada waktu
 kompilasi bahwa setiap kasus yang mungkin tertangani, seperti yang dibahas
 di Bab 6.
 

@@ -163,7 +163,7 @@ membungkus sebuah *reference* ke `stream`. `BufReader` menambahkan buffering
 dengan mengelola pemanggilan metode-metode *trait* `std::io::Read` untuk
 kita.
 
-Kita membuat variabel bernama `http_request` untuk mengumpulkan
+Kita membuat variable bernama `http_request` untuk mengumpulkan
 baris-baris permintaan yang dikirim peramban ke server kita. Kita
 menandakan bahwa kita ingin mengumpulkan baris-baris itu ke dalam vektor
 dengan menambahkan type annotation `Vec<_>`.
@@ -318,7 +318,7 @@ terhadap permintaan yang sukses! Dari fungsi `handle_connection`, hapus
 
 </Listing>
 
-Baris baru pertama mendefinisikan variabel `response` yang menyimpan data
+Baris baru pertama mendefinisikan variable `response` yang menyimpan data
 pesan sukses. Lalu, kita memanggil `as_bytes` pada `response` kita untuk
 mengubah data string itu menjadi byte. Metode `write_all` pada `stream`
 menerima `&[u8]` dan mengirim byte-byte itu langsung melalui koneksi.
@@ -362,7 +362,7 @@ mengirimkannya.
 
 </Listing>
 
-Kita telah menambahkan `fs` ke pernyataan `use` untuk membawa *module*
+Kita telah menambahkan `fs` ke statement `use` untuk membawa *module*
 filesystem pustaka standar ke dalam *scope*. Kode untuk membaca isi file
 menjadi string seharusnya tampak familier; kita memakainya saat membaca isi
 file untuk proyek I/O kita di Listing 12-4.
@@ -468,7 +468,7 @@ membaca file dan menulis isi file itu ke *stream*. Satu-satunya perbedaan
 adalah baris status dan nama filenya. Mari kita buat kodenya lebih ringkas
 dengan menarik perbedaan-perbedaan itu keluar ke baris `if` dan `else`
 terpisah yang akan menetapkan nilai baris status dan nama file ke
-variabel; setelah itu, kita bisa memakai variabel-variabel itu tanpa syarat
+variable; setelah itu, kita bisa memakai variable-variable itu tanpa syarat
 di kode untuk membaca file dan menulis respons. Listing 21-9 menunjukkan
 kode yang dihasilkan setelah mengganti blok `if` dan `else` yang besar itu.
 
@@ -483,10 +483,10 @@ kode yang dihasilkan setelah mengganti blok `if` dan `else` yang besar itu.
 Sekarang blok `if` dan `else` hanya mengembalikan nilai yang sesuai untuk
 baris status dan nama file di dalam *tuple*; lalu kita memakai destructuring
 untuk menetapkan kedua nilai itu ke `status_line` dan `filename` dengan
-memakai pola di pernyataan `let`, seperti yang dibahas di Bab 19.
+memakai pola di statement `let`, seperti yang dibahas di Bab 19.
 
 Kode yang sebelumnya diduplikasi sekarang berada di luar blok `if` dan
-`else` dan memakai variabel `status_line` dan `filename`. Ini membuat
+`else` dan memakai variable `status_line` dan `filename`. Ini membuat
 perbedaan antara kedua kasus lebih mudah dilihat, dan berarti kita hanya
 punya satu tempat untuk memperbarui kode jika kita ingin mengubah cara
 pembacaan file dan penulisan respons bekerja. Perilaku kode di Listing 21-9

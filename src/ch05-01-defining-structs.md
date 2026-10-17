@@ -59,8 +59,8 @@ yang *mutable*.
 </Listing>
 
 Perhatikan bahwa seluruh instance harus *mutable*; Rust tidak mengizinkan kita
-menandai *field* tertentu saja sebagai *mutable*. Seperti ekspresi mana pun, kita
-dapat menyusun instance baru *struct* sebagai ekspresi terakhir di badan fungsi
+menandai *field* tertentu saja sebagai *mutable*. Seperti expression mana pun, kita
+dapat menyusun instance baru *struct* sebagai expression terakhir di badan fungsi
 untuk mengembalikan instance baru itu secara implisit.
 
 Listing 5-4 menunjukkan fungsi `build_user` yang mengembalikan instance `User`
@@ -76,7 +76,7 @@ dengan email dan username yang diberikan. *Field* `active` mendapatkan nilai
 </Listing>
 
 Masuk akal untuk menamai parameter fungsi dengan nama yang sama seperti *field*
-*struct*, tetapi harus mengulang nama *field* dan variabel `email` serta
+*struct*, tetapi harus mengulang nama *field* dan variable `email` serta
 `username` agak melelahkan. Jika structnya memiliki lebih banyak *field*,
 mengulang setiap nama akan semakin menjengkelkan. Untungnya, ada singkatan
 yang praktis!
@@ -153,7 +153,7 @@ pun, terlepas dari urutan *field* pada definisi *struct*.
 
 Perhatikan bahwa sintaks update *struct* memakai `=` seperti sebuah penetapan;
 ini karena ia memindahkan datanya, seperti yang kita lihat di bagian
-[“Variabel dan Data yang Berinteraksi dengan
+[“Variable dan Data yang Berinteraksi dengan
 *Move*”][move]<!-- ignore -->. Pada contoh ini, kita tidak dapat lagi memakai
 `user1` setelah membuat `user2` karena `String` pada *field* `username` milik
 `user1` telah dipindahkan ke `user2`. Seandainya kita memberi `user2` nilai
@@ -204,7 +204,7 @@ individualnya, dan Anda dapat memakai `.` yang diikuti indeks untuk mengakses
 sebuah nilai individual. Tidak seperti *tuple*, *tuple struct* mengharuskan Anda
 menyebutkan type structnya ketika mendestrukturisasi. Contohnya, kita akan
 menulis `let Point(x, y, z) = origin;` untuk mendestrukturisasi nilai-nilai di
-titik `origin` menjadi variabel bernama `x`, `y`, dan `z`.
+titik `origin` menjadi variable bernama `x`, `y`, dan `z`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -231,7 +231,7 @@ unit *struct* bernama `AlwaysEqual`:
 
 Untuk mendefinisikan `AlwaysEqual`, kita memakai keyword `struct`, nama yang
 kita inginkan, lalu titik koma. Tidak perlu kurung kurawal atau tanda kurung!
-Lalu, kita bisa mendapatkan instance `AlwaysEqual` di variabel `subject`
+Lalu, kita bisa mendapatkan instance `AlwaysEqual` di variable `subject`
 dengan cara yang serupa: memakai nama yang kita definisikan, tanpa kurung
 kurawal atau tanda kurung apa pun. Bayangkan nanti kita akan
 mengimplementasikan perilaku untuk type ini sedemikian rupa sehingga setiap

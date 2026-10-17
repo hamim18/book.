@@ -62,11 +62,11 @@ berfungsi.
 Fungsi `mpsc::channel` mengembalikan sebuah *tuple*, elemen pertamanya adalah
 ujung pengirim—*transmitter*—dan elemen keduanya adalah ujung penerima—*receiver*.
 Singkatan `tx` dan `rx` secara tradisional dipakai di banyak bidang untuk
-_transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variabel
-kita seperti itu untuk menandai masing-masing ujung. Kita memakai pernyataan
+_transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variable
+kita seperti itu untuk menandai masing-masing ujung. Kita memakai statement
 `let` dengan pola yang mendestrukturisasi *tuple*; kita akan membahas pemakaian
-pola dalam pernyataan `let` dan destrukturisasi di Bab 19. Untuk sekarang,
-cukup ketahui bahwa memakai pernyataan `let` dengan cara ini adalah pendekatan
+pola dalam statement `let` dan destrukturisasi di Bab 19. Untuk sekarang,
+cukup ketahui bahwa memakai statement `let` dengan cara ini adalah pendekatan
 praktis untuk mengekstrak bagian-bagian *tuple* yang dikembalikan
 `mpsc::channel`.
 
@@ -120,7 +120,7 @@ Metode `try_recv` tidak memblokir, tetapi langsung mengembalikan
 `Result<T, E>`: nilai `Ok` yang menampung pesan jika ada yang tersedia dan
 nilai `Err` jika kali ini tidak ada pesan. Memakai `try_recv` berguna jika
 thread ini memiliki pekerjaan lain selagi menunggu pesan: Kita bisa menulis
-perulangan yang memanggil `try_recv` sesekali, menangani pesan jika ada, dan
+loop yang memanggil `try_recv` sesekali, menangani pesan jika ada, dan
 selain itu mengerjakan pekerjaan lain sebentar sampai memeriksa lagi.
 
 Kita memakai `recv` di contoh ini demi kesederhanaan; kita tidak punya
@@ -214,7 +214,7 @@ Sebagai gantinya, kita memperlakukan `rx` sebagai *iterator*. Untuk setiap nilai
 yang diterima, kita mencetaknya. Ketika *channel* tertutup, iterasi akan
 berakhir.
 
-Ketika menjalankan kode di Listing 16-10, Anda seharusnya melihat keluaran
+Ketika menjalankan kode di Listing 16-10, Anda seharusnya melihat output
 berikut dengan jeda satu detik di antara setiap baris:
 
 <!-- Not extracting output because changes to this output aren't significant;
@@ -228,7 +228,7 @@ Got: the
 Got: thread
 ```
 
-Karena kita tidak memiliki kode yang berhenti atau menunda di perulangan `for`
+Karena kita tidak memiliki kode yang berhenti atau menunda di loop `for`
 di thread utama, kita dapat memastikan bahwa thread utama sedang menunggu
 untuk menerima nilai dari thread yang dibuat.
 
@@ -258,7 +258,7 @@ ke thread pertama. Kita memberikan *transmitter* asli ke thread kedua. Ini
 memberi kita dua thread, masing-masing mengirim pesan berbeda ke satu
 *receiver*.
 
-Ketika Anda menjalankan kodenya, keluaran Anda seharusnya tampak seperti ini:
+Ketika Anda menjalankan kodenya, output Anda seharusnya tampak seperti ini:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -279,7 +279,7 @@ Anda mungkin melihat nilai-nilai itu dalam urutan lain, tergantung sistem
 Anda. Inilah yang membuat konkurensi menarik sekaligus sulit. Jika Anda
 bereksperimen dengan `thread::sleep`, memberinya berbagai nilai di thread yang
 berbeda, setiap penjalanan akan semakin nondeterministik dan menghasilkan
-keluaran yang berbeda setiap kali.
+output yang berbeda setiap kali.
 
 Sekarang setelah kita melihat cara kerja *channel*, mari kita lihat metode
 konkurensi yang berbeda.

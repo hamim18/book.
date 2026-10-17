@@ -78,7 +78,7 @@ Dalam kasus itu, tidak akan pernah ada yang bisa mendapat lock, jadi kita
 memilih untuk `unwrap` dan membuat thread ini panic jika kita berada dalam
 situasi itu.
 
-Setelah kita memperoleh lock, kita dapat memperlakukan nilai kembaliannya,
+Setelah kita memperoleh lock, kita dapat memperlakukan return valuenya,
 yang bernama `num` dalam kasus ini, sebagai *mutable* *reference* ke data di
 dalamnya. Sistem type memastikan bahwa kita memperoleh lock sebelum memakai
 nilai di dalam `m`. Type `m` adalah `Mutex<i32>`, bukan `i32`, jadi kita
@@ -119,7 +119,7 @@ bagaimana Rust membantu kita memakainya dengan benar.
 
 </Listing>
 
-Kita membuat variabel `counter` untuk menampung `i32` di dalam `Mutex<T>`,
+Kita membuat variable `counter` untuk menampung `i32` di dalam `Mutex<T>`,
 seperti yang kita lakukan di Listing 16-12. Selanjutnya, kita membuat 10
 thread dengan mengiterasi range angka. Kita memakai `thread::spawn` dan
 memberikan *closure* yang sama kepada semua thread: *closure* yang memindahkan
@@ -141,7 +141,7 @@ mari kita cari tahu alasannya!
 ```
 
 Pesan error itu menyatakan bahwa nilai `counter` telah dipindahkan pada
-iterasi perulangan sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
+iterasi loop sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
 memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
 error kompilator itu dengan metode *ownership* ganda yang kita bahas di Bab 15.
 

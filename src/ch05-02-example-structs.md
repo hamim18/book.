@@ -2,7 +2,7 @@
 
 Untuk memahami kapan kita mungkin ingin memakai *struct*, mari kita tulis
 sebuah program yang menghitung luas persegi panjang. Kita akan mulai dengan
-memakai variabel tunggal, lalu melakukan refactoring pada programnya sampai
+memakai variable tunggal, lalu melakukan refactoring pada programnya sampai
 kita memakai *struct*.
 
 Mari kita buat proyek binary baru dengan Cargo bernama _rectangles_ yang akan
@@ -10,7 +10,7 @@ menerima lebar dan tinggi sebuah persegi panjang dalam piksel, lalu menghitung
 luas persegi panjang itu. Listing 5-8 menunjukkan program singkat dengan salah
 satu cara untuk melakukan hal itu di _src/main.rs_ proyek kita.
 
-<Listing number="5-8" file-name="src/main.rs" caption="Menghitung luas persegi panjang yang ditentukan oleh variabel width dan height yang terpisah">
+<Listing number="5-8" file-name="src/main.rs" caption="Menghitung luas persegi panjang yang ditentukan oleh variable width dan height yang terpisah">
 
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-08/src/main.rs:all}}
@@ -187,7 +187,7 @@ pada Listing 5-12.
 </Listing>
 
 Sekarang ketika kita menjalankan programnya, kita tidak akan mendapatkan
-error apa pun, dan kita akan melihat keluaran berikut:
+error apa pun, dan kita akan melihat output berikut:
 
 ```console
 {{#include ../listings/ch05-using-structs-to-structure-related-data/listing-05-12/output.txt}}
@@ -195,20 +195,20 @@ error apa pun, dan kita akan melihat keluaran berikut:
 
 Bagus! Keluarannya bukan yang terindah, tetapi ia menunjukkan nilai semua
 *field* untuk instance ini, yang pasti membantu selama proses debug. Ketika kita
-memiliki *struct* yang lebih besar, berguna untuk memiliki keluaran yang sedikit
+memiliki *struct* yang lebih besar, berguna untuk memiliki output yang sedikit
 lebih mudah dibaca; pada kasus seperti itu, kita dapat memakai `{:#?}`
 alih-alih `{:?}` di dalam string `println!`. Pada contoh ini, memakai gaya
-`{:#?}` akan menghasilkan keluaran berikut:
+`{:#?}` akan menghasilkan output berikut:
 
 ```console
 {{#include ../listings/ch05-using-structs-to-structure-related-data/output-only-02-pretty-debug/output.txt}}
 ```
 
 Cara lain untuk mencetak sebuah nilai dengan format `Debug` adalah memakai
-[macro `dbg!`][dbg]<!-- ignore -->, yang mengambil kepemilikan sebuah ekspresi
+[macro `dbg!`][dbg]<!-- ignore -->, yang mengambil kepemilikan sebuah expression
 (berbeda dengan `println!`, yang menerima sebuah *reference*), mencetak file dan
 nomor baris tempat pemanggilan *macro* `dbg!` terjadi di kode Anda beserta nilai
-hasil ekspresi itu, dan mengembalikan kepemilikan nilainya.
+hasil expression itu, dan mengembalikan kepemilikan nilainya.
 
 > Catatan: Memanggil *macro* `dbg!` mencetak ke aliran konsol standard error
 > (`stderr`), berbeda dengan `println!`, yang mencetak ke aliran konsol
@@ -223,22 +223,22 @@ Berikut contoh ketika kita tertarik pada nilai yang ditetapkan ke *field*
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/no-listing-05-dbg-macro/src/main.rs}}
 ```
 
-Kita dapat meletakkan `dbg!` mengelilingi ekspresi `30 * scale` dan, karena
-`dbg!` mengembalikan kepemilikan nilai ekspresinya, *field* `width` akan
+Kita dapat meletakkan `dbg!` mengelilingi expression `30 * scale` dan, karena
+`dbg!` mengembalikan kepemilikan nilai expressionnya, *field* `width` akan
 mendapatkan nilai yang sama seolah-olah tidak ada pemanggilan `dbg!` di sana.
 Kita tidak ingin `dbg!` mengambil kepemilikan `rect1`, jadi kita memakai
-*reference* ke `rect1` pada pemanggilan berikutnya. Berikut tampilan keluaran
+*reference* ke `rect1` pada pemanggilan berikutnya. Berikut tampilan output
 contoh ini:
 
 ```console
 {{#include ../listings/ch05-using-structs-to-structure-related-data/no-listing-05-dbg-macro/output.txt}}
 ```
 
-Kita dapat melihat bahwa bagian pertama keluaran berasal dari _src/main.rs_
-baris 10, tempat kita men-debug ekspresi `30 * scale`, dan nilai hasilnya
+Kita dapat melihat bahwa bagian pertama output berasal dari _src/main.rs_
+baris 10, tempat kita men-debug expression `30 * scale`, dan nilai hasilnya
 adalah `60` (format `Debug` yang diimplementasikan untuk integer hanya
 mencetak nilainya). Pemanggilan `dbg!` pada baris 14 _src/main.rs_
-mengeluarkan nilai `&rect1`, yang merupakan *struct* `Rectangle`. Keluaran ini
+mengeluarkan nilai `&rect1`, yang merupakan *struct* `Rectangle`. Output ini
 memakai format `Debug` cantik milik type `Rectangle`. *Macro* `dbg!` bisa sangat
 membantu ketika Anda mencoba memahami apa yang dilakukan kode Anda!
 

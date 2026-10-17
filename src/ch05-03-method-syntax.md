@@ -2,7 +2,7 @@
 ## Metode
 
 Metode mirip dengan fungsi: kita mendeklarasikannya dengan keyword `fn` dan
-sebuah nama, ia dapat memiliki parameter dan nilai kembalian, dan ia berisi
+sebuah nama, ia dapat memiliki parameter dan return value, dan ia berisi
 sejumlah kode yang dijalankan ketika metodenya dipanggil dari tempat lain.
 Tidak seperti fungsi, metode didefinisikan di dalam konteks sebuah *struct*
 (atau *enum* atau *trait object*, yang kita bahas masing-masing di
@@ -167,7 +167,7 @@ Listing 5-14.
 
 </Listing>
 
-Keluaran yang diharapkan akan terlihat seperti berikut karena kedua dimensi
+Output yang diharapkan akan terlihat seperti berikut karena kedua dimensi
 `rect2` lebih kecil daripada dimensi `rect1`, tetapi `rect3` lebih lebar
 daripada `rect1`:
 
@@ -199,7 +199,7 @@ ke blok `impl` dari Listing 5-13, seperti yang ditunjukkan pada Listing 5-15.
 </Listing>
 
 Ketika kita menjalankan kode ini dengan fungsi `main` pada Listing 5-14,
-kita akan mendapatkan keluaran yang kita inginkan. Metode dapat menerima
+kita akan mendapatkan output yang kita inginkan. Metode dapat menerima
 banyak parameter yang kita tambahkan ke tanda tangan setelah parameter
 `self`, dan parameter-parameter itu bekerja persis seperti parameter pada
 fungsi.

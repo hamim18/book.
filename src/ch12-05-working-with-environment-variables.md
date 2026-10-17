@@ -1,12 +1,12 @@
-## Bekerja dengan Variabel Lingkungan
+## Bekerja dengan Variable Lingkungan
 
 Kita akan memperbaiki binary `minigrep` dengan menambahkan fitur tambahan:
 sebuah opsi untuk pencarian *case-insensitive* (tanpa membedakan huruf
-besar-kecil) yang dapat diaktifkan pengguna melalui sebuah variabel
+besar-kecil) yang dapat diaktifkan pengguna melalui sebuah variable
 lingkungan. Kita bisa menjadikan fitur ini sebuah opsi baris perintah dan
 mengharuskan pengguna memasukkannya setiap kali mereka ingin fitur itu
-berlaku, tetapi dengan menjadikannya variabel lingkungan, kita mengizinkan
-pengguna menetapkan variabel lingkungan itu sekali dan membuat semua
+berlaku, tetapi dengan menjadikannya environment variable, kita mengizinkan
+pengguna menetapkan environment variable itu sekali dan membuat semua
 pencarian mereka menjadi case-insensitive di sesi terminal itu.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -15,7 +15,7 @@ pencarian mereka menjadi case-insensitive di sesi terminal itu.
 ### Menulis Pengujian yang Gagal untuk Pencarian Case-Insensitive
 
 Pertama, kita menambahkan fungsi baru `search_case_insensitive` ke pustaka
-`minigrep` yang akan dipanggil ketika variabel lingkungan itu memiliki nilai.
+`minigrep` yang akan dipanggil ketika environment variable itu memiliki nilai.
 Kita akan terus mengikuti proses TDD, jadi langkah pertama kembali adalah
 menulis sebuah pengujian yang gagal. Kita akan menambahkan pengujian baru
 untuk fungsi `search_case_insensitive` yang baru itu dan mengganti nama
@@ -56,7 +56,7 @@ gagal.
 Fungsi `search_case_insensitive`, yang ditunjukkan di Listing 12-21, akan
 hampir sama dengan fungsi `search`. Satu-satunya perbedaan adalah kita akan
 mengubah `query` dan setiap `line` menjadi huruf kecil sehingga apa pun
-kapitalisasi argumen masukannya, mereka akan memiliki kapitalisasi yang sama
+kapitalisasi argumen inputnya, mereka akan memiliki kapitalisasi yang sama
 ketika kita memeriksa apakah baris itu memuat kuerinya.
 
 <Listing number="12-21" file-name="src/lib.rs" caption="Mendefinisikan fungsi `search_case_insensitive` untuk mengubah kueri dan baris menjadi huruf kecil sebelum membandingkannya">
@@ -68,14 +68,14 @@ ketika kita memeriksa apakah baris itu memuat kuerinya.
 </Listing>
 
 Pertama, kita mengubah string `query` menjadi huruf kecil dan menyimpannya di
-sebuah variabel baru dengan nama yang sama, melakukan *shadowing* terhadap
+sebuah variable baru dengan nama yang sama, melakukan *shadowing* terhadap
 `query` yang asli. Memanggil `to_lowercase` pada kueri itu perlu agar apa pun
 kueri pengguna—`"rust"`, `"RUST"`, `"Rust"`, ataupun `"rUsT"`—kita akan
 memperlakukan kuerinya seolah-olah ia adalah `"rust"` dan menjadi tidak peka
 terhadap huruf besar-kecil. Meskipun `to_lowercase` akan menangani Unicode
 dasar, ia tidak akan akurat 100 persen. Jika kita menulis aplikasi sungguhan,
 kita akan melakukan sedikit lebih banyak pekerjaan di sini, tetapi bagian ini
-membahas variabel lingkungan, bukan Unicode, jadi kita biarkan saja seperti
+membahas environment variable, bukan Unicode, jadi kita biarkan saja seperti
 ini.
 
 Perhatikan bahwa `query` kini adalah sebuah `String`, bukan string *slice*,
@@ -125,14 +125,14 @@ Listing 12-22. Ini masih belum akan terkompilasi.
 
 </Listing>
 
-Akhirnya, kita perlu memeriksa variabel lingkungannya. Fungsi-fungsi untuk
-bekerja dengan variabel lingkungan berada di modul `env` dalam pustaka
+Akhirnya, kita perlu memeriksa environment variablenya. Fungsi-fungsi untuk
+bekerja dengan environment variable berada di modul `env` dalam pustaka
 standar, yang sudah berada di dalam *scope* di bagian atas _src/main.rs_.
 Kita akan memakai fungsi `var` dari modul `env` untuk memeriksa apakah ada
-nilai yang ditetapkan untuk sebuah variabel lingkungan bernama `IGNORE_CASE`,
+nilai yang ditetapkan untuk sebuah environment variable bernama `IGNORE_CASE`,
 seperti yang ditunjukkan di Listing 12-23.
 
-<Listing number="12-23" file-name="src/main.rs" caption="Memeriksa apakah ada nilai apa pun di variabel lingkungan bernama `IGNORE_CASE`">
+<Listing number="12-23" file-name="src/main.rs" caption="Memeriksa apakah ada nilai apa pun di environment variable bernama `IGNORE_CASE`">
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/main.rs:here}}
@@ -140,29 +140,29 @@ seperti yang ditunjukkan di Listing 12-23.
 
 </Listing>
 
-Di sini, kita membuat sebuah variabel baru, `ignore_case`. Untuk menetapkan
-nilainya, kita memanggil fungsi `env::var` dan meneruskan nama variabel
+Di sini, kita membuat sebuah variable baru, `ignore_case`. Untuk menetapkan
+nilainya, kita memanggil fungsi `env::var` dan meneruskan nama variable
 lingkungan `IGNORE_CASE` kepadanya. Fungsi `env::var` mengembalikan sebuah
 `Result` yang akan berupa *variant* `Ok` yang berhasil dan memuat nilai
-variabel lingkungan itu jika variabel lingkungannya ditetapkan ke nilai apa
-pun. Fungsi itu akan mengembalikan *variant* `Err` jika variabel
+environment variable itu jika environment variablenya ditetapkan ke nilai apa
+pun. Fungsi itu akan mengembalikan *variant* `Err` jika variable
 lingkungannya tidak ditetapkan.
 
-Kita memakai metode `is_ok` pada `Result` untuk memeriksa apakah variabel
+Kita memakai metode `is_ok` pada `Result` untuk memeriksa apakah variable
 lingkungan itu ditetapkan, yang berarti program seharusnya melakukan
-pencarian case-insensitive. Jika variabel lingkungan `IGNORE_CASE` tidak
+pencarian case-insensitive. Jika environment variable `IGNORE_CASE` tidak
 ditetapkan ke apa pun, `is_ok` akan mengembalikan `false` dan program akan
-melakukan pencarian case-sensitive. Kita tidak peduli pada _nilai_ variabel
+melakukan pencarian case-sensitive. Kita tidak peduli pada _nilai_ variable
 lingkungan itu, hanya apakah ia ditetapkan atau tidak, jadi kita memeriksa
 `is_ok` alih-alih memakai `unwrap`, `expect`, atau metode-metode lain yang
 telah kita lihat pada `Result`.
 
-Kita meneruskan nilai di variabel `ignore_case` ke instance `Config` sehingga
+Kita meneruskan nilai di variable `ignore_case` ke instance `Config` sehingga
 fungsi `run` dapat membaca nilai itu dan memutuskan apakah akan memanggil
 `search_case_insensitive` atau `search`, seperti yang kita implementasikan di
 Listing 12-22.
 
-Mari kita coba! Pertama, kita akan menjalankan program kita tanpa variabel
+Mari kita coba! Pertama, kita akan menjalankan program kita tanpa variable
 lingkungan yang ditetapkan dan dengan kueri `to`, yang seharusnya cocok dengan
 semua baris yang memuat kata _to_ dengan huruf kecil semua:
 
@@ -177,14 +177,14 @@ Tampaknya itu masih bekerja! Sekarang mari kita jalankan programnya dengan
 $ IGNORE_CASE=1 cargo run -- to poem.txt
 ```
 
-Jika Anda memakai PowerShell, Anda perlu menetapkan variabel lingkungan dan
+Jika Anda memakai PowerShell, Anda perlu menetapkan environment variable dan
 menjalankan programnya sebagai perintah-perintah terpisah:
 
 ```console
 PS> $Env:IGNORE_CASE=1; cargo run -- to poem.txt
 ```
 
-Ini akan membuat `IGNORE_CASE` bertahan selama sisa sesi shell Anda. Variabel
+Ini akan membuat `IGNORE_CASE` bertahan selama sisa sesi shell Anda. Variable
 itu dapat dibatalkan dengan cmdlet `Remove-Item`:
 
 ```console
@@ -209,18 +209,18 @@ To an admiring bog!
 
 Luar biasa, kita juga mendapat baris-baris yang memuat _To_! Program
 `minigrep` kita kini dapat melakukan pencarian case-insensitive yang
-dikendalikan oleh sebuah variabel lingkungan. Sekarang Anda tahu cara
+dikendalikan oleh sebuah environment variable. Sekarang Anda tahu cara
 mengelola opsi yang ditetapkan menggunakan argumen baris perintah ataupun
-variabel lingkungan.
+environment variable.
 
-Beberapa program mengizinkan argumen _dan_ variabel lingkungan untuk
+Beberapa program mengizinkan argumen _dan_ environment variable untuk
 konfigurasi yang sama. Dalam kasus-kasus itu, program menentukan bahwa salah
 satu di antaranya yang didahulukan. Untuk latihan lain secara mandiri, cobalah
 mengendalikan kepekaan huruf besar-kecil melalui argumen baris perintah
-ataupun variabel lingkungan. Putuskan apakah argumen baris perintah atau
-variabel lingkungan yang seharusnya didahulukan jika program dijalankan dengan
+ataupun environment variable. Putuskan apakah argumen baris perintah atau
+environment variable yang seharusnya didahulukan jika program dijalankan dengan
 yang satu ditetapkan untuk membedakan huruf besar-kecil dan yang satu lagi
 untuk mengabaikan huruf besar-kecil.
 
-Modul `std::env` memuat lebih banyak fitur berguna untuk menangani variabel
+Modul `std::env` memuat lebih banyak fitur berguna untuk menangani variable
 lingkungan: Lihat dokumentasinya untuk mengetahui apa saja yang tersedia.

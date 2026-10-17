@@ -47,8 +47,8 @@ output-nya, seperti di Listing 17-21, yang belum bisa terkompilasi.
 Kita mulai dengan array angka, yang kita ubah menjadi *iterator* lalu kita
 panggil `map` padanya untuk menggandakan semua nilainya. Kemudian kita ubah
 *iterator* itu menjadi *stream* menggunakan fungsi `trpl::stream_from_iter`.
-Berikutnya, kita melakukan perulangan atas item-item di *stream* itu saat
-mereka tiba dengan perulangan `while let`.
+Berikutnya, kita melakukan loop atas item-item di *stream* itu saat
+mereka tiba dengan loop `while let`.
 
 Sayangnya, saat kita mencoba menjalankan kodenya, kode itu tidak
 terkompilasi, melainkan melaporkan bahwa tidak ada metode `next` yang
@@ -99,7 +99,7 @@ sekumpulan API tingkat yang lebih tinggi di atas `Stream`, termasuk metode
 standar Rust, tetapi sebagian besar *crate* ekosistem memakai definisi yang
 serupa.
 
-Perbaikan untuk error kompilator itu adalah menambahkan pernyataan `use`
+Perbaikan untuk error kompilator itu adalah menambahkan statement `use`
 untuk `trpl::StreamExt`, seperti di Listing 17-22.
 
 <Listing number="17-22" caption="Berhasil memakai iterator sebagai dasar sebuah stream" file-name="src/main.rs">

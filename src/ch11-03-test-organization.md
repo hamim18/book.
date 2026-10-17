@@ -146,10 +146,10 @@ hanya ketika kita menjalankan `cargo test`. Jalankan `cargo test` sekarang:
 {{#include ../listings/ch11-writing-automated-tests/listing-11-13/output.txt}}
 ```
 
-Ketiga bagian keluaran itu mencakup pengujian unit, pengujian integrasi,
+Ketiga bagian output itu mencakup pengujian unit, pengujian integrasi,
 dan doc test. Perhatikan bahwa jika ada pengujian dalam satu bagian yang
 gagal, bagian-bagian berikutnya tidak akan dijalankan. Sebagai contoh, jika
-sebuah pengujian unit gagal, tidak akan ada keluaran untuk pengujian
+sebuah pengujian unit gagal, tidak akan ada output untuk pengujian
 integrasi dan doc test, karena pengujian-pengujian itu hanya akan
 dijalankan jika semua pengujian unit lulus.
 
@@ -208,7 +208,7 @@ pengujian:
 ```
 
 Ketika kita menjalankan pengujian lagi, kita akan melihat bagian baru di
-keluaran pengujian untuk file _common.rs_, meskipun file ini tidak berisi
+output pengujian untuk file _common.rs_, meskipun file ini tidak berisi
 fungsi pengujian apa pun dan kita juga tidak memanggil fungsi `setup` dari
 mana pun:
 
@@ -219,7 +219,7 @@ mana pun:
 Melihat `common` muncul di hasil pengujian dengan `running 0 tests`
 ditampilkan untuknya bukanlah yang kita inginkan. Kita hanya ingin berbagi
 beberapa kode dengan file pengujian integrasi lainnya. Untuk menghindari
-`common` muncul di keluaran pengujian, alih-alih membuat _tests/common.rs_,
+`common` muncul di output pengujian, alih-alih membuat _tests/common.rs_,
 kita akan membuat _tests/common/mod.rs_. Direktori proyeknya sekarang
 terlihat seperti ini:
 
@@ -239,9 +239,9 @@ sebutkan di [“Path File Alternatif”][alt-paths]<!-- ignore --> pada Bab 7.
 Menamai file dengan cara ini memberi tahu Rust untuk tidak memperlakukan
 modul `common` sebagai file pengujian integrasi. Ketika kita memindahkan
 kode fungsi `setup` ke _tests/common/mod.rs_ dan menghapus file
-_tests/common.rs_, bagian di keluaran pengujian itu tidak akan muncul lagi.
+_tests/common.rs_, bagian di output pengujian itu tidak akan muncul lagi.
 File di subdirektori direktori _tests_ tidak dikompilasi sebagai *crate*
-terpisah dan tidak memiliki bagian di keluaran pengujian.
+terpisah dan tidak memiliki bagian di output pengujian.
 
 Setelah kita membuat _tests/common/mod.rs_, kita bisa memakainya dari file
 pengujian integrasi mana pun sebagai modul. Berikut contoh pemanggilan
@@ -262,7 +262,7 @@ memanggil fungsi `common::setup()`.
 Jika proyek kita adalah *crate* binary yang hanya berisi file _src/main.rs_
 dan tidak memiliki file _src/lib.rs_, kita tidak bisa membuat pengujian
 integrasi di direktori _tests_ dan membawa fungsi yang didefinisikan di
-file _src/main.rs_ ke dalam *scope* dengan pernyataan `use`. Hanya *crate*
+file _src/main.rs_ ke dalam *scope* dengan statement `use`. Hanya *crate*
 library yang mengekspos fungsi yang bisa dipakai *crate* lain; *crate* binary
 dimaksudkan untuk dijalankan sendiri.
 

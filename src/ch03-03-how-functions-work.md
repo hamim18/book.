@@ -6,7 +6,7 @@ program. Anda juga telah melihat keyword `fn`, yang memungkinkan Anda
 mendeklarasikan fungsi baru.
 
 Kode Rust memakai _snake case_ sebagai gaya konvensional untuk nama fungsi dan
-variabel, yaitu semua hurufnya ditulis kecil dan kata-katanya dipisahkan garis
+variable, yaitu semua hurufnya ditulis kecil dan kata-katanya dipisahkan garis
 bawah. Berikut program yang berisi contoh definisi fungsi:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -30,7 +30,7 @@ fungsi Anda, yang penting fungsi itu didefinisikan di suatu tempat dalam
 
 Mari kita mulai proyek binary baru bernama _functions_ untuk mengeksplorasi
 fungsi lebih jauh. Letakkan contoh `another_function` di _src/main.rs_ dan
-jalankan. Anda seharusnya melihat keluaran berikut:
+jalankan. Anda seharusnya melihat output berikut:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-16-functions/output.txt}}
@@ -42,12 +42,12 @@ pesannya dicetak.
 
 ### Parameter
 
-Kita dapat mendefinisikan fungsi agar memiliki parameter, yaitu variabel khusus
+Kita dapat mendefinisikan fungsi agar memiliki parameter, yaitu variable khusus
 yang menjadi bagian dari tanda tangan sebuah fungsi. Ketika sebuah fungsi
 memiliki parameter, Anda dapat memberikannya nilai konkret untuk
 parameter-parameter tersebut. Secara teknis, nilai konkret itu disebut
 argumen, tetapi dalam percakapan sehari-hari, orang cenderung memakai kata
-parameter dan argumen secara bergantian, baik untuk variabel di dalam definisi
+parameter dan argumen secara bergantian, baik untuk variable di dalam definisi
 fungsi maupun nilai konkret yang diberikan ketika Anda memanggil fungsi.
 
 Pada versi `another_function` ini kita menambahkan sebuah parameter:
@@ -58,7 +58,7 @@ Pada versi `another_function` ini kita menambahkan sebuah parameter:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/src/main.rs}}
 ```
 
-Coba jalankan program ini; Anda seharusnya mendapatkan keluaran berikut:
+Coba jalankan program ini; Anda seharusnya mendapatkan output berikut:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/output.txt}}
@@ -99,17 +99,17 @@ dengan `cargo run`:
 ```
 
 Karena kita memanggil fungsi itu dengan `5` sebagai nilai untuk `value` dan
-`'h'` sebagai nilai untuk `unit_label`, keluaran program memuat nilai-nilai
+`'h'` sebagai nilai untuk `unit_label`, output program memuat nilai-nilai
 tersebut.
 
-### Pernyataan dan Ekspresi
+### Statement dan Expression
 
-Badan fungsi tersusun dari serangkaian pernyataan yang secara opsional diakhiri
-sebuah ekspresi. Sejauh ini, fungsi-fungsi yang telah kita bahas tidak
-menyertakan ekspresi penutup, tetapi Anda telah melihat ekspresi sebagai bagian
-dari sebuah pernyataan. Karena Rust adalah bahasa berbasis ekspresi, ini adalah
+Badan fungsi tersusun dari serangkaian statement yang secara opsional diakhiri
+sebuah expression. Sejauh ini, fungsi-fungsi yang telah kita bahas tidak
+menyertakan expression penutup, tetapi Anda telah melihat expression sebagai bagian
+dari sebuah statement. Karena Rust adalah bahasa berbasis expression, ini adalah
 pembedaan penting untuk dipahami. Bahasa lain tidak memiliki pembedaan yang
-sama, jadi mari kita lihat apa itu pernyataan dan ekspresi serta bagaimana
+sama, jadi mari kita lihat apa itu statement dan expression serta bagaimana
 perbedaan keduanya memengaruhi badan fungsi.
 
 - _Pernyataan_ adalah instruksi yang melakukan suatu tindakan dan tidak
@@ -118,11 +118,11 @@ perbedaan keduanya memengaruhi badan fungsi.
 
 Mari kita lihat beberapa contoh.
 
-Sebenarnya kita sudah memakai pernyataan dan ekspresi. Membuat variabel dan
-menetapkan nilai padanya dengan keyword `let` adalah sebuah pernyataan. Pada
-Listing 3-1, `let y = 6;` adalah sebuah pernyataan.
+Sebenarnya kita sudah memakai statement dan expression. Membuat variable dan
+menetapkan nilai padanya dengan keyword `let` adalah sebuah statement. Pada
+Listing 3-1, `let y = 6;` adalah sebuah statement.
 
-<Listing number="3-1" file-name="src/main.rs" caption="Deklarasi fungsi `main` yang berisi satu pernyataan">
+<Listing number="3-1" file-name="src/main.rs" caption="Deklarasi fungsi `main` yang berisi satu statement">
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-01/src/main.rs}}
@@ -130,12 +130,12 @@ Listing 3-1, `let y = 6;` adalah sebuah pernyataan.
 
 </Listing>
 
-Definisi fungsi juga merupakan pernyataan; keseluruhan contoh sebelumnya itu
-sendiri adalah sebuah pernyataan. (Seperti yang akan kita lihat sebentar lagi,
-memanggil fungsi bukanlah pernyataan.)
+Definisi fungsi juga merupakan statement; keseluruhan contoh sebelumnya itu
+sendiri adalah sebuah statement. (Seperti yang akan kita lihat sebentar lagi,
+memanggil fungsi bukanlah statement.)
 
-Pernyataan tidak mengembalikan nilai. Karena itu, Anda tidak dapat menetapkan
-pernyataan `let` ke variabel lain, seperti yang coba dilakukan kode berikut;
+Statement tidak mengembalikan nilai. Karena itu, Anda tidak dapat menetapkan
+statement `let` ke variable lain, seperti yang coba dilakukan kode berikut;
 Anda akan mendapatkan error:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -151,19 +151,19 @@ ini:
 {{#include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/output.txt}}
 ```
 
-Pernyataan `let y = 6` tidak mengembalikan nilai, jadi tidak ada apa pun yang
+Statement `let y = 6` tidak mengembalikan nilai, jadi tidak ada apa pun yang
 dapat diikat oleh `x`. Ini berbeda dari yang terjadi pada bahasa lain, seperti
 C dan Ruby, di mana penetapan mengembalikan nilai dari penetapan tersebut.
 Pada bahasa-bahasa itu, Anda dapat menulis `x = y = 6` dan membuat `x` maupun
 `y` sama-sama bernilai `6`; hal itu tidak berlaku di Rust.
 
-Ekspresi mengevaluasi menjadi sebuah nilai dan membentuk sebagian besar sisa
+Expression mengevaluasi menjadi sebuah nilai dan membentuk sebagian besar sisa
 kode yang akan Anda tulis di Rust. Perhatikan sebuah operasi matematika,
-seperti `5 + 6`, yang merupakan ekspresi yang mengevaluasi menjadi nilai `11`.
-Ekspresi dapat menjadi bagian dari pernyataan: Pada Listing 3-1, `6` di dalam
-pernyataan `let y = 6;` adalah ekspresi yang mengevaluasi menjadi nilai `6`.
-Memanggil fungsi adalah ekspresi. Memanggil *macro* adalah ekspresi. Blok *scope*
-baru yang dibuat dengan kurung kurawal adalah ekspresi, contohnya:
+seperti `5 + 6`, yang merupakan expression yang mengevaluasi menjadi nilai `11`.
+Expression dapat menjadi bagian dari statement: Pada Listing 3-1, `6` di dalam
+statement `let y = 6;` adalah expression yang mengevaluasi menjadi nilai `6`.
+Memanggil fungsi adalah expression. Memanggil *macro* adalah expression. Blok *scope*
+baru yang dibuat dengan kurung kurawal adalah expression, contohnya:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -171,7 +171,7 @@ baru yang dibuat dengan kurung kurawal adalah ekspresi, contohnya:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-20-blocks-are-expressions/src/main.rs}}
 ```
 
-Ekspresi ini:
+Expression ini:
 
 ```rust,ignore
 {
@@ -181,21 +181,21 @@ Ekspresi ini:
 ```
 
 adalah sebuah blok yang, pada kasus ini, mengevaluasi menjadi `4`. Nilai itu
-diikat ke `y` sebagai bagian dari pernyataan `let`. Perhatikan baris `x + 1`
+diikat ke `y` sebagai bagian dari statement `let`. Perhatikan baris `x + 1`
 tanpa titik koma di akhirnya, berbeda dengan sebagian besar baris yang telah
-Anda lihat sejauh ini. Ekspresi tidak menyertakan titik koma penutup. Jika
-Anda menambahkan titik koma di akhir sebuah ekspresi, Anda mengubahnya menjadi
-pernyataan, dan ia pun tidak akan mengembalikan nilai. Ingatlah hal ini ketika
-Anda mengeksplorasi nilai kembalian fungsi dan ekspresi berikutnya.
+Anda lihat sejauh ini. Expression tidak menyertakan titik koma penutup. Jika
+Anda menambahkan titik koma di akhir sebuah expression, Anda mengubahnya menjadi
+statement, dan ia pun tidak akan mengembalikan nilai. Ingatlah hal ini ketika
+Anda mengeksplorasi return value fungsi dan expression berikutnya.
 
 ### Fungsi dengan Nilai Kembalian
 
 Fungsi dapat mengembalikan nilai kepada kode yang memanggilnya. Kita tidak
-menamai nilai kembalian, tetapi kita harus mendeklarasikan typenya setelah
-tanda panah (`->`). Di Rust, nilai kembalian sebuah fungsi sama artinya dengan
-nilai ekspresi terakhir di dalam blok badan fungsi. Anda dapat keluar lebih
+menamai return value, tetapi kita harus mendeklarasikan typenya setelah
+tanda panah (`->`). Di Rust, return value sebuah fungsi sama artinya dengan
+nilai expression terakhir di dalam blok badan fungsi. Anda dapat keluar lebih
 awal dari sebuah fungsi dengan memakai keyword `return` dan menyebutkan sebuah
-nilai, tetapi sebagian besar fungsi mengembalikan ekspresi terakhirnya secara
+nilai, tetapi sebagian besar fungsi mengembalikan expression terakhirnya secara
 implisit. Berikut contoh fungsi yang mengembalikan nilai:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -204,19 +204,19 @@ implisit. Berikut contoh fungsi yang mengembalikan nilai:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/src/main.rs}}
 ```
 
-Tidak ada pemanggilan fungsi, *macro*, ataupun pernyataan `let` di dalam fungsi
+Tidak ada pemanggilan fungsi, *macro*, ataupun statement `let` di dalam fungsi
 `five`—hanya angka `5` itu sendiri. Itu adalah fungsi yang sepenuhnya valid di
 Rust. Perhatikan bahwa return type fungsinya juga ditentukan, yaitu
-`-> i32`. Coba jalankan kode ini; keluarannya seharusnya terlihat seperti ini:
+`-> i32`. Coba jalankan kode ini; outputnya seharusnya terlihat seperti ini:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/output.txt}}
 ```
 
-`5` di dalam `five` adalah nilai kembalian fungsi tersebut, itulah sebabnya
+`5` di dalam `five` adalah return value fungsi tersebut, itulah sebabnya
 return typenya adalah `i32`. Mari kita telaah lebih mendetail. Ada dua hal
 penting: Pertama, baris `let x = five();` menunjukkan bahwa kita memakai nilai
-kembalian sebuah fungsi untuk menginisialisasi sebuah variabel. Karena fungsi
+kembalian sebuah fungsi untuk menginisialisasi sebuah variable. Karena fungsi
 `five` mengembalikan `5`, baris itu sama dengan berikut ini:
 
 ```rust
@@ -225,7 +225,7 @@ let x = 5;
 
 Kedua, fungsi `five` tidak memiliki parameter dan mendefinisikan type nilai
 kembaliannya, tetapi badan fungsinya hanyalah `5` sendirian tanpa titik koma
-karena ia adalah ekspresi yang nilainya ingin kita kembalikan.
+karena ia adalah expression yang nilainya ingin kita kembalikan.
 
 Mari kita lihat contoh lain:
 
@@ -237,7 +237,7 @@ Mari kita lihat contoh lain:
 
 Menjalankan kode ini akan mencetak `The value of x is: 6`. Tetapi apa yang
 terjadi jika kita meletakkan titik koma di akhir baris yang berisi `x + 1`,
-mengubahnya dari ekspresi menjadi pernyataan?
+mengubahnya dari expression menjadi statement?
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -253,8 +253,8 @@ Mengompilasi kode ini akan menghasilkan error, seperti berikut:
 
 Pesan error utamanya, `mismatched types`, menyingkap masalah inti kode ini.
 Definisi fungsi `plus_one` menyatakan bahwa ia akan mengembalikan `i32`,
-tetapi pernyataan tidak mengevaluasi menjadi sebuah nilai, yang dinyatakan
+tetapi statement tidak mengevaluasi menjadi sebuah nilai, yang dinyatakan
 dengan `()`, type unit. Karena itu, tidak ada yang dikembalikan, yang
-berkontradiksi dengan definisi fungsinya dan menghasilkan error. Pada keluaran
+berkontradiksi dengan definisi fungsinya dan menghasilkan error. Pada output
 ini, Rust memberikan pesan yang mungkin membantu memperbaiki masalah ini: ia
 menyarankan penghapusan titik koma, yang akan memperbaiki errornya.

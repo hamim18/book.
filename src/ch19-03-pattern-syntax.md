@@ -16,21 +16,21 @@ Kode ini mencetak `one` karena nilai pada `x` adalah `1`. Sintaks ini berguna
 ketika Anda ingin kode Anda mengambil tindakan jika ia mendapat nilai konkret
 tertentu.
 
-### Mencocokkan Variabel Bernama
+### Mencocokkan Variable Bernama
 
-Variabel bernama adalah pola *irrefutable* yang cocok dengan nilai apa pun, dan
+Variable bernama adalah pola *irrefutable* yang cocok dengan nilai apa pun, dan
 kita telah memakainya berkali-kali di buku ini. Akan tetapi, ada satu
-kerumitan ketika Anda memakai variabel bernama di ekspresi `match`, `if let`,
-atau `while let`. Karena setiap jenis ekspresi ini memulai *scope* baru,
-variabel yang dideklarasikan sebagai bagian dari pola di dalam ekspresi ini
-akan melakukan shadowing terhadap variabel bernama sama di luar konstruksi
-itu, sebagaimana halnya semua variabel. Di Listing 19-11, kita
-mendeklarasikan variabel bernama `x` dengan nilai `Some(5)` dan variabel `y`
-dengan nilai `10`. Kita kemudian membuat ekspresi `match` pada nilai `x`.
+kerumitan ketika Anda memakai variable bernama di expression `match`, `if let`,
+atau `while let`. Karena setiap jenis expression ini memulai *scope* baru,
+variable yang dideklarasikan sebagai bagian dari pola di dalam expression ini
+akan melakukan shadowing terhadap variable bernama sama di luar konstruksi
+itu, sebagaimana halnya semua variable. Di Listing 19-11, kita
+mendeklarasikan variable bernama `x` dengan nilai `Some(5)` dan variable `y`
+dengan nilai `10`. Kita kemudian membuat expression `match` pada nilai `x`.
 Lihat pola-pola di arm match dan `println!` di akhir, dan coba tebak apa yang
 akan dicetak kode itu sebelum menjalankannya atau membaca lebih lanjut.
 
-<Listing number="19-11" file-name="src/main.rs" caption="Ekspresi `match` dengan arm yang memperkenalkan variabel baru yang melakukan shadowing terhadap variabel `y` yang sudah ada">
+<Listing number="19-11" file-name="src/main.rs" caption="Expression `match` dengan arm yang memperkenalkan variable baru yang melakukan shadowing terhadap variable `y` yang sudah ada">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-11/src/main.rs:here}}
@@ -38,31 +38,31 @@ akan dicetak kode itu sebelum menjalankannya atau membaca lebih lanjut.
 
 </Listing>
 
-Mari kita telusuri apa yang terjadi saat ekspresi `match` berjalan. Pola di
+Mari kita telusuri apa yang terjadi saat expression `match` berjalan. Pola di
 arm match pertama tidak cocok dengan nilai `x` yang didefinisikan, jadi kode
 berlanjut.
 
-Pola di arm match kedua memperkenalkan variabel baru bernama `y` yang akan
+Pola di arm match kedua memperkenalkan variable baru bernama `y` yang akan
 cocok dengan nilai apa pun di dalam nilai `Some`. Karena kita berada di *scope*
-baru di dalam ekspresi `match`, ini variabel `y` yang baru, bukan `y` yang
+baru di dalam expression `match`, ini variable `y` yang baru, bukan `y` yang
 kita deklarasikan di awal dengan nilai `10`. Binding `y` baru ini akan cocok
 dengan nilai apa pun di dalam `Some`, yaitu yang kita miliki di `x`. Karena
 itu, `y` baru ini mengikat nilai bagian dalam `Some` di `x`. Nilai itu adalah
-`5`, jadi ekspresi untuk arm itu dijalankan dan mencetak `Matched, y = 5`.
+`5`, jadi expression untuk arm itu dijalankan dan mencetak `Matched, y = 5`.
 
 Jika `x` adalah nilai `None` alih-alih `Some(5)`, pola di dua arm pertama
 tidak akan cocok, jadi nilainya akan cocok dengan underscore. Kita tidak
-memperkenalkan variabel `x` pada pola arm underscore, jadi `x` di ekspresi
+memperkenalkan variable `x` pada pola arm underscore, jadi `x` di expression
 itu tetaplah `x` luar yang belum di-shadow. Dalam kasus hipotetis ini,
 `match` akan mencetak `Default case, x = None`.
 
-Ketika ekspresi `match` selesai, *scope*-nya berakhir, begitu pula *scope* `y`
+Ketika expression `match` selesai, *scope*-nya berakhir, begitu pula *scope* `y`
 bagian dalam. `println!` terakhir menghasilkan `at the end: x = Some(5), y =
 10`.
 
-Untuk membuat ekspresi `match` yang membandingkan nilai `x` dan `y` luar,
-alih-alih memperkenalkan variabel baru yang melakukan shadowing terhadap
-variabel `y` yang sudah ada, kita perlu memakai kondisional *match guard*.
+Untuk membuat expression `match` yang membandingkan nilai `x` dan `y` luar,
+alih-alih memperkenalkan variable baru yang melakukan shadowing terhadap
+variable `y` yang sudah ada, kita perlu memakai kondisional *match guard*.
 Kita akan membahas *match guard* nanti di bagian [“Menambahkan Kondisional
 dengan *Match Guard*”](#adding-conditionals-with-match-guards)<!-- ignore -->.
 
@@ -71,7 +71,7 @@ dengan *Match Guard*”](#adding-conditionals-with-match-guards)<!-- ignore -->.
 
 ### Mencocokkan Banyak Pola
 
-Pada ekspresi `match`, Anda bisa mencocokkan banyak pola menggunakan sintaks
+Pada expression `match`, Anda bisa mencocokkan banyak pola menggunakan sintaks
 `|`, yang merupakan operator pola _or_. Contohnya, pada kode berikut, kita
 mencocokkan nilai `x` terhadap arm-arm match, yang pertamanya memiliki opsi
 _or_, artinya jika nilai `x` cocok dengan salah satu nilai di arm itu, kode
@@ -127,9 +127,9 @@ setiap nilai.
 #### Struct
 
 Listing 19-12 menunjukkan *struct* `Point` dengan dua *field*, `x` dan `y`, yang
-bisa kita pecah menggunakan pola dengan pernyataan `let`.
+bisa kita pecah menggunakan pola dengan statement `let`.
 
-<Listing number="19-12" file-name="src/main.rs" caption="Mendestrukturisasi field-field struct menjadi variabel-variabel terpisah">
+<Listing number="19-12" file-name="src/main.rs" caption="Mendestrukturisasi field-field struct menjadi variable-variable terpisah">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-12/src/main.rs}}
@@ -137,16 +137,16 @@ bisa kita pecah menggunakan pola dengan pernyataan `let`.
 
 </Listing>
 
-Kode ini membuat variabel `a` dan `b` yang cocok dengan nilai *field* `x` dan
-`y` dari *struct* `p`. Contoh ini menunjukkan bahwa nama variabel pada pola
+Kode ini membuat variable `a` dan `b` yang cocok dengan nilai *field* `x` dan
+`y` dari *struct* `p`. Contoh ini menunjukkan bahwa nama variable pada pola
 tidak harus sama dengan nama *field* *struct*. Akan tetapi, umum untuk
-menyesuaikan nama variabel dengan nama *field* supaya lebih mudah mengingat
-variabel mana yang berasal dari *field* mana. Karena pemakaian umum ini, dan
+menyesuaikan nama variable dengan nama *field* supaya lebih mudah mengingat
+variable mana yang berasal dari *field* mana. Karena pemakaian umum ini, dan
 karena menulis `let Point { x: x, y: y } = p;` mengandung banyak duplikasi,
 Rust punya bentuk singkat untuk pola yang mencocokkan *field* *struct*: Anda
-hanya perlu mencantumkan nama *field* *struct*, dan variabel yang dibuat dari
+hanya perlu mencantumkan nama *field* *struct*, dan variable yang dibuat dari
 pola itu akan memiliki nama yang sama. Listing 19-13 berperilaku sama dengan
-kode di Listing 19-12, tetapi variabel yang dibuat di pola `let` adalah `x`
+kode di Listing 19-12, tetapi variable yang dibuat di pola `let` adalah `x`
 dan `y` alih-alih `a` dan `b`.
 
 <Listing number="19-13" file-name="src/main.rs" caption="Mendestrukturisasi field struct menggunakan bentuk singkat field struct">
@@ -157,16 +157,16 @@ dan `y` alih-alih `a` dan `b`.
 
 </Listing>
 
-Kode ini membuat variabel `x` dan `y` yang cocok dengan *field* `x` dan `y`
-dari variabel `p`. Hasilnya adalah variabel `x` dan `y` memuat nilai dari
+Kode ini membuat variable `x` dan `y` yang cocok dengan *field* `x` dan `y`
+dari variable `p`. Hasilnya adalah variable `x` dan `y` memuat nilai dari
 *struct* `p`.
 
 Kita juga bisa mendestrukturisasi dengan nilai literal sebagai bagian dari
-pola *struct* alih-alih membuat variabel untuk semua *field*. Melakukannya
+pola *struct* alih-alih membuat variable untuk semua *field*. Melakukannya
 memungkinkan kita menguji sebagian *field* untuk nilai tertentu sambil membuat
-variabel untuk mendestrukturisasi *field* lainnya.
+variable untuk mendestrukturisasi *field* lainnya.
 
-Di Listing 19-14, kita punya ekspresi `match` yang memisahkan nilai `Point`
+Di Listing 19-14, kita punya expression `match` yang memisahkan nilai `Point`
 menjadi tiga kasus: titik yang terletak tepat di sumbu `x` (yang benar ketika
 `y = 0`), di sumbu `y` (`x = 0`), atau tidak di sumbu mana pun.
 
@@ -180,18 +180,18 @@ menjadi tiga kasus: titik yang terletak tepat di sumbu `x` (yang benar ketika
 
 Arm pertama akan cocok dengan titik mana pun yang terletak di sumbu `x`
 dengan menentukan bahwa *field* `y` cocok jika nilainya cocok dengan literal
-`0`. Pola itu tetap membuat variabel `x` yang bisa kita pakai di kode untuk
+`0`. Pola itu tetap membuat variable `x` yang bisa kita pakai di kode untuk
 arm ini.
 
 Serupa, arm kedua cocok dengan titik mana pun di sumbu `y` dengan menentukan
-bahwa *field* `x` cocok jika nilainya `0` dan membuat variabel `y` untuk nilai
+bahwa *field* `x` cocok jika nilainya `0` dan membuat variable `y` untuk nilai
 *field* `y`. Arm ketiga tidak menentukan literal apa pun, jadi ia cocok dengan
-`Point` lain mana pun dan membuat variabel untuk *field* `x` maupun `y`.
+`Point` lain mana pun dan membuat variable untuk *field* `x` maupun `y`.
 
 Pada contoh ini, nilai `p` cocok dengan arm kedua karena `x` memuat `0`, jadi
 kode ini akan mencetak `On the y axis at 7`.
 
-Ingat bahwa ekspresi `match` berhenti memeriksa arm begitu menemukan pola
+Ingat bahwa expression `match` berhenti memeriksa arm begitu menemukan pola
 pertama yang cocok, jadi meskipun `Point { x: 0, y: 0 }` berada di sumbu `x`
 dan sumbu `y`, kode ini hanya akan mencetak `On the x axis at 0`.
 
@@ -221,19 +221,19 @@ ubah nilai `msg` untuk melihat kode dari arm-arm lain berjalan.
 
 Untuk varian *enum* tanpa data apa pun, seperti `Message::Quit`, kita tidak bisa
 mendestrukturisasi nilainya lebih jauh. Kita hanya bisa mencocokkan nilai
-literal `Message::Quit`, dan tidak ada variabel pada pola itu.
+literal `Message::Quit`, dan tidak ada variable pada pola itu.
 
 Untuk varian *enum* yang mirip *struct*, seperti `Message::Move`, kita bisa
 memakai pola yang mirip dengan pola yang kita tentukan untuk mencocokkan
 *struct*. Setelah nama varian, kita menaruh kurung kurawal lalu mencantumkan
-*field*-field dengan variabel supaya kita memecah bagian-bagiannya untuk dipakai
+*field*-field dengan variable supaya kita memecah bagian-bagiannya untuk dipakai
 di kode untuk arm ini. Di sini kita memakai bentuk singkat seperti yang kita
 lakukan di Listing 19-13.
 
 Untuk varian *enum* yang mirip *tuple*, seperti `Message::Write` yang menampung
 *tuple* dengan satu elemen dan `Message::ChangeColor` yang menampung *tuple*
 dengan tiga elemen, polanya mirip dengan pola yang kita tentukan untuk
-mencocokkan *tuple*. Jumlah variabel pada pola harus sama dengan jumlah elemen
+mencocokkan *tuple*. Jumlah variable pada pola harus sama dengan jumlah elemen
 pada varian yang kita cocokkan.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -256,11 +256,11 @@ RGB dan HSV pada pesan `ChangeColor`, seperti yang ditunjukkan di Listing
 
 </Listing>
 
-Pola arm pertama pada ekspresi `match` cocok dengan varian *enum*
+Pola arm pertama pada expression `match` cocok dengan varian *enum*
 `Message::ChangeColor` yang memuat varian `Color::Rgb`; kemudian, pola itu
 mengikat tiga nilai `i32` bagian dalam. Pola arm kedua juga cocok dengan
 varian *enum* `Message::ChangeColor`, tetapi *enum* bagian dalamnya cocok dengan
-`Color::Hsv`. Kita bisa menentukan kondisi kompleks ini dalam satu ekspresi
+`Color::Hsv`. Kita bisa menentukan kondisi kompleks ini dalam satu expression
 `match`, meskipun ada dua *enum* yang terlibat.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -306,7 +306,7 @@ mengapa memakai masing-masing pola ini.
 
 Kita telah memakai underscore sebagai pola wildcard yang akan cocok dengan
 nilai apa pun tetapi tidak mengikat ke nilainya. Ini sangat berguna sebagai
-arm terakhir di ekspresi `match`, tetapi kita juga bisa memakainya di pola
+arm terakhir di expression `match`, tetapi kita juga bisa memakainya di pola
 mana pun, termasuk parameter fungsi, seperti yang ditunjukkan di Listing
 19-17.
 
@@ -382,19 +382,19 @@ akan diabaikan.
 
 <a id="ignoring-an-unused-variable-by-starting-its-name-with-_"></a>
 
-#### Variabel yang Tidak Dipakai dengan Mengawali Namanya dengan `_`
+#### Variable yang Tidak Dipakai dengan Mengawali Namanya dengan `_`
 
-Jika Anda membuat variabel tetapi tidak memakainya di mana pun, Rust biasanya
-akan mengeluarkan peringatan karena variabel yang tidak terpakai bisa menjadi
-bug. Akan tetapi, terkadang berguna untuk bisa membuat variabel yang belum
+Jika Anda membuat variable tetapi tidak memakainya di mana pun, Rust biasanya
+akan mengeluarkan peringatan karena variable yang tidak terpakai bisa menjadi
+bug. Akan tetapi, terkadang berguna untuk bisa membuat variable yang belum
 akan Anda pakai, seperti saat Anda membuat prototipe atau baru memulai
 proyek. Dalam situasi ini, Anda bisa memberi tahu Rust untuk tidak
-memperingatkan Anda tentang variabel yang tidak terpakai itu dengan mengawali
-nama variabelnya dengan underscore. Di Listing 19-20, kita membuat dua
-variabel yang tidak terpakai, tetapi ketika kita mengompilasi kode ini, kita
+memperingatkan Anda tentang variable yang tidak terpakai itu dengan mengawali
+nama variablenya dengan underscore. Di Listing 19-20, kita membuat dua
+variable yang tidak terpakai, tetapi ketika kita mengompilasi kode ini, kita
 seharusnya hanya mendapat peringatan tentang salah satunya.
 
-<Listing number="19-20" file-name="src/main.rs" caption="Mengawali nama variabel dengan underscore untuk menghindari peringatan variabel tidak terpakai">
+<Listing number="19-20" file-name="src/main.rs" caption="Mengawali nama variable dengan underscore untuk menghindari peringatan variable tidak terpakai">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-20/src/main.rs}}
@@ -402,15 +402,15 @@ seharusnya hanya mendapat peringatan tentang salah satunya.
 
 </Listing>
 
-Di sini, kita mendapat peringatan tentang tidak memakai variabel `y`, tetapi
+Di sini, kita mendapat peringatan tentang tidak memakai variable `y`, tetapi
 kita tidak mendapat peringatan tentang tidak memakai `_x`.
 
 Perhatikan bahwa ada perbedaan halus antara memakai `_` saja dan memakai nama
-yang diawali underscore. Sintaks `_x` tetap mengikat nilainya ke variabel,
+yang diawali underscore. Sintaks `_x` tetap mengikat nilainya ke variable,
 sedangkan `_` tidak mengikat sama sekali. Untuk menunjukkan kasus ketika
 perbedaan ini penting, Listing 19-21 akan memberi kita error.
 
-<Listing number="19-21" caption="Variabel tidak terpakai yang diawali underscore tetap mengikat nilainya, yang bisa mengambil kepemilikan nilai itu.">
+<Listing number="19-21" caption="Variable tidak terpakai yang diawali underscore tetap mengikat nilainya, yang bisa mengambil kepemilikan nilai itu.">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-21/src/main.rs:here}}
@@ -443,7 +443,7 @@ memakai bagian-bagian tertentu dan mengabaikan sisanya, menghindari kebutuhan
 mencantumkan underscore untuk setiap nilai yang diabaikan. Pola `..`
 mengabaikan bagian mana pun dari nilai yang belum kita cocokkan secara
 eksplisit di sisa pola. Di Listing 19-23, kita punya *struct* `Point` yang
-menampung koordinat di ruang tiga dimensi. Pada ekspresi `match`, kita ingin
+menampung koordinat di ruang tiga dimensi. Pada expression `match`, kita ingin
 mengoperasikan koordinat `x` saja dan mengabaikan nilai di *field* `y` dan `z`.
 
 <Listing number="19-23" caption="Mengabaikan semua field `Point` kecuali `x` dengan memakai `..`">
@@ -498,7 +498,7 @@ berapa banyak nilai lagi yang harus diabaikan setelahnya. Kode ini bisa
 berarti kita ingin mengabaikan `2`, mengikat `second` ke `4`, lalu
 mengabaikan `8`, `16`, dan `32`; atau kita ingin mengabaikan `2` dan `4`,
 mengikat `second` ke `8`, lalu mengabaikan `16` dan `32`; dan seterusnya.
-Nama variabel `second` tidak berarti apa-apa secara khusus bagi Rust, jadi
+Nama variable `second` tidak berarti apa-apa secara khusus bagi Rust, jadi
 kita mendapat error kompilator karena memakai `..` di dua tempat seperti ini
 bersifat ambigu.
 
@@ -513,10 +513,10 @@ _Match guard_ (pengawal match) adalah kondisi `if` tambahan, yang ditentukan
 setelah pola pada arm `match`, yang juga harus cocok agar arm itu dipilih.
 *Match guard* berguna untuk mengekspresikan gagasan yang lebih kompleks
 daripada yang diizinkan pola saja. Akan tetapi, perhatikan bahwa *match guard*
-hanya tersedia pada ekspresi `match`, bukan pada ekspresi `if let` atau
+hanya tersedia pada expression `match`, bukan pada expression `if let` atau
 `while let`.
 
-Kondisi itu bisa memakai variabel yang dibuat di pola. Listing 19-26
+Kondisi itu bisa memakai variable yang dibuat di pola. Listing 19-26
 menunjukkan `match` yang arm pertamanya memiliki pola `Some(x)` dan juga
 memiliki *match guard* `if x % 2 == 0` (yang akan bernilai `true` jika angkanya
 genap).
@@ -542,16 +542,16 @@ memiliki *match guard* dan karena itu cocok dengan varian `Some` mana pun.
 Tidak ada cara untuk mengekspresikan kondisi `if x % 2 == 0` di dalam sebuah
 pola, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
 ini. Sisi buruk dari ekspresivitas tambahan ini adalah kompilator tidak
-mencoba memeriksa ekshaustivitas ketika ekspresi *match guard* terlibat.
+mencoba memeriksa ekshaustivitas ketika expression *match guard* terlibat.
 
 Saat membahas Listing 19-11, kita menyebutkan bahwa kita bisa memakai match
 guard untuk memecahkan masalah shadowing pola kita. Ingat bahwa kita membuat
-variabel baru di dalam pola pada ekspresi `match` alih-alih memakai variabel
-di luar `match`. Variabel baru itu berarti kita tidak bisa menguji nilai
-variabel luar. Listing 19-27 menunjukkan cara memakai *match guard* untuk
+variable baru di dalam pola pada expression `match` alih-alih memakai variable
+di luar `match`. Variable baru itu berarti kita tidak bisa menguji nilai
+variable luar. Listing 19-27 menunjukkan cara memakai *match guard* untuk
 memperbaiki masalah ini.
 
-<Listing number="19-27" file-name="src/main.rs" caption="Memakai match guard untuk menguji kesamaan dengan variabel luar">
+<Listing number="19-27" file-name="src/main.rs" caption="Memakai match guard untuk menguji kesamaan dengan variable luar">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-27/src/main.rs}}
@@ -560,15 +560,15 @@ memperbaiki masalah ini.
 </Listing>
 
 Kode ini sekarang akan mencetak `Default case, x = Some(5)`. Pola di arm
-match kedua tidak memperkenalkan variabel `y` baru yang akan melakukan
+match kedua tidak memperkenalkan variable `y` baru yang akan melakukan
 shadowing terhadap `y` luar, yang berarti kita bisa memakai `y` luar di match
 guard. Alih-alih menentukan polanya sebagai `Some(y)`, yang akan melakukan
-shadowing terhadap `y` luar, kita menentukan `Some(n)`. Ini membuat variabel
+shadowing terhadap `y` luar, kita menentukan `Some(n)`. Ini membuat variable
 baru `n` yang tidak melakukan shadowing terhadap apa pun karena tidak ada
-variabel `n` di luar `match`.
+variable `n` di luar `match`.
 
 *Match guard* `if n == y` bukanlah pola dan karena itu tidak memperkenalkan
-variabel baru. `y` ini _adalah_ `y` luar alih-alih `y` baru yang
+variable baru. `y` ini _adalah_ `y` luar alih-alih `y` baru yang
 menaunginya, dan kita bisa mencari nilai yang sama dengan nilai `y` luar
 dengan membandingkan `n` dengan `y`.
 
@@ -616,11 +616,11 @@ menggunakan operator `|`, arm itu akan cocok dan program akan mencetak `yes`.
 
 ### Memakai Binding `@`
 
-Operator _at_ `@` memungkinkan kita membuat variabel yang menampung sebuah
+Operator _at_ `@` memungkinkan kita membuat variable yang menampung sebuah
 nilai pada saat yang sama kita menguji nilai itu untuk kecocokan pola. Di
 Listing 19-29, kita ingin menguji bahwa *field* `id` dari `Message::Hello`
 berada di dalam rentang `3..=7`. Kita juga ingin mengikat nilainya ke
-variabel `id` supaya bisa kita pakai di kode yang terkait dengan arm itu.
+variable `id` supaya bisa kita pakai di kode yang terkait dengan arm itu.
 
 <Listing number="19-29" caption="Memakai `@` untuk mengikat ke nilai di dalam pola sambil mengujinya">
 
@@ -632,33 +632,33 @@ variabel `id` supaya bisa kita pakai di kode yang terkait dengan arm itu.
 
 Contoh ini akan mencetak `Found an id in range: 5`. Dengan menentukan `id @`
 sebelum rentang `3..=7`, kita menangkap nilai apa pun yang cocok dengan
-rentang itu ke variabel bernama `id` sambil juga menguji bahwa nilainya cocok
+rentang itu ke variable bernama `id` sambil juga menguji bahwa nilainya cocok
 dengan pola rentangnya.
 
 Di arm kedua, tempat kita hanya menentukan rentang di polanya, kode yang
-terkait dengan arm itu tidak memiliki variabel yang memuat nilai aktual *field*
+terkait dengan arm itu tidak memiliki variable yang memuat nilai aktual *field*
 `id`. Nilai *field* `id` bisa saja 10, 11, atau 12, tetapi kode yang menyertai
 pola itu tidak tahu yang mana. Kode pola itu tidak bisa memakai nilai dari
-*field* `id` karena kita belum menyimpan nilai `id` di variabel.
+*field* `id` karena kita belum menyimpan nilai `id` di variable.
 
-Di arm terakhir, tempat kita menentukan variabel tanpa rentang, kita memang
-memiliki nilainya untuk dipakai di kode arm itu dalam variabel bernama `id`.
+Di arm terakhir, tempat kita menentukan variable tanpa rentang, kita memang
+memiliki nilainya untuk dipakai di kode arm itu dalam variable bernama `id`.
 Alasannya adalah kita telah memakai sintaks bentuk singkat *field* *struct*.
 Tetapi kita belum menerapkan pengujian apa pun pada nilai di *field* `id` di
 arm ini, seperti yang kita lakukan di dua arm pertama: nilai apa pun akan
 cocok dengan pola ini.
 
 Memakai `@` memungkinkan kita menguji sebuah nilai dan menyimpannya di
-variabel dalam satu pola.
+variable dalam satu pola.
 
 ## Ringkasan
 
 Pola di Rust sangat berguna untuk membedakan berbagai jenis data. Ketika
-dipakai di ekspresi `match`, Rust memastikan pola-pola Anda mencakup setiap
+dipakai di expression `match`, Rust memastikan pola-pola Anda mencakup setiap
 nilai yang mungkin, atau program Anda tidak akan terkompilasi. Pola di
-pernyataan `let` dan parameter fungsi membuat konstruksi-konstruksi itu lebih
+statement `let` dan parameter fungsi membuat konstruksi-konstruksi itu lebih
 berguna, memungkinkan destrukturisasi nilai menjadi bagian-bagian yang lebih
-kecil dan menetapkan bagian-bagian itu ke variabel. Kita bisa membuat pola
+kecil dan menetapkan bagian-bagian itu ke variable. Kita bisa membuat pola
 sederhana atau kompleks sesuai kebutuhan kita.
 
 Berikutnya, untuk bab kedua terakhir buku ini, kita akan melihat beberapa

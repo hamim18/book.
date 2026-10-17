@@ -192,7 +192,7 @@ definisikan pada *enum* `Message` kita:
 ```
 
 Badan metodenya akan memakai `self` untuk mendapatkan nilai tempat metode itu
-dipanggil. Pada contoh ini, kita telah membuat variabel `m` yang memiliki
+dipanggil. Pada contoh ini, kita telah membuat variable `m` yang memiliki
 nilai `Message::Write(String::from("hello"))`, dan itulah yang akan menjadi
 `self` di badan metode `call` ketika `m.call()` dijalankan.
 
@@ -221,7 +221,7 @@ Desain bahasa pemrograman sering kali dipikirkan berdasarkan fitur-fitur apa
 yang disertakan, tetapi fitur-fitur yang dikecualikan juga penting. Rust tidak
 memiliki fitur null seperti yang dimiliki banyak bahasa lain. *Null* adalah
 nilai yang berarti tidak ada nilai di sana. Pada bahasa yang memiliki null,
-variabel selalu dapat berada dalam salah satu dari dua keadaan: null atau
+variable selalu dapat berada dalam salah satu dari dua keadaan: null atau
 tidak-null.
 
 Dalam presentasinya tahun 2009 yang berjudul “Null References: The Billion
@@ -339,8 +339,8 @@ Secara umum, untuk memakai nilai `Option<T>`, Anda ingin memiliki kode yang
 menangani setiap *variant*. Anda ingin ada kode yang berjalan hanya ketika
 Anda memiliki nilai `Some(T)`, dan kode ini diizinkan memakai `T` di
 dalamnya. Anda ingin ada kode lain yang berjalan hanya jika Anda memiliki
-nilai `None`, dan kode itu tidak memiliki nilai `T` yang tersedia. Ekspresi
-`match` adalah konstruk alur kontrol yang melakukan hal ini ketika dipakai
+nilai `None`, dan kode itu tidak memiliki nilai `T` yang tersedia. Expression
+`match` adalah konstruk control flow yang melakukan hal ini ketika dipakai
 bersama *enum*: ia akan menjalankan kode yang berbeda bergantung pada
 *variant* *enum* mana yang dimilikinya, dan kode itu dapat memakai data di
 dalam nilai yang dicocokkan.

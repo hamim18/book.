@@ -56,13 +56,13 @@ terbesar dalam sebuah daftar.
 
 </Listing>
 
-Kita menyimpan daftar bilangan bulat dalam variabel `number_list` dan
-menempatkan *reference* ke angka pertama dalam daftar itu pada variabel
+Kita menyimpan daftar bilangan bulat dalam variable `number_list` dan
+menempatkan *reference* ke angka pertama dalam daftar itu pada variable
 bernama `largest`. Kita kemudian mengiterasi seluruh angka dalam daftar itu,
 dan jika angka saat ini lebih besar daripada angka yang tersimpan di
-`largest`, kita mengganti *reference* di variabel tersebut. Akan tetapi, jika
+`largest`, kita mengganti *reference* di variable tersebut. Akan tetapi, jika
 angka saat ini lebih kecil dari atau sama dengan angka terbesar yang sudah
-terlihat sejauh ini, variabel itu tidak berubah dan kode melanjutkan ke angka
+terlihat sejauh ini, variable itu tidak berubah dan kode melanjutkan ke angka
 berikutnya dalam daftar. Setelah mempertimbangkan semua angka dalam daftar,
 `largest` seharusnya merujuk ke angka terbesar, yang dalam kasus ini adalah
 100.
@@ -113,8 +113,8 @@ Ringkasnya, berikut langkah-langkah yang kita ambil untuk mengubah kode dari
 Listing 10-2 menjadi Listing 10-3:
 
 1. Identifikasi kode duplikat.
-1. Ekstrak kode duplikat itu ke dalam badan fungsi, dan tentukan masukan serta
-   nilai kembalian kode itu di tanda tangan fungsi.
+1. Ekstrak kode duplikat itu ke dalam badan fungsi, dan tentukan input serta
+   return value kode itu di tanda tangan fungsi.
 1. Perbarui dua instance kode duplikat itu agar memanggil fungsi tersebut.
 
 Selanjutnya, kita akan memakai langkah-langkah yang sama dengan *generics*

@@ -111,7 +111,7 @@ yang sama, jadi pakailah gaya mana pun yang lebih jelas bagi Anda.
 *Closure* direpresentasikan oleh *trait*, yang berarti Anda tidak bisa
 mengembalikan *closure* secara langsung. Pada sebagian besar kasus ketika Anda
 ingin mengembalikan sebuah *trait*, Anda bisa memakai type konkret yang
-mengimplementasikan *trait* itu sebagai nilai kembalian fungsi. Akan tetapi,
+mengimplementasikan *trait* itu sebagai return value fungsi. Akan tetapi,
 biasanya Anda tidak bisa melakukan itu dengan *closure* karena *closure* tidak
 memiliki type konkret yang bisa dikembalikan; misalnya, Anda tidak diizinkan
 memakai *pointer* fungsi `fn` sebagai return type jika *closure* itu menangkap
@@ -164,7 +164,7 @@ sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan *closure* yang
 mengimplementasikan *trait* yang sama, `Fn(i32) -> i32`, type opak yang
 dihasilkan Rust untuk masing-masing fungsi berbeda. (Ini mirip dengan cara
 Rust menghasilkan type konkret yang berbeda untuk blok async yang berbeda
-meskipun type keluarannya sama, seperti yang kita lihat di [“Type `Pin` dan
+meskipun type outputnya sama, seperti yang kita lihat di [“Type `Pin` dan
 *Trait* `Unpin`”][*future*-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
 solusi untuk masalah ini beberapa kali: Kita bisa memakai *trait object*,
 seperti di Listing 20-34.

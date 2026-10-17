@@ -12,7 +12,7 @@
 - [Memprogram Permainan Tebak Angka](ch02-00-guessing-game-tutorial.md)
 
 - [Konsep Dasar Pemrograman](ch03-00-common-programming-concepts.md)
-  - [Variabel dan Mutabilitas](ch03-01-variables-and-mutability.md)
+  - [Variable dan Mutabilitas](ch03-01-variables-and-mutability.md)
   - [Type Data](ch03-02-data-types.md)
   - [Fungsi](ch03-03-how-functions-work.md)
   - [Komentar](ch03-04-comments.md)
@@ -65,14 +65,14 @@
   - [Membaca File](ch12-02-reading-a-file.md)
   - [Refactoring untuk Meningkatkan Modularitas dan Penanganan Error](ch12-03-improving-error-handling-and-modularity.md)
   - [Menambahkan Fungsionalitas dengan Test-Driven Development](ch12-04-testing-the-librarys-functionality.md)
-  - [Bekerja dengan Variabel Lingkungan](ch12-05-working-with-environment-variables.md)
+  - [Bekerja dengan Variable Lingkungan](ch12-05-working-with-environment-variables.md)
   - [Mengalihkan Error ke Standard Error](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
 - [Fitur Bahasa Fungsional: Iterator dan Closure](ch13-00-functional-features.md)
   - [Closure](ch13-01-closures.md)
   - [Memproses Serangkaian Item dengan Iterator](ch13-02-iterators.md)
   - [Memperbaiki Proyek I/O Kita](ch13-03-improving-our-io-project.md)
-  - [Performa pada Perulangan vs. Iterator](ch13-04-performance.md)
+  - [Performa pada Loop vs. Iterator](ch13-04-performance.md)
 
 - [Lebih Jauh tentang Cargo dan Crates.io](ch14-00-more-about-cargo.md)
   - [Menyesuaikan Build dengan Release Profile](ch14-01-release-profiles.md)

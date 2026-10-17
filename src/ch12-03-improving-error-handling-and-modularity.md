@@ -11,11 +11,11 @@ tanpa merusak salah satu bagiannya. Sebaiknya fungsionalitas dipisahkan
 sehingga setiap fungsi bertanggung jawab atas satu tugas.
 
 Masalah ini juga berkaitan dengan masalah kedua: Meskipun `query` dan
-`file_path` adalah variabel konfigurasi untuk program kita, variabel seperti
+`file_path` adalah configuration variable untuk program kita, variable seperti
 `contents` dipakai untuk menjalankan logika program. Semakin panjang `main`,
-semakin banyak variabel yang perlu kita bawa ke dalam *scope*; semakin banyak
-variabel di dalam *scope*, semakin sulit melacak tujuan masing-masing.
-Sebaiknya variabel-variabel konfigurasi dikelompokkan ke dalam satu struktur
+semakin banyak variable yang perlu kita bawa ke dalam *scope*; semakin banyak
+variable di dalam *scope*, semakin sulit melacak tujuan masing-masing.
+Sebaiknya variable-configuration variable dikelompokkan ke dalam satu struktur
 untuk memperjelas tujuannya.
 
 Masalah ketiga adalah kita telah memakai `expect` untuk mencetak pesan error
@@ -89,14 +89,14 @@ definisikan di _src/main.rs_.
 </Listing>
 
 Kita masih mengumpulkan argumen baris perintah ke dalam sebuah vektor, tetapi
-alih-alih menetapkan nilai argumen pada indeks 1 ke variabel `query` dan nilai
-argumen pada indeks 2 ke variabel `file_path` di dalam fungsi `main`, kita
+alih-alih menetapkan nilai argumen pada indeks 1 ke variable `query` dan nilai
+argumen pada indeks 2 ke variable `file_path` di dalam fungsi `main`, kita
 meneruskan seluruh vektor tersebut ke fungsi `parse_config`. Fungsi
 `parse_config` kemudian memegang logika yang menentukan argumen mana yang masuk
-ke variabel mana, lalu meneruskan nilai-nilainya kembali ke `main`. Kita masih
-membuat variabel `query` dan `file_path` di `main`, tetapi `main` tidak lagi
+ke variable mana, lalu meneruskan nilai-nilainya kembali ke `main`. Kita masih
+membuat variable `query` dan `file_path` di `main`, tetapi `main` tidak lagi
 bertanggung jawab menentukan bagaimana argumen baris perintah dan
-variabel-variabel itu saling berkorespondensi.
+variable-variable itu saling berkorespondensi.
 
 Pengerjaan ulang ini mungkin tampak berlebihan untuk program sekecil ini,
 tetapi kita melakukan refactoring dalam langkah-langkah kecil yang bertahap.
@@ -138,7 +138,7 @@ memiliki *field*-field bernama `query` dan `file_path`. Tanda tangan
 `Config`. Di dalam badan `parse_config`, tempat yang sebelumnya kita pakai
 untuk mengembalikan string *slice* yang mereferensikan nilai-nilai `String` di
 `args`, kini kita mendefinisikan `Config` untuk memuat nilai-nilai `String`
-yang dimiliki. Variabel `args` di dalam `main` adalah *owner* (pemilik) dari
+yang dimiliki. Variable `args` di dalam `main` adalah *owner* (pemilik) dari
 nilai-nilai argumen dan hanya membiarkan fungsi `parse_config` meminjam
 nilai-nilai itu, yang berarti kita akan melanggar aturan *borrowing*
 (peminjaman) Rust jika `Config` mencoba mengambil *ownership* (kepemilikan)
@@ -168,8 +168,8 @@ kesederhanaan adalah pertukaran yang layak.
 > tetapi untuk saat ini, memanggil `clone` sepenuhnya dapat diterima.
 
 Kita telah memperbarui `main` sehingga ia menaruh instance `Config` yang
-dikembalikan oleh `parse_config` ke dalam sebuah variabel bernama `config`,
-dan kita memperbarui kode yang sebelumnya memakai variabel `query` dan
+dikembalikan oleh `parse_config` ke dalam sebuah variable bernama `config`,
+dan kita memperbarui kode yang sebelumnya memakai variable `query` dan
 `file_path` yang terpisah sehingga kini memakai *field*-field pada *struct*
 `Config`.
 
@@ -259,7 +259,7 @@ program tanpa argumen apa pun untuk melihat seperti apa errornya sekarang:
 {{#include ../listings/ch12-an-io-project/listing-12-08/output.txt}}
 ```
 
-Keluaran ini lebih baik: Sekarang kita memiliki pesan error yang masuk akal.
+Output ini lebih baik: Sekarang kita memiliki pesan error yang masuk akal.
 Namun, kita juga memiliki informasi tambahan yang tidak ingin kita berikan
 kepada pengguna. Mungkin teknik yang kita pakai di Listing 9-13 bukanlah yang
 terbaik untuk dipakai di sini: Pemanggilan `panic!` lebih cocok untuk masalah
@@ -285,7 +285,7 @@ yang lebih praktis bagi pengguna kita, tanpa teks pelingkup tentang
 `thread 'main'` dan `RUST_BACKTRACE` yang disebabkan oleh pemanggilan
 `panic!`.
 
-Listing 12-9 menunjukkan perubahan yang perlu kita buat pada nilai kembalian
+Listing 12-9 menunjukkan perubahan yang perlu kita buat pada return value
 fungsi yang kini kita sebut `Config::build`, serta badan fungsi yang diperlukan
 untuk mengembalikan sebuah `Result`. Perhatikan bahwa kode ini tidak akan
 terkompilasi sampai kita memperbarui `main` juga, yang akan kita lakukan di
@@ -306,7 +306,7 @@ Nilai-nilai error kita akan selalu berupa *string literal* yang memiliki
 
 Kita telah membuat dua perubahan di badan fungsi: Alih-alih memanggil
 `panic!` ketika pengguna tidak meneruskan cukup argumen, kini kita
-mengembalikan nilai `Err`, dan kita telah membungkus nilai kembalian `Config`
+mengembalikan nilai `Err`, dan kita telah membungkus return value `Config`
 di dalam `Ok`. Perubahan-perubahan ini membuat fungsi itu menyesuaikan diri
 dengan type tanda tangan barunya.
 
@@ -358,14 +358,14 @@ kasus error hanya terdiri dari dua baris: Kita mencetak nilai `err`, lalu
 memanggil `process::exit`. Fungsi `process::exit` akan menghentikan program
 dengan segera dan mengembalikan angka yang diteruskan sebagai kode status
 keluar. Ini mirip dengan penanganan berbasis `panic!` yang kita pakai di
-Listing 12-8, tetapi kini kita tidak lagi mendapat semua keluaran tambahan
+Listing 12-8, tetapi kini kita tidak lagi mendapat semua output tambahan
 itu. Mari kita coba:
 
 ```console
 {{#include ../listings/ch12-an-io-project/listing-12-10/output.txt}}
 ```
 
-Hebat! Keluaran ini jauh lebih ramah bagi pengguna kita.
+Hebat! Output ini jauh lebih ramah bagi pengguna kita.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -425,11 +425,11 @@ ini mengembalikan type *unit*, `()`, dan kita mempertahankannya sebagai nilai
 yang dikembalikan pada kasus `Ok`.
 
 Untuk type errornya, kita memakai *trait object* `Box<dyn Error>` (dan kita
-membawa `std::error::Error` ke dalam *scope* dengan pernyataan `use` di bagian
+membawa `std::error::Error` ke dalam *scope* dengan statement `use` di bagian
 atas). Kita akan membahas *trait object* di [Bab 18][ch18]<!-- ignore -->.
 Untuk saat ini, cukup ketahui bahwa `Box<dyn Error>` berarti fungsi ini akan
 mengembalikan sebuah type yang mengimplementasikan *trait* `Error`, tetapi
-kita tidak perlu menentukan type tertentu apa nilai kembaliannya. Ini memberi
+kita tidak perlu menentukan type tertentu apa return valuenya. Ini memberi
 kita fleksibilitas untuk mengembalikan nilai-nilai error yang mungkin berbeda
 typenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
 adalah singkatan dari _dynamic_.
@@ -529,7 +529,7 @@ Kita menambahkan baris `use minigrep::search` untuk membawa fungsi `search`
 dari *crate* library ke dalam *scope* *crate* binary. Kemudian, di dalam fungsi
 `run`, alih-alih mencetak isi file, kita memanggil fungsi `search` dan
 meneruskan nilai `config.query` dan `contents` sebagai argumen. Lalu, `run`
-akan memakai sebuah perulangan `for` untuk mencetak setiap baris yang
+akan memakai sebuah loop `for` untuk mencetak setiap baris yang
 dikembalikan dari `search` yang cocok dengan kueri. Ini juga saat yang tepat
 untuk menghapus pemanggilan `println!` di fungsi `main` yang menampilkan
 kueri dan *path* file, sehingga program kita hanya mencetak hasil pencarian

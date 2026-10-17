@@ -88,7 +88,7 @@ Pesan errornya mengatakan bahwa *module* `hosting` bersifat privat. Dengan kata
 lain, kita memiliki *path* yang benar untuk *module* `hosting` dan fungsi
 `add_to_waitlist`, tetapi Rust tidak mengizinkan kita memakainya karena Rust
 tidak memiliki akses ke bagian-bagian privat tersebut. Di Rust, semua item
-(fungsi, metode, *struct*, *enum*, *module*, dan konstanta) bersifat privat
+(fungsi, metode, *struct*, *enum*, *module*, dan constant) bersifat privat
 terhadap *module* induknya secara default. Jika Anda ingin menjadikan item
 seperti fungsi atau *struct* privat, Anda menempatkannya di dalam sebuah
 *module*.

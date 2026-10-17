@@ -121,7 +121,7 @@ valid dapat mengekspos kode Anda terhadap kerentanan. Inilah alasan utama
 pustaka standar memanggil `panic!` jika Anda mencoba akses memori di luar
 batas: mencoba mengakses memori yang bukan milik struktur data saat ini
 adalah masalah keamanan yang umum. Fungsi sering memiliki _kontrak_:
-perilakunya hanya dijamin jika masukannya memenuhi persyaratan tertentu.
+perilakunya hanya dijamin jika inputnya memenuhi persyaratan tertentu.
 Panic ketika kontrak dilanggar masuk akal karena pelanggaran kontrak selalu
 mengindikasikan bug di sisi pemanggil, dan itu bukan jenis error yang Anda
 ingin kode pemanggilnya tangani secara eksplisit. Kenyataannya, tidak ada
@@ -175,9 +175,9 @@ bahwa angkanya berada dalam jangkauan, seperti ini:
 
 </Listing>
 
-Ekspresi `if` memeriksa apakah nilai kita di luar jangkauan, memberi tahu
+Expression `if` memeriksa apakah nilai kita di luar jangkauan, memberi tahu
 pengguna tentang masalahnya, dan memanggil `continue` untuk memulai iterasi
-perulangan berikutnya dan meminta tebakan lain. Setelah ekspresi `if`, kita
+loop berikutnya dan meminta tebakan lain. Setelah expression `if`, kita
 dapat melanjutkan perbandingan antara `guess` dan angka rahasia dengan
 mengetahui bahwa `guess` berada antara 1 dan 100.
 

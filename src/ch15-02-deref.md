@@ -42,7 +42,7 @@ memakai operator dereferensi untuk mengikuti *reference* itu menuju nilainya.
 
 </Listing>
 
-Variabel `x` menampung nilai `i32`, yaitu `5`. Kita menetapkan `y` sama
+Variable `x` menampung nilai `i32`, yaitu `5`. Kita menetapkan `y` sama
 dengan *reference* ke `x`. Kita dapat menegaskan bahwa `x` sama dengan `5`.
 Namun, jika kita ingin membuat asersi tentang nilai di dalam `y`, kita harus
 memakai `*y` untuk mengikuti *reference* itu menuju nilai yang ditunjuknya

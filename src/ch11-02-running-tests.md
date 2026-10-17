@@ -5,9 +5,9 @@ Sama seperti `cargo run` mengompilasi kode Anda lalu menjalankan binary
 yang dihasilkan, `cargo test` mengompilasi kode Anda dalam mode pengujian
 dan menjalankan binary pengujian yang dihasilkan. Perilaku bawaan binary
 yang dihasilkan `cargo test` adalah menjalankan semua pengujian secara
-paralel dan menangkap keluaran yang dihasilkan selama pengujian berjalan,
-mencegah keluaran itu ditampilkan dan membuatnya lebih mudah untuk membaca
-keluaran yang berkaitan dengan hasil pengujian. Namun, Anda bisa
+paralel dan menangkap output yang dihasilkan selama pengujian berjalan,
+mencegah output itu ditampilkan dan membuatnya lebih mudah untuk membaca
+output yang berkaitan dengan hasil pengujian. Namun, Anda bisa
 menentukan opsi baris perintah untuk mengubah perilaku bawaan ini.
 
 Sebagian opsi baris perintah diteruskan ke `cargo test`, dan sebagian lagi ke
@@ -28,7 +28,7 @@ paralel memakai thread, yang berarti mereka lebih cepat selesai berjalan
 dan Anda lebih cepat mendapat umpan balik. Karena pengujian-pengujian itu
 berjalan pada saat yang sama, Anda harus memastikan pengujian Anda tidak
 bergantung satu sama lain atau pada state bersama mana pun, termasuk
-lingkungan bersama seperti direktori kerja saat ini atau variabel
+lingkungan bersama seperti direktori kerja saat ini atau variable
 lingkungan.
 
 Sebagai contoh, katakanlah setiap pengujian Anda menjalankan beberapa kode
@@ -58,12 +58,12 @@ thread akan memakan waktu lebih lama daripada menjalankannya secara
 paralel, tetapi pengujian-pengujian itu tidak akan saling mengganggu jika
 mereka berbagi state.
 
-### Menampilkan Keluaran Fungsi
+### Menampilkan Output Fungsi
 
 Secara bawaan, jika sebuah pengujian lulus, pustaka pengujian Rust
 menangkap apa pun yang dicetak ke standard output. Sebagai contoh, jika
 kita memanggil `println!` dalam sebuah pengujian dan pengujian itu lulus,
-kita tidak akan melihat keluaran `println!` di terminal; kita hanya akan
+kita tidak akan melihat output `println!` di terminal; kita hanya akan
 melihat baris yang menandakan pengujian itu lulus. Jika sebuah pengujian
 gagal, kita akan melihat apa pun yang dicetak ke standard output bersama
 sisa pesan kegagalannya.
@@ -81,20 +81,20 @@ pengujian yang gagal.
 </Listing>
 
 Ketika kita menjalankan pengujian-pengujian ini dengan `cargo test`, kita
-akan melihat keluaran berikut:
+akan melihat output berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-10/output.txt}}
 ```
 
-Perhatikan bahwa di keluaran ini tidak ada tempat kita melihat `I got the
-value 4`, yang dicetak ketika pengujian yang lulus dijalankan. Keluaran itu
-telah ditangkap. Keluaran dari pengujian yang gagal, `I got the value 8`,
-muncul di bagian keluaran ringkasan pengujian, yang juga menunjukkan
+Perhatikan bahwa di output ini tidak ada tempat kita melihat `I got the
+value 4`, yang dicetak ketika pengujian yang lulus dijalankan. Output itu
+telah ditangkap. Output dari pengujian yang gagal, `I got the value 8`,
+muncul di bagian output ringkasan pengujian, yang juga menunjukkan
 penyebab kegagalan pengujian.
 
 Jika kita ingin melihat nilai yang dicetak untuk pengujian yang lulus juga,
-kita bisa memberi tahu Rust untuk menampilkan juga keluaran pengujian yang
+kita bisa memberi tahu Rust untuk menampilkan juga output pengujian yang
 berhasil dengan `--show-output`:
 
 ```console
@@ -102,7 +102,7 @@ $ cargo test -- --show-output
 ```
 
 Ketika kita menjalankan lagi pengujian di Listing 11-10 dengan flag
-`--show-output`, kita melihat keluaran berikut:
+`--show-output`, kita melihat output berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-01-show-output/output.txt}}
@@ -146,7 +146,7 @@ menjalankan pengujian itu saja:
 ```
 
 Hanya pengujian dengan nama `one_hundred` yang berjalan; dua pengujian
-lainnya tidak cocok dengan nama itu. Keluaran pengujian memberi tahu kita
+lainnya tidak cocok dengan nama itu. Output pengujian memberi tahu kita
 bahwa ada pengujian lain yang tidak dijalankan dengan menampilkan `2
 filtered out` di bagian akhir.
 

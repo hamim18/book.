@@ -90,7 +90,7 @@ jalankan untuk melihat bahwa pengujian ini lulus.
 Perintah `cargo test` menjalankan semua pengujian dalam proyek kita,
 seperti yang ditunjukkan di Listing 11-2.
 
-<Listing number="11-2" caption="Keluaran dari menjalankan pengujian yang dibuat otomatis">
+<Listing number="11-2" caption="Output dari menjalankan pengujian yang dibuat otomatis">
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-01/output.txt}}
@@ -122,14 +122,14 @@ Test benchmark, hingga tulisan ini dibuat, hanya tersedia di Rust nightly.
 Lihat [dokumentasi tentang test benchmark][bench] untuk mempelajari lebih
 lanjut.
 
-Bagian keluaran pengujian berikutnya, yang dimulai dari `Doc-tests adder`,
+Bagian output pengujian berikutnya, yang dimulai dari `Doc-tests adder`,
 adalah untuk hasil dari *documentation test* (test dokumentasi) mana pun.
 Kita belum memiliki *documentation test* apa pun, tetapi Rust bisa
 mengompilasi contoh kode mana pun yang muncul di dokumentasi API kita.
 Fitur ini membantu menjaga dokumen dan kode Anda tetap sinkron! Kita akan
 membahas cara menulis *documentation test* di bagian [“Komentar Dokumentasi
 sebagai Pengujian”][doc-comments]<!-- ignore --> pada Bab 14. Untuk saat
-ini, kita akan mengabaikan keluaran `Doc-tests`.
+ini, kita akan mengabaikan output `Doc-tests`.
 
 Mari kita mulai menyesuaikan pengujian itu dengan kebutuhan kita sendiri.
 Pertama, ubah nama fungsi `it_works` menjadi nama yang berbeda, misalnya
@@ -188,7 +188,7 @@ pertama menampilkan alasan detail dari setiap kegagalan pengujian. Dalam
 kasus ini, kita mendapatkan detail bahwa `tests::another` gagal karena ia
 panic dengan pesan `Make this test fail` pada baris 17 di file _src/lib.rs_.
 Bagian berikutnya mendaftarkan nama semua pengujian yang gagal, yang
-berguna ketika ada banyak pengujian dan banyak keluaran detail pengujian
+berguna ketika ada banyak pengujian dan banyak output detail pengujian
 yang gagal. Kita bisa memakai nama pengujian yang gagal untuk menjalankan
 pengujian itu saja supaya lebih mudah men-debug-nya; kita akan membahas
 lebih lanjut cara-cara menjalankan pengujian di bagian [“Mengontrol Cara
@@ -255,7 +255,7 @@ modul `tests` ini.
 Kita telah menamai pengujian kita `larger_can_hold_smaller`, dan kita telah
 membuat dua instance `Rectangle` yang kita perlukan. Kemudian, kita
 memanggil *macro* `assert!` dan meneruskan kepadanya hasil pemanggilan
-`larger.can_hold(&smaller)`. Ekspresi ini seharusnya mengembalikan `true`,
+`larger.can_hold(&smaller)`. Expression ini seharusnya mengembalikan `true`,
 jadi pengujian kita seharusnya lulus. Mari kita cari tahu!
 
 ```console
@@ -310,14 +310,14 @@ mengembalikan `false`: 8 tidak lebih kecil dari 5.
 Cara umum untuk memverifikasi fungsionalitas adalah menguji kesamaan antara
 hasil kode yang sedang diuji dan nilai yang Anda harapkan dikembalikan kode
 itu. Anda bisa melakukannya dengan memakai *macro* `assert!` dan meneruskan
-kepadanya ekspresi yang memakai operator `==`. Namun, ini adalah pengujian
+kepadanya expression yang memakai operator `==`. Namun, ini adalah pengujian
 yang begitu umum sehingga pustaka standar menyediakan sepasang
 *macro*—`assert_eq!` dan `assert_ne!`—untuk melakukan pengujian ini dengan
 lebih nyaman. *Macro*-macro ini masing-masing membandingkan kesamaan atau
 ketidaksamaan dua argumen. Mereka juga akan mencetak kedua nilai itu jika
 asersinya gagal, yang memudahkan kita melihat _alasan_ pengujian gagal;
 sebaliknya, *macro* `assert!` hanya menandakan bahwa ia mendapatkan nilai
-`false` untuk ekspresi `==`, tanpa mencetak nilai-nilai yang menyebabkan
+`false` untuk expression `==`, tanpa mencetak nilai-nilai yang menyebabkan
 nilai `false` itu.
 
 Di Listing 11-7, kita menulis fungsi bernama `add_two` yang menambahkan `2`
@@ -337,9 +337,9 @@ Mari kita periksa bahwa ia lulus!
 {{#include ../listings/ch11-writing-automated-tests/listing-11-07/output.txt}}
 ```
 
-Kita membuat variabel bernama `result` yang menampung hasil pemanggilan
+Kita membuat variable bernama `result` yang menampung hasil pemanggilan
 `add_two(2)`. Lalu, kita meneruskan `result` dan `4` sebagai argumen ke
-*macro* `assert_eq!`. Baris keluaran untuk pengujian ini adalah `test
+*macro* `assert_eq!`. Baris output untuk pengujian ini adalah `test
 tests::it_adds_two ... ok`, dan teks `ok` menandakan bahwa pengujian kita
 lulus!
 
@@ -377,10 +377,10 @@ yang sama yang menampilkan `` assertion `left == right` failed ``.
 dan akan gagal jika keduanya sama. *Macro* ini paling berguna untuk kasus
 ketika kita tidak yakin nilai apa yang _akan_ dihasilkan, tetapi kita tahu
 nilai apa yang pasti _tidak seharusnya_ dihasilkan. Sebagai contoh, jika
-kita menguji fungsi yang dijamin mengubah masukannya dengan cara tertentu,
-tetapi cara masukannya diubah bergantung pada hari dalam seminggu saat kita
+kita menguji fungsi yang dijamin mengubah inputnya dengan cara tertentu,
+tetapi cara inputnya diubah bergantung pada hari dalam seminggu saat kita
 menjalankan pengujian, hal terbaik untuk ditegaskan mungkin adalah bahwa
-keluaran fungsinya tidak sama dengan masukannya.
+output fungsinya tidak sama dengan inputnya.
 
 Di balik layar, *macro* `assert_eq!` dan `assert_ne!` masing-masing memakai
 operator `==` dan `!=`. Ketika asersinya gagal, *macro*-macro ini mencetak
@@ -412,7 +412,7 @@ masalahnya dengan kode itu.
 
 Sebagai contoh, katakanlah kita memiliki fungsi yang menyapa orang
 berdasarkan nama dan kita ingin menguji bahwa nama yang kita teruskan ke
-fungsi itu muncul di keluarannya:
+fungsi itu muncul di outputnya:
 
 <span class="filename">Nama File: src/lib.rs</span>
 
@@ -424,8 +424,8 @@ Persyaratan untuk program ini belum disepakati, dan kita cukup yakin bahwa
 teks `Hello` di awal sapaan akan berubah. Kita memutuskan untuk tidak perlu
 memperbarui pengujian ketika persyaratannya berubah, jadi alih-alih
 memeriksa kesamaan persis dengan nilai yang dikembalikan fungsi `greeting`,
-kita hanya menegaskan bahwa keluarannya mengandung teks parameter
-masukannya.
+kita hanya menegaskan bahwa outputnya mengandung teks parameter
+inputnya.
 
 Sekarang mari kita masukkan bug ke dalam kode ini dengan mengubah
 `greeting` agar tidak menyertakan `name` untuk melihat seperti apa kegagalan
@@ -458,13 +458,13 @@ error yang lebih informatif:
 {{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
 ```
 
-Kita bisa melihat nilai yang sebenarnya kita dapatkan di keluaran
+Kita bisa melihat nilai yang sebenarnya kita dapatkan di output
 pengujian, yang akan membantu kita men-debug apa yang terjadi alih-alih apa
 yang kita harapkan terjadi.
 
 ### Memeriksa Panic dengan `should_panic`
 
-Selain memeriksa nilai kembalian, penting untuk memeriksa bahwa kode kita
+Selain memeriksa return value, penting untuk memeriksa bahwa kode kita
 menangani kondisi error seperti yang kita harapkan. Sebagai contoh,
 perhatikan type `Guess` yang kita buat di Bab 9, Listing 9-13. Kode lain
 yang memakai `Guess` bergantung pada jaminan bahwa instance `Guess` hanya

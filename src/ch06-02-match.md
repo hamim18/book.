@@ -5,16 +5,16 @@
 <a id="the-match-control-flow-construct"></a>
 ## Konstruk Alur Kontrol `match`
 
-Rust memiliki konstruk alur kontrol yang sangat tangguh bernama `match` yang
+Rust memiliki konstruk control flow yang sangat tangguh bernama `match` yang
 memungkinkan Anda membandingkan sebuah nilai dengan serangkaian pola, lalu
 mengeksekusi kode berdasarkan pola mana yang cocok. Pola dapat tersusun dari
-nilai literal, nama variabel, wildcard, dan banyak hal lain; [Bab
+nilai literal, nama variable, wildcard, dan banyak hal lain; [Bab
 19][ch19-00-patterns]<!-- ignore --> membahas semua jenis pola yang berbeda
 dan apa yang dilakukannya. Kekuatan `match` berasal dari ekspresivitas polanya
 dan fakta bahwa *compiler* (kompilator) memastikan semua kasus yang mungkin
 tertangani.
 
-Bayangkan ekspresi `match` seperti mesin penyortir koin: koin-koin meluncur
+Bayangkan expression `match` seperti mesin penyortir koin: koin-koin meluncur
 menuruni lintasan yang memiliki lubang-lubang dengan berbagai ukuran, dan
 setiap koin jatuh melalui lubang pertama yang ditemuinya yang pas untuk ukurannya.
 Dengan cara yang sama, nilai melewati setiap pola dalam `match`, dan pada pola
@@ -26,7 +26,7 @@ Kita dapat menulis sebuah fungsi yang menerima koin AS yang tidak diketahui
 dan, dengan cara yang mirip mesin penghitung, menentukan koin apa itu dan
 mengembalikan nilainya dalam sen, seperti yang ditunjukkan pada Listing 6-3.
 
-<Listing number="6-3" caption="Sebuah enum dan ekspresi `match` yang memakai varian-varian enum sebagai polanya">
+<Listing number="6-3" caption="Sebuah enum dan expression `match` yang memakai varian-varian enum sebagai polanya">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
@@ -35,8 +35,8 @@ mengembalikan nilainya dalam sen, seperti yang ditunjukkan pada Listing 6-3.
 </Listing>
 
 Mari kita bedah `match` pada fungsi `value_in_cents`. Pertama, kita menuliskan
-keyword `match` yang diikuti sebuah ekspresi, yang pada kasus ini adalah nilai
-`coin`. Ini tampak sangat mirip dengan ekspresi kondisional yang dipakai
+keyword `match` yang diikuti sebuah expression, yang pada kasus ini adalah nilai
+`coin`. Ini tampak sangat mirip dengan expression kondisional yang dipakai
 bersama `if`, tetapi ada perbedaan besar: pada `if`, kondisinya harus
 mengevaluasi menjadi nilai Boolean, sedangkan di sini ia dapat typed apa
 pun. Type `coin` pada contoh ini adalah *enum* `Coin` yang kita definisikan di
@@ -48,15 +48,15 @@ bagian: pola dan kode. Arm pertama di sini memiliki pola berupa nilai
 dijalankan. Kode pada kasus ini hanyalah nilai `1`. Setiap *arm* dipisahkan dari
 *arm* berikutnya dengan koma.
 
-Ketika ekspresi `match` dieksekusi, ia membandingkan nilai hasilnya dengan
+Ketika expression `match` dieksekusi, ia membandingkan nilai hasilnya dengan
 pola setiap *arm*, secara berurutan. Jika sebuah pola cocok dengan nilainya,
 kode yang terkait dengan pola itu dieksekusi. Jika pola itu tidak cocok dengan
 nilainya, eksekusi berlanjut ke *arm* berikutnya, mirip seperti mesin penyortir
 koin. Kita dapat memiliki *arm* sebanyak yang kita butuhkan: pada Listing 6-3,
 `match` kita memiliki empat *arm*.
 
-Kode yang terkait dengan setiap *arm* adalah ekspresi, dan nilai hasil ekspresi
-pada *arm* yang cocok adalah nilai yang dikembalikan untuk keseluruhan ekspresi
+Kode yang terkait dengan setiap *arm* adalah expression, dan nilai hasil expression
+pada *arm* yang cocok adalah nilai yang dikembalikan untuk keseluruhan expression
 `match`.
 
 Biasanya kita tidak memakai kurung kurawal jika kode *arm* match pendek, seperti
@@ -101,9 +101,9 @@ juga akan menyebutkan nama negara bagian yang terkait dengan setiap quarter
 sehingga jika itu salah satu yang belum dimiliki teman kita, ia dapat
 menambahkannya ke koleksinya.
 
-Pada ekspresi match untuk kode ini, kita menambahkan variabel bernama `state`
+Pada expression match untuk kode ini, kita menambahkan variable bernama `state`
 ke pola yang mencocokkan nilai *variant* `Coin::Quarter`. Ketika
-`Coin::Quarter` cocok, variabel `state` akan mengikat nilai negara bagian
+`Coin::Quarter` cocok, variable `state` akan mengikat nilai negara bagian
 quarter tersebut. Lalu, kita dapat memakai `state` di kode untuk *arm* itu,
 seperti ini:
 
@@ -115,7 +115,7 @@ Jika kita memanggil `value_in_cents(Coin::Quarter(UsState::Alaska))`, `coin`
 akan menjadi `Coin::Quarter(UsState::Alaska)`. Ketika kita membandingkan nilai
 itu dengan setiap *arm* match, tidak ada yang cocok sampai kita mencapai
 `Coin::Quarter(state)`. Pada titik itu, ikatan untuk `state` adalah nilai
-`UsState::Alaska`. Kita kemudian dapat memakai ikatan itu dalam ekspresi
+`UsState::Alaska`. Kita kemudian dapat memakai ikatan itu dalam expression
 `println!`, sehingga mengeluarkan nilai negara bagian dari dalam
 *variant* *enum* `Coin` untuk `Quarter`.
 
@@ -130,7 +130,7 @@ Pada bagian sebelumnya, kita ingin mengeluarkan nilai `T` di dalamnya dari
 kasus `Some` ketika memakai `Option<T>`; kita juga dapat menangani `Option<T>`
 dengan `match`, seperti yang kita lakukan pada *enum* `Coin`! Alih-alih
 membandingkan koin, kita akan membandingkan *variant*-*variant* `Option<T>`,
-tetapi cara kerja ekspresi `match` tetap sama.
+tetapi cara kerja expression `match` tetap sama.
 
 Katakanlah kita ingin menulis fungsi yang menerima `Option<i32>` dan, jika ada
 nilai di dalamnya, menambahkan 1 ke nilai itu. Jika tidak ada nilai di
@@ -140,7 +140,7 @@ melakukan operasi apa pun.
 Fungsi ini sangat mudah ditulis berkat `match`, dan akan tampak seperti
 Listing 6-5.
 
-<Listing number="6-5" caption="Fungsi yang memakai ekspresi `match` pada `Option<i32>`">
+<Listing number="6-5" caption="Fungsi yang memakai expression `match` pada `Option<i32>`">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:here}}
@@ -149,7 +149,7 @@ Listing 6-5.
 </Listing>
 
 Mari kita telaah eksekusi pertama `plus_one` secara lebih mendetail. Ketika
-kita memanggil `plus_one(five)`, variabel `x` di badan `plus_one` akan
+kita memanggil `plus_one(five)`, variable `x` di badan `plus_one` akan
 memiliki nilai `Some(5)`. Kita lalu membandingkannya dengan setiap *arm* match:
 
 ```rust,ignore
@@ -181,7 +181,7 @@ mengembalikan nilai `None` di sisi kanan `=>`. Karena *arm* pertama cocok, tidak
 ada *arm* lain yang dibandingkan.
 
 Menggabungkan `match` dan *enum* berguna dalam banyak situasi. Anda akan sering
-melihat pola ini di kode Rust: `match` terhadap sebuah *enum*, mengikat variabel
+melihat pola ini di kode Rust: `match` terhadap sebuah *enum*, mengikat variable
 ke data di dalamnya, lalu mengeksekusi kode berdasarkan itu. Pada awalnya agak
 rumit, tetapi begitu Anda terbiasa, Anda akan berharap fitur ini ada di semua
 bahasa. Fitur ini selalu menjadi favorit pengguna.
@@ -230,9 +230,9 @@ mengimplementasikannya sungguhan berada di luar cakupan contoh ini:
 ```
 
 Untuk dua *arm* pertama, polanya adalah nilai literal `3` dan `7`. Untuk *arm*
-terakhir yang mencakup semua nilai lain yang mungkin, polanya adalah variabel
+terakhir yang mencakup semua nilai lain yang mungkin, polanya adalah variable
 yang kita pilih namai `other`. Kode yang berjalan untuk *arm* `other` memakai
-variabel itu dengan meneruskannya ke fungsi `move_player`.
+variable itu dengan meneruskannya ke fungsi `move_player`.
 
 Kode ini terkompilasi, meskipun kita belum mendaftarkan semua nilai yang
 mungkin dimiliki `u8`, karena pola terakhir akan mencocokkan semua nilai yang
@@ -247,12 +247,12 @@ Rust juga memiliki pola yang dapat kita pakai ketika kita menginginkan
 catch-all tetapi tidak ingin _memakai_ nilai pada pola catch-all itu: `_`
 adalah pola khusus yang mencocokkan nilai apa pun dan tidak mengikat nilai
 itu. Ini memberi tahu Rust bahwa kita tidak akan memakai nilainya, jadi Rust
-tidak akan memperingatkan kita tentang variabel yang tidak terpakai.
+tidak akan memperingatkan kita tentang variable yang tidak terpakai.
 
 Mari kita ubah aturan permainannya: sekarang, jika Anda melempar selain 3
 atau 7, Anda harus melempar lagi. Kita tidak lagi perlu memakai nilai
 catch-all, jadi kita dapat mengubah kode kita untuk memakai `_` alih-alih
-variabel bernama `other`:
+variable bernama `other`:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-16-underscore-catchall/src/main.rs:here}}
@@ -279,7 +279,7 @@ tidak ingin menjalankan kode apa pun pada kasus ini.
 Masih ada lagi tentang pola dan pencocokan yang akan kita bahas di
 [Bab 19][ch19-00-patterns]<!-- ignore -->. Untuk sekarang, kita akan
 melanjutkan ke sintaks `if let`, yang dapat berguna pada situasi ketika
-ekspresi `match` agak bertele-tele.
+expression `match` agak bertele-tele.
 
 [tuples]: ch03-02-data-types.html#the-tuple-type
 [ch19-00-patterns]: ch19-00-patterns.html

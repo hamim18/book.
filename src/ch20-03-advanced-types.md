@@ -191,7 +191,7 @@ Artinya, saat Rust menghitung type `guess`, ia melihat kedua arm match, yang
 pertama dengan nilai `u32` dan yang kedua dengan nilai `!`. Karena `!` tidak
 akan pernah memiliki nilai, Rust memutuskan bahwa type `guess` adalah `u32`.
 
-Cara formal untuk menggambarkan perilaku ini adalah bahwa ekspresi typed
+Cara formal untuk menggambarkan perilaku ini adalah bahwa expression typed
 `!` bisa dikoersi menjadi type lain mana pun. Kita diizinkan mengakhiri arm
 `match` ini dengan `continue` karena `continue` tidak mengembalikan nilai;
 sebaliknya, ia memindahkan kontrol kembali ke bagian atas loop, sehingga pada
@@ -207,17 +207,17 @@ atau memicu panic, dengan definisi berikut:
 
 Pada kode ini, hal yang sama terjadi seperti pada `match` di Listing 20-27:
 Rust melihat bahwa `val` typed `T` dan `panic!` typed `!`, sehingga hasil
-keseluruhan ekspresi `match` adalah `T`. Kode ini bekerja karena `panic!`
+keseluruhan expression `match` adalah `T`. Kode ini bekerja karena `panic!`
 tidak menghasilkan nilai; ia mengakhiri program. Pada kasus `None`, kita
 tidak akan mengembalikan nilai dari `unwrap`, jadi kode ini valid.
 
-Ekspresi terakhir yang typed `!` adalah loop:
+Expression terakhir yang typed `!` adalah loop:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-10-loop-returns-never/src/main.rs:here}}
 ```
 
-Di sini, loop-nya tidak pernah berakhir, jadi `!` adalah nilai dari ekspresi
+Di sini, loop-nya tidak pernah berakhir, jadi `!` adalah nilai dari expression
 itu. Akan tetapi, hal ini tidak akan berlaku jika kita menyertakan `break`,
 karena loop itu akan berakhir saat ia mencapai `break`.
 
@@ -236,7 +236,7 @@ Mari kita gali detail type berukuran dinamis yang disebut `str`, yang sudah
 kita pakai di sepanjang buku ini. Benar, bukan `&str`, melainkan `str` itu
 sendiri, adalah sebuah DST. Dalam banyak kasus, seperti saat menyimpan teks
 yang dimasukkan pengguna, kita tidak bisa tahu berapa panjang string itu
-sampai runtime. Itu berarti kita tidak bisa membuat variabel typed `str`,
+sampai runtime. Itu berarti kita tidak bisa membuat variable typed `str`,
 dan kita juga tidak bisa menerima argumen typed `str`. Perhatikan kode
 berikut, yang tidak akan bekerja:
 
@@ -249,7 +249,7 @@ pun dari type tertentu, dan semua nilai dari sebuah type harus memakai jumlah
 memori yang sama. Jika Rust mengizinkan kita menulis kode ini, kedua nilai
 `str` ini harus menempati jumlah ruang yang sama. Tetapi panjang keduanya
 berbeda: `s1` butuh 12 byte penyimpanan dan `s2` butuh 15. Inilah sebabnya
-tidak mungkin membuat variabel yang menyimpan type berukuran dinamis.
+tidak mungkin membuat variable yang menyimpan type berukuran dinamis.
 
 Jadi, apa yang kita lakukan? Dalam kasus ini, Anda sudah tahu jawabannya:
 Kita membuat type `s1` dan `s2` menjadi string *slice* (`&str`), bukan `str`.

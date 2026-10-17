@@ -42,7 +42,7 @@ untuk:
 
 1. Melakukan dereferensi terhadap sebuah *raw pointer*.
 1. Memanggil fungsi atau metode *unsafe*.
-1. Mengakses atau mengubah variabel static yang *mutable*.
+1. Mengakses atau mengubah variable static yang *mutable*.
 1. Mengimplementasikan *trait* yang *unsafe*.
 1. Mengakses *field* dari `union`.
 
@@ -122,7 +122,7 @@ lihat sebentar lagi.
 Kita telah membuat *raw pointer* dengan memakai operator borrow mentah:
 `&raw const num` membuat *raw pointer* *immutable* `*const i32`, dan `&raw mut
 num` membuat raw pointer mutable `*mut i32`. Karena kita membuatnya langsung
-dari sebuah variabel lokal, kita tahu raw pointer khusus ini valid, tetapi
+dari sebuah variable lokal, kita tahu raw pointer khusus ini valid, tetapi
 kita tidak bisa membuat asumsi itu terhadap sembarang raw pointer.
 
 Untuk menunjukkan hal ini, berikutnya kita akan membuat sebuah raw pointer
@@ -292,7 +292,7 @@ Ingat kembali dari seksi [“Type Slice”][the-slice-type]<!-- ignore --> di Ba
 memakai metode `len` untuk mendapatkan panjang sebuah *slice* dan metode
 `as_mut_ptr` untuk mengakses *raw pointer* dari sebuah *slice*. Dalam kasus ini,
 karena kita memiliki *slice* *mutable* ke nilai `i32`, `as_mut_ptr` mengembalikan
-*raw pointer* dengan type `*mut i32`, yang kita simpan di variabel `ptr`.
+*raw pointer* dengan type `*mut i32`, yang kita simpan di variable `ptr`.
 
 Kita mempertahankan asersi bahwa indeks `mid` berada di dalam *slice*. Lalu,
 kita sampai pada kode *unsafe*-nya: Fungsi `slice::from_raw_parts_mut`
@@ -424,17 +424,17 @@ pub extern "C" fn call_from_c() {
 Pemakaian `extern` ini memerlukan `unsafe` hanya pada atributnya, bukan pada
 blok `extern`.
 
-### Mengakses atau Mengubah Variabel Static yang Mutable
+### Mengakses atau Mengubah Variable Static yang Mutable
 
-Di buku ini, kita belum membicarakan variabel global, yang memang didukung
+Di buku ini, kita belum membicarakan variable global, yang memang didukung
 Rust tetapi bisa bermasalah dengan aturan *ownership* Rust. Jika dua thread
-mengakses variabel global *mutable* yang sama, itu bisa menimbulkan data race.
+mengakses variable global *mutable* yang sama, itu bisa menimbulkan data race.
 
-Di Rust, variabel global disebut variabel *static*. Listing 20-10 menunjukkan
-contoh deklarasi dan pemakaian variabel static dengan string *slice* sebagai
+Di Rust, variable global disebut variable *static*. Listing 20-10 menunjukkan
+contoh deklarasi dan pemakaian variable static dengan string *slice* sebagai
 nilainya.
 
-<Listing number="20-10" file-name="src/main.rs" caption="Mendefinisikan dan memakai variabel static yang immutable">
+<Listing number="20-10" file-name="src/main.rs" caption="Mendefinisikan dan memakai variable static yang immutable">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-10/src/main.rs}}
@@ -442,24 +442,24 @@ nilainya.
 
 </Listing>
 
-Variabel static mirip dengan konstanta, yang kita bahas di seksi
-[“Mendeklarasikan Konstanta”][constants]<!-- ignore --> di Bab 3. Nama
-variabel static memakai `SCREAMING_SNAKE_CASE` berdasarkan konvensi. Variabel
+Variable static mirip dengan constant, yang kita bahas di seksi
+[“Mendeklarasikan Constant”][constants]<!-- ignore --> di Bab 3. Nama
+variable static memakai `SCREAMING_SNAKE_CASE` berdasarkan konvensi. Variable
 static hanya bisa menyimpan *reference* dengan *lifetime* `'static`, yang berarti
 kompilator Rust bisa menentukan *lifetime*-nya dan kita tidak diharuskan
-menganotasinya secara eksplisit. Mengakses variabel static yang *immutable* itu
+menganotasinya secara eksplisit. Mengakses variable static yang *immutable* itu
 aman.
 
-Perbedaan halus antara konstanta dan variabel static yang *immutable* adalah
-bahwa nilai dalam variabel static memiliki alamat yang tetap di memori.
-Memakai nilainya akan selalu mengakses data yang sama. Sebaliknya, konstanta
+Perbedaan halus antara constant dan variable static yang *immutable* adalah
+bahwa nilai dalam variable static memiliki alamat yang tetap di memori.
+Memakai nilainya akan selalu mengakses data yang sama. Sebaliknya, constant
 diizinkan untuk menduplikasi datanya setiap kali ia dipakai. Perbedaan
-lainnya adalah variabel static bisa dibuat *mutable*. Mengakses dan mengubah
-variabel static yang *mutable* itu *unsafe*. Listing 20-11 menunjukkan cara
-mendeklarasikan, mengakses, dan mengubah variabel static *mutable* bernama
+lainnya adalah variable static bisa dibuat *mutable*. Mengakses dan mengubah
+variable static yang *mutable* itu *unsafe*. Listing 20-11 menunjukkan cara
+mendeklarasikan, mengakses, dan mengubah variable static *mutable* bernama
 `COUNTER`.
 
-<Listing number="20-11" file-name="src/main.rs" caption="Membaca atau menulis variabel static yang mutable itu unsafe.">
+<Listing number="20-11" file-name="src/main.rs" caption="Membaca atau menulis variable static yang mutable itu unsafe.">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-11/src/main.rs}}
@@ -467,7 +467,7 @@ mendeklarasikan, mengakses, dan mengubah variabel static *mutable* bernama
 
 </Listing>
 
-Sama seperti variabel biasa, kita menentukan mutabilitas dengan memakai kata
+Sama seperti variable biasa, kita menentukan mutabilitas dengan memakai kata
 kunci `mut`. Kode apa pun yang membaca atau menulis `COUNTER` harus berada di
 dalam blok `unsafe`. Kode di Listing 20-11 terkompilasi dan mencetak
 `COUNTER: 3` seperti yang kita harapkan karena kode ini single-threaded.
@@ -485,18 +485,18 @@ idiomatis untuk menulis komentar yang diawali dengan `SAFETY` untuk
 menjelaskan bagaimana aturan keamanannya ditegakkan.
 
 Selain itu, secara bawaan kompilator akan menolak percobaan apa pun untuk
-membuat *reference* ke variabel static yang *mutable* melalui sebuah lint
+membuat *reference* ke variable static yang *mutable* melalui sebuah lint
 kompilator. Anda harus memilih untuk tidak memakai perlindungan lint itu
 secara eksplisit dengan menambahkan anotasi `#[allow(static_mut_refs)]`,
-atau mengakses variabel static *mutable* itu melalui *raw pointer* yang dibuat
+atau mengakses variable static *mutable* itu melalui *raw pointer* yang dibuat
 dengan salah satu operator borrow mentah. Itu termasuk kasus ketika *reference*
 dibuat secara tak terlihat, seperti saat ia dipakai di dalam `println!` pada
-listing kode ini. Mengharuskan *reference* ke variabel static *mutable* dibuat
+listing kode ini. Mengharuskan *reference* ke variable static *mutable* dibuat
 melalui *raw pointer* membantu membuat persyaratan keamanan untuk memakainya
 lebih jelas.
 
 Dengan data *mutable* yang dapat diakses secara global, sulit untuk memastikan
-tidak ada data race, dan itulah sebabnya Rust menganggap variabel static yang
+tidak ada data race, dan itulah sebabnya Rust menganggap variable static yang
 *mutable* sebagai *unsafe*. Jika memungkinkan, lebih baik memakai teknik
 konkurensi dan *smart pointer* yang thread-safe yang kita bahas di Bab 16,
 supaya kompilator memeriksa bahwa akses data dari thread yang berbeda

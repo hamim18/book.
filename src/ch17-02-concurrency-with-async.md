@@ -46,10 +46,10 @@ supaya fungsi tingkat atas kita bisa bersifat async.
 > sering melewatkannya sama seperti kita melewatkan `main`. Ingat untuk
 > menyertakannya di kode Anda!
 
-Kemudian kita menulis dua perulangan di dalam blok tersebut, masing-masing
+Kemudian kita menulis dua loop di dalam blok tersebut, masing-masing
 memuat sebuah pemanggilan `trpl::sleep`, yang menunggu selama setengah detik
 (500 milidetik) sebelum mengirim pesan berikutnya. Kita menaruh satu
-perulangan di badan `trpl::spawn_task` dan yang lainnya di perulangan `for`
+loop di badan `trpl::spawn_task` dan yang lainnya di loop `for`
 tingkat atas. Kita juga menambahkan `await` setelah pemanggilan `sleep`.
 
 Kode ini berperilaku mirip dengan implementasi berbasis thread—termasuk
@@ -72,7 +72,7 @@ hi number 4 from the second task!
 hi number 5 from the first task!
 ```
 
-Versi ini berhenti begitu perulangan `for` di badan blok async utama selesai,
+Versi ini berhenti begitu loop `for` di badan blok async utama selesai,
 karena *task* yang dibuat oleh `spawn_task` dimatikan saat fungsi `main`
 berakhir. Jika Anda ingin *task* itu berjalan sampai tuntas, Anda perlu memakai
 join handle untuk menunggu *task* pertama selesai. Dengan thread, kita memakai
@@ -89,7 +89,7 @@ jadi kita juga melakukan unwrap padanya setelah menunggunya.
 
 </Listing>
 
-Versi yang diperbarui ini berjalan sampai _kedua_ perulangan selesai:
+Versi yang diperbarui ini berjalan sampai _kedua_ loop selesai:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -118,7 +118,7 @@ join handle, dan menunggu pemanggilan `sleep`.
 Perbedaan yang lebih besar adalah kita tidak perlu membuat thread sistem
 operasi lain untuk melakukan ini. Bahkan, di sini kita tidak perlu membuat
 *task* sama sekali. Karena blok async terkompilasi menjadi *future* anonim, kita
-bisa menaruh setiap perulangan di blok async dan meminta runtime menjalankan
+bisa menaruh setiap loop di blok async dan meminta runtime menjalankan
 keduanya sampai tuntas menggunakan fungsi `trpl::join`.
 
 Di bagian [“Menunggu Semua Thread Selesai”][join-handles]<!-- ignore --> di
@@ -179,10 +179,10 @@ menginginkan fairness atau tidak.
 
 Cobalah beberapa variasi penungguan *future* berikut ini dan lihat hasilnya:
 
-- Hapus blok async di sekeliling salah satu atau kedua perulangan.
+- Hapus blok async di sekeliling salah satu atau kedua loop.
 - Tunggu setiap blok async segera setelah mendefinisikannya.
-- Bungkus hanya perulangan pertama dalam blok async, dan tunggu *future* yang
-  dihasilkan setelah badan perulangan kedua.
+- Bungkus hanya loop pertama dalam blok async, dan tunggu *future* yang
+  dihasilkan setelah badan loop kedua.
 
 Sebagai tantangan tambahan, lihat apakah Anda bisa menebak output pada setiap
 kasus _sebelum_ menjalankan kodenya!
@@ -259,13 +259,13 @@ manual dengan memanggil `rx.recv().await` empat kali. Namun, di dunia nyata,
 kita umumnya menunggu sejumlah pesan yang _tidak diketahui_, jadi kita perlu
 terus menunggu sampai kita menentukan bahwa tidak ada pesan lagi.
 
-Di Listing 16-10, kita memakai perulangan `for` untuk memproses semua item
+Di Listing 16-10, kita memakai loop `for` untuk memproses semua item
 yang diterima dari *channel* sinkron. Namun, Rust belum punya cara untuk memakai
-perulangan `for` dengan serangkaian item yang _dihasilkan secara asinkron_,
-jadi kita perlu memakai perulangan yang belum pernah kita lihat: perulangan
-kondisional `while let`. Ini adalah versi perulangan dari konstruksi `if let`
+loop `for` dengan serangkaian item yang _dihasilkan secara asinkron_,
+jadi kita perlu memakai loop yang belum pernah kita lihat: loop
+kondisional `while let`. Ini adalah versi loop dari konstruksi `if let`
 yang kita lihat di bagian [“Alur Kontrol yang Ringkas dengan `if let` dan
-`let...else`”][if-let]<!-- ignore --> di Bab 6. Perulangan ini akan terus
+`let...else`”][if-let]<!-- ignore --> di Bab 6. Loop ini akan terus
 berjalan selama pola yang ditentukannya terus cocok dengan nilainya.
 
 Pemanggilan `rx.recv` menghasilkan sebuah *future*, yang kita tunggu. Runtime
@@ -275,11 +275,11 @@ akan menghasilkan `Some(message)` sebanyak jumlah pesan yang tiba. Ketika
 akan menghasilkan `None` untuk menandakan bahwa tidak ada nilai lagi sehingga
 kita harus berhenti melakukan polling—artinya, berhenti menunggu.
 
-Perulangan `while let` merangkum semua ini. Jika hasil pemanggilan
+Loop `while let` merangkum semua ini. Jika hasil pemanggilan
 `rx.recv().await` adalah `Some(message)`, kita mendapat akses ke pesan
-tersebut dan bisa memakainya di badan perulangan, sama seperti yang bisa kita
-lakukan dengan `if let`. Jika hasilnya `None`, perulangan berakhir. Setiap
-kali perulangan selesai, ia kembali mencapai await point, sehingga runtime
+tersebut dan bisa memakainya di badan loop, sama seperti yang bisa kita
+lakukan dengan `if let`. Jika hasilnya `None`, loop berakhir. Setiap
+kali loop selesai, ia kembali mencapai await point, sehingga runtime
 menjedanya lagi sampai pesan lain tiba.
 
 Sekarang kode ini berhasil mengirim dan menerima semua pesan. Sayangnya,
@@ -299,7 +299,7 @@ kode juga merupakan urutan eksekusinya saat program berjalan.
 Hanya ada satu blok async di Listing 17-10, jadi semua yang ada di dalamnya
 berjalan secara linear. Masih belum ada konkurensi. Semua pemanggilan
 `tx.send` terjadi, diselingi semua pemanggilan `trpl::sleep` dan await point
-terkaitnya. Baru setelah itu perulangan `while let` sempat melewati
+terkaitnya. Baru setelah itu loop `while let` sempat melewati
 await point mana pun pada pemanggilan `recv`.
 
 Untuk mendapatkan perilaku yang kita inginkan, yaitu penundaan tidur terjadi
@@ -326,15 +326,15 @@ selang 500 milidetik, alih-alih berhamburan sekaligus setelah 2 detik.
 
 #### Memindahkan Ownership ke dalam Blok Async
 
-Namun, program ini masih tidak pernah keluar, karena cara perulangan `while
+Namun, program ini masih tidak pernah keluar, karena cara loop `while
 let` berinteraksi dengan `trpl::join`:
 
 - *Future* yang dikembalikan `trpl::join` hanya selesai ketika _kedua_ *future*
   yang diteruskan padanya telah selesai.
 - *Future* `tx_fut` selesai begitu ia selesai tidur setelah mengirim pesan
   terakhir di `vals`.
-- *Future* `rx_fut` tidak akan selesai sampai perulangan `while let` berakhir.
-- Perulangan `while let` tidak akan berakhir sampai menunggu `rx.recv`
+- *Future* `rx_fut` tidak akan selesai sampai loop `while let` berakhir.
+- Loop `while let` tidak akan berakhir sampai menunggu `rx.recv`
   menghasilkan `None`.
 - Menunggu `rx.recv` akan mengembalikan `None` hanya ketika ujung lain
   *channel* ditutup.
@@ -396,7 +396,7 @@ ditaruh sebelumnya. Kuncinya adalah urutan *future* di-tunggu, bukan urutan
 
 Kedua blok async untuk mengirim pesan harus menjadi blok `async move` supaya
 `tx` dan `tx1` di-drop saat blok-blok itu selesai. Jika tidak, kita akan
-kembali berakhir di perulangan tak berujung yang sama dengan saat kita mulai.
+kembali berakhir di infinite loop yang sama dengan saat kita mulai.
 
 Terakhir, kita beralih dari `trpl::join` ke `trpl::join!` untuk menangani
 *future* tambahan: *macro* `join!` menunggu sejumlah *future* sembarang yang

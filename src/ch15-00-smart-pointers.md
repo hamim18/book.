@@ -1,6 +1,6 @@
 # Smart Pointers
 
-*Pointer* adalah konsep umum untuk variabel yang memuat sebuah alamat di memori.
+*Pointer* adalah konsep umum untuk variable yang memuat sebuah alamat di memori.
 Alamat ini merujuk ke, atau "menunjuk ke," sejumlah data lain. Jenis *pointer*
 yang paling umum di Rust adalah *reference*, yang telah Anda pelajari di Bab 4.
 *Reference* ditandai dengan simbol `&` dan meminjam nilai yang ditunjuknya.

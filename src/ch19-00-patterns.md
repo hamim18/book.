@@ -1,13 +1,13 @@
 # Pola dan Pencocokan
 
 Pola adalah sintaks khusus di Rust untuk mencocokkan struktur type, baik yang
-kompleks maupun yang sederhana. Memakai pola bersamaan dengan ekspresi
+kompleks maupun yang sederhana. Memakai pola bersamaan dengan expression
 `match` dan konstruksi lain memberi Anda kontrol yang lebih besar atas alur
 kontrol program. Sebuah pola terdiri dari kombinasi hal-hal berikut:
 
 - Literal
 - Array, *enum*, *struct*, atau *tuple* yang didestrukturisasi
-- Variabel
+- Variable
 - Wildcard
 - Placeholder
 
@@ -19,7 +19,7 @@ potongan kode tertentu.
 
 Untuk memakai sebuah pola, kita membandingkannya dengan suatu nilai. Jika
 pola itu cocok dengan nilainya, kita memakai bagian-bagian nilai itu di kode
-kita. Ingat kembali ekspresi `match` di Bab 6 yang memakai pola, seperti
+kita. Ingat kembali expression `match` di Bab 6 yang memakai pola, seperti
 contoh mesin penyortir koin. Jika nilai itu sesuai dengan bentuk polanya,
 kita bisa memakai bagian-bagian yang diberi nama. Jika tidak, kode yang
 dikaitkan dengan pola itu tidak akan berjalan.

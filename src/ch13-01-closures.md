@@ -5,7 +5,7 @@
 
 ## Closure
 
-*Closure* di Rust adalah fungsi anonim yang dapat Anda simpan di sebuah variabel
+*Closure* di Rust adalah fungsi anonim yang dapat Anda simpan di sebuah variable
 atau teruskan sebagai argumen ke fungsi lain. Anda dapat membuat *closure* di
 satu tempat lalu memanggil *closure* itu di tempat lain untuk mengevaluasinya di
 dalam konteks yang berbeda. Tidak seperti fungsi, *closure* dapat menangkap
@@ -69,7 +69,7 @@ ini `ShirtColor`). Jika `Option<T>`-nya berupa *variant* `Some`,
 berupa *variant* `None`, `unwrap_or_else` memanggil *closure* itu dan
 mengembalikan nilai yang dikembalikan oleh *closure* tersebut.
 
-Kita menentukan ekspresi *closure* `|| self.most_stocked()` sebagai argumen
+Kita menentukan expression *closure* `|| self.most_stocked()` sebagai argumen
 untuk `unwrap_or_else`. Ini adalah *closure* yang tidak menerima parameter (jika
 *closure* itu punya parameter, parameter-parameter itu akan muncul di antara dua
 garis vertikal). Badan *closure* itu memanggil `self.most_stocked()`. Di sini
@@ -98,30 +98,30 @@ menangkap lingkungannya dengan cara seperti ini.
 ### Menginferensi dan Menganotasi Type Closure
 
 Ada lebih banyak perbedaan antara fungsi dan *closure*. *Closure* biasanya tidak
-mengharuskan Anda mengtype annotation-type parameter atau nilai kembaliannya
+mengharuskan Anda mengtype annotation-type parameter atau return valuenya
 seperti fungsi `fn`. Anotasi type diwajibkan pada fungsi karena type-type itu
 adalah bagian dari *interface* (antarmuka) eksplisit yang diekspos kepada
 pengguna Anda. Mendefinisikan *interface* ini secara kaku penting untuk
 memastikan bahwa semua orang sepakat tentang type nilai apa yang dipakai dan
 dikembalikan sebuah fungsi. Sebaliknya, *closure* tidak dipakai di dalam
-*interface* yang diekspos seperti ini: *Closure* disimpan di dalam variabel, dan
+*interface* yang diekspos seperti ini: *Closure* disimpan di dalam variable, dan
 dipakai tanpa menamainya dan mengeksposnya kepada pengguna pustaka kita.
 
 *Closure* biasanya pendek dan hanya relevan di dalam konteks yang sempit, bukan
 di skenario yang sembarangan. Di dalam konteks yang terbatas ini, *compiler*
 dapat mengtype inference-type parameter dan return typenya, mirip dengan
-kemampuannya mengtype inference-type sebagian besar variabel (ada kasus
+kemampuannya mengtype inference-type sebagian besar variable (ada kasus
 langka ketika *compiler* juga memerlukan type annotation *closure*).
 
-Seperti halnya variabel, kita dapat menambahkan type annotation jika ingin
+Seperti halnya variable, kita dapat menambahkan type annotation jika ingin
 meningkatkan keeksplisitan dan kejelasan dengan biaya menjadi lebih
 bertele-tele daripada yang benar-benar diperlukan. Mengtype annotation-type untuk
 sebuah *closure* akan tampak seperti definisi yang ditunjukkan di Listing 13-2.
 Dalam contoh ini, kita mendefinisikan sebuah *closure* dan menyimpannya di dalam
-sebuah variabel alih-alih mendefinisikan *closure* itu di tempat kita
+sebuah variable alih-alih mendefinisikan *closure* itu di tempat kita
 meneruskannya sebagai argumen, seperti yang kita lakukan di Listing 13-1.
 
-<Listing number="13-2" file-name="src/main.rs" caption="Menambahkan type annotation opsional untuk type parameter dan nilai kembalian di dalam closure">
+<Listing number="13-2" file-name="src/main.rs" caption="Menambahkan type annotation opsional untuk type parameter dan return value di dalam closure">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-02/src/main.rs:here}}
@@ -148,7 +148,7 @@ Baris pertama menunjukkan definisi fungsi dan baris kedua menunjukkan definisi
 *closure* yang dianotasi sepenuhnya. Di baris ketiga, kita menghapus anotasi
 type dari definisi *closure*. Di baris keempat, kita menghapus kurung
 kurawalnya, yang bersifat opsional karena badan *closure* hanya memiliki satu
-ekspresi. Semua ini adalah definisi yang valid dan akan menghasilkan perilaku
+expression. Semua ini adalah definisi yang valid dan akan menghasilkan perilaku
 yang sama ketika dipanggil. Baris `add_one_v3` dan `add_one_v4` mengharuskan
 *closure*-closure itu dievaluasi agar dapat terkompilasi karena type-typenya
 akan diinferensi dari pemakaiannya. Ini mirip dengan `let v = Vec::new();`
@@ -156,7 +156,7 @@ yang memerlukan type annotation ataupun nilai-nilai typed tertentu untuk
 dimasukkan ke dalam `Vec` agar Rust dapat mengtype inferencenya.
 
 Untuk definisi *closure*, *compiler* akan menginferensi satu type konkret untuk
-setiap parameternya dan untuk nilai kembaliannya. Misalnya, Listing 13-3
+setiap parameternya dan untuk return valuenya. Misalnya, Listing 13-3
 menunjukkan definisi sebuah *closure* pendek yang hanya mengembalikan nilai
 yang diterimanya sebagai parameter. *Closure* ini tidak terlalu berguna kecuali
 untuk keperluan contoh ini. Perhatikan bahwa kita belum menambahkan anotasi
@@ -207,9 +207,9 @@ memerlukan *reference* *immutable* untuk mencetak nilainya.
 
 </Listing>
 
-Contoh ini juga mengilustrasikan bahwa sebuah variabel dapat terikat ke
+Contoh ini juga mengilustrasikan bahwa sebuah variable dapat terikat ke
 definisi *closure*, dan nanti kita dapat memanggil *closure* itu dengan memakai
-nama variabel beserta tanda kurung, seolah-olah nama variabel itu adalah nama
+nama variable beserta tanda kurung, seolah-olah nama variable itu adalah nama
 fungsi.
 
 Karena kita dapat memiliki banyak *reference* *immutable* ke `list` pada saat

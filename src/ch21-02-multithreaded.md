@@ -95,7 +95,7 @@ throughput server web. Pilihan lain yang mungkin Anda jelajahi adalah model
 fork/join, model I/O async single-threaded, dan model I/O async
 multithreaded. Jika Anda tertarik dengan topik ini, Anda bisa membaca lebih
 banyak tentang solusi-solusi lain dan mencoba mengimplementasikannya;
-dengan bahasa tingkat rendah seperti Rust, semua pilihan ini dimungkinkan.
+dengan low-level language seperti Rust, semua pilihan ini dimungkinkan.
 
 Sebelum kita mulai mengimplementasikan *thread pool*, mari kita bicarakan
 seperti apa pemakaian pool itu seharusnya. Saat Anda mencoba mendesain
@@ -289,7 +289,7 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 ```
 
 Parameter type `F` adalah yang menjadi perhatian kita di sini; parameter
-type `T` berkaitan dengan nilai kembalian, dan itu bukan perhatian kita.
+type `T` berkaitan dengan return value, dan itu bukan perhatian kita.
 Kita bisa melihat bahwa `spawn` memakai `FnOnce` sebagai *trait bound* pada
 `F`. Kemungkinan besar ini juga yang kita inginkan, karena pada akhirnya
 kita akan meneruskan argumen yang kita dapat di `execute` ke `spawn`. Kita
@@ -777,8 +777,8 @@ dipegang lebih lama daripada yang dimaksudkan jika kita tidak memerhatikan
 
 Kode di Listing 21-20 yang memakai `let job =
 receiver.lock().unwrap().recv().unwrap();` bekerja karena dengan `let`,
-nilai-nilai temporer apa pun yang dipakai di ekspresi pada sisi kanan tanda
-sama dengan segera dibebaskan saat pernyataan `let` itu berakhir. Akan
+nilai-nilai temporer apa pun yang dipakai di expression pada sisi kanan tanda
+sama dengan segera dibebaskan saat statement `let` itu berakhir. Akan
 tetapi, `while let` (dan `if let` dan `match`) tidak membebaskan nilai
 temporer sampai akhir blok terkait. Di Listing 21-21, kuncinya tetap
 dipegang selama pemanggilan `job()`, yang berarti instance `Worker` lain

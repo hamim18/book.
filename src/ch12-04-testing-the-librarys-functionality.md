@@ -6,7 +6,7 @@
 Sekarang logika pencarian di _src/lib.rs_ terpisah dari fungsi `main`, menulis
 pengujian untuk fungsionalitas inti kode kita menjadi jauh lebih mudah. Kita
 dapat memanggil fungsi-fungsi secara langsung dengan berbagai argumen dan
-memeriksa nilai kembaliannya tanpa harus memanggil binary kita dari baris
+memeriksa return valuenya tanpa harus memanggil binary kita dari baris
 perintah.
 
 Di bagian ini, kita akan menambahkan logika pencarian ke program `minigrep`
@@ -73,9 +73,9 @@ vektor yang memuat baris `"safe, fast, productive."`.
 
 Sekarang mari kita bahas mengapa kita perlu mendefinisikan *lifetime*
 eksplisit `'a` di tanda tangan `search` dan memakai *lifetime* itu bersama
-argumen `contents` dan nilai kembaliannya. Ingat kembali di [Bab
+argumen `contents` dan return valuenya. Ingat kembali di [Bab
 10][ch10-lifetimes]<!-- ignore --> bahwa parameter *lifetime* menentukan
-*lifetime* argumen mana yang terhubung dengan *lifetime* nilai kembalian.
+*lifetime* argumen mana yang terhubung dengan *lifetime* return value.
 Dalam kasus ini, kita menunjukkan bahwa vektor yang dikembalikan harus memuat
 string *slice* yang mereferensikan *slice*-slice dari argumen `contents` (bukan
 argumen `query`).
@@ -95,16 +95,16 @@ kita akan mendapat error ini:
 ```
 
 Rust tidak dapat mengetahui mana dari kedua parameter itu yang kita perlukan
-untuk keluarannya, jadi kita perlu memberi tahunya secara eksplisit.
+untuk outputnya, jadi kita perlu memberi tahunya secara eksplisit.
 Perhatikan bahwa teks bantuan itu menyarankan untuk menentukan parameter
-*lifetime* yang sama untuk semua parameter dan type keluarannya, dan itu tidak
+*lifetime* yang sama untuk semua parameter dan type outputnya, dan itu tidak
 tepat! Karena `contents` adalah parameter yang memuat seluruh teks kita dan
 kita ingin mengembalikan bagian-bagian teks itu yang cocok, kita tahu bahwa
 `contents` adalah satu-satunya parameter yang seharusnya terhubung dengan
-nilai kembalian menggunakan sintaks *lifetime*.
+return value menggunakan sintaks *lifetime*.
 
 Bahasa-bahasa pemrograman lain tidak mengharuskan Anda menghubungkan argumen
-dengan nilai kembalian di tanda tangan, tetapi praktik ini akan menjadi lebih
+dengan return value di tanda tangan, tetapi praktik ini akan menjadi lebih
 mudah seiring waktu. Anda mungkin ingin membandingkan contoh ini dengan
 contoh-contoh di bagian [“Memvalidasi *Reference* dengan
 *Lifetime*”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
@@ -141,7 +141,7 @@ ditunjukkan di Listing 12-17. Perhatikan bahwa ini belum akan terkompilasi.
 Metode `lines` mengembalikan sebuah *iterator*. Kita akan membahas *iterator*
 secara mendalam di [Bab 13][ch13-iterators]<!-- ignore -->. Tetapi ingat
 bahwa Anda pernah melihat cara memakai *iterator* seperti ini di [Listing
-3-5][ch3-iter]<!-- ignore -->, tempat kita memakai perulangan `for` dengan
+3-5][ch3-iter]<!-- ignore -->, tempat kita memakai loop `for` dengan
 sebuah *iterator* untuk menjalankan sebagian kode pada setiap item di dalam
 sebuah koleksi.
 
@@ -169,8 +169,8 @@ nyatakan di tanda tangan fungsi.
 
 Untuk menyelesaikan fungsi ini, kita perlu sebuah cara untuk menyimpan
 baris-baris yang cocok dan ingin kita kembalikan. Untuk itu, kita dapat
-membuat sebuah vektor *mutable* sebelum perulangan `for` dan memanggil metode
-`push` untuk menyimpan sebuah `line` di dalam vektor. Setelah perulangan
+membuat sebuah vektor *mutable* sebelum loop `for` dan memanggil metode
+`push` untuk menyimpan sebuah `line` di dalam vektor. Setelah loop
 `for`, kita mengembalikan vektor tersebut, seperti yang ditunjukkan di Listing
 12-19.
 
@@ -225,11 +225,11 @@ seperti _monomorphization_:
 
 Luar biasa! Kita telah membangun versi mini kita sendiri dari sebuah alat
 klasik dan belajar banyak tentang cara menyusun aplikasi. Kita juga telah
-belajar sedikit tentang masukan dan keluaran file, *lifetime*, pengujian, dan
+belajar sedikit tentang input dan output file, *lifetime*, pengujian, dan
 parsing baris perintah.
 
 Untuk melengkapi proyek ini, kita akan mendemonstrasikan secara singkat cara
-bekerja dengan variabel lingkungan dan cara mencetak ke standard error, yang
+bekerja dengan environment variable dan cara mencetak ke standard error, yang
 keduanya berguna ketika Anda menulis program baris perintah.
 
 [validating-references-with-lifetimes]: ch10-03-lifetime-syntax.html#validating-references-with-lifetimes

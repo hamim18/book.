@@ -44,7 +44,7 @@ $ cargo install ripgrep
    Installed package `ripgrep v14.1.1` (executable `rg`)
 ```
 
-Baris kedua dari terakhir pada keluaran itu menunjukkan lokasi dan nama binary
+Baris kedua dari terakhir pada output itu menunjukkan lokasi dan nama binary
 yang dipasang, yang dalam kasus `ripgrep` adalah `rg`. Selama direktori
 instalasi itu ada di `$PATH` Anda, seperti disebutkan sebelumnya, Anda dapat
 menjalankan `rg --help` dan mulai memakai alat pencari file yang lebih cepat

@@ -286,9 +286,9 @@ melakukan ini pada runtime.
 
 </Listing>
 
-Kita membuat variabel `one_borrow` untuk *smart pointer* `RefMut<T>` yang
+Kita membuat variable `one_borrow` untuk *smart pointer* `RefMut<T>` yang
 dikembalikan dari `borrow_mut`. Kemudian, kita membuat pinjaman *mutable* lain
-dengan cara yang sama di variabel `two_borrow`. Ini membuat dua *mutable*
+dengan cara yang sama di variable `two_borrow`. Ini membuat dua *mutable*
 *reference* di *scope* yang sama, yang tidak diizinkan. Ketika kita menjalankan
 test untuk library kita, kode di Listing 15-23 akan terkompilasi tanpa error,
 tetapi testnya akan gagal:
@@ -343,7 +343,7 @@ memodifikasi nilai yang tersimpan di semua list.
 </Listing>
 
 Kita membuat nilai yang merupakan instance `Rc<RefCell<i32>>` dan
-menyimpannya di variabel bernama `value` supaya kita dapat mengaksesnya
+menyimpannya di variable bernama `value` supaya kita dapat mengaksesnya
 langsung nanti. Kemudian, kita membuat `List` di `a` dengan variant `Cons`
 yang menampung `value`. Kita perlu mengklon `value` supaya `a` dan `value`
 sama-sama memiliki nilai `5` bagian dalam, alih-alih memindahkan *ownership*

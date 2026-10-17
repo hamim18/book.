@@ -2,17 +2,17 @@
 
 Pola hadir dalam dua bentuk: *refutable* dan *irrefutable*. Pola yang akan cocok
 untuk nilai apa pun yang diteruskan bersifat _irrefutable_ (tidak dapat
-dibantah). Contohnya adalah `x` pada pernyataan `let x = 5;` karena `x`
+dibantah). Contohnya adalah `x` pada statement `let x = 5;` karena `x`
 cocok dengan apa pun dan karena itu tidak mungkin gagal cocok. Pola yang bisa
 gagal cocok untuk beberapa nilai yang mungkin bersifat _refutable_ (dapat
-dibantah). Contohnya adalah `Some(x)` pada ekspresi `if let Some(x) =
-a_value` karena jika nilai pada variabel `a_value` adalah `None` alih-alih
+dibantah). Contohnya adalah `Some(x)` pada expression `if let Some(x) =
+a_value` karena jika nilai pada variable `a_value` adalah `None` alih-alih
 `Some`, pola `Some(x)` tidak akan cocok.
 
-Parameter fungsi, pernyataan `let`, dan perulangan `for` hanya bisa menerima
+Parameter fungsi, statement `let`, dan loop `for` hanya bisa menerima
 pola *irrefutable* karena program tidak bisa melakukan apa pun yang bermakna
-ketika nilai-nilainya tidak cocok. Ekspresi `if let` dan `while let` serta
-pernyataan `let...else` menerima pola *refutable* dan *irrefutable*, tetapi
+ketika nilai-nilainya tidak cocok. Expression `if let` dan `while let` serta
+statement `let...else` menerima pola *refutable* dan *irrefutable*, tetapi
 kompilator memperingatkan kita terhadap pola *irrefutable* karena, menurut
 definisi, konstruksi kondisional itulah yang dimaksudkan untuk menangani kemungkinan kegagalan:
 fungsionalitas sebuah kondisional terletak pada kemampuannya untuk berperilaku
@@ -26,7 +26,7 @@ pakai bersama polanya, bergantung pada perilaku kode yang dimaksudkan.
 
 Mari kita lihat contoh apa yang terjadi ketika kita mencoba memakai pola
 *refutable* di tempat Rust mensyaratkan pola *irrefutable*, dan sebaliknya.
-Listing 19-8 menunjukkan pernyataan `let`, tetapi untuk polanya, kita
+Listing 19-8 menunjukkan statement `let`, tetapi untuk polanya, kita
 menentukan `Some(x)`, sebuah pola *refutable*. Seperti yang mungkin Anda duga,
 kode ini tidak akan terkompilasi.
 
@@ -39,7 +39,7 @@ kode ini tidak akan terkompilasi.
 </Listing>
 
 Jika `some_option_value` adalah nilai `None`, ia akan gagal cocok dengan pola
-`Some(x)`, yang berarti polanya *refutable*. Namun, pernyataan `let` hanya bisa
+`Some(x)`, yang berarti polanya *refutable*. Namun, statement `let` hanya bisa
 menerima pola *irrefutable* karena tidak ada yang valid yang bisa dilakukan kode
 itu dengan nilai `None`. Pada waktu kompilasi, Rust akan mengeluh bahwa kita
 telah mencoba memakai pola *refutable* di tempat pola *irrefutable* dibutuhkan:
@@ -90,7 +90,7 @@ Karena alasan ini, arm match harus memakai pola *refutable*, kecuali arm
 terakhir, yang seharusnya mencocokkan semua nilai yang tersisa dengan pola
 *irrefutable*. Rust mengizinkan kita memakai pola *irrefutable* di `match` dengan
 hanya satu arm, tetapi sintaks ini tidak terlalu berguna dan bisa diganti
-dengan pernyataan `let` yang lebih sederhana.
+dengan statement `let` yang lebih sederhana.
 
 Sekarang setelah Anda tahu tempat memakai pola dan perbedaan antara pola
 *refutable* dan *irrefutable*, mari kita bahas semua sintaks yang bisa kita pakai

@@ -31,10 +31,10 @@ juga diperiksa privasinya, seperti *path*-path lainnya.
 Perhatikan bahwa `use` hanya membuat pintasan untuk *scope* tertentu tempat
 `use` itu berada. Listing 7-12 memindahkan fungsi `eat_at_restaurant` ke
 dalam *module* anak baru bernama `customer`, yang kemudian menjadi *scope* yang
-berbeda dari pernyataan `use`, sehingga badan fungsi itu tidak akan
+berbeda dari statement `use`, sehingga badan fungsi itu tidak akan
 terkompilasi.
 
-<Listing number="7-12" file-name="src/lib.rs" caption="Sebuah pernyataan `use` hanya berlaku di scope tempatnya berada.">
+<Listing number="7-12" file-name="src/lib.rs" caption="Sebuah statement `use` hanya berlaku di scope tempatnya berada.">
 
 ```rust,noplayground,test_harness,does_not_compile,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
@@ -98,7 +98,7 @@ telah muncul, dan orang-orang telah terbiasa membaca dan menulis kode Rust
 dengan cara ini.
 
 Pengecualian untuk idiom ini adalah jika kita membawa dua item dengan nama
-yang sama ke dalam *scope* dengan pernyataan `use`, karena Rust tidak
+yang sama ke dalam *scope* dengan statement `use`, karena Rust tidak
 mengizinkannya. Listing 7-15 menunjukkan cara membawa dua type `Result` ke
 dalam *scope* yang memiliki nama yang sama tetapi *module* induk yang berbeda,
 dan cara merujuk keduanya.
@@ -133,7 +133,7 @@ nama salah satu dari dua type `Result` memakai `as`.
 
 </Listing>
 
-Pada pernyataan `use` kedua, kita memilih nama baru `IoResult` untuk type
+Pada statement `use` kedua, kita memilih nama baru `IoResult` untuk type
 `std::io::Result`, yang tidak akan bentrok dengan `Result` dari `std::fmt`
 yang juga kita bawa ke dalam *scope*. Listing 7-15 dan Listing 7-16 sama-sama
 dianggap idiomatis, jadi pilihannya ada di tangan Anda!
@@ -246,7 +246,7 @@ standar.
 
 Jika kita memakai beberapa item yang didefinisikan di *crate* atau *module* yang
 sama, mendaftar setiap item di barisnya sendiri dapat memakan banyak ruang
-vertikal di file kita. Misalnya, dua pernyataan `use` yang kita miliki di
+vertikal di file kita. Misalnya, dua statement `use` yang kita miliki di
 permainan tebak angka di Listing 2-4 ini membawa item-item dari `std` ke
 dalam *scope*:
 
@@ -273,16 +273,16 @@ seperti yang ditunjukkan di Listing 7-18.
 </Listing>
 
 Di program yang lebih besar, membawa banyak item ke dalam *scope* dari *crate*
-atau *module* yang sama memakai *nested path* dapat mengurangi jumlah pernyataan
+atau *module* yang sama memakai *nested path* dapat mengurangi jumlah statement
 `use` terpisah yang dibutuhkan secara signifikan!
 
 Kita dapat memakai *nested path* di tingkat mana pun dalam sebuah *path*, yang
-berguna ketika menggabungkan dua pernyataan `use` yang berbagi sebuah
-subpath. Misalnya, Listing 7-19 menunjukkan dua pernyataan `use`: satu yang
+berguna ketika menggabungkan dua statement `use` yang berbagi sebuah
+subpath. Misalnya, Listing 7-19 menunjukkan dua statement `use`: satu yang
 membawa `std::io` ke dalam *scope* dan satu yang membawa `std::io::Write` ke
 dalam *scope*.
 
-<Listing number="7-19" file-name="src/lib.rs" caption="Dua pernyataan `use` ketika salah satunya adalah subpath dari yang lain">
+<Listing number="7-19" file-name="src/lib.rs" caption="Dua statement `use` ketika salah satunya adalah subpath dari yang lain">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-19/src/lib.rs}}
@@ -292,10 +292,10 @@ dalam *scope*.
 
 Bagian yang sama dari kedua *path* ini adalah `std::io`, dan itu adalah *path*
 pertama secara lengkap. Untuk menggabungkan kedua *path* ini menjadi satu
-pernyataan `use`, kita dapat memakai `self` di dalam *nested path*, seperti
+statement `use`, kita dapat memakai `self` di dalam *nested path*, seperti
 yang ditunjukkan di Listing 7-20.
 
-<Listing number="7-20" file-name="src/lib.rs" caption="Menggabungkan path-path di Listing 7-19 menjadi satu pernyataan `use`">
+<Listing number="7-20" file-name="src/lib.rs" caption="Menggabungkan path-path di Listing 7-19 menjadi satu statement `use`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-20/src/lib.rs}}
@@ -319,7 +319,7 @@ Jika kita ingin membawa _semua_ item publik yang didefinisikan di sebuah
 use std::collections::*;
 ```
 
-Pernyataan `use` ini membawa semua item publik yang didefinisikan di
+Statement `use` ini membawa semua item publik yang didefinisikan di
 `std::collections` ke dalam *scope* saat ini. Berhati-hatilah saat memakai
 operator glob! Glob dapat mempersulit mengetahui nama apa saja yang berada di
 dalam *scope* dan di mana sebuah nama yang dipakai di program Anda

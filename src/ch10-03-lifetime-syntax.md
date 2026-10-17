@@ -43,14 +43,14 @@ sebuah *scope* luar dan sebuah *scope* dalam.
 </Listing>
 
 > Catatan: Contoh-contoh di Listing 10-16, 10-17, dan 10-23 mendeklarasikan
-> variabel tanpa memberikan nilai awal, sehingga nama variabelnya ada di
+> variable tanpa memberikan nilai awal, sehingga nama variablenya ada di
 > *scope* luar. Sepintas, ini mungkin tampak bertentangan dengan Rust yang
-> tidak memiliki nilai null. Akan tetapi, jika kita mencoba memakai variabel
+> tidak memiliki nilai null. Akan tetapi, jika kita mencoba memakai variable
 > sebelum memberinya nilai, kita akan mendapatkan error waktu kompilasi,
 > yang menunjukkan bahwa Rust memang tidak mengizinkan nilai null.
 
-*Scope* luar mendeklarasikan variabel bernama `r` tanpa nilai awal, dan *scope*
-dalam mendeklarasikan variabel bernama `x` dengan nilai awal `5`. Di dalam
+*Scope* luar mendeklarasikan variable bernama `r` tanpa nilai awal, dan *scope*
+dalam mendeklarasikan variable bernama `x` dengan nilai awal `5`. Di dalam
 *scope* dalam, kita mencoba menetapkan nilai `r` sebagai *reference* ke `x`.
 Kemudian, *scope* dalam berakhir, dan kita mencoba mencetak nilai di `r`.
 Kode ini tidak akan terkompilasi, karena nilai yang dirujuk `r` telah keluar
@@ -60,7 +60,7 @@ dari *scope* sebelum kita mencoba memakainya. Berikut pesan errornya:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/output.txt}}
 ```
 
-Pesan error itu mengatakan bahwa variabel `x` “does not live long enough.”
+Pesan error itu mengatakan bahwa variable `x` “does not live long enough.”
 Alasannya, `x` akan berada di luar *scope* ketika *scope* dalam berakhir pada
 baris 7. Akan tetapi, `r` masih valid untuk *scope* luar; karena *scope*-nya
 lebih besar, kita katakan bahwa ia “lives longer.” Jika Rust mengizinkan
@@ -74,7 +74,7 @@ sah? Ia memakai *borrow checker*.
 *Compiler* (kompilator) Rust memiliki *borrow checker* yang membandingkan
 *scope*-scope untuk menentukan apakah semua peminjaman valid. Listing 10-17
 menunjukkan kode yang sama seperti Listing 10-16, tetapi dengan anotasi yang
-menunjukkan *lifetime* dari variabel-variabelnya.
+menunjukkan *lifetime* dari variable-variablenya.
 
 <Listing number="10-17" caption="Anotasi lifetime `r` dan `x`, masing-masing dinamai `'a` dan `'b`">
 
@@ -110,7 +110,7 @@ daripada `'a`. Ini berarti `r` boleh merujuk `x` karena Rust tahu bahwa
 Sekarang setelah Anda tahu di mana letak *lifetime* *reference* dan bagaimana
 Rust menganalisis *lifetime* untuk memastikan bahwa *reference* akan selalu
 valid, mari kita eksplorasi *lifetime* generik dalam parameter fungsi dan
-nilai kembalian.
+return value.
 
 ### Lifetime Generik dalam Fungsi
 
@@ -166,7 +166,7 @@ kasus `else` yang akan dieksekusi. Kita juga tidak tahu *lifetime* konkret
 seperti yang kita lakukan di Listing 10-17 dan 10-18 untuk menentukan
 apakah *reference* yang kita kembalikan akan selalu valid. *Borrow checker*
 juga tidak bisa menentukannya, karena ia tidak tahu bagaimana *lifetime* `x`
-dan `y` berhubungan dengan *lifetime* nilai kembaliannya. Untuk memperbaiki
+dan `y` berhubungan dengan *lifetime* return valuenya. Untuk memperbaiki
 error ini, kita akan menambahkan parameter *lifetime* generik yang
 mendefinisikan hubungan antarreference sehingga *borrow checker* bisa
 melakukan analisisnya.
@@ -216,7 +216,7 @@ type parameter generik.
 
 Kita ingin tanda tangan itu mengekspresikan batasan berikut: *reference* yang
 dikembalikan akan valid selama kedua parameter valid. Inilah hubungan antara
-*lifetime* parameter dan nilai kembalian. Kita akan menamai *lifetime* itu
+*lifetime* parameter dan return value. Kita akan menamai *lifetime* itu
 `'a`, lalu menambahkannya ke setiap *reference*, seperti yang ditunjukkan di
 Listing 10-21.
 
@@ -288,8 +288,8 @@ string is long string is long`.
 
 Selanjutnya, mari kita coba contoh yang menunjukkan bahwa *lifetime*
 *reference* di `result` harus merupakan *lifetime* yang lebih kecil dari kedua
-argumen. Kita akan memindahkan deklarasi variabel `result` ke luar *scope*
-dalam, tetapi membiarkan penetapan nilai ke variabel `result` di dalam
+argumen. Kita akan memindahkan deklarasi variable `result` ke luar *scope*
+dalam, tetapi membiarkan penetapan nilai ke variable `result` di dalam
 *scope* bersama `string2`. Kemudian, kita akan memindahkan `println!` yang
 memakai `result` ke luar *scope* dalam, setelah *scope* dalam berakhir. Kode di
 Listing 10-23 tidak akan terkompilasi.
@@ -308,15 +308,15 @@ Ketika kita mencoba mengompilasi kode ini, kita mendapatkan error berikut:
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/output.txt}}
 ```
 
-Error itu menunjukkan bahwa agar `result` valid untuk pernyataan `println!`,
+Error itu menunjukkan bahwa agar `result` valid untuk statement `println!`,
 `string2` harus tetap valid sampai akhir *scope* luar. Rust mengetahui hal ini
-karena kita menganotasi *lifetime* parameter fungsi dan nilai kembaliannya
+karena kita menganotasi *lifetime* parameter fungsi dan return valuenya
 memakai parameter *lifetime* `'a` yang sama.
 
 Sebagai manusia, kita bisa melihat kode ini dan mengetahui bahwa `string1`
 lebih panjang daripada `string2`, dan karenanya `result` akan berisi
 *reference* ke `string1`. Karena `string1` belum keluar dari *scope*, *reference*
-ke `string1` masih akan valid untuk pernyataan `println!`. Akan tetapi,
+ke `string1` masih akan valid untuk statement `println!`. Akan tetapi,
 *compiler* tidak bisa melihat bahwa *reference* itu valid dalam kasus ini. Kita
 telah memberi tahu Rust bahwa *lifetime* *reference* yang dikembalikan fungsi
 `longest` sama dengan yang lebih kecil di antara *lifetime* *reference* yang
@@ -351,7 +351,7 @@ string *slice* terpanjang, kita tidak perlu menentukan *lifetime* pada parameter
 
 Kita telah menentukan parameter *lifetime* `'a` untuk parameter `x` dan type
 kembaliannya, tetapi tidak untuk parameter `y`, karena *lifetime* `y` tidak
-memiliki hubungan apa pun dengan *lifetime* `x` atau nilai kembaliannya.
+memiliki hubungan apa pun dengan *lifetime* `x` atau return valuenya.
 
 Ketika mengembalikan *reference* dari sebuah fungsi, parameter *lifetime* untuk
 return type harus cocok dengan parameter *lifetime* salah satu
@@ -387,7 +387,7 @@ mengembalikan data type yang dimiliki alih-alih *reference* sehingga fungsi
 pemanggil yang bertanggung jawab membersihkan nilainya.
 
 Pada akhirnya, sintaks *lifetime* adalah tentang menghubungkan *lifetime*
-berbagai parameter dan nilai kembalian fungsi. Setelah mereka terhubung,
+berbagai parameter dan return value fungsi. Setelah mereka terhubung,
 Rust memiliki informasi yang cukup untuk mengizinkan operasi yang aman bagi
 memori dan melarang operasi yang akan membuat *pointer* menggantung atau
 melanggar keamanan memori.
@@ -420,7 +420,7 @@ Anotasi ini berarti instance `ImportantExcerpt` tidak bisa hidup lebih lama
 daripada *reference* yang ditampungnya di *field* `part`.
 
 Fungsi `main` di sini membuat instance *struct* `ImportantExcerpt` yang
-menampung *reference* ke kalimat pertama dari `String` yang dimiliki variabel
+menampung *reference* ke kalimat pertama dari `String` yang dimiliki variable
 `novel`. Data di `novel` ada sebelum instance `ImportantExcerpt` dibuat.
 Selain itu, `novel` tidak keluar dari *scope* sampai setelah
 `ImportantExcerpt` keluar dari *scope*, sehingga *reference* di instance
@@ -474,12 +474,12 @@ tersisa. Alih-alih menebak, *compiler* akan memberikan error yang bisa Anda
 selesaikan dengan menambahkan anotasi *lifetime*.
 
 *Lifetime* pada parameter fungsi atau metode disebut *input lifetime*
-(*lifetime* masukan), dan *lifetime* pada nilai kembalian disebut *output
-lifetime* (*lifetime* keluaran).
+(*lifetime* input), dan *lifetime* pada return value disebut *output
+lifetime* (*lifetime* output).
 
 *Compiler* memakai tiga aturan untuk mengetahui *lifetime* *reference* ketika
-tidak ada anotasi eksplisit. Aturan pertama berlaku untuk *lifetime* masukan,
-dan aturan kedua serta ketiga berlaku untuk *lifetime* keluaran. Jika *compiler*
+tidak ada anotasi eksplisit. Aturan pertama berlaku untuk *lifetime* input,
+dan aturan kedua serta ketiga berlaku untuk *lifetime* output. Jika *compiler*
 sudah sampai di akhir ketiga aturan dan masih ada *reference* yang
 *lifetime*-nya tidak bisa ia ketahui, *compiler* akan berhenti dengan sebuah
 error. Aturan-aturan ini berlaku untuk definisi `fn` maupun blok `impl`.
@@ -490,13 +490,13 @@ satu parameter mendapatkan satu parameter *lifetime*: `fn foo<'a>(x: &'a
 i32)`; fungsi dengan dua parameter mendapatkan dua parameter *lifetime*
 terpisah: `fn foo<'a, 'b>(x: &'a i32, y: &'b i32)`; dan seterusnya.
 
-Aturan kedua adalah, jika ada tepat satu parameter *lifetime* masukan,
-*lifetime* itu ditetapkan untuk semua parameter *lifetime* keluaran: `fn
+Aturan kedua adalah, jika ada tepat satu parameter *lifetime* input,
+*lifetime* itu ditetapkan untuk semua parameter *lifetime* output: `fn
 foo<'a>(x: &'a i32) -> &'a i32`.
 
-Aturan ketiga adalah, jika ada beberapa parameter *lifetime* masukan, tetapi
+Aturan ketiga adalah, jika ada beberapa parameter *lifetime* input, tetapi
 salah satunya adalah `&self` atau `&mut self` karena ini adalah metode,
-*lifetime* `self` ditetapkan untuk semua parameter *lifetime* keluaran. Aturan
+*lifetime* `self` ditetapkan untuk semua parameter *lifetime* output. Aturan
 ketiga ini membuat metode jauh lebih enak dibaca dan ditulis karena lebih
 sedikit simbol yang diperlukan.
 
@@ -517,9 +517,9 @@ seperti biasa, jadi sekarang tanda tangannya seperti ini:
 fn first_word<'a>(s: &'a str) -> &str {
 ```
 
-Aturan kedua berlaku karena ada tepat satu *lifetime* masukan. Aturan kedua
-menentukan bahwa *lifetime* dari satu parameter masukan itu ditetapkan ke
-*lifetime* keluaran, jadi tanda tangannya sekarang seperti ini:
+Aturan kedua berlaku karena ada tepat satu *lifetime* input. Aturan kedua
+menentukan bahwa *lifetime* dari satu parameter input itu ditetapkan ke
+*lifetime* output, jadi tanda tangannya sekarang seperti ini:
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &'a str {
@@ -546,7 +546,7 @@ fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &str {
 ```
 
 Anda bisa melihat bahwa aturan kedua tidak berlaku, karena ada lebih dari
-satu *lifetime* masukan. Aturan ketiga juga tidak berlaku, karena `longest`
+satu *lifetime* input. Aturan ketiga juga tidak berlaku, karena `longest`
 adalah fungsi alih-alih metode, jadi tidak ada parameternya yang berupa
 `self`. Setelah melewati ketiga aturan, kita masih belum tahu berapa
 *lifetime* return typenya. Inilah alasan kita mendapatkan error ketika
@@ -569,7 +569,7 @@ Ketika kita mengimplementasikan metode pada *struct* yang memiliki *lifetime*,
 kita memakai sintaks yang sama seperti sintaks type parameter generik,
 seperti yang ditunjukkan di Listing 10-11. Tempat kita mendeklarasikan dan
 memakai parameter *lifetime* bergantung pada apakah parameter itu terkait
-dengan *field* *struct* atau dengan parameter dan nilai kembalian metode.
+dengan *field* *struct* atau dengan parameter dan return value metode.
 
 Nama-nama *lifetime* untuk *field* *struct* selalu perlu dideklarasikan setelah
 kata kunci `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
@@ -582,7 +582,7 @@ diperlukan di tanda tangan metode. Mari kita lihat beberapa contoh memakai
 *struct* bernama `ImportantExcerpt` yang kita definisikan di Listing 10-24.
 
 Pertama, kita akan memakai metode bernama `level` yang satu-satunya
-parameternya adalah *reference* ke `self` dan nilai kembaliannya berupa
+parameternya adalah *reference* ke `self` dan return valuenya berupa
 `i32`, yang bukan *reference* ke apa pun:
 
 ```rust
@@ -599,7 +599,7 @@ Berikut contoh ketika aturan elision *lifetime* ketiga berlaku:
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:3rd}}
 ```
 
-Ada dua *lifetime* masukan, jadi Rust menerapkan aturan elision *lifetime*
+Ada dua *lifetime* input, jadi Rust menerapkan aturan elision *lifetime*
 pertama dan memberikan *lifetime* masing-masing kepada `&self` dan
 `announcement`. Kemudian, karena salah satu parameternya adalah `&self`,
 return typenya mendapatkan *lifetime* `&self`, dan semua *lifetime* telah

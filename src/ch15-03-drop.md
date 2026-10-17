@@ -25,7 +25,7 @@ Anda menentukan kode yang dijalankan ketika sebuah nilai keluar dari *scope*
 dengan mengimplementasikan *trait* `Drop`. *Trait* `Drop` mewajibkan Anda
 mengimplementasikan satu metode bernama `drop` yang menerima *mutable* *reference*
 ke `self`. Untuk melihat kapan Rust memanggil `drop`, untuk sekarang mari kita
-implementasikan `drop` dengan pernyataan `println!`.
+implementasikan `drop` dengan statement `println!`.
 
 Listing 15-14 menunjukkan *struct* `CustomSmartPointer` yang satu-satunya
 fungsionalitas khususnya adalah mencetak `Dropping CustomSmartPointer!` ketika
@@ -53,14 +53,14 @@ kita akan keluar dari *scope*, dan Rust akan memanggil kode yang kita letakkan
 di metode `drop`, mencetak pesan terakhir kita. Perhatikan bahwa kita tidak
 perlu memanggil metode `drop` secara eksplisit.
 
-Ketika kita menjalankan program ini, kita akan melihat keluaran berikut:
+Ketika kita menjalankan program ini, kita akan melihat output berikut:
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-14/output.txt}}
 ```
 
 Rust otomatis memanggil `drop` untuk kita ketika instance kita keluar dari
-*scope*, menjalankan kode yang kita tentukan. Variabel dibebaskan dalam urutan
+*scope*, menjalankan kode yang kita tentukan. Variable dibebaskan dalam urutan
 terbalik dari pembuatannya, jadi `d` dibebaskan sebelum `c`. Tujuan contoh ini
 adalah memberi Anda panduan visual tentang cara kerja metode `drop`; biasanya
 Anda akan menentukan kode pembersihan yang perlu dijalankan type Anda alih-alih

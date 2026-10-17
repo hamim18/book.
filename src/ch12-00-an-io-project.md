@@ -2,15 +2,15 @@
 
 Bab ini merangkum banyak keterampilan yang telah Anda pelajari sejauh ini
 sekaligus menjelajahi beberapa fitur pustaka standar lainnya. Kita akan
-membangun sebuah alat baris perintah yang berinteraksi dengan masukan/keluaran
+membangun sebuah alat baris perintah yang berinteraksi dengan input/output
 file dan baris perintah untuk melatih sebagian konsep Rust yang kini telah Anda
 kuasai.
 
-Kecepatan, keamanan, keluaran binary tunggal, dan dukungan lintas platform Rust
+Kecepatan, keamanan, output binary tunggal, dan dukungan lintas platform Rust
 menjadikannya bahasa yang ideal untuk membuat alat baris perintah, jadi untuk
 proyek kita, kita akan membuat versi kita sendiri dari alat pencarian baris
 perintah klasik `grep` (**g**lobally search a **r**egular **e**xpression and
-**p**rint, mencari secara global sebuah ekspresi reguler lalu mencetaknya).
+**p**rint, mencari secara global sebuah expression reguler lalu mencetaknya).
 Pada kasus penggunaan paling sederhana, `grep` mencari sebuah string tertentu
 di dalam sebuah file tertentu. Untuk melakukannya, `grep` menerima sebuah *path*
 file dan sebuah string sebagai argumennya. Kemudian, ia membaca file tersebut,
@@ -19,10 +19,10 @@ dan mencetak baris-baris itu.
 
 Sepanjang perjalanan, kita akan menunjukkan cara membuat alat baris perintah
 kita memakai fitur-fitur terminal yang dipakai banyak alat baris perintah
-lainnya. Kita akan membaca nilai sebuah variabel lingkungan untuk memungkinkan
+lainnya. Kita akan membaca nilai sebuah environment variable untuk memungkinkan
 pengguna mengonfigurasi perilaku alat kita. Kita juga akan mencetak pesan
 error ke aliran konsol standard error (`stderr`) alih-alih standard output
-(`stdout`) sehingga, misalnya, pengguna bisa mengalihkan keluaran yang berhasil
+(`stdout`) sehingga, misalnya, pengguna bisa mengalihkan output yang berhasil
 ke sebuah file sambil tetap melihat pesan error di layar.
 
 Seorang anggota komunitas Rust, Andrew Gallant, telah membuat versi `grep`

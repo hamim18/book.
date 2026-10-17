@@ -145,7 +145,7 @@ Kita mendefinisikan sebuah *module* dengan kata kunci `mod` yang diikuti nama
 *module* (dalam kasus ini, `front_of_house`). Badan *module* kemudian diletakkan
 di dalam kurung kurawal. Di dalam *module*, kita dapat menempatkan *module* lain,
 seperti dalam kasus ini dengan *module* `hosting` dan `serving`. *Module* juga
-dapat memuat definisi untuk item lain, seperti *struct*, *enum*, konstanta, *trait*,
+dapat memuat definisi untuk item lain, seperti *struct*, *enum*, constant, *trait*,
 dan seperti di Listing 7-1, fungsi.
 
 Dengan memakai *module*, kita dapat mengelompokkan definisi-definisi yang

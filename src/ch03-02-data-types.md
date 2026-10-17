@@ -6,7 +6,7 @@ data apa yang sedang ditentukan sehingga ia tahu cara mengolah data tersebut.
 Kita akan melihat dua himpunan bagian data type: skalar dan majemuk.
 
 Ingatlah bahwa Rust adalah bahasa yang *statically typed* (bertipe statis),
-artinya bahasa ini harus mengetahui type semua variabel pada waktu kompilasi.
+artinya bahasa ini harus mengetahui type semua variable pada waktu kompilasi.
 *Compiler* biasanya dapat menyimpulkan type apa yang ingin kita pakai berdasarkan
 nilainya dan cara kita memakainya. Pada kasus ketika banyak type yang mungkin,
 seperti ketika kita mengonversi `String` menjadi type numerik memakai `parse`
@@ -104,8 +104,8 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 
 > ##### Integer Overflow
 >
-> Misalkan Anda memiliki variabel typed `u8` yang dapat menampung nilai
-> antara 0 dan 255. Jika Anda mencoba mengubah variabel itu menjadi nilai di
+> Misalkan Anda memiliki variable typed `u8` yang dapat menampung nilai
+> antara 0 dan 255. Jika Anda mencoba mengubah variable itu menjadi nilai di
 > luar rentang tersebut, seperti 256, integer overflow akan terjadi, dan ini
 > dapat menghasilkan salah satu dari dua perilaku. Ketika Anda mengompilasi
 > dalam mode debug, Rust menyertakan pemeriksaan integer overflow yang membuat
@@ -120,7 +120,7 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 > komplemen dua_. Singkatnya, nilai yang lebih besar daripada nilai maksimum
 > yang dapat ditampung type tersebut akan “membungkus” ke nilai minimum yang
 > dapat ditampung type tersebut. Pada kasus `u8`, nilai 256 menjadi 0, nilai
-> 257 menjadi 1, dan seterusnya. Program tidak akan panic, tetapi variabelnya
+> 257 menjadi 1, dan seterusnya. Program tidak akan panic, tetapi variablenya
 > akan memiliki nilai yang mungkin bukan seperti yang Anda harapkan.
 > Mengandalkan perilaku pembungkusan integer overflow dianggap sebagai sebuah
 > error.
@@ -138,7 +138,7 @@ saat melakukan pengindeksan terhadap suatu koleksi.
 
 #### Type Floating-Point
 
-Rust juga memiliki dua primitive type untuk *floating-point* (titik mengambang),
+Rust juga memiliki dua primitive type untuk *floating-point* (floating point),
 yaitu angka dengan titik desimal. Type floating-point di Rust adalah `f32` dan
 `f64`, yang masing-masing berukuran 32 bit dan 64 bit. Type bawaannya adalah
 `f64` karena pada CPU modern, kecepatannya kurang lebih sama dengan `f32`
@@ -160,7 +160,7 @@ Bilangan floating-point direpresentasikan sesuai standar IEEE-754.
 Rust mendukung operasi matematika dasar yang Anda harapkan untuk semua type
 angka: penjumlahan, pengurangan, perkalian, pembagian, dan sisa bagi. Pembagian
 integer memotong ke arah nol menuju integer terdekat. Kode berikut menunjukkan
-cara memakai setiap operasi numerik dalam pernyataan `let`:
+cara memakai setiap operasi numerik dalam statement `let`:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -168,9 +168,9 @@ cara memakai setiap operasi numerik dalam pernyataan `let`:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-07-numeric-operations/src/main.rs}}
 ```
 
-Setiap ekspresi dalam pernyataan-pernyataan ini memakai sebuah operator
+Setiap expression dalam statement-statement ini memakai sebuah operator
 matematika dan mengevaluasi menjadi satu nilai, yang kemudian diikat ke sebuah
-variabel. [Lampiran B][appendix_b]<!-- ignore --> memuat daftar semua operator
+variable. [Lampiran B][appendix_b]<!-- ignore --> memuat daftar semua operator
 yang disediakan Rust.
 
 #### Type Boolean
@@ -185,8 +185,8 @@ byte. Type Boolean di Rust ditulis dengan `bool`. Contohnya:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}
 ```
 
-Cara utama memakai nilai Boolean adalah melalui kondisional, seperti ekspresi
-`if`. Kita akan membahas cara kerja ekspresi `if` di Rust pada bagian
+Cara utama memakai nilai Boolean adalah melalui kondisional, seperti expression
+`if`. Kita akan membahas cara kerja expression `if` di Rust pada bagian
 [“Alur Kontrol”][control-flow]<!-- ignore -->.
 
 #### Type Karakter
@@ -236,7 +236,7 @@ type annotation opsional pada contoh ini:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
-Variabel `tup` terikat pada keseluruhan *tuple* karena *tuple* dianggap sebagai
+Variable `tup` terikat pada keseluruhan *tuple* karena *tuple* dianggap sebagai
 satu elemen majemuk tunggal. Untuk mengambil nilai-nilai individual dari
 sebuah *tuple*, kita dapat memakai *pattern matching* (pencocokan pola) untuk
 mendestrukturisasi nilai *tuple*, seperti ini:
@@ -247,9 +247,9 @@ mendestrukturisasi nilai *tuple*, seperti ini:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-11-destructuring-tuples/src/main.rs}}
 ```
 
-Program ini mula-mula membuat sebuah *tuple* dan mengikatnya ke variabel `tup`.
+Program ini mula-mula membuat sebuah *tuple* dan mengikatnya ke variable `tup`.
 Lalu program memakai sebuah pola dengan `let` untuk mengambil `tup` dan
-mengubahnya menjadi tiga variabel terpisah, `x`, `y`, dan `z`. Ini disebut
+mengubahnya menjadi tiga variable terpisah, `x`, `y`, dan `z`. Ini disebut
 *destructuring* (destrukturisasi) karena ia memecah satu *tuple* menjadi tiga
 bagian. Terakhir, program mencetak nilai `y`, yaitu `6.4`.
 
@@ -268,7 +268,7 @@ pertama dalam sebuah *tuple* adalah 0.
 
 *Tuple* tanpa nilai apa pun memiliki nama khusus, *unit*. Nilai ini dan type yang
 bersesuaian dengannya sama-sama ditulis `()` dan merepresentasikan nilai kosong
-atau return type kosong. Ekspresi secara implisit mengembalikan nilai unit
+atau return type kosong. Expression secara implisit mengembalikan nilai unit
 jika tidak mengembalikan nilai lain.
 
 #### Type Array
@@ -345,8 +345,8 @@ pengindeksan, seperti ini:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-14-array-indexing/src/main.rs}}
 ```
 
-Pada contoh ini, variabel bernama `first` akan mendapatkan nilai `1` karena
-itulah nilai pada indeks `[0]` di dalam array. Variabel bernama `second` akan
+Pada contoh ini, variable bernama `first` akan mendapatkan nilai `1` karena
+itulah nilai pada indeks `[0]` di dalam array. Variable bernama `second` akan
 mendapatkan nilai `2` dari indeks `[1]` di dalam array.
 
 #### Akses Elemen Array yang Tidak Valid
@@ -364,7 +364,7 @@ permainan tebak angka di Bab 2, untuk mendapatkan indeks array dari pengguna:
 Kode ini berhasil dikompilasi. Jika Anda menjalankan kode ini dengan
 `cargo run` dan memasukkan `0`, `1`, `2`, `3`, atau `4`, program akan mencetak
 nilai yang bersesuaian pada indeks tersebut di dalam array. Jika Anda justru
-memasukkan angka di luar ujung array, seperti `10`, Anda akan melihat keluaran
+memasukkan angka di luar ujung array, seperti `10`, Anda akan melihat output
 seperti ini:
 
 <!-- manual-regeneration
@@ -381,7 +381,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 Program ini menghasilkan error runtime pada saat memakai nilai yang tidak
 valid dalam operasi pengindeksan. Program keluar dengan pesan error dan tidak
-mengeksekusi pernyataan `println!` terakhir. Ketika Anda mencoba mengakses
+mengeksekusi statement `println!` terakhir. Ketika Anda mencoba mengakses
 sebuah elemen dengan pengindeksan, Rust akan memeriksa bahwa indeks yang Anda
 berikan lebih kecil daripada panjang array. Jika indeksnya lebih besar daripada
 atau sama dengan panjangnya, Rust akan panic. Pemeriksaan ini harus terjadi
@@ -390,7 +390,7 @@ nilai apa yang akan dimasukkan pengguna ketika mereka menjalankan kodenya
 nanti.
 
 Ini adalah contoh prinsip keamanan memori Rust sedang beraksi. Pada banyak
-bahasa tingkat rendah, pemeriksaan semacam ini tidak dilakukan, dan ketika Anda
+low-level language, pemeriksaan semacam ini tidak dilakukan, dan ketika Anda
 memberikan indeks yang salah, memori yang tidak valid dapat diakses. Rust
 melindungi Anda dari error semacam ini dengan segera keluar alih-alih
 mengizinkan akses memori itu dan melanjutkan eksekusi. Bab 9 membahas lebih

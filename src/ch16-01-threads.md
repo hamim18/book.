@@ -53,7 +53,7 @@ mencetak beberapa teks dari thread utama dan teks lain dari thread baru.
 
 Perhatikan bahwa ketika thread utama sebuah program Rust selesai, semua thread
 yang dibuat akan dimatikan, entah mereka sudah selesai berjalan atau belum.
-Keluaran program ini mungkin sedikit berbeda setiap kali dijalankan, tetapi
+Output program ini mungkin sedikit berbeda setiap kali dijalankan, tetapi
 akan tampak serupa dengan yang berikut:
 
 <!-- Not extracting output because changes to this output aren't significant;
@@ -76,12 +76,12 @@ Panggilan ke `thread::sleep` memaksa sebuah thread menghentikan eksekusinya
 untuk sesaat, sehingga memungkinkan thread lain berjalan. Thread-thread itu
 kemungkinan besar akan bergiliran, tetapi itu tidak dijamin: Tergantung
 bagaimana sistem operasi Anda menjadwalkan thread-thread itu. Pada
-penjalanan ini, thread utama mencetak lebih dulu, meskipun pernyataan cetak
+penjalanan ini, thread utama mencetak lebih dulu, meskipun statement cetak
 dari thread yang dibuat muncul lebih dulu di kode. Dan meskipun kita menyuruh
 thread yang dibuat itu mencetak sampai `i` bernilai `9`, ia hanya sampai `5`
 sebelum thread utama dimatikan.
 
-Jika Anda menjalankan kode ini dan hanya melihat keluaran dari thread utama,
+Jika Anda menjalankan kode ini dan hanya melihat output dari thread utama,
 atau tidak melihat tumpang tindih sama sekali, coba perbesar angka pada
 range-nya untuk menciptakan lebih banyak peluang bagi sistem operasi untuk
 berpindah antar-thread.
@@ -99,8 +99,8 @@ ada jaminan tentang urutan berjalannya thread, kita juga tidak bisa menjamin
 bahwa thread yang dibuat itu akan sempat berjalan sama sekali!
 
 Kita dapat memperbaiki masalah thread yang dibuat tidak berjalan atau
-berakhir terlalu dini dengan menyimpan nilai kembalian `thread::spawn` di
-sebuah variabel. Type kembalian `thread::spawn` adalah `JoinHandle<T>`.
+berakhir terlalu dini dengan menyimpan return value `thread::spawn` di
+sebuah variable. Type kembalian `thread::spawn` adalah `JoinHandle<T>`.
 `JoinHandle<T>` adalah nilai yang dimiliki yang, ketika kita memanggil metode
 `join` padanya, akan menunggu thread-nya selesai. Listing 16-2 menunjukkan
 cara memakai `JoinHandle<T>` dari thread yang kita buat di Listing 16-1 dan
@@ -118,8 +118,8 @@ cara memanggil `join` untuk memastikan thread yang dibuat selesai sebelum
 Memanggil `join` pada handle itu memblokir thread yang sedang berjalan sampai
 thread yang direpresentasikan handle itu berakhir. _Blocking_ (pemblokiran)
 sebuah thread berarti thread itu dicegah melakukan pekerjaan atau keluar.
-Karena kita meletakkan panggilan ke `join` setelah perulangan `for` thread
-utama, menjalankan Listing 16-2 seharusnya menghasilkan keluaran yang serupa
+Karena kita meletakkan panggilan ke `join` setelah loop `for` thread
+utama, menjalankan Listing 16-2 seharusnya menghasilkan output yang serupa
 dengan ini:
 
 <!-- Not extracting output because changes to this output aren't significant;
@@ -146,7 +146,7 @@ Kedua thread terus bergantian, tetapi thread utama menunggu karena panggilan
 ke `handle.join()` dan tidak berakhir sampai thread yang dibuat selesai.
 
 Tetapi mari kita lihat apa yang terjadi ketika kita justru memindahkan
-`handle.join()` ke sebelum perulangan `for` di `main`, seperti ini:
+`handle.join()` ke sebelum loop `for` di `main`, seperti ini:
 
 <Listing file-name="src/main.rs">
 
@@ -157,7 +157,7 @@ Tetapi mari kita lihat apa yang terjadi ketika kita justru memindahkan
 </Listing>
 
 Thread utama akan menunggu thread yang dibuat selesai, lalu menjalankan
-perulangan `for`-nya, jadi keluarannya tidak akan saling menyelip lagi,
+loop `for`-nya, jadi outputnya tidak akan saling menyelip lagi,
 seperti ditunjukkan di sini:
 
 <!-- Not extracting output because changes to this output aren't significant;

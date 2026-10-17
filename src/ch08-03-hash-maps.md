@@ -69,7 +69,7 @@ Program ini menangani `Option` dengan memanggil `copied` untuk mendapatkan
 `score` menjadi nol jika `scores` tidak memiliki entri untuk kunci itu.
 
 Kita dapat mengiterasi setiap pasangan kunci-nilai di hash map dengan cara
-yang mirip seperti yang kita lakukan dengan vektor, memakai perulangan
+yang mirip seperti yang kita lakukan dengan vektor, memakai loop
 `for`:
 
 ```rust
@@ -102,7 +102,7 @@ tersebut, seperti yang didemonstrasikan di Listing 8-22.
 
 </Listing>
 
-Kita tidak dapat memakai variabel `field_name` dan `field_value` setelah
+Kita tidak dapat memakai variable `field_name` dan `field_value` setelah
 keduanya dipindahkan ke dalam hash map lewat pemanggilan `insert`.
 
 Jika kita memasukkan *reference* ke nilai ke dalam hash map, nilainya tidak
@@ -210,10 +210,10 @@ berbeda: ingat dari [“Mengakses Nilai di dalam Hash Map”][access]<!-- ignore
 Metode `split_whitespace` mengembalikan sebuah *iterator* atas subslice,
 dipisahkan oleh spasi, dari nilai di `text`. Metode `or_insert`
 mengembalikan *reference* *mutable* (`&mut V`) ke nilai untuk kunci yang
-ditentukan. Di sini, kita menyimpan *reference* *mutable* itu di variabel
+ditentukan. Di sini, kita menyimpan *reference* *mutable* itu di variable
 `count`, jadi untuk menetapkan nilai itu, kita harus mendereferensi `count`
 terlebih dahulu memakai tanda bintang (`*`). *Reference* *mutable* keluar dari
-*scope* di akhir perulangan `for`, jadi semua perubahan ini aman dan
+*scope* di akhir loop `for`, jadi semua perubahan ini aman dan
 diperbolehkan oleh aturan *borrowing*.
 
 ### Fungsi Hashing

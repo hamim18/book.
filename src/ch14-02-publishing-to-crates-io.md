@@ -208,7 +208,7 @@ Perhatikan bahwa type `PrimaryColor` dan `SecondaryColor` tidak terdaftar di
 halaman depan, begitu pula fungsi `mix`. Kita harus mengeklik `kinds` dan
 `utils` untuk melihatnya.
 
-*Crate* lain yang bergantung pada library ini akan membutuhkan pernyataan `use`
+*Crate* lain yang bergantung pada library ini akan membutuhkan statement `use`
 yang membawa item dari `art` ke dalam *scope*, dengan menyebutkan struktur modul
 yang saat ini didefinisikan. Listing 14-4 menunjukkan contoh sebuah *crate* yang
 memakai item `PrimaryColor` dan `mix` dari *crate* `art`.
@@ -228,14 +228,14 @@ mengerjakan *crate* `art` daripada bagi mereka yang memakainya. Struktur
 internal itu tidak memuat informasi berguna apa pun bagi orang yang mencoba
 memahami cara memakai *crate* `art`, melainkan menimbulkan kebingungan karena
 pengembang yang memakainya harus mencari tahu ke mana harus melihat, dan harus
-menyebutkan nama modul di pernyataan `use`.
+menyebutkan nama modul di statement `use`.
 
 Untuk menghilangkan organisasi internal dari API publik, kita dapat mengubah
-kode *crate* `art` di Listing 14-3 untuk menambahkan pernyataan `pub use` guna
+kode *crate* `art` di Listing 14-3 untuk menambahkan statement `pub use` guna
 mengekspor ulang item-item itu di tingkat teratas, seperti ditunjukkan pada
 Listing 14-5.
 
-<Listing number="14-5" file-name="src/lib.rs" caption="Menambahkan pernyataan `pub use` untuk mengekspor ulang item">
+<Listing number="14-5" file-name="src/lib.rs" caption="Menambahkan statement `pub use` untuk mengekspor ulang item">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}

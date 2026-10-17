@@ -80,7 +80,7 @@ File ini berformat [_TOML_][toml]<!-- ignore --> (_Tom’s Obvious, Minimal
 Language_), yang merupakan format konfigurasi Cargo.
 
 Baris pertama, `[package]`, adalah judul bagian yang menandakan bahwa
-pernyataan-pernyataan berikutnya sedang mengonfigurasi sebuah *package*.
+statement-statement berikutnya sedang mengonfigurasi sebuah *package*.
 Saat kita menambahkan lebih banyak informasi ke file ini, kita akan
 menambahkan bagian-bagian lain.
 
@@ -171,12 +171,12 @@ Memakai `cargo run` lebih praktis daripada harus ingat untuk menjalankan
 `cargo build` lalu memakai seluruh *path* menuju file binernya, jadi
 kebanyakan pengembang memakai `cargo run`.
 
-Perhatikan bahwa kali ini kita tidak melihat keluaran yang menandakan
+Perhatikan bahwa kali ini kita tidak melihat output yang menandakan
 bahwa Cargo sedang mengompilasi `hello_cargo`. Cargo tahu bahwa
 file-file-nya belum berubah, jadi Cargo tidak membangun ulang, melainkan
 langsung menjalankan file binernya. Jika Anda mengubah kode sumber Anda,
 Cargo akan membangun ulang proyeknya sebelum menjalankannya, dan Anda akan
-melihat keluaran ini:
+melihat output ini:
 
 ```console
 $ cargo run

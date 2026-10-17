@@ -27,14 +27,14 @@ file tersebut, seperti yang ditunjukkan di Listing 12-4.
 
 </Listing>
 
-Pertama, kita membawa bagian pustaka standar yang relevan dengan pernyataan
+Pertama, kita membawa bagian pustaka standar yang relevan dengan statement
 `use`: Kita memerlukan `std::fs` untuk menangani file.
 
-Di dalam `main`, pernyataan baru `fs::read_to_string` menerima `file_path`,
+Di dalam `main`, statement baru `fs::read_to_string` menerima `file_path`,
 membuka file tersebut, dan mengembalikan sebuah nilai typed
 `std::io::Result<String>` yang memuat isi file tersebut.
 
-Setelah itu, kita kembali menambahkan pernyataan `println!` sementara yang
+Setelah itu, kita kembali menambahkan statement `println!` sementara yang
 mencetak nilai `contents` setelah file dibaca, supaya kita dapat memeriksa
 bahwa program ini sejauh ini bekerja.
 

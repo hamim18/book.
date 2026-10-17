@@ -7,7 +7,7 @@ memakai sebuah *enum* untuk menunjukkan bagaimana *enum* dapat mengkodekan makna
 beserta data. Selanjutnya, kita akan mengeksplorasi sebuah *enum* yang sangat
 berguna, bernama `Option`, yang menyatakan bahwa sebuah nilai dapat berupa
 sesuatu atau tidak ada apa pun. Lalu, kita akan melihat bagaimana *pattern
-matching* (pencocokan pola) dalam ekspresi `match` memudahkan kita menjalankan
+matching* (pencocokan pola) dalam expression `match` memudahkan kita menjalankan
 kode yang berbeda untuk nilai *enum* yang berbeda. Terakhir, kita akan membahas
 bagaimana konstruk `if let` adalah idiom praktis dan ringkas lainnya yang
 tersedia untuk menangani *enum* di kode Anda.

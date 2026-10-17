@@ -2,16 +2,16 @@
 
 <a id="comparing-performance-loops-vs-iterators"></a>
 
-## Performa pada Perulangan vs. Iterator
+## Performa pada Loop vs. Iterator
 
-Untuk menentukan apakah akan memakai perulangan atau *iterator*, Anda perlu
+Untuk menentukan apakah akan memakai loop atau *iterator*, Anda perlu
 mengetahui implementasi mana yang lebih cepat: versi fungsi `search` dengan
-perulangan `for` eksplisit atau versi dengan *iterator*.
+loop `for` eksplisit atau versi dengan *iterator*.
 
 Kita menjalankan sebuah benchmark dengan memuat seluruh isi _The Adventures of
 Sherlock Holmes_ karya Sir Arthur Conan Doyle ke dalam sebuah `String` dan
 mencari kata _the_ di dalam isi tersebut. Berikut hasil benchmark pada versi
-`search` yang memakai perulangan `for` dan versi yang memakai *iterator*:
+`search` yang memakai loop `for` dan versi yang memakai *iterator*:
 
 ```text
 test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)

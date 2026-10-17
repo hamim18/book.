@@ -23,7 +23,7 @@ langkah-langkah ini seharusnya bekerja sesuai harapan dengan isi buku ini.
 > yang dipakai di terminal. Baris yang harus Anda ketik di terminal semuanya
 > diawali dengan `$`. Anda tidak perlu mengetik karakter `$`; itu adalah
 > prompt baris perintah yang ditampilkan untuk menandai awal setiap perintah.
-> Baris yang tidak diawali `$` biasanya menampilkan keluaran dari perintah
+> Baris yang tidak diawali `$` biasanya menampilkan output dari perintah
 > sebelumnya. Selain itu, contoh khusus PowerShell akan memakai `>` alih-alih
 > `$`.
 
@@ -45,7 +45,7 @@ Rust is installed now. Great!
 ```
 
 Anda juga memerlukan _linker_, yaitu program yang dipakai Rust untuk
-menggabungkan keluaran hasil kompilasinya menjadi satu file. Kemungkinan
+menggabungkan output hasil kompilasinya menjadi satu file. Kemungkinan
 besar Anda sudah memilikinya. Jika Anda mendapat error linker, Anda harus
 memasang *compiler* C, yang biasanya menyertakan linker. *Compiler* C juga
 berguna karena beberapa *package* (paket) Rust yang umum bergantung pada
@@ -92,7 +92,7 @@ rustc x.y.z (abcabcabc yyyy-mm-dd)
 ```
 
 Jika Anda melihat informasi ini, Anda telah berhasil memasang Rust! Jika
-tidak, periksa apakah Rust ada di variabel sistem `%PATH%` Anda seperti
+tidak, periksa apakah Rust ada di variable sistem `%PATH%` Anda seperti
 berikut.
 
 Di Windows CMD, gunakan:

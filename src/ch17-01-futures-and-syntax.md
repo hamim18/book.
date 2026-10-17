@@ -29,7 +29,7 @@ seperti yang akan kita lihat nanti!
 
 Saat menulis kode async di Rust, kita memakai kata kunci `async` dan `await`
 hampir setiap saat. Rust mengompilasinya menjadi kode yang setara dengan
-memakai *trait* `Future`, sebagaimana Rust mengompilasi perulangan `for` menjadi
+memakai *trait* `Future`, sebagaimana Rust mengompilasi loop `for` menjadi
 kode yang setara dengan memakai *trait* `Iterator`. Akan tetapi, karena Rust
 menyediakan *trait* `Future`, Anda juga bisa mengimplementasikannya untuk type
 data Anda sendiri saat dibutuhkan. Banyak fungsi yang akan kita lihat di bab
@@ -115,7 +115,7 @@ Anda tidak memakai sebuah *future*.) Ini mungkin mengingatkan Anda pada
 pembahasan *iterator* di bagian [“Memproses Serangkaian Item dengan
 *Iterator*”][*iterators*-lazy]<!-- ignore --> di Bab 13. *Iterator* tidak melakukan
 apa pun kecuali Anda memanggil metode `next`-nya—baik secara langsung maupun
-dengan memakai perulangan `for` atau metode seperti `map` yang memakai `next`
+dengan memakai loop `for` atau metode seperti `map` yang memakai `next`
 di balik layar. Begitu pula, *future* tidak melakukan apa pun kecuali Anda
 memintanya secara eksplisit. Sifat malas ini memungkinkan Rust menghindari
 menjalankan kode async sampai kode itu benar-benar dibutuhkan.
@@ -137,13 +137,13 @@ mendapatkan elemen `<title>` pertama di dalam dokumen, jika ada. Karena
 mungkin saja tidak ada elemen yang cocok, `select_first` mengembalikan sebuah
 `Option<ElementRef>`. Terakhir, kita memakai metode `Option::map`, yang
 memungkinkan kita mengolah item di dalam `Option` jika item itu ada, dan tidak
-melakukan apa pun jika tidak ada. (Di sini kita juga bisa memakai ekspresi
+melakukan apa pun jika tidak ada. (Di sini kita juga bisa memakai expression
 `match`, tetapi `map` lebih idiomatis.) Di dalam badan fungsi yang kita
 berikan kepada `map`, kita memanggil `inner_html` pada `title` untuk
 mendapatkan isinya, yang berupa `String`. Pada akhirnya, kita memiliki sebuah
 `Option<String>`.
 
-Perhatikan bahwa kata kunci `await` dari Rust berada _setelah_ ekspresi yang
+Perhatikan bahwa kata kunci `await` dari Rust berada _setelah_ expression yang
 Anda tunggu, bukan sebelumnya. Artinya, kata kunci ini bersifat _postfix_. Ini
 mungkin berbeda dari yang biasa Anda lihat jika Anda pernah memakai `async` di
 bahasa lain, tetapi di Rust ini membuat rantai metode jauh lebih nyaman
@@ -199,8 +199,8 @@ Mari kita telusuri setiap bagian dari versi yang ditransformasi ini:
   `Option<String>`, sama dengan return type asli dari `page_title` versi
   `async fn`.
 - Semua kode yang dipanggil di badan fungsi asli terbungkus di dalam blok
-  `async move`. Ingat bahwa blok adalah ekspresi. Seluruh blok ini adalah
-  ekspresi yang dikembalikan dari fungsi tersebut.
+  `async move`. Ingat bahwa blok adalah expression. Seluruh blok ini adalah
+  expression yang dikembalikan dari fungsi tersebut.
 - Blok async ini menghasilkan sebuah nilai typed `Option<String>`, seperti
   yang baru saja dijelaskan. Nilai itu cocok dengan type `Output` pada type
   kembaliannya. Ini sama saja dengan blok-blok lain yang pernah Anda lihat.
@@ -231,7 +231,7 @@ Kita mengikuti pola yang sama dengan yang kita pakai untuk mendapatkan
 argumen baris perintah di bagian [“Menerima Argumen Baris
 Perintah”][cli-args]<!-- ignore --> di Bab 12. Kemudian kita meneruskan argumen
 URL itu ke `page_title` dan menunggu hasilnya. Karena nilai yang dihasilkan
-*future* itu adalah `Option<String>`, kita memakai ekspresi `match` untuk
+*future* itu adalah `Option<String>`, kita memakai expression `match` untuk
 mencetak pesan yang berbeda sesuai ada atau tidaknya `<title>` di halaman
 tersebut.
 

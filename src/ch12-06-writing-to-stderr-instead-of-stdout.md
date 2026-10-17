@@ -4,11 +4,11 @@
 
 ## Mengalihkan Error ke Standard Error
 
-Saat ini, kita menulis semua keluaran kita ke terminal menggunakan makro
-`println!`. Di sebagian besar terminal, ada dua jenis keluaran: _standard
+Saat ini, kita menulis semua output kita ke terminal menggunakan makro
+`println!`. Di sebagian besar terminal, ada dua jenis output: _standard
 output_ (`stdout`) untuk informasi umum dan _standard error_ (`stderr`) untuk
 pesan error. Pembedaan ini memungkinkan pengguna memilih untuk mengarahkan
-keluaran program yang berhasil ke sebuah file, tetapi tetap mencetak pesan
+output program yang berhasil ke sebuah file, tetapi tetap mencetak pesan
 error ke layar.
 
 Makro `println!` hanya mampu mencetak ke standard output, jadi kita harus
@@ -27,7 +27,7 @@ Program baris perintah diharapkan mengirim pesan error ke aliran standard
 error sehingga kita tetap dapat melihat pesan error di layar bahkan jika kita
 mengalihkan aliran standard output ke sebuah file. Program kita saat ini
 belum berperilaku baik: Sebentar lagi kita akan melihat bahwa program itu
-justru menyimpan keluaran pesan errornya ke sebuah file!
+justru menyimpan output pesan errornya ke sebuah file!
 
 Untuk mendemonstrasikan perilaku ini, kita akan menjalankan programnya dengan
 `>` dan *path* file _output.txt_, tujuan pengalihan aliran standard output yang
@@ -87,7 +87,7 @@ error, tetapi tetap mengalihkan standard output ke sebuah file, seperti ini:
 $ cargo run -- to poem.txt > output.txt
 ```
 
-Kita tidak akan melihat keluaran apa pun di terminal, dan _output.txt_ akan
+Kita tidak akan melihat output apa pun di terminal, dan _output.txt_ akan
 memuat hasil-hasil kita:
 
 <span class="filename">Nama File: output.txt</span>
@@ -97,14 +97,14 @@ Are you nobody, too?
 How dreary to be somebody!
 ```
 
-Ini menunjukkan bahwa sekarang kita memakai standard output untuk keluaran
-yang berhasil dan standard error untuk keluaran error, sebagaimana mestinya.
+Ini menunjukkan bahwa sekarang kita memakai standard output untuk output
+yang berhasil dan standard error untuk output error, sebagaimana mestinya.
 
 ## Ringkasan
 
 Bab ini merangkum beberapa konsep utama yang telah Anda pelajari sejauh ini
 dan membahas cara melakukan operasi I/O yang umum di Rust. Dengan memakai
-argumen baris perintah, file, variabel lingkungan, dan makro `eprintln!`
+argumen baris perintah, file, environment variable, dan makro `eprintln!`
 untuk mencetak error, Anda kini siap menulis aplikasi baris perintah.
 Dipadukan dengan konsep-konsep di bab-bab sebelumnya, kode Anda akan tertata
 dengan baik, menyimpan data secara efektif di struktur data yang tepat,

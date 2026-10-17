@@ -6,15 +6,15 @@ pada intinya. Tidak ada satu pun konsep yang disajikan di bab ini yang unik
 bagi Rust, tetapi kita akan membahasnya dalam konteks Rust dan menjelaskan
 konvensi seputar penggunaannya.
 
-Secara khusus, Anda akan mempelajari variabel, type dasar, fungsi, komentar,
-dan alur kontrol. Fondasi-fondasi ini akan ada di setiap program Rust, dan
+Secara khusus, Anda akan mempelajari variable, type dasar, fungsi, komentar,
+dan control flow. Fondasi-fondasi ini akan ada di setiap program Rust, dan
 mempelajarinya sejak awal akan memberi Anda inti yang kuat untuk memulai.
 
 > #### Kata Kunci
 >
 > Bahasa Rust memiliki sekumpulan *keyword* (kata kunci) yang dicadangkan untuk
 > digunakan oleh bahasa itu saja, sama seperti bahasa-bahasa lain. Ingatlah
-> bahwa Anda tidak dapat menggunakan kata-kata ini sebagai nama variabel atau
+> bahwa Anda tidak dapat menggunakan kata-kata ini sebagai nama variable atau
 > fungsi. Sebagian besar keyword memiliki makna khusus, dan Anda akan
 > memakainya untuk melakukan berbagai tugas dalam program Rust Anda; sebagian
 > kecil tidak memiliki fungsionalitas yang terkait saat ini, tetapi sudah

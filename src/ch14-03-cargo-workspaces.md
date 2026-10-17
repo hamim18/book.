@@ -10,7 +10,7 @@ dikembangkan secara bersamaan.
 ### Membuat Workspace
 
 Sebuah _workspace_ adalah sekumpulan *package* yang berbagi _Cargo.lock_ dan
-direktori keluaran yang sama. Mari kita buat proyek yang memakai workspace—kita
+direktori output yang sama. Mari kita buat proyek yang memakai workspace—kita
 akan memakai kode sederhana supaya bisa berkonsentrasi pada struktur
 workspace. Ada beberapa cara menyusun workspace, jadi kita hanya akan
 menunjukkan satu cara yang umum. Kita akan memiliki workspace yang memuat satu
@@ -347,7 +347,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Seksi pertama dari keluaran itu menunjukkan bahwa test `it_works` di *crate*
+Seksi pertama dari output itu menunjukkan bahwa test `it_works` di *crate*
 `add_one` lulus. Seksi berikutnya menunjukkan bahwa nol test ditemukan di
 *crate* `adder`, lalu seksi terakhir menunjukkan bahwa nol *documentation test*
 ditemukan di *crate* `add_one`.
@@ -379,7 +379,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Keluaran ini menunjukkan `cargo test` hanya menjalankan test untuk *crate*
+Output ini menunjukkan `cargo test` hanya menjalankan test untuk *crate*
 `add_one` dan tidak menjalankan test *crate* `adder`.
 
 Jika Anda menerbitkan *crate*-crate di workspace itu ke

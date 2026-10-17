@@ -58,7 +58,7 @@ Pertama, kita akan mengubah awal fungsi `main` yang kita miliki di Listing
 12-24 menjadi kode di Listing 13-18, yang kali ini memakai sebuah *iterator*.
 Ini tidak akan terkompilasi sampai kita memperbarui `Config::build` juga.
 
-<Listing number="13-18" file-name="src/main.rs" caption="Meneruskan nilai kembalian `env::args` ke `Config::build`">
+<Listing number="13-18" file-name="src/main.rs" caption="Meneruskan return value `env::args` ke `Config::build`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-18/src/main.rs:here}}
@@ -117,7 +117,7 @@ untuk memakai metode `next`.
 
 </Listing>
 
-Ingat bahwa nilai pertama di dalam nilai kembalian `env::args` adalah nama
+Ingat bahwa nilai pertama di dalam return value `env::args` adalah nama
 programnya. Kita ingin mengabaikannya dan lanjut ke nilai berikutnya, jadi
 pertama kita memanggil `next` dan tidak melakukan apa pun dengan nilai
 kembaliannya. Lalu, kita memanggil `next` untuk mendapat nilai yang ingin
@@ -178,13 +178,13 @@ sebelum dan sesudah melakukan perubahan ini untuk mengamati perbedaan
 perilakunya. Sebelum perubahan ini, program tidak akan mencetak hasil apa pun
 sampai ia mengumpulkan semua hasilnya, tetapi setelah perubahan ini,
 hasil-hasilnya akan dicetak begitu setiap baris yang cocok ditemukan karena
-perulangan `for` di fungsi `run` dapat memanfaatkan sifat *lazy* (kemalasan) *iterator*.
+loop `for` di fungsi `run` dapat memanfaatkan sifat *lazy* (kemalasan) *iterator*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="choosing-between-loops-or-iterators"></a>
 
-### Memilih antara Perulangan atau Iterator
+### Memilih antara Loop atau Iterator
 
 Pertanyaan logis berikutnya adalah gaya mana yang sebaiknya Anda pilih di
 kode Anda sendiri dan mengapa: implementasi asli di Listing 13-21 atau versi
@@ -194,14 +194,14 @@ semua hasilnya sebelum mengembalikannya, alih-alih mengembalikan
 *iterator*. Sedikit lebih sulit untuk membiasakan diri pada awalnya, tetapi
 begitu Anda mendapat pemahaman tentang berbagai *iterator adapter* dan apa yang
 mereka lakukan, *iterator* bisa jadi lebih mudah dipahami. Alih-alih
-mengutak-atik berbagai bagian perulangan dan membangun vektor-vektor baru,
-kode berfokus pada tujuan tingkat tinggi dari perulangan tersebut. Ini
+mengutak-atik berbagai bagian loop dan membangun vektor-vektor baru,
+kode berfokus pada tujuan tingkat tinggi dari loop tersebut. Ini
 mengabstraksikan sebagian kode yang umum dijumpai sehingga lebih mudah
 melihat konsep-konsep yang unik untuk kode ini, seperti kondisi penyaringan
 yang harus dilewati setiap elemen di dalam *iterator*.
 
 Tetapi apakah kedua implementasi itu benar-benar setara? Asumsi intuitifnya
-mungkin adalah bahwa perulangan tingkat rendah akan lebih cepat. Mari kita
+mungkin adalah bahwa loop tingkat rendah akan lebih cepat. Mari kita
 bicarakan performa.
 
 [impl-trait]: ch10-02-traits.html#traits-as-parameters

@@ -12,7 +12,7 @@ menjalankan `cargo build --release`. Profil `dev` didefinisikan dengan default
 yang baik untuk pengembangan, dan profil `release` memiliki default yang baik
 untuk build rilis.
 
-Nama-nama profil ini mungkin tidak asing bagi Anda karena muncul di keluaran
+Nama-nama profil ini mungkin tidak asing bagi Anda karena muncul di output
 build:
 
 <!-- manual-regeneration

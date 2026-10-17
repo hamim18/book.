@@ -215,7 +215,7 @@ Kedua, kita dapat melihat di tanda tangan bahwa `add` mengambil *ownership*
 `self` karena `self` _tidak_ memiliki `&`. Ini berarti `s1` di Listing 8-18
 akan dipindahkan ke dalam pemanggilan `add` dan tidak lagi valid setelahnya.
 Jadi, meskipun `let s3 = s1 + &s2;` terlihat seperti menyalin kedua string
-dan membuat yang baru, pernyataan ini sebenarnya mengambil *ownership* `s1`,
+dan membuat yang baru, statement ini sebenarnya mengambil *ownership* `s1`,
 menambahkan salinan isi `s2`, lalu mengembalikan *ownership* hasilnya. Dengan
 kata lain, ia terlihat membuat banyak salinan, tetapi tidak;
 implementasinya lebih efisien daripada menyalin.

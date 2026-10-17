@@ -87,7 +87,7 @@ match page_title(url).poll() {
 
 Apa yang harus kita lakukan saat *future* masih `Pending`? Kita perlu semacam
 cara untuk mencoba lagi, dan lagi, dan lagi, sampai *future* itu akhirnya siap.
-Dengan kata lain, kita butuh perulangan:
+Dengan kata lain, kita butuh loop:
 
 ```rust,ignore
 let mut page_title_fut = page_title(url);
@@ -106,7 +106,7 @@ loop {
 
 Namun, jika Rust mengompilasinya menjadi persis kode itu, setiap `await` akan
 memblokir—justru kebalikan dari tujuan kita! Sebagai gantinya, Rust
-memastikan bahwa perulangan itu bisa menyerahkan kontrol kepada sesuatu yang
+memastikan bahwa loop itu bisa menyerahkan kontrol kepada sesuatu yang
 bisa menjeda pekerjaan pada *future* ini untuk mengerjakan *future*-future lain,
 lalu mengecek yang ini lagi nanti. Seperti yang telah kita lihat, sesuatu itu
 adalah runtime async, dan pekerjaan penjadwalan serta koordinasi ini adalah

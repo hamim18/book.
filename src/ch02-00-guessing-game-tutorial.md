@@ -70,8 +70,8 @@ Buka lagi file _src/main.rs_. Anda akan menulis semua kode di file ini.
 
 ## Memproses Tebakan
 
-Bagian pertama dari program permainan tebak angka akan meminta masukan dari
-pengguna, memproses masukan tersebut, dan memeriksa bahwa masukannya sesuai
+Bagian pertama dari program permainan tebak angka akan meminta input dari
+pengguna, memproses input tersebut, dan memeriksa bahwa inputnya sesuai
 dengan bentuk yang diharapkan. Untuk memulainya, kita akan mengizinkan
 pemain memasukkan sebuah tebakan. Masukkan kode di Listing 2-1 ke
 _src/main.rs_.
@@ -85,8 +85,8 @@ _src/main.rs_.
 </Listing>
 
 Kode ini memuat banyak informasi, jadi mari kita bahas baris per baris.
-Untuk mendapatkan masukan pengguna lalu mencetak hasilnya sebagai keluaran,
-kita perlu membawa pustaka masukan/keluaran `io` ke dalam *scope*
+Untuk mendapatkan user input lalu mencetak hasilnya sebagai output,
+kita perlu membawa pustaka input/output `io` ke dalam *scope*
 (cakupan). Pustaka `io` berasal dari pustaka standar, yang dikenal sebagai
 `std`:
 
@@ -100,9 +100,9 @@ standar dan dibawa ke dalam *scope* setiap program. Kumpulan ini disebut
 standar][prelude].
 
 Jika type yang ingin Anda pakai tidak ada di dalam *prelude*, Anda harus
-membawa type itu ke dalam *scope* secara eksplisit dengan pernyataan `use`.
+membawa type itu ke dalam *scope* secara eksplisit dengan statement `use`.
 Memakai pustaka `std::io` memberi Anda sejumlah fitur berguna, termasuk
-kemampuan untuk menerima masukan pengguna.
+kemampuan untuk menerima user input.
 
 Seperti yang Anda lihat di Bab 1, fungsi `main` adalah titik masuk ke
 dalam program:
@@ -122,12 +122,12 @@ mencetak string ke layar:
 ```
 
 Kode ini mencetak prompt yang menyatakan apa permainan ini dan meminta
-masukan dari pengguna.
+input dari pengguna.
 
 <a id="storing-values-with-variables"></a>
-### Menyimpan Nilai dengan Variabel
+### Menyimpan Nilai dengan Variable
 
-Berikutnya, kita akan membuat variabel untuk menyimpan masukan pengguna,
+Berikutnya, kita akan membuat variable untuk menyimpan user input,
 seperti ini:
 
 ```rust,ignore
@@ -135,20 +135,20 @@ seperti ini:
 ```
 
 Sekarang programnya mulai menarik! Banyak hal yang terjadi pada baris
-kecil ini. Kita memakai pernyataan `let` untuk membuat variabelnya. Berikut
+kecil ini. Kita memakai statement `let` untuk membuat variablenya. Berikut
 contoh lainnya:
 
 ```rust,ignore
 let apples = 5;
 ```
 
-Baris ini membuat variabel baru bernama `apples` dan mengikatnya ke nilai
-`5`. Di Rust, variabel bersifat *immutable* (tidak dapat diubah) secara
-bawaan, artinya begitu kita memberikan nilai ke variabel, nilainya tidak
+Baris ini membuat variable baru bernama `apples` dan mengikatnya ke nilai
+`5`. Di Rust, variable bersifat *immutable* (tidak dapat diubah) secara
+bawaan, artinya begitu kita memberikan nilai ke variable, nilainya tidak
 akan berubah. Kita akan membahas konsep ini secara detail di bagian
-[“Variabel dan Mutabilitas”][variables-and-mutability]<!-- ignore -->
-pada Bab 3. Untuk membuat variabel menjadi *mutable* (dapat diubah), kita
-menambahkan `mut` sebelum nama variabelnya:
+[“Variable dan Mutabilitas”][variables-and-mutability]<!-- ignore -->
+pada Bab 3. Untuk membuat variable menjadi *mutable* (dapat diubah), kita
+menambahkan `mut` sebelum nama variablenya:
 
 ```rust,ignore
 let apples = 5; // immutable
@@ -160,9 +160,9 @@ let mut bananas = 5; // mutable
 > membahas komentar lebih detail di [Bab 3][comments]<!-- ignore -->.
 
 Kembali ke program permainan tebak angka, sekarang Anda tahu bahwa
-`let mut guess` akan memperkenalkan variabel *mutable* bernama `guess`.
+`let mut guess` akan memperkenalkan variable *mutable* bernama `guess`.
 Tanda sama dengan (`=`) memberi tahu Rust bahwa kita ingin mengikat sesuatu
-ke variabel itu sekarang. Di sebelah kanan tanda sama dengan terdapat nilai
+ke variable itu sekarang. Di sebelah kanan tanda sama dengan terdapat nilai
 yang diikat ke `guess`, yaitu hasil dari memanggil `String::new`, fungsi
 yang mengembalikan instance baru dari `String`. [`String`][string]<!--
 ignore --> adalah type string yang disediakan pustaka standar berupa teks
@@ -176,15 +176,15 @@ banyak type karena itu adalah nama yang umum untuk fungsi yang membuat
 nilai baru dari jenis tertentu.
 
 Secara lengkap, baris `let mut guess = String::new();` telah membuat
-variabel *mutable* yang saat ini terikat pada instance baru `String` yang
+variable *mutable* yang saat ini terikat pada instance baru `String` yang
 kosong. Fiuh!
 
-### Menerima Masukan Pengguna
+### Menerima Input Pengguna
 
-Ingat bahwa kita menyertakan fungsionalitas masukan/keluaran dari pustaka
+Ingat bahwa kita menyertakan fungsionalitas input/output dari pustaka
 standar dengan `use std::io;` pada baris pertama program. Sekarang kita
 akan memanggil fungsi `stdin` dari *module* (modul) `io`, yang akan
-memungkinkan kita menangani masukan pengguna:
+memungkinkan kita menangani user input:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:read}}
@@ -194,14 +194,14 @@ Jika kita tidak mengimpor *module* `io` dengan `use std::io;` di awal
 program, kita tetap bisa memakai fungsi itu dengan menulis pemanggilannya
 sebagai `std::io::stdin`. Fungsi `stdin` mengembalikan instance
 [`std::io::Stdin`][iostdin]<!-- ignore -->, yaitu type yang
-merepresentasikan handle ke masukan standar untuk terminal Anda.
+merepresentasikan handle ke standard input untuk terminal Anda.
 
 Berikutnya, baris `.read_line(&mut guess)` memanggil metode
-[`read_line`][read_line]<!-- ignore --> pada handle masukan standar untuk
-mendapatkan masukan dari pengguna. Kita juga meneruskan `&mut guess`
+[`read_line`][read_line]<!-- ignore --> pada handle standard input untuk
+mendapatkan input dari pengguna. Kita juga meneruskan `&mut guess`
 sebagai argumen ke `read_line` untuk memberi tahu string mana yang akan
-dipakai untuk menyimpan masukan pengguna. Tugas penuh `read_line` adalah
-mengambil apa pun yang diketik pengguna ke masukan standar dan
+dipakai untuk menyimpan user input. Tugas penuh `read_line` adalah
+mengambil apa pun yang diketik pengguna ke standard input dan
 menambahkannya ke sebuah string (tanpa menimpa isinya), jadi karena itulah
 kita meneruskan string tersebut sebagai argumen. Argumen string itu harus
 *mutable* agar metodenya dapat mengubah isi string tersebut.
@@ -212,7 +212,7 @@ mengakses satu data tanpa perlu menyalin data itu ke memori berkali-kali.
 *Reference* adalah fitur yang kompleks, dan salah satu keunggulan utama Rust
 adalah betapa aman dan mudahnya memakai *reference*. Anda tidak perlu tahu
 banyak detail itu untuk menyelesaikan program ini. Untuk saat ini, yang
-perlu Anda ketahui hanyalah bahwa, seperti variabel, *reference* bersifat
+perlu Anda ketahui hanyalah bahwa, seperti variable, *reference* bersifat
 *immutable* secara bawaan. Karena itu, Anda perlu menulis `&mut guess`
 alih-alih `&guess` untuk membuatnya *mutable*. (Bab 4 akan menjelaskan
 *reference* lebih tuntas.)
@@ -268,7 +268,7 @@ metode `read_line` mengembalikan `Err`, kemungkinan besar itu akibat error
 yang berasal dari sistem operasi yang mendasarinya. Jika instance `Result`
 ini bernilai `Ok`, `expect` akan mengambil nilai balik yang dipegang `Ok`
 dan mengembalikan nilai itu saja kepada Anda sehingga Anda dapat
-memakainya. Dalam kasus ini, nilai itu adalah jumlah byte dalam masukan
+memakainya. Dalam kasus ini, nilai itu adalah jumlah byte dalam input
 pengguna.
 
 Jika Anda tidak memanggil `expect`, program akan terkompilasi, tetapi Anda
@@ -297,15 +297,15 @@ dibahas dari kode sejauh ini:
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print_guess}}
 ```
 
-Baris ini mencetak string yang kini berisi masukan pengguna. Kumpulan
+Baris ini mencetak string yang kini berisi user input. Kumpulan
 kurung kurawal `{}` adalah placeholder: Bayangkan `{}` sebagai capit
 kepiting kecil yang menahan nilai di tempatnya. Saat mencetak nilai sebuah
-variabel, nama variabelnya dapat dimasukkan ke dalam kurung kurawal. Saat
-mencetak hasil evaluasi sebuah ekspresi, letakkan kurung kurawal kosong
-pada string format, lalu ikuti string format itu dengan daftar ekspresi
+variable, nama variablenya dapat dimasukkan ke dalam kurung kurawal. Saat
+mencetak hasil evaluasi sebuah expression, letakkan kurung kurawal kosong
+pada string format, lalu ikuti string format itu dengan daftar expression
 yang dipisahkan koma untuk dicetak ke setiap placeholder kurung kurawal
-kosong dengan urutan yang sama. Mencetak sebuah variabel dan hasil sebuah
-ekspresi dalam satu pemanggilan `println!` akan tampak seperti ini:
+kosong dengan urutan yang sama. Mencetak sebuah variable dan hasil sebuah
+expression dalam satu pemanggilan `println!` akan tampak seperti ini:
 
 ```rust
 let x = 5;
@@ -339,7 +339,7 @@ You guessed: 6
 ```
 
 Pada titik ini, bagian pertama permainan sudah selesai: Kita mendapatkan
-masukan dari keyboard lalu mencetaknya.
+input dari keyboard lalu mencetaknya.
 
 ## Menghasilkan Angka Rahasia
 
@@ -409,7 +409,7 @@ rm Cargo.lock
 cargo clean
 cargo build -->
 
-<Listing number="2-2" caption="Keluaran dari menjalankan `cargo build` setelah menambahkan crate `rand` sebagai dependensi">
+<Listing number="2-2" caption="Output dari menjalankan `cargo build` setelah menambahkan crate `rand` sebagai dependensi">
 
 ```console
 $ cargo build
@@ -450,7 +450,7 @@ mengunduh *crate*-crate tersebut, Rust mengompilasinya, lalu mengompilasi
 proyek dengan dependensi yang tersedia.
 
 Jika Anda langsung menjalankan `cargo build` lagi tanpa mengubah apa pun,
-Anda tidak akan mendapat keluaran apa pun selain baris `Finished`. Cargo
+Anda tidak akan mendapat output apa pun selain baris `Finished`. Cargo
 tahu bahwa ia telah mengunduh dan mengompilasi dependensinya, dan Anda
 belum mengubah apa pun tentang dependensi itu di file _Cargo.toml_ Anda.
 Cargo juga tahu bahwa Anda belum mengubah apa pun pada kode Anda, jadi ia
@@ -459,7 +459,7 @@ dikerjakan, ia langsung berhenti.
 
 Jika Anda membuka file _src/main.rs_, membuat perubahan sepele, lalu
 menyimpannya dan menjalankan build lagi, Anda hanya akan melihat dua baris
-keluaran:
+output:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/listing-02-02/
@@ -572,14 +572,14 @@ Pertama, kita menambahkan baris `use rand::prelude::*;`. *Module*
 `rand`, dan `use` membuat item-item itu tersedia di *scope* program kita.
 
 Berikutnya, kita menambahkan dua baris di tengah. Pada baris pertama, kita
-memanggil fungsi `rand::rng` yang memberi kita pembangkit angka acak
+memanggil fungsi `rand::rng` yang memberi kita random number generator
 tertentu yang akan kita pakai: pembangkit yang lokal untuk thread eksekusi
 saat ini dan di-seed oleh sistem operasi. Kemudian, kita memanggil metode
-`random_range` pada pembangkit angka acak itu. Metode ini didefinisikan
+`random_range` pada random number generator itu. Metode ini didefinisikan
 oleh *trait* `RngExt` yang merupakan bagian dari *module* `rand::prelude`
-yang kita bawa ke dalam *scope* dengan pernyataan `use rand::prelude::*;`.
-Metode `random_range` menerima ekspresi range sebagai argumen dan
-menghasilkan angka acak dalam range tersebut. Jenis ekspresi range yang
+yang kita bawa ke dalam *scope* dengan statement `use rand::prelude::*;`.
+Metode `random_range` menerima expression range sebagai argumen dan
+menghasilkan angka acak dalam range tersebut. Jenis expression range yang
 kita pakai di sini berbentuk `start..=end` dan bersifat inklusif pada
 batas bawah dan atasnya, jadi kita perlu menentukan `1..=100` untuk
 meminta angka antara 1 dan 100.
@@ -639,12 +639,12 @@ seri `0.10` seharusnya bekerja dengan kode di bab ini.
 <a id="comparing-the-guess-to-the-secret-number"></a>
 ## Membandingkan Tebakan dengan Angka Rahasia
 
-Sekarang setelah kita memiliki masukan pengguna dan angka acak, kita dapat
+Sekarang setelah kita memiliki user input dan angka acak, kita dapat
 membandingkan keduanya. Langkah itu ditunjukkan pada Listing 2-4.
 Perhatikan bahwa kode ini belum akan terkompilasi, seperti yang akan kita
 jelaskan.
 
-<Listing number="2-4" file-name="src/main.rs" caption="Menangani nilai kembalian yang mungkin dari perbandingan dua angka">
+<Listing number="2-4" file-name="src/main.rs" caption="Menangani return value yang mungkin dari perbandingan dua angka">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-04/src/main.rs:here}}
@@ -652,7 +652,7 @@ jelaskan.
 
 </Listing>
 
-Pertama, kita menambahkan pernyataan `use` lain, membawa type bernama
+Pertama, kita menambahkan statement `use` lain, membawa type bernama
 `std::cmp::Ordering` ke dalam *scope* dari pustaka standar. Type
 `Ordering` adalah *enum* lain dan memiliki *variant* `Less`, `Greater`, dan
 `Equal`. Ketiganya adalah tiga kemungkinan hasil ketika Anda membandingkan
@@ -664,12 +664,12 @@ pada apa pun yang dapat dibandingkan. Metode ini menerima sebuah
 *reference* ke apa pun yang ingin Anda bandingkan dengannya: Di sini, ia
 membandingkan `guess` dengan `secret_number`. Lalu, ia mengembalikan
 *variant* dari *enum* `Ordering` yang kita bawa ke dalam *scope* dengan
-pernyataan `use`. Kita memakai ekspresi [`match`][match]<!-- ignore -->
+statement `use`. Kita memakai expression [`match`][match]<!-- ignore -->
 untuk memutuskan apa yang harus dilakukan berikutnya berdasarkan *variant*
 `Ordering` mana yang dikembalikan dari pemanggilan `cmp` dengan nilai di
 `guess` dan `secret_number`.
 
-Sebuah ekspresi `match` terdiri atas *arm* (lengan). Sebuah *arm* terdiri
+Sebuah expression `match` terdiri atas *arm* (lengan). Sebuah *arm* terdiri
 atas sebuah pola untuk dicocokkan, dan kode yang harus dijalankan jika
 nilai yang diberikan ke `match` sesuai dengan pola *arm* tersebut. Rust
 mengambil nilai yang diberikan ke `match` dan memeriksa pola tiap *arm*
@@ -679,19 +679,19 @@ mungkin dihadapi kode Anda, dan memastikan Anda menangani semuanya.
 Fitur-fitur ini akan dibahas secara detail masing-masing di Bab 6 dan
 Bab 19.
 
-Mari kita telusuri sebuah contoh dengan ekspresi `match` yang kita pakai
+Mari kita telusuri sebuah contoh dengan expression `match` yang kita pakai
 di sini. Katakanlah pengguna menebak 50 dan angka rahasia yang dihasilkan
 secara acak kali ini adalah 38.
 
 Ketika kode membandingkan 50 dengan 38, metode `cmp` akan mengembalikan
-`Ordering::Greater` karena 50 lebih besar daripada 38. Ekspresi `match`
+`Ordering::Greater` karena 50 lebih besar daripada 38. Expression `match`
 menerima nilai `Ordering::Greater` dan mulai memeriksa pola tiap *arm*. Ia
 melihat pola *arm* pertama, `Ordering::Less`, dan melihat bahwa nilai
 `Ordering::Greater` tidak cocok dengan `Ordering::Less`, jadi ia
 mengabaikan kode di *arm* itu dan berpindah ke *arm* berikutnya. Pola
 *arm* berikutnya adalah `Ordering::Greater`, yang _memang_ cocok dengan
 `Ordering::Greater`! Kode terkait di *arm* itu akan dieksekusi dan
-mencetak `Too big!` ke layar. Ekspresi `match` berakhir setelah kecocokan
+mencetak `Too big!` ke layar. Expression `match` berakhir setelah kecocokan
 pertama yang berhasil, jadi ia tidak akan melihat *arm* terakhir dalam
 skenario ini.
 
@@ -720,7 +720,7 @@ Alasan terjadinya error adalah Rust tidak dapat membandingkan string
 dengan numeric type.
 
 Pada akhirnya, kita ingin mengonversi `String` yang dibaca program sebagai
-masukan menjadi numeric type supaya kita dapat membandingkannya secara
+input menjadi numeric type supaya kita dapat membandingkannya secara
 numerik dengan angka rahasia. Kita melakukannya dengan menambahkan baris
 ini ke badan fungsi `main`:
 
@@ -736,19 +736,19 @@ Barisnya adalah:
 let guess: u32 = guess.trim().parse().expect("Please type a number!");
 ```
 
-Kita membuat variabel bernama `guess`. Tetapi tunggu, bukankah programnya
-sudah memiliki variabel bernama `guess`? Memang, tetapi untungnya Rust
+Kita membuat variable bernama `guess`. Tetapi tunggu, bukankah programnya
+sudah memiliki variable bernama `guess`? Memang, tetapi untungnya Rust
 mengizinkan kita melakukan *shadowing* terhadap nilai `guess` sebelumnya
 dengan nilai baru. *Shadowing* memungkinkan kita memakai ulang nama
-variabel `guess` alih-alih memaksa kita membuat dua variabel unik, seperti
+variable `guess` alih-alih memaksa kita membuat dua variable unik, seperti
 `guess_str` dan `guess`, misalnya. Kita akan membahasnya lebih detail di
 [Bab 3][shadowing]<!-- ignore -->, tetapi untuk sekarang, ketahuilah bahwa
 fitur ini sering dipakai ketika Anda ingin mengonversi nilai dari satu
 type ke type lain.
 
-Kita mengikat variabel baru ini ke ekspresi `guess.trim().parse()`.
-`guess` dalam ekspresi itu merujuk ke variabel `guess` asli yang berisi
-masukan sebagai string. Metode `trim` pada instance `String` akan
+Kita mengikat variable baru ini ke expression `guess.trim().parse()`.
+`guess` dalam expression itu merujuk ke variable `guess` asli yang berisi
+input sebagai string. Metode `trim` pada instance `String` akan
 menghapus spasi apa pun di awal dan akhir, yang harus kita lakukan sebelum
 kita dapat mengonversi string itu ke `u32`, yang hanya dapat memuat data
 numerik. Pengguna harus menekan <kbd>enter</kbd> untuk memenuhi
@@ -763,7 +763,7 @@ sehingga hasilnya hanya `5`.
 type lain. Di sini, kita memakainya untuk mengonversi dari string ke
 angka. Kita perlu memberi tahu Rust numeric type persis yang kita inginkan
 dengan memakai `let guess: u32`. Titik dua (`:`) setelah `guess` memberi
-tahu Rust bahwa kita akan mengtype annotation variabelnya. Rust memiliki
+tahu Rust bahwa kita akan mengtype annotation variablenya. Rust memiliki
 beberapa numeric type bawaan; `u32` yang terlihat di sini adalah integer
 32-bit tak bertanda. Ini pilihan bawaan yang bagus untuk angka positif
 kecil. Anda akan belajar tentang numeric type lainnya di
@@ -813,17 +813,17 @@ Too big!
 
 Bagus! Meskipun ada spasi yang ditambahkan sebelum tebakan, program tetap
 mengetahui bahwa pengguna menebak 76. Jalankan program beberapa kali untuk
-memverifikasi perilaku yang berbeda dengan berbagai jenis masukan: Tebak
+memverifikasi perilaku yang berbeda dengan berbagai jenis input: Tebak
 angkanya dengan benar, tebak angka yang terlalu tinggi, dan tebak angka
 yang terlalu rendah.
 
 Sebagian besar permainan sudah bekerja sekarang, tetapi pengguna hanya
-bisa menebak satu kali. Mari kita ubah itu dengan menambahkan perulangan!
+bisa menebak satu kali. Mari kita ubah itu dengan menambahkan loop!
 
-## Mengizinkan Beberapa Tebakan dengan Perulangan
+## Mengizinkan Beberapa Tebakan dengan Loop
 
-Kata kunci `loop` membuat perulangan tak berujung. Kita akan menambahkan
-perulangan untuk memberi pengguna lebih banyak kesempatan menebak
+Kata kunci `loop` membuat infinite loop. Kita akan menambahkan
+loop untuk memberi pengguna lebih banyak kesempatan menebak
 angkanya:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -833,8 +833,8 @@ angkanya:
 ```
 
 Seperti yang Anda lihat, kita telah memindahkan semuanya dari prompt
-masukan tebakan dan seterusnya ke dalam perulangan. Pastikan untuk
-mengindentasi baris-baris di dalam perulangan sebanyak empat spasi
+input tebakan dan seterusnya ke dalam loop. Pastikan untuk
+mengindentasi baris-baris di dalam loop sebanyak empat spasi
 tambahan masing-masing dan jalankan lagi programnya. Programnya sekarang
 akan meminta tebakan lain selamanya, yang justru menimbulkan masalah baru.
 Tampaknya pengguna tidak bisa berhenti!
@@ -886,7 +886,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
 Mengetik `quit` akan menghentikan permainan, tetapi seperti yang akan Anda
-perhatikan, memasukkan masukan non-angka lain juga akan menghentikannya.
+perhatikan, memasukkan input non-angka lain juga akan menghentikannya.
 Ini kurang optimal, paling tidak; kita ingin permainannya juga berhenti
 ketika angka yang benar ditebak.
 
@@ -894,7 +894,7 @@ ketika angka yang benar ditebak.
 ### Berhenti Setelah Tebakan Benar
 
 Mari kita program permainannya agar berhenti ketika pengguna menang dengan
-menambahkan pernyataan `break`:
+menambahkan statement `break`:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -903,11 +903,11 @@ menambahkan pernyataan `break`:
 ```
 
 Menambahkan baris `break` setelah `You win!` membuat program keluar dari
-perulangan ketika pengguna menebak angka rahasia dengan benar. Keluar dari
-perulangan juga berarti keluar dari program, karena perulangan adalah
+loop ketika pengguna menebak angka rahasia dengan benar. Keluar dari
+loop juga berarti keluar dari program, karena loop adalah
 bagian terakhir dari `main`.
 
-### Menangani Masukan yang Tidak Valid
+### Menangani Input yang Tidak Valid
 
 Untuk lebih menyempurnakan perilaku permainan, alih-alih membuat program
 crash ketika pengguna memasukkan non-angka, mari kita buat permainannya
@@ -923,17 +923,17 @@ menjadi `u32`, seperti yang ditunjukkan pada Listing 2-5.
 
 </Listing>
 
-Kita beralih dari pemanggilan `expect` ke ekspresi `match` untuk beralih
+Kita beralih dari pemanggilan `expect` ke expression `match` untuk beralih
 dari crash karena error menjadi menangani error. Ingat bahwa `parse`
 mengembalikan type `Result` dan `Result` adalah *enum* yang memiliki
-*variant* `Ok` dan `Err`. Kita memakai ekspresi `match` di sini, seperti
+*variant* `Ok` dan `Err`. Kita memakai expression `match` di sini, seperti
 yang kita lakukan dengan hasil `Ordering` dari metode `cmp`.
 
 Jika `parse` berhasil mengubah string menjadi angka, ia akan mengembalikan
 nilai `Ok` yang memuat angka hasilnya. Nilai `Ok` itu akan cocok dengan
-pola *arm* pertama, dan ekspresi `match` akan langsung mengembalikan nilai
+pola *arm* pertama, dan expression `match` akan langsung mengembalikan nilai
 `num` yang dihasilkan `parse` dan dimasukkan ke dalam nilai `Ok`. Angka itu
-akan berakhir tepat di tempat yang kita inginkan, yaitu di variabel `guess`
+akan berakhir tepat di tempat yang kita inginkan, yaitu di variable `guess`
 baru yang kita buat.
 
 Jika `parse` _tidak_ dapat mengubah string menjadi angka, ia akan
@@ -1005,7 +1005,7 @@ Proyek ini adalah cara praktik untuk memperkenalkan Anda pada banyak
 konsep baru Rust: `let`, `match`, fungsi, penggunaan *crate* eksternal, dan
 lainnya. Dalam beberapa bab berikutnya, Anda akan mempelajari
 konsep-konsep ini lebih detail. Bab 3 membahas konsep yang dimiliki
-sebagian besar bahasa pemrograman, seperti variabel, data type, dan
+sebagian besar bahasa pemrograman, seperti variable, data type, dan
 fungsi, serta menunjukkan cara memakainya di Rust. Bab 4 mengeksplorasi
 *ownership*, fitur yang membuat Rust berbeda dari bahasa lain. Bab 5
 membahas *struct* dan sintaks metode, dan Bab 6 menjelaskan cara kerja

@@ -40,7 +40,7 @@ deklarasi *module* di *crate root* dengan nama `front_of_house`.
 Perhatikan bahwa Anda hanya perlu memuat sebuah file memakai deklarasi `mod`
 _sekali_ di *module tree* Anda. Begitu *compiler* tahu bahwa file itu adalah
 bagian dari proyek (dan tahu di mana letak kode itu di *module tree* karena
-posisi pernyataan `mod` yang Anda tulis), file-file lain di proyek Anda harus
+posisi statement `mod` yang Anda tulis), file-file lain di proyek Anda harus
 merujuk kode file yang dimuat itu memakai *path* menuju tempat ia
 dideklarasikan, seperti yang dibahas di bagian [“*Path* untuk Merujuk Item di
 dalam Pohon Modul”][paths]<!-- ignore -->. Dengan kata lain, `mod` _bukanlah_
@@ -113,7 +113,7 @@ modifikasi apa pun, meskipun definisinya tinggal di file yang berbeda. Teknik
 ini memungkinkan Anda memindahkan *module* ke file baru seiring membesarnya
 ukuran *module*.
 
-Perhatikan bahwa pernyataan `pub use crate::front_of_house::hosting` di
+Perhatikan bahwa statement `pub use crate::front_of_house::hosting` di
 _src/lib.rs_ juga tidak berubah, dan `use` tidak memiliki dampak apa pun
 terhadap file mana yang dikompilasi sebagai bagian dari *crate*. Kata kunci
 `mod` mendeklarasikan *module*, dan Rust mencari di file dengan nama yang sama
@@ -125,7 +125,7 @@ Rust memungkinkan Anda membagi sebuah *package* menjadi beberapa *crate* dan
 sebuah *crate* menjadi *module* sehingga Anda dapat merujuk item yang
 didefinisikan di satu *module* dari *module* lain. Anda dapat melakukannya dengan
 menuliskan *path* absolut atau relatif. *Path*-path ini dapat dibawa ke dalam
-*scope* dengan pernyataan `use` sehingga Anda dapat memakai *path* yang lebih
+*scope* dengan statement `use` sehingga Anda dapat memakai *path* yang lebih
 pendek untuk beberapa pemakaian item di *scope* itu. Kode *module* bersifat
 privat secara default, tetapi Anda dapat menjadikan definisi publik dengan
 menambahkan kata kunci `pub`.
