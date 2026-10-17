@@ -6,12 +6,13 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 13 (fitur bahasa fungsional, 5 file) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch14-00-more-about-cargo.md`
-  (Bab 14, 6 file; mulai dari `ch14-00`).
+- Bab terakhir selesai: Bab 16 (konkurensi tanpa takut, 5 file) — Tahap 2
+  berjalan.
+- File berikutnya yang dikerjakan: `ch17-00-async-await.md`
+  (Bab 17, 7 file; mulai dari `ch17-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 11 (exit 0); dijadwalkan lagi
-  setelah Bab 14.
+- `mdbook test` terakhir lulus: setelah Bab 16 (exit 0); dijadwalkan lagi
+  setelah Bab 17.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -100,16 +101,16 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 11      |       4 |     0 |     0 |     4 |
 | Bab 12      |       7 |     0 |     0 |     7 |
 | Bab 13      |       5 |     0 |     0 |     5 |
-| Bab 14      |       0 |     0 |     6 |     6 |
-| Bab 15      |       0 |     0 |     7 |     7 |
-| Bab 16      |       0 |     0 |     5 |     5 |
+| Bab 14      |       6 |     0 |     0 |     6 |
+| Bab 15      |       7 |     0 |     0 |     7 |
+| Bab 16      |       5 |     0 |     0 |     5 |
 | Bab 17      |       0 |     0 |     7 |     7 |
 | Bab 18      |       0 |     0 |     4 |     4 |
 | Bab 19      |       0 |     0 |     4 |     4 |
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      58 |     0 |    54 |   112 |
+| TOTAL       |      76 |     0 |    36 |   112 |
 
 ## Log keputusan istilah
 
@@ -395,6 +396,57 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | performance penalty | denda performa | 13 |
 | expressiveness | ekspresivitas | 13 |
 | shoe size | ukuran sepatu | 13 |
+| release profile | *release profile* (profil rilis) | 14 |
+| binary target | *binary target* (target binary) | 14 |
+| members (workspace) | anggota | 14 |
+| yank / yanking | menarik / penarikan | 14 |
+| documentation comment / doc comment | *documentation comment* (komentar dokumentasi) / komentar dok | 14 |
+| license identifier | *license identifier* (pengidentifikasi lisensi) | 14 |
+| library (berdiri sendiri) | (tetap, tanpa miring; selaras "crate library" bab 07) | 14 |
+| box | (tetap, miring; tanpa padanan) | 15 |
+| recursive type | *recursive type* (tipe rekursif) | 15 |
+| cons list | (tetap, miring) | 15 |
+| linked list | *linked list* (senarai berantai) | 15 |
+| reference counting | *reference counting* (penghitungan referensi) | 15 |
+| reference cycle | reference cycle (siklus referensi) | 15 |
+| interior mutability | *interior mutability* (mutabilitas internal) | 15 |
+| indirection | *indirection* (indireksi) | 15 |
+| dereference (verba) | melakukan dereferensi | 15 |
+| memory leak | *memory leak* (kebocoran memori) | 15 |
+| strong reference / weak reference | *strong reference* (reference kuat) / *weak reference* (reference lemah) | 15 |
+| tree | *tree* (pohon) | 15 |
+| node (graf/tree) | *node* (simpul) | 15 |
+| graph / edge (graf) | graf / sisi | 15 |
+| test double | *test double* (pengganti dalam pengujian) | 15 |
+| mock object | *mock object* (objek tiruan) | 15 |
+| destructor | *destructor* (destruktor) | 15 |
+| socket | soket | 15 |
+| single-threaded / multithreaded | (tetap) | 15 |
+| clone (verba) | mengklon | 15 |
+| stack overflow | luapan stack | 15 |
+| thread-safe | (tetap) | 15 |
+| concurrent programming / parallel programming | *concurrent programming* (pemrograman konkuren) / *parallel programming* (pemrograman paralel) | 16 |
+| fearless concurrency | *fearless concurrency* (konkurensi tanpa takut) | 16 |
+| process | *process* (proses) | 16 |
+| deadlock | *deadlock* (kebuntuan) | 16 |
+| blocking (thread) | *blocking* (pemblokiran) | 16 |
+| channel | *channel* (saluran) | 16 |
+| transmitter / receiver | *transmitter* (pengirim) / *receiver* (penerima) | 16 |
+| message passing | *message passing* (pengiriman pesan) | 16 |
+| shared-state / shared memory | *shared-state* (state bersama) / memori bersama | 16 |
+| producer / consumer | produsen / konsumen | 16 |
+| mutex / mutual exclusion | mutex (tetap) / *mutual exclusion* (eksklusi mutual) | 16 |
+| lock (nomina/verba) | lock (kunci) / mengunci | 16 |
+| unlock | membuka kunci | 16 |
+| guard (mutex, verba) | menjaga | 16 |
+| concurrency primitive | primitif konkurensi | 16 |
+| counter | pencacah | 16 |
+| atomic / atomics | *atomic* (atomik) / atomik | 16 |
+| marker trait | *marker trait* (trait penanda) | 16 |
+| raw pointer | *raw pointer* (pointer mentah) | 16 |
+| thread safety | (tetap) | 16 |
+| upstream / downstream | hulu / hilir | 16 |
+| actor | aktor | 16 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -420,21 +472,20 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 
 - Teks tautan yang diterjemahkan di bab terdahulu harus cocok dengan heading
   final file tujuan (diperiksa saat file itu dikerjakan):
-  ch15-02 “Menggunakan Deref Coercions di dalam Fungsi dan Metode”;
-  appendix-03 “Trait yang Dapat Diturunkan”;
-  ch14-02 “Menerbitkan Crate ke Crates.io”.
-  (ch05-03 “Metode” sudah beres: heading ch05-03 kini `## Metode`; anchor
-  `#methods` → `#metode` masuk pemeriksaan Tahap 5.)
+  appendix-03 “Trait yang Dapat Diturunkan”.
+  Sudah beres: ch14-02 “Menerbitkan Crate ke Crates.io”, ch14-02 seksi
+  “Mengekspor API Publik yang Mudah Dipakai” (dari ch07-04), ch14-02 seksi
+  “Komentar Dokumentasi sebagai Pengujian” (dari ch11-01), ch15-02
+  “Menggunakan Deref Coercions di dalam Fungsi dan Metode”, ch15-02
+  “Mengikuti Reference Menuju Nilai” (dari ch08-01).
 - Teks tautan baru yang diterjemahkan di sesi ini, harus cocok dengan
   heading final file tujuan (diperiksa saat file itu dikerjakan):
-  ch14-02 seksi “Mengekspor API Publik yang Mudah Dipakai” (dari ch07-04);
-  ch14-02 seksi “Komentar Dokumentasi sebagai Pengujian” (dari ch11-01);
-  ch15-02 “Mengikuti Reference Menuju Nilai” (dari ch08-01);
   ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
-  (dari ch09-02);
+  (dari ch09-02 dan ch15-01);
   ch18-03 “Menyandikan State dan Perilaku sebagai Tipe” (dari ch09-03).
-  (ch11-01 “Cara Menulis Pengujian” dari ch07-04 sudah beres: heading
-  ch11-01 kini `## Cara Menulis Pengujian`.)
+- Teks tautan ch07-00 “[“Cargo Workspaces”]” diubah menjadi “[“Workspace
+  Cargo”]” agar cocok dengan heading final ch14-03 (`## Workspace Cargo`),
+  satu commit dengan bab 14.
 - Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
   (dicatat di sini supaya cocok saat bab itu dikerjakan):
   ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
@@ -493,6 +544,15 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch17-04 → ch13-02 `#the-iterator-trait-and-the-next-method` (heading kini
   “Trait `Iterator` dan Metode `next`”). Solusi (tambahkan tag `<a id>`)
   diputuskan di Tahap 5.
+- Anchor otomatis dari heading bab 15 yang menjadi target tautan
+  (heading kini diterjemahkan; tidak ada tag `<a id>` di teks asli):
+  ch15-01 intra-file `#enabling-recursive-types-with-boxes` (heading kini
+  “Mengaktifkan Tipe Rekursif dengan Boxes”). Solusi diputuskan di Tahap 5.
+- Anchor otomatis dari heading bab 16 yang menjadi target tautan
+  (heading kini diterjemahkan; tag `<a id>` yang ada tidak cocok dengan
+  target tautan, yang di teks asli mengandalkan anchor otomatis):
+  ch16-04 → ch16-03 `#shared-access-to-mutext` (heading kini “Akses Bersama ke
+  `Mutex<T>`”). Solusi diputuskan di Tahap 5.
 
 ## Cara memulai sesi baru
 
