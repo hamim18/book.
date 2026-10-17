@@ -123,7 +123,7 @@ itu belum siap ketika ia mengembalikan `Poll::Pending`. Sebaliknya, runtime
 tahu *future* itu _sudah_ siap dan memajukannya ketika `poll` mengembalikan
 `Poll::Ready(Some(message))` atau `Poll::Ready(None)`.
 
-Detail persis cara sebuah runtime melakukannya berada di luar cakupan buku
+Detail persis cara sebuah runtime melakukannya berada di luar coverage buku
 ini, tetapi kuncinya adalah melihat mekanika dasar *future*: sebuah runtime
 melakukan _polling_ pada setiap *future* yang menjadi tanggung jawabnya, lalu
 membuat *future* itu kembali tidur ketika ia belum siap.
@@ -159,10 +159,10 @@ mengimplementasikan *trait* `Future`.
 
 Ini mungkin mengejutkan. Toh, tidak ada satu pun blok async itu yang
 mengembalikan apa pun, jadi setiap blok menghasilkan `Future<Output = ()>`.
-Namun, ingat bahwa `Future` adalah *trait*, dan kompilator menciptakan *enum* unik
+Namun, ingat bahwa `Future` adalah *trait*, dan *compiler* menciptakan *enum* unik
 untuk setiap blok async, bahkan ketika type outputnya identik. Sama seperti
 Anda tidak bisa menaruh dua *struct* tulisan tangan yang berbeda di dalam
-`Vec`, Anda tidak bisa mencampur *enum* hasil kompilator.
+`Vec`, Anda tidak bisa mencampur *enum* hasil *compiler*.
 
 Kemudian kita meneruskan collection *future* itu ke fungsi `trpl::join_all` dan
 menunggu hasilnya. Namun, ini tidak terkompilasi; berikut bagian yang relevan
@@ -232,7 +232,7 @@ pub trait Future {
 
 Parameter `cx` dan typenya, `Context`, adalah kunci dari cara sebuah runtime
 benar-benar tahu kapan harus mengecek sebuah *future* tertentu sambil tetap
-bersifat malas. Sekali lagi, detail cara kerjanya berada di luar cakupan bab
+bersifat malas. Sekali lagi, detail cara kerjanya berada di luar coverage bab
 ini, dan Anda umumnya hanya perlu memikirkannya saat menulis implementasi
 `Future` kustom. Kita akan berfokus pada type untuk `self`, karena ini kali
 pertama kita melihat method yang `self`-nya punya type annotation. Anotasi type
@@ -255,8 +255,8 @@ kita butuh *reference* *mutable* yang terbungkus `Pin` ke type itu.
 mengimplementasikan *trait* `Deref` atau `DerefMut`, tetapi ini secara efektif
 setara dengan bekerja hanya dengan *reference* dan *smart pointer*.) `Pin`
 bukanlah *pointer* itu sendiri dan tidak punya perilaku sendiri seperti yang
-dimiliki `Rc` dan `Arc` dengan penghitungan referensi; `Pin` murni alat yang
-bisa dipakai kompilator untuk menegakkan batasan pada pemakaian *pointer*.
+dimiliki `Rc` dan `Arc` dengan penghitungan *reference*; `Pin` murni alat yang
+bisa dipakai *compiler* untuk menegakkan batasan pada pemakaian *pointer*.
 
 Mengingat bahwa `await` diimplementasikan dalam bentuk pemanggilan `poll`
 mulai menjelaskan pesan error yang kita lihat sebelumnya, tetapi itu dalam
@@ -265,17 +265,17 @@ bentuk `Unpin`, bukan `Pin`. Jadi, bagaimana persisnya hubungan `Pin` dengan
 untuk memanggil `poll`?
 
 Ingat dari awal bab ini bahwa serangkaian await point di dalam sebuah *future*
-terkompilasi menjadi state machine, dan kompilator memastikan state machine
-itu mematuhi semua aturan normal Rust seputar keamanan, termasuk peminjaman
-dan kepemilikan. Untuk membuatnya bekerja, Rust melihat data apa yang
+terkompilasi menjadi state machine, dan *compiler* memastikan state machine
+itu mematuhi semua aturan normal Rust seputar keamanan, termasuk *borrowing*
+dan *ownership*. Untuk membuatnya bekerja, Rust melihat data apa yang
 dibutuhkan antara satu await point dan await point berikutnya atau akhir blok
 async. Rust lalu menciptakan varian yang sesuai di state machine hasil
 kompilasi. Setiap varian mendapat akses yang dibutuhkannya ke data yang akan
-dipakai di bagian kode sumber itu, entah dengan mengambil kepemilikan data itu
+dipakai di bagian kode sumber itu, entah dengan mengambil *ownership* data itu
 atau dengan mendapatkan *reference* *mutable* atau *immutable* ke sana.
 
 Sejauh ini semuanya baik-baik saja: jika ada yang keliru tentang
-kepemilikan atau *reference* di blok async tertentu, *borrow checker* akan
+*ownership* atau *reference* di blok async tertentu, *borrow checker* akan
 memberi tahu kita. Ketika kita ingin memindahkan *future* yang sesuai dengan
 blok itu—misalnya memindahkannya ke dalam `Vec` untuk diteruskan ke
 `join_all`—semuanya menjadi lebih rumit.
@@ -308,13 +308,13 @@ membaca data yang sama sekali tidak berkaitan di kemudian hari.
 
 <figure>
 
-<img alt="Dua tabel, menggambarkan dua future, fut1 dan fut2, masing-masing memiliki satu kolom dan tiga baris, merepresentasikan hasil pemindahan sebuah future dari fut1 ke fut2. Tabel pertama, fut1, berwarna abu-abu, dengan tanda tanya di setiap indeks, merepresentasikan memori yang tidak diketahui. Tabel kedua, fut2, memiliki 0 dan 1 pada baris pertama dan kedua, dan sebuah panah yang menunjuk dari baris ketiganya kembali ke baris kedua fut1, merepresentasikan sebuah pointer yang mengacu ke lokasi lama future itu di memori sebelum dipindahkan." src="img/trpl17-05.svg" class="center" />
+<img alt="Dua tabel, menggambarkan dua future, fut1 dan fut2, masing-masing memiliki satu kolom dan tiga baris, merepresentasikan hasil *move* sebuah future dari fut1 ke fut2. Tabel pertama, fut1, berwarna abu-abu, dengan tanda tanya di setiap indeks, merepresentasikan memori yang tidak diketahui. Tabel kedua, fut2, memiliki 0 dan 1 pada baris pertama dan kedua, dan sebuah panah yang menunjuk dari baris ketiganya kembali ke baris kedua fut1, merepresentasikan sebuah pointer yang mengacu ke lokasi lama future itu di memori sebelum dipindahkan." src="img/trpl17-05.svg" class="center" />
 
 <figcaption>Gambar 17-5: Hasil tidak aman dari memindahkan data type yang mengacu ke dirinya sendiri</figcaption>
 
 </figure>
 
-Secara teoretis, kompilator Rust bisa mencoba memperbarui setiap *reference* ke
+Secara teoretis, *compiler* Rust bisa mencoba memperbarui setiap *reference* ke
 sebuah objek setiap kali objek itu dipindahkan, tetapi itu bisa menambah
 banyak overhead performa, apalagi jika seluruh jaringan *reference* perlu
 diperbarui. Jika sebagai gantinya kita bisa memastikan struktur data yang
@@ -364,14 +364,14 @@ tanpa khawatir. Mengingat apa yang telah kita lihat sejauh ini, jika Anda
 punya `Pin<Vec<String>>`, Anda harus melakukan semuanya melalui API yang aman
 tetapi membatasi yang disediakan `Pin`, meskipun `Vec<String>` selalu aman
 untuk dipindahkan jika tidak ada *reference* lain ke sana. Kita butuh cara untuk
-memberi tahu kompilator bahwa tidak apa-apa memindahkan item pada kasus
+memberi tahu *compiler* bahwa tidak apa-apa memindahkan item pada kasus
 seperti ini—dan di situlah `Unpin` berperan.
 
 `Unpin` adalah *marker trait*, mirip dengan *trait* `Send` dan `Sync` yang kita
 lihat di Bab 16, sehingga tidak punya fungsionalitas sendiri. *Marker trait*
-ada hanya untuk memberi tahu kompilator bahwa aman memakai type yang
+ada hanya untuk memberi tahu *compiler* bahwa aman memakai type yang
 mengimplementasikan *trait* tertentu dalam konteks tertentu. `Unpin`
-memberitahukan kompilator bahwa type tertentu _tidak_ perlu mempertahankan
+memberitahukan *compiler* bahwa type tertentu _tidak_ perlu mempertahankan
 jaminan apa pun tentang apakah nilai yang dimaksud bisa dipindahkan dengan
 aman.
 
@@ -381,7 +381,7 @@ aman.
   that it is something distinct from a normal type.
 -->
 
-Sama seperti `Send` dan `Sync`, kompilator mengimplementasikan `Unpin` secara
+Sama seperti `Send` dan `Sync`, *compiler* mengimplementasikan `Unpin` secara
 otomatis untuk semua type yang bisa dibuktikan aman olehnya. Kasus khususnya,
 lagi-lagi mirip dengan `Send` dan `Sync`, adalah ketika `Unpin` _tidak_
 diimplementasikan untuk sebuah type. Notasi untuk ini adalah

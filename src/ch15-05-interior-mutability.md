@@ -4,14 +4,14 @@ _Interior mutability_ (mutabilitas internal) adalah pattern desain di Rust yang
 memungkinkan Anda mengubah data meskipun ada *immutable* *reference* ke data itu;
 biasanya, tindakan ini dilarang oleh aturan *borrowing*. Untuk mengubah data,
 pattern ini memakai kode `unsafe` di dalam struktur data untuk melenturkan aturan
-Rust yang biasa mengatur perubahan dan peminjaman. Kode *unsafe* memberi tahu
-kompilator bahwa kitalah yang memeriksa aturannya secara manual alih-alih
-mengandalkan kompilator untuk memeriksanya bagi kita; kita akan membahas kode
+Rust yang biasa mengatur perubahan dan *borrowing*. Kode *unsafe* memberi tahu
+*compiler* bahwa kitalah yang memeriksa aturannya secara manual alih-alih
+mengandalkan *compiler* untuk memeriksanya bagi kita; kita akan membahas kode
 *unsafe* lebih jauh di Bab 20.
 
 Kita dapat memakai type yang menggunakan pattern *interior mutability* hanya ketika
 kita dapat memastikan bahwa aturan *borrowing* akan diikuti pada runtime,
-meskipun kompilator tidak bisa menjaminnya. Kode `unsafe` yang terlibat
+meskipun *compiler* tidak bisa menjaminnya. Kode `unsafe` yang terlibat
 kemudian dibungkus dalam API yang aman, dan type luarnya tetap *immutable*.
 
 Mari kita jelajahi konsep ini dengan melihat type `RefCell<T>` yang mengikuti
@@ -34,7 +34,7 @@ Bab 4:
 
 Dengan *reference* dan `Box<T>`, invarian aturan *borrowing* ditegakkan pada waktu
 kompilasi. Dengan `RefCell<T>`, invarian ini ditegakkan _pada runtime_. Dengan
-*reference*, jika Anda melanggar aturan ini, Anda akan mendapat error kompilator.
+*reference*, jika Anda melanggar aturan ini, Anda akan mendapat error *compiler*.
 Dengan `RefCell<T>`, jika Anda melanggar aturan ini, program Anda akan panic
 dan keluar.
 
@@ -47,20 +47,20 @@ default Rust.
 
 Keuntungan memeriksa aturan *borrowing* pada runtime adalah beberapa skenario
 yang aman terhadap memori menjadi diizinkan, padahal skenario itu akan ditolak
-oleh pemeriksaan waktu kompilasi. Analisis statis, seperti kompilator Rust,
+oleh pemeriksaan waktu kompilasi. Analisis statis, seperti *compiler* Rust,
 pada dasarnya bersifat konservatif. Beberapa sifat kode tidak mungkin
 dideteksi dengan menganalisis kodenya: Contoh paling terkenal adalah Masalah
-Halting, yang berada di luar cakupan buku ini tetapi merupakan topik yang
+Halting, yang berada di luar coverage buku ini tetapi merupakan topik yang
 menarik untuk diteliti.
 
-Karena sebagian analisis tidak mungkin dilakukan, jika kompilator Rust tidak
+Karena sebagian analisis tidak mungkin dilakukan, jika *compiler* Rust tidak
 bisa memastikan kode mematuhi aturan *ownership*, ia mungkin menolak program
 yang sebenarnya benar; dalam hal ini, ia bersifat konservatif. Jika Rust
 menerima program yang salah, pengguna tidak akan bisa memercayai jaminan yang
 dibuat Rust. Namun, jika Rust menolak program yang benar, pemrogram akan
 kerepotan, tetapi tidak ada hal fatal yang dapat terjadi. Type `RefCell<T>`
 berguna ketika Anda yakin kode Anda mengikuti aturan *borrowing* tetapi
-kompilator tidak mampu memahami dan menjamin hal itu.
+*compiler* tidak mampu memahami dan menjamin hal itu.
 
 Serupa dengan `Rc<T>`, `RefCell<T>` hanya untuk dipakai dalam skenario
 single-threaded dan akan memberi Anda error waktu kompilasi jika Anda mencoba
@@ -69,8 +69,8 @@ fungsionalitas `RefCell<T>` di program multithreaded di Bab 16.
 
 Berikut rekap alasan memilih `Box<T>`, `Rc<T>`, atau `RefCell<T>`:
 
-- `Rc<T>` memungkinkan beberapa pemilik atas data yang sama; `Box<T>` dan
-  `RefCell<T>` memiliki pemilik tunggal.
+- `Rc<T>` memungkinkan beberapa *owner* atas data yang sama; `Box<T>` dan
+  `RefCell<T>` memiliki *owner* tunggal.
 - `Box<T>` mengizinkan pinjaman *immutable* atau *mutable* yang diperiksa pada
   waktu kompilasi; `Rc<T>` hanya mengizinkan pinjaman *immutable* yang diperiksa
   pada waktu kompilasi; `RefCell<T>` mengizinkan pinjaman *immutable* atau
@@ -108,9 +108,9 @@ dirinya sendiri di dalam methodnya tetapi tampak *immutable* bagi kode lain.
 Kode di luar method nilai itu tidak akan bisa mengubah nilai itu. Memakai
 `RefCell<T>` adalah salah satu cara untuk memperoleh kemampuan memiliki
 *interior mutability*, tetapi `RefCell<T>` tidak sepenuhnya menghindari aturan
-*borrowing*: *Borrow checker* di kompilator mengizinkan *interior mutability* ini,
+*borrowing*: *Borrow checker* di *compiler* mengizinkan *interior mutability* ini,
 dan aturan *borrowing* diperiksa pada runtime sebagai gantinya. Jika Anda
-melanggar aturannya, Anda akan mendapat `panic!` alih-alih error kompilator.
+melanggar aturannya, Anda akan mendapat `panic!` alih-alih error *compiler*.
 
 Mari kita kerjakan contoh praktis ketika kita dapat memakai `RefCell<T>`
 untuk mengubah nilai *immutable* dan melihat mengapa hal itu berguna.
@@ -271,7 +271,7 @@ jumlah pinjaman *immutable* yang aktif. Ketika sebuah nilai `Ref<T>` keluar dari
 kompilasi, `RefCell<T>` mengizinkan kita memiliki banyak pinjaman *immutable*
 atau satu pinjaman *mutable* pada titik waktu mana pun.
 
-Jika kita mencoba melanggar aturan ini, alih-alih mendapat error kompilator
+Jika kita mencoba melanggar aturan ini, alih-alih mendapat error *compiler*
 seperti yang terjadi dengan *reference*, implementasi `RefCell<T>` akan panic
 pada runtime. Listing 15-23 menunjukkan modifikasi implementasi `send` di
 Listing 15-22. Kita sengaja mencoba membuat dua pinjaman *mutable* yang aktif
@@ -306,7 +306,7 @@ kompilasi, seperti yang kita lakukan di sini, berarti Anda berpotensi
 menemukan kesalahan dalam kode Anda lebih lambat dalam proses pengembangan:
 bisa jadi baru ketahuan ketika kode Anda sudah di-deploy ke produksi. Selain
 itu, kode Anda akan menanggung denda performa runtime yang kecil sebagai
-akibat melacak peminjaman pada runtime alih-alih pada waktu kompilasi. Namun,
+akibat melacak *borrowing* pada runtime alih-alih pada waktu kompilasi. Namun,
 memakai `RefCell<T>` memungkinkan penulisan *mock object* yang dapat memodifikasi
 dirinya sendiri untuk melacak pesan yang telah dilihatnya selagi Anda
 memakainya dalam konteks yang hanya mengizinkan nilai *immutable*. Anda dapat
@@ -318,13 +318,13 @@ fungsionalitas daripada yang disediakan *reference* biasa.
 <a id="having-multiple-owners-of-mutable-data-by-combining-rc-t-and-ref-cell-t"></a>
 <a id="allowing-multiple-owners-of-mutable-data-with-rct-and-refcellt"></a>
 
-### Mengizinkan Beberapa Pemilik Data Mutable
+### Mengizinkan Beberapa *owner* Data Mutable
 
 Cara umum memakai `RefCell<T>` adalah dengan mengombinasikannya dengan
-`Rc<T>`. Ingat bahwa `Rc<T>` memungkinkan Anda memiliki beberapa pemilik atas
+`Rc<T>`. Ingat bahwa `Rc<T>` memungkinkan Anda memiliki beberapa *owner* atas
 sejumlah data, tetapi ia hanya memberi akses *immutable* ke data itu. Jika Anda
 memiliki `Rc<T>` yang menampung `RefCell<T>`, Anda bisa mendapat nilai yang
-dapat memiliki beberapa pemilik _dan_ yang dapat Anda ubah!
+dapat memiliki beberapa *owner* _dan_ yang dapat Anda ubah!
 
 Sebagai contoh, ingat kembali contoh *cons list* di Listing 15-18 ketika kita
 memakai `Rc<T>` untuk mengizinkan beberapa list berbagi *ownership* atas list

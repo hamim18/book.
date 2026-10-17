@@ -151,7 +151,7 @@ mengambil nilainya dari *field* yang bersesuaian di `user1`, tetapi kita dapat
 memilih untuk menentukan nilai *field* sebanyak yang kita mau dengan urutan apa
 pun, terlepas dari urutan *field* pada definisi *struct*.
 
-Perhatikan bahwa sintaks update *struct* memakai `=` seperti sebuah penetapan;
+Perhatikan bahwa sintaks update *struct* memakai `=` seperti sebuah assignment;
 ini karena ia memindahkan datanya, seperti yang kita lihat di bagian
 [“Variable dan Data yang Berinteraksi dengan
 *Move*”][move]<!-- ignore -->. Pada contoh ini, kita tidak dapat lagi memakai
@@ -280,7 +280,7 @@ mengimplementasikannya pada type mana pun, termasuk *unit-like struct*.
 >
 > </Listing>
 >
-> *Compiler* (kompilator) akan mengeluh bahwa ia membutuhkan penanda *lifetime*:
+> *Compiler* (*compiler*) akan mengeluh bahwa ia membutuhkan penanda *lifetime*:
 >
 > ```console
 > $ cargo run

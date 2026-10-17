@@ -542,7 +542,7 @@ dapat membaca `Box<dyn Error>` sebagai “error jenis apa pun.” Memakai `?`
 pada nilai `Result` di fungsi `main` dengan type error `Box<dyn Error>`
 diizinkan karena ini memungkinkan nilai `Err` apa pun dikembalikan lebih
 awal. Meskipun badan fungsi `main` ini hanya akan mengembalikan error
-typed `std::io::Error`, dengan menyebutkan `Box<dyn Error>`, tanda tangan
+typed `std::io::Error`, dengan menyebutkan `Box<dyn Error>`, *signature*
 ini akan tetap benar bahkan jika lebih banyak kode yang mengembalikan error
 lain ditambahkan ke badan `main`.
 

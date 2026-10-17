@@ -25,7 +25,7 @@ typed yang mengimplementasikan `Send` dapat ditransfer antar-thread. Hampir
 semua type Rust mengimplementasikan `Send`, tetapi ada beberapa pengecualian,
 termasuk `Rc<T>`: Type ini tidak dapat mengimplementasikan `Send` karena jika
 Anda mengklon nilai `Rc<T>` dan mencoba mentransfer *ownership* klon itu ke
-thread lain, kedua thread mungkin memperbarui jumlah referensi pada saat yang
+thread lain, kedua thread mungkin memperbarui jumlah *reference* pada saat yang
 sama. Karena alasan ini, `Rc<T>` diimplementasikan untuk dipakai dalam
 situasi single-threaded ketika Anda tidak ingin membayar denda performa
 thread-safe.

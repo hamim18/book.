@@ -100,7 +100,7 @@ menentukan `1 | 2 | 3 | 4 | 5`. Menentukan rentang jauh lebih singkat,
 apalagi jika kita ingin mencocokkan, katakanlah, angka apa pun antara 1 dan
 1.000!
 
-Kompilator memeriksa bahwa rentangnya tidak kosong pada waktu kompilasi, dan
+*compiler* memeriksa bahwa rentangnya tidak kosong pada waktu kompilasi, dan
 karena satu-satunya type yang bisa dipakai Rust untuk mengetahui apakah
 sebuah rentang kosong atau tidak adalah `char` dan nilai numerik, rentang
 hanya diizinkan untuk nilai numerik atau `char`.
@@ -310,7 +310,7 @@ arm terakhir di expression `match`, tetapi kita juga bisa memakainya di pattern
 mana pun, termasuk parameter fungsi, seperti yang ditunjukkan di Listing
 19-17.
 
-<Listing number="19-17" file-name="src/main.rs" caption="Memakai `_` di tanda tangan fungsi">
+<Listing number="19-17" file-name="src/main.rs" caption="Memakai `_` di *signature* fungsi">
 
 ```rust
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-17/src/main.rs}}
@@ -322,12 +322,12 @@ Kode ini akan sepenuhnya mengabaikan nilai `3` yang diteruskan sebagai
 argumen pertama, dan akan mencetak `This code only uses the y parameter: 4`.
 
 Dalam kebanyakan kasus, ketika Anda tidak lagi membutuhkan parameter fungsi
-tertentu, Anda akan mengubah tanda tangannya supaya tidak menyertakan
+tertentu, Anda akan mengubah *signature*nya supaya tidak menyertakan
 parameter yang tidak terpakai itu. Mengabaikan parameter fungsi bisa sangat
 berguna dalam kasus ketika, contohnya, Anda mengimplementasikan sebuah *trait*
-yang mengharuskan tanda tangan type tertentu, tetapi badan fungsi di
+yang mengharuskan *signature* type tertentu, tetapi badan fungsi di
 implementasi Anda tidak membutuhkan salah satu parameternya. Anda pun
-terhindar dari peringatan kompilator tentang parameter fungsi yang tidak
+terhindar dari peringatan *compiler* tentang parameter fungsi yang tidak
 terpakai, yang akan Anda dapatkan jika memakai nama.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -410,7 +410,7 @@ yang diawali underscore. Sintaks `_x` tetap mengikat nilainya ke variable,
 sedangkan `_` tidak mengikat sama sekali. Untuk menunjukkan kasus ketika
 perbedaan ini penting, Listing 19-21 akan memberi kita error.
 
-<Listing number="19-21" caption="Variable tidak terpakai yang diawali underscore tetap mengikat nilainya, yang bisa mengambil kepemilikan nilai itu.">
+<Listing number="19-21" caption="Variable tidak terpakai yang diawali underscore tetap mengikat nilainya, yang bisa mengambil *ownership* nilai itu.">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-patterns-and-matching/listing-19-21/src/main.rs:here}}
@@ -499,7 +499,7 @@ berarti kita ingin mengabaikan `2`, mengikat `second` ke `4`, lalu
 mengabaikan `8`, `16`, dan `32`; atau kita ingin mengabaikan `2` dan `4`,
 mengikat `second` ke `8`, lalu mengabaikan `16` dan `32`; dan seterusnya.
 Nama variable `second` tidak berarti apa-apa secara khusus bagi Rust, jadi
-kita mendapat error kompilator karena memakai `..` di dua tempat seperti ini
+kita mendapat error *compiler* karena memakai `..` di dua tempat seperti ini
 bersifat ambigu.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -541,7 +541,7 @@ memiliki *match guard* dan karena itu cocok dengan varian `Some` mana pun.
 
 Tidak ada cara untuk mengekspresikan kondisi `if x % 2 == 0` di dalam sebuah
 pattern, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
-ini. Sisi buruk dari ekspresivitas tambahan ini adalah kompilator tidak
+ini. Sisi buruk dari ekspresivitas tambahan ini adalah *compiler* tidak
 mencoba memeriksa ekshaustivitas ketika expression *match guard* terlibat.
 
 Saat membahas Listing 19-11, kita menyebutkan bahwa kita bisa memakai match

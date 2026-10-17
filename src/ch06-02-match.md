@@ -223,7 +223,7 @@ topi mewah. Untuk semua nilai lain, pemain Anda melangkah sejauh angka itu di
 papan permainan. Berikut `match` yang mengimplementasikan logika itu, dengan
 hasil lemparan dadu ditulis langsung (hardcoded) alih-alih nilai acak, dan
 semua logika lain direpresentasikan oleh fungsi tanpa badan karena
-mengimplementasikannya sungguhan berada di luar cakupan contoh ini:
+mengimplementasikannya sungguhan berada di luar coverage contoh ini:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-15-binding-catchall/src/main.rs:here}}

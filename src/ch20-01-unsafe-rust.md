@@ -7,12 +7,12 @@ ini: Bahasa itu disebut *unsafe Rust* dan bekerja persis seperti Rust biasa,
 tetapi memberi kita kekuatan super ekstra.
 
 *Unsafe* Rust ada karena, secara kodrat, analisis statis bersifat konservatif.
-Ketika kompilator berusaha menentukan apakah suatu kode menegakkan
+Ketika *compiler* berusaha menentukan apakah suatu kode menegakkan
 jaminan-jaminan itu atau tidak, lebih baik ia menolak beberapa program yang
 valid daripada menerima beberapa program yang tidak valid. Meskipun kode itu
-*mungkin* tidak masalah, jika kompilator Rust tidak memiliki cukup informasi
+*mungkin* tidak masalah, jika *compiler* Rust tidak memiliki cukup informasi
 untuk yakin, ia akan menolak kode itu. Dalam kasus seperti ini, Anda bisa
-memakai kode *unsafe* untuk memberi tahu kompilator, “Percayalah, saya tahu apa
+memakai kode *unsafe* untuk memberi tahu *compiler*, “Percayalah, saya tahu apa
 yang saya lakukan.” Namun, ingatlah bahwa Anda memakai *unsafe* Rust dengan
 risiko ditanggung sendiri: Jika Anda memakai kode *unsafe* secara tidak benar,
 masalah bisa terjadi karena ketidakamanan memori, seperti dereferensi *pointer*
@@ -50,7 +50,7 @@ Penting untuk dipahami bahwa `unsafe` tidak mematikan *borrow checker* atau
 menonaktifkan pemeriksaan keamanan Rust lainnya: Jika Anda memakai sebuah
 *reference* di dalam kode *unsafe*, *reference* itu tetap akan diperiksa. Kata
 kunci `unsafe` hanya memberi Anda akses ke lima fitur ini, yang kemudian tidak
-diperiksa oleh kompilator untuk keamanan memori. Anda tetap mendapatkan
+diperiksa oleh *compiler* untuk keamanan memori. Anda tetap mendapatkan
 keamanan dalam tingkat tertentu di dalam blok *unsafe*.
 
 Selain itu, `unsafe` tidak berarti kode di dalam bloknya pasti berbahaya atau
@@ -81,7 +81,7 @@ kode *unsafe*.
 ### Melakukan Dereferensi pada Raw Pointer
 
 Di Bab 4, pada seksi [“Dangling References”][dangling-references]<!-- ignore
--->, kita menyebutkan bahwa kompilator memastikan *reference* selalu valid.
+-->, kita menyebutkan bahwa *compiler* memastikan *reference* selalu valid.
 *Unsafe* Rust memiliki dua type baru yang disebut *raw pointer* (*pointer*
 mentah) yang mirip dengan *reference*. Seperti halnya *reference*, *raw pointer*
 bisa *immutable* (tidak dapat diubah) atau *mutable* (dapat diubah) dan
@@ -130,7 +130,7 @@ yang validitasnya tidak begitu bisa kita pastikan, dengan memakai kata kunci
 `as` untuk melakukan cast pada sebuah nilai alih-alih memakai operator borrow
 mentah. Listing 20-2 menunjukkan cara membuat raw pointer ke lokasi memori
 yang sembarang. Berusaha memakai memori sembarang adalah perilaku tak
-terdefinisi: Mungkin ada data di alamat itu atau mungkin tidak, kompilator
+terdefinisi: Mungkin ada data di alamat itu atau mungkin tidak, *compiler*
 mungkin mengoptimasi kodenya sehingga tidak ada akses memori, atau programnya
 mungkin berakhir dengan segmentation fault. Biasanya, tidak ada alasan bagus
 untuk menulis kode seperti ini, terutama pada kasus di mana Anda bisa memakai
@@ -211,7 +211,7 @@ telah memverifikasi bahwa kita memenuhi kontrak fungsi itu.
 
 Untuk melakukan operasi *unsafe* di tubuh sebuah fungsi `unsafe`, Anda tetap
 perlu memakai blok `unsafe`, sama seperti di dalam fungsi biasa, dan
-kompilator akan memperingatkan Anda jika Anda lupa. Ini membantu kita
+*compiler* akan memperingatkan Anda jika Anda lupa. Ini membantu kita
 menjaga blok `unsafe` sekecil mungkin, karena operasi *unsafe* mungkin tidak
 diperlukan di seluruh tubuh fungsi.
 
@@ -362,7 +362,7 @@ memastikan keamanan jatuh pada pemrogram.
 
 </Listing>
 
-Di dalam blok `unsafe extern "C"`, kita mendaftarkan nama dan tanda tangan
+Di dalam blok `unsafe extern "C"`, kita mendaftarkan nama dan *signature*
 fungsi-fungsi eksternal dari bahasa lain yang ingin kita panggil. Bagian
 `"C"` mendefinisikan *application binary interface* (ABI, antarmuka biner
 aplikasi) mana yang dipakai fungsi eksternal itu: ABI mendefinisikan cara
@@ -399,14 +399,14 @@ Kita juga bisa memakai `extern` untuk membuat antarmuka yang memungkinkan
 bahasa lain memanggil fungsi Rust. Alih-alih membuat satu blok `extern` utuh,
 kita menambahkan kata kunci `extern` dan menentukan ABI yang akan dipakai
 tepat sebelum kata kunci `fn` untuk fungsi yang bersangkutan. Kita juga perlu
-menambahkan anotasi `#[unsafe(no_mangle)]` untuk memberi tahu kompilator Rust
+menambahkan anotasi `#[unsafe(no_mangle)]` untuk memberi tahu *compiler* Rust
 agar tidak melakukan mangling pada nama fungsi ini. *Mangling* adalah ketika
-sebuah kompilator mengubah nama yang kita berikan kepada sebuah fungsi
+sebuah *compiler* mengubah nama yang kita berikan kepada sebuah fungsi
 menjadi nama lain yang memuat lebih banyak informasi untuk dipakai bagian
-lain proses kompilasi, tetapi kurang mudah dibaca manusia. Setiap kompilator
+lain proses kompilasi, tetapi kurang mudah dibaca manusia. Setiap *compiler*
 bahasa pemrograman melakukan mangling pada nama dengan cara yang sedikit
 berbeda, jadi agar fungsi Rust bisa diberi nama oleh bahasa lain, kita harus
-menonaktifkan name mangling milik kompilator Rust. Ini *unsafe* karena mungkin
+menonaktifkan name mangling milik *compiler* Rust. Ini *unsafe* karena mungkin
 ada bentrokan nama antarlibrary tanpa adanya mangling bawaan itu, jadi
 menjadi tanggung jawab kita untuk memastikan nama yang kita pilih aman untuk
 diekspor tanpa mangling.
@@ -446,7 +446,7 @@ Variable static mirip dengan constant, yang kita bahas di seksi
 [“Mendeklarasikan Constant”][constants]<!-- ignore --> di Bab 3. Nama
 variable static memakai `SCREAMING_SNAKE_CASE` berdasarkan konvensi. Variable
 static hanya bisa menyimpan *reference* dengan *lifetime* `'static`, yang berarti
-kompilator Rust bisa menentukan *lifetime*-nya dan kita tidak diharuskan
+*compiler* Rust bisa menentukan *lifetime*-nya dan kita tidak diharuskan
 menganotasinya secara eksplisit. Mengakses variable static yang *immutable* itu
 aman.
 
@@ -472,7 +472,7 @@ kunci `mut`. Kode apa pun yang membaca atau menulis `COUNTER` harus berada di
 dalam blok `unsafe`. Kode di Listing 20-11 terkompilasi dan mencetak
 `COUNTER: 3` seperti yang kita harapkan karena kode ini single-threaded.
 Memiliki banyak thread yang mengakses `COUNTER` kemungkinan besar akan
-menghasilkan data race, sehingga itu adalah perilaku tak terdefinisi. Karena
+menghasilkan data race, sehingga itu adalah *undefined behavior*. Karena
 itu, kita perlu menandai seluruh fungsi sebagai `unsafe` dan mendokumentasikan
 batasan keamanannya supaya siapa pun yang memanggil fungsi itu tahu apa yang
 boleh dan tidak boleh mereka lakukan dengan aman.
@@ -484,9 +484,9 @@ pula, kapan pun kita melakukan operasi *unsafe*, sudah menjadi kebiasaan
 idiomatis untuk menulis komentar yang diawali dengan `SAFETY` untuk
 menjelaskan bagaimana aturan keamanannya ditegakkan.
 
-Selain itu, secara bawaan kompilator akan menolak percobaan apa pun untuk
+Selain itu, secara bawaan *compiler* akan menolak percobaan apa pun untuk
 membuat *reference* ke variable static yang *mutable* melalui sebuah lint
-kompilator. Anda harus memilih untuk tidak memakai perlindungan lint itu
+*compiler*. Anda harus memilih untuk tidak memakai perlindungan lint itu
 secara eksplisit dengan menambahkan anotasi `#[allow(static_mut_refs)]`,
 atau mengakses variable static *mutable* itu melalui *raw pointer* yang dibuat
 dengan salah satu operator borrow mentah. Itu termasuk kasus ketika *reference*
@@ -499,14 +499,14 @@ Dengan data *mutable* yang dapat diakses secara global, sulit untuk memastikan
 tidak ada data race, dan itulah sebabnya Rust menganggap variable static yang
 *mutable* sebagai *unsafe*. Jika memungkinkan, lebih baik memakai teknik
 konkurensi dan *smart pointer* yang thread-safe yang kita bahas di Bab 16,
-supaya kompilator memeriksa bahwa akses data dari thread yang berbeda
+supaya *compiler* memeriksa bahwa akses data dari thread yang berbeda
 dilakukan dengan aman.
 
 ### Mengimplementasikan Trait yang Unsafe
 
 Kita bisa memakai `unsafe` untuk mengimplementasikan *trait* yang *unsafe*.
 Sebuah *trait* bersifat *unsafe* ketika setidaknya satu dari methodnya memiliki
-suatu invarian yang tidak bisa diverifikasi oleh kompilator. Kita
+suatu invarian yang tidak bisa diverifikasi oleh *compiler*. Kita
 mendeklarasikan bahwa sebuah *trait* adalah `unsafe` dengan menambahkan kata
 kunci `unsafe` sebelum `trait` dan menandai implementasi *trait* itu sebagai
 `unsafe` juga, seperti yang ditunjukkan di Listing 20-12.
@@ -520,11 +520,11 @@ kunci `unsafe` sebelum `trait` dan menandai implementasi *trait* itu sebagai
 </Listing>
 
 Dengan memakai `unsafe impl`, kita berjanji bahwa kita akan menegakkan
-invarian-invarian yang tidak bisa diverifikasi kompilator.
+invarian-invarian yang tidak bisa diverifikasi *compiler*.
 
 Sebagai contoh, ingat kembali *marker trait* `Send` dan `Sync` yang kita bahas
 di seksi [“Konkurensi yang Dapat Diperluas dengan `Send` dan `Sync`”][send-and-sync]<!-- ignore
---> di Bab 16: Kompilator mengimplementasikan *trait*-trait ini secara otomatis
+--> di Bab 16: *compiler* mengimplementasikan *trait*-trait ini secara otomatis
 jika type-type kita seluruhnya tersusun dari type-type lain yang
 mengimplementasikan `Send` dan `Sync`. Jika kita mengimplementasikan sebuah
 type yang memuat type yang tidak mengimplementasikan `Send` atau `Sync`,
@@ -575,8 +575,8 @@ Miri memperingatkan kita dengan benar bahwa kita melakukan cast pada sebuah
 integer menjadi *pointer*, yang mungkin bermasalah, tetapi Miri tidak bisa
 menentukan apakah masalah itu benar ada karena ia tidak tahu bagaimana
 *pointer* itu berasal. Lalu, Miri mengembalikan error di bagian Listing 20-7
-yang memiliki perilaku tak terdefinisi karena kita memiliki *pointer*
-menggantung. Berkat Miri, sekarang kita tahu ada risiko perilaku tak
+yang memiliki *undefined behavior* karena kita memiliki *pointer*
+*dangling*. Berkat Miri, sekarang kita tahu ada risiko perilaku tak
 terdefinisi, dan kita bisa memikirkan cara membuat kodenya aman. Dalam
 beberapa kasus, Miri bahkan bisa memberikan rekomendasi tentang cara
 memperbaiki error.
@@ -605,7 +605,7 @@ GitHub-nya][miri].
 
 Memakai `unsafe` untuk memakai salah satu dari lima kekuatan super yang baru
 saja dibahas tidaklah salah, bahkan tidak dipandang buruk, tetapi membuat
-kode `unsafe` menjadi benar itu lebih sulit karena kompilator tidak bisa
+kode `unsafe` menjadi benar itu lebih sulit karena *compiler* tidak bisa
 membantu menegakkan keamanan memori. Ketika Anda memiliki alasan untuk
 memakai kode `unsafe`, Anda boleh melakukannya, dan adanya anotasi `unsafe`
 yang eksplisit membuat sumber masalah lebih mudah dilacak saat masalah itu

@@ -14,10 +14,10 @@ tidak boleh lagi memakai nilai itu. Konkurensi shared-memory seperti
 *ownership* ganda: Beberapa thread dapat mengakses lokasi memori yang sama pada
 saat yang sama. Seperti yang Anda lihat di Bab 15, ketika *smart pointer*
 memungkinkan *ownership* ganda, *ownership* ganda dapat menambah kompleksitas
-karena pemilik-pemilik yang berbeda ini perlu dikelola. Sistem type dan
+karena *owner*-*owner* yang berbeda ini perlu dikelola. Sistem type dan
 aturan *ownership* Rust sangat membantu dalam menangani pengelolaan ini dengan
 benar. Sebagai contoh, mari kita lihat mutex, salah satu primitif konkurensi
-yang lebih umum untuk memori bersama.
+yang lebih umum untuk *shared memory*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -107,7 +107,7 @@ berhasil mengubah `i32` bagian dalam menjadi `6`.
 Sekarang mari kita coba berbagi nilai di antara beberapa thread menggunakan
 `Mutex<T>`. Kita akan menjalankan 10 thread dan menyuruh masing-masing
 menambah nilai pencacah sebesar 1, sehingga pencacahnya bergerak dari 0 ke
-10. Contoh di Listing 16-13 akan menghasilkan error kompilator, dan kita akan
+10. Contoh di Listing 16-13 akan menghasilkan error *compiler*, dan kita akan
 memakai error itu untuk belajar lebih banyak tentang pemakaian `Mutex<T>` dan
 bagaimana Rust membantu kita memakainya dengan benar.
 
@@ -143,12 +143,12 @@ mari kita cari tahu alasannya!
 Pesan error itu menyatakan bahwa nilai `counter` telah dipindahkan pada
 iterasi loop sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
 memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
-error kompilator itu dengan method *ownership* ganda yang kita bahas di Bab 15.
+error *compiler* itu dengan method *ownership* ganda yang kita bahas di Bab 15.
 
-#### Kepemilikan Ganda dengan Banyak Thread
+#### *ownership* Ganda dengan Banyak Thread
 
-Di Bab 15, kita memberikan nilai kepada beberapa pemilik dengan memakai smart
-*pointer* `Rc<T>` untuk membuat nilai dengan penghitungan referensi. Mari kita
+Di Bab 15, kita memberikan nilai kepada beberapa *owner* dengan memakai smart
+*pointer* `Rc<T>` untuk membuat nilai dengan penghitungan *reference*. Mari kita
 lakukan hal yang sama di sini dan lihat apa yang terjadi. Kita akan membungkus
 `Mutex<T>` di dalam `Rc<T>` di Listing 16-14 dan mengklon `Rc<T>` itu sebelum
 memindahkan *ownership* ke thread.
@@ -161,7 +161,7 @@ memindahkan *ownership* ke thread.
 
 </Listing>
 
-Sekali lagi, kita mengompilasi dan mendapat... error yang berbeda! Kompilator
+Sekali lagi, kita mengompilasi dan mendapat... error yang berbeda! *compiler*
 sedang mengajari kita banyak hal:
 
 ```console
@@ -170,26 +170,26 @@ sedang mengajari kita banyak hal:
 
 Wah, pesan error itu panjang lebar sekali! Berikut bagian penting yang perlu
 difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
-Kompilator juga memberi tahu alasannya: `` the trait `Send` is not implemented
+*compiler* juga memberi tahu alasannya: `` the trait `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
 adalah salah satu *trait* yang memastikan bahwa type yang kita pakai dengan
 thread memang dimaksudkan untuk dipakai dalam situasi konkuren.
 
 Sayangnya, `Rc<T>` tidak aman untuk dibagikan antar-thread. Ketika `Rc<T>`
-mengelola jumlah referensi, ia menambah jumlah itu untuk setiap panggilan ke
+mengelola jumlah *reference*, ia menambah jumlah itu untuk setiap panggilan ke
 `clone` dan menguranginya ketika setiap klon dibebaskan. Tetapi ia tidak
 memakai primitif konkurensi apa pun untuk memastikan perubahan pada jumlah itu
 tidak bisa disela thread lain. Ini bisa menyebabkan jumlah yang salah—bug
-samar yang pada gilirannya bisa menyebabkan kebocoran memori atau nilai yang
+samar yang pada gilirannya bisa menyebabkan *memory leak* atau nilai yang
 dibebaskan sebelum kita selesai memakainya. Yang kita butuhkan adalah type
-yang persis seperti `Rc<T>`, tetapi mengubah jumlah referensi dengan cara yang
+yang persis seperti `Rc<T>`, tetapi mengubah jumlah *reference* dengan cara yang
 thread-safe.
 
-#### Penghitungan Referensi Atomik dengan `Arc<T>`
+#### Penghitungan *reference* Atomik dengan `Arc<T>`
 
 Untungnya, `Arc<T>` _adalah_ type seperti `Rc<T>` yang aman dipakai dalam
 situasi konkuren. Huruf _a_ berarti _atomic_ (atomik), yang berarti type itu
-adalah type yang _dihitung referensinya secara atomik_. Atomik adalah jenis
+adalah type yang _dihitung *reference*nya secara atomik_. Atomik adalah jenis
 primitif konkurensi tambahan yang tidak akan kita bahas secara mendetail di
 sini: Lihat dokumentasi pustaka standar untuk [`std::sync::atomic`][atomic]<!--
 ignore --> untuk detail lebih lanjut. Pada titik ini, Anda cukup tahu bahwa
@@ -256,7 +256,7 @@ mengubah isi di dalam `Arc<T>`.
 Detail lain yang perlu dicatat adalah bahwa Rust tidak bisa melindungi Anda
 dari semua jenis error logika ketika Anda memakai `Mutex<T>`. Ingat dari Bab
 15 bahwa memakai `Rc<T>` datang dengan risiko menciptakan *reference cycle*,
-ketika dua nilai `Rc<T>` saling merujuk, menyebabkan kebocoran memori.
+ketika dua nilai `Rc<T>` saling merujuk, menyebabkan *memory leak*.
 Demikian pula, `Mutex<T>` datang dengan risiko menciptakan deadlock. Ini
 terjadi ketika sebuah operasi perlu mengunci dua sumber daya dan dua thread
 masing-masing telah memperoleh salah satu lock, menyebabkan keduanya saling

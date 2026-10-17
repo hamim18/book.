@@ -84,7 +84,7 @@ help: there is a method `try_next` with a similar name
    |                                        ~~~~~~~~
 ```
 
-Seperti yang dijelaskan output ini, alasan error kompilatornya adalah kita
+Seperti yang dijelaskan output ini, alasan error *compiler*nya adalah kita
 perlu *trait* yang tepat berada di *scope* untuk bisa memakai method `next`.
 Mengingat pembahasan kita sejauh ini, wajar jika Anda menduga *trait* itu adalah
 `Stream`, tetapi sebenarnya `StreamExt`. Singkatan dari _extension_ (ekstensi),
@@ -99,7 +99,7 @@ sekumpulan API tingkat yang lebih tinggi di atas `Stream`, termasuk method
 standar Rust, tetapi sebagian besar *crate* ekosistem memakai definisi yang
 serupa.
 
-Perbaikan untuk error kompilator itu adalah menambahkan statement `use`
+Perbaikan untuk error *compiler* itu adalah menambahkan statement `use`
 untuk `trpl::StreamExt`, seperti di Listing 17-22.
 
 <Listing number="17-22" caption="Berhasil memakai iterator sebagai dasar sebuah stream" file-name="src/main.rs">

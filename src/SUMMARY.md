@@ -18,7 +18,7 @@
   - [Komentar](ch03-04-comments.md)
   - [Alur Kontrol](ch03-05-control-flow.md)
 
-- [Memahami Ownership (Kepemilikan)](ch04-00-understanding-ownership.md)
+- [Memahami Ownership (*ownership*)](ch04-00-understanding-ownership.md)
   - [Apa Itu Ownership?](ch04-01-what-is-ownership.md)
   - [References dan Borrowing](ch04-02-references-and-borrowing.md)
   - [Type Slice](ch04-03-slices.md)
@@ -85,7 +85,7 @@
   - [Memakai `Box<T>` untuk Menunjuk ke Data di Heap](ch15-01-box.md)
   - [Memperlakukan Smart Pointer Seperti Reference Biasa](ch15-02-deref.md)
   - [Menjalankan Kode pada Saat Pembersihan dengan Trait `Drop`](ch15-03-drop.md)
-  - [`Rc<T>`, Smart Pointer dengan Penghitungan Referensi](ch15-04-rc.md)
+  - [`Rc<T>`, Smart Pointer dengan Penghitungan *reference*](ch15-04-rc.md)
   - [`RefCell<T>` dan Pattern Interior Mutability](ch15-05-interior-mutability.md)
   - [Reference Cycle Dapat Membocorkan Memori](ch15-06-reference-cycles.md)
 

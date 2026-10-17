@@ -15,7 +15,7 @@ tentang Rust, kita bisa masuk ke seluk-beluknya.
 
 *Associated type* (tipe asosiasi) menghubungkan type placeholder dengan
 sebuah *trait* sedemikian rupa sehingga definisi-definisi method *trait* itu bisa
-memakai type placeholder tersebut di tanda tangan mereka. Pengimplementasi
+memakai type placeholder tersebut di *signature* mereka. Pengimplementasi
 sebuah *trait* akan menentukan type konkret yang akan dipakai sebagai pengganti
 type placeholder untuk implementasi tertentu. Dengan begitu, kita bisa
 mendefinisikan *trait* yang memakai beberapa type tanpa perlu tahu persis
@@ -222,7 +222,7 @@ diimplementasikan padanya. Setiap method `fly` melakukan hal yang berbeda.
 
 </Listing>
 
-Saat kita memanggil `fly` pada sebuah instance `Human`, kompilator secara
+Saat kita memanggil `fly` pada sebuah instance `Human`, *compiler* secara
 bawaan memanggil method yang diimplementasikan langsung pada type itu,
 seperti yang ditunjukkan di Listing 20-18.
 
@@ -317,7 +317,7 @@ kompilasi.
 Karena `Animal::baby_name` tidak memiliki parameter `self`, dan mungkin ada
 type-type lain yang mengimplementasikan *trait* `Animal`, Rust tidak bisa
 menentukan implementasi `Animal::baby_name` mana yang kita inginkan. Kita
-akan mendapat error kompilator berikut:
+akan mendapat error *compiler* berikut:
 
 ```console
 {{#include ../listings/ch20-advanced-features/listing-20-21/output.txt}}

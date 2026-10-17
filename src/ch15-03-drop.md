@@ -16,7 +16,7 @@ membebaskan memori atau sumber daya setiap kali mereka selesai memakai instance
 type-type itu. Contohnya antara lain handle file, soket, dan kunci. Jika
 pemrogram lupa, sistem bisa kelebihan beban dan crash. Di Rust, Anda dapat
 menentukan bahwa potongan kode tertentu dijalankan setiap kali sebuah nilai
-keluar dari *scope*, dan kompilator akan menyisipkan kode ini secara otomatis.
+keluar dari *scope*, dan *compiler* akan menyisipkan kode ini secara otomatis.
 Akibatnya, Anda tidak perlu berhati-hati menempatkan kode pembersihan di
 seluruh bagian program yang telah selesai memakai instance type tertentu—Anda
 tetap tidak akan membocorkan resource!
@@ -142,7 +142,7 @@ end of main`, menunjukkan bahwa kode method `drop` dipanggil untuk membebaskan
 
 Anda dapat memakai kode yang ditentukan dalam implementasi *trait* `Drop` dengan
 berbagai cara untuk membuat pembersihan menjadi nyaman dan aman: Sebagai
-contoh, Anda bisa memakainya untuk membuat pengalokasi memori Anda sendiri!
+contoh, Anda bisa memakainya untuk membuat *memory allocator* Anda sendiri!
 Dengan *trait* `Drop` dan sistem *ownership* Rust, Anda tidak perlu ingat untuk
 membersihkan, karena Rust melakukannya secara otomatis.
 

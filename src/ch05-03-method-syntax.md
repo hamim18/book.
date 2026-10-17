@@ -33,14 +33,14 @@ Untuk mendefinisikan fungsi di dalam konteks `Rectangle`, kita memulai blok
 `impl` (implementation) untuk `Rectangle`. Semua yang ada di dalam blok `impl`
 ini akan terkait dengan type `Rectangle`. Lalu, kita memindahkan fungsi `area`
 ke dalam kurung kurawal `impl` dan mengubah parameter pertama (dan pada kasus
-ini, satu-satunya) menjadi `self` di tanda tangan dan di semua tempat dalam
+ini, satu-satunya) menjadi `self` di *signature* dan di semua tempat dalam
 badannya. Di `main`, tempat kita memanggil fungsi `area` dan meneruskan
 `rect1` sebagai argumen, kita kini dapat memakai *method syntax* (sintaks
 method) untuk memanggil method `area` pada instance `Rectangle` kita. Method
 syntax diletakkan setelah instance: kita menambahkan titik yang diikuti nama
 method, tanda kurung, dan argumen apa pun.
 
-Pada tanda tangan `area`, kita memakai `&self`, bukan `rectangle: &Rectangle`.
+Pada *signature* `area`, kita memakai `&self`, bukan `rectangle: &Rectangle`.
 `&self` sebenarnya adalah singkatan dari `self: &Self`. Di dalam blok `impl`,
 type `Self` adalah alias untuk type yang menjadi sasaran blok `impl` itu. Method
 harus memiliki parameter bernama `self` typed `Self` sebagai parameter
@@ -48,22 +48,22 @@ pertamanya, jadi Rust mengizinkan Anda menyingkatnya hanya dengan nama `self`
 di posisi parameter pertama. Perhatikan bahwa kita tetap perlu memakai `&` di
 depan singkatan `self` untuk menandakan bahwa method ini meminjam instance
 `Self`, sama seperti yang kita lakukan di `rectangle: &Rectangle`. Method
-dapat mengambil kepemilikan `self`, meminjam `self` secara *immutable*
-(tidak dapat diubah) seperti yang kita lakukan di sini, atau meminjam `self`
+dapat mengambil *ownership* `self`, meminjam `self` secara *immutable*
+(*immutable*) seperti yang kita lakukan di sini, atau meminjam `self`
 secara *mutable* (dapat diubah), sama seperti parameter lainnya.
 
 Kita memilih `&self` di sini dengan alasan yang sama ketika kita memakai
-`&Rectangle` pada versi fungsinya: kita tidak ingin mengambil kepemilikan, dan
+`&Rectangle` pada versi fungsinya: kita tidak ingin mengambil *ownership*, dan
 kita hanya ingin membaca data di dalam *struct*, bukan menulisnya. Jika kita
 ingin mengubah instance tempat method dipanggil sebagai bagian dari pekerjaan
 methodnya, kita akan memakai `&mut self` sebagai parameter pertama. Memiliki
-method yang mengambil kepemilikan instance dengan hanya memakai `self` sebagai
+method yang mengambil *ownership* instance dengan hanya memakai `self` sebagai
 parameter pertama jarang terjadi; teknik ini biasanya dipakai ketika method
 mengubah `self` menjadi sesuatu yang lain dan Anda ingin mencegah pemanggilnya
 memakai instance aslinya setelah transformasi itu.
 
 Alasan utama memakai method alih-alih fungsi, selain menyediakan method
-syntax dan tidak perlu mengulang type `self` di setiap tanda tangan method,
+syntax dan tidak perlu mengulang type `self` di setiap *signature* method,
 adalah untuk pengorganisasian. Kita telah meletakkan semua hal yang dapat kita
 lakukan dengan instance sebuah type dalam satu blok `impl`, alih-alih membuat
 pengguna kode kita di masa depan mencari kemampuan `Rectangle` di berbagai
@@ -104,18 +104,18 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 >
 > Di C dan C++, dua operator berbeda dipakai untuk memanggil method: Anda
 > memakai `.` jika memanggil method pada objeknya secara langsung dan `->`
-> jika memanggil method pada penunjuk ke objek itu dan perlu mendereferensi
+> jika memanggil method pada *pointer* ke objek itu dan perlu mendereferensi
 > penunjuknya terlebih dahulu. Dengan kata lain, jika `object` adalah sebuah
-> penunjuk, `object->something()` serupa dengan `(*object).something()`.
+> *pointer*, `object->something()` serupa dengan `(*object).something()`.
 >
 > Rust tidak memiliki padanan operator `->`; sebagai gantinya, Rust memiliki
-> fitur yang disebut *automatic referencing and dereferencing* (referensi dan
+> fitur yang disebut *automatic referencing and dereferencing* (*reference* dan
 > dereferensi otomatis). Memanggil method adalah salah satu dari sedikit
 > tempat di Rust yang memiliki perilaku ini.
 >
 > Begini cara kerjanya: ketika Anda memanggil method dengan
 > `object.something()`, Rust secara otomatis menambahkan `&`, `&mut`, atau `*`
-> supaya `object` cocok dengan tanda tangan methodnya. Dengan kata lain,
+> supaya `object` cocok dengan *signature* methodnya. Dengan kata lain,
 > keduanya berikut ini sama:
 >
 > <!-- CAN'T EXTRACT SEE BUG https://github.com/rust-lang/mdBook/issues/1127 -->
@@ -141,12 +141,12 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 > (&p1).distance(&p2);
 > ```
 >
-> Yang pertama tampak jauh lebih bersih. Perilaku referensi otomatis ini
+> Yang pertama tampak jauh lebih bersih. Perilaku *reference* otomatis ini
 > bekerja karena method memiliki *receiver* (penerima) yang jelas—type dari
 > `self`. Dengan mengetahui penerima dan nama sebuah method, Rust dapat
 > memastikan secara definitif apakah methodnya membaca (`&self`), mengubah
 > (`&mut self`), atau mengonsumsi (`self`). Fakta bahwa Rust membuat
-> peminjaman menjadi implisit untuk penerima method adalah bagian besar dari
+> *borrowing* menjadi implisit untuk penerima method adalah bagian besar dari
 > menjadikan *ownership* (kepemilikan) ergonomis dalam praktik.
 
 ### Method dengan Parameter Lebih Banyak
@@ -178,12 +178,12 @@ Can rect1 hold rect3? false
 
 Kita tahu bahwa kita ingin mendefinisikan sebuah method, jadi ia akan berada
 di dalam blok `impl Rectangle`. Nama methodnya adalah `can_hold`, dan ia akan
-menerima peminjaman *immutable* atas `Rectangle` lain sebagai parameter. Kita
+menerima *borrowing* *immutable* atas `Rectangle` lain sebagai parameter. Kita
 bisa tahu type parameternya dengan melihat kode yang memanggil methodnya:
-`rect1.can_hold(&rect2)` meneruskan `&rect2`, yang merupakan peminjaman
+`rect1.can_hold(&rect2)` meneruskan `&rect2`, yang merupakan *borrowing*
 *immutable* atas `rect2`, sebuah instance `Rectangle`. Ini masuk akal karena
 kita hanya perlu membaca `rect2` (bukan menulis, yang berarti kita akan butuh
-peminjaman *mutable*), dan kita ingin `main` mempertahankan kepemilikan `rect2`
+*borrowing* *mutable*), dan kita ingin `main` mempertahankan *ownership* `rect2`
 supaya kita dapat memakainya lagi setelah memanggil method `can_hold`. Nilai
 kembalian `can_hold` adalah Boolean, dan implementasinya akan memeriksa
 apakah lebar dan tinggi `self` masing-masing lebih besar daripada lebar dan
@@ -200,7 +200,7 @@ ke blok `impl` dari Listing 5-13, seperti yang ditunjukkan pada Listing 5-15.
 
 Ketika kita menjalankan kode ini dengan fungsi `main` pada Listing 5-14,
 kita akan mendapatkan output yang kita inginkan. Method dapat menerima
-banyak parameter yang kita tambahkan ke tanda tangan setelah parameter
+banyak parameter yang kita tambahkan ke *signature* setelah parameter
 `self`, dan parameter-parameter itu bekerja persis seperti parameter pada
 fungsi.
 

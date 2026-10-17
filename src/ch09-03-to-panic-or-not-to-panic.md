@@ -189,7 +189,7 @@ fungsi akan melelahkan (dan mungkin memengaruhi kinerja).
 Sebagai gantinya, kita dapat membuat type baru di *module* khusus dan menaruh
 validasinya di fungsi untuk membuat instance type itu alih-alih mengulang
 validasinya di mana-mana. Dengan begitu, aman bagi fungsi untuk memakai type
-baru di tanda tangannya dan dengan yakin memakai nilai yang diterimanya.
+baru di *signature*nya dan dengan yakin memakai nilai yang diterimanya.
 Listing 9-13 menunjukkan salah satu cara mendefinisikan type `Guess` yang
 hanya akan membuat instance `Guess` jika fungsi `new` menerima nilai antara
 1 dan 100.
@@ -235,7 +235,7 @@ diizinkan menetapkan `value` secara langsung: kode di luar *module*
 `value` yang belum diperiksa oleh kondisi-kondisi di fungsi `Guess::new`.
 
 Sebuah fungsi yang memiliki parameter atau hanya mengembalikan angka antara
-1 dan 100 kemudian dapat menyatakan di tanda tangannya bahwa ia menerima
+1 dan 100 kemudian dapat menyatakan di *signature*nya bahwa ia menerima
 atau mengembalikan `Guess` alih-alih `i32` dan tidak perlu melakukan
 pemeriksaan tambahan apa pun di badannya.
 

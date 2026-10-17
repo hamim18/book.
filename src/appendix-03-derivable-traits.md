@@ -30,7 +30,7 @@ Contoh *trait* yang tidak dapat diturunkan adalah `Display`, yang menangani
 pemformatan untuk pengguna akhir. Anda sebaiknya selalu mempertimbangkan cara
 yang tepat untuk menampilkan suatu type kepada pengguna akhir. Bagian type mana
 yang boleh dilihat pengguna akhir? Bagian mana yang menurut mereka relevan?
-Format data mana yang paling relevan bagi mereka? Kompilator Rust tidak memiliki
+Format data mana yang paling relevan bagi mereka? *compiler* Rust tidak memiliki
 wawasan ini, sehingga tidak dapat menyediakan perilaku bawaan yang sesuai untuk
 Anda.
 
@@ -118,7 +118,7 @@ struktur data yang menyimpan data berdasarkan urutan sortir nilainya.
 
 ### `Clone` dan `Copy` untuk Menduplikasi Nilai
 
-*Trait* `Clone` memungkinkan Anda secara eksplisit membuat salinan dalam dari
+*Trait* `Clone` memungkinkan Anda secara eksplisit membuat *deep copy* dari
 sebuah nilai, dan proses duplikasinya mungkin melibatkan menjalankan kode
 arbitrer serta menyalin data di *heap*. Lihat bagian [“Variable dan Data yang
 Berinteraksi dengan Clone”][variables-and-data-interacting-with-clone]<!--

@@ -22,7 +22,7 @@ digerakkan oleh pengujian) dengan langkah-langkah berikut:
 
 Meskipun hanya salah satu dari banyak cara menulis perangkat lunak, TDD dapat
 membantu mengarahkan desain kode. Menulis pengujian sebelum menulis kode yang
-membuat pengujian itu lulus membantu mempertahankan cakupan pengujian yang
+membuat pengujian itu lulus membantu mempertahankan coverage pengujian yang
 tinggi di sepanjang proses.
 
 Kita akan menulis pengujiannya terlebih dahulu untuk menggerakkan
@@ -72,7 +72,7 @@ vector yang memuat baris `"safe, fast, productive."`.
 </Listing>
 
 Sekarang mari kita bahas mengapa kita perlu mendefinisikan *lifetime*
-eksplisit `'a` di tanda tangan `search` dan memakai *lifetime* itu bersama
+eksplisit `'a` di *signature* `search` dan memakai *lifetime* itu bersama
 argumen `contents` dan return valuenya. Ingat kembali di [Bab
 10][ch10-lifetimes]<!-- ignore --> bahwa parameter *lifetime* menentukan
 *lifetime* argumen mana yang terhubung dengan *lifetime* return value.
@@ -104,7 +104,7 @@ kita ingin mengembalikan bagian-bagian teks itu yang cocok, kita tahu bahwa
 return value menggunakan sintaks *lifetime*.
 
 Bahasa-bahasa pemrograman lain tidak mengharuskan Anda menghubungkan argumen
-dengan return value di tanda tangan, tetapi praktik ini akan menjadi lebih
+dengan return value di *signature*, tetapi praktik ini akan menjadi lebih
 mudah seiring waktu. Anda mungkin ingin membandingkan contoh ini dengan
 contoh-contoh di bagian [“Memvalidasi *Reference* dengan
 *Lifetime*”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
@@ -163,7 +163,7 @@ masih belum akan terkompilasi.
 
 Saat ini, kita sedang membangun fungsionalitasnya. Agar kode ini terkompilasi,
 kita perlu mengembalikan sebuah nilai dari badan fungsi seperti yang kita
-nyatakan di tanda tangan fungsi.
+nyatakan di *signature* fungsi.
 
 #### Menyimpan Baris yang Cocok
 

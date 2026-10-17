@@ -191,7 +191,7 @@ memakai kode Anda, API publik Anda adalah kontrak Anda dengan para pengguna
 *crate* Anda yang menentukan bagaimana mereka dapat berinteraksi dengan kode
 Anda. Ada banyak pertimbangan seputar pengelolaan perubahan pada API publik
 Anda untuk memudahkan orang bergantung pada *crate* Anda.
-Pertimbangan-pertimbangan ini berada di luar cakupan buku ini; jika Anda
+Pertimbangan-pertimbangan ini berada di luar coverage buku ini; jika Anda
 tertarik pada topik ini, lihat [Rust API Guidelines][api-guidelines].
 
 > #### Praktik Terbaik untuk Package dengan Binary dan Library

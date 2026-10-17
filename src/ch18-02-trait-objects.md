@@ -138,7 +138,7 @@ runtime-nya.
 
 Sekarang kita akan menambahkan beberapa type yang mengimplementasikan *trait*
 `Draw`. Kita akan menyediakan type `Button`. Sekali lagi, benar-benar
-mengimplementasikan library GUI berada di luar cakupan buku ini, jadi method
+mengimplementasikan library GUI berada di luar coverage buku ini, jadi method
 `draw` tidak akan memiliki implementasi yang berguna di badannya. Untuk
 membayangkan seperti apa implementasinya, *struct* `Button` mungkin memiliki
 *field* untuk `width`, `height`, dan `label`, seperti yang ditunjukkan di
@@ -247,28 +247,28 @@ yang berbeda, atau kita harus mengimplementasikan `Draw` pada `String` supaya
 
 Ingat kembali di [“Kinerja Kode yang Memakai
 *Generics*”][performance-of-code-using-generics]<!-- ignore --> di Bab 10,
-pembahasan kita tentang proses monomorfisasi yang dilakukan kompilator pada
-*generics*: kompilator menghasilkan implementasi nongenerik dari fungsi dan
+pembahasan kita tentang proses monomorfisasi yang dilakukan *compiler* pada
+*generics*: *compiler* menghasilkan implementasi nongenerik dari fungsi dan
 method untuk setiap type konkret yang kita pakai sebagai pengganti parameter
 generic type. Kode yang dihasilkan monomorfisasi melakukan _static dispatch_
-(dispatch statis), yaitu ketika kompilator tahu method apa yang Anda panggil
+(dispatch statis), yaitu ketika *compiler* tahu method apa yang Anda panggil
 pada waktu kompilasi. Ini berlawanan dengan _dynamic dispatch_ (dispatch
-dinamis), yaitu ketika kompilator tidak bisa mengetahui pada waktu kompilasi
-method mana yang Anda panggil. Pada kasus *dynamic dispatch*, kompilator
+dinamis), yaitu ketika *compiler* tidak bisa mengetahui pada waktu kompilasi
+method mana yang Anda panggil. Pada kasus *dynamic dispatch*, *compiler*
 menghasilkan kode yang pada saat runtime akan tahu method mana yang harus
 dipanggil.
 
 Ketika kita memakai *trait object*, Rust harus memakai *dynamic dispatch*.
-Kompilator tidak mengetahui semua type yang mungkin dipakai dengan kode yang
+*compiler* tidak mengetahui semua type yang mungkin dipakai dengan kode yang
 memakai *trait object*, jadi ia tidak tahu method mana yang diimplementasikan
 pada type mana yang harus dipanggil. Sebagai gantinya, pada saat runtime, Rust
 memakai *pointer* di dalam *trait object* untuk mengetahui method mana yang harus
 dipanggil. Pencarian ini menimbulkan biaya runtime yang tidak terjadi pada
-*static dispatch*. *Dynamic dispatch* juga mencegah kompilator memilih untuk
+*static dispatch*. *Dynamic dispatch* juga mencegah *compiler* memilih untuk
 meng-inline kode sebuah method, yang pada gilirannya mencegah beberapa
 optimasi, dan Rust punya beberapa aturan tentang di mana Anda boleh dan tidak
 boleh memakai *dynamic dispatch*, yang disebut _dyn compatibility_
-(kompatibilitas dyn). Aturan-aturan itu berada di luar cakupan pembahasan ini,
+(kompatibilitas dyn). Aturan-aturan itu berada di luar coverage pembahasan ini,
 tetapi Anda bisa membaca lebih lanjut [di reference][dyn-compatibility]<!-- ignore -->.
 Akan tetapi, kita memang mendapat fleksibilitas tambahan pada kode yang kita
 tulis di Listing 18-5 dan yang bisa kita dukung di Listing 18-9, jadi itu kompromi yang

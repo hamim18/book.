@@ -242,7 +242,7 @@ utama langsung membebaskan `v`, memakai fungsi `drop` yang kita bahas di Bab
 15. Kemudian, ketika thread yang dibuat mulai mengeksekusi, `v` tidak lagi
 valid, jadi *reference* padanya juga tidak valid. Waduh!
 
-Untuk memperbaiki error kompilator di Listing 16-3, kita dapat memakai saran
+Untuk memperbaiki error *compiler* di Listing 16-3, kita dapat memakai saran
 dari pesan error itu:
 
 <!-- manual-regeneration
@@ -276,7 +276,7 @@ Namun, perbaikan ini tidak akan berhasil karena apa yang coba dilakukan
 Listing 16-4 dilarang karena alasan yang berbeda. Jika kita menambahkan
 `move` ke *closure* itu, kita akan memindahkan `v` ke lingkungan *closure*, dan
 kita tidak bisa lagi memanggil `drop` padanya di thread utama. Kita akan
-mendapat error kompilator ini sebagai gantinya:
+mendapat error *compiler* ini sebagai gantinya:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/output-only-01-move-drop/output.txt}}
@@ -290,7 +290,7 @@ validitas *reference* thread yang dibuat. Dengan menyuruh Rust memindahkan
 utama tidak akan memakai `v` lagi. Jika kita mengubah Listing 16-4 dengan
 cara yang sama, kita kemudian melanggar aturan *ownership* ketika mencoba
 memakai `v` di thread utama. Kata kunci `move` menimpa default konservatif
-Rust berupa peminjaman; ia tidak mengizinkan kita melanggar aturan *ownership*.
+Rust berupa *borrowing*; ia tidak mengizinkan kita melanggar aturan *ownership*.
 
 Sekarang setelah kita membahas apa itu thread dan method-method yang
 disediakan API thread, mari kita lihat beberapa situasi ketika kita dapat

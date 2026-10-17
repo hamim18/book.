@@ -133,7 +133,7 @@ terkompilasi dengan baik.
 Akan tetapi, seperti yang kita catat di seksi [“Menginferensi dan
 Menganotasi Type *Closure*”][*closure*-types]<!-- ignore --> pada Bab 13, setiap
 *closure* juga merupakan typenya sendiri yang berbeda. Jika Anda perlu bekerja
-dengan banyak fungsi yang memiliki tanda tangan yang sama tetapi implementasi
+dengan banyak fungsi yang memiliki *signature* yang sama tetapi implementasi
 yang berbeda, Anda perlu memakai *trait object* untuk fungsi-fungsi itu.
 Perhatikan apa yang terjadi jika Anda menulis kode seperti yang ditunjukkan
 di Listing 20-33.

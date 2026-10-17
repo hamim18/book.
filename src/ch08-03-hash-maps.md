@@ -91,7 +91,7 @@ Blue: 10
 
 Untuk type yang mengimplementasikan *trait* `Copy`, seperti `i32`, nilainya
 disalin ke dalam hash map. Untuk nilai yang dimiliki seperti `String`,
-nilainya akan dipindahkan dan hash map akan menjadi pemilik nilai-nilai
+nilainya akan dipindahkan dan hash map akan menjadi *owner* nilai-nilai
 tersebut, seperti yang didemonstrasikan di Listing 8-22.
 
 <Listing number="8-22" caption="Menunjukkan bahwa kunci dan nilai dimiliki hash map begitu keduanya dimasukkan">

@@ -107,9 +107,9 @@ publiknya.
 
 Mirip dengan cara kita memakai pengembangan yang digerakkan oleh pengujian
 di proyek Bab 12, di sini kita akan memakai *compiler-driven development*
-(pengembangan yang digerakkan oleh kompilator). Kita akan menulis kode yang
+(pengembangan yang digerakkan oleh *compiler*). Kita akan menulis kode yang
 memanggil fungsi-fungsi yang kita inginkan, lalu kita akan melihat error
-dari kompilator untuk menentukan apa yang harus kita ubah berikutnya agar
+dari *compiler* untuk menentukan apa yang harus kita ubah berikutnya agar
 kodenya bekerja. Namun, sebelum kita melakukannya, kita akan mengeksplorasi
 teknik yang tidak akan kita pakai sebagai titik awal.
 
@@ -178,7 +178,7 @@ thread yang dapat dikonfigurasi, dalam kasus ini empat. Lalu, di loop `for`,
 menerima *closure* yang harus dijalankan pool untuk setiap *stream*. Kita perlu
 mengimplementasikan `pool.execute` supaya ia menerima *closure* itu dan
 memberikannya kepada thread di pool untuk dijalankan. Kode ini belum akan
-terkompilasi, tetapi kita akan mencobanya supaya kompilator bisa memandu
+terkompilasi, tetapi kita akan mencobanya supaya *compiler* bisa memandu
 kita dalam memperbaikinya.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -188,7 +188,7 @@ kita dalam memperbaikinya.
 #### Membangun `ThreadPool` dengan Compiler-Driven Development
 
 Buat perubahan di Listing 21-12 pada _src/main.rs_, lalu mari kita pakai
-error kompilator dari `cargo check` untuk mendorong pengembangan kita.
+error *compiler* dari `cargo check` untuk mendorong pengembangan kita.
 Berikut error pertama yang kita dapat:
 
 ```console
@@ -332,7 +332,7 @@ yang kita lihat di awal bab ini. Library kita belum benar-benar memanggil
 *closure* yang diberikan ke `execute`!
 
 > Catatan: Pepatah yang mungkin Anda dengar tentang bahasa dengan
-> kompilator yang ketat, seperti Haskell dan Rust, adalah “Jika kodenya
+> *compiler* yang ketat, seperti Haskell dan Rust, adalah “Jika kodenya
 > terkompilasi, ia bekerja.” Tetapi pepatah ini tidak berlaku secara
 > universal. Proyek kita terkompilasi, tetapi ia sama sekali tidak
 > melakukan apa pun! Jika kita sedang membangun proyek yang nyata dan
@@ -377,7 +377,7 @@ yang kita lakukan dengan `Config::build` di proyek I/O pada Listing 12-9.
 Tetapi dalam kasus ini kita memutuskan bahwa mencoba membuat *thread pool*
 tanpa thread apa pun seharusnya merupakan error yang tidak dapat
 dipulihkan. Jika Anda merasa tertantang, cobalah menulis fungsi bernama
-`build` dengan tanda tangan berikut untuk dibandingkan dengan fungsi `new`:
+`build` dengan *signature* berikut untuk dibandingkan dengan fungsi `new`:
 
 ```rust,ignore
 pub fn build(size: usize) -> Result<ThreadPool, PoolCreationError> {
@@ -389,7 +389,7 @@ Sekarang setelah kita punya cara untuk mengetahui bahwa kita punya jumlah
 thread yang valid untuk disimpan di pool, kita bisa membuat thread-thread
 itu dan menyimpannya di *struct* `ThreadPool` sebelum mengembalikan *struct*
 itu. Tetapi bagaimana cara kita “menyimpan” thread? Mari kita lihat lagi
-tanda tangan `thread::spawn`:
+*signature* `thread::spawn`:
 
 ```rust,ignore
 pub fn spawn<F, T>(f: F) -> JoinHandle<T>
@@ -428,7 +428,7 @@ Setelah ukuran yang valid diterima, `ThreadPool` kita membuat vector baru
 yang bisa menampung `size` item. Fungsi `with_capacity` melakukan tugas
 yang sama dengan `Vec::new` tetapi dengan satu perbedaan penting: Ia
 mengalokasikan ruang di vector di muka. Karena kita tahu kita perlu
-menyimpan `size` elemen di vector itu, melakukan alokasi ini di muka
+menyimpan `size` elemen di vector itu, melakukan *allocation* ini di muka
 sedikit lebih efisien daripada memakai `Vec::new`, yang mengubah ukurannya
 sendiri saat elemen-elemen dimasukkan.
 
@@ -618,7 +618,7 @@ pada satu waktu. Listing 21-18 menunjukkan perubahan yang perlu kita buat.
 
 Di `ThreadPool::new`, kita meletakkan *receiver* di dalam `Arc` dan `Mutex`.
 Untuk setiap `Worker` baru, kita mengklon `Arc` itu untuk menaikkan
-hitungan referensinya supaya instance `Worker` bisa berbagi *ownership* atas
+hitungan *reference*nya supaya instance `Worker` bisa berbagi *ownership* atas
 *receiver* itu.
 
 Dengan perubahan ini, kodenya terkompilasi! Kita sudah hampir sampai!
@@ -648,7 +648,7 @@ mengeksekusi, yang berarti ujung penerimaan berhenti menerima pesan baru.
 Saat ini, kita tidak bisa menghentikan thread-thread kita dari
 mengeksekusi: Thread-thread kita terus mengeksekusi selama pool itu ada.
 Alasan kita memakai `unwrap` adalah kita tahu kasus kegagalan itu tidak
-akan terjadi, tetapi kompilator tidak mengetahuinya.
+akan terjadi, tetapi *compiler* tidak mengetahuinya.
 
 Tetapi kita belum selesai! Di `Worker`, *closure* yang kita berikan ke
 `thread::spawn` masih hanya _mereferensikan_ ujung penerimaan *channel*.
@@ -748,7 +748,7 @@ permintaan lain dengan meminta thread lain menjalankannya.
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
 kode di Listing 21-18, 21-19, dan 21-20 akan berbeda jika kita memakai
 *future* alih-alih *closure* untuk pekerjaan yang akan dilakukan. Type apa yang
-akan berubah? Bagaimana tanda tangan methodnya akan berbeda, jika ada?
+akan berubah? Bagaimana *signature* methodnya akan berbeda, jika ada?
 Bagian kode mana yang akan tetap sama?
 
 Setelah mempelajari loop `while let` di Bab 17 dan Bab 19, Anda mungkin

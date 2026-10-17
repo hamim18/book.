@@ -28,9 +28,9 @@ informasi lebih lanjut tentang `rustfmt`, lihat [dokumentasinya][rustfmt].
 ### Memperbaiki Kode Anda dengan `rustfix`
 
 Alat `rustfix` disertakan dalam instalasi Rust dan dapat memperbaiki peringatan
-kompilator secara otomatis apabila ada cara yang jelas untuk mengoreksi masalah
+*compiler* secara otomatis apabila ada cara yang jelas untuk mengoreksi masalah
 itu yang kemungkinan besar memang Anda inginkan. Anda mungkin pernah melihat
-peringatan kompilator sebelumnya. Sebagai contoh, perhatikan kode berikut:
+peringatan *compiler* sebelumnya. Sebagai contoh, perhatikan kode berikut:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -154,7 +154,7 @@ Untuk informasi lebih lanjut tentang Clippy, lihat
 
 Untuk membantu integrasi IDE, komunitas Rust merekomendasikan pemakaian
 [`rust-analyzer`][rust-analyzer]<!-- ignore -->. Alat ini adalah sekumpulan
-utilitas yang berpusat pada kompilator dan memakai [Language Server
+utilitas yang berpusat pada *compiler* dan memakai [Language Server
 Protocol][lsp]<!-- ignore -->, spesifikasi bagi IDE dan bahasa pemrograman untuk
 saling berkomunikasi. Berbagai client dapat memakai `rust-analyzer`, seperti
 [plugin Rust analyzer untuk Visual Studio Code][vscode].

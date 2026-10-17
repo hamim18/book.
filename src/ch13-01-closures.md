@@ -242,10 +242,10 @@ Kode ini terkompilasi, berjalan, dan mencetak:
 Perhatikan bahwa tidak ada lagi `println!` di antara definisi dan pemanggilan
 *closure* `borrows_mutably`: Ketika `borrows_mutably` didefinisikan, ia
 menangkap sebuah *reference* *mutable* ke `list`. Kita tidak memakai *closure* itu
-lagi setelah *closure* itu dipanggil, jadi peminjaman *mutable*-nya berakhir. Di
-antara definisi *closure* dan pemanggilan *closure*, peminjaman *immutable* untuk
-mencetak tidak diizinkan, karena tidak ada peminjaman lain yang diizinkan
-ketika ada peminjaman *mutable*. Coba tambahkan `println!` di sana untuk melihat
+lagi setelah *closure* itu dipanggil, jadi *borrowing* *mutable*-nya berakhir. Di
+antara definisi *closure* dan pemanggilan *closure*, *borrowing* *immutable* untuk
+mencetak tidak diizinkan, karena tidak ada *borrowing* lain yang diizinkan
+ketika ada *borrowing* *mutable*. Coba tambahkan `println!` di sana untuk melihat
 pesan error apa yang Anda dapat!
 
 Jika Anda ingin memaksa *closure* mengambil *ownership* atas nilai-nilai yang

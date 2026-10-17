@@ -110,7 +110,7 @@ bersifat async.
 
 Kita harus menunggu kedua *future* ini secara eksplisit, karena *future* di Rust
 bersifat _lazy_: *future* tidak melakukan apa pun sampai Anda memintanya dengan
-kata kunci `await`. (Bahkan, Rust akan menampilkan peringatan kompilator jika
+kata kunci `await`. (Bahkan, Rust akan menampilkan peringatan *compiler* jika
 Anda tidak memakai sebuah *future*.) Ini mungkin mengingatkan Anda pada
 pembahasan *iterator* di bagian [“Memproses Serangkaian Item dengan
 *Iterator*”][*iterators*-lazy]<!-- ignore --> di Bab 13. *Iterator* tidak melakukan
@@ -168,10 +168,10 @@ Rust mengompilasinya menjadi sebuah data type anonim yang unik yang
 mengimplementasikan *trait* `Future`. Ketika Rust melihat sebuah _fungsi_ yang
 ditandai dengan `async`, Rust mengompilasinya menjadi sebuah fungsi non-async
 yang badannya adalah blok async. Type kembalian sebuah fungsi async adalah
-type dari data type anonim yang dibuat kompilator untuk blok async tersebut.
+type dari data type anonim yang dibuat *compiler* untuk blok async tersebut.
 
 Dengan demikian, menulis `async fn` setara dengan menulis sebuah fungsi yang
-mengembalikan _future_ dari return typenya. Bagi kompilator, definisi
+mengembalikan _future_ dari return typenya. Bagi *compiler*, definisi
 fungsi seperti `async fn page_title` di Listing 17-1 kira-kira setara dengan
 fungsi non-async yang didefinisikan seperti ini:
 
@@ -266,7 +266,7 @@ tidak. Sebagai gantinya, tersedia banyak runtime async yang berbeda,
 masing-masing dengan pilihan kompromi yang sesuai untuk kasus pemakaian yang
 dibidiknya. Contohnya, sebuah server web berdaya tampung tinggi dengan banyak
 inti CPU dan RAM besar punya kebutuhan yang sangat berbeda dari sebuah
-mikrokontroler dengan satu inti, RAM kecil, dan tanpa kemampuan alokasi *heap*.
+mikrokontroler dengan satu inti, RAM kecil, dan tanpa kemampuan *allocation* *heap*.
 *Crate*-crate yang menyediakan runtime itu juga sering menyediakan versi async
 dari fungsionalitas umum seperti I/O file atau jaringan.
 
@@ -334,10 +334,10 @@ ini di setiap await point:
 
 Akan tetapi, menulis kode transisi antar-state secara manual akan melelahkan
 dan rawan error, apalagi ketika nanti Anda perlu menambahkan fungsionalitas
-dan state lain ke kode tersebut. Untungnya, kompilator Rust membuat dan
+dan state lain ke kode tersebut. Untungnya, *compiler* Rust membuat dan
 mengelola struktur data state machine untuk kode async secara otomatis. Aturan
-peminjaman dan kepemilikan yang biasa pada struktur data tetap berlaku
-seluruhnya, dan syukurlah, kompilator juga menangani pemeriksaannya untuk kita
+*borrowing* dan *ownership* yang biasa pada struktur data tetap berlaku
+seluruhnya, dan syukurlah, *compiler* juga menangani pemeriksaannya untuk kita
 serta memberikan pesan error yang bermanfaat. Kita akan menelusuri beberapa di
 antaranya nanti di bab ini.
 
@@ -346,7 +346,7 @@ sesuatu itu adalah runtime. (Inilah sebabnya Anda mungkin menemukan sebutan
 _executor_ saat menelusuri runtime: executor adalah bagian runtime yang
 bertanggung jawab menjalankan kode async.)
 
-Sekarang Anda bisa melihat alasan kompilator menghentikan kita dari membuat
+Sekarang Anda bisa melihat alasan *compiler* menghentikan kita dari membuat
 `main` menjadi fungsi async di Listing 17-3. Jika `main` adalah fungsi async,
 harus ada hal lain yang mengelola state machine untuk *future* apa pun yang
 dikembalikan `main`, padahal `main` adalah titik awal program! Sebagai

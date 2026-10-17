@@ -115,7 +115,7 @@ menjadikan *module* dan item-item di dalamnya publik, yang mengeksposnya agar
 kode eksternal dapat memakai dan bergantung padanya.
 
 Sebagai contoh, mari kita tulis sebuah *crate* library yang menyediakan
-fungsionalitas sebuah restoran. Kita akan mendefinisikan tanda tangan
+fungsionalitas sebuah restoran. Kita akan mendefinisikan *signature*
 fungsi-fungsinya tetapi membiarkan badannya kosong supaya kita berkonsentrasi
 pada pengaturan kode, bukan pada implementasi sebuah restoran.
 
@@ -131,7 +131,7 @@ Untuk menyusun *crate* kita dengan cara ini, kita dapat mengatur
 fungsi-fungsinya ke dalam *module* bersarang. Buat library baru bernama
 `restaurant` dengan menjalankan `cargo new restaurant --lib`. Lalu, masukkan
 kode di Listing 7-1 ke _src/lib.rs_ untuk mendefinisikan beberapa *module* dan
-tanda tangan fungsi; kode ini adalah bagian front of house.
+*signature* fungsi; kode ini adalah bagian front of house.
 
 <Listing number="7-1" file-name="src/lib.rs" caption="Sebuah module `front_of_house` yang berisi module-module lain yang kemudian berisi fungsi-fungsi">
 

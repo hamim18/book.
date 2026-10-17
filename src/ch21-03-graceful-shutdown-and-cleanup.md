@@ -53,7 +53,7 @@ Berikut error yang kita dapat saat mengompilasi kode ini:
 ```
 
 Error itu memberi tahu kita bahwa kita tidak bisa memanggil `join` karena
-kita hanya punya peminjaman *mutable* untuk setiap `worker` dan `join`
+kita hanya punya *borrowing* *mutable* untuk setiap `worker` dan `join`
 mengambil *ownership* atas argumennya. Untuk menyelesaikan masalah ini, kita
 perlu memindahkan thread keluar dari instance `Worker` yang memiliki
 `thread` supaya `join` bisa mengonsumsi thread itu. Salah satu caranya
@@ -90,7 +90,7 @@ seperti ini:
 
 </Listing>
 
-Ini menyelesaikan error kompilator dan tidak memerlukan perubahan lain
+Ini menyelesaikan error *compiler* dan tidak memerlukan perubahan lain
 pada kode kita. Perhatikan bahwa, karena drop bisa dipanggil saat sedang
 panic, unwrap itu juga bisa panic dan menyebabkan panic ganda, yang
 langsung membuat program crash dan mengakhiri pembersihan apa pun yang

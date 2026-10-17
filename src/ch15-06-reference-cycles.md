@@ -2,12 +2,12 @@
 
 Jaminan keamanan memori Rust membuat penciptaan memori yang tidak pernah
 dibersihkan secara tidak sengaja (dikenal sebagai _memory leak_ atau kebocoran
-memori) menjadi sulit, tetapi bukan mustahil. Mencegah kebocoran memori
-sepenuhnya bukanlah salah satu jaminan Rust, artinya kebocoran memori tidak
+memori) menjadi sulit, tetapi bukan mustahil. Mencegah *memory leak*
+sepenuhnya bukanlah salah satu jaminan Rust, artinya *memory leak* tidak
 melanggar keamanan memori di Rust. Kita bisa melihat bahwa Rust mengizinkan kebocoran
 memori dengan memakai `Rc<T>` dan `RefCell<T>`: Ada kemungkinan membuat
 *reference* di mana item-item saling merujuk dalam sebuah siklus. Ini
-menciptakan kebocoran memori karena jumlah referensi setiap item dalam siklus
+menciptakan *memory leak* karena jumlah *reference* setiap item dalam siklus
 itu tidak akan pernah mencapai 0, dan nilainya tidak akan pernah dibebaskan.
 
 ### Membuat Reference Cycle
@@ -35,7 +35,7 @@ Di Listing 15-26, kita menambahkan fungsi `main` yang memakai definisi di
 Listing 15-25. Kode ini membuat list di `a` dan list di `b` yang menunjuk ke
 list di `a`. Kemudian, kode itu memodifikasi list di `a` untuk menunjuk ke
 `b`, menciptakan *reference cycle*. Ada statement `println!` di sepanjang
-jalan untuk menunjukkan jumlah referensi pada berbagai titik dalam proses ini.
+jalan untuk menunjukkan jumlah *reference* pada berbagai titik dalam proses ini.
 
 <Listing number="15-26" file-name="src/main.rs" caption="Membuat reference cycle dari dua nilai `List` yang saling menunjuk">
 
@@ -64,12 +64,12 @@ dikomentari untuk sementara, kita akan mendapat output ini:
 {{#include ../listings/ch15-smart-pointers/listing-15-26/output.txt}}
 ```
 
-Jumlah referensi instance `Rc<List>` di `a` dan `b` adalah 2 setelah kita
+Jumlah *reference* instance `Rc<List>` di `a` dan `b` adalah 2 setelah kita
 mengubah list di `a` untuk menunjuk ke `b`. Di akhir `main`, Rust membebaskan
-variable `b`, yang mengurangi jumlah referensi instance `Rc<List>` `b` dari 2
+variable `b`, yang mengurangi jumlah *reference* instance `Rc<List>` `b` dari 2
 menjadi 1. Memori yang dimiliki `Rc<List>` di *heap* tidak akan dibebaskan pada
-titik ini karena jumlah referensinya 1, bukan 0. Kemudian, Rust membebaskan
-`a`, yang juga mengurangi jumlah referensi instance `Rc<List>` `a` dari 2
+titik ini karena jumlah *reference*nya 1, bukan 0. Kemudian, Rust membebaskan
+`a`, yang juga mengurangi jumlah *reference* instance `Rc<List>` `a` dari 2
 menjadi 1. Memori instance ini juga tidak bisa dibebaskan, karena instance
 `Rc<List>` yang lain masih merujuk padanya. Memori yang dialokasikan untuk
 list itu tidak akan pernah diklaim kembali. Untuk memvisualisasikan
@@ -95,7 +95,7 @@ tersedia.
 Membuat *reference cycle* tidak mudah dilakukan, tetapi juga bukan mustahil.
 Jika Anda memiliki nilai `RefCell<T>` yang memuat nilai `Rc<T>` atau kombinasi
 bersarang serupa dari type dengan *interior mutability* dan penghitungan
-referensi, Anda harus memastikan Anda tidak menciptakan siklus; Anda tidak
+*reference*, Anda harus memastikan Anda tidak menciptakan siklus; Anda tidak
 bisa mengandalkan Rust untuk menangkapnya. Membuat *reference cycle* akan
 menjadi bug logika dalam program Anda yang harus Anda minimalisasi dengan
 pengujian terotomatisasi, code review, dan praktik pengembangan perangkat
@@ -186,7 +186,7 @@ seperti ditunjukkan pada Listing 15-27.
 </Listing>
 
 Kita mengklon `Rc<Node>` di `leaf` dan menyimpannya di `branch`, artinya
-`Node` di `leaf` sekarang memiliki dua pemilik: `leaf` dan `branch`. Kita
+`Node` di `leaf` sekarang memiliki dua *owner*: `leaf` dan `branch`. Kita
 dapat bergerak dari `branch` ke `leaf` melalui `branch.children`, tetapi
 tidak ada cara bergerak dari `leaf` ke `branch`. Alasannya adalah `leaf`
 tidak memiliki *reference* ke `branch` dan tidak tahu bahwa keduanya saling
@@ -295,7 +295,7 @@ memiliki weak count 0.
 Ketika *scope* dalam berakhir, `branch` keluar dari *scope* dan strong count dari
 `Rc<Node>` berkurang menjadi 0, jadi `Node`-nya dibebaskan. Weak count 1 dari
 `leaf.parent` tidak berpengaruh pada dibebaskan atau tidaknya `Node`, jadi
-kita tidak mendapat kebocoran memori apa pun!
+kita tidak mendapat *memory leak* apa pun!
 
 Jika kita mencoba mengakses parent `leaf` setelah akhir *scope* itu, kita akan
 mendapat `None` lagi. Di akhir program, `Rc<Node>` di `leaf` memiliki strong
@@ -314,8 +314,8 @@ memori.
 Bab ini membahas cara memakai *smart pointer* untuk membuat jaminan dan
 kompromi yang berbeda dari yang dibuat Rust secara default dengan *reference*
 biasa. Type `Box<T>` memiliki ukuran yang diketahui dan menunjuk ke data yang
-dialokasikan di *heap*. Type `Rc<T>` melacak jumlah referensi ke data di *heap*
-sehingga data itu dapat memiliki beberapa pemilik. Type `RefCell<T>` dengan
+dialokasikan di *heap*. Type `Rc<T>` melacak jumlah *reference* ke data di *heap*
+sehingga data itu dapat memiliki beberapa *owner*. Type `RefCell<T>` dengan
 *interior mutability*-nya memberi kita type yang dapat kita pakai ketika kita
 membutuhkan type *immutable* tetapi perlu mengubah nilai bagian dalam type itu;
 ia juga menegakkan aturan *borrowing* pada runtime alih-alih pada waktu
@@ -323,7 +323,7 @@ kompilasi.
 
 Juga dibahas *trait* `Deref` dan `Drop`, yang mengaktifkan banyak fungsionalitas
 *smart pointer*. Kita mengeksplorasi *reference cycle* yang dapat menyebabkan
-kebocoran memori dan cara mencegahnya menggunakan `Weak<T>`.
+*memory leak* dan cara mencegahnya menggunakan `Weak<T>`.
 
 Jika bab ini telah menggugah minat Anda dan Anda ingin mengimplementasikan
 *smart pointer* Anda sendiri, lihat [“The Rustonomicon”][nomicon] untuk

@@ -46,7 +46,7 @@ Variable `x` menampung nilai `i32`, yaitu `5`. Kita menetapkan `y` sama
 dengan *reference* ke `x`. Kita dapat menegaskan bahwa `x` sama dengan `5`.
 Namun, jika kita ingin membuat asersi tentang nilai di dalam `y`, kita harus
 memakai `*y` untuk mengikuti *reference* itu menuju nilai yang ditunjuknya
-(karena itu disebut _dereference_ atau dereferensi) supaya kompilator dapat
+(karena itu disebut _dereference_ atau dereferensi) supaya *compiler* dapat
 membandingkan nilai sebenarnya. Begitu kita melakukan dereferensi pada `y`,
 kita memiliki akses ke nilai integer yang ditunjuk `y` untuk kita bandingkan
 dengan `5`.
@@ -78,7 +78,7 @@ berfungsi dengan cara yang sama seperti operator dereferensi yang dipakai pada
 </Listing>
 
 Perbedaan utama antara Listing 15-7 dan Listing 15-6 adalah bahwa di sini kita
-menetapkan `y` sebagai instance dari sebuah *box* yang menunjuk ke salinan nilai
+menetapkan `y` sebagai instance dari sebuah *box* yang menunjuk ke copy nilai
 `x`, alih-alih *reference* yang menunjuk ke nilai `x`. Pada asersi terakhir,
 kita dapat memakai operator dereferensi untuk mengikuti *pointer* *box* dengan
 cara yang sama seperti yang kita lakukan ketika `y` adalah *reference*.
@@ -174,8 +174,8 @@ ignore --> di Bab 5 bahwa `.0` mengakses nilai pertama dalam *tuple struct*.
 Fungsi `main` di Listing 15-9 yang memanggil `*` pada nilai `MyBox<T>` sekarang
 terkompilasi, dan asersinya lulus!
 
-Tanpa *trait* `Deref`, kompilator hanya bisa melakukan dereferensi pada
-*reference* `&`. Method `deref` memberi kompilator kemampuan untuk mengambil
+Tanpa *trait* `Deref`, *compiler* hanya bisa melakukan dereferensi pada
+*reference* `&`. Method `deref` memberi *compiler* kemampuan untuk mengambil
 nilai typed apa pun yang mengimplementasikan `Deref` dan memanggil method
 `deref` untuk mendapatkan *reference* yang ia tahu cara melakukan dereferensi
 padanya.
@@ -280,7 +280,7 @@ nilai typed `&MyBox<String>`.
 
 `(*m)` melakukan dereferensi pada `MyBox<String>` menjadi `String`. Lalu, `&`
 dan `[..]` mengambil string *slice* dari `String` itu yang sama dengan seluruh
-string untuk mencocokkan tanda tangan `hello`. Kode tanpa *deref coercion* ini
+string untuk mencocokkan *signature* `hello`. Kode tanpa *deref coercion* ini
 lebih sulit dibaca, ditulis, dan dipahami karena semua simbol yang terlibat.
 *Deref coercion* memungkinkan Rust menangani konversi-konversi itu untuk kita
 secara otomatis.

@@ -52,7 +52,7 @@ dalam Pattern”][ignoring-values-in-a-pattern]<!-- ignore --> nanti di bab ini.
 
 Sebelum bab ini, kita hanya secara eksplisit membahas pemakaian pattern dengan
 `match` dan `if let`, tetapi sebenarnya kita telah memakai pattern di tempat lain
-juga, termasuk pada statement `let`. Contohnya, perhatikan penetapan variable
+juga, termasuk pada statement `let`. Contohnya, perhatikan assignment variable
 sederhana dengan `let` ini:
 
 ```rust
@@ -100,7 +100,7 @@ bisa menganggap pattern *tuple* ini sebagai tiga pattern variable individual yan
 bersarang di dalamnya.
 
 Jika jumlah elemen pada pattern tidak cocok dengan jumlah elemen pada *tuple*,
-type keseluruhannya tidak akan cocok dan kita akan mendapat error kompilator.
+type keseluruhannya tidak akan cocok dan kita akan mendapat error *compiler*.
 Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi *tuple* dengan
 tiga elemen menjadi dua variable, yang tidak akan berhasil.
 
@@ -173,10 +173,10 @@ menggabungkan dua kondisi ini menjadi `if let Ok(age) = age && age > 30`.
 `age` baru yang ingin kita bandingkan dengan 30 tidak valid sampai *scope* baru
 dimulai dengan kurung kurawal.
 
-Kekurangan memakai expression `if let` adalah kompilator tidak memeriksa
+Kekurangan memakai expression `if let` adalah *compiler* tidak memeriksa
 ekshaustivitas, sedangkan pada expression `match` ia memeriksanya. Jika kita
 menghilangkan blok `else` terakhir dan karenanya melewatkan penanganan
-beberapa kasus, kompilator tidak akan memperingatkan kita tentang kemungkinan
+beberapa kasus, *compiler* tidak akan memperingatkan kita tentang kemungkinan
 bug logika itu.
 
 ### Loop Kondisional `while let`

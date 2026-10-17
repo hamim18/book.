@@ -29,7 +29,7 @@ $ cargo build --release
     Finished `release` profile [optimized] target(s) in 0.32s
 ```
 
-`dev` dan `release` adalah kedua profil berbeda yang dipakai oleh kompilator.
+`dev` dan `release` adalah kedua profil berbeda yang dipakai oleh *compiler*.
 
 Cargo memiliki pengaturan default untuk masing-masing profil yang berlaku
 ketika Anda belum menambahkan seksi `[profile.*]` apa pun secara eksplisit di

@@ -19,23 +19,23 @@ meng-overload operator itu dicantumkan.
 | `!`                       | `!expr`                                                 | Komplemen bitwise atau logis                                                   | `Not`              |
 | `!=`                      | `expr != expr`                                          | Perbandingan ketidaksamaan                                                     | `PartialEq`        |
 | `%`                       | `expr % expr`                                           | Sisa pembagian aritmetika                                                      | `Rem`              |
-| `%=`                      | `var %= expr`                                           | Sisa pembagian aritmetika dan penetapan                                        | `RemAssign`        |
-| `&`                       | `&expr`, `&mut expr`                                    | Peminjaman                                                                     |                    |
+| `%=`                      | `var %= expr`                                           | Sisa pembagian aritmetika dan assignment                                        | `RemAssign`        |
+| `&`                       | `&expr`, `&mut expr`                                    | *borrowing*                                                                     |                    |
 | `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Type pointer yang dipinjam                                                     |                    |
 | `&`                       | `expr & expr`                                           | AND bitwise                                                                    | `BitAnd`           |
-| `&=`                      | `var &= expr`                                           | AND bitwise dan penetapan                                                      | `BitAndAssign`     |
+| `&=`                      | `var &= expr`                                           | AND bitwise dan assignment                                                      | `BitAndAssign`     |
 | `&&`                      | `expr && expr`                                          | AND logis dengan evaluasi hubung singkat                                       |                    |
 | `*`                       | `expr * expr`                                           | Perkalian aritmetika                                                           | `Mul`              |
-| `*=`                      | `var *= expr`                                           | Perkalian aritmetika dan penetapan                                             | `MulAssign`        |
+| `*=`                      | `var *= expr`                                           | Perkalian aritmetika dan assignment                                             | `MulAssign`        |
 | `*`                       | `*expr`                                                 | Dereferensi                                                                    | `Deref`            |
 | `*`                       | `*const type`, `*mut type`                              | Pointer mentah                                                                 |                    |
 | `+`                       | `trait + trait`, `'a + trait`                           | Batasan compound type                                                           |                    |
 | `+`                       | `expr + expr`                                           | Penjumlahan aritmetika                                                         | `Add`              |
-| `+=`                      | `var += expr`                                           | Penjumlahan aritmetika dan penetapan                                           | `AddAssign`        |
+| `+=`                      | `var += expr`                                           | Penjumlahan aritmetika dan assignment                                           | `AddAssign`        |
 | `,`                       | `expr, expr`                                            | Pemisah argumen dan elemen                                                     |                    |
 | `-`                       | `- expr`                                                | Negasi aritmetika                                                              | `Neg`              |
 | `-`                       | `expr - expr`                                           | Pengurangan aritmetika                                                         | `Sub`              |
-| `-=`                      | `var -= expr`                                           | Pengurangan aritmetika dan penetapan                                           | `SubAssign`        |
+| `-=`                      | `var -= expr`                                           | Pengurangan aritmetika dan assignment                                           | `SubAssign`        |
 | `->`                      | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Type kembalian fungsi dan closure                                              |                    |
 | `.`                       | `expr.ident`                                            | Akses field                                                                    |                    |
 | `.`                       | `expr.ident(expr, ...)`                                 | Pemanggilan method                                                             |                    |
@@ -46,29 +46,29 @@ meng-overload operator itu dicantumkan.
 | `..`                      | `variant(x, ..)`, `struct_type { x, .. }`               | Pengikatan pattern “dan sisanya”                                                  |                    |
 | `...`                     | `expr...expr`                                           | (Usang, pakai `..=` saja) Di dalam pattern: pattern rentang inklusif                 |                    |
 | `/`                       | `expr / expr`                                           | Pembagian aritmetika                                                           | `Div`              |
-| `/=`                      | `var /= expr`                                           | Pembagian aritmetika dan penetapan                                             | `DivAssign`        |
+| `/=`                      | `var /= expr`                                           | Pembagian aritmetika dan assignment                                             | `DivAssign`        |
 | `:`                       | `pat: type`, `ident: type`                              | Batasan                                                                        |                    |
 | `:`                       | `ident: expr`                                           | Penginisialisasi field struct                                                  |                    |
 | `:`                       | `'a: loop {...}`                                        | Label loop                                                               |                    |
 | `;`                       | `expr;`                                                 | Terminator statement dan item                                                 |                    |
 | `;`                       | `[...; len]`                                            | Bagian dari sintaks array berukuran tetap                                      |                    |
 | `<<`                      | `expr << expr`                                          | Pergeseran kiri                                                                | `Shl`              |
-| `<<=`                     | `var <<= expr`                                          | Pergeseran kiri dan penetapan                                                  | `ShlAssign`        |
+| `<<=`                     | `var <<= expr`                                          | Pergeseran kiri dan assignment                                                  | `ShlAssign`        |
 | `<`                       | `expr < expr`                                           | Perbandingan kurang dari                                                       | `PartialOrd`       |
 | `<=`                      | `expr <= expr`                                          | Perbandingan kurang dari atau sama dengan                                      | `PartialOrd`       |
-| `=`                       | `var = expr`, `ident = type`                            | Penetapan/kesetaraan                                                           |                    |
+| `=`                       | `var = expr`, `ident = type`                            | Assignment/kesetaraan                                                           |                    |
 | `==`                      | `expr == expr`                                          | Perbandingan kesamaan                                                          | `PartialEq`        |
 | `=>`                      | `pat => expr`                                           | Bagian dari sintaks arm match                                                  |                    |
 | `>`                       | `expr > expr`                                           | Perbandingan lebih dari                                                        | `PartialOrd`       |
 | `>=`                      | `expr >= expr`                                          | Perbandingan lebih dari atau sama dengan                                       | `PartialOrd`       |
 | `>>`                      | `expr >> expr`                                          | Pergeseran kanan                                                               | `Shr`              |
-| `>>=`                     | `var >>= expr`                                          | Pergeseran kanan dan penetapan                                                 | `ShrAssign`        |
+| `>>=`                     | `var >>= expr`                                          | Pergeseran kanan dan assignment                                                 | `ShrAssign`        |
 | `@`                       | `ident @ pat`                                           | Pengikatan pattern                                                                |                    |
 | `^`                       | `expr ^ expr`                                           | OR eksklusif bitwise                                                           | `BitXor`           |
-| `^=`                      | `var ^= expr`                                           | OR eksklusif bitwise dan penetapan                                             | `BitXorAssign`     |
+| `^=`                      | `var ^= expr`                                           | OR eksklusif bitwise dan assignment                                             | `BitXorAssign`     |
 | <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Alternatif pattern                                                                |                    |
 | <code>&vert;</code>       | <code>expr &vert; expr</code>                           | OR bitwise                                                                     | `BitOr`            |
-| <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan penetapan                                                       | `BitOrAssign`      |
+| <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan assignment                                                       | `BitOrAssign`      |
 | <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan evaluasi hubung singkat                                        |                    |
 | `?`                       | `expr?`                                                 | Penerusan error                                                                |                    |
 
@@ -128,7 +128,7 @@ generic type.
 | `enum ident<...> ...`          | Mendefinisikan enumerasi generik                                                                                                                               |
 | `impl<...> ...`                | Mendefinisikan implementasi generik                                                                                                                            |
 | `for<...> type`                | Batasan lifetime berperingkat lebih tinggi                                                                                                                     |
-| `type<ident=type>`             | Type generik yang satu atau beberapa associated type-nya memiliki penetapan spesifik (misalnya, `Iterator<Item=T>`)                                            |
+| `type<ident=type>`             | Type generik yang satu atau beberapa associated type-nya memiliki assignment spesifik (misalnya, `Iterator<Item=T>`)                                            |
 
 Tabel B-5 menunjukkan simbol yang muncul dalam konteks pembatasan parameter
 generic type dengan *trait bound*.
@@ -201,7 +201,7 @@ Tabel B-10 menunjukkan konteks pemakaian kurung siku.
 | Konteks                                            | Penjelasan                                                                                                                     |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `[...]`                                            | Literal array                                                                                                                  |
-| `[expr; len]`                                      | Literal array berisi `len` salinan `expr`                                                                                      |
+| `[expr; len]`                                      | Literal array berisi `len` copy `expr`                                                                                      |
 | `[type; len]`                                      | Type array berisi `len` instance dari `type`                                                                                   |
 | `expr[expr]`                                       | Pengindeksan collection; dapat di-overload (`Index`, `IndexMut`)                                                                  |
 | `expr[..]`, `expr[a..]`, `expr[..b]`, `expr[a..b]` | Pengindeksan collection yang berperan sebagai slicing collection, memakai `Range`, `RangeFrom`, `RangeTo`, atau `RangeFull` sebagai “index” |

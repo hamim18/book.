@@ -85,7 +85,7 @@ kode eksternal bisa membaca `average` tetapi tidak mengubahnya.
 Karena kita telah mengenkapsulasi detail implementasi *struct*
 `AveragedCollection`, kita bisa dengan mudah mengubah aspek-aspeknya, seperti
 struktur datanya, di masa depan. Misalnya, kita bisa memakai `HashSet<i32>`
-alih-alih `Vec<i32>` untuk *field* `list`. Selama tanda tangan method publik
+alih-alih `Vec<i32>` untuk *field* `list`. Selama *signature* method publik
 `add`, `remove`, dan `average` tetap sama, kode yang memakai
 `AveragedCollection` tidak perlu berubah. Jika kita membuat `list` publik,
 belum tentu demikian halnya: `HashSet<i32>` dan `Vec<i32>` memiliki method

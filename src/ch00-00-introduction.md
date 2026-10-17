@@ -27,7 +27,7 @@ besar pengembang dengan tingkat pengetahuan pemrograman sistem yang beragam.
 Kode tingkat rendah rentan terhadap berbagai bug yang halus, yang di sebagian
 besar bahasa lain hanya dapat ditemukan melalui pengujian yang ekstensif dan
 peninjauan kode yang cermat oleh pengembang berpengalaman. Di Rust, *compiler*
-(kompilator) berperan sebagai penjaga gerbang dengan menolak mengompilasi
+(*compiler*) berperan sebagai penjaga gerbang dengan menolak mengompilasi
 kode yang mengandung bug-bug yang sulit ditemukan ini, termasuk bug
 konkurensi. Dengan bekerja berdampingan dengan *compiler*, tim dapat
 menghabiskan waktunya untuk berfokus pada logika program alih-alih mengejar
@@ -151,7 +151,7 @@ di bab-bab sebelumnya.
 **Bab 13** menjelajahi *closure* dan *iterator*: fitur Rust yang berasal
 dari bahasa pemrograman fungsional. Di **Bab 14**, kita akan menelaah Cargo
 lebih mendalam dan membahas praktik terbaik untuk membagikan pustaka Anda
-kepada orang lain. **Bab 15** membahas *smart pointer* (penunjuk pintar) yang
+kepada orang lain. **Bab 15** membahas *smart pointer* (*pointer* pintar) yang
 disediakan pustaka standar dan *trait* yang memungkinkan fungsionalitasnya.
 
 Di **Bab 16**, kita akan menelusuri berbagai model pemrograman konkuren dan
@@ -162,7 +162,7 @@ konkurensi ringan yang dimungkinkan oleh ketiganya.
 
 **Bab 18** membahas bagaimana idiom-idiom Rust dibandingkan dengan
 prinsip-prinsip pemrograman berorientasi objek yang mungkin sudah Anda kenal.
-**Bab 19** adalah referensi tentang pattern dan *pattern matching* (pencocokan
+**Bab 19** adalah *reference* tentang pattern dan *pattern matching* (pencocokan
 pattern), yang merupakan cara ampuh untuk mengekspresikan gagasan di seluruh
 program Rust. **Bab 20** memuat aneka ragam topik lanjutan yang menarik,
 termasuk *unsafe* Rust, *macro* (makro), serta pembahasan lebih lanjut
@@ -172,7 +172,7 @@ Di **Bab 21**, kita akan menyelesaikan sebuah proyek untuk
 mengimplementasikan server web multithread tingkat rendah!
 
 Terakhir, beberapa lampiran memuat informasi berguna tentang bahasa ini
-dalam format yang lebih menyerupai referensi. **Lampiran A** membahas kata
+dalam format yang lebih menyerupai *reference*. **Lampiran A** membahas kata
 kunci Rust, **Lampiran B** membahas operator dan simbol Rust, **Lampiran C**
 membahas *trait* yang dapat diturunkan yang disediakan pustaka standar,
 **Lampiran D** membahas beberapa alat pengembangan yang berguna, dan

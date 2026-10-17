@@ -194,7 +194,7 @@ Siapa pun dapat menulis RFC untuk meningkatkan Rust, dan proposal itu ditinjau
 serta didiskusikan oleh tim Rust, yang terdiri atas banyak subtim berdasarkan
 topik. Ada daftar lengkap tim-tim itu [di situs web
 Rust](https://www.rust-lang.org/governance), yang mencakup tim untuk setiap
-bidang proyek: desain bahasa, implementasi kompilator, infrastruktur,
+bidang proyek: desain bahasa, implementasi *compiler*, infrastruktur,
 dokumentasi, dan lain-lain. Tim yang sesuai membaca proposal dan
 komentar-komentarnya, menulis beberapa komentar sendiri, dan pada akhirnya,
 tercapai konsensus untuk menerima atau menolak fitur tersebut.

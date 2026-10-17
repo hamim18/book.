@@ -28,7 +28,7 @@ perilaku tertentu, alih-alih sembarang type.
 
 Terakhir, kita akan membahas *lifetime* (masa hidup): sejenis *generics* yang
 memberi *compiler* (kompilator) informasi tentang bagaimana *reference*
-(referensi) berhubungan satu sama lain. *Lifetime* memungkinkan kita memberi
+(*reference*) berhubungan satu sama lain. *Lifetime* memungkinkan kita memberi
 *compiler* informasi yang cukup tentang nilai yang dipinjam sehingga ia bisa
 memastikan bahwa *reference* akan tetap valid dalam lebih banyak situasi
 daripada yang bisa ia lakukan tanpa bantuan kita.
@@ -114,7 +114,7 @@ Listing 10-2 menjadi Listing 10-3:
 
 1. Identifikasi kode duplikat.
 1. Ekstrak kode duplikat itu ke dalam badan fungsi, dan tentukan input serta
-   return value kode itu di tanda tangan fungsi.
+   return value kode itu di *signature* fungsi.
 1. Perbarui dua instance kode duplikat itu agar memanggil fungsi tersebut.
 
 Selanjutnya, kita akan memakai langkah-langkah yang sama dengan *generics*

@@ -1,6 +1,6 @@
 ## Type Data Generik
 
-Kita memakai *generics* untuk membuat definisi item seperti tanda tangan
+Kita memakai *generics* untuk membuat definisi item seperti *signature*
 fungsi atau *struct*, yang kemudian bisa kita pakai dengan banyak data type
 konkret yang berbeda. Mari kita lihat dulu cara mendefinisikan fungsi,
 *struct*, *enum*, dan method dengan memakai *generics*. Kemudian, kita akan
@@ -9,7 +9,7 @@ membahas bagaimana *generics* memengaruhi kinerja kode.
 ### Dalam Definisi Fungsi
 
 Saat mendefinisikan fungsi yang memakai *generics*, kita menempatkan *generics*
-di tanda tangan fungsi, tepat di tempat kita biasanya menentukan data type
+di *signature* fungsi, tepat di tempat kita biasanya menentukan data type
 parameter dan return valuenya. Melakukannya membuat kode kita lebih
 fleksibel dan menyediakan lebih banyak fungsionalitas bagi pemanggil fungsi
 kita sekaligus mencegah duplikasi kode.
@@ -18,7 +18,7 @@ Melanjutkan fungsi `largest` kita, Listing 10-4 menunjukkan dua fungsi yang
 sama-sama menemukan nilai terbesar dalam sebuah *slice*. Kita kemudian akan
 menggabungkan keduanya menjadi satu fungsi yang memakai *generics*.
 
-<Listing number="10-4" file-name="src/main.rs" caption="Dua fungsi yang hanya berbeda pada nama dan type di tanda tangannya">
+<Listing number="10-4" file-name="src/main.rs" caption="Dua fungsi yang hanya berbeda pada nama dan type di *signature*nya">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-04/src/main.rs:here}}
@@ -41,9 +41,9 @@ dan konvensi penamaan type Rust adalah UpperCamelCase. Sebagai kependekan
 dari _type_, `T` adalah pilihan bawaan sebagian besar pemrogram Rust.
 
 Ketika kita memakai sebuah parameter di badan fungsi, kita harus
-mendeklarasikan nama parameter itu di tanda tangan supaya *compiler* tahu apa
+mendeklarasikan nama parameter itu di *signature* supaya *compiler* tahu apa
 arti nama tersebut. Demikian pula, ketika kita memakai nama type parameter di
-tanda tangan fungsi, kita harus mendeklarasikan nama type parameter itu
+*signature* fungsi, kita harus mendeklarasikan nama type parameter itu
 sebelum memakainya. Untuk mendefinisikan fungsi generik `largest`, kita
 menempatkan deklarasi nama type di dalam kurung sudut, `<>`, di antara nama
 fungsi dan daftar parameternya, seperti ini:
@@ -58,7 +58,7 @@ berupa *slice* berisi nilai-nilai typed `T`. Fungsi `largest` akan
 mengembalikan sebuah *reference* ke nilai typed `T` yang sama.
 
 Listing 10-5 menunjukkan definisi fungsi `largest` gabungan yang memakai
-data generic type di tanda tangannya. Listing itu juga menunjukkan bagaimana
+data generic type di *signature*nya. Listing itu juga menunjukkan bagaimana
 kita bisa memanggil fungsi tersebut dengan *slice* berisi nilai `i32` ataupun
 nilai `char`. Perhatikan bahwa kode ini belum bisa dikompilasi.
 
@@ -254,9 +254,9 @@ titik kita dari titik pada koordinat (0.0, 0.0) dan memakai operasi matematis
 yang hanya tersedia untuk type floating point.
 
 Parameter generic type dalam definisi *struct* tidak selalu sama dengan yang
-Anda pakai di tanda tangan method *struct* yang sama. Listing 10-11 memakai
+Anda pakai di *signature* method *struct* yang sama. Listing 10-11 memakai
 generic type `X1` dan `Y1` untuk *struct* `Point` dan `X2` serta `Y2` untuk
-tanda tangan method `mixup` agar contohnya lebih jelas. Method ini membuat
+*signature* method `mixup` agar contohnya lebih jelas. Method ini membuat
 sebuah instance `Point` baru dengan nilai `x` dari `Point` `self` (typed
 `X1`) dan nilai `y` dari `Point` yang diteruskan (typed `Y2`).
 

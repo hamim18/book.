@@ -42,7 +42,7 @@ lokasi-lokasi tertentu. Ini akan memperjelas apa yang dilakukan fungsi
 Setelah `Config::build` mengambil *ownership* atas *iterator* dan berhenti
 memakai operasi pengindeksan yang meminjam, kita dapat memindahkan nilai-nilai
 `String` dari *iterator* ke dalam `Config` alih-alih memanggil `clone` dan
-membuat alokasi baru.
+membuat *allocation* baru.
 
 #### Memakai Iterator yang Dikembalikan Secara Langsung
 
@@ -72,10 +72,10 @@ nilai-nilai *iterator* ke dalam sebuah vector lalu meneruskan *slice* ke
 dikembalikan dari `env::args` ke `Config::build` secara langsung.
 
 Selanjutnya, kita perlu memperbarui definisi `Config::build`. Mari kita ubah
-tanda tangan `Config::build` agar tampak seperti Listing 13-19. Ini masih
+*signature* `Config::build` agar tampak seperti Listing 13-19. Ini masih
 belum akan terkompilasi, karena kita perlu memperbarui badan fungsinya.
 
-<Listing number="13-19" file-name="src/main.rs" caption="Memperbarui tanda tangan `Config::build` agar menerima sebuah iterator">
+<Listing number="13-19" file-name="src/main.rs" caption="Memperbarui *signature* `Config::build` agar menerima sebuah iterator">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/main.rs:here}}
@@ -87,7 +87,7 @@ Dokumentasi pustaka standar untuk fungsi `env::args` menunjukkan bahwa type
 *iterator* yang dikembalikannya adalah `std::env::Args`, dan type itu
 mengimplementasikan *trait* `Iterator` serta mengembalikan nilai `String`.
 
-Kita telah memperbarui tanda tangan fungsi `Config::build` sehingga parameter
+Kita telah memperbarui *signature* fungsi `Config::build` sehingga parameter
 `args` memiliki generic type dengan *trait bound* `impl Iterator<Item =
 String>` alih-alih `&[String]`. Pemakaian sintaks `impl Trait` yang kita
 bahas di bagian [“Memakai Trait sebagai Parameter”][impl-trait]<!-- ignore -->

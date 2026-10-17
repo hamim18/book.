@@ -201,7 +201,7 @@ Listing 17-19 menunjukkan deklarasi ini.
 
 <!-- This is not tested because it intentionally does not compile. -->
 
-<Listing number="17-19" caption="Mendefinisikan tanda tangan `timeout`" file-name="src/main.rs">
+<Listing number="17-19" caption="Mendefinisikan *signature* `timeout`" file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-19/src/main.rs:declaration}}

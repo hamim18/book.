@@ -84,7 +84,7 @@ data yang sudah ada. Misalnya kuerinya adalah `"rUsT"`: String *slice* itu tidak
 memuat huruf kecil `u` atau `t` yang dapat kita pakai, jadi kita harus
 mengalokasikan sebuah `String` baru yang memuat `"rust"`. Ketika kita
 meneruskan `query` sebagai argumen ke method `contains` sekarang, kita perlu
-menambahkan ampersand karena tanda tangan `contains` didefinisikan untuk
+menambahkan ampersand karena *signature* `contains` didefinisikan untuk
 menerima sebuah string *slice*.
 
 Selanjutnya, kita menambahkan pemanggilan `to_lowercase` pada setiap `line`

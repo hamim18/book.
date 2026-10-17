@@ -18,7 +18,7 @@ bisa berupa type apa pun yang memiliki perilaku tertentu.
 Perilaku sebuah type terdiri atas method-method yang bisa kita panggil pada
 type tersebut. Type-type yang berbeda berbagi perilaku yang sama jika kita
 bisa memanggil method-method yang sama pada semua type itu. Definisi *trait*
-adalah cara mengelompokkan tanda tangan method untuk mendefinisikan
+adalah cara mengelompokkan *signature* method untuk mendefinisikan
 sekumpulan perilaku yang diperlukan untuk mencapai tujuan tertentu.
 
 Sebagai contoh, katakanlah kita memiliki beberapa *struct* yang menampung
@@ -52,20 +52,20 @@ tangan method yang mendeskripsikan perilaku type-type yang
 mengimplementasikan *trait* ini, yang dalam kasus ini adalah `fn summarize(&self)
 -> String`.
 
-Setelah tanda tangan method, alih-alih memberikan implementasi di dalam
+Setelah *signature* method, alih-alih memberikan implementasi di dalam
 kurung kurawal, kita memakai titik koma. Setiap type yang mengimplementasikan
 *trait* ini harus memberikan perilaku kustomnya sendiri untuk badan method
-tersebut. *Compiler* (kompilator) akan memastikan bahwa type apa pun yang
+tersebut. *Compiler* (*compiler*) akan memastikan bahwa type apa pun yang
 memiliki *trait* `Summary` akan memiliki method `summarize` yang didefinisikan
-dengan tanda tangan persis seperti ini.
+dengan *signature* persis seperti ini.
 
-Sebuah *trait* bisa memiliki banyak method di badannya: tanda tangan
+Sebuah *trait* bisa memiliki banyak method di badannya: *signature*
 methodnya didaftarkan satu per baris, dan setiap baris diakhiri titik koma.
 
 <a id="implementing-a-trait-on-a-type"></a>
 ### Mengimplementasikan Trait pada Suatu Type
 
-Sekarang setelah kita mendefinisikan tanda tangan yang diinginkan untuk
+Sekarang setelah kita mendefinisikan *signature* yang diinginkan untuk
 method-method *trait* `Summary`, kita bisa mengimplementasikannya pada
 type-type di agregator media kita. Listing 10-13 menunjukkan implementasi
 *trait* `Summary` pada *struct* `NewsArticle` yang memakai judul berita,
@@ -86,7 +86,7 @@ Mengimplementasikan *trait* pada sebuah type mirip dengan mengimplementasikan
 method biasa. Bedanya, setelah `impl`, kita menuliskan nama *trait* yang ingin
 kita implementasikan, lalu memakai kata kunci `for`, dan kemudian menentukan
 nama type yang ingin kita implementasikan *trait* tersebut. Di dalam blok
-`impl`, kita menuliskan tanda tangan method yang telah didefinisikan oleh
+`impl`, kita menuliskan *signature* method yang telah didefinisikan oleh
 definisi *trait*. Alih-alih menambahkan titik koma setelah setiap tanda
 tangan, kita memakai kurung kurawal dan mengisi badan method dengan perilaku
 spesifik yang kita inginkan dari method-method *trait* itu untuk type
@@ -144,7 +144,7 @@ pada type tertentu, kita bisa mempertahankan atau menimpa perilaku bawaan
 setiap method.
 
 Di Listing 10-14, kita menentukan string bawaan untuk method `summarize`
-dari trait `Summary`, alih-alih hanya mendefinisikan tanda tangan
+dari trait `Summary`, alih-alih hanya mendefinisikan *signature*
 methodnya, seperti yang kita lakukan di Listing 10-12.
 
 <Listing number="10-14" file-name="src/lib.rs" caption="Mendefinisikan trait `Summary` dengan implementasi bawaan untuk method `summarize`">
@@ -313,9 +313,9 @@ Dengan dua *trait bound* yang ditentukan, badan `notify` bisa memanggil
 Memakai terlalu banyak *trait bound* memiliki kekurangannya sendiri. Setiap
 generik memiliki *trait bound*-nya sendiri, jadi fungsi dengan banyak
 type parameter generik bisa berisi banyak informasi *trait bound* di antara
-nama fungsi dan daftar parameternya, sehingga tanda tangan fungsinya sulit
+nama fungsi dan daftar parameternya, sehingga *signature* fungsinya sulit
 dibaca. Karena alasan ini, Rust memiliki sintaks alternatif untuk
-menentukan *trait bound* di dalam klausa `where` setelah tanda tangan fungsi.
+menentukan *trait bound* di dalam klausa `where` setelah *signature* fungsi.
 Jadi, alih-alih menulis ini:
 
 ```rust,ignore

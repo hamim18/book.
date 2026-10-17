@@ -2,7 +2,7 @@
 
 Kita akan mulai dengan membuat web server single-threaded bekerja. Sebelum
 kita mulai, mari kita lihat sekilas protokol-protokol yang terlibat dalam
-pembangunan server web. Detail protokol-protokol ini berada di luar cakupan
+pembangunan server web. Detail protokol-protokol ini berada di luar coverage
 buku ini, tetapi ringkasan singkat akan memberi Anda informasi yang Anda
 butuhkan.
 

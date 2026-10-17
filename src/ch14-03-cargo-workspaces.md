@@ -290,7 +290,7 @@ error[E0432]: unresolved import `rand`
 Untuk memperbaikinya, sunting file _Cargo.toml_ untuk *package* `adder` dan
 nyatakan bahwa `rand` juga merupakan dependensi baginya. Membangun *package*
 `adder` akan menambahkan `rand` ke daftar dependensi untuk `adder` di
-_Cargo.lock_, tetapi tidak ada salinan tambahan `rand` yang akan diunduh.
+_Cargo.lock_, tetapi tidak ada copy tambahan `rand` yang akan diunduh.
 Cargo akan memastikan bahwa setiap *crate* di setiap *package* dalam workspace
 yang memakai *package* `rand` akan memakai versi yang sama selama mereka
 menyebutkan versi `rand` yang kompatibel, menghemat ruang kita dan memastikan

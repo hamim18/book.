@@ -216,11 +216,11 @@ mengimplementasikan *trait* itu sekarang harus mengimplementasikan method
 `&mut self` sebagai parameter pertama method itu, kita memiliki
 `self: Box<Self>`. Sintaks ini berarti method itu hanya valid ketika
 dipanggil pada `Box` yang menampung type itu. Sintaks ini mengambil
-kepemilikan `Box<Self>`, meniadakan state lama sehingga nilai state dari
+*ownership* `Box<Self>`, meniadakan state lama sehingga nilai state dari
 `Post` bisa berubah menjadi state baru.
 
 Untuk mengonsumsi state lama, method `request_review` perlu mengambil
-kepemilikan nilai state itu. Di sinilah `Option` pada *field* `state` dari
+*ownership* nilai state itu. Di sinilah `Option` pada *field* `state` dari
 `Post` berperan: kita memanggil method `take` untuk mengambil nilai `Some`
 dari *field* `state` dan meninggalkan `None` di tempatnya karena Rust tidak
 mengizinkan kita memiliki *field* yang tidak terisi di dalam *struct*. Ini
@@ -230,7 +230,7 @@ operasi ini.
 
 Kita perlu menetapkan `state` ke `None` sementara alih-alih menetapkannya
 langsung dengan kode seperti `self.state = self.state.request_review();`
-untuk mendapatkan kepemilikan nilai `state`. Ini memastikan `Post` tidak bisa
+untuk mendapatkan *ownership* nilai `state`. Ini memastikan `Post` tidak bisa
 memakai nilai `state` lama setelah kita mengubahnya menjadi state baru.
 
 Method `request_review` pada `Draft` mengembalikan instance baru yang
@@ -302,7 +302,7 @@ Kemudian, kita mengembalikan nilai yang dikembalikan dari pemakaian method
 `content` pada nilai `state` itu.
 
 Kita memanggil method `as_ref` pada `Option` karena kita menginginkan
-*reference* ke nilai di dalam `Option` alih-alih kepemilikan nilainya. Karena
+*reference* ke nilai di dalam `Option` alih-alih *ownership* nilainya. Karena
 `state` adalah `Option<Box<dyn State>>`, ketika kita memanggil `as_ref`,
 sebuah `Option<&Box<dyn State>>` dikembalikan. Jika kita tidak memanggil
 `as_ref`, kita akan mendapat error karena kita tidak bisa memindahkan `state`
@@ -313,7 +313,7 @@ panic karena kita tahu method-method pada `Post` memastikan `state` akan
 selalu memuat nilai `Some` ketika method-method itu selesai. Ini salah satu
 kasus yang kita bicarakan di bagian [“Ketika Anda Memiliki Lebih Banyak
 Informasi daripada *Compiler*”][more-info-than-rustc]<!-- ignore --> di Bab 9,
-ketika kita tahu nilai `None` tidak mungkin terjadi, meskipun kompilator
+ketika kita tahu nilai `None` tidak mungkin terjadi, meskipun *compiler*
 tidak bisa memahaminya.
 
 Pada titik ini, ketika kita memanggil `content` pada `&Box<dyn State>`, deref
@@ -435,7 +435,7 @@ sekumpulan kompromi yang berbeda. Alih-alih mengenkapsulasi state dan
 transisi sepenuhnya sehingga kode luar tidak mengetahuinya, kita akan
 menyandikan state ke dalam type yang berbeda. Akibatnya, sistem pemeriksaan
 type Rust akan mencegah upaya memakai post draf di tempat yang hanya
-mengizinkan post yang diterbitkan dengan mengeluarkan error kompilator.
+mengizinkan post yang diterbitkan dengan mengeluarkan error *compiler*.
 
 Mari kita pertimbangkan bagian pertama `main` di Listing 18-11:
 
@@ -452,7 +452,7 @@ Kita tetap mengaktifkan pembuatan post baru di state draf menggunakan
 memiliki method `content` pada post draf yang mengembalikan string kosong,
 kita akan membuatnya sedemikian rupa sehingga post draf tidak memiliki method
 `content` sama sekali. Dengan begitu, jika kita mencoba mendapatkan konten
-post draf, kita akan mendapat error kompilator yang memberi tahu kita method
+post draf, kita akan mendapat error *compiler* yang memberi tahu kita method
 itu tidak ada. Hasilnya, mustahil bagi kita untuk secara tidak sengaja
 menampilkan konten post draf di produksi karena kode itu bahkan tidak akan
 terkompilasi. Listing 18-19 menunjukkan definisi *struct* `Post` dan *struct*
@@ -482,7 +482,7 @@ ke `content` seperti sebelumnya, tetapi perhatikan bahwa `DraftPost` tidak
 memiliki method `content` yang terdefinisi! Jadi sekarang program memastikan
 semua post dimulai sebagai post draf, dan post draf tidak memiliki konten yang
 tersedia untuk ditampilkan. Upaya apa pun untuk mengakali batasan-batasan ini
-akan menghasilkan error kompilator.
+akan menghasilkan error *compiler*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -505,13 +505,13 @@ mengembalikan `Post`, seperti yang ditunjukkan di Listing 18-20.
 
 </Listing>
 
-Method `request_review` dan `approve` mengambil kepemilikan `self`, sehingga
+Method `request_review` dan `approve` mengambil *ownership* `self`, sehingga
 mengonsumsi instance `DraftPost` dan `PendingReviewPost` dan mengubahnya
 masing-masing menjadi `PendingReviewPost` dan `Post` yang diterbitkan. Dengan cara ini,
 kita tidak akan punya instance `DraftPost` yang tersisa setelah kita memanggil
 `request_review` padanya, dan seterusnya. *Struct* `PendingReviewPost` tidak
 memiliki method `content` yang terdefinisi padanya, jadi mencoba membaca
-kontennya menghasilkan error kompilator, sama seperti `DraftPost`. Karena
+kontennya menghasilkan error *compiler*, sama seperti `DraftPost`. Karena
 satu-satunya cara mendapatkan instance `Post` yang diterbitkan—yang memang
 memiliki method `content`—adalah memanggil method `approve` pada
 `PendingReviewPost`, dan satu-satunya cara mendapatkan `PendingReviewPost`
@@ -520,7 +520,7 @@ menyandikan alur kerja post blog ke dalam type system.
 
 Tetapi kita juga harus membuat beberapa perubahan kecil pada `main`. Method
 `request_review` dan `approve` mengembalikan instance baru alih-alih mengubah
-*struct* yang dipanggil, jadi kita perlu menambahkan lebih banyak penetapan
+*struct* yang dipanggil, jadi kita perlu menambahkan lebih banyak assignment
 shadowing `let post =` untuk menyimpan instance yang dikembalikan. Kita juga
 tidak bisa lagi memiliki asersi bahwa konten post draf dan post menunggu
 review adalah string kosong, dan kita juga tidak memerlukannya: kita tidak

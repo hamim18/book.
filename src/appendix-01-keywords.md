@@ -40,7 +40,7 @@ fungsionalitasnya.
 - **`loop`**: Melakukan loop tanpa syarat.
 - **`match`**: Mencocokkan nilai dengan pattern.
 - **`mod`**: Mendefinisikan *module*.
-- **`move`**: Membuat *closure* mengambil kepemilikan atas semua yang
+- **`move`**: Membuat *closure* mengambil *ownership* atas semua yang
   ditangkapnya.
 - **`mut`**: Menandai mutabilitas pada *reference*, *raw pointer*, atau pengikatan
   pattern.

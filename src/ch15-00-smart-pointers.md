@@ -7,16 +7,16 @@ yang paling umum di Rust adalah *reference*, yang telah Anda pelajari di Bab 4.
 *Reference* tidak memiliki kemampuan khusus apa pun selain merujuk data, dan
 tidak memiliki overhead.
 
-_Smart pointer_ (penunjuk pintar), di sisi lain, adalah struktur data yang
+_Smart pointer_ (*pointer* pintar), di sisi lain, adalah struktur data yang
 berperilaku seperti *pointer* tetapi juga memiliki metadata dan kemampuan
 tambahan. Konsep *smart pointer* tidak unik bagi Rust: *Smart pointer* berasal
 dari C++ dan ada juga di bahasa-bahasa lain. Rust memiliki beragam smart
 *pointer* yang didefinisikan di pustaka standar yang menyediakan fungsionalitas
 di luar yang disediakan oleh *reference*. Untuk mengeksplorasi konsep umumnya,
 kita akan melihat beberapa contoh *smart pointer* yang berbeda, termasuk type
-*smart pointer* _reference counting_ (penghitungan referensi). *Pointer* ini
-memungkinkan Anda mengizinkan data memiliki beberapa pemilik dengan melacak
-jumlah pemilik dan, ketika tidak ada pemilik tersisa, membersihkan data itu.
+*smart pointer* _reference counting_ (penghitungan *reference*). *Pointer* ini
+memungkinkan Anda mengizinkan data memiliki beberapa *owner* dengan melacak
+jumlah *owner* dan, ketika tidak ada *owner* tersisa, membersihkan data itu.
 
 Di Rust, dengan konsep *ownership* dan *borrowing*-nya, ada perbedaan tambahan
 antara *reference* dan *smart pointer*: Sementara *reference* hanya meminjam data,
@@ -38,14 +38,14 @@ library memiliki *smart pointer* sendiri, dan Anda bahkan dapat menulis smart
 pustaka standar:
 
 - `Box<T>`, untuk mengalokasikan nilai di *heap*
-- `Rc<T>`, type penghitungan referensi yang memungkinkan banyak kepemilikan
+- `Rc<T>`, type penghitungan *reference* yang memungkinkan banyak *ownership*
 - `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, type yang menegakkan
   aturan *borrowing* pada runtime alih-alih pada waktu kompilasi
 
 Selain itu, kita akan membahas pattern _interior mutability_ (mutabilitas
 internal) di mana sebuah type *immutable* mengekspos API untuk mengubah nilai
 di bagian dalamnya. Kita juga akan membahas *reference cycle* (siklus
-referensi): bagaimana siklus itu bisa membocorkan memori dan bagaimana
+*reference*): bagaimana siklus itu bisa membocorkan memori dan bagaimana
 mencegahnya.
 
 Mari kita mulai!

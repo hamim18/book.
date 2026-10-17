@@ -13,7 +13,7 @@ Parameter fungsi, statement `let`, dan loop `for` hanya bisa menerima
 pattern *irrefutable* karena program tidak bisa melakukan apa pun yang bermakna
 ketika nilai-nilainya tidak cocok. Expression `if let` dan `while let` serta
 statement `let...else` menerima pattern *refutable* dan *irrefutable*, tetapi
-kompilator memperingatkan kita terhadap pattern *irrefutable* karena, menurut
+*compiler* memperingatkan kita terhadap pattern *irrefutable* karena, menurut
 definisi, konstruksi kondisional itulah yang dimaksudkan untuk menangani kemungkinan kegagalan:
 fungsionalitas sebuah kondisional terletak pada kemampuannya untuk berperilaku
 berbeda bergantung pada keberhasilan atau kegagalan.
@@ -49,7 +49,7 @@ telah mencoba memakai pattern *refutable* di tempat pattern *irrefutable* dibutu
 ```
 
 Karena kita tidak mencakup (dan tidak bisa mencakup!) setiap nilai yang valid
-dengan pattern `Some(x)`, Rust dengan benar menghasilkan error kompilator.
+dengan pattern `Some(x)`, Rust dengan benar menghasilkan error *compiler*.
 
 Jika kita memiliki pattern *refutable* di tempat pattern *irrefutable* dibutuhkan, kita
 bisa memperbaikinya dengan mengubah kode yang memakai pattern itu: alih-alih
@@ -68,7 +68,7 @@ tidak cocok, kode di dalam kurung kurawal akan menangani nilainya. Listing
 Kita telah memberi jalan keluar untuk kode ini! Kode ini sepenuhnya valid,
 meskipun itu berarti kita tidak bisa memakai pattern *irrefutable* tanpa menerima
 peringatan. Jika kita memberi `let...else` pattern yang akan selalu cocok,
-seperti `x`, seperti yang ditunjukkan di Listing 19-10, kompilator akan
+seperti `x`, seperti yang ditunjukkan di Listing 19-10, *compiler* akan
 memberikan peringatan.
 
 <Listing number="19-10" caption="Mencoba memakai pattern irrefutable dengan `let...else`">

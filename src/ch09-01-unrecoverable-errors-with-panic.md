@@ -6,15 +6,15 @@ dua cara menyebabkan panic dalam praktik: dengan melakukan tindakan yang
 membuat kode kita panic (seperti mengakses array melewati ujungnya) atau
 dengan memanggil *macro* `panic!` secara eksplisit. Dalam kedua kasus, kita
 menyebabkan panic di program kita. Secara default, panic ini akan mencetak
-pesan kegagalan, melakukan unwinding, membersihkan tumpukan, dan berhenti.
+pesan kegagalan, melakukan unwinding, membersihkan *stack*, dan berhenti.
 Lewat sebuah environment variable, Anda juga dapat membuat Rust menampilkan
-tumpukan panggilan ketika panic terjadi agar lebih mudah melacak sumber
+*stack* panggilan ketika panic terjadi agar lebih mudah melacak sumber
 panic.
 
-> ### Melakukan Unwinding pada Tumpukan atau Aborting sebagai Tanggapan atas Panic
+> ### Melakukan Unwinding pada *stack* atau Aborting sebagai Tanggapan atas Panic
 >
 > Secara default, ketika panic terjadi, program mulai melakukan *unwinding*,
-> yang berarti Rust berjalan mundur ke atas tumpukan dan membersihkan data
+> yang berarti Rust berjalan mundur ke atas *stack* dan membersihkan data
 > dari setiap fungsi yang ditemuinya. Namun, berjalan mundur dan membersihkan
 > adalah banyak pekerjaan. Karena itu, Rust mengizinkan Anda memilih
 > alternatif untuk segera melakukan *aborting* (pembatalan), yang mengakhiri

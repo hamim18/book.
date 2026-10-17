@@ -10,7 +10,7 @@ terkaitnya. Anda memerlukan koneksi internet untuk pengunduhan ini.
 > untuk opsi lebih lanjut.
 
 Langkah-langkah berikut memasang versi stabil terbaru dari *compiler*
-(kompilator) Rust. Jaminan stabilitas Rust memastikan bahwa semua contoh
+(*compiler*) Rust. Jaminan stabilitas Rust memastikan bahwa semua contoh
 dalam buku ini yang terkompilasi akan tetap terkompilasi dengan versi Rust
 yang lebih baru. Keluarannya mungkin sedikit berbeda antarversi karena Rust
 sering meningkatkan pesan error dan peringatannya. Dengan kata lain, versi
@@ -139,7 +139,7 @@ $ rustup self uninstall
 
 ### Membaca Dokumentasi Lokal
 
-Instalasi Rust juga menyertakan salinan lokal dokumentasinya sehingga Anda
+Instalasi Rust juga menyertakan copy lokal dokumentasinya sehingga Anda
 dapat membacanya secara luring. Jalankan `rustup doc` untuk membuka
 dokumentasi lokal di peramban Anda.
 

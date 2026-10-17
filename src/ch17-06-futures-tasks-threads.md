@@ -79,7 +79,7 @@ Rust dunia nyata.
 </Listing>
 
 Kita mulai dengan membuat *channel* async, lalu membuat sebuah thread yang
-mengambil kepemilikan sisi pengirim *channel* dengan memakai kata kunci `move`.
+mengambil *ownership* sisi pengirim *channel* dengan memakai kata kunci `move`.
 Di dalam thread itu, kita mengirim angka 1 sampai 10, tidur selama satu detik
 di antara setiap angka. Terakhir, kita menjalankan sebuah *future* yang dibuat
 dengan blok async yang diteruskan ke `trpl::block_on`, sama seperti yang kita

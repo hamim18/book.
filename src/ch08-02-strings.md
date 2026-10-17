@@ -182,8 +182,8 @@ caranya adalah memakai operator `+`, seperti yang ditunjukkan di Listing
 
 String `s3` akan berisi `Hello, world!`. Alasan `s1` tidak lagi valid
 setelah penambahan, dan alasan kita memakai *reference* ke `s2`, berkaitan
-dengan tanda tangan method yang dipanggil ketika kita memakai operator `+`.
-Operator `+` memakai method `add`, yang tanda tangannya terlihat seperti
+dengan *signature* method yang dipanggil ketika kita memakai operator `+`.
+Operator `+` memakai method `add`, yang *signature*nya terlihat seperti
 ini:
 
 ```rust,ignore
@@ -211,13 +211,13 @@ menjadi `&s2[..]`. Kita akan membahas *deref coercion* lebih mendalam di Bab
 15. Karena `add` tidak mengambil *ownership* parameter `s`, `s2` akan tetap
 menjadi `String` yang valid setelah operasi ini.
 
-Kedua, kita dapat melihat di tanda tangan bahwa `add` mengambil *ownership*
+Kedua, kita dapat melihat di *signature* bahwa `add` mengambil *ownership*
 `self` karena `self` _tidak_ memiliki `&`. Ini berarti `s1` di Listing 8-18
 akan dipindahkan ke dalam pemanggilan `add` dan tidak lagi valid setelahnya.
 Jadi, meskipun `let s3 = s1 + &s2;` terlihat seperti menyalin kedua string
 dan membuat yang baru, statement ini sebenarnya mengambil *ownership* `s1`,
-menambahkan salinan isi `s2`, lalu mengembalikan *ownership* hasilnya. Dengan
-kata lain, ia terlihat membuat banyak salinan, tetapi tidak;
+menambahkan copy isi `s2`, lalu mengembalikan *ownership* hasilnya. Dengan
+kata lain, ia terlihat membuat banyak copy, tetapi tidak;
 implementasinya lebih efisien daripada menyalin.
 
 Jika kita perlu menggabungkan banyak string, perilaku operator `+` menjadi

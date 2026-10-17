@@ -43,7 +43,7 @@ pesannya dicetak.
 ### Parameter
 
 Kita dapat mendefinisikan fungsi agar memiliki parameter, yaitu variable khusus
-yang menjadi bagian dari tanda tangan sebuah fungsi. Ketika sebuah fungsi
+yang menjadi bagian dari *signature* sebuah fungsi. Ketika sebuah fungsi
 memiliki parameter, Anda dapat memberikannya nilai konkret untuk
 parameter-parameter tersebut. Secara teknis, nilai konkret itu disebut
 argumen, tetapi dalam percakapan sehari-hari, orang cenderung memakai kata
@@ -69,7 +69,7 @@ ditentukan sebagai `i32`. Ketika kita meneruskan `5` ke `another_function`,
 *macro* (makro) `println!` meletakkan `5` pada posisi pasangan kurung kurawal
 berisi `x` di dalam string format.
 
-Dalam tanda tangan fungsi, Anda _harus_ mendeklarasikan type setiap parameter.
+Dalam *signature* fungsi, Anda _harus_ mendeklarasikan type setiap parameter.
 Ini adalah keputusan yang disengaja dalam desain Rust: mewajibkan type annotation
 dalam definisi fungsi berarti *compiler* hampir tidak pernah meminta Anda
 memakainya di bagian lain kode untuk mengetahui type yang Anda maksud.
@@ -153,7 +153,7 @@ ini:
 
 Statement `let y = 6` tidak mengembalikan nilai, jadi tidak ada apa pun yang
 dapat diikat oleh `x`. Ini berbeda dari yang terjadi pada bahasa lain, seperti
-C dan Ruby, di mana penetapan mengembalikan nilai dari penetapan tersebut.
+C dan Ruby, di mana assignment mengembalikan nilai dari assignment tersebut.
 Pada bahasa-bahasa itu, Anda dapat menulis `x = y = 6` dan membuat `x` maupun
 `y` sama-sama bernilai `6`; hal itu tidak berlaku di Rust.
 

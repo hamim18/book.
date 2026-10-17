@@ -8,7 +8,7 @@ memastikan bahwa *reference* tetap valid selama kita membutuhkannya.
 Satu detail yang tidak kita bahas di bagian [“*References* dan
 *Borrowing*”][*references*-and-borrowing]<!-- ignore --> pada Bab 4 adalah
 bahwa setiap *reference* di Rust memiliki sebuah *lifetime*, yaitu *scope*
-(cakupan) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
+(coverage) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
 bersifat implisit dan diinferensi, sama seperti sebagian besar waktu type
 diinferensi. Kita hanya diwajibkan mengtype annotation ketika ada banyak type
 yang mungkin. Dengan cara serupa, kita harus menganotasi *lifetime* ketika
@@ -27,9 +27,9 @@ dengan konsepnya.
 
 <a id="preventing-dangling-references-with-lifetimes"></a>
 
-### Reference Menggantung
+### Reference *dangling*
 
-Tujuan utama *lifetime* adalah mencegah *reference* menggantung, yang jika
+Tujuan utama *lifetime* adalah mencegah *reference* *dangling*, yang jika
 diizinkan ada, akan membuat sebuah program merujuk data selain data yang
 seharusnya dirujuk. Perhatikan program di Listing 10-16, yang memiliki
 sebuah *scope* luar dan sebuah *scope* dalam.
@@ -71,8 +71,8 @@ sah? Ia memakai *borrow checker*.
 
 ### Borrow Checker
 
-*Compiler* (kompilator) Rust memiliki *borrow checker* yang membandingkan
-*scope*-scope untuk menentukan apakah semua peminjaman valid. Listing 10-17
+*Compiler* (*compiler*) Rust memiliki *borrow checker* yang membandingkan
+*scope*-scope untuk menentukan apakah semua *borrowing* valid. Listing 10-17
 menunjukkan kode yang sama seperti Listing 10-16, tetapi dengan anotasi yang
 menunjukkan *lifetime* dari variable-variablenya.
 
@@ -93,7 +93,7 @@ tetapi ia merujuk memori dengan *lifetime* `'b`. Program ini ditolak karena
 selama *reference*-nya.
 
 Listing 10-18 memperbaiki kode itu sehingga tidak memiliki *reference*
-menggantung dan terkompilasi tanpa error.
+*dangling* dan terkompilasi tanpa error.
 
 <Listing number="10-18" caption="Reference yang valid karena datanya memiliki lifetime yang lebih panjang daripada reference-nya">
 
@@ -176,7 +176,7 @@ melakukan analisisnya.
 Anotasi *lifetime* tidak mengubah berapa lama *reference* mana pun hidup.
 Sebaliknya, anotasi itu mendeskripsikan hubungan *lifetime* dari beberapa
 *reference* satu sama lain tanpa memengaruhi *lifetime*-nya. Sama seperti
-fungsi yang bisa menerima type apa pun ketika tanda tangannya menentukan
+fungsi yang bisa menerima type apa pun ketika *signature*nya menentukan
 type parameter generik, fungsi bisa menerima *reference* dengan *lifetime* apa
 pun dengan menentukan parameter *lifetime* generik.
 
@@ -209,18 +209,18 @@ beberapa *reference* saling berhubungan. Mari kita periksa bagaimana anotasi
 
 ### Dalam Tanda Tangan Fungsi
 
-Untuk memakai anotasi *lifetime* di tanda tangan fungsi, kita perlu
+Untuk memakai anotasi *lifetime* di *signature* fungsi, kita perlu
 mendeklarasikan parameter *lifetime* generik di dalam kurung sudut antara
 nama fungsi dan daftar parameternya, sama seperti yang kita lakukan dengan
 type parameter generik.
 
-Kita ingin tanda tangan itu mengekspresikan batasan berikut: *reference* yang
+Kita ingin *signature* itu mengekspresikan batasan berikut: *reference* yang
 dikembalikan akan valid selama kedua parameter valid. Inilah hubungan antara
 *lifetime* parameter dan return value. Kita akan menamai *lifetime* itu
 `'a`, lalu menambahkannya ke setiap *reference*, seperti yang ditunjukkan di
 Listing 10-21.
 
-<Listing number="10-21" file-name="src/main.rs" caption="Definisi fungsi `longest` yang menentukan bahwa semua reference di tanda tangan harus memiliki lifetime `'a` yang sama">
+<Listing number="10-21" file-name="src/main.rs" caption="Definisi fungsi `longest` yang menentukan bahwa semua reference di *signature* harus memiliki lifetime `'a` yang sama">
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/src/main.rs:here}}
@@ -240,17 +240,17 @@ dari *reference* yang dikembalikan fungsi `longest` sama dengan yang lebih
 kecil di antara *lifetime* nilai-nilai yang dirujuk argumen fungsi. Hubungan
 inilah yang kita ingin Rust pakai ketika menganalisis kode ini.
 
-Ingat, ketika kita menentukan parameter *lifetime* di tanda tangan fungsi ini,
+Ingat, ketika kita menentukan parameter *lifetime* di *signature* fungsi ini,
 kita tidak mengubah *lifetime* nilai mana pun yang diteruskan atau
 dikembalikan. Sebaliknya, kita menentukan bahwa *borrow checker* harus
 menolak nilai mana pun yang tidak mematuhi batasan ini. Perhatikan bahwa
 fungsi `longest` tidak perlu tahu persis berapa lama `x` dan `y` akan
 hidup, ia hanya perlu tahu bahwa ada *scope* yang bisa disubstitusikan untuk
-`'a` yang akan memenuhi tanda tangan ini.
+`'a` yang akan memenuhi *signature* ini.
 
-Ketika menganotasi *lifetime* dalam fungsi, anotasinya berada di tanda tangan
+Ketika menganotasi *lifetime* dalam fungsi, anotasinya berada di *signature*
 fungsi, bukan di badan fungsi. Anotasi *lifetime* menjadi bagian dari kontrak
-fungsi, mirip dengan type-type di tanda tangan. Tanda tangan fungsi yang
+fungsi, mirip dengan type-type di *signature*. Tanda tangan fungsi yang
 memuat kontrak *lifetime* membuat analisis yang dilakukan *compiler* Rust
 menjadi lebih sederhana. Jika ada masalah dengan cara sebuah fungsi
 dianotasi atau cara ia dipanggil, error *compiler* bisa menunjuk ke bagian
@@ -289,7 +289,7 @@ string is long string is long`.
 Selanjutnya, mari kita coba contoh yang menunjukkan bahwa *lifetime*
 *reference* di `result` harus merupakan *lifetime* yang lebih kecil dari kedua
 argumen. Kita akan memindahkan deklarasi variable `result` ke luar *scope*
-dalam, tetapi membiarkan penetapan nilai ke variable `result` di dalam
+dalam, tetapi membiarkan assignment nilai ke variable `result` di dalam
 *scope* bersama `string2`. Kemudian, kita akan memindahkan `println!` yang
 memakai `result` ke luar *scope* dalam, setelah *scope* dalam berakhir. Kode di
 Listing 10-23 tidak akan terkompilasi.
@@ -357,7 +357,7 @@ Ketika mengembalikan *reference* dari sebuah fungsi, parameter *lifetime* untuk
 return type harus cocok dengan parameter *lifetime* salah satu
 parameternya. Jika *reference* yang dikembalikan _tidak_ merujuk salah satu
 parameter, ia harus merujuk nilai yang dibuat di dalam fungsi ini. Namun,
-ini akan menjadi *reference* menggantung karena nilainya akan keluar dari
+ini akan menjadi *reference* *dangling* karena nilainya akan keluar dari
 *scope* di akhir fungsi. Perhatikan percobaan implementasi fungsi `longest`
 ini yang tidak akan terkompilasi:
 
@@ -381,15 +381,15 @@ Berikut pesan error yang kita dapatkan:
 Masalahnya, `result` keluar dari *scope* dan dibersihkan di akhir fungsi
 `longest`. Kita juga mencoba mengembalikan *reference* ke `result` dari
 fungsi itu. Tidak ada cara untuk menentukan parameter *lifetime* yang akan
-mengubah *reference* menggantung itu, dan Rust tidak akan membiarkan kita
-membuat *reference* menggantung. Dalam kasus ini, perbaikan terbaik adalah
+mengubah *reference* *dangling* itu, dan Rust tidak akan membiarkan kita
+membuat *reference* *dangling*. Dalam kasus ini, perbaikan terbaik adalah
 mengembalikan data type yang dimiliki alih-alih *reference* sehingga fungsi
 pemanggil yang bertanggung jawab membersihkan nilainya.
 
 Pada akhirnya, sintaks *lifetime* adalah tentang menghubungkan *lifetime*
 berbagai parameter dan return value fungsi. Setelah mereka terhubung,
 Rust memiliki informasi yang cukup untuk mengizinkan operasi yang aman bagi
-memori dan melarang operasi yang akan membuat *pointer* menggantung atau
+memori dan melarang operasi yang akan membuat *pointer* *dangling* atau
 melanggar keamanan memori.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -501,7 +501,7 @@ ketiga ini membuat method jauh lebih enak dibaca dan ditulis karena lebih
 sedikit simbol yang diperlukan.
 
 Mari kita berperan sebagai *compiler*. Kita akan menerapkan aturan-aturan ini
-untuk mengetahui *lifetime* *reference* di tanda tangan fungsi `first_word`
+untuk mengetahui *lifetime* *reference* di *signature* fungsi `first_word`
 pada Listing 10-25. Tanda tangan itu dimulai tanpa *lifetime* apa pun yang
 dikaitkan dengan *reference*:
 
@@ -511,7 +511,7 @@ fn first_word(s: &str) -> &str {
 
 Kemudian, *compiler* menerapkan aturan pertama, yang menentukan bahwa setiap
 parameter mendapatkan *lifetime*-nya sendiri. Kita akan menamainya `'a`
-seperti biasa, jadi sekarang tanda tangannya seperti ini:
+seperti biasa, jadi sekarang *signature*nya seperti ini:
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &str {
@@ -519,15 +519,15 @@ fn first_word<'a>(s: &'a str) -> &str {
 
 Aturan kedua berlaku karena ada tepat satu *lifetime* input. Aturan kedua
 menentukan bahwa *lifetime* dari satu parameter input itu ditetapkan ke
-*lifetime* output, jadi tanda tangannya sekarang seperti ini:
+*lifetime* output, jadi *signature*nya sekarang seperti ini:
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &'a str {
 ```
 
-Sekarang semua *reference* di tanda tangan fungsi ini memiliki *lifetime*, dan
+Sekarang semua *reference* di *signature* fungsi ini memiliki *lifetime*, dan
 *compiler* bisa melanjutkan analisisnya tanpa perlu pemrogram menganotasi
-*lifetime* di tanda tangan fungsi ini.
+*lifetime* di *signature* fungsi ini.
 
 Mari kita lihat contoh lain, kali ini memakai fungsi `longest` yang tidak
 memiliki parameter *lifetime* ketika kita mulai mengerjakannya di Listing
@@ -552,11 +552,11 @@ adalah fungsi alih-alih method, jadi tidak ada parameternya yang berupa
 *lifetime* return typenya. Inilah alasan kita mendapatkan error ketika
 mencoba mengompilasi kode di Listing 10-20: *compiler* telah melewati
 aturan-aturan elision *lifetime*, tetapi masih belum bisa mengetahui semua
-*lifetime* *reference* di tanda tangan itu.
+*lifetime* *reference* di *signature* itu.
 
-Karena aturan ketiga sebenarnya hanya berlaku di tanda tangan method, kita
+Karena aturan ketiga sebenarnya hanya berlaku di *signature* method, kita
 akan melihat *lifetime* dalam konteks itu berikutnya untuk memahami alasan
-aturan ketiga membuat kita tidak perlu menganotasi *lifetime* di tanda tangan
+aturan ketiga membuat kita tidak perlu menganotasi *lifetime* di *signature*
 method terlalu sering.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -575,10 +575,10 @@ Nama-nama *lifetime* untuk *field* *struct* selalu perlu dideklarasikan setelah
 kata kunci `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
 tersebut merupakan bagian dari type *struct*.
 
-Di tanda tangan method dalam blok `impl`, *reference* mungkin terikat dengan
+Di *signature* method dalam blok `impl`, *reference* mungkin terikat dengan
 *lifetime* *reference* di *field* *struct*, atau mungkin independen. Selain itu,
 aturan-aturan elision *lifetime* sering membuat anotasi *lifetime* tidak
-diperlukan di tanda tangan method. Mari kita lihat beberapa contoh memakai
+diperlukan di *signature* method. Mari kita lihat beberapa contoh memakai
 *struct* bernama `ImportantExcerpt` yang kita definisikan di Listing 10-24.
 
 Pertama, kita akan memakai method bernama `level` yang satu-satunya
@@ -624,7 +624,7 @@ Namun, sebelum menentukan `'static` sebagai *lifetime* untuk sebuah
 *reference*, pikirkan apakah *reference* yang Anda miliki benar-benar hidup
 selama seluruh masa program Anda, dan apakah Anda menginginkannya. Sebagian
 besar waktu, pesan error yang menyarankan *lifetime* `'static` muncul akibat
-percobaan membuat *reference* menggantung atau ketidakcocokan *lifetime* yang
+percobaan membuat *reference* *dangling* atau ketidakcocokan *lifetime* yang
 tersedia. Dalam kasus seperti itu, solusinya adalah memperbaiki masalah
 tersebut, bukan menentukan *lifetime* `'static`.
 
@@ -660,7 +660,7 @@ dalam banyak situasi berbeda. Parameter generic type memungkinkan Anda
 menerapkan kode ke berbagai type. *Trait* dan *trait bound* memastikan bahwa
 meskipun type-typenya generik, mereka akan memiliki perilaku yang
 dibutuhkan kode. Anda telah mempelajari cara memakai anotasi *lifetime* untuk
-memastikan bahwa kode fleksibel ini tidak memiliki *reference* menggantung.
+memastikan bahwa kode fleksibel ini tidak memiliki *reference* *dangling*.
 Dan semua analisis ini terjadi pada waktu kompilasi, yang tidak memengaruhi
 kinerja *runtime*!
 

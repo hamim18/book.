@@ -3,7 +3,7 @@
 Di Bab 1, Anda melihat bahwa `cargo new` menambahkan sedikit metadata ke file
 _Cargo.toml_ Anda tentang edisi. Lampiran ini membahas apa artinya itu!
 
-Bahasa dan kompilator Rust memiliki siklus rilis enam minggu, artinya pengguna
+Bahasa dan *compiler* Rust memiliki siklus rilis enam minggu, artinya pengguna
 mendapatkan aliran fitur baru yang terus-menerus. Bahasa pemrograman lain
 merilis perubahan yang lebih besar dengan frekuensi yang lebih jarang; Rust
 merilis pembaruan yang lebih kecil dengan frekuensi yang lebih sering. Setelah
@@ -29,19 +29,19 @@ Saat buku ini ditulis, tersedia empat edisi Rust: Rust 2015, Rust 2018, Rust
 2021, dan Rust 2024. Buku ini ditulis memakai idiom edisi Rust 2024.
 
 Kunci `edition` di _Cargo.toml_ menunjukkan edisi mana yang harus dipakai
-kompilator untuk kode Anda. Jika kunci itu tidak ada, Rust memakai `2015`
+*compiler* untuk kode Anda. Jika kunci itu tidak ada, Rust memakai `2015`
 sebagai nilai edisi demi alasan kompatibilitas mundur.
 
 Setiap proyek dapat memilih memakai edisi selain edisi bawaan 2015. Edisi dapat
 memuat perubahan yang tidak kompatibel, seperti menyertakan kata kunci baru yang
 bertentangan dengan identifier dalam kode. Namun, kecuali Anda memilih untuk
 memakai perubahan itu, kode Anda akan tetap terkompilasi meskipun Anda
-meningkatkan versi kompilator Rust yang Anda pakai.
+meningkatkan versi *compiler* Rust yang Anda pakai.
 
-Semua versi kompilator Rust mendukung edisi mana pun yang sudah ada sebelum
-rilis kompilator tersebut, dan mereka dapat menautkan *crate* dari edisi mana pun
+Semua versi *compiler* Rust mendukung edisi mana pun yang sudah ada sebelum
+rilis *compiler* tersebut, dan mereka dapat menautkan *crate* dari edisi mana pun
 yang didukung secara bersamaan. Perubahan edisi hanya memengaruhi cara
-kompilator melakukan parsing awal terhadap kode. Karena itu, jika Anda memakai
+*compiler* melakukan parsing awal terhadap kode. Karena itu, jika Anda memakai
 Rust 2015 dan salah satu dependensi Anda memakai Rust 2018, proyek Anda akan
 terkompilasi dan dapat memakai dependensi itu. Situasi sebaliknya, saat proyek
 Anda memakai Rust 2018 dan sebuah dependensi memakai Rust 2015, juga berjalan

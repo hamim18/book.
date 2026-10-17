@@ -141,12 +141,12 @@ untuk mengembalikan string *slice* yang mereferensikan nilai-nilai `String` di
 yang dimiliki. Variable `args` di dalam `main` adalah *owner* (pemilik) dari
 nilai-nilai argumen dan hanya membiarkan fungsi `parse_config` meminjam
 nilai-nilai itu, yang berarti kita akan melanggar aturan *borrowing*
-(peminjaman) Rust jika `Config` mencoba mengambil *ownership* (kepemilikan)
+(*borrowing*) Rust jika `Config` mencoba mengambil *ownership* (kepemilikan)
 atas nilai-nilai di dalam `args`.
 
 Ada sejumlah cara untuk mengelola data `String`; rute termudah, meskipun agak
 tidak efisien, adalah memanggil method `clone` pada nilai-nilai tersebut. Cara
-ini akan membuat salinan penuh dari data tersebut untuk dimiliki oleh instance
+ini akan membuat copy penuh dari data tersebut untuk dimiliki oleh instance
 `Config`, yang memakan lebih banyak waktu dan memori daripada menyimpan sebuah
 *reference* ke data string itu. Akan tetapi, meng-clone data juga membuat kode
 kita sangat lugas karena kita tidak perlu mengelola *lifetime* dari
@@ -160,7 +160,7 @@ kesederhanaan adalah pertukaran yang layak.
 > [Bab 13][ch13]<!-- ignore -->, Anda akan mempelajari cara memakai method
 > yang lebih efisien dalam situasi semacam ini. Tetapi untuk saat ini, tidak
 > apa-apa menyalin beberapa string untuk terus membuat kemajuan karena Anda
-> hanya akan membuat salinan-salinan ini sekali dan *path* file serta string
+> hanya akan membuat copy-copy ini sekali dan *path* file serta string
 > kueri Anda sangat kecil. Lebih baik memiliki program yang bekerja meskipun
 > sedikit tidak efisien daripada mencoba mengoptimasi kode secara berlebihan
 > pada percobaan pertama Anda. Seiring bertambahnya pengalaman Anda dengan
@@ -308,7 +308,7 @@ Kita telah membuat dua perubahan di badan fungsi: Alih-alih memanggil
 `panic!` ketika pengguna tidak meneruskan cukup argumen, kini kita
 mengembalikan nilai `Err`, dan kita telah membungkus return value `Config`
 di dalam `Ok`. Perubahan-perubahan ini membuat fungsi itu menyesuaikan diri
-dengan type tanda tangan barunya.
+dengan type *signature* barunya.
 
 Mengembalikan nilai `Err` dari `Config::build` memungkinkan fungsi `main`
 menangani nilai `Result` yang dikembalikan dari fungsi `build` dan keluar dari
@@ -408,7 +408,7 @@ dapat memperbaiki penanganan errornya, seperti yang kita lakukan pada
 memanggil `expect`, fungsi `run` akan mengembalikan `Result<T, E>` ketika ada
 yang tidak beres. Ini akan memungkinkan kita untuk lebih mengonsolidasikan
 logika penanganan error ke dalam `main` dengan cara yang ramah pengguna.
-Listing 12-12 menunjukkan perubahan yang perlu kita buat pada tanda tangan dan
+Listing 12-12 menunjukkan perubahan yang perlu kita buat pada *signature* dan
 badan `run`.
 
 <Listing number="12-12" file-name="src/main.rs" caption="Mengubah fungsi `run` agar mengembalikan `Result`">
@@ -441,7 +441,7 @@ dari fungsi saat ini untuk ditangani oleh pemanggilnya.
 
 Ketiga, fungsi `run` kini mengembalikan nilai `Ok` pada kasus keberhasilan.
 Kita telah mendeklarasikan type keberhasilan fungsi `run` sebagai `()` di
-tanda tangannya, yang berarti kita perlu membungkus nilai type *unit* itu di
+*signature*nya, yang berarti kita perlu membungkus nilai type *unit* itu di
 dalam nilai `Ok`. Sintaks `Ok(())` ini mungkin tampak agak aneh pada awalnya.
 Tetapi memakai `()` seperti ini adalah cara idiomatis untuk menunjukkan bahwa
 kita memanggil `run` hanya demi efek sampingnya; fungsi itu tidak
@@ -495,9 +495,9 @@ _src/lib.rs_ alih-alih di _src/main.rs_, yang akan memungkinkan kita (atau
 siapa pun yang memakai pustaka `minigrep` kita) memanggil fungsi pencarian itu
 dari lebih banyak konteks daripada sekadar binary `minigrep` kita.
 
-Pertama, mari kita definisikan tanda tangan fungsi `search` di _src/lib.rs_
+Pertama, mari kita definisikan *signature* fungsi `search` di _src/lib.rs_
 seperti yang ditunjukkan di Listing 12-13, dengan badan yang memanggil makro
-`unimplemented!`. Kita akan menjelaskan tanda tangan ini secara lebih
+`unimplemented!`. Kita akan menjelaskan *signature* ini secara lebih
 mendetail saat mengisi implementasinya.
 
 <Listing number="12-13" file-name="src/lib.rs" caption="Mendefinisikan fungsi `search` di *src/lib.rs*">

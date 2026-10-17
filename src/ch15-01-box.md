@@ -192,11 +192,11 @@ dibutuhkan untuk menyimpan variant terbesarnya.
 
 Bandingkan hal itu dengan yang terjadi ketika Rust mencoba menentukan berapa
 banyak ruang yang dibutuhkan type rekursif seperti *enum* `List` di Listing
-15-2. Kompilator mulai dengan melihat variant `Cons`, yang menampung sebuah
+15-2. *compiler* mulai dengan melihat variant `Cons`, yang menampung sebuah
 nilai typed `i32` dan sebuah nilai typed `List`. Karena itu, `Cons`
 membutuhkan ruang sebesar ukuran sebuah `i32` ditambah ukuran sebuah `List`.
 Untuk memperhitungkan berapa banyak memori yang dibutuhkan type `List`,
-kompilator melihat variant-variantnya, dimulai dengan variant `Cons`. Variant
+*compiler* melihat variant-variantnya, dimulai dengan variant `Cons`. Variant
 `Cons` menampung sebuah nilai typed `i32` dan sebuah nilai typed `List`,
 dan proses ini berlanjut tanpa batas, seperti ditunjukkan pada Gambar 15-1.
 
@@ -212,7 +212,7 @@ variant `Cons` yang tak terhingga</span>
 #### Mendapatkan Type Rekursif dengan Ukuran yang Diketahui
 
 Karena Rust tidak bisa memperhitungkan berapa banyak ruang yang dialokasikan
-untuk type yang didefinisikan secara rekursif, kompilator memberikan error
+untuk type yang didefinisikan secara rekursif, *compiler* memberikan error
 dengan saran yang membantu berikut:
 
 <!-- manual-regeneration
@@ -256,7 +256,7 @@ data *pointer* *box*. Variant `Nil` tidak menyimpan nilai, jadi ia membutuhkan
 lebih sedikit ruang di *stack* daripada variant `Cons`. Sekarang kita tahu bahwa
 nilai `List` mana pun akan menempati ukuran sebuah `i32` ditambah ukuran data
 *pointer* *box*. Dengan memakai *box*, kita telah memutus rantai rekursif yang tak
-terhingga, sehingga kompilator dapat memperhitungkan ukuran yang
+terhingga, sehingga *compiler* dapat memperhitungkan ukuran yang
 dibutuhkannya untuk menyimpan nilai `List`. Gambar 15-2 menunjukkan seperti
 apa variant `Cons` sekarang.
 
@@ -265,7 +265,7 @@ apa variant `Cons` sekarang.
 <span class="caption">Gambar 15-2: `List` yang ukurannya tidak tak terhingga,
 karena `Cons` menampung sebuah `Box`</span>
 
-*Box* hanya menyediakan indireksi dan alokasi *heap*; *box* tidak memiliki
+*Box* hanya menyediakan indireksi dan *allocation* *heap*; *box* tidak memiliki
 kemampuan khusus lain, seperti yang akan kita lihat pada type *smart pointer*
 lainnya. *Box* juga tidak memiliki overhead performa yang ditimbulkan oleh
 kemampuan-kemampuan khusus itu, jadi *box* dapat berguna dalam kasus seperti

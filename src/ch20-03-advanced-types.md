@@ -69,7 +69,7 @@ nilai dari kedua type itu dan bisa memberikan nilai `Kilometers` ke fungsi
 yang menerima parameter `i32`. Akan tetapi, dengan memakai cara ini, kita
 tidak mendapatkan manfaat pemeriksaan type yang kita dapatkan dari pattern
 newtype yang dibahas sebelumnya. Dengan kata lain, jika kita
-mencampuradukkan nilai `Kilometers` dan `i32` di suatu tempat, kompilator
+mencampuradukkan nilai `Kilometers` dan `i32` di suatu tempat, *compiler*
 tidak akan memberi kita error.
 
 Kasus pemakaian utama type synonym adalah mengurangi pengulangan. Misalnya,
@@ -79,7 +79,7 @@ kita mungkin memiliki type yang panjang seperti ini:
 Box<dyn Fn() + Send + 'static>
 ```
 
-Menulis type yang panjang ini di tanda tangan fungsi dan sebagai type annotation
+Menulis type yang panjang ini di *signature* fungsi dan sebagai type annotation
 di seluruh kode bisa melelahkan dan rawan error. Bayangkan memiliki proyek
 yang penuh dengan kode seperti di Listing 20-25.
 

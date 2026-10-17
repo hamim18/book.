@@ -37,10 +37,10 @@ satu struktur data yang sangat umum: string.
 > digunakan kode Anda pada saat *runtime*, tetapi keduanya terstruktur dengan
 > cara yang berbeda. *Stack* menyimpan nilai sesuai urutan masuknya dan
 > menghapus nilai dalam urutan sebaliknya. Ini disebut *last in, first out*
-> (LIFO, yang terakhir masuk adalah yang pertama keluar). Bayangkan tumpukan
-> piring: ketika Anda menambah piring, Anda meletakkannya di atas tumpukan,
+> (LIFO, yang terakhir masuk adalah yang pertama keluar). Bayangkan *stack*
+> piring: ketika Anda menambah piring, Anda meletakkannya di atas *stack*,
 > dan ketika Anda membutuhkan piring, Anda mengambil yang paling atas.
-> Menambah atau mengambil piring dari tengah atau bawah tumpukan tidak akan
+> Menambah atau mengambil piring dari tengah atau bawah *stack* tidak akan
 > berjalan sebaik itu! Menambah data disebut *pushing onto the stack*
 > (mendorong ke *stack*), dan menghapus data disebut *popping off the stack*
 > (mengambil dari *stack*). Semua data yang tersimpan di *stack* harus
@@ -49,7 +49,7 @@ satu struktur data yang sangat umum: string.
 > *heap*.
 >
 > *Heap* tidak seteratur itu: ketika Anda meletakkan data di *heap*, Anda
-> meminta sejumlah ruang tertentu. *Memory allocator* (pengalokasi memori)
+> meminta sejumlah ruang tertentu. *Memory allocator* (*memory allocator*)
 > mencari tempat kosong di *heap* yang cukup besar, menandainya sebagai
 > sedang digunakan, lalu mengembalikan sebuah *pointer* (penunjuk), yaitu
 > alamat dari lokasi tersebut. Proses ini disebut *allocating on the heap*
@@ -69,7 +69,7 @@ satu struktur data yang sangat umum: string.
 > lokasinya selalu berada di puncak *stack*. Sebagai perbandingan,
 > mengalokasikan ruang di *heap* membutuhkan lebih banyak kerja karena
 > *allocator* harus lebih dulu menemukan ruang yang cukup besar untuk
-> menampung data, lalu melakukan pembukuan untuk menyiapkan alokasi
+> menampung data, lalu melakukan pembukuan untuk menyiapkan *allocation*
 > berikutnya.
 >
 > Mengakses data di *heap* umumnya lebih lambat daripada mengakses data di
@@ -199,7 +199,7 @@ Jadi, apa bedanya di sini? Mengapa `String` bisa diubah sementara *string
 literal* tidak bisa? Perbedaannya terletak pada cara kedua type ini
 memperlakukan memori.
 
-### Memori dan Alokasi
+### Memori dan *allocation*
 
 Dalam kasus *string literal*, kita sudah mengetahui isinya pada saat
 kompilasi, sehingga teksnya ditulis langsung ke dalam berkas eksekutabel
@@ -279,7 +279,7 @@ bulat.
 </Listing>
 
 Kita mungkin bisa menebak apa yang dilakukan kode ini: “ikat nilai `5` ke
-`x`; lalu buat salinan nilai di `x` dan ikat ke `y`.” Sekarang kita punya dua
+`x`; lalu buat copy nilai di `x` dan ikat ke `y`.” Sekarang kita punya dua
 variable, `x` dan `y`, dan keduanya bernilai `5`. Inilah yang memang terjadi,
 karena bilangan bulat adalah nilai sederhana dengan ukuran yang pasti dan
 tetap, dan kedua nilai `5` ini didorong ke *stack*.
@@ -291,7 +291,7 @@ Sekarang mari kita lihat versi `String`-nya:
 ```
 
 Kode ini tampak sangat mirip, sehingga kita mungkin mengira cara kerjanya
-akan sama: yaitu, baris kedua akan membuat salinan dari nilai di `s1` dan
+akan sama: yaitu, baris kedua akan membuat copy dari nilai di `s1` dan
 mengikatnya ke `s2`. Namun, bukan itu yang terjadi.
 
 Lihatlah Gambar 4-1 untuk mengetahui apa yang terjadi pada `String` di balik
@@ -326,7 +326,7 @@ kedua string di stack, dan keduanya menunjuk ke data string yang sama di
 heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 4-2: Representasi di dalam memori dari variable
-`s2` yang memiliki salinan *pointer*, panjang, dan kapasitas dari `s1`</span>
+`s2` yang memiliki copy *pointer*, panjang, dan kapasitas dari `s1`</span>
 
 Representasi ini _tidak_ tampak seperti Gambar 4-3, yang merupakan bentuk
 memori jika Rust ikut menyalin data di *heap*. Jika Rust melakukan itu,
@@ -334,7 +334,7 @@ operasi `s2 = s1` bisa sangat mahal dari segi kinerja saat *runtime* jika
 data di *heap*-nya besar.
 
 <img alt="Empat tabel: dua tabel yang merepresentasikan data stack untuk s1
-dan s2, dan masing-masing menunjuk ke salinan data string miliknya sendiri di
+dan s2, dan masing-masing menunjuk ke copy data string miliknya sendiri di
 heap." src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 4-3: Kemungkinan lain dari apa yang mungkin
@@ -366,11 +366,11 @@ menggunakan *reference* (referensi) yang telah dibatalkan validitasnya:
 {{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
 ```
 
-Jika Anda pernah mendengar istilah *shallow copy* (salinan dangkal) dan
-*deep copy* (salinan dalam) saat bekerja dengan bahasa lain, konsep menyalin
+Jika Anda pernah mendengar istilah *shallow copy* (*shallow copy*) dan
+*deep copy* (*deep copy*) saat bekerja dengan bahasa lain, konsep menyalin
 *pointer*, panjang, dan kapasitas tanpa menyalin datanya mungkin terdengar
-seperti membuat salinan dangkal. Namun, karena Rust juga membatalkan
-validitas variable pertama, alih-alih disebut salinan dangkal, proses ini
+seperti membuat *shallow copy*. Namun, karena Rust juga membatalkan
+validitas variable pertama, alih-alih disebut *shallow copy*, proses ini
 dikenal sebagai *move* (pemindahan). Dalam contoh ini, kita dapat mengatakan
 bahwa `s1` telah *moved* (dipindahkan) ke dalam `s2`. Jadi, yang sebenarnya
 terjadi ditunjukkan pada Gambar 4-4.
@@ -389,11 +389,11 @@ keluar dari *scope*, hanya dialah yang akan membebaskan memorinya, dan
 selesailah urusan kita.
 
 Selain itu, ada keputusan desain yang tersirat dari sini: Rust tidak akan
-pernah membuat salinan “dalam” dari data Anda secara otomatis. Karena itu,
+pernah membuat copy “dalam” dari data Anda secara otomatis. Karena itu,
 penyalinan _otomatis_ apa pun dapat dianggap murah dari segi kinerja saat
 *runtime*.
 
-#### Scope dan Penetapan
+#### Scope dan Assignment
 
 Kebalikannya juga berlaku untuk hubungan antara *scope*, *ownership*, dan
 memori yang dibebaskan melalui fungsi `drop`. Ketika Anda menetapkan nilai
@@ -467,7 +467,7 @@ dipindahkan ke dalam `y`.
 
 Alasannya adalah bahwa type-type seperti bilangan bulat yang ukurannya
 diketahui pada saat kompilasi disimpan seluruhnya di *stack*, sehingga
-salinan dari nilai sebenarnya cepat dibuat. Artinya, tidak ada alasan bagi
+copy dari nilai sebenarnya cepat dibuat. Artinya, tidak ada alasan bagi
 kita untuk mencegah `x` tetap valid setelah kita membuat variable `y`. Dengan
 kata lain, tidak ada perbedaan antara penyalinan dalam dan penyalinan dangkal
 di sini, sehingga memanggil `clone` tidak akan menghasilkan apa pun yang
@@ -492,7 +492,7 @@ tersebut, lihat [“Trait yang Dapat Diturunkan”][derivable-traits]<!-- ignore
 Lalu, type apa saja yang mengimplementasikan *trait* `Copy`? Anda dapat
 memeriksa dokumentasi untuk type tertentu demi memastikannya, tetapi sebagai
 aturan umum, kelompok nilai skalar sederhana mana pun dapat
-mengimplementasikan `Copy`, dan apa pun yang membutuhkan alokasi atau
+mengimplementasikan `Copy`, dan apa pun yang membutuhkan *allocation* atau
 merupakan suatu bentuk sumber daya tidak dapat mengimplementasikan `Copy`.
 Berikut beberapa type yang mengimplementasikan `Copy`:
 
@@ -507,8 +507,8 @@ Berikut beberapa type yang mengimplementasikan `Copy`:
 ### Ownership dan Fungsi
 
 Mekanisme penerusan sebuah nilai ke sebuah fungsi serupa dengan mekanisme
-penetapan nilai ke sebuah variable. Meneruskan variable ke sebuah fungsi akan
-memindahkan atau menyalin, sama seperti penetapan. Listing 4-3 memuat contoh
+assignment nilai ke sebuah variable. Meneruskan variable ke sebuah fungsi akan
+memindahkan atau menyalin, sama seperti assignment. Listing 4-3 memuat contoh
 dengan beberapa anotasi yang menunjukkan di mana variable masuk dan keluar
 dari *scope*.
 
@@ -540,10 +540,10 @@ serupa seperti pada Listing 4-3.
 
 </Listing>
 
-Kepemilikan sebuah variable mengikuti pattern yang sama setiap kali: menetapkan
+*ownership* sebuah variable mengikuti pattern yang sama setiap kali: menetapkan
 sebuah nilai ke variable lain akan memindahkannya. Ketika sebuah variable
 yang memuat data di *heap* keluar dari *scope*, nilainya akan dibersihkan
-oleh `drop` kecuali kepemilikan datanya telah dipindahkan ke variable lain.
+oleh `drop` kecuali *ownership* datanya telah dipindahkan ke variable lain.
 
 Meskipun cara ini berhasil, mengambil *ownership* lalu mengembalikannya lagi
 pada setiap fungsi agak melelahkan. Bagaimana jika kita ingin membiarkan

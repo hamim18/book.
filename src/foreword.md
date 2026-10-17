@@ -13,7 +13,7 @@ berskala luas di berbagai industri.
 Pada titik ini, mudah untuk menunjuk fitur-fitur hebat yang ditawarkan Rust
 sebagai penjelasan atas ledakan minat dan adopsi ini. Siapa yang tidak
 menginginkan keamanan memori, *dan* performa yang cepat, *dan* *compiler*
-(kompilator) yang ramah, *dan* perangkat yang hebat, di antara segudang fitur
+(*compiler*) yang ramah, *dan* perangkat yang hebat, di antara segudang fitur
 hebat lainnya? Bahasa Rust yang Anda lihat hari ini menggabungkan riset
 bertahun-tahun di bidang pemrograman sistem dengan kebijaksanaan praktis dari
 komunitas yang hidup dan bergairah. Bahasa ini dirancang dengan tujuan yang

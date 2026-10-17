@@ -95,7 +95,7 @@ memakai library Anda dengan cara yang sama seperti kode lain mana pun, yang
 berarti mereka hanya bisa memanggil fungsi yang merupakan bagian dari API
 publik library Anda. Tujuannya adalah menguji apakah banyak bagian library
 Anda bekerja bersama dengan benar. Unit-unit kode yang bekerja dengan benar
-sendiri-sendiri bisa bermasalah ketika diintegrasikan, jadi cakupan
+sendiri-sendiri bisa bermasalah ketika diintegrasikan, jadi coverage
 pengujian atas kode yang terintegrasi juga penting. Untuk membuat pengujian
 integrasi, pertama Anda perlu direktori _tests_.
 

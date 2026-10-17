@@ -9,7 +9,7 @@ memberikan sebuah *reference* ke nilai `String` tersebut. *Reference* mirip
 dengan *pointer* karena ia adalah sebuah alamat yang dapat kita ikuti untuk
 mengakses data yang tersimpan di alamat tersebut; data itu dimiliki oleh
 variable lain. Tidak seperti *pointer*, *reference* dijamin menunjuk ke nilai
-yang valid dari type tertentu selama masa hidup *reference* tersebut.
+yang valid dari type tertentu selama *lifetime* *reference* tersebut.
 
 Berikut cara Anda mendefinisikan dan menggunakan fungsi `calculate_length`
 yang memiliki sebuah *reference* ke sebuah objek sebagai parameter, alih-alih
@@ -69,7 +69,7 @@ perlu mengembalikan nilai-nilai tersebut untuk menyerahkan kembali
 *ownership*, karena sejak awal kita tidak pernah memilikinya.
 
 Kita menyebut tindakan membuat sebuah *reference* sebagai *borrowing*
-(peminjaman). Seperti dalam kehidupan nyata, jika seseorang memiliki sesuatu,
+(*borrowing*). Seperti dalam kehidupan nyata, jika seseorang memiliki sesuatu,
 Anda dapat meminjamnya dari mereka. Setelah selesai, Anda harus
 mengembalikannya. Anda tidak memilikinya.
 
@@ -99,7 +99,7 @@ juga demikian. Kita tidak diizinkan mengubah sesuatu yang kita miliki
 
 Kita dapat memperbaiki kode dari Listing 4-6 agar kita diizinkan mengubah
 nilai yang dipinjam hanya dengan beberapa penyesuaian kecil, yaitu dengan
-menggunakan *mutable reference* (referensi yang dapat diubah):
+menggunakan *mutable reference* (*reference* yang *mutable*):
 
 <Listing file-name="src/main.rs">
 
@@ -155,7 +155,7 @@ berikut muncul:
 - Tidak ada mekanisme yang dipakai untuk menyinkronkan akses ke data
   tersebut.
 
-*Data race* menyebabkan *undefined behavior* (perilaku tak terdefinisi) dan
+*Data race* menyebabkan *undefined behavior* (*undefined behavior*) dan
 bisa sulit didiagnosis serta diperbaiki ketika Anda mencoba melacaknya pada
 saat *runtime*; Rust mencegah masalah ini dengan menolak mengompilasi kode
 yang memiliki *data race*!
@@ -214,7 +214,7 @@ tidak seperti yang Anda kira.
 ### Dangling References
 
 Pada bahasa yang memiliki *pointer*, mudah untuk secara keliru membuat
-*dangling pointer* (*pointer* menggantung)—yaitu *pointer* yang merujuk ke
+*dangling pointer* (*pointer* *dangling*)—yaitu *pointer* yang merujuk ke
 lokasi di dalam memori yang mungkin sudah diberikan kepada pihak lain—dengan
 membebaskan sebagian memori sambil tetap menyimpan *pointer* ke memori
 tersebut. Sebaliknya, di Rust, *compiler* menjamin bahwa *reference* tidak
@@ -240,7 +240,7 @@ Berikut errornya:
 ```
 
 Pesan error ini merujuk pada sebuah fitur yang belum kita bahas: *lifetime*
-(masa hidup). Kita akan membahas *lifetime* secara mendetail di Bab 10.
+(*lifetime*). Kita akan membahas *lifetime* secara mendetail di Bab 10.
 Namun, jika Anda mengabaikan bagian-bagian tentang *lifetime*, pesan ini
 memang memuat kunci mengapa kode ini bermasalah:
 

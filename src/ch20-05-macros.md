@@ -33,7 +33,7 @@ Tanda tangan fungsi harus mendeklarasikan jumlah dan type parameter yang
 dimiliki fungsi itu. Sebaliknya, *macro* bisa menerima jumlah parameter yang
 bervariasi: Kita bisa memanggil `println!("hello")` dengan satu argumen atau
 `println!("hello {}", name)` dengan dua argumen. Selain itu, *macro*
-diekspansi sebelum kompilator menafsirkan makna kodenya, jadi sebuah *macro*
+diekspansi sebelum *compiler* menafsirkan makna kodenya, jadi sebuah *macro*
 bisa, misalnya, mengimplementasikan *trait* pada type tertentu. Fungsi tidak
 bisa, karena ia dipanggil pada runtime dan *trait* perlu diimplementasikan
 pada waktu kompilasi.
@@ -330,7 +330,7 @@ Kita telah memperkenalkan tiga *crate* baru: `proc_macro`,
 [`syn`][syn]<!-- ignore -->, dan [`quote`][quote]<!-- ignore -->. *Crate*
 `proc_macro` ikut disertakan bersama Rust, jadi kita tidak perlu
 menambahkannya ke dependensi di _Cargo.toml_. *Crate* `proc_macro` adalah API
-kompilator yang memungkinkan kita membaca dan memanipulasi kode Rust dari
+*compiler* yang memungkinkan kita membaca dan memanipulasi kode Rust dari
 kode kita.
 
 *Crate* `syn` melakukan parsing kode Rust dari sebuah string menjadi struktur
@@ -423,7 +423,7 @@ berisi instance *struct* `Ident` yang, saat dicetak, menjadi string
 `"Pancakes"`, yaitu nama *struct* di Listing 20-37.
 
 *Macro* `quote!` memungkinkan kita mendefinisikan kode Rust yang ingin kita
-kembalikan. Kompilator mengharapkan sesuatu yang berbeda dari hasil
+kembalikan. *compiler* mengharapkan sesuatu yang berbeda dari hasil
 langsung eksekusi *macro* `quote!`, jadi kita perlu mengonversinya menjadi
 `TokenStream`. Kita melakukannya dengan memanggil method `into`, yang
 mengonsumsi representasi perantara ini dan mengembalikan nilai typed
@@ -447,7 +447,7 @@ expression itu menjadi *string literal*, seperti `"1 + 2"`. Ini berbeda dari
 `format!` atau `println!`, yang merupakan *macro* yang mengevaluasi expression
 lalu mengubah hasilnya menjadi `String`. Ada kemungkinan input `#name`
 adalah expression yang harus dicetak secara literal, jadi kita memakai
-`stringify!`. Memakai `stringify!` juga menghemat satu alokasi dengan
+`stringify!`. Memakai `stringify!` juga menghemat satu *allocation* dengan
 mengubah `#name` menjadi *string literal* pada waktu kompilasi.
 
 Pada titik ini, `cargo build` seharusnya selesai dengan sukses di
@@ -532,7 +532,7 @@ akan didefinisikan seperti ini:
 pub fn sql(input: TokenStream) -> TokenStream {
 ```
 
-Definisi ini mirip dengan tanda tangan *macro* `derive` kustom: Kita menerima
+Definisi ini mirip dengan *signature* *macro* `derive` kustom: Kita menerima
 token yang berada di dalam tanda kurung dan mengembalikan kode yang ingin
 kita hasilkan.
 

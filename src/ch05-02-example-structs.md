@@ -28,7 +28,7 @@ Kode ini berhasil menghitung luas persegi panjang dengan memanggil fungsi
 `area` beserta masing-masing dimensinya, tetapi kita bisa berbuat lebih banyak
 untuk membuat kode ini jelas dan mudah dibaca.
 
-Masalah pada kode ini tampak jelas pada tanda tangan `area`:
+Masalah pada kode ini tampak jelas pada *signature* `area`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-08/src/main.rs:here}}
@@ -91,11 +91,11 @@ Di dalam kurung kurawal, kita mendefinisikan *field*-nya sebagai `width` dan
 sebuah instance `Rectangle` tertentu yang memiliki lebar `30` dan tinggi `50`.
 
 Fungsi `area` kita kini didefinisikan dengan satu parameter, yang kita namai
-`rectangle`, yang typenya adalah peminjaman *immutable* (tidak dapat diubah)
+`rectangle`, yang typenya adalah *borrowing* *immutable* (tidak dapat diubah)
 atas instance *struct* `Rectangle`. Seperti yang disebutkan di Bab 4, kita
 ingin meminjam *struct* alih-alih mengambil *ownership* (kepemilikan). Dengan demikian, `main` mempertahankan
-kepemilikannya dan dapat terus memakai `rect1`, itulah sebabnya kita memakai
-`&` pada tanda tangan fungsi dan di tempat kita memanggil fungsinya.
+*ownership*nya dan dapat terus memakai `rect1`, itulah sebabnya kita memakai
+`&` pada *signature* fungsi dan di tempat kita memanggil fungsinya.
 
 Fungsi `area` mengakses *field* `width` dan `height` dari instance `Rectangle`
 (perhatikan bahwa mengakses *field* dari instance *struct* yang dipinjam tidak
@@ -205,10 +205,10 @@ alih-alih `{:?}` di dalam string `println!`. Pada contoh ini, memakai gaya
 ```
 
 Cara lain untuk mencetak sebuah nilai dengan format `Debug` adalah memakai
-[macro `dbg!`][dbg]<!-- ignore -->, yang mengambil kepemilikan sebuah expression
+[macro `dbg!`][dbg]<!-- ignore -->, yang mengambil *ownership* sebuah expression
 (berbeda dengan `println!`, yang menerima sebuah *reference*), mencetak file dan
 nomor baris tempat pemanggilan *macro* `dbg!` terjadi di kode Anda beserta nilai
-hasil expression itu, dan mengembalikan kepemilikan nilainya.
+hasil expression itu, dan mengembalikan *ownership* nilainya.
 
 > Catatan: Memanggil *macro* `dbg!` mencetak ke aliran konsol standard error
 > (`stderr`), berbeda dengan `println!`, yang mencetak ke aliran konsol
@@ -224,9 +224,9 @@ Berikut contoh ketika kita tertarik pada nilai yang ditetapkan ke *field*
 ```
 
 Kita dapat meletakkan `dbg!` mengelilingi expression `30 * scale` dan, karena
-`dbg!` mengembalikan kepemilikan nilai expressionnya, *field* `width` akan
+`dbg!` mengembalikan *ownership* nilai expressionnya, *field* `width` akan
 mendapatkan nilai yang sama seolah-olah tidak ada pemanggilan `dbg!` di sana.
-Kita tidak ingin `dbg!` mengambil kepemilikan `rect1`, jadi kita memakai
+Kita tidak ingin `dbg!` mengambil *ownership* `rect1`, jadi kita memakai
 *reference* ke `rect1` pada pemanggilan berikutnya. Berikut tampilan output
 contoh ini:
 
