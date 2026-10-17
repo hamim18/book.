@@ -32,8 +32,29 @@ Diperbarui di akhir setiap sesi.
     tautan, komentar HTML, dan judul karya dikecualikan.
   - `cek_terjemahan.py` 97 file OK; `mdbook build` tanpa tautan rusak;
     `mdbook test` exit 0.
-- File berikutnya yang dikerjakan: Tahap 6 — cetak A5 (lihat Tahap 8
-  `PANDUAN_PROMPT.md`).
+- Tahap 6 (cetak) dimulai 2026-10-17:
+  - **Keputusan**: B5 ISO 176 × 250 mm, bukan A5 (di A5 satu baris hanya
+    muat ±55 karakter kode, sementara 353 baris listing lebih dari 76
+    karakter); mesin Pandoc + Typst (XeLaTeX cadangan); font IBM Plex
+    (isi Serif 10 pt, kode Mono 8,5 pt).
+  - **Pipeline** di `cetak/` (folder baru; tidak menyentuh folder
+    terlarang): `mdbook build` → `ekstrak-print.py` memotong
+    `book/print.html` per bab (buang h1 duplikat sub-bab, buang
+    title-page, bersihkan tautan) → pandoc HTML→Typst
+    (`hilangkan-tautan.lua`: tautan internal jadi teks polos; kotak
+    catatan jadi `#catatan[...]`) → `template.typ`.
+  - **Fitur**: daftar isi otomatis dengan nomor halaman; nomor "Bab N" /
+    "N.M" otomatis (offset 12 di jilid 2); kotak catatan; blok kode paket
+    codly — baris panjang dilipat bertanda ↪ tanpa mengubah teks sumber,
+    tanpa nomor baris/badge bahasa.
+  - **Hasil build**: jilid 1 (kata pengantar + pendahuluan + bab 1-12)
+    429 halaman; jilid 2 (bab 13-21 + lampiran) 445 halaman.
+  - **Mode dev**: `./cetak/dev-bab.sh ch04-01-...` mengompilasi satu bab
+    ±10 detik untuk iterasi gaya.
+  - Menunggu pemeriksaan visual pengguna; pratinjau PNG halaman terpilih
+    di `cetak/keluaran/`.
+- Sedang dikerjakan: Tahap 6 — cetak B5; menunggu pemeriksaan visual
+  pengguna (lihat `cetak/README.md`).
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -53,7 +74,10 @@ Diperbarui di akhir setiap sesi.
       karena heading diterjemahkan), konsistensi istilah antar-bab. Selesai
       2026-10-17; dua keputusan istilah menunggu konfirmasi (lihat Masalah
       terbuka).
-- [ ] Tahap 6 — Cetak A5 (lihat Tahap 8 `PANDUAN_PROMPT.md`).
+- [ ] Tahap 6 — Cetak B5 ISO 176 × 250 mm, mesin Pandoc + Typst (keputusan
+      2026-10-17: A5 diganti B5 agar baris kode muat tanpa terpotong; Typst
+      dipilih karena cepat, ringan, dan Unicode-native, XeLaTeX cadangan;
+      lihat Tahap 8 `PANDUAN_PROMPT.md`).
 
 ## Ukuran kerja per kelompok (kata, dari `asli/`)
 

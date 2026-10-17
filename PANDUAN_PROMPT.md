@@ -136,13 +136,17 @@ Beri daftar tautan yang rusak beserta usulan perbaikan. Jangan mengedit dulu.
 
 ---
 
-## Tahap 8: Persiapan cetak A5 (setelah terjemahan selesai)
+## Tahap 8: Persiapan cetak B5 (setelah terjemahan selesai)
 
 ```
-Buat alur pembuatan PDF ukuran A5 dari src/ memakai Pandoc dengan XeLaTeX
-(atau Typst jika lebih cocok). Syaratnya: font isi 10 pt, margin sekitar
-1,5-2 cm, blok kode tidak terpotong di tepi halaman, nomor halaman
-di bawah, dan buku dipecah menjadi dua jilid.
+Buat alur pembuatan PDF ukuran B5 (176 × 250 mm) dari src/ memakai
+Pandoc + Typst (keputusan 2026-10-17; Typst dipilih karena cepat, ringan,
+dan Unicode-native, dengan XeLaTeX sebagai cadangan). Syaratnya: font isi
+10 pt, margin sekitar 1,5-2 cm, blok kode tidak terpotong di tepi halaman
+(baris panjang dilipat dengan penanda sambungan), nomor halaman di bawah,
+daftar isi otomatis dengan nomor halaman, dan buku dipecah menjadi dua
+jilid (usulan titik potong: jilid 1 = bab 00-12, jilid 2 = bab 13-21 +
+Lampiran; sesuaikan setelah melihat jumlah halaman build pertama).
 Jelaskan dulu rencananya, tunggu persetujuanku, baru buat filenya.
 ```
 
