@@ -8,3 +8,7 @@ tmp
 .nova
 .vscode
 .zed
+
+__pycache__/
+cetak/build/
+cetak/keluaran/
