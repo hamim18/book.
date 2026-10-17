@@ -1,14 +1,16 @@
-# More About Cargo and Crates.io
+# Lebih Jauh tentang Cargo dan Crates.io
 
-So far, we’ve used only the most basic features of Cargo to build, run, and
-test our code, but it can do a lot more. In this chapter, we’ll discuss some of
-its other, more advanced features to show you how to do the following:
+Sejauh ini, kita baru memakai fitur Cargo yang paling mendasar untuk membangun,
+menjalankan, dan menguji kode kita, padahal Cargo bisa jauh lebih banyak. Di
+bab ini, kita akan membahas beberapa fiturnya yang lain dan lebih lanjut untuk
+menunjukkan kepada Anda cara melakukan hal-hal berikut:
 
-- Customize your build through release profiles.
-- Publish libraries on [crates.io](https://crates.io/)<!-- ignore -->.
-- Organize large projects with workspaces.
-- Install binaries from [crates.io](https://crates.io/)<!-- ignore -->.
-- Extend Cargo using custom commands.
+- Menyesuaikan build Anda melalui *release profile* (profil rilis).
+- Menerbitkan library di [crates.io](https://crates.io/)<!-- ignore -->.
+- Mengorganisasi proyek besar dengan workspace.
+- Memasang binary dari [crates.io](https://crates.io/)<!-- ignore -->.
+- Memperluas Cargo menggunakan perintah-perintah buatan sendiri.
 
-Cargo can do even more than the functionality we cover in this chapter, so for
-a full explanation of all its features, see [its documentation](https://doc.rust-lang.org/cargo/).
+Cargo bisa melakukan lebih banyak lagi daripada fungsionalitas yang kita bahas
+di bab ini, jadi untuk penjelasan lengkap semua fiturnya, lihat
+[dokumentasinya](https://doc.rust-lang.org/cargo/).

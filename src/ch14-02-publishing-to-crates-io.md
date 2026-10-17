@@ -1,32 +1,34 @@
-## Publishing a Crate to Crates.io
+## Menerbitkan Crate ke Crates.io
 
-We’ve used packages from [crates.io](https://crates.io/)<!-- ignore --> as
-dependencies of our project, but you can also share your code with other people
-by publishing your own packages. The crate registry at
-[crates.io](https://crates.io/)<!-- ignore --> distributes the source code of
-your packages, so it primarily hosts code that is open source.
+Kita telah memakai *package* (paket) dari
+[crates.io](https://crates.io/)<!-- ignore --> sebagai dependensi proyek kita,
+tetapi Anda juga dapat membagikan kode Anda kepada orang lain dengan
+menerbitkan package Anda sendiri. *Crate registry* (registri crate) di
+[crates.io](https://crates.io/)<!-- ignore --> mendistribusikan kode sumber
+package Anda, jadi situs itu utamanya menampung kode yang bersifat open source.
 
-Rust and Cargo have features that make your published package easier for people
-to find and use. We’ll talk about some of these features next and then explain
-how to publish a package.
+Rust dan Cargo memiliki fitur-fitur yang membuat package terbitan Anda lebih
+mudah ditemukan dan dipakai orang. Selanjutnya, kita akan membahas beberapa
+fitur tersebut, lalu menjelaskan cara menerbitkan sebuah package.
 
-### Making Useful Documentation Comments
+### Membuat Komentar Dokumentasi yang Berguna
 
-Accurately documenting your packages will help other users know how and when to
-use them, so it’s worth investing the time to write documentation. In Chapter
-3, we discussed how to comment Rust code using two slashes, `//`. Rust also has
-a particular kind of comment for documentation, known conveniently as a
-_documentation comment_, that will generate HTML documentation. The HTML
-displays the contents of documentation comments for public API items intended
-for programmers interested in knowing how to _use_ your crate as opposed to how
-your crate is _implemented_.
+Mendokumentasikan package Anda secara akurat akan membantu pengguna lain
+mengetahui cara dan waktu memakainya, jadi ada baiknya Anda meluangkan waktu
+untuk menulis dokumentasi. Di Bab 3, kita membahas cara memberi komentar pada
+kode Rust dengan dua garis miring, `//`. Rust juga memiliki jenis komentar
+khusus untuk dokumentasi, yang dengan tepat disebut _documentation comment_
+(komentar dokumentasi), yang akan menghasilkan dokumentasi HTML. HTML itu
+menampilkan isi komentar dokumentasi untuk item API publik yang ditujukan bagi
+pemrogram yang tertarik mengetahui cara _memakai_ crate Anda, bukan cara crate
+Anda _diimplementasikan_.
 
-Documentation comments use three slashes, `///`, instead of two and support
-Markdown notation for formatting the text. Place documentation comments just
-before the item they’re documenting. Listing 14-1 shows documentation comments
-for an `add_one` function in a crate named `my_crate`.
+Komentar dokumentasi memakai tiga garis miring, `///`, alih-alih dua, dan
+mendukung notasi Markdown untuk memformat teks. Tempatkan komentar dokumentasi
+tepat sebelum item yang didokumentasikannya. Listing 14-1 menampilkan komentar
+dokumentasi untuk fungsi `add_one` di dalam crate bernama `my_crate`.
 
-<Listing number="14-1" file-name="src/lib.rs" caption="A documentation comment for a function">
+<Listing number="14-1" file-name="src/lib.rs" caption="Komentar dokumentasi untuk sebuah fungsi">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-01/src/lib.rs}}
@@ -34,54 +36,56 @@ for an `add_one` function in a crate named `my_crate`.
 
 </Listing>
 
-Here, we give a description of what the `add_one` function does, start a
-section with the heading `Examples`, and then provide code that demonstrates
-how to use the `add_one` function. We can generate the HTML documentation from
-this documentation comment by running `cargo doc`. This command runs the
-`rustdoc` tool distributed with Rust and puts the generated HTML documentation
-in the _target/doc_ directory.
+Di sini, kita memberikan deskripsi tentang apa yang dilakukan fungsi
+`add_one`, memulai sebuah seksi dengan heading `Examples`, lalu menyediakan
+kode yang menunjukkan cara memakai fungsi `add_one`. Kita dapat menghasilkan
+dokumentasi HTML dari komentar dokumentasi ini dengan menjalankan `cargo doc`.
+Perintah ini menjalankan alat `rustdoc` yang didistribusikan bersama Rust dan
+meletakkan dokumentasi HTML yang dihasilkan di direktori _target/doc_.
 
-For convenience, running `cargo doc --open` will build the HTML for your
-current crate’s documentation (as well as the documentation for all of your
-crate’s dependencies) and open the result in a web browser. Navigate to the
-`add_one` function and you’ll see how the text in the documentation comments is
-rendered, as shown in Figure 14-1.
+Demi kemudahan, menjalankan `cargo doc --open` akan membangun HTML untuk
+dokumentasi crate Anda saat ini (serta dokumentasi untuk semua dependensi
+crate Anda) dan membuka hasilnya di peramban web. Buka fungsi `add_one` dan
+Anda akan melihat bagaimana teks di komentar dokumentasi itu dirender, seperti
+ditunjukkan pada Gambar 14-1.
 
-<img alt="Rendered HTML documentation for the `add_one` function of `my_crate`" src="img/trpl14-01.png" class="center" />
+<img alt="Dokumentasi HTML yang dirender untuk fungsi `add_one` dari `my_crate`" src="img/trpl14-01.png" class="center" />
 
-<span class="caption">Figure 14-1: The HTML documentation for the `add_one`
-function</span>
+<span class="caption">Gambar 14-1: Dokumentasi HTML untuk fungsi
+`add_one`</span>
 
-#### Commonly Used Sections
+#### Seksi yang Lazim Dipakai
 
-We used the `# Examples` Markdown heading in Listing 14-1 to create a section
-in the HTML with the title “Examples.” Here are some other sections that crate
-authors commonly use in their documentation:
+Kita memakai heading Markdown `# Examples` di Listing 14-1 untuk membuat
+sebuah seksi di HTML dengan judul “Examples.” Berikut beberapa seksi lain yang
+lazim dipakai penulis crate di dokumentasi mereka:
 
-- **Panics**: These are the scenarios in which the function being documented
-  could panic. Callers of the function who don’t want their programs to panic
-  should make sure they don’t call the function in these situations.
-- **Errors**: If the function returns a `Result`, describing the kinds of
-  errors that might occur and what conditions might cause those errors to be
-  returned can be helpful to callers so that they can write code to handle the
-  different kinds of errors in different ways.
-- **Safety**: If the function is `unsafe` to call (we discuss unsafety in
-  Chapter 20), there should be a section explaining why the function is unsafe
-  and covering the invariants that the function expects callers to uphold.
+- **Panics**: Ini adalah skenario ketika fungsi yang didokumentasikan bisa
+  panic. Pemanggil fungsi yang tidak ingin programnya panic harus memastikan
+  mereka tidak memanggil fungsi itu dalam situasi-situasi tersebut.
+- **Errors**: Jika fungsi mengembalikan `Result`, menjelaskan jenis galat yang
+  mungkin terjadi dan kondisi apa yang mungkin menyebabkan galat tersebut
+  dikembalikan dapat membantu pemanggil sehingga mereka bisa menulis kode
+  untuk menangani berbagai jenis galat dengan cara yang berbeda-beda.
+- **Safety**: Jika fungsi itu tidak aman (`unsafe`) untuk dipanggil (kita
+  membahas ketidakamanan di Bab 20), seharusnya ada seksi yang menjelaskan
+  mengapa fungsi itu `unsafe` dan mencakup invarian yang diharapkan fungsi
+  untuk dipertahankan oleh pemanggilnya.
 
-Most documentation comments don’t need all of these sections, but this is a
-good checklist to remind you of the aspects of your code users will be
-interested in knowing about.
+Sebagian besar komentar dokumentasi tidak membutuhkan semua seksi ini, tetapi
+ini adalah daftar periksa yang baik untuk mengingatkan Anda tentang
+aspek-aspek kode yang ingin diketahui pengguna Anda.
 
-#### Documentation Comments as Tests
+#### Komentar Dokumentasi sebagai Pengujian
 
-Adding example code blocks in your documentation comments can help demonstrate
-how to use your library and has an additional bonus: Running `cargo test` will
-run the code examples in your documentation as tests! Nothing is better than
-documentation with examples. But nothing is worse than examples that don’t work
-because the code has changed since the documentation was written. If we run
-`cargo test` with the documentation for the `add_one` function from Listing
-14-1, we will see a section in the test results that looks like this:
+Menambahkan blok kode contoh di komentar dokumentasi Anda dapat membantu
+menunjukkan cara memakai library Anda dan memberi bonus tambahan: menjalankan
+`cargo test` akan menjalankan contoh kode di dokumentasi Anda sebagai test!
+Tidak ada yang lebih baik daripada dokumentasi dengan contoh. Tetapi tidak ada
+yang lebih buruk daripada contoh yang tidak berfungsi karena kode telah
+berubah sejak dokumentasi ditulis. Jika kita menjalankan `cargo test` dengan
+dokumentasi untuk fungsi `add_one` dari Listing 14-1, kita akan melihat sebuah
+seksi di hasil test yang tampak seperti ini:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/listing-14-01/
@@ -98,27 +102,28 @@ test src/lib.rs - add_one (line 5) ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
 ```
 
-Now, if we change either the function or the example so that the `assert_eq!`
-in the example panics, and run `cargo test` again, we’ll see that the doc tests
-catch that the example and the code are out of sync with each other!
+Sekarang, jika kita mengubah fungsinya atau contohnya sehingga `assert_eq!` di
+contoh itu panic, lalu menjalankan `cargo test` lagi, kita akan melihat bahwa
+doc test menangkap ketidaksinkronan antara contoh dan kode!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="commenting-contained-items"></a>
 
-#### Contained Item Comments
+#### Komentar pada Item yang Memuatnya
 
-The style of doc comment `//!` adds documentation to the item that *contains*
-the comments rather than to the items *following* the comments. We typically
-use these doc comments inside the crate root file (_src/lib.rs_ by convention)
-or inside a module to document the crate or the module as a whole.
+Gaya komentar dok `//!` menambahkan dokumentasi ke item yang _memuat_ komentar
+itu, bukan ke item yang _mengikuti_ komentar itu. Kita biasanya memakai
+komentar dok ini di dalam file akar crate (_src/lib.rs_ menurut konvensi) atau
+di dalam sebuah modul untuk mendokumentasikan crate atau modul itu secara
+keseluruhan.
 
-For example, to add documentation that describes the purpose of the `my_crate`
-crate that contains the `add_one` function, we add documentation comments that
-start with `//!` to the beginning of the _src/lib.rs_ file, as shown in Listing
+Sebagai contoh, untuk menambahkan dokumentasi yang menjelaskan tujuan crate
+`my_crate` yang memuat fungsi `add_one`, kita menambahkan komentar dokumentasi
+yang diawali `//!` ke awal file _src/lib.rs_, seperti ditunjukkan pada Listing
 14-2.
 
-<Listing number="14-2" file-name="src/lib.rs" caption="The documentation for the `my_crate` crate as a whole">
+<Listing number="14-2" file-name="src/lib.rs" caption="Dokumentasi untuk crate `my_crate` secara keseluruhan">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-02/src/lib.rs:here}}
@@ -126,59 +131,62 @@ start with `//!` to the beginning of the _src/lib.rs_ file, as shown in Listing
 
 </Listing>
 
-Notice there isn’t any code after the last line that begins with `//!`. Because
-we started the comments with `//!` instead of `///`, we’re documenting the item
-that contains this comment rather than an item that follows this comment. In
-this case, that item is the _src/lib.rs_ file, which is the crate root. These
-comments describe the entire crate.
+Perhatikan bahwa tidak ada kode apa pun setelah baris terakhir yang diawali
+`//!`. Karena kita memulai komentarnya dengan `//!` alih-alih `///`, kita
+mendokumentasikan item yang memuat komentar ini, bukan item yang mengikuti
+komentar ini. Dalam kasus ini, item itu adalah file _src/lib.rs_, yang
+merupakan *crate root* (akar crate). Komentar-komentar ini menjelaskan
+keseluruhan crate.
 
-When we run `cargo doc --open`, these comments will display on the front page
-of the documentation for `my_crate` above the list of public items in the
-crate, as shown in Figure 14-2.
+Ketika kita menjalankan `cargo doc --open`, komentar ini akan tampil di
+halaman depan dokumentasi untuk `my_crate`, di atas daftar item publik di
+crate tersebut, seperti ditunjukkan pada Gambar 14-2.
 
-Documentation comments within items are useful for describing crates and
-modules especially. Use them to explain the overall purpose of the container to
-help your users understand the crate’s organization.
+Komentar dokumentasi di dalam item berguna terutama untuk menjelaskan crate
+dan modul. Pakailah komentar itu untuk menjelaskan tujuan keseluruhan wadah
+tersebut guna membantu pengguna memahami organisasi crate Anda.
 
-<img alt="Rendered HTML documentation with a comment for the crate as a whole" src="img/trpl14-02.png" class="center" />
+<img alt="Dokumentasi HTML yang dirender dengan komentar untuk crate secara keseluruhan" src="img/trpl14-02.png" class="center" />
 
-<span class="caption">Figure 14-2: The rendered documentation for `my_crate`,
-including the comment describing the crate as a whole</span>
+<span class="caption">Gambar 14-2: Dokumentasi yang dirender untuk `my_crate`,
+termasuk komentar yang menjelaskan crate secara keseluruhan</span>
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="exporting-a-convenient-public-api-with-pub-use"></a>
 
-### Exporting a Convenient Public API
+### Mengekspor API Publik yang Mudah Dipakai
 
-The structure of your public API is a major consideration when publishing a
-crate. People who use your crate are less familiar with the structure than you
-are and might have difficulty finding the pieces they want to use if your crate
-has a large module hierarchy.
+Struktur API publik Anda merupakan pertimbangan utama ketika menerbitkan sebuah
+crate. Orang yang memakai crate Anda tidak seaspek Anda dengan strukturnya dan
+mungkin kesulitan menemukan bagian yang ingin mereka pakai jika crate Anda
+memiliki hierarki modul yang besar.
 
-In Chapter 7, we covered how to make items public using the `pub` keyword, and
-how to bring items into a scope with the `use` keyword. However, the structure
-that makes sense to you while you’re developing a crate might not be very
-convenient for your users. You might want to organize your structs in a
-hierarchy containing multiple levels, but then people who want to use a type
-you’ve defined deep in the hierarchy might have trouble finding out that type
-exists. They might also be annoyed at having to enter `use
-my_crate::some_module::another_module::UsefulType;` rather than `use
-my_crate::UsefulType;`.
+Di Bab 7, kita membahas cara membuat item menjadi publik dengan kata kunci
+`pub`, dan cara membawa item ke dalam sebuah scope dengan kata kunci `use`.
+Namun, struktur yang masuk akal bagi Anda ketika mengembangkan crate mungkin
+tidak begitu nyaman bagi pengguna Anda. Anda mungkin ingin mengorganisasi
+struct Anda dalam hierarki yang memuat beberapa tingkat, tetapi orang yang
+ingin memakai tipe yang Anda definisikan di kedalaman hierarki mungkin
+kesulitan mengetahui bahwa tipe itu ada. Mereka mungkin juga jengkel karena
+harus menulis `use my_crate::some_module::another_module::UsefulType;`
+alih-alih `use my_crate::UsefulType;`.
 
-The good news is that if the structure _isn’t_ convenient for others to use
-from another library, you don’t have to rearrange your internal organization:
-Instead, you can re-export items to make a public structure that’s different
-from your private structure by using `pub use`. *Re-exporting* takes a public
-item in one location and makes it public in another location, as if it were
-defined in the other location instead.
+Kabar baiknya adalah jika struktur itu _tidak_ nyaman dipakai orang lain dari
+library lain, Anda tidak perlu menyusun ulang organisasi internal Anda.
+Sebagai gantinya, Anda dapat mengekspor ulang item untuk membuat struktur
+publik yang berbeda dari struktur privat Anda dengan memakai `pub use`.
+*Re-exporting* (mengekspor ulang) mengambil sebuah item publik di satu lokasi
+dan menjadikannya publik di lokasi lain, seolah-olah item itu justru
+didefinisikan di lokasi yang lain itu.
 
-For example, say we made a library named `art` for modeling artistic concepts.
-Within this library are two modules: a `kinds` module containing two enums
-named `PrimaryColor` and `SecondaryColor` and a `utils` module containing a
-function named `mix`, as shown in Listing 14-3.
+Sebagai contoh, anggaplah kita membuat sebuah library bernama `art` untuk
+memodelkan konsep artistik. Di dalam library ini ada dua modul: modul `kinds`
+yang memuat dua enum bernama `PrimaryColor` dan `SecondaryColor`, serta modul
+`utils` yang memuat sebuah fungsi bernama `mix`, seperti ditunjukkan pada
+Listing 14-3.
 
-<Listing number="14-3" file-name="src/lib.rs" caption="An `art` library with items organized into `kinds` and `utils` modules">
+<Listing number="14-3" file-name="src/lib.rs" caption="Library `art` dengan item yang diorganisasi ke dalam modul `kinds` dan `utils`">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-03/src/lib.rs:here}}
@@ -186,24 +194,24 @@ function named `mix`, as shown in Listing 14-3.
 
 </Listing>
 
-Figure 14-3 shows what the front page of the documentation for this crate
-generated by `cargo doc` would look like.
+Gambar 14-3 menunjukkan seperti apa tampilan halaman depan dokumentasi untuk
+crate ini yang dihasilkan oleh `cargo doc`.
 
-<img alt="Rendered documentation for the `art` crate that lists the `kinds` and `utils` modules" src="img/trpl14-03.png" class="center" />
+<img alt="Dokumentasi yang dirender untuk crate `art` yang mendaftarkan modul `kinds` dan `utils`" src="img/trpl14-03.png" class="center" />
 
-<span class="caption">Figure 14-3: The front page of the documentation for `art`
-that lists the `kinds` and `utils` modules</span>
+<span class="caption">Gambar 14-3: Halaman depan dokumentasi untuk `art`
+yang mendaftarkan modul `kinds` dan `utils`</span>
 
-Note that the `PrimaryColor` and `SecondaryColor` types aren’t listed on the
-front page, nor is the `mix` function. We have to click `kinds` and `utils` to
-see them.
+Perhatikan bahwa tipe `PrimaryColor` dan `SecondaryColor` tidak terdaftar di
+halaman depan, begitu pula fungsi `mix`. Kita harus mengeklik `kinds` dan
+`utils` untuk melihatnya.
 
-Another crate that depends on this library would need `use` statements that
-bring the items from `art` into scope, specifying the module structure that’s
-currently defined. Listing 14-4 shows an example of a crate that uses the
-`PrimaryColor` and `mix` items from the `art` crate.
+Crate lain yang bergantung pada library ini akan membutuhkan pernyataan `use`
+yang membawa item dari `art` ke dalam scope, dengan menyebutkan struktur modul
+yang saat ini didefinisikan. Listing 14-4 menunjukkan contoh sebuah crate yang
+memakai item `PrimaryColor` dan `mix` dari crate `art`.
 
-<Listing number="14-4" file-name="src/main.rs" caption="A crate using the `art` crate’s items with its internal structure exported">
+<Listing number="14-4" file-name="src/main.rs" caption="Sebuah crate yang memakai item crate `art` dengan struktur internalnya yang diekspor">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-04/src/main.rs}}
@@ -211,20 +219,21 @@ currently defined. Listing 14-4 shows an example of a crate that uses the
 
 </Listing>
 
-The author of the code in Listing 14-4, which uses the `art` crate, had to
-figure out that `PrimaryColor` is in the `kinds` module and `mix` is in the
-`utils` module. The module structure of the `art` crate is more relevant to
-developers working on the `art` crate than to those using it. The internal
-structure doesn’t contain any useful information for someone trying to
-understand how to use the `art` crate, but rather causes confusion because
-developers who use it have to figure out where to look, and must specify the
-module names in the `use` statements.
+Penulis kode di Listing 14-4, yang memakai crate `art`, harus mencari tahu
+sendiri bahwa `PrimaryColor` ada di modul `kinds` dan `mix` ada di modul
+`utils`. Struktur modul crate `art` lebih relevan bagi pengembang yang
+mengerjakan crate `art` daripada bagi mereka yang memakainya. Struktur
+internal itu tidak memuat informasi berguna apa pun bagi orang yang mencoba
+memahami cara memakai crate `art`, melainkan menimbulkan kebingungan karena
+pengembang yang memakainya harus mencari tahu ke mana harus melihat, dan harus
+menyebutkan nama modul di pernyataan `use`.
 
-To remove the internal organization from the public API, we can modify the
-`art` crate code in Listing 14-3 to add `pub use` statements to re-export the
-items at the top level, as shown in Listing 14-5.
+Untuk menghilangkan organisasi internal dari API publik, kita dapat mengubah
+kode crate `art` di Listing 14-3 untuk menambahkan pernyataan `pub use` guna
+mengekspor ulang item-item itu di tingkat teratas, seperti ditunjukkan pada
+Listing 14-5.
 
-<Listing number="14-5" file-name="src/lib.rs" caption="Adding `pub use` statements to re-export items">
+<Listing number="14-5" file-name="src/lib.rs" caption="Menambahkan pernyataan `pub use` untuk mengekspor ulang item">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}
@@ -232,20 +241,22 @@ items at the top level, as shown in Listing 14-5.
 
 </Listing>
 
-The API documentation that `cargo doc` generates for this crate will now list
-and link re-exports on the front page, as shown in Figure 14-4, making the
-`PrimaryColor` and `SecondaryColor` types and the `mix` function easier to find.
+Dokumentasi API yang dihasilkan `cargo doc` untuk crate ini sekarang akan
+mendaftarkan dan menautkan hasil ekspor ulang di halaman depan, seperti
+ditunjukkan pada Gambar 14-4, sehingga tipe `PrimaryColor` dan
+`SecondaryColor` serta fungsi `mix` lebih mudah ditemukan.
 
-<img alt="Rendered documentation for the `art` crate with the re-exports on the front page" src="img/trpl14-04.png" class="center" />
+<img alt="Dokumentasi yang dirender untuk crate `art` dengan hasil ekspor ulang di halaman depan" src="img/trpl14-04.png" class="center" />
 
-<span class="caption">Figure 14-4: The front page of the documentation for `art`
-that lists the re-exports</span>
+<span class="caption">Gambar 14-4: Halaman depan dokumentasi untuk `art`
+yang mendaftarkan hasil ekspor ulang</span>
 
-The `art` crate users can still see and use the internal structure from Listing
-14-3 as demonstrated in Listing 14-4, or they can use the more convenient
-structure in Listing 14-5, as shown in Listing 14-6.
+Pengguna crate `art` tetap dapat melihat dan memakai struktur internal dari
+Listing 14-3 seperti yang ditunjukkan pada Listing 14-4, atau mereka dapat
+memakai struktur yang lebih nyaman di Listing 14-5, seperti ditunjukkan pada
+Listing 14-6.
 
-<Listing number="14-6" file-name="src/main.rs" caption="A program using the re-exported items from the `art` crate">
+<Listing number="14-6" file-name="src/main.rs" caption="Program yang memakai item hasil ekspor ulang dari crate `art`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-06/src/main.rs:here}}
@@ -253,65 +264,68 @@ structure in Listing 14-5, as shown in Listing 14-6.
 
 </Listing>
 
-In cases where there are many nested modules, re-exporting the types at the top
-level with `pub use` can make a significant difference in the experience of
-people who use the crate. Another common use of `pub use` is to re-export
-definitions of a dependency in the current crate to make that crate's
-definitions part of your crate’s public API.
+Dalam kasus di mana ada banyak modul bersarang, mengekspor ulang tipe-tipe di
+tingkat teratas dengan `pub use` dapat membuat perbedaan yang berarti dalam
+pengalaman orang yang memakai crate itu. Kegunaan umum lain dari `pub use`
+adalah mengekspor ulang definisi sebuah dependensi di crate saat ini untuk
+menjadikan definisi crate tersebut bagian dari API publik crate Anda.
 
-Creating a useful public API structure is more an art than a science, and you
-can iterate to find the API that works best for your users. Choosing `pub use`
-gives you flexibility in how you structure your crate internally and decouples
-that internal structure from what you present to your users. Look at some of
-the code of crates you’ve installed to see if their internal structure differs
-from their public API.
+Membuat struktur API publik yang berguna lebih merupakan seni daripada ilmu,
+dan Anda dapat beriterasi untuk menemukan API yang paling cocok bagi pengguna
+Anda. Memilih `pub use` memberi Anda fleksibilitas dalam menyusun crate Anda
+secara internal dan melepaskan struktur internal itu dari apa yang Anda
+tampilkan kepada pengguna Anda. Lihatlah sebagian kode crate yang telah Anda
+pasang untuk melihat apakah struktur internalnya berbeda dari API publiknya.
 
-### Setting Up a Crates.io Account
+### Menyiapkan Akun Crates.io
 
-Before you can publish any crates, you need to create an account on
-[crates.io](https://crates.io/)<!-- ignore --> and get an API token. To do so,
-visit the home page at [crates.io](https://crates.io/)<!-- ignore --> and log
-in via a GitHub account. (The GitHub account is currently a requirement, but
-the site might support other ways of creating an account in the future.) Once
-you’re logged in, visit your account settings at
-[https://crates.io/me/](https://crates.io/me/)<!-- ignore --> and retrieve your
-API key. Then, run the `cargo login` command and paste your API key when prompted, like this:
+Sebelum dapat menerbitkan crate apa pun, Anda perlu membuat akun di
+[crates.io](https://crates.io/)<!-- ignore --> dan mendapatkan token API.
+Untuk melakukannya, kunjungi halaman utama di
+[crates.io](https://crates.io/)<!-- ignore --> dan masuk lewat akun GitHub.
+(Akun GitHub saat ini menjadi syarat, tetapi situs itu mungkin mendukung cara
+lain untuk membuat akun di masa depan.) Setelah masuk, kunjungi pengaturan
+akun Anda di [https://crates.io/me/](https://crates.io/me/)<!-- ignore --> dan
+ambil kunci API Anda. Lalu, jalankan perintah `cargo login` dan tempelkan
+kunci API Anda saat diminta, seperti ini:
 
 ```console
 $ cargo login
 abcdefghijklmnopqrstuvwxyz012345
 ```
 
-This command will inform Cargo of your API token and store it locally in
-_~/.cargo/credentials.toml_. Note that this token is a secret: Do not share
-it with anyone else. If you do share it with anyone for any reason, you should
-revoke it and generate a new token on [crates.io](https://crates.io/)<!-- ignore
--->.
+Perintah ini akan memberi tahu Cargo token API Anda dan menyimpannya secara
+lokal di _~/.cargo/credentials.toml_. Perhatikan bahwa token ini adalah
+sebuah rahasia: Jangan membagikannya kepada siapa pun. Jika karena alasan
+apa pun Anda membagikannya kepada seseorang, Anda harus mencabutnya dan
+membuat token baru di [crates.io](https://crates.io/)<!-- ignore -->.
 
-### Adding Metadata to a New Crate
+### Menambahkan Metadata ke Crate Baru
 
-Let’s say you have a crate you want to publish. Before publishing, you’ll need
-to add some metadata in the `[package]` section of the crate’s _Cargo.toml_
-file.
+Anggaplah Anda memiliki sebuah crate yang ingin diterbitkan. Sebelum
+menerbitkan, Anda perlu menambahkan beberapa metadata di seksi `[package]`
+pada file _Cargo.toml_ crate itu.
 
-Your crate will need a unique name. While you’re working on a crate locally,
-you can name a crate whatever you’d like. However, crate names on
-[crates.io](https://crates.io/)<!-- ignore --> are allocated on a first-come,
-first-served basis. Once a crate name is taken, no one else can publish a crate
-with that name. Before attempting to publish a crate, search for the name you
-want to use. If the name has been used, you will need to find another name and
-edit the `name` field in the _Cargo.toml_ file under the `[package]` section to
-use the new name for publishing, like so:
+Crate Anda akan membutuhkan nama yang unik. Selagi mengerjakan crate secara
+lokal, Anda dapat menamai crate sesuka Anda. Namun, nama crate di
+[crates.io](https://crates.io/)<!-- ignore --> dialokasikan berdasarkan asas
+siapa cepat dia dapat. Sekali sebuah nama crate telah diambil, tidak ada orang
+lain yang dapat menerbitkan crate dengan nama itu. Sebelum mencoba
+menerbitkan crate, carilah nama yang ingin Anda pakai. Jika nama itu sudah
+dipakai, Anda perlu mencari nama lain dan mengubah field `name` di file
+_Cargo.toml_ pada seksi `[package]` untuk memakai nama baru itu saat
+menerbitkan, seperti berikut:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nama File: Cargo.toml</span>
 
 ```toml
 [package]
 name = "guessing_game"
 ```
 
-Even if you’ve chosen a unique name, when you run `cargo publish` to publish
-the crate at this point, you’ll get a warning and then an error:
+Bahkan jika Anda telah memilih nama yang unik, saat Anda menjalankan `cargo
+publish` untuk menerbitkan crate pada titik ini, Anda akan mendapat peringatan
+lalu sebuah galat:
 
 <!-- manual-regeneration
 Create a new package with an unregistered name, making no further modifications
@@ -332,16 +346,18 @@ Caused by:
   the remote server responded with an error (status 400 Bad Request): missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for more information on configuring these fields
 ```
 
-This results in an error because you’re missing some crucial information: A
-description and license are required so that people will know what your crate
-does and under what terms they can use it. In _Cargo.toml_, add a description
-that's just a sentence or two, because it will appear with your crate in search
-results. For the `license` field, you need to give a _license identifier
-value_. The [Linux Foundation’s Software Package Data Exchange (SPDX)][spdx]
-lists the identifiers you can use for this value. For example, to specify that
-you’ve licensed your crate using the MIT License, add the `MIT` identifier:
+Ini menghasilkan galat karena Anda kehilangan beberapa informasi yang penting:
+Deskripsi dan lisensi diperlukan supaya orang tahu apa yang dilakukan crate
+Anda dan dengan ketentuan apa mereka boleh memakainya. Di _Cargo.toml_,
+tambahkan deskripsi satu-dua kalimat saja, karena deskripsi itu akan tampil
+bersama crate Anda di hasil pencarian. Untuk field `license`, Anda perlu
+memberikan nilai _license identifier_ (pengidentifikasi lisensi). [Software
+Package Data Exchange (SPDX) milik Linux Foundation][spdx] mendaftarkan
+pengidentifikasi yang dapat Anda pakai untuk nilai ini. Sebagai contoh, untuk
+menyatakan bahwa Anda melisensikan crate Anda dengan Lisensi MIT, tambahkan
+pengidentifikasi `MIT`:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nama File: Cargo.toml</span>
 
 ```toml
 [package]
@@ -349,21 +365,23 @@ name = "guessing_game"
 license = "MIT"
 ```
 
-If you want to use a license that doesn’t appear in the SPDX, you need to place
-the text of that license in a file, include the file in your project, and then
-use `license-file` to specify the name of that file instead of using the
-`license` key.
+Jika Anda ingin memakai lisensi yang tidak tercantum di SPDX, Anda perlu
+meletakkan teks lisensi itu di sebuah file, menyertakan file itu di proyek
+Anda, lalu memakai `license-file` untuk menyebutkan nama file itu alih-alih
+memakai kunci `license`.
 
-Guidance on which license is appropriate for your project is beyond the scope
-of this book. Many people in the Rust community license their projects in the
-same way as Rust by using a dual license of `MIT OR Apache-2.0`. This practice
-demonstrates that you can also specify multiple license identifiers separated
-by `OR` to have multiple licenses for your project.
+Panduan tentang lisensi mana yang sesuai untuk proyek Anda berada di luar
+cakupan buku ini. Banyak orang di komunitas Rust melisensikan proyek mereka
+dengan cara yang sama seperti Rust, yaitu memakai lisensi ganda
+`MIT OR Apache-2.0`. Praktik ini menunjukkan bahwa Anda juga dapat
+menyebutkan beberapa pengidentifikasi lisensi yang dipisahkan dengan `OR`
+untuk memiliki beberapa lisensi pada proyek Anda.
 
-With a unique name, the version, your description, and a license added, the
-_Cargo.toml_ file for a project that is ready to publish might look like this:
+Dengan nama yang unik, versi, deskripsi, dan lisensi yang telah ditambahkan,
+file _Cargo.toml_ untuk proyek yang siap diterbitkan mungkin tampak seperti
+ini:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nama File: Cargo.toml</span>
 
 ```toml
 [package]
@@ -376,26 +394,26 @@ license = "MIT OR Apache-2.0"
 [dependencies]
 ```
 
-[Cargo’s documentation](https://doc.rust-lang.org/cargo/) describes other
-metadata you can specify to ensure that others can discover and use your crate
-more easily.
+[Dokumentasi Cargo](https://doc.rust-lang.org/cargo/) menjelaskan metadata
+lain yang dapat Anda sebutkan untuk memastikan orang lain dapat menemukan dan
+memakai crate Anda dengan lebih mudah.
 
-### Publishing to Crates.io
+### Menerbitkan ke Crates.io
 
-Now that you’ve created an account, saved your API token, chosen a name for
-your crate, and specified the required metadata, you’re ready to publish!
-Publishing a crate uploads a specific version to
-[crates.io](https://crates.io/)<!-- ignore --> for others to use.
+Sekarang Anda telah membuat akun, menyimpan token API, memilih nama untuk
+crate Anda, dan menyebutkan metadata yang diperlukan, Anda siap menerbitkan!
+Menerbitkan sebuah crate mengunggah versi tertentu ke
+[crates.io](https://crates.io/)<!-- ignore --> untuk dipakai orang lain.
 
-Be careful, because a publish is _permanent_. The version can never be
-overwritten, and the code cannot be deleted except in certain circumstances.
-One major goal of Crates.io is to act as a permanent archive of code so that
-builds of all projects that depend on crates from
-[crates.io](https://crates.io/)<!-- ignore --> will continue to work. Allowing
-version deletions would make fulfilling that goal impossible. However, there is
-no limit to the number of crate versions you can publish.
+Berhati-hatilah, karena sebuah penerbitan bersifat _permanen_. Versinya tidak
+pernah bisa ditimpa, dan kodenya tidak dapat dihapus kecuali dalam keadaan
+tertentu. Salah satu tujuan utama Crates.io adalah menjadi arsip kode permanen
+supaya build semua proyek yang bergantung pada crate dari
+[crates.io](https://crates.io/)<!-- ignore --> akan terus berfungsi.
+Mengizinkan penghapusan versi akan membuat tujuan itu mustahil tercapai.
+Namun, tidak ada batasan jumlah versi crate yang dapat Anda terbitkan.
 
-Run the `cargo publish` command again. It should succeed now:
+Jalankan lagi perintah `cargo publish`. Sekarang seharusnya berhasil:
 
 <!-- manual-regeneration
 go to some valid crate, publish a new version
@@ -420,39 +438,42 @@ You may press ctrl-c to skip waiting; the crate should be available shortly.
    Published guessing_game v0.1.0 at registry `crates-io`
 ```
 
-Congratulations! You’ve now shared your code with the Rust community, and
-anyone can easily add your crate as a dependency of their project.
+Selamat! Anda kini telah membagikan kode Anda dengan komunitas Rust, dan
+siapa pun dapat dengan mudah menambahkan crate Anda sebagai dependensi
+proyek mereka.
 
-### Publishing a New Version of an Existing Crate
+### Menerbitkan Versi Baru dari Crate yang Sudah Ada
 
-When you’ve made changes to your crate and are ready to release a new version,
-you change the `version` value specified in your _Cargo.toml_ file and
-republish. Use the [Semantic Versioning rules][semver] to decide what an
-appropriate next version number is, based on the kinds of changes you’ve made.
-Then, run `cargo publish` to upload the new version.
+Ketika Anda telah membuat perubahan pada crate Anda dan siap merilis versi
+baru, Anda mengubah nilai `version` yang disebutkan di file _Cargo.toml_ Anda
+dan menerbitkan ulang. Pakailah [aturan Semantic Versioning][semver] untuk
+memutuskan nomor versi berikutnya yang sesuai, berdasarkan jenis perubahan
+yang telah Anda buat. Lalu, jalankan `cargo publish` untuk mengunggah versi
+baru.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="removing-versions-from-cratesio-with-cargo-yank"></a>
 <a id="deprecating-versions-from-cratesio-with-cargo-yank"></a>
 
-### Deprecating Versions from Crates.io
+### Menandai Versi sebagai Usang di Crates.io
 
-Although you can’t remove previous versions of a crate, you can prevent any
-future projects from adding them as a new dependency. This is useful when a
-crate version is broken for one reason or another. In such situations, Cargo
-supports yanking a crate version.
+Meskipun Anda tidak dapat menghapus versi lama sebuah crate, Anda dapat
+mencegah semua proyek mendatang untuk menambahkannya sebagai dependensi baru.
+Ini berguna ketika sebuah versi crate rusak karena satu dan lain hal. Dalam
+situasi seperti itu, Cargo mendukung *yanking* (penarikan) sebuah versi crate.
 
-_Yanking_ a version prevents new projects from depending on that version while
-allowing all existing projects that depend on it to continue. Essentially, a
-yank means that all projects with a _Cargo.lock_ will not break, and any future
-_Cargo.lock_ files generated will not use the yanked version.
+_Yanking_ sebuah versi mencegah proyek baru bergantung pada versi itu, tetapi
+tetap mengizinkan semua proyek yang sudah bergantung padanya untuk terus
+berjalan. Pada dasarnya, sebuah yank berarti semua proyek dengan _Cargo.lock_
+tidak akan rusak, dan semua file _Cargo.lock_ yang dihasilkan di masa depan
+tidak akan memakai versi yang di-yank.
 
-To yank a version of a crate, in the directory of the crate that you’ve
-previously published, run `cargo yank` and specify which version you want to
-yank. For example, if we’ve published a crate named `guessing_game` version
-1.0.1 and we want to yank it, then we’d run the following in the project
-directory for `guessing_game`:
+Untuk menarik sebuah versi crate, di direktori crate yang sebelumnya telah
+Anda terbitkan, jalankan `cargo yank` dan sebutkan versi mana yang ingin Anda
+tarik. Sebagai contoh, jika kita telah menerbitkan crate bernama
+`guessing_game` versi 1.0.1 dan kita ingin menariknya, kita menjalankan
+perintah berikut di direktori proyek untuk `guessing_game`:
 
 <!-- manual-regeneration:
 cargo yank carol-test --version 2.1.0
@@ -465,8 +486,9 @@ $ cargo yank --vers 1.0.1
         Yank guessing_game@1.0.1
 ```
 
-By adding `--undo` to the command, you can also undo a yank and allow projects
-to start depending on a version again:
+Dengan menambahkan `--undo` ke perintah itu, Anda juga dapat membatalkan
+sebuah yank dan mengizinkan proyek untuk mulai bergantung pada versi itu
+kembali:
 
 ```console
 $ cargo yank --vers 1.0.1 --undo
@@ -474,8 +496,9 @@ $ cargo yank --vers 1.0.1 --undo
       Unyank guessing_game@1.0.1
 ```
 
-A yank _does not_ delete any code. It cannot, for example, delete accidentally
-uploaded secrets. If that happens, you must reset those secrets immediately.
+Sebuah yank _tidak_ menghapus kode apa pun. Yank, misalnya, tidak dapat
+menghapus rahasia yang tidak sengaja terunggah. Jika itu terjadi, Anda harus
+segera mengatur ulang rahasia-rahasia itu.
 
 [spdx]: https://spdx.org/licenses/
 [semver]: https://semver.org/

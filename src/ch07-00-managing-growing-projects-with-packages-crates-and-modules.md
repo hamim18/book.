@@ -19,7 +19,7 @@ mengekstrak bagian-bagiannya ke dalam crate-crate terpisah yang menjadi
 dependensi eksternal. Bab ini membahas semua teknik tersebut. Untuk proyek
 yang sangat besar yang terdiri atas sekumpulan package yang saling terkait dan
 berkembang bersama, Cargo menyediakan workspace, yang akan kita bahas di
-[“Cargo Workspaces”][workspaces]<!-- ignore --> di Bab 14.
+[“Workspace Cargo”][workspaces]<!-- ignore --> di Bab 14.
 
 Kita juga akan membahas enkapsulasi detail implementasi, yang memungkinkan
 Anda memakai ulang kode pada tingkat yang lebih tinggi: begitu Anda

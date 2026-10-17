@@ -1,43 +1,45 @@
-## Cargo Workspaces
+## Workspace Cargo
 
-In Chapter 12, we built a package that included a binary crate and a library
-crate. As your project develops, you might find that the library crate
-continues to get bigger and you want to split your package further into
-multiple library crates. Cargo offers a feature called _workspaces_ that can
-help manage multiple related packages that are developed in tandem.
+Di Bab 12, kita membangun sebuah package yang memuat crate binary dan crate
+library. Seiring berkembangnya proyek Anda, Anda mungkin mendapati crate
+library itu terus membesar dan Anda ingin memecah package Anda lebih jauh
+menjadi beberapa crate library. Cargo menawarkan fitur yang disebut
+_workspaces_ yang dapat membantu mengelola beberapa package terkait yang
+dikembangkan secara bersamaan.
 
-### Creating a Workspace
+### Membuat Workspace
 
-A _workspace_ is a set of packages that share the same _Cargo.lock_ and output
-directory. Let’s make a project using a workspace—we’ll use trivial code so
-that we can concentrate on the structure of the workspace. There are multiple
-ways to structure a workspace, so we'll just show one common way. We’ll have a
-workspace containing a binary and two libraries. The binary, which will provide
-the main functionality, will depend on the two libraries. One library will
-provide an `add_one` function and the other library an `add_two` function.
-These three crates will be part of the same workspace. We’ll start by creating
-a new directory for the workspace:
+Sebuah _workspace_ adalah sekumpulan package yang berbagi _Cargo.lock_ dan
+direktori keluaran yang sama. Mari kita buat proyek yang memakai workspace—kita
+akan memakai kode sederhana supaya bisa berkonsentrasi pada struktur
+workspace. Ada beberapa cara menyusun workspace, jadi kita hanya akan
+menunjukkan satu cara yang umum. Kita akan memiliki workspace yang memuat satu
+binary dan dua library. Binary, yang akan menyediakan fungsionalitas utama,
+akan bergantung pada kedua library itu. Satu library akan menyediakan fungsi
+`add_one` dan library lainnya fungsi `add_two`. Ketiga crate ini akan menjadi
+bagian dari workspace yang sama. Kita mulai dengan membuat direktori baru
+untuk workspace:
 
 ```console
 $ mkdir add
 $ cd add
 ```
 
-Next, in the _add_ directory, we create the _Cargo.toml_ file that will
-configure the entire workspace. This file won’t have a `[package]` section.
-Instead, it will start with a `[workspace]` section that will allow us to add
-members to the workspace. We also make a point to use the latest and greatest
-version of Cargo’s resolver algorithm in our workspace by setting the
-`resolver` value to `"3"`:
+Selanjutnya, di direktori _add_, kita membuat file _Cargo.toml_ yang akan
+mengonfigurasi seluruh workspace. File ini tidak akan memiliki seksi
+`[package]`. Sebagai gantinya, file itu akan diawali seksi `[workspace]` yang
+memungkinkan kita menambahkan anggota ke workspace. Kita juga memastikan untuk
+memakai versi terbaru dan terbaik dari algoritme resolver Cargo di workspace
+kita dengan menetapkan nilai `resolver` menjadi `"3"`:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nama File: Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/no-listing-01-workspace/add/Cargo.toml}}
 ```
 
-Next, we’ll create the `adder` binary crate by running `cargo new` within the
-_add_ directory:
+Selanjutnya, kita akan membuat crate binary `adder` dengan menjalankan
+`cargo new` di dalam direktori _add_:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-01-adder-crate/add
@@ -53,16 +55,16 @@ $ cargo new adder
       Adding `adder` as member of workspace at `file:///projects/add`
 ```
 
-Running `cargo new` inside a workspace also automatically adds the newly created
-package to the `members` key in the `[workspace]` definition in the workspace
-_Cargo.toml_, like this:
+Menjalankan `cargo new` di dalam sebuah workspace juga secara otomatis
+menambahkan package yang baru dibuat ke kunci `members` dalam definisi
+`[workspace]` di _Cargo.toml_ workspace itu, seperti ini:
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/output-only-01-adder-crate/add/Cargo.toml}}
 ```
 
-At this point, we can build the workspace by running `cargo build`. The files
-in your _add_ directory should look like this:
+Pada titik ini, kita dapat membangun workspace dengan menjalankan
+`cargo build`. File-file di direktori _add_ Anda seharusnya tampak seperti ini:
 
 ```text
 ├── Cargo.lock
@@ -74,21 +76,22 @@ in your _add_ directory should look like this:
 └── target
 ```
 
-The workspace has one _target_ directory at the top level that the compiled
-artifacts will be placed into; the `adder` package doesn’t have its own
-_target_ directory. Even if we were to run `cargo build` from inside the
-_adder_ directory, the compiled artifacts would still end up in _add/target_
-rather than _add/adder/target_. Cargo structures the _target_ directory in a
-workspace like this because the crates in a workspace are meant to depend on
-each other. If each crate had its own _target_ directory, each crate would have
-to recompile each of the other crates in the workspace to place the artifacts
-in its own _target_ directory. By sharing one _target_ directory, the crates
-can avoid unnecessary rebuilding.
+Workspace ini memiliki satu direktori _target_ di tingkat teratas tempat
+artefak hasil kompilasi akan diletakkan; package `adder` tidak memiliki
+direktori _target_ sendiri. Bahkan jika kita menjalankan `cargo build` dari
+dalam direktori _adder_, artefak hasil kompilasi tetap akan berakhir di
+_add/target_ alih-alih _add/adder/target_. Cargo menyusun direktori _target_
+dalam sebuah workspace seperti ini karena crate-crate dalam workspace memang
+dimaksudkan untuk saling bergantung. Jika setiap crate memiliki direktori
+_target_ sendiri, setiap crate harus mengompilasi ulang setiap crate lain di
+workspace untuk meletakkan artefaknya di direktori _target_-nya sendiri.
+Dengan berbagi satu direktori _target_, crate-crate itu dapat menghindari
+build ulang yang tidak perlu.
 
-### Creating the Second Package in the Workspace
+### Membuat Package Kedua di Workspace
 
-Next, let’s create another member package in the workspace and call it
-`add_one`. Generate a new library crate named `add_one`:
+Selanjutnya, mari kita buat package anggota lain di workspace dan menyebutnya
+`add_one`. Buat crate library baru bernama `add_one`:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-02-add-one/add
@@ -104,16 +107,16 @@ $ cargo new add_one --lib
       Adding `add_one` as member of workspace at `file:///projects/add`
 ```
 
-The top-level _Cargo.toml_ will now include the _add_one_ path in the `members`
-list:
+_Cargo.toml_ tingkat teratas sekarang akan memuat path _add_one_ di daftar
+`members`:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Nama File: Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/no-listing-02-workspace-with-two-crates/add/Cargo.toml}}
 ```
 
-Your _add_ directory should now have these directories and files:
+Direktori _add_ Anda sekarang seharusnya memiliki direktori dan file berikut:
 
 ```text
 ├── Cargo.lock
@@ -129,32 +132,32 @@ Your _add_ directory should now have these directories and files:
 └── target
 ```
 
-In the _add_one/src/lib.rs_ file, let’s add an `add_one` function:
+Di file _add_one/src/lib.rs_, mari kita tambahkan fungsi `add_one`:
 
-<span class="filename">Filename: add_one/src/lib.rs</span>
+<span class="filename">Nama File: add_one/src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch14-more-about-cargo/no-listing-02-workspace-with-two-crates/add/add_one/src/lib.rs}}
 ```
 
-Now we can have the `adder` package with our binary depend on the `add_one`
-package that has our library. First, we’ll need to add a path dependency on
-`add_one` to _adder/Cargo.toml_.
+Sekarang kita dapat membuat package `adder` dengan binary kita bergantung pada
+package `add_one` yang memuat library kita. Pertama, kita perlu menambahkan
+dependensi path pada `add_one` ke _adder/Cargo.toml_.
 
-<span class="filename">Filename: adder/Cargo.toml</span>
+<span class="filename">Nama File: adder/Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/no-listing-02-workspace-with-two-crates/add/adder/Cargo.toml:6:7}}
 ```
 
-Cargo doesn’t assume that crates in a workspace will depend on each other, so
-we need to be explicit about the dependency relationships.
+Cargo tidak berasumsi bahwa crate-crate di sebuah workspace akan saling
+bergantung, jadi kita perlu menegaskan hubungan dependensinya secara eksplisit.
 
-Next, let’s use the `add_one` function (from the `add_one` crate) in the
-`adder` crate. Open the _adder/src/main.rs_ file and change the `main`
-function to call the `add_one` function, as in Listing 14-7.
+Selanjutnya, mari kita pakai fungsi `add_one` (dari crate `add_one`) di crate
+`adder`. Buka file _adder/src/main.rs_ dan ubah fungsi `main` untuk memanggil
+fungsi `add_one`, seperti pada Listing 14-7.
 
-<Listing number="14-7" file-name="adder/src/main.rs" caption="Using the `add_one` library crate from the `adder` crate">
+<Listing number="14-7" file-name="adder/src/main.rs" caption="Memakai crate library `add_one` dari crate `adder`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-07/add/adder/src/main.rs}}
@@ -162,8 +165,8 @@ function to call the `add_one` function, as in Listing 14-7.
 
 </Listing>
 
-Let’s build the workspace by running `cargo build` in the top-level _add_
-directory!
+Mari kita bangun workspace itu dengan menjalankan `cargo build` di direktori
+tingkat teratas _add_!
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/listing-14-07/add
@@ -178,9 +181,9 @@ $ cargo build
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
 ```
 
-To run the binary crate from the _add_ directory, we can specify which package
-in the workspace we want to run by using the `-p` argument and the package name
-with `cargo run`:
+Untuk menjalankan crate binary dari direktori _add_, kita dapat menyebutkan
+package mana di workspace yang ingin kita jalankan dengan memakai argumen `-p`
+beserta nama package pada `cargo run`:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/listing-14-07/add
@@ -195,23 +198,25 @@ $ cargo run -p adder
 Hello, world! 10 plus one is 11!
 ```
 
-This runs the code in _adder/src/main.rs_, which depends on the `add_one` crate.
+Ini menjalankan kode di _adder/src/main.rs_, yang bergantung pada crate
+`add_one`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="depending-on-an-external-package-in-a-workspace"></a>
 
-### Depending on an External Package
+### Bergantung pada Package Eksternal
 
-Notice that the workspace has only one _Cargo.lock_ file at the top level,
-rather than having a _Cargo.lock_ in each crate’s directory. This ensures that
-all crates are using the same version of all dependencies. If we add the `rand`
-package to the _adder/Cargo.toml_ and _add_one/Cargo.toml_ files, Cargo will
-resolve both of those to one version of `rand` and record that in the one
-_Cargo.lock_. Making all crates in the workspace use the same dependencies
-means the crates will always be compatible with each other. Let’s add the
-`rand` crate to the `[dependencies]` section in the _add_one/Cargo.toml_ file
-so that we can use the `rand` crate in the `add_one` crate:
+Perhatikan bahwa workspace ini hanya memiliki satu file _Cargo.lock_ di
+tingkat teratas, alih-alih memiliki _Cargo.lock_ di direktori setiap crate.
+Ini memastikan semua crate memakai versi yang sama dari semua dependensi. Jika
+kita menambahkan package `rand` ke file _adder/Cargo.toml_ dan
+_add_one/Cargo.toml_, Cargo akan menyelesaikan keduanya menjadi satu versi
+`rand` dan mencatatnya di _Cargo.lock_ yang satu itu. Membuat semua crate di
+workspace memakai dependensi yang sama berarti crate-crate itu akan selalu
+kompatibel satu sama lain. Mari kita tambahkan crate `rand` ke seksi
+`[dependencies]` di file _add_one/Cargo.toml_ supaya kita dapat memakai crate
+`rand` di crate `add_one`:
 
 <!-- When updating the version of `rand` used, also update the version of
 `rand` used in these files so they all match:
@@ -221,16 +226,16 @@ so that we can use the `rand` crate in the `add_one` crate:
 * ch07-04-bringing-paths-into-scope-with-the-use-keyword.md
 -->
 
-<span class="filename">Filename: add_one/Cargo.toml</span>
+<span class="filename">Nama File: add_one/Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch14-more-about-cargo/no-listing-03-workspace-with-external-dependency/add/add_one/Cargo.toml:6:7}}
 ```
 
-We can now add `use rand;` to the _add_one/src/lib.rs_ file, and building the
-whole workspace by running `cargo build` in the _add_ directory will bring in
-and compile the `rand` crate. We will get one warning because we aren’t
-referring to the `rand` we brought into scope:
+Sekarang kita dapat menambahkan `use rand;` ke file _add_one/src/lib.rs_, dan
+membangun seluruh workspace dengan menjalankan `cargo build` di direktori
+_add_ akan menarik dan mengompilasi crate `rand`. Kita akan mendapat satu
+peringatan karena kita tidak merujuk `rand` yang kita bawa ke scope:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/no-listing-03-workspace-with-external-dependency/add
@@ -258,11 +263,12 @@ warning: `add_one` (lib) generated 1 warning (run `cargo fix --lib -p add_one` t
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.95s
 ```
 
-The top-level _Cargo.lock_ now contains information about the dependency of
-`add_one` on `rand`. However, even though `rand` is used somewhere in the
-workspace, we can’t use it in other crates in the workspace unless we add
-`rand` to their _Cargo.toml_ files as well. For example, if we add `use rand;`
-to the _adder/src/main.rs_ file for the `adder` package, we’ll get an error:
+_Cargo.lock_ tingkat teratas sekarang memuat informasi tentang dependensi
+`add_one` pada `rand`. Namun, meskipun `rand` dipakai di suatu tempat di
+workspace, kita tidak dapat memakainya di crate lain di workspace kecuali kita
+menambahkan `rand` ke file _Cargo.toml_ mereka juga. Sebagai contoh, jika kita
+menambahkan `use rand;` ke file _adder/src/main.rs_ untuk package `adder`,
+kita akan mendapat galat:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-03-use-rand/add
@@ -281,33 +287,33 @@ error[E0432]: unresolved import `rand`
   |     ^^^^ no external crate `rand`
 ```
 
-To fix this, edit the _Cargo.toml_ file for the `adder` package and indicate
-that `rand` is a dependency for it as well. Building the `adder` package will
-add `rand` to the list of dependencies for `adder` in _Cargo.lock_, but no
-additional copies of `rand` will be downloaded. Cargo will ensure that every
-crate in every package in the workspace using the `rand` package will use the
-same version as long as they specify compatible versions of `rand`, saving us
-space and ensuring that the crates in the workspace will be compatible with
-each other.
+Untuk memperbaikinya, sunting file _Cargo.toml_ untuk package `adder` dan
+nyatakan bahwa `rand` juga merupakan dependensi baginya. Membangun package
+`adder` akan menambahkan `rand` ke daftar dependensi untuk `adder` di
+_Cargo.lock_, tetapi tidak ada salinan tambahan `rand` yang akan diunduh.
+Cargo akan memastikan bahwa setiap crate di setiap package dalam workspace
+yang memakai package `rand` akan memakai versi yang sama selama mereka
+menyebutkan versi `rand` yang kompatibel, menghemat ruang kita dan memastikan
+crate-crate di workspace akan kompatibel satu sama lain.
 
-If crates in the workspace specify incompatible versions of the same
-dependency, Cargo will resolve each of them but will still try to resolve as
-few versions as possible.
+Jika crate-crate di workspace menyebutkan versi yang tidak kompatibel dari
+dependensi yang sama, Cargo akan menyelesaikan masing-masing versi itu, tetapi
+tetap berusaha menyelesaikan sesedikit mungkin versi.
 
-### Adding a Test to a Workspace
+### Menambahkan Pengujian ke Workspace
 
-For another enhancement, let’s add a test of the `add_one::add_one` function
-within the `add_one` crate:
+Untuk peningkatan lain, mari kita tambahkan *test* (pengujian) untuk fungsi
+`add_one::add_one` di dalam crate `add_one`:
 
-<span class="filename">Filename: add_one/src/lib.rs</span>
+<span class="filename">Nama File: add_one/src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch14-more-about-cargo/no-listing-04-workspace-with-tests/add/add_one/src/lib.rs}}
 ```
 
-Now run `cargo test` in the top-level _add_ directory. Running `cargo test` in
-a workspace structured like this one will run the tests for all the crates in
-the workspace:
+Sekarang jalankan `cargo test` di direktori tingkat teratas _add_. Menjalankan
+`cargo test` di workspace yang tersusun seperti ini akan menjalankan test
+untuk semua crate di workspace:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/no-listing-04-workspace-with-tests/add
@@ -341,14 +347,14 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-The first section of the output shows that the `it_works` test in the `add_one`
-crate passed. The next section shows that zero tests were found in the `adder`
-crate, and then the last section shows that zero documentation tests were found
-in the `add_one` crate.
+Seksi pertama dari keluaran itu menunjukkan bahwa test `it_works` di crate
+`add_one` lulus. Seksi berikutnya menunjukkan bahwa nol test ditemukan di
+crate `adder`, lalu seksi terakhir menunjukkan bahwa nol documentation test
+ditemukan di crate `add_one`.
 
-We can also run tests for one particular crate in a workspace from the
-top-level directory by using the `-p` flag and specifying the name of the crate
-we want to test:
+Kita juga dapat menjalankan test untuk satu crate tertentu di sebuah workspace
+dari direktori tingkat teratas dengan memakai flag `-p` dan menyebutkan nama
+crate yang ingin kita uji:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/no-listing-04-workspace-with-tests/add
@@ -373,19 +379,20 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-This output shows `cargo test` only ran the tests for the `add_one` crate and
-didn’t run the `adder` crate tests.
+Keluaran ini menunjukkan `cargo test` hanya menjalankan test untuk crate
+`add_one` dan tidak menjalankan test crate `adder`.
 
-If you publish the crates in the workspace to
-[crates.io](https://crates.io/)<!-- ignore -->, each crate in the workspace
-will need to be published separately. Like `cargo test`, we can publish a
-particular crate in our workspace by using the `-p` flag and specifying the
-name of the crate we want to publish.
+Jika Anda menerbitkan crate-crate di workspace itu ke
+[crates.io](https://crates.io/)<!-- ignore -->, setiap crate di workspace perlu
+diterbitkan secara terpisah. Seperti `cargo test`, kita dapat menerbitkan
+crate tertentu di workspace kita dengan memakai flag `-p` dan menyebutkan nama
+crate yang ingin kita terbitkan.
 
-For additional practice, add an `add_two` crate to this workspace in a similar
-way as the `add_one` crate!
+Untuk latihan tambahan, tambahkan crate `add_two` ke workspace ini dengan cara
+yang serupa seperti crate `add_one`!
 
-As your project grows, consider using a workspace: It enables you to work with
-smaller, easier-to-understand components than one big blob of code.
-Furthermore, keeping the crates in a workspace can make coordination between
-crates easier if they are often changed at the same time.
+Seiring pertumbuhan proyek Anda, pertimbangkan untuk memakai workspace:
+Workspace memungkinkan Anda bekerja dengan komponen yang lebih kecil dan lebih
+mudah dipahami daripada satu gumpalan kode besar. Lebih jauh lagi, menjaga
+crate-crate tetap dalam satu workspace dapat mempermudah koordinasi antar-crate
+jika crate-crate itu sering diubah pada saat yang sama.

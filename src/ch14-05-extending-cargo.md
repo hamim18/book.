@@ -1,17 +1,20 @@
-## Extending Cargo with Custom Commands
+## Memperluas Cargo dengan Perintah Buatan Sendiri
 
-Cargo is designed so that you can extend it with new subcommands without having
-to modify it. If a binary in your `$PATH` is named `cargo-something`, you can
-run it as if it were a Cargo subcommand by running `cargo something`. Custom
-commands like this are also listed when you run `cargo --list`. Being able to
-use `cargo install` to install extensions and then run them just like the
-built-in Cargo tools is a super-convenient benefit of Cargo’s design!
+Cargo dirancang sedemikian rupa sehingga Anda dapat memperluasnya dengan
+subperintah baru tanpa harus mengubahnya. Jika sebuah binary di `$PATH` Anda
+bernama `cargo-something`, Anda dapat menjalankannya seolah-olah binary itu
+adalah subperintah Cargo dengan menjalankan `cargo something`. Perintah
+buatan sendiri seperti ini juga terdaftar ketika Anda menjalankan
+`cargo --list`. Bisa memakai `cargo install` untuk memasang ekstensi lalu
+menjalankannya persis seperti alat bawaan Cargo merupakan keuntungan desain
+Cargo yang sangat praktis!
 
-## Summary
+## Ringkasan
 
-Sharing code with Cargo and [crates.io](https://crates.io/)<!-- ignore --> is
-part of what makes the Rust ecosystem useful for many different tasks. Rust’s
-standard library is small and stable, but crates are easy to share, use, and
-improve on a timeline different from that of the language. Don’t be shy about
-sharing code that’s useful to you on [crates.io](https://crates.io/)<!-- ignore
--->; it’s likely that it will be useful to someone else as well!
+Berbagi kode dengan Cargo dan [crates.io](https://crates.io/)<!-- ignore -->
+adalah bagian dari hal yang membuat ekosistem Rust berguna untuk banyak tugas
+yang berbeda. Pustaka standar Rust memang kecil dan stabil, tetapi crate
+mudah dibagikan, dipakai, dan ditingkatkan dengan jadwal yang berbeda dari
+jadwal bahasa itu sendiri. Jangan ragu membagikan kode yang berguna bagi Anda
+di [crates.io](https://crates.io/)<!-- ignore -->; kemungkinan besar kode itu
+akan berguna juga bagi orang lain!
