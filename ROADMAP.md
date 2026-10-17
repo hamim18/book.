@@ -6,9 +6,9 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 11 (menulis pengujian terotomatisasi) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch12-00-an-io-project.md`
-  (Bab 12, 7 file; mulai dari `ch12-00`).
+- Bab terakhir selesai: Bab 12 (proyek I/O, 7 file) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch13-00-functional-features.md`
+  (Bab 13, 5 file; mulai dari `ch13-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
 - `mdbook test` terakhir lulus: setelah Bab 11 (exit 0); dijadwalkan lagi
   setelah Bab 14.
@@ -98,7 +98,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 09      |       4 |     0 |     0 |     4 |
 | Bab 10      |       4 |     0 |     0 |     4 |
 | Bab 11      |       4 |     0 |     0 |     4 |
-| Bab 12      |       0 |     0 |     7 |     7 |
+| Bab 12      |       7 |     0 |     0 |     7 |
 | Bab 13      |       0 |     0 |     5 |     5 |
 | Bab 14      |       0 |     0 |     6 |     6 |
 | Bab 15      |       0 |     0 |     7 |     7 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      46 |     0 |    66 |   112 |
+| TOTAL       |      53 |     0 |    59 |   112 |
 
 ## Log keputusan istilah
 
@@ -349,6 +349,26 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | coverage | cakupan | 11 |
 | ancestor (modul) | leluhur | 11 |
 | artifact (hasil kompilasi) | artefak | 11 |
+| command line | baris perintah (catatan: ch11-02 masih memakai "command line", lihat Masalah terbuka) | 12 |
+| query | kueri | 12 |
+| case-insensitive / case-sensitive | (tetap, tanpa miring; kemunculan pertama: *case-insensitive* (tanpa membedakan huruf besar-kecil)) | 12 |
+| parse / parsing / parser | (tetap, tanpa miring; verba di prosa: "melakukan parsing") | 12 |
+| separation of concerns | pemisahan tanggung jawab | 12 |
+| configuration variable | variabel konfigurasi | 12 |
+| exit status / exit status code | status keluar / kode status keluar | 12 |
+| user-friendly | ramah pengguna | 12 |
+| anonymous function | fungsi anonim | 12 |
+| vertical pipes | garis vertikal | 12 |
+| side effects | efek samping | 12 |
+| maintainer | pengelola | 12 |
+| test-driven development (TDD) | *test-driven development* (TDD, pengembangan yang digerakkan oleh pengujian) | 12 |
+| skeleton implementation | implementasi kerangka | 12 |
+| casing (huruf besar-kecil) | kapitalisasi | 12 |
+| lowercase (verba) / uppercase | mengubah menjadi huruf kecil / huruf kapital | 12 |
+| take precedence | didahulukan | 12 |
+| ampersand | ampersand (tetap) | 12 |
+| Boolean | (tetap) | 12 |
+| cmdlet | (tetap) | 12 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -391,13 +411,13 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch11-01 kini `## Cara Menulis Pengujian`.)
 - Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
   (dicatat di sini supaya cocok saat bab itu dikerjakan):
-  ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime”;
   ch13-03 & ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
   ch15-02 & ch20-02 → ch10-02 “Mengimplementasikan Trait pada Suatu Tipe”.
+  (ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime” sudah beres:
+  teks tautan ch12-04 kini persis sama dengan heading final ch10-03.)
 - Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
-  ch12-06 (“Writing Error Messages to Standard Error Instead of Standard
-  Output”) tidak persis sama bahkan di teks asli; putuskan keselarasan saat
-  ch12-06 dikerjakan.
+  ch12-06 sudah beres: heading ch12-06 kini `## Mengalihkan Galat ke Standard
+  Error`, persis sama dengan teks tautan ch05-02.
 - Anchor heading diterjemahkan → tautan antar-bagian dicek di Tahap 5
   (sesuai Catatan teknis di CLAUDE.md). Termasuk anchor intra-bab ch02
   (`#handling-potential-failure-with-result`,
@@ -421,7 +441,9 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   `ignoring-some-tests-unless-specifically-requested` tetap ada), dan
   ch12-01 → ch07-04
   (`#creating-idiomatic-use-paths`, heading kini “Membuat Path `use` yang
-  Idiomatis”; sumbernya belum diterjemahkan, ingat saat ch12 dikerjakan).
+  Idiomatis”; ch12-01 sudah diterjemahkan dengan target tautan dipertahankan;
+  di ch07-04 tidak ada tag `<a id>` untuk seksi itu sehingga anchor-nya
+  otomatis dari heading terjemahan — solusinya diputuskan di Tahap 5).
   Heading `### Shadowing` (ch03-01) sengaja dipertahankan karena ch02
   menaut ke `#shadowing`.
 - Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
@@ -434,6 +456,9 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   `ch07-05-...#alternate-file-paths`, tetapi anchor itu tidak ada di ch07-05
   bahkan di teks asli (bagian "Alternate File Paths" sudah dihapus dari
   edisi ini). Target tautan dipertahankan apa adanya.
+- Inkonsistensi "command line": ch11-02 menulis "command line", sedangkan
+  ch01/ch07/bab 12 menulis "baris perintah". Arahkan ke "baris perintah";
+  perbaiki ch11-02 saat ada kesempatan (atau di Tahap 5).
 
 ## Cara memulai sesi baru
 
