@@ -18,6 +18,8 @@ daftar isi → pendahuluan → bab-bab → lampiran → glosarium Inggris–Indo
 → referensi dan sumber daring → indeks istilah → profil penerjemah →
 informasi edisi & kanal koreksi. Materi baru ini HANYA ada di buku cetak
 (ditulis di `cetak/materi/*.md`); situs mdBook tidak berubah.
+**Kedua jilid dibuat lengkap** (keputusan 2026-10-18): bagian awal dan
+belakang diulang di jilid 1 dan 2, sehingga tiap jilid berdiri sendiri.
 
 ## Alur
 

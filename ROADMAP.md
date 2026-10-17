@@ -58,18 +58,20 @@ Diperbarui di akhir setiap sesi.
   data pribadi untuk halaman penerjemah/edisi/koreksi.
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
-  tidak berubah. Urutan baru per jilid: sampul → halaman judul → hak
+  tidak berubah. Urutan per jilid: sampul → halaman judul → hak
   cipta/atribusi/lisensi → kata pengantar penerjemah → kata pengantar
   penulis asli → panduan membaca → daftar isi → pendahuluan → bab →
-  (jilid 2) lampiran → glosarium Inggris–Indonesia (±650 entri, dibangkitkan
-  dari tabel glosarium CLAUDE.md + log istilah ROADMAP + pemetaan
+  lampiran → glosarium Inggris–Indonesia (±650 entri, dibangkitkan dari
+  tabel glosarium CLAUDE.md + log istilah ROADMAP + pemetaan
   `revert_istilah.py`) → referensi dan sumber daring → indeks istilah
   (seksi + halaman, dibangkitkan dua-pass lewat `typst eval`; maks. 15
   rujukan per istilah) → profil penerjemah → informasi edisi & kanal
-  koreksi. `ekstrak-print.py` kini memisahkan `foreword` dan
-  `pendahuluan`. Daftar isi otomatis tetap ada di tiap jilid.
-  Data pribadi (nama penerjemah, profil, kanal koreksi, tanggal edisi)
-  masih placeholder `[...]` di `cetak/materi/` — menunggu isian pengguna.
+  koreksi. **Kedua jilid dibuat lengkap** (keputusan 2026-10-18): bagian
+  awal dan belakang diulang di jilid 1 dan 2 agar tiap jilid berdiri
+  sendiri. Nama penerjemah: "AI" (keputusan pengguna 2026-10-18);
+  profil/kata pengantar/info edisi diisi asisten. `ekstrak-print.py` kini
+  memisahkan `foreword` dan `pendahuluan`; daftar isi otomatis tetap ada
+  di tiap jilid.
 - **Kebijakan istilah 2026-10-17 (disetujui pengguna, dikerjakan tuntas)**: semua
   istilah teknis glosarium kembali ditulis dalam bahasa Inggris di prosa
   (±4.500 pergantian di seluruh `src/`, 8 commit: `0b3de5d` s/d `93d07ae`).

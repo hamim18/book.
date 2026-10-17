@@ -110,7 +110,7 @@
       #v(1.6cm)
       #text(size: 12pt)[Steve Klabnik · Carol Nichols · Chris Krycho]
       #v(3mm)
-      #text(size: 11pt)[diterjemahkan oleh [Nama Penerjemah]]
+      #text(size: 11pt)[diterjemahkan oleh AI]
       #v(3cm)
       #text(size: 13pt)[#judul-jilid — #cakupan-jilid]
     ]
@@ -126,7 +126,7 @@
       #v(2.5cm)
       #text(size: 11pt)[Steve Klabnik, Carol Nichols, Chris Krycho]
       #v(2mm)
-      #text(size: 11pt)[terjemahan bahasa Indonesia oleh [Nama Penerjemah]]
+      #text(size: 11pt)[terjemahan bahasa Indonesia oleh AI]
       #v(6mm)
       #text(size: 9.5pt)[versi teks Rust 1.98.0 · edition 2024]
     ]

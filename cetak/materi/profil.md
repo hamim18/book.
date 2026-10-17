@@ -1,10 +1,14 @@
 # Profil Penerjemah dan Kontributor
 
-**[Nama penerjemah]** — [Satu-dua kalimat tentang penerjemah: latar belakang,
-ketertarikan pada Rust, atau alasan membuat terjemahan ini.]
+**AI** — Penerjemah buku ini adalah asisten kecerdasan buatan (Claude Code
+dari Anthropic) yang bekerja di bawah arahan pemilik proyek. Terjemahan
+dikerjakan bertahap dengan perbandingan naskah sumber dan terjemahan,
+pemeriksaan istilah yang konsisten di seluruh buku, dan verifikasi otomatis
+(pemeriksa kesetaraan kode `cek_terjemahan.py` serta uji kompilasi
+`mdbook test`).
 
 **Kontributor**
 
-- [Nama dan peran kontributor, bila ada]
-- [Catatan perangkat bantu, bila ingin disebutkan — misalnya pemakaian asisten
-  AI untuk penyuntingan dan tata letak]
+- Pemilik proyek — pengarah dan peninjau akhir.
+- Claude Code (Anthropic) — penerjemahan, penyuntingan, pemeriksaan
+  konsistensi, dan tata letak cetak.

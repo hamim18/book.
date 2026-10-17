@@ -11,4 +11,3 @@
 - **Dokumentasi crate** — <https://docs.rs/>
 - **Registri paket** — <https://crates.io/>
 - **Penerbit edisi cetak asli** — <https://nostarch.com/rust-programming-language-3rd-edition>
-- **Repositori terjemahan ini** — [alamat repositori, isi bila ada]

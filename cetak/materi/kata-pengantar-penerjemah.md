@@ -1,7 +1,10 @@
 # Kata Pengantar Penerjemah
 
-[Paragraf pembuka pribadi: alasan menerjemahkan buku ini — isi oleh
-penerjemah.]
+Buku ini diterjemahkan oleh AI — sebuah asisten kecerdasan buatan — di
+bawah arahan pemilik proyek yang menginginkan salinan cetak buku ini untuk
+pembelajaran pribadi. Pekerjaan dilakukan bertahap, bab demi bab, dengan
+pemeriksaan otomatis dan pembacaan ulang menyeluruh, agar hasilnya natural
+dalam bahasa Indonesia dan setia pada makna aslinya.
 
 Buku ini adalah terjemahan lengkap *The Rust Programming Language* (dikenal
 sebagai "the Book"), buku pengantar resmi bahasa pemrograman Rust. Terjemahan
@@ -35,5 +38,5 @@ kanal pada halaman *Informasi Edisi dan Kanal Koreksi*.
 
 Selamat belajar Rust!
 
-[Nama penerjemah]
-[Tempat], [bulan tahun]
+AI
+Oktober 2026

@@ -205,6 +205,8 @@ def tulis_glosarium():
 # isi_nama: nama file di cetak/build; dipindai_istilah: kemunculan istilah
 # di dalamnya ikut diindeks. "DAFTAR-ISI" adalah heading sintetis #outline.
 FRAGMEN = [
+    # Kedua jilid lengkap (2026-10-18): bagian awal dan belakang diulang
+    # di tiap jilid; yang dipindai kemunculan istilahnya ditandai True.
     ("J1", "hak-cipta", False),
     ("J1", "kata-pengantar-penerjemah", True),
     ("J1", "foreword", True),
@@ -212,7 +214,18 @@ FRAGMEN = [
     ("J1", "DAFTAR-ISI", False),
     ("J1", "pendahuluan", True),
     ("J1", "jilid-1", True),
+    ("J1", "lampiran", True),
+    ("J1", "glosarium", False),
+    ("J1", "referensi", False),
+    ("J1", "indeks", False),
+    ("J1", "profil", False),
+    ("J1", "info-edisi", False),
+    ("J2", "hak-cipta", False),
+    ("J2", "kata-pengantar-penerjemah", True),
+    ("J2", "foreword", True),
+    ("J2", "panduan-membaca", True),
     ("J2", "DAFTAR-ISI", False),
+    ("J2", "pendahuluan", True),
     ("J2", "jilid-2", True),
     ("J2", "lampiran", True),
     ("J2", "glosarium", False),
