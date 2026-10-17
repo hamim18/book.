@@ -1,50 +1,52 @@
-## Characteristics of Object-Oriented Languages
+## Karakteristik Bahasa Berorientasi Objek
 
-There is no consensus in the programming community about what features a
-language must have to be considered object oriented. Rust is influenced by many
-programming paradigms, including OOP; for example, we explored the features
-that came from functional programming in Chapter 13. Arguably, OOP languages
-share certain common characteristics—namely, objects, encapsulation, and
-inheritance. Let’s look at what each of those characteristics means and whether
-Rust supports it.
+Tidak ada konsensus di komunitas pemrograman tentang fitur apa yang harus
+dimiliki sebuah bahasa agar dianggap berorientasi objek. Rust dipengaruhi oleh
+banyak paradigma pemrograman, termasuk OOP; contohnya, kita mengeksplorasi
+fitur-fitur yang berasal dari pemrograman fungsional di Bab 13. Bisa
+dikatakan, bahasa-bahasa OOP memiliki karakteristik umum tertentu—yakni,
+objek, enkapsulasi, dan inheritance. Mari kita lihat apa arti setiap
+karakteristik itu dan apakah Rust mendukungnya.
 
-### Objects Contain Data and Behavior
+### Objek Memuat Data dan Perilaku
 
-The book _Design Patterns: Elements of Reusable Object-Oriented Software_ by
-Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wesley,
-1994), colloquially referred to as _The Gang of Four_ book, is a catalog of
-object-oriented design patterns. It defines OOP in this way:
+Buku _Design Patterns: Elements of Reusable Object-Oriented Software_ karya
+Erich Gamma, Richard Helm, Ralph Johnson, dan John Vlissides
+(Addison-Wesley, 1994), yang dalam bahasa sehari-hari disebut sebagai buku
+_The Gang of Four_ (Geng Empat), adalah katalog pola desain berorientasi
+objek. Buku itu mendefinisikan OOP sebagai berikut:
 
-> Object-oriented programs are made up of objects. An **object** packages both
-> data and the procedures that operate on that data. The procedures are
-> typically called **methods** or **operations**.
+> Program berorientasi objek tersusun dari objek. Sebuah **objek** memaketkan
+> data dan prosedur yang mengoperasikan data tersebut. Prosedur itu biasanya
+> disebut **metode** atau **operasi**.
 
-Using this definition, Rust is object oriented: Structs and enums have data,
-and `impl` blocks provide methods on structs and enums. Even though structs and
-enums with methods aren’t _called_ objects, they provide the same
-functionality, according to the Gang of Four’s definition of objects.
+Menggunakan definisi ini, Rust berorientasi objek: struct dan enum memiliki
+data, dan blok `impl` menyediakan metode pada struct dan enum. Meskipun struct
+dan enum yang bermetode tidak _disebut_ objek, keduanya menyediakan
+fungsionalitas yang sama, menurut definisi objek dari Gang of Four.
 
-### Encapsulation That Hides Implementation Details
+### Enkapsulasi yang Menyembunyikan Detail Implementasi
 
-Another aspect commonly associated with OOP is the idea of _encapsulation_,
-which means that the implementation details of an object aren’t accessible to
-code using that object. Therefore, the only way to interact with an object is
-through its public API; code using the object shouldn’t be able to reach into
-the object’s internals and change data or behavior directly. This enables the
-programmer to change and refactor an object’s internals without needing to
-change the code that uses the object.
+Aspek lain yang umumnya dikaitkan dengan OOP adalah gagasan tentang
+_enkapsulasi_, yang berarti detail implementasi sebuah objek tidak dapat
+diakses oleh kode yang memakai objek itu. Karena itu, satu-satunya cara untuk
+berinteraksi dengan sebuah objek adalah melalui API publiknya; kode yang
+memakai objek itu seharusnya tidak bisa menjangkau bagian dalam objek dan
+mengubah data atau perilaku secara langsung. Ini memungkinkan pemrogram
+mengubah dan me-refactor bagian dalam sebuah objek tanpa perlu mengubah kode
+yang memakai objek itu.
 
-We discussed how to control encapsulation in Chapter 7: We can use the `pub`
-keyword to decide which modules, types, functions, and methods in our code
-should be public, and by default everything else is private. For example, we
-can define a struct `AveragedCollection` that has a field containing a vector
-of `i32` values. The struct can also have a field that contains the average of
-the values in the vector, meaning the average doesn’t have to be computed on
-demand whenever anyone needs it. In other words, `AveragedCollection` will
-cache the calculated average for us. Listing 18-1 has the definition of the
-`AveragedCollection` struct.
+Kita membahas cara mengendalikan enkapsulasi di Bab 7: kita bisa memakai kata
+kunci `pub` untuk menentukan module, tipe, fungsi, dan metode mana di kode
+kita yang harus bersifat publik, dan secara bawaan semua yang lain bersifat
+privat. Contohnya, kita bisa mendefinisikan struct `AveragedCollection` yang
+memiliki field berisi vektor nilai `i32`. Struct itu juga bisa memiliki field
+yang berisi rata-rata dari nilai-nilai di vektor itu, artinya rata-rata tidak
+harus dihitung setiap kali seseorang membutuhkannya. Dengan kata lain,
+`AveragedCollection` akan menyimpan rata-rata hasil perhitungannya di cache
+untuk kita. Listing 18-1 memuat definisi struct `AveragedCollection`.
 
-<Listing number="18-1" file-name="src/lib.rs" caption="An `AveragedCollection` struct that maintains a list of integers and the average of the items in the collection">
+<Listing number="18-1" file-name="src/lib.rs" caption="Struct `AveragedCollection` yang memelihara daftar integer dan rata-rata item-item di dalam koleksinya">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-01/src/lib.rs}}
@@ -52,13 +54,14 @@ cache the calculated average for us. Listing 18-1 has the definition of the
 
 </Listing>
 
-The struct is marked `pub` so that other code can use it, but the fields within
-the struct remain private. This is important in this case because we want to
-ensure that whenever a value is added or removed from the list, the average is
-also updated. We do this by implementing `add`, `remove`, and `average` methods
-on the struct, as shown in Listing 18-2.
+Struct itu ditandai `pub` supaya kode lain bisa memakainya, tetapi
+field-field di dalam struct tetap privat. Ini penting dalam kasus ini karena
+kita ingin memastikan bahwa setiap kali sebuah nilai ditambahkan atau dihapus
+dari daftar, rata-ratanya juga diperbarui. Kita melakukannya dengan
+mengimplementasikan metode `add`, `remove`, dan `average` pada struct itu,
+seperti yang ditunjukkan di Listing 18-2.
 
-<Listing number="18-2" file-name="src/lib.rs" caption="Implementations of the public methods `add`, `remove`, and `average` on `AveragedCollection`">
+<Listing number="18-2" file-name="src/lib.rs" caption="Implementasi metode publik `add`, `remove`, dan `average` pada `AveragedCollection`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-02/src/lib.rs:here}}
@@ -66,84 +69,91 @@ on the struct, as shown in Listing 18-2.
 
 </Listing>
 
-The public methods `add`, `remove`, and `average` are the only ways to access
-or modify data in an instance of `AveragedCollection`. When an item is added to
-`list` using the `add` method or removed using the `remove` method, the
-implementations of each call the private `update_average` method that handles
-updating the `average` field as well.
+Metode publik `add`, `remove`, dan `average` adalah satu-satunya cara untuk
+mengakses atau mengubah data di instance `AveragedCollection`. Ketika sebuah
+item ditambahkan ke `list` menggunakan metode `add` atau dihapus menggunakan
+metode `remove`, implementasi masing-masing memanggil metode privat
+`update_average` yang menangani pembaruan field `average` juga.
 
-We leave the `list` and `average` fields private so that there is no way for
-external code to add or remove items to or from the `list` field directly;
-otherwise, the `average` field might become out of sync when the `list`
-changes. The `average` method returns the value in the `average` field,
-allowing external code to read the `average` but not modify it.
+Kita membiarkan field `list` dan `average` privat supaya tidak ada cara bagi
+kode eksternal untuk menambah atau menghapus item langsung ke atau dari field
+`list`; jika tidak, field `average` bisa menjadi tidak sinkron ketika `list`
+berubah. Metode `average` mengembalikan nilai di field `average`, sehingga
+kode eksternal bisa membaca `average` tetapi tidak mengubahnya.
 
-Because we’ve encapsulated the implementation details of the struct
-`AveragedCollection`, we can easily change aspects, such as the data structure,
-in the future. For instance, we could use a `HashSet<i32>` instead of a
-`Vec<i32>` for the `list` field. As long as the signatures of the `add`,
-`remove`, and `average` public methods stayed the same, code using
-`AveragedCollection` wouldn’t need to change. If we made `list` public instead,
-this wouldn’t necessarily be the case: `HashSet<i32>` and `Vec<i32>` have
-different methods for adding and removing items, so the external code would
-likely have to change if it were modifying `list` directly.
+Karena kita telah mengenkapsulasi detail implementasi struct
+`AveragedCollection`, kita bisa dengan mudah mengubah aspek-aspeknya, seperti
+struktur datanya, di masa depan. Misalnya, kita bisa memakai `HashSet<i32>`
+alih-alih `Vec<i32>` untuk field `list`. Selama tanda tangan metode publik
+`add`, `remove`, dan `average` tetap sama, kode yang memakai
+`AveragedCollection` tidak perlu berubah. Jika kita membuat `list` publik,
+belum tentu demikian halnya: `HashSet<i32>` dan `Vec<i32>` memiliki metode
+yang berbeda untuk menambah dan menghapus item, jadi kode eksternal kemungkinan
+besar harus berubah jika ia mengubah `list` secara langsung.
 
-If encapsulation is a required aspect for a language to be considered object
-oriented, then Rust meets that requirement. The option to use `pub` or not for
-different parts of code enables encapsulation of implementation details.
+Jika enkapsulasi adalah aspek yang diperlukan agar sebuah bahasa dianggap
+berorientasi objek, maka Rust memenuhi persyaratan itu. Pilihan untuk memakai
+`pub` atau tidak pada berbagai bagian kode memungkinkan enkapsulasi detail
+implementasi.
 
-### Inheritance as a Type System and as Code Sharing
+### Inheritance sebagai Sistem Tipe dan sebagai Berbagi Kode
 
-_Inheritance_ is a mechanism whereby an object can inherit elements from
-another object’s definition, thus gaining the parent object’s data and behavior
-without you having to define them again.
+_Inheritance_ (pewarisan) adalah mekanisme yang dengannya sebuah objek bisa
+mewarisi elemen dari definisi objek lain, sehingga memperoleh data dan
+perilaku objek induknya tanpa Anda harus mendefinisikannya lagi.
 
-If a language must have inheritance to be object oriented, then Rust is not
-such a language. There is no way to define a struct that inherits the parent
-struct’s fields and method implementations without using a macro.
+Jika sebuah bahasa harus memiliki inheritance untuk dianggap berorientasi
+objek, maka Rust bukan bahasa seperti itu. Tidak ada cara untuk
+mendefinisikan struct yang mewarisi field dan implementasi metode struct
+induknya tanpa memakai macro.
 
-However, if you’re used to having inheritance in your programming toolbox, you
-can use other solutions in Rust, depending on your reason for reaching for
-inheritance in the first place.
+Akan tetapi, jika Anda terbiasa memiliki inheritance di perangkat pemrograman
+Anda, Anda bisa memakai solusi lain di Rust, bergantung pada alasan Anda
+mengambil inheritance sejak awal.
 
-You would choose inheritance for two main reasons. One is for reuse of code:
-You can implement particular behavior for one type, and inheritance enables you
-to reuse that implementation for a different type. You can do this in a limited
-way in Rust code using default trait method implementations, which you saw in
-Listing 10-14 when we added a default implementation of the `summarize` method
-on the `Summary` trait. Any type implementing the `Summary` trait would have
-the `summarize` method available on it without any further code. This is
-similar to a parent class having an implementation of a method and an
-inheriting child class also having the implementation of the method. We can
-also override the default implementation of the `summarize` method when we
-implement the `Summary` trait, which is similar to a child class overriding the
-implementation of a method inherited from a parent class.
+Anda akan memilih inheritance karena dua alasan utama. Salah satunya adalah
+pemakaian ulang kode: Anda bisa mengimplementasikan perilaku tertentu untuk
+satu tipe, dan inheritance memungkinkan Anda memakai ulang implementasi itu
+untuk tipe yang berbeda. Anda bisa melakukan ini secara terbatas di kode Rust
+menggunakan implementasi bawaan metode trait, yang Anda lihat di Listing 10-14
+ketika kita menambahkan implementasi bawaan metode `summarize` pada trait
+`Summary`. Tipe apa pun yang mengimplementasikan trait `Summary` akan memiliki
+metode `summarize` tersedia padanya tanpa kode lebih lanjut. Ini mirip dengan
+kelas induk yang memiliki implementasi sebuah metode dan kelas anak yang
+mewarisinya juga memiliki implementasi metode itu. Kita juga bisa menimpa
+implementasi bawaan metode `summarize` ketika kita mengimplementasikan trait
+`Summary`, yang mirip dengan kelas anak yang menimpa implementasi metode yang
+diwarisi dari kelas induk.
 
-The other reason to use inheritance relates to the type system: to enable a
-child type to be used in the same places as the parent type. This is also
-called _polymorphism_, which means that you can substitute multiple objects for
-each other at runtime if they share certain characteristics.
+Alasan lain untuk memakai inheritance berkaitan dengan sistem tipe: untuk
+memungkinkan tipe anak dipakai di tempat yang sama dengan tipe induknya. Ini
+juga disebut _polymorphism_ (polimorfisme), yang berarti Anda bisa saling
+menggantikan beberapa objek pada saat runtime jika mereka memiliki
+karakteristik tertentu yang sama.
 
-> ### Polymorphism
+> ### Polimorfisme
 >
-> To many people, polymorphism is synonymous with inheritance. But it’s
-> actually a more general concept that refers to code that can work with data of
-> multiple types. For inheritance, those types are generally subclasses.
+> Bagi banyak orang, polimorfisme identik dengan inheritance. Tetapi
+> sebenarnya ini konsep yang lebih umum yang merujuk pada kode yang bisa
+> bekerja dengan data dari berbagai tipe. Untuk inheritance, tipe-tipe itu
+> umumnya adalah subclass.
 >
-> Rust instead uses generics to abstract over different possible types and
-> trait bounds to impose constraints on what those types must provide. This is
-> sometimes called _bounded parametric polymorphism_.
+> Rust justru memakai generics untuk mengabstraksi berbagai tipe yang mungkin
+> dan trait bound untuk menerapkan batasan pada apa yang harus disediakan
+> tipe-tipe itu. Ini terkadang disebut _bounded parametric polymorphism_
+> (polimorfisme parametrik terbatas).
 
-Rust has chosen a different set of trade-offs by not offering inheritance.
-Inheritance is often at risk of sharing more code than necessary. Subclasses
-shouldn’t always share all characteristics of their parent class but will do so
-with inheritance. This can make a program’s design less flexible. It also
-introduces the possibility of calling methods on subclasses that don’t make
-sense or that cause errors because the methods don’t apply to the subclass. In
-addition, some languages will only allow _single inheritance_ (meaning a
-subclass can only inherit from one class), further restricting the flexibility
-of a program’s design.
+Rust telah memilih sekumpulan kompromi yang berbeda dengan tidak menawarkan
+inheritance. Inheritance sering kali berisiko berbagi lebih banyak kode
+daripada yang diperlukan. Subclass tidak selalu harus berbagi semua
+karakteristik kelas induknya, tetapi dengan inheritance mereka akan
+melakukannya. Ini bisa membuat desain program kurang fleksibel. Ini juga
+memunculkan kemungkinan memanggil metode pada subclass yang tidak masuk akal
+atau menyebabkan galat karena metode itu tidak berlaku untuk subclass
+tersebut. Selain itu, beberapa bahasa hanya mengizinkan _single inheritance_
+(pewarisan tunggal) (artinya subclass hanya bisa mewarisi dari satu kelas),
+yang semakin membatasi fleksibilitas desain program.
 
-For these reasons, Rust takes the different approach of using trait objects
-instead of inheritance to achieve polymorphism at runtime. Let’s look at how
-trait objects work.
+Karena alasan-alasan ini, Rust mengambil pendekatan yang berbeda dengan
+memakai trait object alih-alih inheritance untuk mencapai polimorfisme pada
+saat runtime. Mari kita lihat cara kerja trait object.

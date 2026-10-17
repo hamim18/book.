@@ -1,61 +1,67 @@
-## Implementing an Object-Oriented Design Pattern
+## Mengimplementasikan Pola Desain Berorientasi Objek
 
-The _state pattern_ is an object-oriented design pattern. The crux of the
-pattern is that we define a set of states a value can have internally. The
-states are represented by a set of _state objects_, and the value’s behavior
-changes based on its state. We’re going to work through an example of a blog
-post struct that has a field to hold its state, which will be a state object
-from the set “draft,” “review,” or “published.”
+_State pattern_ (pola state) adalah pola desain berorientasi objek. Inti dari
+pola ini adalah kita mendefinisikan sekumpulan state yang bisa dimiliki sebuah
+nilai secara internal. State-state itu direpresentasikan oleh sekumpulan
+_state object_ (objek state), dan perilaku nilai itu berubah berdasarkan
+state-nya. Kita akan menelusuri contoh struct post blog yang memiliki field
+untuk menampung state-nya, yang akan berupa state object dari kumpulan
+“draf”, “review”, atau “diterbitkan”.
 
-The state objects share functionality: In Rust, of course, we use structs and
-traits rather than objects and inheritance. Each state object is responsible
-for its own behavior and for governing when it should change into another
-state. The value that holds a state object knows nothing about the different
-behavior of the states or when to transition between states.
+State object berbagi fungsionalitas: di Rust, tentu saja, kita memakai struct
+dan trait alih-alih objek dan inheritance. Setiap state object bertanggung
+jawab atas perilakunya sendiri dan untuk mengatur kapan ia harus berubah
+menjadi state lain. Nilai yang menampung state object tidak tahu apa-apa
+tentang perilaku yang berbeda dari state-state itu atau kapan harus
+bertransisi di antara state-state.
 
-The advantage of using the state pattern is that, when the business
-requirements of the program change, we won’t need to change the code of the
-value holding the state or the code that uses the value. We’ll only need to
-update the code inside one of the state objects to change its rules or perhaps
-add more state objects.
+Keuntungan memakai pola state adalah bahwa ketika persyaratan bisnis program
+berubah, kita tidak perlu mengubah kode nilai yang menampung state atau kode
+yang memakai nilai itu. Kita hanya perlu memperbarui kode di dalam salah satu
+state object untuk mengubah aturannya atau mungkin menambahkan lebih banyak
+state object.
 
-First, we’re going to implement the state pattern in a more traditional
-object-oriented way. Then, we’ll use an approach that’s a bit more natural in
-Rust. Let’s dig in to incrementally implement a blog post workflow using the
-state pattern.
+Pertama, kita akan mengimplementasikan pola state dengan cara yang lebih
+tradisional dan berorientasi objek. Kemudian, kita akan memakai pendekatan
+yang sedikit lebih alami di Rust. Mari kita mulai dengan mengimplementasikan
+alur kerja post blog secara bertahap menggunakan pola state.
 
-The final functionality will look like this:
+Fungsionalitas akhirnya akan terlihat seperti ini:
 
-1. A blog post starts as an empty draft.
-1. When the draft is done, a review of the post is requested.
-1. When the post is approved, it gets published.
-1. Only published blog posts return content to print so that unapproved posts
-   can’t accidentally be published.
+1. Sebuah post blog dimulai sebagai draf kosong.
+1. Ketika drafnya selesai, review terhadap post itu diminta.
+1. Ketika post itu disetujui, post itu diterbitkan.
+1. Hanya post blog yang diterbitkan yang mengembalikan konten untuk dicetak
+   supaya post yang belum disetujui tidak bisa diterbitkan secara tidak
+   sengaja.
 
-Any other changes attempted on a post should have no effect. For example, if we
-try to approve a draft blog post before we’ve requested a review, the post
-should remain an unpublished draft.
+Perubahan lain apa pun yang dicoba pada sebuah post seharusnya tidak
+berpengaruh. Contohnya, jika kita mencoba menyetujui post blog draf sebelum
+kita meminta review, post itu harus tetap menjadi draf yang belum
+diterbitkan.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="a-traditional-object-oriented-attempt"></a>
 
-### Attempting Traditional Object-Oriented Style
+### Mencoba Gaya Berorientasi Objek Tradisional
 
-There are infinite ways to structure code to solve the same problem, each with
-different trade-offs. This section’s implementation is more of a traditional
-object-oriented style, which is possible to write in Rust, but doesn’t take
-advantage of some of Rust’s strengths. Later, we’ll demonstrate a different
-solution that still uses the object-oriented design pattern but is structured
-in a way that might look less familiar to programmers with object-oriented
-experience. We’ll compare the two solutions to experience the trade-offs of
-designing Rust code differently than code in other languages.
+Ada banyak cara tak terbatas untuk menstrukturkan kode guna memecahkan masalah
+yang sama, masing-masing dengan kompromi yang berbeda. Implementasi bagian
+ini lebih bergaya berorientasi objek tradisional, yang mungkin untuk ditulis
+di Rust, tetapi tidak memanfaatkan sebagian kekuatan Rust. Nanti, kami akan
+mendemonstrasikan solusi berbeda yang tetap memakai pola desain berorientasi
+objek tetapi terstruktur dengan cara yang mungkin terlihat kurang familier
+bagi pemrogram berpengalaman berorientasi objek. Kita akan membandingkan
+kedua solusi itu untuk merasakan kompromi merancang kode Rust secara berbeda
+dari kode di bahasa lain.
 
-Listing 18-11 shows this workflow in code form: This is an example usage of the
-API we’ll implement in a library crate named `blog`. This won’t compile yet
-because we haven’t implemented the `blog` crate.
+Listing 18-11 menunjukkan alur kerja ini dalam bentuk kode: ini adalah contoh
+pemakaian API yang akan kita implementasikan di crate library bernama `blog`.
+Ini belum bisa terkompilasi karena kita belum mengimplementasikan crate
+`blog`.
 
-<Listing number="18-11" file-name="src/main.rs" caption="Code that demonstrates the desired behavior we want our `blog` crate to have">
+<Listing number="18-11" file-name="src/main.rs" caption="Kode yang mendemonstrasikan perilaku yang kita inginkan dari crate `blog` kita">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch18-oop/listing-18-11/src/main.rs:all}}
@@ -63,46 +69,49 @@ because we haven’t implemented the `blog` crate.
 
 </Listing>
 
-We want to allow the user to create a new draft blog post with `Post::new`. We
-want to allow text to be added to the blog post. If we try to get the post’s
-content immediately, before approval, we shouldn’t get any text because the
-post is still a draft. We’ve added `assert_eq!` in the code for demonstration
-purposes. An excellent unit test for this would be to assert that a draft blog
-post returns an empty string from the `content` method, but we’re not going to
-write tests for this example.
+Kita ingin memungkinkan pengguna membuat post blog draf baru dengan
+`Post::new`. Kita ingin memungkinkan teks ditambahkan ke post blog itu. Jika
+kita mencoba mendapatkan konten post itu segera, sebelum disetujui, kita
+seharusnya tidak mendapat teks apa pun karena post itu masih draf. Kami telah
+menambahkan `assert_eq!` di kode untuk tujuan demonstrasi. Pengujian unit
+yang bagus untuk ini adalah menegaskan bahwa post blog draf mengembalikan
+string kosong dari metode `content`, tetapi kami tidak akan menulis pengujian
+untuk contoh ini.
 
-Next, we want to enable a request for a review of the post, and we want
-`content` to return an empty string while waiting for the review. When the post
-receives approval, it should get published, meaning the text of the post will
-be returned when `content` is called.
+Berikutnya, kita ingin mengaktifkan permintaan review terhadap post itu, dan
+kita ingin `content` mengembalikan string kosong selagi menunggu review.
+Ketika post itu menerima persetujuan, post itu seharusnya diterbitkan,
+artinya teks post itu akan dikembalikan saat `content` dipanggil.
 
-Notice that the only type we’re interacting with from the crate is the `Post`
-type. This type will use the state pattern and will hold a value that will be
-one of three state objects representing the various states a post can be
-in—draft, review, or published. Changing from one state to another will be
-managed internally within the `Post` type. The states change in response to the
-methods called by our library’s users on the `Post` instance, but they don’t
-have to manage the state changes directly. Also, users can’t make a mistake
-with the states, such as publishing a post before it’s reviewed.
+Perhatikan bahwa satu-satunya tipe yang berinteraksi dengan kita dari crate
+itu adalah tipe `Post`. Tipe ini akan memakai pola state dan akan menampung
+nilai yang berupa salah satu dari tiga state object yang merepresentasikan
+berbagai state yang bisa dialami sebuah post—draf, review, atau diterbitkan.
+Perubahan dari satu state ke state lain akan dikelola secara internal di dalam
+tipe `Post`. State-state itu berubah sebagai respons terhadap metode yang
+dipanggil pengguna library kita pada instance `Post`, tetapi mereka tidak
+harus mengelola perubahan state secara langsung. Selain itu, pengguna tidak
+bisa membuat kesalahan dengan state-state itu, seperti menerbitkan post
+sebelum post itu di-review.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="defining-post-and-creating-a-new-instance-in-the-draft-state"></a>
 
-#### Defining `Post` and Creating a New Instance
+#### Mendefinisikan `Post` dan Membuat Instance Baru
 
-Let’s get started on the implementation of the library! We know we need a
-public `Post` struct that holds some content, so we’ll start with the
-definition of the struct and an associated public `new` function to create an
-instance of `Post`, as shown in Listing 18-12. We’ll also make a private
-`State` trait that will define the behavior that all state objects for a `Post`
-must have.
+Mari kita mulai implementasi library-nya! Kita tahu kita butuh struct `Post`
+publik yang menampung sejumlah konten, jadi kita akan mulai dengan definisi
+struct itu dan fungsi publik asosiasi `new` untuk membuat instance `Post`,
+seperti yang ditunjukkan di Listing 18-12. Kita juga akan membuat trait
+`State` privat yang akan mendefinisikan perilaku yang harus dimiliki semua
+state object untuk sebuah `Post`.
 
-Then, `Post` will hold a trait object of `Box<dyn State>` inside an `Option<T>`
-in a private field named `state` to hold the state object. You’ll see why the
-`Option<T>` is necessary in a bit.
+Kemudian, `Post` akan menampung trait object `Box<dyn State>` di dalam
+`Option<T>` pada field privat bernama `state` untuk menampung state object
+itu. Sebentar lagi Anda akan melihat mengapa `Option<T>` itu diperlukan.
 
-<Listing number="18-12" file-name="src/lib.rs" caption="Definition of a `Post` struct and a `new` function that creates a new `Post` instance, a `State` trait, and a `Draft` struct">
+<Listing number="18-12" file-name="src/lib.rs" caption="Definisi struct `Post` dan fungsi `new` yang membuat instance `Post` baru, trait `State`, dan struct `Draft`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-12/src/lib.rs}}
@@ -110,30 +119,30 @@ in a private field named `state` to hold the state object. You’ll see why the
 
 </Listing>
 
-The `State` trait defines the behavior shared by different post states. The
-state objects are `Draft`, `PendingReview`, and `Published`, and they will all
-implement the `State` trait. For now, the trait doesn’t have any methods, and
-we’ll start by defining just the `Draft` state because that is the state we
-want a post to start in.
+Trait `State` mendefinisikan perilaku yang dibagikan oleh berbagai state
+post. State object-nya adalah `Draft`, `PendingReview`, dan `Published`, dan
+semuanya akan mengimplementasikan trait `State`. Untuk saat ini, trait itu
+belum memiliki metode, dan kita akan mulai dengan mendefinisikan state
+`Draft` saja karena itulah state tempat sebuah post dimulai.
 
-When we create a new `Post`, we set its `state` field to a `Some` value that
-holds a `Box`. This `Box` points to a new instance of the `Draft` struct. This
-ensures that whenever we create a new instance of `Post`, it will start out as
-a draft. Because the `state` field of `Post` is private, there is no way to
-create a `Post` in any other state! In the `Post::new` function, we set the
-`content` field to a new, empty `String`.
+Ketika kita membuat `Post` baru, kita menetapkan field `state`-nya ke nilai
+`Some` yang menampung `Box`. `Box` ini menunjuk ke instance baru struct
+`Draft`. Ini memastikan bahwa setiap kali kita membuat instance baru `Post`,
+instance itu akan dimulai sebagai draf. Karena field `state` dari `Post`
+privat, tidak ada cara untuk membuat `Post` dalam state lain! Di fungsi
+`Post::new`, kita menetapkan field `content` ke `String` baru yang kosong.
 
-#### Storing the Text of the Post Content
+#### Menyimpan Teks Konten Post
 
-We saw in Listing 18-11 that we want to be able to call a method named
-`add_text` and pass it a `&str` that is then added as the text content of the
-blog post. We implement this as a method, rather than exposing the `content`
-field as `pub`, so that later we can implement a method that will control how
-the `content` field’s data is read. The `add_text` method is pretty
-straightforward, so let’s add the implementation in Listing 18-13 to the `impl
-Post` block.
+Kita melihat di Listing 18-11 bahwa kita ingin bisa memanggil metode bernama
+`add_text` dan memberinya `&str` yang kemudian ditambahkan sebagai konten
+teks post blog. Kita mengimplementasikan ini sebagai metode, alih-alih
+mengekspos field `content` sebagai `pub`, supaya nanti kita bisa
+mengimplementasikan metode yang akan mengontrol cara data field `content`
+dibaca. Metode `add_text` cukup sederhana, jadi mari kita tambahkan
+implementasi di Listing 18-13 ke blok `impl Post`.
 
-<Listing number="18-13" file-name="src/lib.rs" caption="Implementing the `add_text` method to add text to a post’s `content`">
+<Listing number="18-13" file-name="src/lib.rs" caption="Mengimplementasikan metode `add_text` untuk menambahkan teks ke `content` post">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-13/src/lib.rs:here}}
@@ -141,31 +150,32 @@ Post` block.
 
 </Listing>
 
-The `add_text` method takes a mutable reference to `self` because we’re
-changing the `Post` instance that we’re calling `add_text` on. We then call
-`push_str` on the `String` in `content` and pass the `text` argument to add to
-the saved `content`. This behavior doesn’t depend on the state the post is in,
-so it’s not part of the state pattern. The `add_text` method doesn’t interact
-with the `state` field at all, but it is part of the behavior we want to
-support.
+Metode `add_text` menerima reference mutable ke `self` karena kita mengubah
+instance `Post` yang kita panggil `add_text`-nya. Kita kemudian memanggil
+`push_str` pada `String` di `content` dan meneruskan argumen `text` untuk
+ditambahkan ke `content` yang tersimpan. Perilaku ini tidak bergantung pada
+state post itu, jadi ini bukan bagian dari pola state. Metode `add_text`
+tidak berinteraksi dengan field `state` sama sekali, tetapi ia bagian dari
+perilaku yang ingin kita dukung.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="ensuring-the-content-of-a-draft-post-is-empty"></a>
 
-#### Ensuring That the Content of a Draft Post Is Empty
+#### Memastikan Konten Post Draf Kosong
 
-Even after we’ve called `add_text` and added some content to our post, we still
-want the `content` method to return an empty string slice because the post is
-still in the draft state, as shown by the first `assert_eq!` in Listing 18-11.
-For now, let’s implement the `content` method with the simplest thing that will
-fulfill this requirement: always returning an empty string slice. We’ll change
-this later once we implement the ability to change a post’s state so that it
-can be published. So far, posts can only be in the draft state, so the post
-content should always be empty. Listing 18-14 shows this placeholder
-implementation.
+Bahkan setelah kita memanggil `add_text` dan menambahkan sejumlah konten ke
+post kita, kita tetap ingin metode `content` mengembalikan string slice
+kosong karena post itu masih dalam state draf, seperti yang ditunjukkan
+`assert_eq!` pertama di Listing 18-11. Untuk saat ini, mari kita
+implementasikan metode `content` dengan hal paling sederhana yang akan
+memenuhi persyaratan ini: selalu mengembalikan string slice kosong. Kita
+akan mengubahnya nanti setelah kita mengimplementasikan kemampuan mengubah
+state post supaya post itu bisa diterbitkan. Sejauh ini, post hanya bisa
+berada di state draf, jadi konten post harus selalu kosong. Listing 18-14
+menunjukkan implementasi placeholder ini.
 
-<Listing number="18-14" file-name="src/lib.rs" caption="Adding a placeholder implementation for the `content` method on `Post` that always returns an empty string slice">
+<Listing number="18-14" file-name="src/lib.rs" caption="Menambahkan implementasi placeholder untuk metode `content` pada `Post` yang selalu mengembalikan string slice kosong">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-14/src/lib.rs:here}}
@@ -173,20 +183,21 @@ implementation.
 
 </Listing>
 
-With this added `content` method, everything in Listing 18-11 through the first
-`assert_eq!` works as intended.
+Dengan metode `content` yang ditambahkan ini, semua yang ada di Listing 18-11
+sampai `assert_eq!` pertama bekerja sebagaimana dimaksudkan.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="requesting-a-review-of-the-post-changes-its-state"></a>
 <a id="requesting-a-review-changes-the-posts-state"></a>
 
-#### Requesting a Review, Which Changes the Post’s State
+#### Meminta Review, yang Mengubah State Post
 
-Next, we need to add functionality to request a review of a post, which should
-change its state from `Draft` to `PendingReview`. Listing 18-15 shows this code.
+Berikutnya, kita perlu menambahkan fungsionalitas untuk meminta review
+terhadap sebuah post, yang seharusnya mengubah state-nya dari `Draft` menjadi
+`PendingReview`. Listing 18-15 menunjukkan kode ini.
 
-<Listing number="18-15" file-name="src/lib.rs" caption="Implementing `request_review` methods on `Post` and the `State` trait">
+<Listing number="18-15" file-name="src/lib.rs" caption="Mengimplementasikan metode `request_review` pada `Post` dan trait `State`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-15/src/lib.rs:here}}
@@ -194,60 +205,64 @@ change its state from `Draft` to `PendingReview`. Listing 18-15 shows this code.
 
 </Listing>
 
-We give `Post` a public method named `request_review` that will take a mutable
-reference to `self`. Then, we call an internal `request_review` method on the
-current state of `Post`, and this second `request_review` method consumes the
-current state and returns a new state.
+Kita memberi `Post` metode publik bernama `request_review` yang menerima
+reference mutable ke `self`. Kemudian, kita memanggil metode internal
+`request_review` pada state `Post` saat ini, dan metode `request_review`
+kedua ini mengonsumsi state saat ini dan mengembalikan state baru.
 
-We add the `request_review` method to the `State` trait; all types that
-implement the trait will now need to implement the `request_review` method.
-Note that rather than having `self`, `&self`, or `&mut self` as the first
-parameter of the method, we have `self: Box<Self>`. This syntax means the
-method is only valid when called on a `Box` holding the type. This syntax takes
-ownership of `Box<Self>`, invalidating the old state so that the state value of
-the `Post` can transform into a new state.
+Kita menambahkan metode `request_review` ke trait `State`; semua tipe yang
+mengimplementasikan trait itu sekarang harus mengimplementasikan metode
+`request_review`. Perhatikan bahwa alih-alih memiliki `self`, `&self`, atau
+`&mut self` sebagai parameter pertama metode itu, kita memiliki
+`self: Box<Self>`. Sintaks ini berarti metode itu hanya valid ketika
+dipanggil pada `Box` yang menampung tipe itu. Sintaks ini mengambil
+kepemilikan `Box<Self>`, meniadakan state lama sehingga nilai state dari
+`Post` bisa berubah menjadi state baru.
 
-To consume the old state, the `request_review` method needs to take ownership
-of the state value. This is where the `Option` in the `state` field of `Post`
-comes in: We call the `take` method to take the `Some` value out of the `state`
-field and leave a `None` in its place because Rust doesn’t let us have
-unpopulated fields in structs. This lets us move the `state` value out of
-`Post` rather than borrowing it. Then, we’ll set the post’s `state` value to
-the result of this operation.
+Untuk mengonsumsi state lama, metode `request_review` perlu mengambil
+kepemilikan nilai state itu. Di sinilah `Option` pada field `state` dari
+`Post` berperan: kita memanggil metode `take` untuk mengambil nilai `Some`
+dari field `state` dan meninggalkan `None` di tempatnya karena Rust tidak
+mengizinkan kita memiliki field yang tidak terisi di dalam struct. Ini
+memungkinkan kita memindahkan nilai `state` keluar dari `Post` alih-alih
+meminjamnya. Kemudian, kita akan menetapkan nilai `state` post itu ke hasil
+operasi ini.
 
-We need to set `state` to `None` temporarily rather than setting it directly
-with code like `self.state = self.state.request_review();` to get ownership of
-the `state` value. This ensures that `Post` can’t use the old `state` value
-after we’ve transformed it into a new state.
+Kita perlu menetapkan `state` ke `None` sementara alih-alih menetapkannya
+langsung dengan kode seperti `self.state = self.state.request_review();`
+untuk mendapatkan kepemilikan nilai `state`. Ini memastikan `Post` tidak bisa
+memakai nilai `state` lama setelah kita mengubahnya menjadi state baru.
 
-The `request_review` method on `Draft` returns a new, boxed instance of a new
-`PendingReview` struct, which represents the state when a post is waiting for a
-review. The `PendingReview` struct also implements the `request_review` method
-but doesn’t do any transformations. Rather, it returns itself because when we
-request a review on a post already in the `PendingReview` state, it should stay
-in the `PendingReview` state.
+Metode `request_review` pada `Draft` mengembalikan instance baru yang
+ter-box dari struct `PendingReview` baru, yang merepresentasikan state ketika
+sebuah post menunggu review. Struct `PendingReview` juga mengimplementasikan
+metode `request_review` tetapi tidak melakukan transformasi apa pun.
+Sebaliknya, ia mengembalikan dirinya sendiri karena ketika kita meminta
+review pada post yang sudah berada di state `PendingReview`, post itu harus
+tetap berada di state `PendingReview`.
 
-Now we can start seeing the advantages of the state pattern: The
-`request_review` method on `Post` is the same no matter its `state` value. Each
-state is responsible for its own rules.
+Sekarang kita mulai melihat keuntungan pola state: metode `request_review`
+pada `Post` tetap sama apa pun nilai `state`-nya. Setiap state bertanggung
+jawab atas aturannya sendiri.
 
-We’ll leave the `content` method on `Post` as is, returning an empty string
-slice. We can now have a `Post` in the `PendingReview` state as well as in the
-`Draft` state, but we want the same behavior in the `PendingReview` state.
-Listing 18-11 now works up to the second `assert_eq!` call!
+Kita akan membiarkan metode `content` pada `Post` apa adanya, mengembalikan
+string slice kosong. Sekarang kita bisa memiliki `Post` di state
+`PendingReview` maupun di state `Draft`, tetapi kita menginginkan perilaku
+yang sama di state `PendingReview`. Listing 18-11 sekarang bekerja sampai
+pemanggilan `assert_eq!` kedua!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 <a id="adding-approve-to-change-the-behavior-of-content"></a>
 
-#### Adding `approve` to Change `content`'s Behavior
+#### Menambahkan `approve` untuk Mengubah Perilaku `content`
 
-The `approve` method will be similar to the `request_review` method: It will
-set `state` to the value that the current state says it should have when that
-state is approved, as shown in Listing 18-16.
+Metode `approve` akan serupa dengan metode `request_review`: metode itu akan
+menetapkan `state` ke nilai yang menurut state saat ini seharusnya dimiliki
+ketika state itu disetujui, seperti yang ditunjukkan di Listing 18-16.
 
-<Listing number="18-16" file-name="src/lib.rs" caption="Implementing the `approve` method on `Post` and the `State` trait">
+<Listing number="18-16" file-name="src/lib.rs" caption="Mengimplementasikan metode `approve` pada `Post` dan trait `State`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-16/src/lib.rs:here}}
@@ -255,23 +270,24 @@ state is approved, as shown in Listing 18-16.
 
 </Listing>
 
-We add the `approve` method to the `State` trait and add a new struct that
-implements `State`, the `Published` state.
+Kita menambahkan metode `approve` ke trait `State` dan menambahkan struct
+baru yang mengimplementasikan `State`, yaitu state `Published`.
 
-Similar to the way `request_review` on `PendingReview` works, if we call the
-`approve` method on a `Draft`, it will have no effect because `approve` will
-return `self`. When we call `approve` on `PendingReview`, it returns a new,
-boxed instance of the `Published` struct. The `Published` struct implements the
-`State` trait, and for both the `request_review` method and the `approve`
-method, it returns itself because the post should stay in the `Published` state
-in those cases.
+Serupa dengan cara kerja `request_review` pada `PendingReview`, jika kita
+memanggil metode `approve` pada `Draft`, itu tidak akan berpengaruh karena
+`approve` akan mengembalikan `self`. Ketika kita memanggil `approve` pada
+`PendingReview`, metode itu mengembalikan instance baru yang ter-box dari
+struct `Published`. Struct `Published` mengimplementasikan trait `State`, dan
+untuk metode `request_review` maupun metode `approve`, ia mengembalikan
+dirinya sendiri karena post harus tetap berada di state `Published` dalam
+kasus-kasus itu.
 
-Now we need to update the `content` method on `Post`. We want the value
-returned from `content` to depend on the current state of the `Post`, so we’re
-going to have the `Post` delegate to a `content` method defined on its `state`,
-as shown in Listing 18-17.
+Sekarang kita perlu memperbarui metode `content` pada `Post`. Kita ingin
+nilai yang dikembalikan `content` bergantung pada state `Post` saat ini, jadi
+kita akan membuat `Post` mendelegasikan ke metode `content` yang
+didefinisikan pada `state`-nya, seperti yang ditunjukkan di Listing 18-17.
 
-<Listing number="18-17" file-name="src/lib.rs" caption="Updating the `content` method on `Post` to delegate to a `content` method on `State`">
+<Listing number="18-17" file-name="src/lib.rs" caption="Memperbarui metode `content` pada `Post` untuk mendelegasikan ke metode `content` pada `State`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch18-oop/listing-18-17/src/lib.rs:here}}
@@ -279,33 +295,35 @@ as shown in Listing 18-17.
 
 </Listing>
 
-Because the goal is to keep all of these rules inside the structs that
-implement `State`, we call a `content` method on the value in `state` and pass
-the post instance (that is, `self`) as an argument. Then, we return the value
-that’s returned from using the `content` method on the `state` value.
+Karena tujuannya adalah menjaga semua aturan ini di dalam struct yang
+mengimplementasikan `State`, kita memanggil metode `content` pada nilai di
+`state` dan meneruskan instance post (yaitu, `self`) sebagai argumen.
+Kemudian, kita mengembalikan nilai yang dikembalikan dari pemakaian metode
+`content` pada nilai `state` itu.
 
-We call the `as_ref` method on the `Option` because we want a reference to the
-value inside the `Option` rather than ownership of the value. Because `state` is
-an `Option<Box<dyn State>>`, when we call `as_ref`, an `Option<&Box<dyn
-State>>` is returned. If we didn’t call `as_ref`, we would get an error because
-we can’t move `state` out of the borrowed `&self` of the function parameter.
+Kita memanggil metode `as_ref` pada `Option` karena kita menginginkan
+reference ke nilai di dalam `Option` alih-alih kepemilikan nilainya. Karena
+`state` adalah `Option<Box<dyn State>>`, ketika kita memanggil `as_ref`,
+sebuah `Option<&Box<dyn State>>` dikembalikan. Jika kita tidak memanggil
+`as_ref`, kita akan mendapat galat karena kita tidak bisa memindahkan `state`
+keluar dari `&self` yang dipinjam dari parameter fungsi.
 
-We then call the `unwrap` method, which we know will never panic because we
-know the methods on `Post` ensure that `state` will always contain a `Some`
-value when those methods are done. This is one of the cases we talked about in
-the [“When You Have More Information Than the
-Compiler”][more-info-than-rustc]<!-- ignore --> section of Chapter 9 when we
-know that a `None` value is never possible, even though the compiler isn’t able
-to understand that.
+Kita kemudian memanggil metode `unwrap`, yang kita tahu tidak akan pernah
+panic karena kita tahu metode-metode pada `Post` memastikan `state` akan
+selalu memuat nilai `Some` ketika metode-metode itu selesai. Ini salah satu
+kasus yang kita bicarakan di bagian [“Ketika Anda Memiliki Lebih Banyak
+Informasi daripada Compiler”][more-info-than-rustc]<!-- ignore --> di Bab 9,
+ketika kita tahu nilai `None` tidak mungkin terjadi, meskipun kompilator
+tidak bisa memahaminya.
 
-At this point, when we call `content` on the `&Box<dyn State>`, deref coercion
-will take effect on the `&` and the `Box` so that the `content` method will
-ultimately be called on the type that implements the `State` trait. That means
-we need to add `content` to the `State` trait definition, and that is where
-we’ll put the logic for what content to return depending on which state we
-have, as shown in Listing 18-18.
+Pada titik ini, ketika kita memanggil `content` pada `&Box<dyn State>`, deref
+coercion akan berlaku pada `&` dan `Box` sehingga metode `content` pada
+akhirnya dipanggil pada tipe yang mengimplementasikan trait `State`. Artinya,
+kita perlu menambahkan `content` ke definisi trait `State`, dan di situlah
+kita akan menaruh logika konten apa yang dikembalikan bergantung pada state
+mana yang kita miliki, seperti yang ditunjukkan di Listing 18-18.
 
-<Listing number="18-18" file-name="src/lib.rs" caption="Adding the `content` method to the `State` trait">
+<Listing number="18-18" file-name="src/lib.rs" caption="Menambahkan metode `content` ke trait `State`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-18/src/lib.rs:here}}
@@ -313,105 +331,112 @@ have, as shown in Listing 18-18.
 
 </Listing>
 
-We add a default implementation for the `content` method that returns an empty
-string slice. That means we don’t need to implement `content` on the `Draft`
-and `PendingReview` structs. The `Published` struct will override the `content`
-method and return the value in `post.content`. While convenient, having the
-`content` method on `State` determine the content of the `Post` is blurring
-the lines between the responsibility of `State` and the responsibility of
-`Post`.
+Kita menambahkan implementasi bawaan untuk metode `content` yang
+mengembalikan string slice kosong. Artinya, kita tidak perlu
+mengimplementasikan `content` pada struct `Draft` dan `PendingReview`. Struct
+`Published` akan menimpa metode `content` dan mengembalikan nilai di
+`post.content`. Meskipun nyaman, membuat metode `content` pada `State`
+menentukan konten `Post` mengaburkan batas antara tanggung jawab `State` dan
+tanggung jawab `Post`.
 
-Note that we need lifetime annotations on this method, as we discussed in
-Chapter 10. We’re taking a reference to a `post` as an argument and returning a
-reference to part of that `post`, so the lifetime of the returned reference is
-related to the lifetime of the `post` argument.
+Perhatikan bahwa kita butuh anotasi lifetime pada metode ini, seperti yang
+kita bahas di Bab 10. Kita menerima reference ke `post` sebagai argumen dan
+mengembalikan reference ke bagian dari `post` itu, jadi lifetime reference
+yang dikembalikan berkaitan dengan lifetime argumen `post`.
 
-And we’re done—all of Listing 18-11 now works! We’ve implemented the state
-pattern with the rules of the blog post workflow. The logic related to the
-rules lives in the state objects rather than being scattered throughout `Post`.
+Dan selesai—semua Listing 18-11 sekarang bekerja! Kita telah
+mengimplementasikan pola state dengan aturan alur kerja post blog. Logika
+yang berkaitan dengan aturan-aturan itu hidup di state object alih-alih
+tersebar di seluruh `Post`.
 
-> ### Why Not An Enum?
+> ### Mengapa Tidak Enum?
 >
-> You may have been wondering why we didn’t use an enum with the different
-> possible post states as variants. That’s certainly a possible solution; try it
-> and compare the end results to see which you prefer! One disadvantage of using
-> an enum is that every place that checks the value of the enum will need a
-> `match` expression or similar to handle every possible variant. This could get
-> more repetitive than this trait object solution.
+> Anda mungkin bertanya-tanya mengapa kita tidak memakai enum dengan berbagai
+> kemungkinan state post sebagai varian. Itu tentu solusi yang mungkin; coba
+> saja dan bandingkan hasil akhirnya untuk melihat mana yang Anda sukai! Salah
+> satu kekurangan memakai enum adalah setiap tempat yang mengecek nilai enum
+> itu akan membutuhkan ekspresi `match` atau yang serupa untuk menangani
+> setiap varian yang mungkin. Ini bisa menjadi lebih berulang daripada solusi
+> trait object ini.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="trade-offs-of-the-state-pattern"></a>
 
-#### Evaluating the State Pattern
+#### Mengevaluasi Pola State
 
-We’ve shown that Rust is capable of implementing the object-oriented state
-pattern to encapsulate the different kinds of behavior a post should have in
-each state. The methods on `Post` know nothing about the various behaviors.
-Because of the way we organized the code, we have to look in only one place to
-know the different ways a published post can behave: the implementation of the
-`State` trait on the `Published` struct.
+Kita telah menunjukkan bahwa Rust mampu mengimplementasikan pola state
+berorientasi objek untuk mengenkapsulasi berbagai jenis perilaku yang harus
+dimiliki sebuah post di setiap state. Metode-metode pada `Post` tidak tahu
+apa-apa tentang berbagai perilaku itu. Karena cara kita mengatur kode, kita
+hanya perlu melihat satu tempat untuk mengetahui berbagai cara post yang
+diterbitkan bisa berperilaku: implementasi trait `State` pada struct
+`Published`.
 
-If we were to create an alternative implementation that didn’t use the state
-pattern, we might instead use `match` expressions in the methods on `Post` or
-even in the `main` code that checks the state of the post and changes behavior
-in those places. That would mean we would have to look in several places to
-understand all the implications of a post being in the published state.
+Jika kita membuat implementasi alternatif yang tidak memakai pola state, kita
+mungkin memakai ekspresi `match` di metode-metode pada `Post` atau bahkan di
+kode `main` yang mengecek state post dan mengubah perilaku di tempat-tempat
+itu. Itu berarti kita harus melihat di beberapa tempat untuk memahami semua
+implikasi post yang berada di state diterbitkan.
 
-With the state pattern, the `Post` methods and the places we use `Post` don’t
-need `match` expressions, and to add a new state, we would only need to add a
-new struct and implement the trait methods on that one struct in one location.
+Dengan pola state, metode-metode `Post` dan tempat-tempat kita memakai `Post`
+tidak membutuhkan ekspresi `match`, dan untuk menambahkan state baru, kita
+hanya perlu menambahkan struct baru dan mengimplementasikan metode trait pada
+satu struct itu di satu lokasi.
 
-The implementation using the state pattern is easy to extend to add more
-functionality. To see the simplicity of maintaining code that uses the state
-pattern, try a few of these suggestions:
+Implementasi yang memakai pola state mudah diperluas untuk menambahkan lebih
+banyak fungsionalitas. Untuk melihat kesederhanaan memelihara kode yang
+memakai pola state, coba beberapa saran ini:
 
-- Add a `reject` method that changes the post’s state from `PendingReview` back
-  to `Draft`.
-- Require two calls to `approve` before the state can be changed to `Published`.
-- Allow users to add text content only when a post is in the `Draft` state.
-  Hint: have the state object responsible for what might change about the
-  content but not responsible for modifying the `Post`.
+- Tambahkan metode `reject` yang mengubah state post dari `PendingReview`
+  kembali ke `Draft`.
+- Mewajibkan dua pemanggilan `approve` sebelum state bisa diubah menjadi
+  `Published`.
+- Izinkan pengguna menambahkan konten teks hanya ketika post berada di state
+  `Draft`. Petunjuk: buat state object bertanggung jawab atas apa yang mungkin
+  berubah pada konten, tetapi tidak bertanggung jawab mengubah `Post`.
 
-One downside of the state pattern is that, because the states implement the
-transitions between states, some of the states are coupled to each other. If we
-add another state between `PendingReview` and `Published`, such as `Scheduled`,
-we would have to change the code in `PendingReview` to transition to
-`Scheduled` instead. It would be less work if `PendingReview` didn’t need to
-change with the addition of a new state, but that would mean switching to
-another design pattern.
+Salah satu sisi negatif pola state adalah, karena state mengimplementasikan
+transisi antar-state, sebagian state saling terkait satu sama lain. Jika kita
+menambahkan state lain di antara `PendingReview` dan `Published`, seperti
+`Scheduled`, kita harus mengubah kode di `PendingReview` untuk bertransisi ke
+`Scheduled`. Akan lebih sedikit pekerjaan jika `PendingReview` tidak perlu
+berubah dengan penambahan state baru, tetapi itu berarti beralih ke pola
+desain lain.
 
-Another downside is that we’ve duplicated some logic. To eliminate some of the
-duplication, we might try to make default implementations for the
-`request_review` and `approve` methods on the `State` trait that return `self`.
-However, this wouldn’t work: When using `State` as a trait object, the trait
-doesn’t know what the concrete `self` will be exactly, so the return type isn’t
-known at compile time. (This is one of the dyn compatibility rules mentioned
-earlier.)
+Sisi negatif lainnya adalah kita telah menduplikasi sebagian logika. Untuk
+menghilangkan sebagian duplikasi, kita bisa mencoba membuat implementasi
+bawaan untuk metode `request_review` dan `approve` pada trait `State` yang
+mengembalikan `self`. Namun, ini tidak akan bekerja: ketika memakai `State`
+sebagai trait object, trait itu tidak tahu apa persisnya `self` yang konkret,
+jadi tipe kembaliannya tidak diketahui pada waktu kompilasi. (Ini salah satu
+aturan kompatibilitas dyn yang disebutkan sebelumnya.)
 
-Other duplication includes the similar implementations of the `request_review`
-and `approve` methods on `Post`. Both methods use `Option::take` with the
-`state` field of `Post`, and if `state` is `Some`, they delegate to the wrapped
-value’s implementation of the same method and set the new value of the `state`
-field to the result. If we had a lot of methods on `Post` that followed this
-pattern, we might consider defining a macro to eliminate the repetition (see
-the [“Macros”][macros]<!-- ignore --> section in Chapter 20).
+Duplikasi lain mencakup implementasi serupa dari metode `request_review` dan
+`approve` pada `Post`. Kedua metode memakai `Option::take` dengan field
+`state` dari `Post`, dan jika `state` adalah `Some`, mereka mendelegasikan ke
+implementasi metode yang sama dari nilai yang terbungkus dan menetapkan nilai
+baru field `state` ke hasilnya. Jika kita punya banyak metode pada `Post`
+yang mengikuti pola ini, kita bisa mempertimbangkan mendefinisikan macro
+untuk menghilangkan pengulangannya (lihat bagian [“Macro”][macros]<!-- ignore -->
+di Bab 20).
 
-By implementing the state pattern exactly as it’s defined for object-oriented
-languages, we’re not taking as full advantage of Rust’s strengths as we could.
-Let’s look at some changes we can make to the `blog` crate that can make
-invalid states and transitions into compile-time errors.
+Dengan mengimplementasikan pola state persis seperti yang didefinisikan untuk
+bahasa berorientasi objek, kita tidak memanfaatkan kekuatan Rust sepenuh yang
+kita bisa. Mari kita lihat beberapa perubahan yang bisa kita buat pada crate
+`blog` yang bisa menjadikan state dan transisi yang tidak valid sebagai galat
+waktu kompilasi.
 
-### Encoding States and Behavior as Types
+### Menyandikan State dan Perilaku sebagai Tipe
 
-We’ll show you how to rethink the state pattern to get a different set of
-trade-offs. Rather than encapsulating the states and transitions completely so
-that outside code has no knowledge of them, we’ll encode the states into
-different types. Consequently, Rust’s type-checking system will prevent
-attempts to use draft posts where only published posts are allowed by issuing a
-compiler error.
+Kami akan menunjukkan cara memikirkan ulang pola state untuk mendapatkan
+sekumpulan kompromi yang berbeda. Alih-alih mengenkapsulasi state dan
+transisi sepenuhnya sehingga kode luar tidak mengetahuinya, kita akan
+menyandikan state ke dalam tipe yang berbeda. Akibatnya, sistem pemeriksaan
+tipe Rust akan mencegah upaya memakai post draf di tempat yang hanya
+mengizinkan post yang diterbitkan dengan mengeluarkan galat kompilator.
 
-Let’s consider the first part of `main` in Listing 18-11:
+Mari kita pertimbangkan bagian pertama `main` di Listing 18-11:
 
 <Listing file-name="src/main.rs">
 
@@ -421,17 +446,18 @@ Let’s consider the first part of `main` in Listing 18-11:
 
 </Listing>
 
-We still enable the creation of new posts in the draft state using `Post::new`
-and the ability to add text to the post’s content. But instead of having a
-`content` method on a draft post that returns an empty string, we’ll make it so
-that draft posts don’t have the `content` method at all. That way, if we try to
-get a draft post’s content, we’ll get a compiler error telling us the method
-doesn’t exist. As a result, it will be impossible for us to accidentally
-display draft post content in production because that code won’t even compile.
-Listing 18-19 shows the definition of a `Post` struct and a `DraftPost` struct,
-as well as methods on each.
+Kita tetap mengaktifkan pembuatan post baru di state draf menggunakan
+`Post::new` dan kemampuan menambahkan teks ke konten post. Tetapi alih-alih
+memiliki metode `content` pada post draf yang mengembalikan string kosong,
+kita akan membuatnya sedemikian rupa sehingga post draf tidak memiliki metode
+`content` sama sekali. Dengan begitu, jika kita mencoba mendapatkan konten
+post draf, kita akan mendapat galat kompilator yang memberi tahu kita metode
+itu tidak ada. Hasilnya, mustahil bagi kita untuk secara tidak sengaja
+menampilkan konten post draf di produksi karena kode itu bahkan tidak akan
+terkompilasi. Listing 18-19 menunjukkan definisi struct `Post` dan struct
+`DraftPost`, beserta metode pada masing-masing.
 
-<Listing number="18-19" file-name="src/lib.rs" caption="A `Post` with a `content` method and a `DraftPost` without a `content` method">
+<Listing number="18-19" file-name="src/lib.rs" caption="`Post` dengan metode `content` dan `DraftPost` tanpa metode `content`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-19/src/lib.rs}}
@@ -439,36 +465,38 @@ as well as methods on each.
 
 </Listing>
 
-Both the `Post` and `DraftPost` structs have a private `content` field that
-stores the blog post text. The structs no longer have the `state` field because
-we’re moving the encoding of the state to the types of the structs. The `Post`
-struct will represent a published post, and it has a `content` method that
-returns the `content`.
+Baik struct `Post` maupun `DraftPost` memiliki field privat `content` yang
+menyimpan teks post blog. Kedua struct tidak lagi memiliki field `state`
+karena kita memindahkan penyandian state ke tipe struct-nya. Struct `Post`
+akan merepresentasikan post yang diterbitkan, dan ia memiliki metode
+`content` yang mengembalikan `content` itu.
 
-We still have a `Post::new` function, but instead of returning an instance of
-`Post`, it returns an instance of `DraftPost`. Because `content` is private and
-there aren’t any functions that return `Post`, it’s not possible to create an
-instance of `Post` right now.
+Kita masih memiliki fungsi `Post::new`, tetapi alih-alih mengembalikan
+instance `Post`, fungsi itu mengembalikan instance `DraftPost`. Karena
+`content` privat dan tidak ada fungsi yang mengembalikan `Post`, mustahil
+untuk membuat instance `Post` saat ini.
 
-The `DraftPost` struct has an `add_text` method, so we can add text to
-`content` as before, but note that `DraftPost` does not have a `content` method
-defined! So now the program ensures that all posts start as draft posts, and
-draft posts don’t have their content available for display. Any attempt to get
-around these constraints will result in a compiler error.
+Struct `DraftPost` memiliki metode `add_text`, jadi kita bisa menambahkan teks
+ke `content` seperti sebelumnya, tetapi perhatikan bahwa `DraftPost` tidak
+memiliki metode `content` yang terdefinisi! Jadi sekarang program memastikan
+semua post dimulai sebagai post draf, dan post draf tidak memiliki konten yang
+tersedia untuk ditampilkan. Upaya apa pun untuk mengakali batasan-batasan ini
+akan menghasilkan galat kompilator.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="implementing-transitions-as-transformations-into-different-types"></a>
 
-So, how do we get a published post? We want to enforce the rule that a draft
-post has to be reviewed and approved before it can be published. A post in the
-pending review state should still not display any content. Let’s implement
-these constraints by adding another struct, `PendingReviewPost`, defining the
-`request_review` method on `DraftPost` to return a `PendingReviewPost` and
-defining an `approve` method on `PendingReviewPost` to return a `Post`, as
-shown in Listing 18-20.
+Jadi, bagaimana kita mendapatkan post yang diterbitkan? Kita ingin menegakkan
+aturan bahwa post draf harus di-review dan disetujui sebelum bisa
+diterbitkan. Post di state menunggu review tetap tidak boleh menampilkan
+konten apa pun. Mari kita implementasikan batasan-batasan ini dengan
+menambahkan struct lain, `PendingReviewPost`, mendefinisikan metode
+`request_review` pada `DraftPost` untuk mengembalikan `PendingReviewPost`,
+dan mendefinisikan metode `approve` pada `PendingReviewPost` untuk
+mengembalikan `Post`, seperti yang ditunjukkan di Listing 18-20.
 
-<Listing number="18-20" file-name="src/lib.rs" caption="A `PendingReviewPost` that gets created by calling `request_review` on `DraftPost` and an `approve` method that turns a `PendingReviewPost` into a published `Post`">
+<Listing number="18-20" file-name="src/lib.rs" caption="`PendingReviewPost` yang dibuat dengan memanggil `request_review` pada `DraftPost` dan metode `approve` yang mengubah `PendingReviewPost` menjadi `Post` yang diterbitkan">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch18-oop/listing-18-20/src/lib.rs:here}}
@@ -476,27 +504,29 @@ shown in Listing 18-20.
 
 </Listing>
 
-The `request_review` and `approve` methods take ownership of `self`, thus
-consuming the `DraftPost` and `PendingReviewPost` instances and transforming
-them into a `PendingReviewPost` and a published `Post`, respectively. This way,
-we won’t have any lingering `DraftPost` instances after we’ve called
-`request_review` on them, and so forth. The `PendingReviewPost` struct doesn’t
-have a `content` method defined on it, so attempting to read its content
-results in a compiler error, as with `DraftPost`. Because the only way to get a
-published `Post` instance that does have a `content` method defined is to call
-the `approve` method on a `PendingReviewPost`, and the only way to get a
-`PendingReviewPost` is to call the `request_review` method on a `DraftPost`,
-we’ve now encoded the blog post workflow into the type system.
+Metode `request_review` dan `approve` mengambil kepemilikan `self`, sehingga
+mengonsumsi instance `DraftPost` dan `PendingReviewPost` dan mengubahnya
+menjadi `PendingReviewPost` dan `Post` yang diterbitkan. Dengan cara ini,
+kita tidak akan punya instance `DraftPost` yang tersisa setelah kita memanggil
+`request_review` padanya, dan seterusnya. Struct `PendingReviewPost` tidak
+memiliki metode `content` yang terdefinisi padanya, jadi mencoba membaca
+kontennya menghasilkan galat kompilator, sama seperti `DraftPost`. Karena
+satu-satunya cara mendapatkan instance `Post` yang diterbitkan—yang memang
+memiliki metode `content`—adalah memanggil metode `approve` pada
+`PendingReviewPost`, dan satu-satunya cara mendapatkan `PendingReviewPost`
+adalah memanggil metode `request_review` pada `DraftPost`, kita kini telah
+menyandikan alur kerja post blog ke dalam sistem tipe.
 
-But we also have to make some small changes to `main`. The `request_review` and
-`approve` methods return new instances rather than modifying the struct they’re
-called on, so we need to add more `let post =` shadowing assignments to save
-the returned instances. We also can’t have the assertions about the draft and
-pending review posts’ contents be empty strings, nor do we need them: We can’t
-compile code that tries to use the content of posts in those states any longer.
-The updated code in `main` is shown in Listing 18-21.
+Tetapi kita juga harus membuat beberapa perubahan kecil pada `main`. Metode
+`request_review` dan `approve` mengembalikan instance baru alih-alih mengubah
+struct yang dipanggil, jadi kita perlu menambahkan lebih banyak penetapan
+shadowing `let post =` untuk menyimpan instance yang dikembalikan. Kita juga
+tidak bisa lagi memiliki asersi bahwa konten post draf dan post menunggu
+review adalah string kosong, dan kita juga tidak memerlukannya: kita tidak
+bisa mengompilasi kode yang mencoba memakai konten post pada state-state itu.
+Kode yang diperbarui di `main` ditunjukkan di Listing 18-21.
 
-<Listing number="18-21" file-name="src/main.rs" caption="Modifications to `main` to use the new implementation of the blog post workflow">
+<Listing number="18-21" file-name="src/main.rs" caption="Modifikasi pada `main` untuk memakai implementasi baru alur kerja post blog">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch18-oop/listing-18-21/src/main.rs}}
@@ -504,43 +534,45 @@ The updated code in `main` is shown in Listing 18-21.
 
 </Listing>
 
-The changes we needed to make to `main` to reassign `post` mean that this
-implementation doesn’t quite follow the object-oriented state pattern anymore:
-The transformations between the states are no longer encapsulated entirely
-within the `Post` implementation. However, our gain is that invalid states are
-now impossible because of the type system and the type checking that happens at
-compile time! This ensures that certain bugs, such as display of the content of
-an unpublished post, will be discovered before they make it to production.
+Perubahan yang harus kita buat pada `main` untuk menetapkan ulang `post`
+berarti implementasi ini tidak lagi sepenuhnya mengikuti pola state
+berorientasi objek: transformasi antar-state tidak lagi terenkapsulasi
+seluruhnya di dalam implementasi `Post`. Namun, keuntungan kita adalah state
+yang tidak valid kini mustahil karena sistem tipe dan pemeriksaan tipe yang
+terjadi pada waktu kompilasi! Ini memastikan bug tertentu, seperti penampilan
+konten post yang belum diterbitkan, akan ditemukan sebelum sempat masuk ke
+produksi.
 
-Try the tasks suggested at the start of this section on the `blog` crate as it
-is after Listing 18-21 to see what you think about the design of this version
-of the code. Note that some of the tasks might be completed already in this
-design.
+Coba tugas-tugas yang disarankan di awal bagian ini pada crate `blog` dalam
+kondisinya setelah Listing 18-21 untuk melihat pendapat Anda tentang desain
+versi kode ini. Perhatikan bahwa sebagian tugas itu mungkin sudah selesai di
+desain ini.
 
-We’ve seen that even though Rust is capable of implementing object-oriented
-design patterns, other patterns, such as encoding state into the type system,
-are also available in Rust. These patterns have different trade-offs. Although
-you might be very familiar with object-oriented patterns, rethinking the
-problem to take advantage of Rust’s features can provide benefits, such as
-preventing some bugs at compile time. Object-oriented patterns won’t always be
-the best solution in Rust due to certain features, like ownership, that
-object-oriented languages don’t have.
+Kita telah melihat bahwa meskipun Rust mampu mengimplementasikan pola desain
+berorientasi objek, pola lain, seperti menyandikan state ke dalam sistem
+tipe, juga tersedia di Rust. Pola-pola ini punya kompromi yang berbeda.
+Meskipun Anda mungkin sangat familier dengan pola berorientasi objek,
+memikirkan ulang masalah untuk memanfaatkan fitur-fitur Rust bisa memberikan
+manfaat, seperti mencegah sebagian bug pada waktu kompilasi. Pola
+berorientasi objek tidak selalu menjadi solusi terbaik di Rust karena
+fitur-fitur tertentu, seperti ownership, yang tidak dimiliki bahasa
+berorientasi objek.
 
-## Summary
+## Ringkasan
 
-Regardless of whether you think Rust is an object-oriented language after
-reading this chapter, you now know that you can use trait objects to get some
-object-oriented features in Rust. Dynamic dispatch can give your code some
-flexibility in exchange for a bit of runtime performance. You can use this
-flexibility to implement object-oriented patterns that can help your code’s
-maintainability. Rust also has other features, like ownership, that
-object-oriented languages don’t have. An object-oriented pattern won’t always
-be the best way to take advantage of Rust’s strengths, but it is an available
-option.
+Terlepas dari apakah Anda menganggap Rust bahasa berorientasi objek setelah
+membaca bab ini, kini Anda tahu bahwa Anda bisa memakai trait object untuk
+mendapatkan sebagian fitur berorientasi objek di Rust. Dynamic dispatch bisa
+memberi kode Anda sedikit fleksibilitas dengan imbalan sedikit performa
+runtime. Anda bisa memakai fleksibilitas ini untuk mengimplementasikan pola
+berorientasi objek yang bisa membantu kemudahan pemeliharaan kode Anda. Rust
+juga punya fitur lain, seperti ownership, yang tidak dimiliki bahasa
+berorientasi objek. Pola berorientasi objek tidak selalu menjadi cara terbaik
+untuk memanfaatkan kekuatan Rust, tetapi ia opsi yang tersedia.
 
-Next, we’ll look at patterns, which are another of Rust’s features that enable
-lots of flexibility. We’ve looked at them briefly throughout the book but
-haven’t seen their full capability yet. Let’s go!
+Berikutnya, kita akan melihat pola, fitur Rust lain yang memungkinkan banyak
+fleksibilitas. Kita telah melihatnya sekilas di sepanjang buku tetapi belum
+melihat kemampuan penuhnya. Ayo!
 
 [more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler
 [macros]: ch20-05-macros.html#macros

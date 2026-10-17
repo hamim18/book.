@@ -1,17 +1,19 @@
-# Object-Oriented Programming Features
+# Fitur-Fitur Pemrograman Berorientasi Objek
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="object-oriented-programming-features-of-rust"></a>
 
-Object-oriented programming (OOP) is a way of modeling programs. Objects as a
-programmatic concept were introduced in the programming language Simula in the
-1960s. Those objects influenced Alan Kay’s programming architecture in which
-objects pass messages to each other. To describe this architecture, he coined
-the term _object-oriented programming_ in 1967. Many competing definitions
-describe what OOP is, and by some of these definitions Rust is object oriented
-but by others it is not. In this chapter, we’ll explore certain characteristics
-that are commonly considered object oriented and how those characteristics
-translate to idiomatic Rust. We’ll then show you how to implement an
-object-oriented design pattern in Rust and discuss the trade-offs of doing so
-versus implementing a solution using some of Rust’s strengths instead.
+Pemrograman berorientasi objek (OOP) adalah salah satu cara memodelkan
+program. Objek sebagai konsep pemrograman diperkenalkan di bahasa pemrograman
+Simula pada tahun 1960-an. Objek-objek itu memengaruhi arsitektur pemrograman
+Alan Kay, yang di dalamnya objek saling mengirim pesan. Untuk menggambarkan
+arsitektur ini, ia mencetuskan istilah _object-oriented programming_
+(pemrograman berorientasi objek) pada tahun 1967. Banyak definisi yang saling
+bersaing menjelaskan apa itu OOP, dan menurut sebagian definisi itu Rust
+berorientasi objek, tetapi menurut yang lain tidak. Di bab ini, kita akan
+mengeksplorasi karakteristik-karakteristik tertentu yang umumnya dianggap
+berorientasi objek dan bagaimana karakteristik itu diterjemahkan ke Rust yang
+idiomatis. Kami kemudian akan menunjukkan cara mengimplementasikan pola desain
+berorientasi objek di Rust dan membahas kompromi melakukannya dibandingkan
+mengimplementasikan solusi menggunakan sebagian kekuatan Rust.
