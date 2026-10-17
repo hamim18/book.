@@ -75,7 +75,7 @@ Istilah bertanda "tetap" tidak diberi padanan.
 | smart pointer | *smart pointer* (penunjuk pintar) |
 | pattern matching | *pattern matching* (pencocokan pola) |
 | compiler | *compiler* (kompilator) |
-| error handling | penanganan *error* |
+| error handling | penanganan galat |
 | unsafe | *unsafe* (tetap) |
 | macro | *macro* (makro) |
 
