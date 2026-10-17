@@ -6,13 +6,13 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 16 (konkurensi tanpa takut, 5 file) — Tahap 2
+- Bab terakhir selesai: Bab 19 (pola dan pencocokan, 4 file) — Tahap 2
   berjalan.
-- File berikutnya yang dikerjakan: `ch17-00-async-await.md`
-  (Bab 17, 7 file; mulai dari `ch17-00`).
+- File berikutnya yang dikerjakan: `ch20-00-advanced-features.md`
+  (Bab 20, 6 file; mulai dari `ch20-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 16 (exit 0); dijadwalkan lagi
-  setelah Bab 17.
+- `mdbook test` terakhir lulus: setelah Bab 19 (exit 0); dijadwalkan lagi
+  setelah Bab 20.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -104,13 +104,13 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 14      |       6 |     0 |     0 |     6 |
 | Bab 15      |       7 |     0 |     0 |     7 |
 | Bab 16      |       5 |     0 |     0 |     5 |
-| Bab 17      |       0 |     0 |     7 |     7 |
-| Bab 18      |       0 |     0 |     4 |     4 |
-| Bab 19      |       0 |     0 |     4 |     4 |
+| Bab 17      |       7 |     0 |     0 |     7 |
+| Bab 18      |       4 |     0 |     0 |     4 |
+| Bab 19      |       4 |     0 |     0 |     4 |
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      76 |     0 |    36 |   112 |
+| TOTAL       |      91 |     0 |    21 |   112 |
 
 ## Log keputusan istilah
 
@@ -447,6 +447,96 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | thread safety | (tetap) | 16 |
 | upstream / downstream | hulu / hilir | 16 |
 | actor | aktor | 16 |
+| asynchronous / asynchronous programming | asinkron / pemrograman asinkron (tanpa miring) | 17 |
+| parallelism | paralelisme (tanpa miring) | 17 |
+| CPU-bound / compute-bound / I/O-bound | _CPU-bound_ (terikat CPU) / _compute-bound_ (terikat komputasi) / _I/O-bound_ (terikat I/O) | 17 |
+| non-blocking | _non_-blocking (tidak memblokir) | 17 |
+| multitask (verba) | melakukan banyak tugas sekaligus | 17 |
+| serial | serial (tanpa miring) | 17 |
+| invisibly (interupsi OS) | secara tak terlihat | 17 |
+| lock up (UI) | membuat macet | 17 |
+| join handle | (tetap, tanpa miring) | 17 |
+| fair / fairness | _fair_ (adil) / fairness | 17 |
+| unbounded (channel) | tanpa batas | 17 |
+| starvation / starving | kelaparan / membuat kelaparan | 17 |
+| yield / yielding | menyerahkan kontrol | 17 |
+| cooperative multitasking | _cooperative multitasking_ (multitasking kooperatif) | 17 |
+| timer | _timer_ (pewaktu) | 17 |
+| elapse (timeout) | habis (batas waktu habis) | 17 |
+| interleaved / interleave | saling menyelang | 17 |
+| handoff / hand off control | penyerahan / menyerahkan kontrol | 17 |
+| building block | batu penyusun | 17 |
+| compose (future) | menyusun | 17 |
+| retries | percobaan ulang | 17 |
+| bottleneck | hambatan | 17 |
+| embedded (sistem operasi) | tertanam | 17 |
+| batch up (events) | mengelompokkan | 17 |
+| event | (tetap, tanpa miring) | 17 |
+| throttle | membatasi laju | 17 |
+| chunks (data) | potongan-potongan | 17 |
+| extension (trait Ext) | _extension_ (ekstensi) | 17 |
+| utility methods | metode utilitas | 17 |
+| self-referential | mengacu ke diri sendiri | 17 |
+| pin (verba) / pinning | mem-pin / pinning | 17 |
+| web of references | jaringan reference | 17 |
+| work stealing | _work stealing_ (pencurian pekerjaan) | 17 |
+| fire and forget | “fire and forget” (dilepas dan dibiarkan) | 17 |
+| rules of thumb | aturan praktis | 17 |
+| parallelizable | dapat diparalelkan | 17 |
+| granular | halus (satuan paling halus) | 17 |
+| video encoding | pengodean video | 17 |
+| OOP / object-oriented programming | pemrograman berorientasi objek (OOP) | 18 |
+| coin (verba) | mencetuskan (istilah) | 18 |
+| The Gang of Four | _The Gang of Four_ (Geng Empat) | 18 |
+| inheritance | _inheritance_ (pewarisan) | 18 |
+| parent class / child class | kelas induk / kelas anak | 18 |
+| subclass | (tetap, tanpa miring) | 18 |
+| polymorphism | _polymorphism_ (polimorfisme) | 18 |
+| bounded parametric polymorphism | _bounded parametric polymorphism_ (polimorfisme parametrik terbatas) | 18 |
+| single inheritance | _single inheritance_ (pewarisan tunggal) | 18 |
+| reuse of code | pemakaian ulang kode | 18 |
+| out of sync | tidak sinkron | 18 |
+| on demand | setiap kali dibutuhkan | 18 |
+| graphical user interface (GUI) | antarmuka pengguna grafis (GUI) | 18 |
+| framework | (tetap, tanpa miring) | 18 |
+| duck typing | _duck typing_ (pengetikan bebek) | 18 |
+| quack | berkuek | 18 |
+| static dispatch / dynamic dispatch | _static dispatch_ (dispatch statis) / _dynamic dispatch_ (dispatch dinamis) | 18 |
+| dyn compatibility | _dyn compatibility_ (kompatibilitas dyn) | 18 |
+| inline (verba) | meng-inline | 18 |
+| stand-in | pengganti | 18 |
+| fill in for | mengisi peran | 18 |
+| workaround | jalan keluar | 18 |
+| state pattern | _state pattern_ (pola state) | 18 |
+| state object | _state object_ (objek state) | 18 |
+| blog post | post blog | 18 |
+| workflow | alur kerja | 18 |
+| business requirements | persyaratan bisnis | 18 |
+| coupled | saling terkait | 18 |
+| lingering | tersisa | 18 |
+| get around (batasan) | mengakali | 18 |
+| in exchange for | dengan imbalan | 18 |
+| maintainability | kemudahan pemeliharaan | 18 |
+| blurring the lines | mengaburkan batas | 18 |
+| refutability | refutabilitas | 19 |
+| irrefutable / refutable | _irrefutable_ (tidak dapat dibantah) / _refutable_ (dapat dibantah) | 19 |
+| bind (pola) | mengikat | 19 |
+| match guard | _match guard_ (pengawal match) | 19 |
+| inclusive range | rentang inklusif | 19 |
+| shorthand (pola struct) | bentuk singkat | 19 |
+| axis | sumbu | 19 |
+| by virtue of | karena | 19 |
+| prototype (verba) | membuat prototipe | 19 |
+| unset (pengaturan) | menghapus nilai | 19 |
+| customization | kustomisasi | 19 |
+| setting | pengaturan | 19 |
+| three-dimensional space | ruang tiga dimensi | 19 |
+| unambiguous | tidak ambigu | 19 |
+| precedence | prioritas | 19 |
+| penultimate | kedua terakhir | 19 |
+| remainder | sisa pembagian | 19 |
+| hypothetical | hipotetis | 19 |
+| one level deep | sedalam satu tingkat | 19 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -481,17 +571,21 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Teks tautan baru yang diterjemahkan di sesi ini, harus cocok dengan
   heading final file tujuan (diperiksa saat file itu dikerjakan):
   ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
-  (dari ch09-02 dan ch15-01);
-  ch18-03 “Menyandikan State dan Perilaku sebagai Tipe” (dari ch09-03).
+  (dari ch09-02 dan ch15-01) dan ch18-03 “Menyandikan State dan Perilaku
+  sebagai Tipe” (dari ch09-03) sudah beres: heading finalnya kini persis
+  sama dengan teks tautan itu.
+  Belum beres (file tujuan belum dikerjakan): ch18-02 → ch20-03
+  “Tipe Berukuran Dinamis dan Trait `Sized`”; ch18-03 → ch20-05
+  “Macro” (`#macros`).
 - Teks tautan ch07-00 “[“Cargo Workspaces”]” diubah menjadi “[“Workspace
   Cargo”]” agar cocok dengan heading final ch14-03 (`## Workspace Cargo`),
   satu commit dengan bab 14.
 - Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
   (dicatat di sini supaya cocok saat bab itu dikerjakan):
-  ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
   ch15-02 & ch20-02 → ch10-02 “Mengimplementasikan Trait pada Suatu Tipe”.
-  (ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime” dan
-  ch13-03 → ch10-02 “Memakai Trait sebagai Parameter” sudah beres: teks
+  (ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime”,
+  ch13-03 → ch10-02 “Memakai Trait sebagai Parameter”, dan
+  ch17-01 → ch10-02 “Memakai Trait sebagai Parameter” sudah beres: teks
   tautannya kini persis sama dengan heading final file tujuan.)
 - Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
   ch12-06 sudah beres: heading ch12-06 kini `## Mengalihkan Galat ke Standard
@@ -552,7 +646,22 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   (heading kini diterjemahkan; tag `<a id>` yang ada tidak cocok dengan
   target tautan, yang di teks asli mengandalkan anchor otomatis):
   ch16-04 → ch16-03 `#shared-access-to-mutext` (heading kini “Akses Bersama ke
-  `Mutex<T>`”). Solusi diputuskan di Tahap 5.
+  `Mutex<T>`”);
+  ch17-01 → ch16-01 `#creating-a-new-thread-with-spawn` (heading kini
+  “Membuat Thread Baru dengan `spawn`”);
+  ch17-02 → ch16-01 `#waiting-for-all-threads-to-finish` (heading kini
+  “Menunggu Semua Thread Selesai”; di teks asli pun target ini tidak cocok
+  dengan tag `<a id>` maupun heading versi asli);
+  ch17-02 → ch16-01 `#using-move-closures-with-threads` (heading kini
+  “Memakai Closure `move` dengan Thread”). Solusi diputuskan di Tahap 5.
+- Anchor otomatis dari heading bab 19 yang menjadi target tautan (heading
+  kini diterjemahkan; tidak ada tag `<a id>` yang cocok di teks asli):
+  ch19-01 → ch19-03 `#ignoring-values-in-a-pattern` (heading kini
+  “Mengabaikan Nilai dalam Pola”);
+  ch19-03 intra-file `#adding-conditionals-with-match-guards` (heading kini
+  “Menambahkan Kondisional dengan Match Guard”; tag
+  `<a id="extra-conditionals-with-match-guards">` tetap ada tetapi target
+  tautan memakai anchor otomatis). Solusi diputuskan di Tahap 5.
 
 ## Cara memulai sesi baru
 
