@@ -40,7 +40,7 @@ secara aman melakukan apa yang Anda inginkan; galat itu _bukan_ berarti Anda
 bukan pemrogram yang baik! Rustacean yang berpengalaman pun masih mendapatkan
 galat *compiler*.
 
-Anda menerima pesan galat `` cannot assign twice to *immutable* variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang *immutable*.
+Anda menerima pesan galat `` cannot assign twice to immutable variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang *immutable*.
 
 Penting bagi kita untuk mendapatkan galat pada waktu kompilasi ketika kita
 mencoba mengubah nilai yang ditetapkan sebagai *immutable*, karena situasi
@@ -133,7 +133,7 @@ permainan, atau kecepatan cahaya.
 Menamai nilai yang ditulis langsung di dalam kode (hardcoded) yang dipakai di
 seluruh program Anda sebagai konstanta berguna untuk menyampaikan makna nilai
 tersebut kepada pemelihara kode di masa depan. Hal itu juga membantu karena
-hanya ada satu tempat di kode Anda yang perlu diubah jika nilai hardcoded itu
+hanya ada satu tempat di kode Anda yang perlu diubah jika nilai yang ditulis langsung (hardcoded) itu
 perlu diperbarui di masa mendatang.
 
 ### Shadowing

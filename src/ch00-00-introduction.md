@@ -62,7 +62,7 @@ Ratusan perusahaan, besar maupun kecil, menggunakan Rust di lingkungan
 produksi untuk berbagai macam tugas, termasuk alat baris perintah, layanan
 web, perangkat DevOps, perangkat tertanam, analisis dan transkode audio dan
 video, mata uang kripto, bioinformatika, mesin pencari, aplikasi Internet of
-Things, pembelajaran mesin, dan bahkan sebagian besar peramban web Firefox.
+Things, pembelajaran mesin, dan bahkan bagian-bagian utama peramban web Firefox.
 
 ### Pengembang Open Source
 
@@ -73,7 +73,7 @@ berkontribusi pada bahasa Rust.
 ### Orang yang Menghargai Kecepatan dan Stabilitas
 
 Rust ditujukan bagi orang-orang yang mendambakan kecepatan dan stabilitas
-dalam sebuah bahasa. Yang kami maksud dengan kecepatan adalah seberapa cepat
+dalam sebuah bahasa. Yang kita maksud dengan kecepatan adalah seberapa cepat
 kode Rust dapat berjalan sekaligus seberapa cepat Rust memungkinkan Anda
 menulis program. Pemeriksaan *compiler* Rust menjamin stabilitas ketika
 fitur-fitur ditambahkan dan ketika dilakukan refactoring. Hal ini bertolak
@@ -94,7 +94,7 @@ Cobalah Rust, dan lihat apakah pilihan-pilihannya cocok untuk Anda.
 ## Untuk Siapa Buku Ini Ditujukan
 
 Buku ini mengasumsikan bahwa Anda pernah menulis kode dalam bahasa
-pemrograman lain, tetapi tidak mengasumsikan bahasa apa pun. Kami berusaha
+pemrograman lain, tetapi tidak mengasumsikan bahasa yang mana. Kami berusaha
 membuat materi ini mudah diakses secara luas oleh orang-orang dari berbagai
 macam latar belakang pemrograman. Kami tidak menghabiskan banyak waktu untuk
 membahas apa itu pemrograman atau bagaimana cara memikirkannya. Jika Anda
@@ -119,7 +119,7 @@ adalah bab proyek; sisanya adalah bab konsep.
 “Hello, world!”, dan cara menggunakan Cargo, pengelola *package* (paket) dan
 alat build milik Rust. **Bab 2** adalah pengantar langsung untuk menulis
 program di Rust, dengan mengajak Anda membangun permainan tebak angka. Di
-sini, kami membahas konsep-konsep pada tingkat tinggi, dan bab-bab
+sini, kita membahas konsep-konsep pada tingkat tinggi, dan bab-bab
 selanjutnya akan memberikan detail tambahan. Jika Anda ingin langsung terjun
 praktik, Bab 2 adalah tempatnya. Jika Anda adalah pembelajar yang sangat
 teliti dan lebih suka mempelajari setiap detail sebelum melanjutkan ke bagian
@@ -189,13 +189,13 @@ cocok untuk Anda.
 
 Bagian penting dari proses belajar Rust adalah belajar membaca pesan galat
 yang ditampilkan *compiler*: pesan-pesan ini akan memandu Anda menuju kode
-yang berfungsi. Karena itu, kami akan memberikan banyak contoh yang tidak
+yang berfungsi. Karena itu, kita akan memberikan banyak contoh yang tidak
 terkompilasi beserta pesan galat yang akan ditampilkan *compiler* pada setiap
 situasi. Perlu Anda ketahui bahwa jika Anda mengetik dan menjalankan sebuah
 contoh secara acak, contoh tersebut mungkin tidak terkompilasi! Pastikan Anda
 membaca teks di sekitarnya untuk melihat apakah contoh yang coba Anda
 jalankan memang sengaja dibuat agar menghasilkan galat. Pada kebanyakan
-situasi, kami akan memandu Anda ke versi yang benar dari setiap kode yang
+situasi, kita akan memandu Anda ke versi yang benar dari setiap kode yang
 tidak terkompilasi. Ferris juga akan membantu Anda membedakan kode yang
 memang tidak dimaksudkan untuk berfungsi:
 
@@ -205,7 +205,7 @@ memang tidak dimaksudkan untuk berfungsi:
 | <img src="img/ferris/panics.svg" class="ferris-explain" alt="Ferris mengangkat kedua tangannya"/>                                                                                                                                                  | Kode ini memicu panic!                                   |
 | <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain" alt="Ferris dengan satu capit terangkat sambil mengangkat bahu"/>                                                                                                             | Kode ini tidak menghasilkan perilaku yang diinginkan. |
 
-Pada kebanyakan situasi, kami akan memandu Anda ke versi yang benar dari
+Pada kebanyakan situasi, kita akan memandu Anda ke versi yang benar dari
 setiap kode yang tidak terkompilasi.
 
 ## Kode Sumber

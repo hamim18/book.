@@ -3,7 +3,7 @@
 *Trait* kedua yang penting bagi pola *smart pointer* adalah `Drop`, yang
 memungkinkan Anda menyesuaikan apa yang terjadi ketika sebuah nilai akan
 keluar dari *scope*. Anda dapat menyediakan implementasi untuk *trait* `Drop` pada
-tipe apa pun, dan kode itu dapat dipakai untuk melepaskan resource seperti file
+tipe apa pun, dan kode itu dapat dipakai untuk melepaskan sumber daya seperti file
 atau koneksi jaringan.
 
 Kita memperkenalkan `Drop` dalam konteks *smart pointer* karena fungsionalitas
@@ -12,7 +12,7 @@ Sebagai contoh, ketika sebuah `Box<T>` dibebaskan, ia akan mendealokasikan
 ruang di *heap* yang ditunjuk *box* itu.
 
 Di beberapa bahasa, untuk beberapa tipe, pemrogram harus memanggil kode untuk
-membebaskan memori atau resource setiap kali mereka selesai memakai instance
+membebaskan memori atau sumber daya setiap kali mereka selesai memakai instance
 tipe-tipe itu. Contohnya antara lain handle file, soket, dan kunci. Jika
 pemrogram lupa, sistem bisa kelebihan beban dan crash. Di Rust, Anda dapat
 menentukan bahwa potongan kode tertentu dijalankan setiap kali sebuah nilai

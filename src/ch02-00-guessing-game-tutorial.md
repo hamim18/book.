@@ -641,7 +641,7 @@ seri `0.10` seharusnya bekerja dengan kode di bab ini.
 
 Sekarang setelah kita memiliki masukan pengguna dan angka acak, kita dapat
 membandingkan keduanya. Langkah itu ditunjukkan pada Listing 2-4.
-Perhatikan bahwa kode ini belum akan terkompilasi, seperti yang akan kami
+Perhatikan bahwa kode ini belum akan terkompilasi, seperti yang akan kita
 jelaskan.
 
 <Listing number="2-4" file-name="src/main.rs" caption="Menangani nilai kembalian yang mungkin dari perbandingan dua angka">

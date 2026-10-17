@@ -42,14 +42,14 @@ Semua ini mungkin terasa agak abstrak, jadi mari kita tulis program async
 pertama kita: sebuah _web scraper_ kecil. Kita akan meneruskan dua URL dari
 baris perintah, mengambil keduanya secara konkuren, dan mengembalikan hasil
 dari URL mana pun yang selesai lebih dulu. Contoh ini akan memuat cukup banyak
-sintaks baru, tetapi jangan khawatir—kami akan menjelaskan semua yang perlu
+sintaks baru, tetapi jangan khawatir—kita akan menjelaskan semua yang perlu
 Anda ketahui seiring kita berjalan.
 
 <a id="our-first-async-program"></a>
 ## Program Async Pertama Kita
 
 Untuk menjaga fokus bab ini pada mempelajari async alih-alih menyulap berbagai
-bagian ekosistem, kami telah membuat *crate* `trpl` (`trpl` adalah singkatan dari
+bagian ekosistem, kita telah membuat *crate* `trpl` (`trpl` adalah singkatan dari
 “The Rust Programming Language”). *Crate* ini mengekspor ulang semua tipe,
 *trait*, dan fungsi yang Anda perlukan, terutama dari *crate*
 [`futures`][futures-crate]<!-- ignore --> dan [`tokio`][tokio]<!-- ignore -->.
@@ -62,9 +62,9 @@ karena *crate* ini teruji dengan baik dan dipakai secara luas.
 
 Dalam beberapa kasus, `trpl` juga mengganti nama atau membungkus API aslinya
 agar Anda tetap fokus pada detail yang relevan dengan bab ini. Jika Anda ingin
-memahami apa yang dilakukan *crate* ini, kami menganjurkan Anda melihat [kode
+memahami apa yang dilakukan *crate* ini, kita menganjurkan Anda melihat [kode
 sumbernya][*crate*-source]. Anda bisa melihat dari *crate* mana setiap
-re-export berasal, dan kami telah meninggalkan komentar yang ekstensif untuk
+re-export berasal, dan kita telah meninggalkan komentar yang ekstensif untuk
 menjelaskan apa yang dilakukan *crate* ini.
 
 Buat proyek binary baru bernama `hello-async` dan tambahkan *crate* `trpl`
@@ -113,7 +113,7 @@ bersifat _lazy_: *future* tidak melakukan apa pun sampai Anda memintanya dengan
 kata kunci `await`. (Bahkan, Rust akan menampilkan peringatan kompilator jika
 Anda tidak memakai sebuah *future*.) Ini mungkin mengingatkan Anda pada
 pembahasan *iterator* di bagian [“Memproses Serangkaian Item dengan
-Iterator”][iterators-lazy]<!-- ignore --> di Bab 13. Iterator tidak melakukan
+*Iterator*”][*iterators*-lazy]<!-- ignore --> di Bab 13. *Iterator* tidak melakukan
 apa pun kecuali Anda memanggil metode `next`-nya—baik secara langsung maupun
 dengan memakai perulangan `for` atau metode seperti `map` yang memakai `next`
 di balik layar. Begitu pula, *future* tidak melakukan apa pun kecuali Anda

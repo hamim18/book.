@@ -5,7 +5,7 @@ Anda terapkan pada definisi *struct* atau *enum*. Atribut `derive` menghasilkan 
 yang mengimplementasikan *trait* dengan implementasi bawaannya sendiri pada tipe
 yang Anda beri anotasi dengan sintaks `derive`.
 
-Dalam lampiran ini, kami menyajikan rujukan untuk semua *trait* di pustaka standar
+Dalam lampiran ini, kita menyajikan rujukan untuk semua *trait* di pustaka standar
 yang dapat Anda pakai dengan `derive`. Setiap bagian mencakup:
 
 - Operator dan metode apa saja yang diaktifkan oleh penurunan *trait* ini
@@ -181,8 +181,8 @@ artinya semua *field* atau nilai dalam tipe itu juga harus mengimplementasikan
 
 Fungsi `Default::default` umum dipakai bersama sintaks update *struct* yang
 dibahas di bagian [“Membuat Instance dengan Sintaks Update
-Struct”][creating-instances-from-other-instances-with-struct-update-syntax]<!--
-ignore --> di Bab 5. Anda dapat mengkustomisasi beberapa field struct, lalu
+*Struct*”][creating-instances-from-other-instances-with-struct-update-syntax]<!--
+ignore --> di Bab 5. Anda dapat mengkustomisasi beberapa *field* *struct*, lalu
 menetapkan dan memakai nilai bawaan untuk *field* sisanya dengan
 `..Default::default()`.
 

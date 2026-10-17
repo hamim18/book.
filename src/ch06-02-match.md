@@ -216,7 +216,7 @@ kesalahan senilai satu miliar dolar yang dibahas sebelumnya menjadi mustahil.
 
 Dengan *enum*, kita juga dapat mengambil tindakan khusus untuk beberapa nilai
 tertentu, tetapi untuk semua nilai lain mengambil satu tindakan bawaan.
-Bayangkan kita sedang mengimplementasikan sebuah permainan ketika, jika Anda
+Bayangkan kita sedang mengimplementasikan sebuah permainan di mana, jika Anda
 melempar angka 3 pada lemparan dadu, pemain Anda tidak bergerak tetapi malah
 mendapatkan topi baru yang mewah. Jika Anda melempar 7, pemain Anda kehilangan
 topi mewah. Untuk semua nilai lain, pemain Anda melangkah sejauh angka itu di

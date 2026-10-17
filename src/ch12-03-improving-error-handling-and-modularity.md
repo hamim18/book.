@@ -374,7 +374,7 @@ Hebat! Keluaran ini jauh lebih ramah bagi pengguna kita.
 ### Mengekstrak Logika dari `main`
 
 Setelah selesai melakukan refactoring pada parsing konfigurasi, mari kita
-beralih ke logika programnya. Seperti yang kami nyatakan di [“Memisahkan
+beralih ke logika programnya. Seperti yang kita nyatakan di [“Memisahkan
 Tanggung Jawab dalam Proyek Binary”](#separation-of-concerns-for-binary-projects)<!--
 ignore -->, kita akan mengekstrak sebuah fungsi bernama `run` yang akan memuat
 semua logika yang kini berada di fungsi `main` dan tidak terlibat dalam

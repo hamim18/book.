@@ -50,9 +50,9 @@ Fitur-fitur ini, yang kadang secara kolektif disebut sebagai *module system*
   membagikan *crate*
 * **Crate**: Pohon modul yang menghasilkan library atau program yang dapat
   dieksekusi
-* **Module dan use**: Memungkinkan Anda mengontrol pengaturan, s*cope,* dan
+* **Module dan use**: Memungkinkan Anda mengontrol pengaturan, *scope*,* dan
   privasi *path*
-* **Path**: Cara memberi nama sebuah item, seperti s*truct,* fungsi, atau m*odule*
+* **Path**: Cara memberi nama sebuah item, seperti *struct*,* fungsi, atau *module*
 
 Dalam bab ini, kita akan membahas semua fitur ini, mendiskusikan bagaimana
 fitur-fitur tersebut berinteraksi, dan menjelaskan cara menggunakannya untuk

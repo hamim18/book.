@@ -91,7 +91,7 @@ berikut:
 - Kode Anda setelah titik ini perlu mengandalkan tidak berada dalam keadaan
   yang buruk ini, alih-alih memeriksa masalahnya di setiap langkah.
 - Tidak ada cara yang baik untuk menyandikan informasi ini di tipe yang Anda
-  pakai. Kita akan menelusuri contoh tentang apa yang kami maksud di
+  pakai. Kita akan menelusuri contoh tentang apa yang kita maksud di
   [“Menyandikan State dan Perilaku sebagai Tipe”][encoding]<!-- ignore --> di
   Bab 18.
 

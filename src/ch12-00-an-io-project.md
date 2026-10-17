@@ -37,11 +37,11 @@ sejauh ini:
 - Menata kode ([Bab 7][ch7]<!-- ignore -->)
 - Memakai vektor dan string ([Bab 8][ch8]<!-- ignore -->)
 - Menangani galat ([Bab 9][ch9]<!-- ignore -->)
-- Memakai trait dan lifetime bilamana sesuai ([Bab 10][ch10]<!-- ignore -->)
+- Memakai *trait* dan *lifetime* bilamana sesuai ([Bab 10][ch10]<!-- ignore -->)
 - Menulis pengujian ([Bab 11][ch11]<!-- ignore -->)
 
 Kita juga akan memperkenalkan secara singkat *closure*, *iterator*, dan *trait
-object* (objek trait), yang akan dibahas secara mendetail di [Bab 13][ch13]<!--
+object* (objek *trait*), yang akan dibahas secara mendetail di [Bab 13][ch13]<!--
 ignore --> dan [Bab 18][ch18]<!-- ignore -->.
 
 [ch7]: ch07-00-managing-growing-projects-with-packages-crates-and-modules.html

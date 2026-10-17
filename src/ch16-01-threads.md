@@ -14,7 +14,7 @@ tetapi juga menambah kompleksitas. Karena thread dapat berjalan secara
 bersamaan, tidak ada jaminan bawaan tentang urutan berjalannya bagian-bagian
 kode Anda pada thread yang berbeda. Ini dapat menimbulkan masalah, seperti:
 
-- Race condition, ketika thread mengakses data atau resource dalam urutan yang
+- Race condition, ketika thread mengakses data atau sumber daya dalam urutan yang
   tidak konsisten
 - *Deadlock* (kebuntuan), ketika dua thread saling menunggu, sehingga
   mencegah keduanya untuk melanjutkan
@@ -190,7 +190,7 @@ Kita akan sering memakai kata kunci `move` dengan *closure* yang diberikan ke
 `thread::spawn` karena *closure* itu kemudian akan mengambil *ownership* atas
 nilai-nilai yang dipakainya dari lingkungannya, sehingga memindahkan
 *ownership* nilai-nilai itu dari satu thread ke thread lain. Di [“Menangkap
-Reference atau Memindahkan Ownership”][capture]<!-- ignore --> di Bab 13,
+*Reference* atau Memindahkan *Ownership*”][capture]<!-- ignore --> di Bab 13,
 kita membahas `move` dalam konteks *closure*. Sekarang kita akan lebih
 berkonsentrasi pada interaksi antara `move` dan `thread::spawn`.
 

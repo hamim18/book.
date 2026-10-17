@@ -68,7 +68,7 @@ bernama `customer_experience`, kita perlu memperbarui *path* absolut menuju
 `add_to_waitlist`, tetapi *path* relatifnya akan tetap berlaku. Namun, jika
 kita memindahkan fungsi `eat_at_restaurant` secara terpisah ke dalam sebuah
 *module* bernama `dining`, *path* absolut menuju pemanggilan `add_to_waitlist`
-akan tetap sama, tetapi *path* relatifnya perlu diperbarui. Preferensi kami
+akan tetap sama, tetapi *path* relatifnya perlu diperbarui. Preferensi kita
 secara umum adalah menuliskan *path* absolut karena kemungkinan besar kita
 ingin memindahkan definisi kode dan pemanggilan item secara independen satu
 sama lain.

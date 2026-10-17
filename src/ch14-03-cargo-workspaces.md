@@ -234,8 +234,8 @@ kompatibel satu sama lain. Mari kita tambahkan crate `rand` ke seksi
 
 Sekarang kita dapat menambahkan `use rand;` ke file _add_one/src/lib.rs_, dan
 membangun seluruh workspace dengan menjalankan `cargo build` di direktori
-_add_ akan menarik dan mengompilasi crate `rand`. Kita akan mendapat satu
-peringatan karena kita tidak merujuk `rand` yang kita bawa ke scope:
+_add_ akan menarik dan mengompilasi *crate* `rand`. Kita akan mendapat satu
+peringatan karena kita tidak merujuk `rand` yang kita bawa ke *scope*:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/no-listing-03-workspace-with-external-dependency/add
@@ -383,7 +383,7 @@ Keluaran ini menunjukkan `cargo test` hanya menjalankan test untuk *crate*
 `add_one` dan tidak menjalankan test *crate* `adder`.
 
 Jika Anda menerbitkan *crate*-crate di workspace itu ke
-[crates.io](https://crates.io/)<!-- ignore -->, setiap crate di workspace perlu
+[crates.io](https://crates.io/)<!-- ignore -->, setiap *crate* di workspace perlu
 diterbitkan secara terpisah. Seperti `cargo test`, kita dapat menerbitkan
 *crate* tertentu di workspace kita dengan memakai flag `-p` dan menyebutkan nama
 *crate* yang ingin kita terbitkan.

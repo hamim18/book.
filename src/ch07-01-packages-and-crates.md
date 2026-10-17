@@ -7,7 +7,7 @@ Sebuah *crate* adalah jumlah kode terkecil yang dipertimbangkan oleh
 *compiler* (kompilator) Rust pada suatu waktu. Bahkan jika Anda menjalankan
 `rustc` alih-alih `cargo` dan memberikan satu file kode sumber (seperti yang
 kita lakukan jauh di [“Dasar-Dasar Program Rust”][basics]<!-- ignore
---> di Bab 1), compiler menganggap file tersebut sebagai sebuah crate. Crate
+--> di Bab 1), *compiler* menganggap file tersebut sebagai sebuah *crate*. *Crate*
 dapat berisi *module*, dan *module* tersebut dapat didefinisikan di file lain yang
 ikut dikompilasi bersama *crate*, seperti yang akan kita lihat di bagian-bagian
 selanjutnya.
@@ -22,7 +22,7 @@ dijalankan. Semua *crate* yang kita buat sejauh ini adalah *crate* binary.
 *Crate library* tidak memiliki fungsi `main`, dan tidak dikompilasi menjadi
 file yang dapat dieksekusi. Alih-alih, *crate* library mendefinisikan
 fungsionalitas yang dimaksudkan untuk dibagikan ke beberapa proyek. Misalnya,
-crate `rand` yang kita pakai di [Bab 2][rand]<!-- ignore --> menyediakan
+*crate* `rand` yang kita pakai di [Bab 2][rand]<!-- ignore --> menyediakan
 fungsionalitas yang menghasilkan angka acak. Sebagian besar waktu, ketika para
 Rustacean menyebut “*crate*”, yang mereka maksud adalah *crate* library, dan
 mereka memakai “*crate*” secara bergantian dengan konsep pemrograman umum
@@ -31,7 +31,7 @@ mereka memakai “*crate*” secara bergantian dengan konsep pemrograman umum
 *Crate root* (akar *crate*) adalah file sumber yang menjadi titik awal *compiler*
 Rust dan menyusun *module* akar dari *crate* Anda (kita akan menjelaskan *module*
 secara mendalam di [“Mengontrol *Scope* dan Privasi dengan
-Module”][modules]<!-- ignore -->).
+*Module*”][modules]<!-- ignore -->).
 
 Sebuah *package* (paket) adalah bundel berisi satu *crate* atau lebih yang
 menyediakan sekumpulan fungsionalitas. Sebuah *package* berisi file _Cargo.toml_

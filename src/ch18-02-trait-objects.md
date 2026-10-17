@@ -5,7 +5,7 @@
 <a id="using-trait-objects-to-abstract-over-shared-behavior"></a>
 ## Memakai Trait Object untuk Mengabstraksi Perilaku Bersama
 
-Di Bab 8, kami menyebutkan bahwa salah satu keterbatasan vektor adalah mereka
+Di Bab 8, kita menyebutkan bahwa salah satu keterbatasan vektor adalah mereka
 hanya bisa menyimpan elemen dari satu tipe. Kita membuat jalan keluar di
 Listing 8-9 dengan mendefinisikan *enum* `SpreadsheetCell` yang memiliki varian
 untuk menampung integer, float, dan teks. Ini berarti kita bisa menyimpan
@@ -54,7 +54,7 @@ untuk mencari metode *trait* pada tipe itu saat runtime. Kita membuat *trait*
 object dengan menentukan semacam *pointer*, seperti *reference* atau smart
 *pointer* `Box<T>`, lalu kata kunci `dyn`, dan kemudian *trait* yang relevan.
 (Kita akan membahas alasan *trait object* harus memakai *pointer* di [“Tipe
-Berukuran Dinamis dan Trait `Sized`”][dynamically-sized]<!-- ignore --> di Bab
+Berukuran Dinamis dan *Trait* `Sized`”][dynamically-sized]<!-- ignore --> di Bab
 20.) Kita bisa memakai *trait object* sebagai pengganti tipe generik atau tipe
 konkret. Di mana pun kita memakai *trait object*, sistem tipe Rust akan
 memastikan pada waktu kompilasi bahwa nilai apa pun yang dipakai dalam konteks
@@ -191,8 +191,8 @@ instance `Screen`, yang akan memanggil `draw` pada setiap component. Listing
 
 </Listing>
 
-Ketika kami menulis library itu, kami tidak tahu bahwa seseorang mungkin
-menambahkan tipe `SelectBox`, tetapi implementasi `Screen` kami bisa
+Ketika kita menulis library itu, kita tidak tahu bahwa seseorang mungkin
+menambahkan tipe `SelectBox`, tetapi implementasi `Screen` kita bisa
 mengoperasikan tipe baru itu dan menggambarnya karena `SelectBox`
 mengimplementasikan *trait* `Draw`, yang berarti ia mengimplementasikan metode
 `draw`.
@@ -209,7 +209,7 @@ mendefinisikan `Screen` sebagai memerlukan nilai-nilai yang bisa kita panggil
 metode `draw`-nya.
 
 Keuntungan memakai *trait object* dan sistem tipe Rust untuk menulis kode yang
-mirip dengan kode pemakai *duck typing* adalah kita tidak pernah harus mengecek
+mirip dengan kode yang memakai *duck typing* adalah kita tidak pernah harus mengecek
 apakah sebuah nilai mengimplementasikan metode tertentu saat runtime atau
 khawatir mendapat galat jika sebuah nilai tidak mengimplementasikan sebuah
 metode tetapi tetap kita panggil. Rust tidak akan mengompilasi kode kita jika
@@ -246,7 +246,7 @@ yang berbeda, atau kita harus mengimplementasikan `Draw` pada `String` supaya
 ### Melakukan Dynamic Dispatch
 
 Ingat kembali di [“Kinerja Kode yang Memakai
-Generics”][performance-of-code-using-generics]<!-- ignore --> di Bab 10,
+*Generics*”][performance-of-code-using-generics]<!-- ignore --> di Bab 10,
 pembahasan kita tentang proses monomorfisasi yang dilakukan kompilator pada
 *generics*: kompilator menghasilkan implementasi nongenerik dari fungsi dan
 metode untuk setiap tipe konkret yang kita pakai sebagai pengganti parameter
@@ -271,7 +271,7 @@ boleh memakai *dynamic dispatch*, yang disebut _dyn compatibility_
 (kompatibilitas dyn). Aturan-aturan itu berada di luar cakupan pembahasan ini,
 tetapi Anda bisa membaca lebih lanjut [di reference][dyn-compatibility]<!-- ignore -->.
 Akan tetapi, kita memang mendapat fleksibilitas tambahan pada kode yang kita
-tulis di Listing 18-5 dan bisa dukung di Listing 18-9, jadi itu kompromi yang
+tulis di Listing 18-5 dan yang bisa kita dukung di Listing 18-9, jadi itu kompromi yang
 perlu dipertimbangkan.
 
 [performance-of-code-using-generics]: ch10-01-syntax.html#performance-of-code-using-generics

@@ -95,7 +95,7 @@ Listing 20-35 menunjukkan definisi *macro* `vec!` yang sedikit disederhanakan.
 
 > Catatan: Definisi asli *macro* `vec!` di pustaka standar menyertakan kode
 > untuk mengalokasikan jumlah memori yang tepat di muka. Kode itu adalah
-> optimasi yang tidak kami sertakan di sini, supaya contohnya lebih
+> optimasi yang tidak kita sertakan di sini, supaya contohnya lebih
 > sederhana.
 
 Anotasi `#[macro_export]` menunjukkan bahwa *macro* ini harus tersedia setiap
@@ -171,8 +171,8 @@ dengan pola dan mengganti kode itu dengan kode lain seperti yang dilakukan
 atribut, dan mirip fungsi, dan semuanya bekerja dengan cara yang serupa.
 
 Saat membuat *macro* prosedural, definisinya harus berada di *crate*-nya sendiri
-dengan tipe *crate* khusus. Hal ini karena alasan teknis yang rumit yang kami
-harap bisa dihilangkan di masa depan. Di Listing 20-36, kami menunjukkan
+dengan tipe *crate* khusus. Hal ini karena alasan teknis yang rumit yang kita
+harap bisa dihilangkan di masa depan. Di Listing 20-36, kita menunjukkan
 cara mendefinisikan *macro* prosedural, dengan `some_attribute` sebagai
 placeholder untuk memakai jenis *macro* tertentu.
 
@@ -327,7 +327,7 @@ fungsi dalam (`impl_hello_macro` dalam kasus ini) akan berbeda bergantung
 pada tujuan *macro* prosedural Anda.
 
 Kita telah memperkenalkan tiga *crate* baru: `proc_macro`,
-[`syn`][syn]<!-- ignore -->, dan [`quote`][quote]<!-- ignore -->. Crate
+[`syn`][syn]<!-- ignore -->, dan [`quote`][quote]<!-- ignore -->. *Crate*
 `proc_macro` ikut disertakan bersama Rust, jadi kita tidak perlu
 menambahkannya ke dependensi di _Cargo.toml_. *Crate* `proc_macro` adalah API
 kompilator yang memungkinkan kita membaca dan memanipulasi kode Rust dari
@@ -466,7 +466,7 @@ dependensi biasa; jika tidak, Anda bisa menentukannya sebagai dependensi
 ```
 
 Letakkan kode di Listing 20-37 ke _src/main.rs_, lalu jalankan `cargo
-run`: Ia seharusnya mencetak `Hello, *Macro*! My name is Pancakes!`.
+run`: Ia seharusnya mencetak `Hello, Macro! My name is Pancakes!`.
 Implementasi *trait* `HelloMacro` dari *macro* prosedural itu sudah disertakan
 tanpa *crate* `pancakes` perlu mengimplementasikannya;
 `#[derive(HelloMacro)]` menambahkan implementasi *trait* itu.
@@ -512,7 +512,7 @@ fungsi. Sama seperti *macro* `macro_rules!`, *macro* ini lebih fleksibel
 daripada fungsi; misalnya, *macro* ini bisa menerima jumlah argumen yang
 tidak diketahui. Akan tetapi, *macro* `macro_rules!` hanya bisa didefinisikan
 dengan memakai sintaks mirip match yang kita bahas di seksi [“*Macro*
-Deklaratif untuk Metaprogramming Umum”][decl]<!-- ignore --> sebelumnya.
+Deklaratif untuk *Metaprogramming* Umum”][decl]<!-- ignore --> sebelumnya.
 *Macro* mirip fungsi menerima parameter `TokenStream`, dan definisinya
 memanipulasi `TokenStream` itu dengan memakai kode Rust, sama seperti yang
 dilakukan dua jenis *macro* prosedural lainnya. Contoh *macro* mirip fungsi

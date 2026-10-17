@@ -83,7 +83,7 @@ lokasi.
 
 <span class="caption">Tabel B-2: Sintaks Berdiri Sendiri</span>
 
-| Symbol                                                                 | Penjelasan                                                                                       |
+| Simbol                                                                 | Penjelasan                                                                                       |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `'ident`                                                               | Lifetime bernama atau label perulangan                                                           |
 | Digit yang langsung diikuti `u8`, `i32`, `f64`, `usize`, dan seterusnya | Literal numerik bertipe tertentu                                                                 |
@@ -102,7 +102,7 @@ melalui hierarki *module*.
 
 <span class="caption">Tabel B-3: Sintaks Terkait *Path*</span>
 
-| Symbol                                  | Penjelasan                                                                                                                    |
+| Simbol                                  | Penjelasan                                                                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `ident::ident`                          | Path ruang nama                                                                                                               |
 | `::path`                                | Path relatif terhadap akar crate (yaitu, path yang secara eksplisit absolut)                                                  |
@@ -119,7 +119,7 @@ tipe generik.
 
 <span class="caption">Tabel B-4: *Generics*</span>
 
-| Symbol                         | Penjelasan                                                                                                                                                     |
+| Simbol                         | Penjelasan                                                                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `path<...>`                    | Menentukan parameter untuk tipe generik dalam suatu tipe (misalnya, `Vec<u8>`)                                                                                 |
 | `path::<...>`, `method::<...>` | Menentukan parameter untuk tipe, fungsi, atau metode generik dalam suatu ekspresi; sering disebut _turbofish_ (misalnya, `"42".parse::<i32>()`)                 |
@@ -135,7 +135,7 @@ tipe generik dengan *trait bound*.
 
 <span class="caption">Tabel B-5: Batasan *Trait Bound*</span>
 
-| Symbol                        | Penjelasan                                                                                                                                              |
+| Simbol                        | Penjelasan                                                                                                                                              |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `T: U`                        | Parameter generik `T` dibatasi pada tipe-tipe yang mengimplementasikan `U`                                                                               |
 | `T: 'a`                       | Tipe generik `T` harus hidup lebih lama daripada lifetime `'a` (artinya tipe itu tidak boleh memuat reference apa pun secara transitif dengan lifetime yang lebih pendek daripada `'a`) |
@@ -149,7 +149,7 @@ pendefinisian *macro* dan penentuan atribut pada suatu item.
 
 <span class="caption">Tabel B-6: *Macro* dan Atribut</span>
 
-| Symbol                                      | Penjelasan         |
+| Simbol                                      | Penjelasan         |
 | ------------------------------------------- | ------------------ |
 | `#[meta]`                                   | Atribut luar       |
 | `#![meta]`                                  | Atribut dalam      |
@@ -162,7 +162,7 @@ Tabel B-7 menunjukkan simbol yang membuat komentar.
 
 <span class="caption">Tabel B-7: Komentar</span>
 
-| Symbol     | Penjelasan            |
+| Simbol     | Penjelasan            |
 | ---------- | --------------------- |
 | `//`       | Komentar baris        |
 | `//!`      | Komentar dok baris dalam  |
@@ -175,7 +175,7 @@ Tabel B-8 menunjukkan konteks pemakaian tanda kurung.
 
 <span class="caption">Tabel B-8: Tanda Kurung</span>
 
-| Symbol                   | Penjelasan                                                                                        |
+| Simbol                   | Penjelasan                                                                                        |
 | ------------------------ | ------------------------------------------------------------------------------------------------- |
 | `()`                     | Tuple kosong (alias unit), baik sebagai literal maupun tipe                                        |
 | `(expr)`                 | Ekspresi dalam tanda kurung                                                                        |
@@ -189,7 +189,7 @@ Tabel B-9 menunjukkan konteks pemakaian kurung kurawal.
 
 <span class="caption">Tabel B-9: Kurung Kurawal</span>
 
-| Context      | Penjelasan     |
+| Konteks      | Penjelasan     |
 | ------------ | -------------- |
 | `{...}`      | Ekspresi blok  |
 | `Type {...}` | Literal struct |
@@ -198,7 +198,7 @@ Tabel B-10 menunjukkan konteks pemakaian kurung siku.
 
 <span class="caption">Tabel B-10: Kurung Siku</span>
 
-| Context                                            | Penjelasan                                                                                                                     |
+| Konteks                                            | Penjelasan                                                                                                                     |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `[...]`                                            | Literal array                                                                                                                  |
 | `[expr; len]`                                      | Literal array berisi `len` salinan `expr`                                                                                      |

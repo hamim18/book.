@@ -122,7 +122,7 @@ bisa menaruh setiap perulangan di blok async dan meminta runtime menjalankan
 keduanya sampai tuntas menggunakan fungsi `trpl::join`.
 
 Di bagian [“Menunggu Semua Thread Selesai”][join-handles]<!-- ignore --> di
-Bab 16, kami menunjukkan cara memakai metode `join` pada tipe `JoinHandle`
+Bab 16, kita menunjukkan cara memakai metode `join` pada tipe `JoinHandle`
 yang dikembalikan saat Anda memanggil `std::thread::spawn`. Fungsi
 `trpl::join` serupa, tetapi untuk *future*. Saat Anda memberinya dua *future*,
 fungsi itu menghasilkan satu *future* baru yang output-nya adalah *tuple* berisi
@@ -349,7 +349,7 @@ Saat ini, blok async tempat kita mengirim pesan hanya _meminjam_ `tx` karena
 mengirim pesan tidak memerlukan *ownership*, tetapi jika kita bisa _memindahkan_
 `tx` ke dalam blok async itu, `tx` akan di-drop begitu blok itu berakhir. Di
 bagian [“Menangkap *Reference* atau Memindahkan
-Ownership”][capture-or-move]<!-- ignore --> di Bab 13, Anda belajar cara
+*Ownership*”][capture-or-move]<!-- ignore --> di Bab 13, Anda belajar cara
 memakai kata kunci `move` dengan *closure*, dan seperti yang dibahas di bagian
 [“Memakai Closure `move` dengan Thread”][move-threads]<!-- ignore --> di Bab
 16, kita sering perlu memindahkan data ke dalam *closure* saat bekerja dengan

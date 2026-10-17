@@ -28,7 +28,7 @@ sebuah *box*. Dengan begitu, hanya data *pointer* yang berjumlah kecil yang
 disalin bolak-balik di *stack*, sementara data yang dirujuknya tetap berada di
 satu tempat di *heap*. Kasus ketiga dikenal sebagai _trait object_ (objek
 *trait*), dan [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
-Bersama”][trait-objects]<!-- ignore --> di Bab 18 dikhususkan untuk topik itu.
+Bersama”][*trait*-objects]<!-- ignore --> di Bab 18 dikhususkan untuk topik itu.
 Jadi, apa yang Anda pelajari di sini akan Anda terapkan lagi di seksi itu!
 
 <!-- Old headings. Do not remove or links may break. -->

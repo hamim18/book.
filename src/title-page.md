@@ -9,7 +9,7 @@ Versi teks ini mengasumsikan bahwa Anda memakai Rust 1.98.0 (dirilis
 agar memakai idiom Rust 2024 Edition. Lihat [seksi “Instalasi” pada Bab
 1][install]<!-- ignore --> untuk petunjuk cara memasang atau memperbarui
 Rust, dan lihat [Lampiran E][appendix-e]<!-- ignore --> untuk informasi
-lebih lanjut tentang edisi.
+tentang edisi.
 
 Format HTML buku ini tersedia secara daring di
 [https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)

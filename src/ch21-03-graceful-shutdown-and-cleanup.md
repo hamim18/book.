@@ -246,7 +246,7 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
   tangguh.
 - Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
   permintaan web.
-- Menemukan crate thread pool di [crates.io](https://crates.io/)<!-- ignore -->
+- Menemukan *crate* *thread pool* di [crates.io](https://crates.io/)<!-- ignore -->
   dan mengimplementasikan server web yang serupa dengan memakai *crate* itu.
   Lalu, bandingkan API dan ketangguhannya dengan *thread pool* yang kita
   implementasikan.
@@ -254,7 +254,7 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
 ## Ringkasan
 
 Kerja bagus! Anda telah sampai di akhir buku! Kami ingin berterima kasih
-karena telah bergabung dengan kami dalam tur Rust ini. Anda sekarang siap
+karena telah bergabung dengan kita dalam tur Rust ini. Anda sekarang siap
 untuk mengimplementasikan proyek-proyek Rust Anda sendiri dan membantu
 proyek orang lain. Ingatlah bahwa ada komunitas Rustacean lain yang ramah
 yang akan senang membantu Anda menghadapi tantangan apa pun yang Anda temui

@@ -19,8 +19,8 @@ operasi yang berjalan lama, atau membatasi laju event antarmuka pengguna untuk
 menghindari pekerjaan yang sia-sia.
 
 Kita pernah melihat serangkaian item di Bab 13, ketika kita menelaah *trait*
-Iterator di bagian [“Trait `Iterator` dan Metode `next`”][iterator-trait]<!--
-ignore -->, tetapi ada dua perbedaan antara iterator dan receiver channel
+*Iterator* di bagian [“Trait `Iterator` dan Metode `next`”][iterator-trait]<!--
+ignore -->, tetapi ada dua perbedaan antara *iterator* dan *receiver* *channel*
 async. Perbedaan pertama adalah waktu: *iterator* bersifat sinkron, sementara
 *receiver* *channel* bersifat asinkron. Perbedaan kedua adalah API-nya. Saat
 bekerja langsung dengan `Iterator`, kita memanggil metode sinkronnya, `next`.

@@ -23,7 +23,7 @@ dalam *scope* fungsi `eat_at_restaurant` supaya kita hanya perlu menyebutkan
 
 Menambahkan `use` dan sebuah *path* di dalam sebuah *scope* mirip dengan membuat
 tautan simbolik di sistem file. Dengan menambahkan `use
-*crate*::front_of_house::hosting` di crate root, `hosting` kini menjadi nama
+crate::front_of_house::hosting` di crate root, `hosting` kini menjadi nama
 yang valid di *scope* tersebut, seolah-olah *module* `hosting` telah
 didefinisikan di *crate root*. *Path* yang dibawa ke dalam *scope* dengan `use`
 juga diperiksa privasinya, seperti *path*-path lainnya.
@@ -58,7 +58,7 @@ di dalam *module* anak `customer`.
 ### Membuat Path `use` yang Idiomatis
 
 Di Listing 7-11, Anda mungkin bertanya-tanya mengapa kita menuliskan `use
-*crate*::front_of_house::hosting` lalu memanggil `hosting::add_to_waitlist` di
+crate::front_of_house::hosting` lalu memanggil `hosting::add_to_waitlist` di
 `eat_at_restaurant`, alih-alih menuliskan *path* `use` langsung sampai ke
 fungsi `add_to_waitlist` untuk mencapai hasil yang sama, seperti di Listing
 7-13.
@@ -210,7 +210,7 @@ kita.
 Lalu, untuk membawa definisi-definisi `rand` ke dalam *scope* *package* kita,
 kita menambahkan baris `use` yang dimulai dengan nama *crate*, `rand`, dan
 mendaftar item-item yang ingin kita bawa ke dalam *scope*. Ingat bahwa di
-[“Menghasilkan Angka Rahasia”][rand]<!-- ignore --> di Bab 2, kita membawa
+[“Menghasilkan Angka Acak”][rand]<!-- ignore --> di Bab 2, kita membawa
 item-item di *module* `rand::prelude` ke dalam *scope* dan memanggil fungsi
 `rand::rng`:
 

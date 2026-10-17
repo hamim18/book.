@@ -24,11 +24,11 @@ aspek Rust ini _fearless concurrency_ (konkurensi tanpa takut). Konkurensi
 tanpa takut memungkinkan Anda menulis kode yang bebas dari bug yang samar dan
 mudah di-refactor tanpa memperkenalkan bug baru.
 
-> Catatan: Demi kesederhanaan, kami akan menyebut banyak masalah itu sebagai
+> Catatan: Demi kesederhanaan, kita akan menyebut banyak masalah itu sebagai
 > _concurrent_ alih-alih lebih tepat dengan menyebut _concurrent dan/atau
 > parallel_. Untuk bab ini, mohon secara mental gantikan _concurrent dan/atau
-> parallel_ setiap kali kami memakai _concurrent_. Di bab berikutnya, ketika
-> perbedaannya lebih penting, kami akan lebih spesifik.
+> parallel_ setiap kali kita memakai _concurrent_. Di bab berikutnya, ketika
+> perbedaannya lebih penting, kita akan lebih spesifik.
 
 Banyak bahasa bersikap dogmatis tentang solusi yang mereka tawarkan untuk
 menangani masalah konkuren. Sebagai contoh, Erlang memiliki fungsionalitas

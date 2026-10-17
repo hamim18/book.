@@ -537,7 +537,7 @@ berisi kode dari Listing 9-10, tetapi kita telah mengubah tipe kembalian
 
 Tipe `Box<dyn Error>` adalah *trait object* (objek *trait*), yang akan kita
 bicarakan di [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
-Bersama”][trait-objects]<!-- ignore --> di Bab 18. Untuk saat ini, Anda
+Bersama”][*trait*-objects]<!-- ignore --> di Bab 18. Untuk saat ini, Anda
 dapat membaca `Box<dyn Error>` sebagai “galat jenis apa pun.” Memakai `?`
 pada nilai `Result` di fungsi `main` dengan tipe galat `Box<dyn Error>`
 diizinkan karena ini memungkinkan nilai `Err` apa pun dikembalikan lebih

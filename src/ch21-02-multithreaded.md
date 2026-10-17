@@ -142,7 +142,7 @@ Seperti yang Anda pelajari di Bab 16, `thread::spawn` akan membuat thread
 baru lalu menjalankan kode di *closure* itu di thread baru. Jika Anda
 menjalankan kode ini dan memuat _/sleep_ di peramban Anda, lalu _/_ di dua
 tab peramban lagi, Anda memang akan melihat bahwa permintaan ke _/_ tidak
-harus menunggu _/sleep_ selesai. Akan tetapi, seperti yang kami sebutkan,
+harus menunggu _/sleep_ selesai. Akan tetapi, seperti yang kita sebutkan,
 ini pada akhirnya akan membebani sistem karena Anda membuat thread baru
 tanpa batas.
 
@@ -271,7 +271,7 @@ kepada thread yang menganggur di pool untuk dijalankan.
 
 Kita akan mendefinisikan metode `execute` pada `ThreadPool` untuk menerima
 *closure* sebagai parameter. Ingat kembali dari [“Memindahkan Nilai yang
-Ditangkap Keluar dari Closure”][moving-out-of-closures]<!-- ignore --> pada
+Ditangkap Keluar dari *Closure*”][moving-out-of-closures]<!-- ignore --> pada
 Bab 13 bahwa kita bisa menerima *closure* sebagai parameter dengan tiga *trait*
 yang berbeda: `Fn`, `FnMut`, dan `FnOnce`. Kita perlu memutuskan jenis
 *closure* mana yang dipakai di sini. Kita tahu pada akhirnya kita akan
@@ -374,7 +374,7 @@ dokumentasi yang dihasilkan untuk `new`!
 Alih-alih menambahkan *macro* `assert!` seperti yang kita lakukan di sini,
 kita bisa mengubah `new` menjadi `build` dan mengembalikan `Result` seperti
 yang kita lakukan dengan `Config::build` di proyek I/O pada Listing 12-9.
-Tetapi dalam kasus ini kami memutuskan bahwa mencoba membuat *thread pool*
+Tetapi dalam kasus ini kita memutuskan bahwa mencoba membuat *thread pool*
 tanpa thread apa pun seharusnya merupakan galat yang tidak dapat
 dipulihkan. Jika Anda merasa tertantang, cobalah menulis fungsi bernama
 `build` dengan tanda tangan berikut untuk dibandingkan dengan fungsi `new`:
@@ -776,7 +776,7 @@ dipegang lebih lama daripada yang dimaksudkan jika kita tidak memerhatikan
 *lifetime* `MutexGuard<T>` itu.
 
 Kode di Listing 21-20 yang memakai `let job =
-*receiver*.lock().unwrap().recv().unwrap();` bekerja karena dengan `let`,
+receiver.lock().unwrap().recv().unwrap();` bekerja karena dengan `let`,
 nilai-nilai temporer apa pun yang dipakai di ekspresi pada sisi kanan tanda
 sama dengan segera dibebaskan saat pernyataan `let` itu berakhir. Akan
 tetapi, `while let` (dan `if let` dan `match`) tidak membebaskan nilai

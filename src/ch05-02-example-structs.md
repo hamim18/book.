@@ -39,7 +39,7 @@ yang kita tulis memiliki dua parameter, dan tidak jelas di bagian mana pun
 program kita bahwa kedua parameter itu saling berkaitan. Akan lebih mudah
 dibaca dan dikelola jika lebar dan tinggi dikelompokkan bersama. Kita telah
 membahas satu cara untuk melakukannya di bagian [“Tipe
-Tuple”][the-tuple-type]<!-- ignore --> pada Bab 3: dengan memakai tuple.
+*Tuple*”][the-tuple-type]<!-- ignore --> pada Bab 3: dengan memakai *tuple*.
 
 ### Refactoring dengan Tuple
 

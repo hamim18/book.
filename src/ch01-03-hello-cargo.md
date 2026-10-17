@@ -90,7 +90,7 @@ akan dipakai. Kita akan membahas kunci `edition` di
 [Lampiran E][appendix-e]<!-- ignore -->.
 
 Baris terakhir, `[dependencies]`, adalah awal dari bagian untuk
-mendaftarkan dependensi-dependensi proyek Anda. Di Rust, *package*-*package*
+mendaftarkan dependensi-dependensi proyek Anda. Di Rust, paket-paket
 kode disebut sebagai *crate*. Kita tidak membutuhkan crate lain untuk
 proyek ini, tetapi kita akan membutuhkannya pada proyek pertama di Bab 2,
 jadi kita akan memakai bagian dependensi ini nanti.
@@ -218,7 +218,7 @@ Mari kita rekap apa yang telah kita pelajari sejauh ini tentang Cargo:
   kita, Cargo menyimpannya di direktori _target/debug_.
 
 Keuntungan tambahan memakai Cargo adalah perintah-perintahnya sama apa pun
-sistem operasi yang Anda pakai. Jadi, mulai saat ini, kami tidak akan lagi
+sistem operasi yang Anda pakai. Jadi, mulai saat ini, kita tidak akan lagi
 memberikan petunjuk khusus untuk Linux dan macOS versus Windows.
 
 ### Membangun untuk Rilis

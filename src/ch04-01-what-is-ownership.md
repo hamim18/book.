@@ -187,7 +187,7 @@ menggunakan semacam nama seperti `string_from`. Kita akan membahas sintaks
 ini lebih lanjut di bagian [“Metode”][methods]<!-- ignore --> pada Bab 5,
 serta ketika kita membicarakan ruang nama dengan *module* (modul) di bagian
 [“*Path* untuk Merujuk Item di dalam Pohon
-Modul”][paths-module-tree]<!-- ignore --> pada Bab 7.
+Modul”][*paths*-module-tree]<!-- ignore --> pada Bab 7.
 
 String jenis ini _dapat_ diubah:
 

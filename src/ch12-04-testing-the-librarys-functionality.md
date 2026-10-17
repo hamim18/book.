@@ -107,7 +107,7 @@ Bahasa-bahasa pemrograman lain tidak mengharuskan Anda menghubungkan argumen
 dengan nilai kembalian di tanda tangan, tetapi praktik ini akan menjadi lebih
 mudah seiring waktu. Anda mungkin ingin membandingkan contoh ini dengan
 contoh-contoh di bagian [“Memvalidasi *Reference* dengan
-Lifetime”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
+*Lifetime*”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
 
 ### Menulis Kode agar Pengujian Lulus
 

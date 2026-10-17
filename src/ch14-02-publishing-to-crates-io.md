@@ -160,7 +160,7 @@ termasuk komentar yang menjelaskan *crate* secara keseluruhan</span>
 ### Mengekspor API Publik yang Mudah Dipakai
 
 Struktur API publik Anda merupakan pertimbangan utama ketika menerbitkan sebuah
-*crate*. Orang yang memakai *crate* Anda tidak seaspek Anda dengan strukturnya dan
+*crate*. Orang yang memakai *crate* Anda kurang mengenal strukturnya dibandingkan Anda dan
 mungkin kesulitan menemukan bagian yang ingin mereka pakai jika *crate* Anda
 memiliki hierarki modul yang besar.
 

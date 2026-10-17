@@ -19,7 +19,7 @@ langkah-langkah ini seharusnya bekerja sesuai harapan dengan isi buku ini.
 
 > ### Notasi Baris Perintah
 >
-> Di bab ini dan di seluruh buku, kami akan menampilkan beberapa perintah
+> Di bab ini dan di seluruh buku, kita akan menampilkan beberapa perintah
 > yang dipakai di terminal. Baris yang harus Anda ketik di terminal semuanya
 > diawali dengan `$`. Anda tidak perlu mengetik karakter `$`; itu adalah
 > prompt baris perintah yang ditampilkan untuk menandai awal setiap perintah.
@@ -72,7 +72,7 @@ Anda memerlukan bantuan lebih lanjut untuk langkah ini, lihat
 ignore -->.
 
 Sisa buku ini memakai perintah yang bekerja di _cmd.exe_ maupun PowerShell.
-Jika ada perbedaan tertentu, kami akan menjelaskan mana yang harus dipakai.
+Jika ada perbedaan tertentu, kita akan menjelaskan mana yang harus dipakai.
 
 <a id="troubleshooting"></a>
 ### Pemecahan Masalah
@@ -115,7 +115,7 @@ $ echo $PATH
 
 Jika semua itu sudah benar tetapi Rust tetap tidak berfungsi, ada sejumlah
 tempat untuk meminta bantuan. Cari tahu cara berhubungan dengan sesama
-Rustaceans (julukan konyol untuk menyebut diri kami sendiri) di [halaman
+Rustaceans (julukan konyol untuk menyebut diri kita sendiri) di [halaman
 komunitas][community].
 
 ### Memperbarui dan Menghapus Instalasi
@@ -165,7 +165,7 @@ Dalam beberapa contoh, kita akan memakai *package* Rust di luar pustaka
 standar. Untuk mengerjakan contoh-contoh tersebut, Anda memerlukan koneksi
 internet atau harus mengunduh dependensi-dependensi itu lebih dulu. Untuk
 mengunduh dependensinya lebih dulu, Anda dapat menjalankan perintah-perintah
-berikut. (Nanti kami akan menjelaskan secara detail apa itu `cargo` dan apa
+berikut. (Nanti kita akan menjelaskan secara detail apa itu `cargo` dan apa
 fungsi setiap perintah ini.)
 
 <!-- When updating the version of `rand` used, also update the version of

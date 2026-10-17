@@ -170,7 +170,7 @@ mengkhawatirkannya untuk sekarang; kita akan membahasnya lebih jauh di Bab 20.
 Kita mengisi badan metode `deref` dengan `&self.0` sehingga `deref`
 mengembalikan *reference* ke nilai yang ingin kita akses dengan operator `*`;
 ingat kembali dari [“Membuat Tipe Berbeda dengan Tuple Struct”][tuple-structs]<!--
-ignore --> di Bab 5 bahwa `.0` mengakses nilai pertama dalam tuple struct.
+ignore --> di Bab 5 bahwa `.0` mengakses nilai pertama dalam *tuple struct*.
 Fungsi `main` di Listing 15-9 yang memanggil `*` pada nilai `MyBox<T>` sekarang
 terkompilasi, dan asersinya lulus!
 

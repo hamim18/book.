@@ -8,12 +8,12 @@ Anda sebagai pengembang Rust.
 Sebagai sebuah bahasa, Rust sangat _memperhatikan_ stabilitas kode Anda. Kami
 ingin Rust menjadi fondasi yang kokoh untuk Anda bangun, dan jika segala
 sesuatunya terus berubah, hal itu mustahil terwujud. Pada saat yang sama, jika
-kami tidak dapat bereksperimen dengan fitur baru, kami mungkin baru menemukan
-kelemahan penting setelah fitur itu dirilis, saat kami tidak bisa lagi mengubah
+kita tidak dapat bereksperimen dengan fitur baru, kita mungkin baru menemukan
+kelemahan penting setelah fitur itu dirilis, saat kita tidak bisa lagi mengubah
 apa pun.
 
-Solusi kami untuk masalah ini adalah apa yang kami sebut “stabilitas tanpa
-stagnasi”, dan prinsip panduan kami adalah ini: Anda tidak perlu takut
+Solusi kita untuk masalah ini adalah apa yang kita sebut “stabilitas tanpa
+stagnasi”, dan prinsip panduan kita adalah ini: Anda tidak perlu takut
 meningkatkan ke versi baru Rust stable. Setiap peningkatan seharusnya tidak
 menyakitkan, tetapi juga memberi Anda fitur baru, lebih sedikit bug, dan waktu
 kompilasi yang lebih cepat.
@@ -37,8 +37,8 @@ sedang mengerjakan rilis Rust 1.5. Rilis itu terjadi pada Desember 2015, tetapi
 akan memberi kita nomor versi yang realistis. Sebuah fitur baru ditambahkan ke
 Rust: commit baru masuk ke branch main. Setiap malam, versi nightly Rust yang
 baru diproduksi. Setiap hari adalah hari rilis, dan rilis-rilis ini dibuat oleh
-infrastruktur rilis kami secara otomatis. Jadi, seiring berjalannya waktu,
-rilis kami tampak seperti ini, sekali setiap malam:
+infrastruktur rilis kita secara otomatis. Jadi, seiring berjalannya waktu,
+rilis kita tampak seperti ini, sekali setiap malam:
 
 ```text
 nightly: * - - * - - *
@@ -148,7 +148,7 @@ dapat menemukan dokumentasi fitur-fitur yang hanya ada di nightly secara daring.
 ### Rustup dan Peran Rust Nightly
 
 Rustup memudahkan perpindahan antara saluran rilis Rust yang berbeda, baik
-secara global maupun per proyek. Secara bawaan, Anda akan memasang Rust stable.
+secara global maupun per proyek. Secara bawaan, Anda akan memiliki Rust stable yang terpasang.
 Untuk memasang nightly, misalnya:
 
 ```console
@@ -187,7 +187,7 @@ punya banyak proyek Rust!
 ### Proses RFC dan Tim
 
 Lalu, bagaimana Anda mengetahui fitur-fitur baru ini? Model pengembangan Rust
-mengikuti *Request For Comments* (RFC). Jika Anda menginginkan peningkatan pada
+mengikuti proses *Request For Comments* (RFC). Jika Anda menginginkan peningkatan pada
 Rust, Anda dapat menulis proposal yang disebut RFC.
 
 Siapa pun dapat menulis RFC untuk meningkatkan Rust, dan proposal itu ditinjau
@@ -200,8 +200,8 @@ komentar-komentarnya, menulis beberapa komentar sendiri, dan pada akhirnya,
 tercapai konsensus untuk menerima atau menolak fitur tersebut.
 
 Jika fitur itu diterima, sebuah issue dibuka di repositori Rust, dan seseorang
-dapat mengimplementasikannya. Orang yang mengimplementasikannya dengan sangat
-baik boleh jadi bukan orang yang pertama kali mengusulkan fitur itu! Ketika
+dapat mengimplementasikannya. Sangat mungkin orang yang mengimplementasikannya
+bukan orang yang pertama kali mengusulkan fitur itu! Ketika
 implementasinya siap, implementasi itu masuk ke branch main di balik feature
 gate, seperti yang kita bahas di bagian [“Unstable
 Features”](#unstable-features)<!-- ignore -->.

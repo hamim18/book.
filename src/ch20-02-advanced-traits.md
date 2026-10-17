@@ -2,7 +2,7 @@
 ## Trait Lanjutan
 
 Pertama kali kita membahas *trait* di seksi [“Mendefinisikan Perilaku Bersama
-dengan Trait”][traits]<!-- ignore --> pada Bab 10, tetapi kita belum membahas
+dengan *Trait*”][traits]<!-- ignore --> pada Bab 10, tetapi kita belum membahas
 detail-detail yang lebih lanjut. Sekarang setelah Anda tahu lebih banyak
 tentang Rust, kita bisa masuk ke seluk-beluknya.
 
@@ -84,7 +84,7 @@ menunjukkan implementasi `Iterator` mana yang ingin kita pakai.
 Dengan tipe asosiasi, kita tidak perlu menganotasi tipe, karena kita tidak
 bisa mengimplementasikan sebuah *trait* pada sebuah tipe berkali-kali. Pada
 Listing 20-13 dengan definisi yang memakai tipe asosiasi, kita hanya bisa
-memilih tipe `Item` satu kali karena hanya boleh ada satu `impl *Iterator* for
+memilih tipe `Item` satu kali karena hanya boleh ada satu `impl Iterator for
 Counter`. Kita tidak perlu menentukan bahwa kita menginginkan *iterator* berisi
 nilai `u32` di setiap tempat kita memanggil `next` pada `Counter`.
 
@@ -457,12 +457,12 @@ instance `Point` untuk menampilkannya di dalam bingkai tanda bintang.
 ### Mengimplementasikan Trait Eksternal dengan Pola Newtype
 
 Di seksi [“Mengimplementasikan Trait pada Suatu Tipe”][implementing-a-trait-on-a-type]<!--
-ignore --> pada Bab 10, kita menyebutkan orphan rule yang menyatakan bahwa
+ignore --> pada Bab 10, kita menyebutkan *orphan rule* yang menyatakan bahwa
 kita hanya boleh mengimplementasikan sebuah *trait* pada sebuah tipe jika *trait*
 atau tipe itu, atau keduanya, bersifat lokal bagi *crate* kita. Batasan ini
 bisa diakali dengan memakai pola newtype, yang melibatkan pembuatan tipe baru
 di dalam *tuple struct*. (Kita membahas *tuple struct* di seksi [“Membuat Tipe
-Berbeda dengan Tuple Struct”][tuple-structs]<!-- ignore --> pada Bab 5.)
+Berbeda dengan *Tuple Struct*”][*tuple*-structs]<!-- ignore --> pada Bab 5.)
 *Tuple struct* itu akan memiliki satu *field* dan menjadi wrapper tipis di
 sekeliling tipe yang ingin kita implementasikan *trait*-nya. Dengan begitu,
 tipe wrapper itu bersifat lokal bagi *crate* kita, dan kita bisa

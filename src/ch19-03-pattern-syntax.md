@@ -64,7 +64,7 @@ Untuk membuat ekspresi `match` yang membandingkan nilai `x` dan `y` luar,
 alih-alih memperkenalkan variabel baru yang melakukan shadowing terhadap
 variabel `y` yang sudah ada, kita perlu memakai kondisional *match guard*.
 Kita akan membahas *match guard* nanti di bagian [“Menambahkan Kondisional
-dengan Match Guard”](#adding-conditionals-with-match-guards)<!-- ignore -->.
+dengan *Match Guard*”](#adding-conditionals-with-match-guards)<!-- ignore -->.
 
 <!-- Old headings. Do not remove or links may break. -->
 <a id="multiple-patterns"></a>
@@ -544,7 +544,7 @@ pola, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
 ini. Sisi buruk dari ekspresivitas tambahan ini adalah kompilator tidak
 mencoba memeriksa ekshaustivitas ketika ekspresi *match guard* terlibat.
 
-Saat membahas Listing 19-11, kami menyebutkan bahwa kita bisa memakai match
+Saat membahas Listing 19-11, kita menyebutkan bahwa kita bisa memakai match
 guard untuk memecahkan masalah shadowing pola kita. Ingat bahwa kita membuat
 variabel baru di dalam pola pada ekspresi `match` alih-alih memakai variabel
 di luar `match`. Variabel baru itu berarti kita tidak bisa menguji nilai

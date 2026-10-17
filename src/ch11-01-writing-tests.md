@@ -246,7 +246,7 @@ bisa menampung instance `Rectangle` lain yang memiliki lebar 5 dan tinggi 1.
 Perhatikan baris `use super::*;` di dalam modul `tests`. Modul `tests`
 adalah modul biasa yang mengikuti aturan visibilitas yang kita bahas di Bab
 7 pada bagian [“*Path* untuk Merujuk Item di dalam Pohon
-Modul”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
+Modul”][*paths*-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
 Karena modul `tests` adalah modul dalam, kita perlu membawa kode yang
 sedang diuji di modul luar ke dalam *scope* modul dalam. Kita memakai glob di
 sini, sehingga apa pun yang kita definisikan di modul luar tersedia untuk
@@ -366,9 +366,9 @@ membayangkan bahwa ini akan sangat membantu ketika kita memiliki banyak
 pengujian yang sedang berjalan.
 
 Perhatikan bahwa di beberapa bahasa dan framework pengujian, parameter
-fungsi asersi kesamaan disebut `expected` dan `actual`, dan urutan kita
+fungsi asersi kesamaan disebut `expected` dan `actual`, dan urutan saat kita
 menentukan argumen itu penting. Namun, di Rust, mereka disebut `left` dan
-`right`, dan urutan kita menentukan nilai yang kita harapkan dan nilai yang
+`right`, dan urutan saat kita menentukan nilai yang kita harapkan dan nilai yang
 dihasilkan kode tidak penting. Kita bisa menulis asersi di pengujian ini
 sebagai `assert_eq!(4, result)`, yang akan menghasilkan pesan kegagalan
 yang sama yang menampilkan `` assertion `left == right` failed ``.
@@ -411,7 +411,7 @@ pengujian gagal, Anda akan mendapat gambaran yang lebih baik tentang apa
 masalahnya dengan kode itu.
 
 Sebagai contoh, katakanlah kita memiliki fungsi yang menyapa orang
-berdasarkan nama dan kita ingin menguji bahwa nama yang kita teruskankan ke
+berdasarkan nama dan kita ingin menguji bahwa nama yang kita teruskan ke
 fungsi itu muncul di keluarannya:
 
 <span class="filename">Nama File: src/lib.rs</span>

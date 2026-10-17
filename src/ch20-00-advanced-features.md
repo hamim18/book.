@@ -6,7 +6,7 @@ Bab 21, kita akan menengok beberapa aspek bahasa yang mungkin sesekali Anda
 temui, tetapi mungkin tidak Anda pakai setiap hari. Anda bisa memakai bab ini
 sebagai rujukan saat menemukan hal-hal yang belum Anda kenal. Fitur-fitur
 yang dibahas di sini berguna dalam situasi yang sangat spesifik. Meskipun
-mungkin tidak sering Anda pakai, kami ingin memastikan Anda memahami semua
+mungkin tidak sering Anda pakai, kita ingin memastikan Anda memahami semua
 fitur yang ditawarkan Rust.
 
 Di bab ini, kita akan membahas:

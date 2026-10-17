@@ -178,7 +178,7 @@ sebelum dan sesudah melakukan perubahan ini untuk mengamati perbedaan
 perilakunya. Sebelum perubahan ini, program tidak akan mencetak hasil apa pun
 sampai ia mengumpulkan semua hasilnya, tetapi setelah perubahan ini,
 hasil-hasilnya akan dicetak begitu setiap baris yang cocok ditemukan karena
-perulangan `for` di fungsi `run` dapat memanfaatkan kelaziman *iterator*.
+perulangan `for` di fungsi `run` dapat memanfaatkan sifat *lazy* (kemalasan) *iterator*.
 
 <!-- Old headings. Do not remove or links may break. -->
 

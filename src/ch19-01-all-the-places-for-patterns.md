@@ -141,7 +141,7 @@ itu. Selain itu, Rust tidak mengharuskan kondisi-kondisi pada rangkaian arm
 
 Kode di Listing 19-3 menentukan warna apa yang akan dijadikan latar belakang
 Anda berdasarkan serangkaian pemeriksaan untuk beberapa kondisi. Untuk contoh
-ini, kami telah membuat variabel dengan nilai hardcoded yang mungkin diterima
+ini, kita telah membuat variabel dengan nilai yang ditulis langsung (hardcoded) yang mungkin diterima
 program sungguhan dari masukan pengguna.
 
 <Listing number="19-3" file-name="src/main.rs" caption="Mencampur `if let`, `else if`, `else if let`, dan `else`">
@@ -160,7 +160,7 @@ latar belakangnya ungu atau oranye bergantung pada nilai angka itu. Jika tidak
 ada satu pun kondisi ini yang berlaku, warna latar belakangnya biru.
 
 Struktur kondisional ini memungkinkan kita mendukung persyaratan yang
-kompleks. Dengan nilai hardcoded yang kita punya di sini, contoh ini akan
+kompleks. Dengan nilai yang ditulis langsung (hardcoded) yang kita punya di sini, contoh ini akan
 mencetak `Using purple as the background color`.
 
 Anda bisa melihat bahwa `if let` juga bisa memperkenalkan variabel baru yang
@@ -183,7 +183,7 @@ bug logika itu.
 
 Serupa konstruksinya dengan `if let`, perulangan kondisional `while let`
 memungkinkan perulangan `while` berjalan selama sebuah pola terus cocok. Di
-Listing 19-4, kami menunjukkan perulangan `while let` yang menunggu pesan yang
+Listing 19-4, kita menunjukkan perulangan `while let` yang menunggu pesan yang
 dikirim antar-thread, tetapi dalam kasus ini memeriksa `Result` alih-alih
 `Option`.
 
@@ -230,7 +230,7 @@ Kita mengadaptasi sebuah *iterator* menggunakan metode `enumerate` sehingga ia
 menghasilkan sebuah nilai dan indeks untuk nilai itu, ditempatkan ke dalam
 sebuah *tuple*. Nilai pertama yang dihasilkan adalah *tuple* `(0, 'a')`. Ketika
 nilai ini dicocokkan dengan pola `(index, value)`, index akan menjadi `0` dan
-value akan menjadi `'a'`, mencetak baris pertama dari output.
+value akan menjadi `'a'`, mencetak baris pertama dari keluaran.
 
 ### Parameter Fungsi
 

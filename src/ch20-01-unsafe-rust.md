@@ -36,7 +36,7 @@ melakukannya.
 
 Untuk beralih ke *unsafe* Rust, pakailah kata kunci `unsafe` lalu bukalah blok
 baru yang memuat kode *unsafe* itu. Anda bisa melakukan lima tindakan di *unsafe*
-Rust yang tidak bisa Anda lakukan di Rust yang aman, yang kami sebut *unsafe
+Rust yang tidak bisa Anda lakukan di Rust yang aman, yang kita sebut *unsafe
 superpowers* (kekuatan super *unsafe*). Kekuatan super itu mencakup kemampuan
 untuk:
 
@@ -81,7 +81,7 @@ kode *unsafe*.
 ### Melakukan Dereferensi pada Raw Pointer
 
 Di Bab 4, pada seksi [“Dangling References”][dangling-references]<!-- ignore
--->, kita menyebutkan bahwa kompilator memastikan reference selalu valid.
+-->, kita menyebutkan bahwa kompilator memastikan *reference* selalu valid.
 *Unsafe* Rust memiliki dua tipe baru yang disebut *raw pointer* (*pointer*
 mentah) yang mirip dengan *reference*. Seperti halnya *reference*, *raw pointer*
 bisa *immutable* (tidak dapat diubah) atau *mutable* (dapat diubah) dan
@@ -524,7 +524,7 @@ invarian-invarian yang tidak bisa diverifikasi kompilator.
 
 Sebagai contoh, ingat kembali *marker trait* `Send` dan `Sync` yang kita bahas
 di seksi [“Konkurensi yang Dapat Diperluas dengan `Send` dan `Sync`”][send-and-sync]<!-- ignore
---> di Bab 16: Kompilator mengimplementasikan trait-trait ini secara otomatis
+--> di Bab 16: Kompilator mengimplementasikan *trait*-trait ini secara otomatis
 jika tipe-tipe kita seluruhnya tersusun dari tipe-tipe lain yang
 mengimplementasikan `Send` dan `Sync`. Jika kita mengimplementasikan sebuah
 tipe yang memuat tipe yang tidak mengimplementasikan `Send` atau `Sync`,

@@ -1,8 +1,8 @@
 # Kata Pengantar
 
 Bahasa pemrograman Rust telah menempuh perjalanan yang panjang dalam beberapa
-tahun yang singkat, dari penciptaan dan inkubasinya oleh komunitas kecil para
-penggemar yang baru tumbuh, hingga menjadi salah satu bahasa pemrograman yang
+tahun yang singkat, dari penciptaan dan inkubasinya oleh komunitas penggemar yang kecil dan
+baru terbentuk, hingga menjadi salah satu bahasa pemrograman yang
 paling dicintai dan paling diminati di dunia. Menoleh ke belakang, sudah
 menjadi keniscayaan bahwa kekuatan dan janji yang ditawarkan Rust akan
 menarik perhatian banyak orang dan memperoleh pijakan dalam pemrograman

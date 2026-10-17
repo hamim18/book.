@@ -368,7 +368,7 @@ Mengembalikan `NewsArticle` atau `SocialPost` tidak diizinkan karena
 batasan-batasan seputar cara sintaks `impl Trait` diimplementasikan dalam
 *compiler*. Kita akan membahas cara menulis fungsi dengan perilaku ini di
 bagian [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
-Bersama”][trait-objects]<!-- ignore --> pada Bab 18.
+Bersama”][*trait*-objects]<!-- ignore --> pada Bab 18.
 
 ### Memakai Trait Bound untuk Mengimplementasikan Metode secara Bersyarat
 

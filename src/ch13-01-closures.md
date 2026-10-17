@@ -315,15 +315,15 @@ pakai. *Closure* akan secara otomatis mengimplementasikan satu, dua, atau ketiga
 *trait* `Fn` ini, secara aditif, bergantung pada bagaimana badan *closure*
 menangani nilai-nilainya:
 
-* `FnOnce` berlaku untuk c*losure *yang hanya dapat dipanggil sekali. Semua
+* `FnOnce` berlaku untuk *closure* yang hanya dapat dipanggil sekali. Semua
   *closure* mengimplementasikan setidaknya *trait* ini karena semua *closure*
   dapat dipanggil. *Closure* yang memindahkan nilai-nilai yang ditangkap keluar
   dari badannya hanya akan mengimplementasikan `FnOnce` dan tidak satu pun
   *trait* `Fn` lainnya, karena *closure* itu hanya dapat dipanggil sekali.
-* `FnMut` berlaku untuk c*losure *yang tidak memindahkan nilai-nilai yang
+* `FnMut` berlaku untuk *closure* yang tidak memindahkan nilai-nilai yang
   ditangkap keluar dari badannya, tetapi mungkin mengubah nilai-nilai yang
   ditangkap. *Closure* ini dapat dipanggil lebih dari sekali.
-* `Fn` berlaku untuk c*losure *yang tidak memindahkan nilai-nilai yang ditangkap
+* `Fn` berlaku untuk *closure* yang tidak memindahkan nilai-nilai yang ditangkap
   keluar dari badannya dan tidak mengubah nilai-nilai yang ditangkap, serta
   *closure* yang tidak menangkap apa pun dari lingkungannya. *Closure* ini dapat
   dipanggil lebih dari sekali tanpa mengubah lingkungannya, yang penting dalam

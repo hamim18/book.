@@ -445,7 +445,7 @@ tersusun dari lebih dari 1 byte.
 
 Mendapatkan grapheme cluster dari string, seperti pada aksara Devanagari,
 itu rumit, sehingga fungsionalitas ini tidak disediakan oleh pustaka
-standar. Crate-crate tersedia di [crates.io](https://crates.io/)<!-- ignore
+standar. *Crate*-crate tersedia di [crates.io](https://crates.io/)<!-- ignore
 --> jika ini fungsionalitas yang Anda butuhkan.
 
 <!-- Old headings. Do not remove or links may break. -->

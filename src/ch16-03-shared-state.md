@@ -170,7 +170,7 @@ sedang mengajari kita banyak hal:
 
 Wah, pesan galat itu panjang lebar sekali! Berikut bagian penting yang perlu
 difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
-Kompilator juga memberi tahu alasannya: `` the *trait* `Send` is not implemented
+Kompilator juga memberi tahu alasannya: `` the trait `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
 adalah salah satu *trait* yang memastikan bahwa tipe yang kita pakai dengan
 thread memang dimaksudkan untuk dipakai dalam situasi konkuren.
@@ -258,7 +258,7 @@ dari semua jenis galat logika ketika Anda memakai `Mutex<T>`. Ingat dari Bab
 15 bahwa memakai `Rc<T>` datang dengan risiko menciptakan *reference cycle*,
 ketika dua nilai `Rc<T>` saling merujuk, menyebabkan kebocoran memori.
 Demikian pula, `Mutex<T>` datang dengan risiko menciptakan deadlock. Ini
-terjadi ketika sebuah operasi perlu mengunci dua resource dan dua thread
+terjadi ketika sebuah operasi perlu mengunci dua sumber daya dan dua thread
 masing-masing telah memperoleh salah satu lock, menyebabkan keduanya saling
 menunggu selamanya. Jika Anda tertarik pada deadlock, cobalah membuat program
 Rust yang memiliki deadlock; lalu, teliti strategi mitigasi deadlock untuk

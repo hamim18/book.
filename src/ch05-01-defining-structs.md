@@ -1,6 +1,6 @@
 ## Mendefinisikan dan Menginstansiasi Struct
 
-Struct mirip dengan tuple, yang dibahas di bagian [“Tipe Tuple”][tuples]<!--
+*Struct* mirip dengan *tuple*, yang dibahas di bagian [“Tipe Tuple”][tuples]<!--
 ignore -->, dalam hal keduanya menampung banyak nilai yang berkaitan. Seperti
 *tuple*, bagian-bagian sebuah *struct* dapat bertipe berbeda. Tidak seperti *tuple*,
 pada *struct* Anda memberi nama pada setiap bagian data sehingga jelas apa arti
@@ -154,7 +154,7 @@ pun, terlepas dari urutan *field* pada definisi *struct*.
 Perhatikan bahwa sintaks update *struct* memakai `=` seperti sebuah penetapan;
 ini karena ia memindahkan datanya, seperti yang kita lihat di bagian
 [“Variabel dan Data yang Berinteraksi dengan
-Move”][move]<!-- ignore -->. Pada contoh ini, kita tidak dapat lagi memakai
+*Move*”][move]<!-- ignore -->. Pada contoh ini, kita tidak dapat lagi memakai
 `user1` setelah membuat `user2` karena `String` pada *field* `username` milik
 `user1` telah dipindahkan ke `user2`. Seandainya kita memberi `user2` nilai
 `String` baru untuk `email` maupun `username`, dan dengan demikian hanya
@@ -215,7 +215,7 @@ titik `origin` menjadi variabel bernama `x`, `y`, dan `z`.
 Anda juga dapat mendefinisikan *struct* yang tidak memiliki *field* apa pun!
 *Struct* ini disebut *unit-like struct* (*struct* mirip unit) karena perilakunya
 mirip `()`, tipe unit yang kita sebutkan di bagian [“Tipe
-Tuple”][tuples]<!-- ignore -->. Unit-like struct dapat berguna ketika Anda
+*Tuple*”][tuples]<!-- ignore -->. *Unit-like struct* dapat berguna ketika Anda
 perlu mengimplementasikan sebuah *trait* pada suatu tipe tetapi tidak memiliki
 data apa pun yang ingin Anda simpan di dalam tipe itu sendiri. Kita akan
 membahas *trait* di Bab 10. Berikut contoh mendeklarasikan dan menginstansiasi
@@ -261,7 +261,7 @@ mengimplementasikannya pada tipe mana pun, termasuk *unit-like struct*.
 > <!-- CAN'T EXTRACT SEE https://github.com/rust-lang/mdBook/issues/1127 -->
 >
 > ```rust,ignore,does_not_compile
-> *struct* User {
+> struct User {
 >     active: bool,
 >     username: &str,
 >     email: &str,
@@ -284,36 +284,36 @@ mengimplementasikannya pada tipe mana pun, termasuk *unit-like struct*.
 >
 > ```console
 > $ cargo run
->    Compiling *structs* v0.1.0 (file:///projects/structs)
-> error[E0106]: missing *lifetime* specifier
+>    Compiling structs v0.1.0 (file:///projects/structs)
+> error[E0106]: missing lifetime specifier
 >  --> src/main.rs:3:15
 >   |
 > 3 |     username: &str,
->   |               ^ expected named *lifetime* parameter
+>   |               ^ expected named lifetime parameter
 >   |
-> help: consider introducing a named *lifetime* parameter
+> help: consider introducing a named lifetime parameter
 >   |
-> 1 ~ *struct* User<'a> {
+> 1 ~ struct User<'a> {
 > 2 |     active: bool,
 > 3 ~     username: &'a str,
 >   |
 >
-> error[E0106]: missing *lifetime* specifier
+> error[E0106]: missing lifetime specifier
 >  --> src/main.rs:4:12
 >   |
 > 4 |     email: &str,
->   |            ^ expected named *lifetime* parameter
+>   |            ^ expected named lifetime parameter
 >   |
-> help: consider introducing a named *lifetime* parameter
+> help: consider introducing a named lifetime parameter
 >   |
-> 1 ~ *struct* User<'a> {
+> 1 ~ struct User<'a> {
 > 2 |     active: bool,
 > 3 |     username: &str,
 > 4 ~     email: &'a str,
 >   |
 >
 > For more information about this error, try `rustc --explain E0106`.
-> error: could not compile `structs` (bin "*structs*") due to 2 previous errors
+> error: could not compile `structs` (bin "structs") due to 2 previous errors
 > ```
 >
 > Di Bab 10, kita akan membahas cara memperbaiki galat-galat ini supaya Anda

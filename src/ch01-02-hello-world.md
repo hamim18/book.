@@ -6,7 +6,7 @@ mencetak teks `Hello, world!` ke layar, jadi kita akan melakukan hal yang
 sama di sini!
 
 > Catatan: Buku ini mengasumsikan Anda cukup familier dengan baris perintah.
-> Rust tidak menuntut hal khusus tentang editor atau perangkat yang Anda
+> Rust tidak menuntut hal khusus tentang cara Anda menyunting atau perangkat yang Anda
 > pakai ataupun lokasi kode Anda, jadi jika Anda lebih suka memakai IDE
 > alih-alih baris perintah, silakan memakai IDE favorit Anda. Banyak IDE kini
 > memiliki dukungan Rust sampai taraf tertentu; periksa dokumentasi IDE
@@ -21,7 +21,7 @@ sama di sini!
 
 Anda akan memulai dengan membuat direktori untuk menyimpan kode Rust Anda.
 Bagi Rust, lokasi kode Anda tidak menjadi soal, tetapi untuk latihan dan
-proyek dalam buku ini, kami menyarankan Anda membuat direktori _projects_ di
+proyek dalam buku ini, kita menyarankan Anda membuat direktori _projects_ di
 direktori home Anda dan menyimpan semua proyek Anda di sana.
 
 Buka terminal dan masukkan perintah-perintah berikut untuk membuat direktori
@@ -221,7 +221,7 @@ desain bahasa.
 
 Mengompilasi hanya dengan `rustc` sudah cukup untuk program sederhana,
 tetapi seiring berkembangnya proyek Anda, Anda akan ingin mengelola semua
-opsinya dan mempermudah berbagi kode. Berikutnya, kami akan memperkenalkan
+opsinya dan mempermudah berbagi kode. Berikutnya, kita akan memperkenalkan
 Anda pada alat Cargo, yang akan membantu Anda menulis program Rust untuk
 dunia nyata.
 

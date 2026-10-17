@@ -42,7 +42,7 @@ metode, tanda kurung, dan argumen apa pun.
 
 Pada tanda tangan `area`, kita memakai `&self`, bukan `rectangle: &Rectangle`.
 `&self` sebenarnya adalah singkatan dari `self: &Self`. Di dalam blok `impl`,
-tipe `Self` adalah alias untuk tipe yang dimiliki blok `impl` itu. Metode
+tipe `Self` adalah alias untuk tipe yang menjadi sasaran blok `impl` itu. Metode
 harus memiliki parameter bernama `self` bertipe `Self` sebagai parameter
 pertamanya, jadi Rust mengizinkan Anda menyingkatnya hanya dengan nama `self`
 di posisi parameter pertama. Perhatikan bahwa kita tetap perlu memakai `&` di

@@ -6,7 +6,7 @@ memastikan bahwa sebuah tipe memiliki perilaku yang kita inginkan, *lifetime*
 memastikan bahwa *reference* tetap valid selama kita membutuhkannya.
 
 Satu detail yang tidak kita bahas di bagian [“*References* dan
-Borrowing”][references-and-borrowing]<!-- ignore --> pada Bab 4 adalah
+*Borrowing*”][*references*-and-borrowing]<!-- ignore --> pada Bab 4 adalah
 bahwa setiap *reference* di Rust memiliki sebuah *lifetime*, yaitu *scope*
 (cakupan) tempat *reference* tersebut valid. Sebagian besar waktu, *lifetime*
 bersifat implisit dan diinferensi, sama seperti sebagian besar waktu tipe
@@ -669,7 +669,7 @@ kita bahas di bab ini: Bab 18 membahas *trait object* (objek *trait*), yang
 merupakan cara lain untuk memakai *trait*. Ada juga skenario yang lebih
 kompleks yang melibatkan anotasi *lifetime* yang hanya Anda perlukan dalam
 skenario yang sangat lanjut; untuk itu, Anda sebaiknya membaca [Rust
-*Reference*][*reference*]. Namun selanjutnya, Anda akan mempelajari cara
+*Reference*][reference]. Namun selanjutnya, Anda akan mempelajari cara
 menulis pengujian di Rust supaya Anda bisa memastikan bahwa kode Anda
 berjalan sebagaimana mestinya.
 

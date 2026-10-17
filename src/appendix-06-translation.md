@@ -2,7 +2,7 @@
 
 Untuk sumber daya dalam bahasa selain Inggris. Sebagian besar masih dalam
 pengerjaan; lihat [label Translations][label] untuk membantu atau memberi tahu
-kami tentang terjemahan baru!
+kita tentang terjemahan baru!
 
 [label]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 

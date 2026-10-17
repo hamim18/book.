@@ -109,7 +109,7 @@ Jika kita memasukkan *reference* ke nilai ke dalam hash map, nilainya tidak
 akan dipindahkan ke dalam hash map. Nilai yang ditunjuk *reference* harus
 tetap valid paling tidak selama hash map valid. Kita akan membicarakan
 masalah-masalah ini lebih lanjut di [“Memvalidasi *Reference* dengan
-Lifetime”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
+*Lifetime*”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
 
 ### Memperbarui Hash Map
 

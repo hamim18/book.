@@ -131,7 +131,7 @@ terkompilasi dengan baik.
 </Listing>
 
 Akan tetapi, seperti yang kita catat di seksi [“Menginferensi dan
-Menganotasi Tipe Closure”][closure-types]<!-- ignore --> pada Bab 13, setiap
+Menganotasi Tipe *Closure*”][*closure*-types]<!-- ignore --> pada Bab 13, setiap
 *closure* juga merupakan tipenya sendiri yang berbeda. Jika Anda perlu bekerja
 dengan banyak fungsi yang memiliki tanda tangan yang sama tetapi implementasi
 yang berbeda, Anda perlu memakai *trait object* untuk fungsi-fungsi itu.
@@ -157,7 +157,7 @@ mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 ```
 
 Pesan galat itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
-*Trait*`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
+Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
 detailnya tidak bisa kita lihat dari apa yang Rust bangun untuk kita, dan
 kita juga tidak bisa menebak tipe yang akan dihasilkan Rust untuk kita tulis
 sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan *closure* yang
@@ -165,7 +165,7 @@ mengimplementasikan *trait* yang sama, `Fn(i32) -> i32`, tipe opak yang
 dihasilkan Rust untuk masing-masing fungsi berbeda. (Ini mirip dengan cara
 Rust menghasilkan tipe konkret yang berbeda untuk blok async yang berbeda
 meskipun tipe keluarannya sama, seperti yang kita lihat di [“Tipe `Pin` dan
-Trait `Unpin`”][future-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
+*Trait* `Unpin`”][*future*-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
 solusi untuk masalah ini beberapa kali: Kita bisa memakai *trait object*,
 seperti di Listing 20-34.
 
@@ -179,7 +179,7 @@ seperti di Listing 20-34.
 
 Kode ini akan terkompilasi dengan baik. Untuk lebih lanjut tentang *trait*
 object, lihat seksi [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
-Bersama”][trait-objects]<!-- ignore --> pada Bab 18.
+Bersama”][*trait*-objects]<!-- ignore --> pada Bab 18.
 
 Selanjutnya, mari kita lihat *macro*!
 

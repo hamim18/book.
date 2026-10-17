@@ -20,12 +20,12 @@ Berikut rencana kita untuk membangun server web itu:
 
 <span class="caption">Gambar 21-1: Proyek akhir kita bersama</span>
 
-Sebelum kita mulai, ada dua hal yang perlu kami sampaikan. Pertama, metode
+Sebelum kita mulai, ada dua hal yang perlu kita sampaikan. Pertama, metode
 yang akan kita pakai bukanlah cara terbaik untuk membangun server web dengan
 Rust. Anggota komunitas telah menerbitkan sejumlah *crate* siap produksi yang
 tersedia di [crates.io](https://crates.io/)<!-- ignore --> yang menyediakan
 implementasi server web dan *thread pool* yang lebih lengkap daripada yang
-akan kita bangun. Akan tetapi, niat kami di bab ini adalah membantu Anda
+akan kita bangun. Akan tetapi, niat kita di bab ini adalah membantu Anda
 belajar, bukan mengambil jalan pintas. Karena Rust adalah bahasa pemrograman
 sistem, kita bisa memilih tingkat abstraksi yang ingin kita pakai untuk
 bekerja dan bisa turun ke tingkat yang lebih rendah daripada yang mungkin
@@ -35,7 +35,7 @@ Kedua, kita tidak akan memakai async dan await di sini. Membangun thread
 pool saja sudah merupakan tantangan yang cukup besar, tanpa menambahkan
 pembangunan runtime async! Akan tetapi, kita akan mencatat bagaimana async
 dan await mungkin bisa diterapkan pada beberapa masalah yang sama yang akan
-kita lihat di bab ini. Pada akhirnya, seperti yang kami catat di Bab 17,
+kita lihat di bab ini. Pada akhirnya, seperti yang kita catat di Bab 17,
 banyak runtime async yang memakai *thread pool* untuk mengelola pekerjaan
 mereka.
 

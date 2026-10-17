@@ -49,7 +49,7 @@ diterbitkan.
 Ada banyak cara tak terbatas untuk menstrukturkan kode guna memecahkan masalah
 yang sama, masing-masing dengan kompromi yang berbeda. Implementasi bagian
 ini lebih bergaya berorientasi objek tradisional, yang mungkin untuk ditulis
-di Rust, tetapi tidak memanfaatkan sebagian kekuatan Rust. Nanti, kami akan
+di Rust, tetapi tidak memanfaatkan sebagian kekuatan Rust. Nanti, kita akan
 mendemonstrasikan solusi berbeda yang tetap memakai pola desain berorientasi
 objek tetapi terstruktur dengan cara yang mungkin terlihat kurang familier
 bagi pemrogram berpengalaman berorientasi objek. Kita akan membandingkan
@@ -75,7 +75,7 @@ kita mencoba mendapatkan konten post itu segera, sebelum disetujui, kita
 seharusnya tidak mendapat teks apa pun karena post itu masih draf. Kami telah
 menambahkan `assert_eq!` di kode untuk tujuan demonstrasi. Pengujian unit
 yang bagus untuk ini adalah menegaskan bahwa post blog draf mengembalikan
-string kosong dari metode `content`, tetapi kami tidak akan menulis pengujian
+string kosong dari metode `content`, tetapi kita tidak akan menulis pengujian
 untuk contoh ini.
 
 Berikutnya, kita ingin mengaktifkan permintaan review terhadap post itu, dan
@@ -83,8 +83,8 @@ kita ingin `content` mengembalikan string kosong selagi menunggu review.
 Ketika post itu menerima persetujuan, post itu seharusnya diterbitkan,
 artinya teks post itu akan dikembalikan saat `content` dipanggil.
 
-Perhatikan bahwa satu-satunya tipe yang berinteraksi dengan kita dari *crate*
-itu adalah tipe `Post`. Tipe ini akan memakai pola state dan akan menampung
+Perhatikan bahwa satu-satunya tipe dari *crate* itu yang
+kita gunakan adalah tipe `Post`. Tipe ini akan memakai pola state dan akan menampung
 nilai yang berupa salah satu dari tiga *state object* yang merepresentasikan
 berbagai state yang bisa dialami sebuah post—draf, review, atau diterbitkan.
 Perubahan dari satu state ke state lain akan dikelola secara internal di dalam
@@ -102,7 +102,7 @@ sebelum post itu di-review.
 
 Mari kita mulai implementasi library-nya! Kita tahu kita butuh *struct* `Post`
 publik yang menampung sejumlah konten, jadi kita akan mulai dengan definisi
-*struct* itu dan fungsi publik asosiasi `new` untuk membuat instance `Post`,
+*struct* itu dan fungsi asosiasi publik `new` untuk membuat instance `Post`,
 seperti yang ditunjukkan di Listing 18-12. Kita juga akan membuat *trait*
 `State` privat yang akan mendefinisikan perilaku yang harus dimiliki semua
 *state object* untuk sebuah `Post`.
@@ -312,7 +312,7 @@ Kita kemudian memanggil metode `unwrap`, yang kita tahu tidak akan pernah
 panic karena kita tahu metode-metode pada `Post` memastikan `state` akan
 selalu memuat nilai `Some` ketika metode-metode itu selesai. Ini salah satu
 kasus yang kita bicarakan di bagian [“Ketika Anda Memiliki Lebih Banyak
-Informasi daripada Compiler”][more-info-than-rustc]<!-- ignore --> di Bab 9,
+Informasi daripada *Compiler*”][more-info-than-rustc]<!-- ignore --> di Bab 9,
 ketika kita tahu nilai `None` tidak mungkin terjadi, meskipun kompilator
 tidak bisa memahaminya.
 
@@ -400,7 +400,7 @@ Salah satu sisi negatif pola state adalah, karena state mengimplementasikan
 transisi antar-state, sebagian state saling terkait satu sama lain. Jika kita
 menambahkan state lain di antara `PendingReview` dan `Published`, seperti
 `Scheduled`, kita harus mengubah kode di `PendingReview` untuk bertransisi ke
-`Scheduled`. Akan lebih sedikit pekerjaan jika `PendingReview` tidak perlu
+`Scheduled` sebagai gantinya. Akan lebih sedikit pekerjaan jika `PendingReview` tidak perlu
 berubah dengan penambahan state baru, tetapi itu berarti beralih ke pola
 desain lain.
 
@@ -507,7 +507,7 @@ mengembalikan `Post`, seperti yang ditunjukkan di Listing 18-20.
 
 Metode `request_review` dan `approve` mengambil kepemilikan `self`, sehingga
 mengonsumsi instance `DraftPost` dan `PendingReviewPost` dan mengubahnya
-menjadi `PendingReviewPost` dan `Post` yang diterbitkan. Dengan cara ini,
+masing-masing menjadi `PendingReviewPost` dan `Post` yang diterbitkan. Dengan cara ini,
 kita tidak akan punya instance `DraftPost` yang tersisa setelah kita memanggil
 `request_review` padanya, dan seterusnya. *Struct* `PendingReviewPost` tidak
 memiliki metode `content` yang terdefinisi padanya, jadi mencoba membaca

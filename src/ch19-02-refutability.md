@@ -14,7 +14,7 @@ pola *irrefutable* karena program tidak bisa melakukan apa pun yang bermakna
 ketika nilai-nilainya tidak cocok. Ekspresi `if let` dan `while let` serta
 pernyataan `let...else` menerima pola *refutable* dan *irrefutable*, tetapi
 kompilator memperingatkan kita terhadap pola *irrefutable* karena, menurut
-definisi, pola itu ditujukan untuk menangani kemungkinan kegagalan:
+definisi, konstruksi kondisional itulah yang dimaksudkan untuk menangani kemungkinan kegagalan:
 fungsionalitas sebuah kondisional terletak pada kemampuannya untuk berperilaku
 berbeda bergantung pada keberhasilan atau kegagalan.
 

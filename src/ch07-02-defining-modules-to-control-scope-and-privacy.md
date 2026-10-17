@@ -12,7 +12,7 @@ eksternal, dan operator *glob*.
 
 ### Lembar Contekan Module
 
-Sebelum masuk ke detail *module* dan *path*, di sini kami menyediakan rujukan
+Sebelum masuk ke detail *module* dan *path*, di sini kita menyediakan rujukan
 cepat tentang cara kerja *module*, *path*, kata kunci `use`, dan kata kunci `pub`
 di dalam *compiler*, serta cara sebagian besar pengembang mengatur kode mereka.
 Kita akan menelusuri contoh dari masing-masing aturan ini di sepanjang bab
@@ -55,7 +55,7 @@ pengingat cara kerja *module*.
   *scope* mana pun yang dapat merujuk ke
   `crate::garden::vegetables::Asparagus`, Anda dapat membuat pintasan dengan
   `use
-  *crate*::garden::vegetables::Asparagus;`, dan sejak saat itu Anda cukup
+  crate::garden::vegetables::Asparagus;`, dan sejak saat itu Anda cukup
   menulis `Asparagus` untuk memakai tipe tersebut di dalam *scope*.
 
 Di sini, kita membuat sebuah *crate* binary bernama `backyard` yang
