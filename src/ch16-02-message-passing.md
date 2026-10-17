@@ -2,41 +2,45 @@
 
 <a id="using-message-passing-to-transfer-data-between-threads"></a>
 
-## Transfer Data Between Threads with Message Passing
+## Mentransfer Data Antar-Thread dengan Message Passing
 
-One increasingly popular approach to ensuring safe concurrency is message
-passing, where threads or actors communicate by sending each other messages
-containing data. Here’s the idea in a slogan from [the Go language documentation](https://golang.org/doc/effective_go.html#concurrency):
+Salah satu pendekatan yang semakin populer untuk menjamin konkurensi yang aman
+adalah *message passing* (pengiriman pesan), ketika thread atau aktor
+berkomunikasi dengan saling mengirim pesan yang memuat data. Berikut gagasan
+itu dalam sebuah slogan dari [dokumentasi bahasa Go](https://golang.org/doc/effective_go.html#concurrency):
 “Do not communicate by sharing memory; instead, share memory by communicating.”
 
-To accomplish message-sending concurrency, Rust’s standard library provides an
-implementation of channels. A _channel_ is a general programming concept by
-which data is sent from one thread to another.
+Untuk mewujudkan konkurensi pengiriman pesan, pustaka standar Rust menyediakan
+implementasi channel. Sebuah _channel_ (saluran) adalah konsep pemrograman
+umum untuk mengirim data dari satu thread ke thread lain.
 
-You can imagine a channel in programming as being like a directional channel of
-water, such as a stream or a river. If you put something like a rubber duck
-into a river, it will travel downstream to the end of the waterway.
+Anda dapat membayangkan channel dalam pemrograman seperti saluran air
+berarah, misalnya anak sungai atau sungai. Jika Anda meletakkan sesuatu
+seperti bebek karet ke sebuah sungai, benda itu akan hanyut ke hilir sampai
+ujung aliran air.
 
-A channel has two halves: a transmitter and a receiver. The transmitter half is
-the upstream location where you put the rubber duck into the river, and the
-receiver half is where the rubber duck ends up downstream. One part of your
-code calls methods on the transmitter with the data you want to send, and
-another part checks the receiving end for arriving messages. A channel is said
-to be _closed_ if either the transmitter or receiver half is dropped.
+Sebuah channel memiliki dua bagian: transmitter dan receiver. Bagian
+transmitter adalah lokasi di hulu tempat Anda meletakkan bebek karet ke
+sungai, dan bagian receiver adalah tempat bebek karet itu berakhir di hilir.
+Satu bagian kode Anda memanggil metode pada transmitter dengan data yang ingin
+Anda kirim, dan bagian lain memeriksa ujung penerima untuk pesan yang datang.
+Sebuah channel dikatakan _closed_ (tertutup) jika bagian transmitter atau
+receiver-nya dibebaskan.
 
-Here, we’ll work up to a program that has one thread to generate values and
-send them down a channel, and another thread that will receive the values and
-print them out. We’ll be sending simple values between threads using a channel
-to illustrate the feature. Once you’re familiar with the technique, you could
-use channels for any threads that need to communicate with each other, such as
-a chat system or a system where many threads perform parts of a calculation and
-send the parts to one thread that aggregates the results.
+Di sini, kita akan menyusun program yang memiliki satu thread untuk
+menghasilkan nilai dan mengirimkannya lewat sebuah channel, serta thread lain
+yang akan menerima nilai-nilai itu dan mencetaknya. Kita akan mengirim nilai
+sederhana antar-thread memakai channel untuk menggambarkan fiturnya. Begitu
+Anda terbiasa dengan teknik ini, Anda dapat memakai channel untuk thread mana
+pun yang perlu saling berkomunikasi, seperti sistem obrolan atau sistem ketika
+banyak thread mengerjakan bagian-bagian sebuah perhitungan dan mengirim
+bagian-bagian itu ke satu thread yang menggabungkan hasilnya.
 
-First, in Listing 16-6, we’ll create a channel but not do anything with it.
-Note that this won’t compile yet because Rust can’t tell what type of values we
-want to send over the channel.
+Pertama, di Listing 16-6, kita akan membuat channel tetapi tidak melakukan
+apa pun dengannya. Perhatikan bahwa ini belum akan terkompilasi karena Rust
+tidak bisa tahu tipe nilai apa yang ingin kita kirim melalui channel itu.
 
-<Listing number="16-6" file-name="src/main.rs" caption="Creating a channel and assigning the two halves to `tx` and `rx`">
+<Listing number="16-6" file-name="src/main.rs" caption="Membuat channel dan menetapkan kedua bagiannya ke `tx` dan `rx`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-06/src/main.rs}}
@@ -44,31 +48,35 @@ want to send over the channel.
 
 </Listing>
 
-We create a new channel using the `mpsc::channel` function; `mpsc` stands for
-_multiple producer, single consumer_. In short, the way Rust’s standard library
-implements channels means a channel can have multiple _sending_ ends that
-produce values but only one _receiving_ end that consumes those values. Imagine
-multiple streams flowing together into one big river: Everything sent down any
-of the streams will end up in one river at the end. We’ll start with a single
-producer for now, but we’ll add multiple producers when we get this example
-working.
+Kita membuat channel baru menggunakan fungsi `mpsc::channel`; `mpsc` adalah
+singkatan dari _multiple producer, single consumer_ (banyak produsen, satu
+konsumen). Singkatnya, cara pustaka standar Rust mengimplementasikan channel
+berarti sebuah channel dapat memiliki beberapa ujung _pengirim_ yang
+menghasilkan nilai tetapi hanya satu ujung _penerima_ yang mengonsumsi
+nilai-nilai itu. Bayangkan beberapa anak sungai mengalir bersama menjadi satu
+sungai besar: Semua yang dikirim melalui anak sungai mana pun akan berakhir di
+satu sungai di ujungnya. Untuk sekarang kita akan mulai dengan satu produsen,
+tetapi kita akan menambahkan banyak produsen ketika contoh ini sudah
+berfungsi.
 
-The `mpsc::channel` function returns a tuple, the first element of which is the
-sending end—the transmitter—and the second element of which is the receiving
-end—the receiver. The abbreviations `tx` and `rx` are traditionally used in
-many fields for _transmitter_ and _receiver_, respectively, so we name our
-variables as such to indicate each end. We’re using a `let` statement with a
-pattern that destructures the tuples; we’ll discuss the use of patterns in
-`let` statements and destructuring in Chapter 19. For now, know that using a
-`let` statement in this way is a convenient approach to extract the pieces of
-the tuple returned by `mpsc::channel`.
+Fungsi `mpsc::channel` mengembalikan sebuah tuple, elemen pertamanya adalah
+ujung pengirim—transmitter—dan elemen keduanya adalah ujung penerima—receiver.
+Singkatan `tx` dan `rx` secara tradisional dipakai di banyak bidang untuk
+_transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variabel
+kita seperti itu untuk menandai masing-masing ujung. Kita memakai pernyataan
+`let` dengan pola yang mendestrukturisasi tuple; kita akan membahas pemakaian
+pola dalam pernyataan `let` dan destrukturisasi di Bab 19. Untuk sekarang,
+cukup ketahui bahwa memakai pernyataan `let` dengan cara ini adalah pendekatan
+praktis untuk mengekstrak bagian-bagian tuple yang dikembalikan
+`mpsc::channel`.
 
-Let’s move the transmitting end into a spawned thread and have it send one
-string so that the spawned thread is communicating with the main thread, as
-shown in Listing 16-7. This is like putting a rubber duck in the river upstream
-or sending a chat message from one thread to another.
+Mari kita pindahkan ujung transmitter ke thread yang dibuat dan menyuruhnya
+mengirim satu string supaya thread yang dibuat itu berkomunikasi dengan thread
+utama, seperti ditunjukkan pada Listing 16-7. Ini seperti meletakkan bebek
+karet di hulu sungai atau mengirim pesan obrolan dari satu thread ke thread
+lain.
 
-<Listing number="16-7" file-name="src/main.rs" caption='Moving `tx` to a spawned thread and sending `"hi"`'>
+<Listing number="16-7" file-name="src/main.rs" caption='Memindahkan `tx` ke thread yang dibuat dan mengirim `"hi"`'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-07/src/main.rs}}
@@ -76,23 +84,24 @@ or sending a chat message from one thread to another.
 
 </Listing>
 
-Again, we’re using `thread::spawn` to create a new thread and then using `move`
-to move `tx` into the closure so that the spawned thread owns `tx`. The spawned
-thread needs to own the transmitter to be able to send messages through the
-channel.
+Sekali lagi, kita memakai `thread::spawn` untuk membuat thread baru, lalu
+memakai `move` untuk memindahkan `tx` ke closure supaya thread yang dibuat
+memiliki `tx`. Thread yang dibuat perlu memiliki transmitter untuk bisa
+mengirim pesan melalui channel.
 
-The transmitter has a `send` method that takes the value we want to send. The
-`send` method returns a `Result<T, E>` type, so if the receiver has already
-been dropped and there’s nowhere to send a value, the send operation will
-return an error. In this example, we’re calling `unwrap` to panic in case of an
-error. But in a real application, we would handle it properly: Return to
-Chapter 9 to review strategies for proper error handling.
+Transmitter memiliki metode `send` yang menerima nilai yang ingin kita kirim.
+Metode `send` mengembalikan tipe `Result<T, E>`, jadi jika receiver telah
+dibebaskan dan tidak ada tempat untuk mengirim nilai, operasi pengiriman akan
+mengembalikan galat. Dalam contoh ini, kita memanggil `unwrap` untuk panic
+jika terjadi galat. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan
+benar: Kembalilah ke Bab 9 untuk mengulas strategi penanganan galat yang
+tepat.
 
-In Listing 16-8, we’ll get the value from the receiver in the main thread. This
-is like retrieving the rubber duck from the water at the end of the river or
-receiving a chat message.
+Di Listing 16-8, kita akan mengambil nilai dari receiver di thread utama. Ini
+seperti mengambil bebek karet dari air di ujung sungai atau menerima pesan
+obrolan.
 
-<Listing number="16-8" file-name="src/main.rs" caption='Receiving the value `"hi"` in the main thread and printing it'>
+<Listing number="16-8" file-name="src/main.rs" caption='Menerima nilai `"hi"` di thread utama dan mencetaknya'>
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-08/src/main.rs}}
@@ -100,26 +109,26 @@ receiving a chat message.
 
 </Listing>
 
-The receiver has two useful methods: `recv` and `try_recv`. We’re using `recv`,
-short for _receive_, which will block the main thread’s execution and wait
-until a value is sent down the channel. Once a value is sent, `recv` will
-return it in a `Result<T, E>`. When the transmitter closes, `recv` will return
-an error to signal that no more values will be coming.
+Receiver memiliki dua metode yang berguna: `recv` dan `try_recv`. Kita
+memakai `recv`, singkatan dari _receive_ (menerima), yang akan memblokir
+eksekusi thread utama dan menunggu sampai sebuah nilai dikirim melalui
+channel. Begitu sebuah nilai terkirim, `recv` akan mengembalikannya dalam
+`Result<T, E>`. Ketika transmitter tertutup, `recv` akan mengembalikan galat
+untuk menandakan bahwa tidak akan ada nilai lagi yang datang.
 
-The `try_recv` method doesn’t block, but will instead return a `Result<T, E>`
-immediately: an `Ok` value holding a message if one is available and an `Err`
-value if there aren’t any messages this time. Using `try_recv` is useful if
-this thread has other work to do while waiting for messages: We could write a
-loop that calls `try_recv` every so often, handles a message if one is
-available, and otherwise does other work for a little while until checking
-again.
+Metode `try_recv` tidak memblokir, tetapi langsung mengembalikan
+`Result<T, E>`: nilai `Ok` yang menampung pesan jika ada yang tersedia dan
+nilai `Err` jika kali ini tidak ada pesan. Memakai `try_recv` berguna jika
+thread ini memiliki pekerjaan lain selagi menunggu pesan: Kita bisa menulis
+perulangan yang memanggil `try_recv` sesekali, menangani pesan jika ada, dan
+selain itu mengerjakan pekerjaan lain sebentar sampai memeriksa lagi.
 
-We’ve used `recv` in this example for simplicity; we don’t have any other work
-for the main thread to do other than wait for messages, so blocking the main
-thread is appropriate.
+Kita memakai `recv` di contoh ini demi kesederhanaan; kita tidak punya
+pekerjaan lain untuk thread utama selain menunggu pesan, jadi memblokir
+thread utama adalah pilihan yang tepat.
 
-When we run the code in Listing 16-8, we’ll see the value printed from the main
-thread:
+Ketika kita menjalankan kode di Listing 16-8, kita akan melihat nilai yang
+dicetak dari thread utama:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -129,23 +138,24 @@ changes in the compiler -->
 Got: hi
 ```
 
-Perfect!
+Sempurna!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="channels-and-ownership-transference"></a>
 
-### Transferring Ownership Through Channels
+### Mentransfer Ownership Melalui Channel
 
-The ownership rules play a vital role in message sending because they help you
-write safe, concurrent code. Preventing errors in concurrent programming is the
-advantage of thinking about ownership throughout your Rust programs. Let’s do
-an experiment to show how channels and ownership work together to prevent
-problems: We’ll try to use a `val` value in the spawned thread _after_ we’ve
-sent it down the channel. Try compiling the code in Listing 16-9 to see why
-this code isn’t allowed.
+Aturan ownership memainkan peran penting dalam pengiriman pesan karena
+aturan itu membantu Anda menulis kode konkuren yang aman. Mencegah galat
+dalam pemrograman konkuren adalah keuntungan memikirkan ownership di seluruh
+program Rust Anda. Mari kita lakukan eksperimen untuk menunjukkan bagaimana
+channel dan ownership bekerja sama mencegah masalah: Kita akan mencoba memakai
+nilai `val` di thread yang dibuat _setelah_ kita mengirimkannya melalui
+channel. Coba kompilasi kode di Listing 16-9 untuk melihat mengapa kode ini
+tidak diizinkan.
 
-<Listing number="16-9" file-name="src/main.rs" caption="Attempting to use `val` after we’ve sent it down the channel">
+<Listing number="16-9" file-name="src/main.rs" caption="Mencoba memakai `val` setelah kita mengirimkannya melalui channel">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-09/src/main.rs}}
@@ -153,36 +163,40 @@ this code isn’t allowed.
 
 </Listing>
 
-Here, we try to print `val` after we’ve sent it down the channel via `tx.send`.
-Allowing this would be a bad idea: Once the value has been sent to another
-thread, that thread could modify or drop it before we try to use the value
-again. Potentially, the other thread’s modifications could cause errors or
-unexpected results due to inconsistent or nonexistent data. However, Rust gives
-us an error if we try to compile the code in Listing 16-9:
+Di sini, kita mencoba mencetak `val` setelah mengirimkannya melalui channel
+lewat `tx.send`. Mengizinkan hal ini adalah ide yang buruk: Begitu nilai itu
+dikirim ke thread lain, thread itu bisa memodifikasi atau membebaskannya
+sebelum kita mencoba memakai nilai itu lagi. Berpotensi, modifikasi thread
+lain itu bisa menyebabkan galat atau hasil yang tidak terduga karena data yang
+tidak konsisten atau tidak ada. Namun, Rust memberi kita galat jika kita
+mencoba mengompilasi kode di Listing 16-9:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
 ```
 
-Our concurrency mistake has caused a compile-time error. The `send` function
-takes ownership of its parameter, and when the value is moved the receiver
-takes ownership of it. This stops us from accidentally using the value again
-after sending it; the ownership system checks that everything is okay.
+Kesalahan konkurensi kita telah menyebabkan galat waktu kompilasi. Fungsi
+`send` mengambil ownership atas parameternya, dan ketika nilainya dipindahkan,
+receiver mengambil ownership atasnya. Ini mencegah kita tanpa sengaja memakai
+nilai itu lagi setelah mengirimkannya; sistem ownership memeriksa bahwa
+semuanya baik-baik saja.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="sending-multiple-values-and-seeing-the-receiver-waiting"></a>
 
-### Sending Multiple Values
+### Mengirim Banyak Nilai
 
-The code in Listing 16-8 compiled and ran, but it didn’t clearly show us that
-two separate threads were talking to each other over the channel.
+Kode di Listing 16-8 terkompilasi dan berjalan, tetapi kode itu tidak
+menunjukkan dengan jelas kepada kita bahwa dua thread terpisah sedang saling
+berbicara melalui channel.
 
-In Listing 16-10, we’ve made some modifications that will prove the code in
-Listing 16-8 is running concurrently: The spawned thread will now send multiple
-messages and pause for a second between each message.
+Di Listing 16-10, kita telah membuat beberapa modifikasi yang akan
+membuktikan bahwa kode di Listing 16-8 berjalan secara konkuren: Thread yang
+dibuat sekarang akan mengirim banyak pesan dan berhenti sejenak selama satu
+detik di antara setiap pesan.
 
-<Listing number="16-10" file-name="src/main.rs" caption="Sending multiple messages and pausing between each one">
+<Listing number="16-10" file-name="src/main.rs" caption="Mengirim banyak pesan dan berhenti sejenak di antara setiap pesan">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-10/src/main.rs}}
@@ -190,17 +204,18 @@ messages and pause for a second between each message.
 
 </Listing>
 
-This time, the spawned thread has a vector of strings that we want to send to
-the main thread. We iterate over them, sending each individually, and pause
-between each by calling the `thread::sleep` function with a `Duration` value of
-one second.
+Kali ini, thread yang dibuat memiliki vektor berisi string yang ingin kita
+kirim ke thread utama. Kita mengiterasinya, mengirim masing-masing satu per
+satu, dan berhenti sejenak di antara setiap pengiriman dengan memanggil fungsi
+`thread::sleep` dengan nilai `Duration` satu detik.
 
-In the main thread, we’re not calling the `recv` function explicitly anymore:
-Instead, we’re treating `rx` as an iterator. For each value received, we’re
-printing it. When the channel is closed, iteration will end.
+Di thread utama, kita tidak lagi memanggil fungsi `recv` secara eksplisit:
+Sebagai gantinya, kita memperlakukan `rx` sebagai iterator. Untuk setiap nilai
+yang diterima, kita mencetaknya. Ketika channel tertutup, iterasi akan
+berakhir.
 
-When running the code in Listing 16-10, you should see the following output
-with a one-second pause in between each line:
+Ketika menjalankan kode di Listing 16-10, Anda seharusnya melihat keluaran
+berikut dengan jeda satu detik di antara setiap baris:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -213,22 +228,23 @@ Got: the
 Got: thread
 ```
 
-Because we don’t have any code that pauses or delays in the `for` loop in the
-main thread, we can tell that the main thread is waiting to receive values from
-the spawned thread.
+Karena kita tidak memiliki kode yang berhenti atau menunda di perulangan `for`
+di thread utama, kita dapat memastikan bahwa thread utama sedang menunggu
+untuk menerima nilai dari thread yang dibuat.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="creating-multiple-producers-by-cloning-the-transmitter"></a>
 
-### Creating Multiple Producers
+### Membuat Banyak Produsen
 
-Earlier we mentioned that `mpsc` was an acronym for _multiple producer, single
-consumer_. Let’s put `mpsc` to use and expand the code in Listing 16-10 to
-create multiple threads that all send values to the same receiver. We can do so
-by cloning the transmitter, as shown in Listing 16-11.
+Sebelumnya kita menyebutkan bahwa `mpsc` adalah akronim dari _multiple
+producer, single consumer_. Mari kita pakai `mpsc` dan perluas kode di Listing
+16-10 untuk membuat banyak thread yang semuanya mengirim nilai ke receiver
+yang sama. Kita dapat melakukannya dengan mengklon transmitter, seperti
+ditunjukkan pada Listing 16-11.
 
-<Listing number="16-11" file-name="src/main.rs" caption="Sending multiple messages from multiple producers">
+<Listing number="16-11" file-name="src/main.rs" caption="Mengirim banyak pesan dari banyak produsen">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-11/src/main.rs:here}}
@@ -236,12 +252,13 @@ by cloning the transmitter, as shown in Listing 16-11.
 
 </Listing>
 
-This time, before we create the first spawned thread, we call `clone` on the
-transmitter. This will give us a new transmitter we can pass to the first
-spawned thread. We pass the original transmitter to a second spawned thread.
-This gives us two threads, each sending different messages to the one receiver.
+Kali ini, sebelum kita membuat thread pertama, kita memanggil `clone` pada
+transmitter. Ini akan memberi kita transmitter baru yang dapat kita berikan
+ke thread pertama. Kita memberikan transmitter asli ke thread kedua. Ini
+memberi kita dua thread, masing-masing mengirim pesan berbeda ke satu
+receiver.
 
-When you run the code, your output should look something like this:
+Ketika Anda menjalankan kodenya, keluaran Anda seharusnya tampak seperti ini:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -258,10 +275,11 @@ Got: thread
 Got: you
 ```
 
-You might see the values in another order, depending on your system. This is
-what makes concurrency interesting as well as difficult. If you experiment with
-`thread::sleep`, giving it various values in the different threads, each run
-will be more nondeterministic and create different output each time.
+Anda mungkin melihat nilai-nilai itu dalam urutan lain, tergantung sistem
+Anda. Inilah yang membuat konkurensi menarik sekaligus sulit. Jika Anda
+bereksperimen dengan `thread::sleep`, memberinya berbagai nilai di thread yang
+berbeda, setiap penjalanan akan semakin nondeterministik dan menghasilkan
+keluaran yang berbeda setiap kali.
 
-Now that we’ve looked at how channels work, let’s look at a different method of
-concurrency.
+Sekarang setelah kita melihat cara kerja channel, mari kita lihat metode
+konkurensi yang berbeda.

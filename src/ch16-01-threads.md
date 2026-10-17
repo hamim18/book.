@@ -1,46 +1,48 @@
-## Using Threads to Run Code Simultaneously
+## Memakai Thread untuk Menjalankan Kode Secara Bersamaan
 
-In most current operating systems, an executed program’s code is run in a
-_process_, and the operating system will manage multiple processes at once.
-Within a program, you can also have independent parts that run simultaneously.
-The features that run these independent parts are called _threads_. For
-example, a web server could have multiple threads so that it can respond to
-more than one request at the same time.
+Di sebagian besar sistem operasi saat ini, kode program yang dieksekusi
+dijalankan dalam sebuah _process_ (proses), dan sistem operasi mengelola
+beberapa proses sekaligus. Di dalam sebuah program, Anda juga dapat memiliki
+bagian-bagian independen yang berjalan secara bersamaan. Fitur yang
+menjalankan bagian-bagian independen ini disebut _thread_. Sebagai contoh,
+sebuah server web bisa memiliki beberapa thread supaya ia dapat menanggapi
+lebih dari satu permintaan pada saat yang sama.
 
-Splitting the computation in your program into multiple threads to run multiple
-tasks at the same time can improve performance, but it also adds complexity.
-Because threads can run simultaneously, there’s no inherent guarantee about the
-order in which parts of your code on different threads will run. This can lead
-to problems, such as:
+Memecah komputasi dalam program Anda menjadi beberapa thread untuk
+menjalankan beberapa tugas pada saat yang sama dapat meningkatkan performa,
+tetapi juga menambah kompleksitas. Karena thread dapat berjalan secara
+bersamaan, tidak ada jaminan bawaan tentang urutan berjalannya bagian-bagian
+kode Anda pada thread yang berbeda. Ini dapat menimbulkan masalah, seperti:
 
-- Race conditions, in which threads are accessing data or resources in an
-  inconsistent order
-- Deadlocks, in which two threads are waiting for each other, preventing both
-  threads from continuing
-- Bugs that only happen in certain situations and are hard to reproduce and fix
-  reliably
+- Race condition, ketika thread mengakses data atau resource dalam urutan yang
+  tidak konsisten
+- *Deadlock* (kebuntuan), ketika dua thread saling menunggu, sehingga
+  mencegah keduanya untuk melanjutkan
+- Bug yang hanya terjadi dalam situasi tertentu dan sulit direproduksi serta
+  diperbaiki secara andal
 
-Rust attempts to mitigate the negative effects of using threads, but
-programming in a multithreaded context still takes careful thought and requires
-a code structure that is different from that in programs running in a single
+Rust berupaya memitigasi efek negatif pemakaian thread, tetapi pemrograman
+dalam konteks multithreaded tetap menuntut pemikiran yang cermat dan
+membutuhkan struktur kode yang berbeda dari program yang berjalan dalam satu
 thread.
 
-Programming languages implement threads in a few different ways, and many
-operating systems provide an API the programming language can call for creating
-new threads. The Rust standard library uses a _1:1_ model of thread
-implementation, whereby a program uses one operating system thread per one
-language thread. There are crates that implement other models of threading that
-make different trade-offs to the 1:1 model. (Rust’s async system, which we will
-see in the next chapter, provides another approach to concurrency as well.)
+Bahasa-bahasa pemrograman mengimplementasikan thread dengan beberapa cara
+berbeda, dan banyak sistem operasi menyediakan API yang dapat dipanggil bahasa
+pemrograman untuk membuat thread baru. Pustaka standar Rust memakai model
+implementasi thread _1:1_, yang berarti sebuah program memakai satu thread
+sistem operasi untuk setiap satu thread bahasa. Ada crate-crate yang
+mengimplementasikan model threading lain yang membuat kompromi berbeda dari
+model 1:1. (Sistem async Rust, yang akan kita lihat di bab berikutnya, juga
+menyediakan pendekatan lain terhadap konkurensi.)
 
-### Creating a New Thread with `spawn`
+### Membuat Thread Baru dengan `spawn`
 
-To create a new thread, we call the `thread::spawn` function and pass it a
-closure (we talked about closures in Chapter 13) containing the code we want to
-run in the new thread. The example in Listing 16-1 prints some text from a main
-thread and other text from a new thread.
+Untuk membuat thread baru, kita memanggil fungsi `thread::spawn` dan
+memberikannya sebuah closure (kita membahas closure di Bab 13) yang memuat
+kode yang ingin kita jalankan di thread baru itu. Contoh di Listing 16-1
+mencetak beberapa teks dari thread utama dan teks lain dari thread baru.
 
-<Listing number="16-1" file-name="src/main.rs" caption="Creating a new thread to print one thing while the main thread prints something else">
+<Listing number="16-1" file-name="src/main.rs" caption="Membuat thread baru untuk mencetak satu hal sementara thread utama mencetak hal lain">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-01/src/main.rs}}
@@ -48,10 +50,10 @@ thread and other text from a new thread.
 
 </Listing>
 
-Note that when the main thread of a Rust program completes, all spawned threads
-are shut down, whether or not they have finished running. The output from this
-program might be a little different every time, but it will look similar to the
-following:
+Perhatikan bahwa ketika thread utama sebuah program Rust selesai, semua thread
+yang dibuat akan dimatikan, entah mereka sudah selesai berjalan atau belum.
+Keluaran program ini mungkin sedikit berbeda setiap kali dijalankan, tetapi
+akan tampak serupa dengan yang berikut:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -69,38 +71,41 @@ hi number 4 from the spawned thread!
 hi number 5 from the spawned thread!
 ```
 
-The calls to `thread::sleep` force a thread to stop its execution for a short
-duration, allowing a different thread to run. The threads will probably take
-turns, but that isn’t guaranteed: It depends on how your operating system
-schedules the threads. In this run, the main thread printed first, even though
-the print statement from the spawned thread appears first in the code. And even
-though we told the spawned thread to print until `i` is `9`, it only got to `5`
-before the main thread shut down.
+Panggilan ke `thread::sleep` memaksa sebuah thread menghentikan eksekusinya
+untuk sesaat, sehingga memungkinkan thread lain berjalan. Thread-thread itu
+kemungkinan besar akan bergiliran, tetapi itu tidak dijamin: Tergantung
+bagaimana sistem operasi Anda menjadwalkan thread-thread itu. Pada
+penjalanan ini, thread utama mencetak lebih dulu, meskipun pernyataan cetak
+dari thread yang dibuat muncul lebih dulu di kode. Dan meskipun kita menyuruh
+thread yang dibuat itu mencetak sampai `i` bernilai `9`, ia hanya sampai `5`
+sebelum thread utama dimatikan.
 
-If you run this code and only see output from the main thread, or don’t see any
-overlap, try increasing the numbers in the ranges to create more opportunities
-for the operating system to switch between the threads.
+Jika Anda menjalankan kode ini dan hanya melihat keluaran dari thread utama,
+atau tidak melihat tumpang tindih sama sekali, coba perbesar angka pada
+range-nya untuk menciptakan lebih banyak peluang bagi sistem operasi untuk
+berpindah antar-thread.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="waiting-for-all-threads-to-finish-using-join-handles"></a>
 
-### Waiting for All Threads to Finish
+### Menunggu Semua Thread Selesai
 
-The code in Listing 16-1 not only stops the spawned thread prematurely most of
-the time due to the main thread ending, but because there is no guarantee on
-the order in which threads run, we also can’t guarantee that the spawned thread
-will get to run at all!
+Kode di Listing 16-1 tidak hanya menghentikan thread yang dibuat secara dini
+pada sebagian besar waktu karena thread utamanya berakhir, tetapi karena tidak
+ada jaminan tentang urutan berjalannya thread, kita juga tidak bisa menjamin
+bahwa thread yang dibuat itu akan sempat berjalan sama sekali!
 
-We can fix the problem of the spawned thread not running or of it ending
-prematurely by saving the return value of `thread::spawn` in a variable. The
-return type of `thread::spawn` is `JoinHandle<T>`. A `JoinHandle<T>` is an
-owned value that, when we call the `join` method on it, will wait for its
-thread to finish. Listing 16-2 shows how to use the `JoinHandle<T>` of the
-thread we created in Listing 16-1 and how to call `join` to make sure the
-spawned thread finishes before `main` exits.
+Kita dapat memperbaiki masalah thread yang dibuat tidak berjalan atau
+berakhir terlalu dini dengan menyimpan nilai kembalian `thread::spawn` di
+sebuah variabel. Tipe kembalian `thread::spawn` adalah `JoinHandle<T>`.
+`JoinHandle<T>` adalah nilai yang dimiliki yang, ketika kita memanggil metode
+`join` padanya, akan menunggu thread-nya selesai. Listing 16-2 menunjukkan
+cara memakai `JoinHandle<T>` dari thread yang kita buat di Listing 16-1 dan
+cara memanggil `join` untuk memastikan thread yang dibuat selesai sebelum
+`main` keluar.
 
-<Listing number="16-2" file-name="src/main.rs" caption="Saving a `JoinHandle<T>` from `thread::spawn` to guarantee the thread is run to completion">
+<Listing number="16-2" file-name="src/main.rs" caption="Menyimpan `JoinHandle<T>` dari `thread::spawn` untuk menjamin thread dijalankan sampai selesai">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-02/src/main.rs}}
@@ -108,11 +113,12 @@ spawned thread finishes before `main` exits.
 
 </Listing>
 
-Calling `join` on the handle blocks the thread currently running until the
-thread represented by the handle terminates. _Blocking_ a thread means that
-thread is prevented from performing work or exiting. Because we’ve put the call
-to `join` after the main thread’s `for` loop, running Listing 16-2 should
-produce output similar to this:
+Memanggil `join` pada handle itu memblokir thread yang sedang berjalan sampai
+thread yang direpresentasikan handle itu berakhir. _Blocking_ (pemblokiran)
+sebuah thread berarti thread itu dicegah melakukan pekerjaan atau keluar.
+Karena kita meletakkan panggilan ke `join` setelah perulangan `for` thread
+utama, menjalankan Listing 16-2 seharusnya menghasilkan keluaran yang serupa
+dengan ini:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -134,11 +140,11 @@ hi number 8 from the spawned thread!
 hi number 9 from the spawned thread!
 ```
 
-The two threads continue alternating, but the main thread waits because of the
-call to `handle.join()` and does not end until the spawned thread is finished.
+Kedua thread terus bergantian, tetapi thread utama menunggu karena panggilan
+ke `handle.join()` dan tidak berakhir sampai thread yang dibuat selesai.
 
-But let’s see what happens when we instead move `handle.join()` before the
-`for` loop in `main`, like this:
+Tetapi mari kita lihat apa yang terjadi ketika kita justru memindahkan
+`handle.join()` ke sebelum perulangan `for` di `main`, seperti ini:
 
 <Listing file-name="src/main.rs">
 
@@ -148,8 +154,9 @@ But let’s see what happens when we instead move `handle.join()` before the
 
 </Listing>
 
-The main thread will wait for the spawned thread to finish and then run its
-`for` loop, so the output won’t be interleaved anymore, as shown here:
+Thread utama akan menunggu thread yang dibuat selesai, lalu menjalankan
+perulangan `for`-nya, jadi keluarannya tidak akan saling menyelip lagi,
+seperti ditunjukkan di sini:
 
 <!-- Not extracting output because changes to this output aren't significant;
 the changes are likely to be due to the threads running differently rather than
@@ -171,26 +178,28 @@ hi number 3 from the main thread!
 hi number 4 from the main thread!
 ```
 
-Small details, such as where `join` is called, can affect whether or not your
-threads run at the same time.
+Detail kecil, seperti di mana `join` dipanggil, dapat memengaruhi apakah
+thread-thread Anda berjalan pada saat yang sama atau tidak.
 
-### Using `move` Closures with Threads
+### Memakai Closure `move` dengan Thread
 
-We’ll often use the `move` keyword with closures passed to `thread::spawn`
-because the closure will then take ownership of the values it uses from the
-environment, thus transferring ownership of those values from one thread to
-another. In [“Capturing References or Moving Ownership”][capture]<!-- ignore
---> in Chapter 13, we discussed `move` in the context of closures. Now we’ll
-concentrate more on the interaction between `move` and `thread::spawn`.
+Kita akan sering memakai kata kunci `move` dengan closure yang diberikan ke
+`thread::spawn` karena closure itu kemudian akan mengambil ownership atas
+nilai-nilai yang dipakainya dari lingkungannya, sehingga memindahkan
+ownership nilai-nilai itu dari satu thread ke thread lain. Di [“Menangkap
+Reference atau Memindahkan Ownership”][capture]<!-- ignore --> di Bab 13,
+kita membahas `move` dalam konteks closure. Sekarang kita akan lebih
+berkonsentrasi pada interaksi antara `move` dan `thread::spawn`.
 
-Notice in Listing 16-1 that the closure we pass to `thread::spawn` takes no
-arguments: We’re not using any data from the main thread in the spawned
-thread’s code. To use data from the main thread in the spawned thread, the
-spawned thread’s closure must capture the values it needs. Listing 16-3 shows
-an attempt to create a vector in the main thread and use it in the spawned
-thread. However, this won’t work yet, as you’ll see in a moment.
+Perhatikan di Listing 16-1 bahwa closure yang kita berikan ke `thread::spawn`
+tidak menerima argumen: Kita tidak memakai data apa pun dari thread utama di
+kode thread yang dibuat. Untuk memakai data dari thread utama di thread yang
+dibuat, closure thread yang dibuat itu harus menangkap nilai yang
+dibutuhkannya. Listing 16-3 menunjukkan upaya membuat vektor di thread utama
+dan memakainya di thread yang dibuat. Namun, ini belum akan berhasil, seperti
+yang akan Anda lihat sebentar lagi.
 
-<Listing number="16-3" file-name="src/main.rs" caption="Attempting to use a vector created by the main thread in another thread">
+<Listing number="16-3" file-name="src/main.rs" caption="Mencoba memakai vektor yang dibuat oleh thread utama di thread lain">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-03/src/main.rs}}
@@ -198,24 +207,24 @@ thread. However, this won’t work yet, as you’ll see in a moment.
 
 </Listing>
 
-The closure uses `v`, so it will capture `v` and make it part of the closure’s
-environment. Because `thread::spawn` runs this closure in a new thread, we
-should be able to access `v` inside that new thread. But when we compile this
-example, we get the following error:
+Closure itu memakai `v`, jadi ia akan menangkap `v` dan menjadikannya bagian
+dari lingkungan closure. Karena `thread::spawn` menjalankan closure ini di
+thread baru, seharusnya kita dapat mengakses `v` di dalam thread baru itu.
+Tetapi ketika kita mengompilasi contoh ini, kita mendapat galat berikut:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-03/output.txt}}
 ```
 
-Rust _infers_ how to capture `v`, and because `println!` only needs a reference
-to `v`, the closure tries to borrow `v`. However, there’s a problem: Rust can’t
-tell how long the spawned thread will run, so it doesn’t know whether the
-reference to `v` will always be valid.
+Rust _menginferensi_ cara menangkap `v`, dan karena `println!` hanya
+membutuhkan reference ke `v`, closure itu mencoba meminjam `v`. Namun, ada
+masalah: Rust tidak bisa tahu berapa lama thread yang dibuat akan berjalan,
+jadi ia tidak tahu apakah reference ke `v` akan selalu valid.
 
-Listing 16-4 provides a scenario that’s more likely to have a reference to `v`
-that won’t be valid.
+Listing 16-4 menyediakan skenario yang lebih mungkin memiliki reference ke
+`v` yang tidak akan valid.
 
-<Listing number="16-4" file-name="src/main.rs" caption="A thread with a closure that attempts to capture a reference to `v` from a main thread that drops `v`">
+<Listing number="16-4" file-name="src/main.rs" caption="Thread dengan closure yang mencoba menangkap reference ke `v` dari thread utama yang membebaskan `v`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-04/src/main.rs}}
@@ -223,15 +232,15 @@ that won’t be valid.
 
 </Listing>
 
-If Rust allowed us to run this code, there’s a possibility that the spawned
-thread would be immediately put in the background without running at all. The
-spawned thread has a reference to `v` inside, but the main thread immediately
-drops `v`, using the `drop` function we discussed in Chapter 15. Then, when the
-spawned thread starts to execute, `v` is no longer valid, so a reference to it
-is also invalid. Oh no!
+Jika Rust mengizinkan kita menjalankan kode ini, ada kemungkinan thread yang
+dibuat itu langsung ditempatkan di latar belakang tanpa berjalan sama sekali.
+Thread yang dibuat itu memiliki reference ke `v` di dalamnya, tetapi thread
+utama langsung membebaskan `v`, memakai fungsi `drop` yang kita bahas di Bab
+15. Kemudian, ketika thread yang dibuat mulai mengeksekusi, `v` tidak lagi
+valid, jadi reference padanya juga tidak valid. Waduh!
 
-To fix the compiler error in Listing 16-3, we can use the error message’s
-advice:
+Untuk memperbaiki galat kompilator di Listing 16-3, kita dapat memakai saran
+dari pesan galat itu:
 
 <!-- manual-regeneration
 after automatic regeneration, look at listings/ch16-fearless-concurrency/listing-16-03/output.txt and copy the relevant part
@@ -244,12 +253,13 @@ help: to force the closure to take ownership of `v` (and any other referenced va
   |                                ++++
 ```
 
-By adding the `move` keyword before the closure, we force the closure to take
-ownership of the values it’s using rather than allowing Rust to infer that it
-should borrow the values. The modification to Listing 16-3 shown in Listing
-16-5 will compile and run as we intend.
+Dengan menambahkan kata kunci `move` sebelum closure, kita memaksa closure
+untuk mengambil ownership atas nilai-nilai yang dipakainya alih-alih
+membiarkan Rust menginferensi bahwa ia harus meminjam nilai-nilai itu.
+Modifikasi Listing 16-3 yang ditunjukkan pada Listing 16-5 akan terkompilasi
+dan berjalan seperti yang kita maksud.
 
-<Listing number="16-5" file-name="src/main.rs" caption="Using the `move` keyword to force a closure to take ownership of the values it uses">
+<Listing number="16-5" file-name="src/main.rs" caption="Memakai kata kunci `move` untuk memaksa closure mengambil ownership atas nilai-nilai yang dipakainya">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
@@ -257,28 +267,30 @@ should borrow the values. The modification to Listing 16-3 shown in Listing
 
 </Listing>
 
-We might be tempted to try the same thing to fix the code in Listing 16-4 where
-the main thread called `drop` by using a `move` closure. However, this fix will
-not work because what Listing 16-4 is trying to do is disallowed for a
-different reason. If we added `move` to the closure, we would move `v` into the
-closure’s environment, and we could no longer call `drop` on it in the main
-thread. We would get this compiler error instead:
+Kita mungkin tergoda mencoba hal yang sama untuk memperbaiki kode di Listing
+16-4, tempat thread utama memanggil `drop`, dengan memakai closure `move`.
+Namun, perbaikan ini tidak akan berhasil karena apa yang coba dilakukan
+Listing 16-4 dilarang karena alasan yang berbeda. Jika kita menambahkan
+`move` ke closure itu, kita akan memindahkan `v` ke lingkungan closure, dan
+kita tidak bisa lagi memanggil `drop` padanya di thread utama. Kita akan
+mendapat galat kompilator ini sebagai gantinya:
 
 ```console
 {{#include ../listings/ch16-fearless-concurrency/output-only-01-move-drop/output.txt}}
 ```
 
-Rust’s ownership rules have saved us again! We got an error from the code in
-Listing 16-3 because Rust was being conservative and only borrowing `v` for the
-thread, which meant the main thread could theoretically invalidate the spawned
-thread’s reference. By telling Rust to move ownership of `v` to the spawned
-thread, we’re guaranteeing to Rust that the main thread won’t use `v` anymore.
-If we change Listing 16-4 in the same way, we’re then violating the ownership
-rules when we try to use `v` in the main thread. The `move` keyword overrides
-Rust’s conservative default of borrowing; it doesn’t let us violate the
-ownership rules.
+Aturan ownership Rust telah menyelamatkan kita lagi! Kita mendapat galat dari
+kode di Listing 16-3 karena Rust bersikap konservatif dan hanya meminjam `v`
+untuk thread itu, yang berarti thread utama secara teoretis bisa membatalkan
+validitas reference thread yang dibuat. Dengan menyuruh Rust memindahkan
+ownership `v` ke thread yang dibuat, kita menjamin kepada Rust bahwa thread
+utama tidak akan memakai `v` lagi. Jika kita mengubah Listing 16-4 dengan
+cara yang sama, kita kemudian melanggar aturan ownership ketika mencoba
+memakai `v` di thread utama. Kata kunci `move` menimpa default konservatif
+Rust berupa peminjaman; ia tidak mengizinkan kita melanggar aturan ownership.
 
-Now that we’ve covered what threads are and the methods supplied by the thread
-API, let’s look at some situations in which we can use threads.
+Sekarang setelah kita membahas apa itu thread dan metode-metode yang
+disediakan API thread, mari kita lihat beberapa situasi ketika kita dapat
+memakai thread.
 
 [capture]: ch13-01-closures.html#capturing-references-or-moving-ownership

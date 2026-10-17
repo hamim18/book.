@@ -1,49 +1,54 @@
-# Fearless Concurrency
+# Konkurensi Tanpa Takut
 
-Handling concurrent programming safely and efficiently is another of Rust’s
-major goals. _Concurrent programming_, in which different parts of a program
-execute independently, and _parallel programming_, in which different parts of
-a program execute at the same time, are becoming increasingly important as more
-computers take advantage of their multiple processors. Historically,
-programming in these contexts has been difficult and error-prone. Rust hopes to
-change that.
+Menangani pemrograman konkuren secara aman dan efisien adalah salah satu
+tujuan utama Rust lainnya. _Concurrent programming_ (pemrograman konkuren),
+ketika bagian-bagian berbeda dari sebuah program berjalan secara independen,
+dan _parallel programming_ (pemrograman paralel), ketika bagian-bagian
+berbeda dari sebuah program berjalan pada saat yang sama, menjadi semakin
+penting seiring semakin banyak komputer memanfaatkan banyaknya prosesor yang
+mereka miliki. Secara historis, pemrograman dalam konteks ini sulit dan rawan
+galat. Rust berharap mengubah hal itu.
 
-Initially, the Rust team thought that ensuring memory safety and preventing
-concurrency problems were two separate challenges to be solved with different
-methods. Over time, the team discovered that the ownership and type systems are
-a powerful set of tools to help manage memory safety _and_ concurrency
-problems! By leveraging ownership and type checking, many concurrency errors
-are compile-time errors in Rust rather than runtime errors. Therefore, rather
-than making you spend lots of time trying to reproduce the exact circumstances
-under which a runtime concurrency bug occurs, incorrect code will refuse to
-compile and present an error explaining the problem. As a result, you can fix
-your code while you’re working on it rather than potentially after it has been
-shipped to production. We’ve nicknamed this aspect of Rust _fearless
-concurrency_. Fearless concurrency allows you to write code that is free of
-subtle bugs and is easy to refactor without introducing new bugs.
+Awalnya, tim Rust mengira bahwa menjamin keamanan memori dan mencegah masalah
+konkurensi adalah dua tantangan terpisah yang harus diselesaikan dengan metode
+yang berbeda. Seiring waktu, tim itu menemukan bahwa sistem ownership dan tipe
+adalah seperangkat alat yang ampuh untuk membantu mengelola keamanan memori
+_dan_ masalah konkurensi! Dengan memanfaatkan ownership dan pemeriksaan tipe,
+banyak galat konkurensi menjadi galat waktu kompilasi di Rust alih-alih galat
+runtime. Karena itu, alih-alih membuat Anda menghabiskan banyak waktu mencoba
+mereproduksi keadaan persis ketika bug konkurensi runtime terjadi, kode yang
+salah akan menolak untuk dikompilasi dan menyajikan galat yang menjelaskan
+masalahnya. Akibatnya, Anda dapat memperbaiki kode Anda selagi mengerjakannya,
+alih-alih berpotensi setelah kode itu dikirim ke produksi. Kami menjuluki
+aspek Rust ini _fearless concurrency_ (konkurensi tanpa takut). Konkurensi
+tanpa takut memungkinkan Anda menulis kode yang bebas dari bug yang samar dan
+mudah di-refactor tanpa memperkenalkan bug baru.
 
-> Note: For simplicity’s sake, we’ll refer to many of the problems as
-> _concurrent_ rather than being more precise by saying _concurrent and/or
-> parallel_. For this chapter, please mentally substitute _concurrent and/or
-> parallel_ whenever we use _concurrent_. In the next chapter, where the
-> distinction matters more, we’ll be more specific.
+> Catatan: Demi kesederhanaan, kami akan menyebut banyak masalah itu sebagai
+> _concurrent_ alih-alih lebih tepat dengan menyebut _concurrent dan/atau
+> parallel_. Untuk bab ini, mohon secara mental gantikan _concurrent dan/atau
+> parallel_ setiap kali kami memakai _concurrent_. Di bab berikutnya, ketika
+> perbedaannya lebih penting, kami akan lebih spesifik.
 
-Many languages are dogmatic about the solutions they offer for handling
-concurrent problems. For example, Erlang has elegant functionality for
-message-passing concurrency but has only obscure ways to share state between
-threads. Supporting only a subset of possible solutions is a reasonable
-strategy for higher-level languages because a higher-level language promises
-benefits from giving up some control to gain abstractions. However, lower-level
-languages are expected to provide the solution with the best performance in any
-given situation and have fewer abstractions over the hardware. Therefore, Rust
-offers a variety of tools for modeling problems in whatever way is appropriate
-for your situation and requirements.
+Banyak bahasa bersikap dogmatis tentang solusi yang mereka tawarkan untuk
+menangani masalah konkuren. Sebagai contoh, Erlang memiliki fungsionalitas
+elegan untuk konkurensi message-passing tetapi hanya memiliki cara yang
+samar-samar untuk berbagi state antar-thread. Mendukung hanya sebagian
+himpunan solusi yang mungkin adalah strategi yang masuk akal untuk bahasa
+tingkat tinggi karena bahasa tingkat tinggi menjanjikan keuntungan dari
+melepas sebagian kontrol demi mendapatkan abstraksi. Namun, bahasa tingkat
+rendah diharapkan menyediakan solusi dengan performa terbaik dalam situasi
+apa pun dan memiliki lebih sedikit abstraksi di atas perangkat keras. Karena
+itu, Rust menawarkan beragam alat untuk memodelkan masalah dengan cara apa pun
+yang sesuai untuk situasi dan kebutuhan Anda.
 
-Here are the topics we’ll cover in this chapter:
+Berikut topik yang akan kita bahas di bab ini:
 
-- How to create threads to run multiple pieces of code at the same time
-- _Message-passing_ concurrency, where channels send messages between threads
-- _Shared-state_ concurrency, where multiple threads have access to some piece
-  of data
-- The `Sync` and `Send` traits, which extend Rust’s concurrency guarantees to
-  user-defined types as well as types provided by the standard library
+- Cara membuat thread untuk menjalankan beberapa potongan kode pada saat yang
+  sama
+- Konkurensi _message-passing_ (pengiriman pesan), di mana channel mengirim
+  pesan antar-thread
+- Konkurensi _shared-state_ (state bersama), di mana beberapa thread memiliki
+  akses ke sepotong data tertentu
+- Trait `Sync` dan `Send`, yang memperluas jaminan konkurensi Rust ke tipe
+  yang didefinisikan pengguna maupun tipe yang disediakan pustaka standar
