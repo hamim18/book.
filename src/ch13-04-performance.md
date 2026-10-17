@@ -2,56 +2,60 @@
 
 <a id="comparing-performance-loops-vs-iterators"></a>
 
-## Performance in Loops vs. Iterators
+## Performa pada Perulangan vs. Iterator
 
-To determine whether to use loops or iterators, you need to know which
-implementation is faster: the version of the `search` function with an explicit
-`for` loop or the version with iterators.
+Untuk menentukan apakah akan memakai perulangan atau *iterator*, Anda perlu
+mengetahui implementasi mana yang lebih cepat: versi fungsi `search` dengan
+perulangan `for` eksplisit atau versi dengan *iterator*.
 
-We ran a benchmark by loading the entire contents of _The Adventures of
-Sherlock Holmes_ by Sir Arthur Conan Doyle into a `String` and looking for the
-word _the_ in the contents. Here are the results of the benchmark on the
-version of `search` using the `for` loop and the version using iterators:
+Kita menjalankan sebuah benchmark dengan memuat seluruh isi _The Adventures of
+Sherlock Holmes_ karya Sir Arthur Conan Doyle ke dalam sebuah `String` dan
+mencari kata _the_ di dalam isi tersebut. Berikut hasil benchmark pada versi
+`search` yang memakai perulangan `for` dan versi yang memakai *iterator*:
 
 ```text
 test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
 test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
 ```
 
-The two implementations have similar performance! We won’t explain the
-benchmark code here because the point is not to prove that the two versions
-are equivalent but to get a general sense of how these two implementations
-compare performance-wise.
+Kedua implementasi itu memiliki performa yang mirip! Kita tidak akan
+menjelaskan kode benchmark di sini karena tujuannya bukan untuk membuktikan
+bahwa kedua versi itu setara, melainkan untuk mendapat gambaran umum tentang
+bagaimana kedua implementasi ini dibandingkan dari segi performa.
 
-For a more comprehensive benchmark, you should check using various texts of
-various sizes as the `contents`, different words and words of different lengths
-as the `query`, and all kinds of other variations. The point is this:
-Iterators, although a high-level abstraction, get compiled down to roughly the
-same code as if you’d written the lower-level code yourself. Iterators are one
-of Rust’s _zero-cost abstractions_, by which we mean that using the abstraction
-imposes no additional runtime overhead. This is analogous to how Bjarne
-Stroustrup, the original designer and implementor of C++, defines
-zero-overhead in his 2012 ETAPS keynote presentation “Foundations of C++”:
+Untuk benchmark yang lebih menyeluruh, Anda sebaiknya memeriksa menggunakan
+berbagai teks dengan berbagai ukuran sebagai `contents`, kata-kata yang
+berbeda dan kata-kata dengan panjang yang berbeda sebagai `query`, dan segala
+macam variasi lainnya. Intinya begini: *Iterator*, meskipun merupakan
+abstraksi tingkat tinggi, terkompilasi menjadi kode yang kurang lebih sama
+dengan jika Anda menulis sendiri kode tingkat rendahnya. *Iterator* adalah
+salah satu *zero-cost abstraction* (abstraksi tanpa biaya) Rust, yang berarti
+memakai abstraksi itu tidak menimbulkan overhead runtime tambahan. Ini analog
+dengan cara Bjarne Stroustrup, perancang dan pengimplementasi asli C++,
+mendefinisikan zero-overhead dalam presentasi utama (keynote) ETAPS tahun
+2012-nya yang berjudul “Foundations of C++”:
 
-> In general, C++ implementations obey the zero-overhead principle: What you
-> don’t use, you don’t pay for. And further: What you do use, you couldn’t hand
-> code any better.
+> Secara umum, implementasi C++ menaati prinsip zero-overhead: Apa yang tidak
+> Anda pakai, tidak Anda bayar. Dan lebih jauh lagi: Apa yang Anda pakai,
+> tidak bisa Anda tulis kodenya secara manual dengan lebih baik.
 
-In many cases, Rust code using iterators compiles to the same assembly you’d
-write by hand. Optimizations such as loop unrolling and eliminating bounds
-checking on array access apply and make the resultant code extremely efficient.
-Now that you know this, you can use iterators and closures without fear! They
-make code seem like it’s higher level but don’t impose a runtime performance
-penalty for doing so.
+Dalam banyak kasus, kode Rust yang memakai *iterator* terkompilasi menjadi
+assembly yang sama dengan yang akan Anda tulis secara manual. Optimasi seperti
+loop unrolling dan penghapusan pemeriksaan batas pada akses array berlaku dan
+membuat kode yang dihasilkan menjadi sangat efisien. Sekarang setelah Anda
+tahu ini, Anda dapat memakai *iterator* dan closure tanpa takut! Mereka
+membuat kode tampak lebih tinggi tingkatnya tetapi tidak mengenakan denda
+performa runtime karenanya.
 
-## Summary
+## Ringkasan
 
-Closures and iterators are Rust features inspired by functional programming
-language ideas. They contribute to Rust’s capability to clearly express
-high-level ideas at low-level performance. The implementations of closures and
-iterators are such that runtime performance is not affected. This is part of
-Rust’s goal to strive to provide zero-cost abstractions.
+Closure dan *iterator* adalah fitur Rust yang terinspirasi oleh gagasan-gagasan
+bahasa pemrograman fungsional. Keduanya berkontribusi pada kemampuan Rust
+untuk mengekspresikan gagasan tingkat tinggi dengan jelas pada performa
+tingkat rendah. Implementasi closure dan *iterator* dibuat sedemikian rupa
+sehingga performa runtime tidak terpengaruh. Ini adalah bagian dari tujuan
+Rust untuk berupaya menyediakan *zero-cost abstraction*.
 
-Now that we’ve improved the expressiveness of our I/O project, let’s look at
-some more features of `cargo` that will help us share the project with the
-world.
+Sekarang setelah kita memperbaiki ekspresivitas proyek I/O kita, mari kita
+lihat beberapa fitur `cargo` lainnya yang akan membantu kita membagikan
+proyek ini kepada dunia.

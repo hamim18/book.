@@ -6,9 +6,9 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 12 (proyek I/O, 7 file) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch13-00-functional-features.md`
-  (Bab 13, 5 file; mulai dari `ch13-00`).
+- Bab terakhir selesai: Bab 13 (fitur bahasa fungsional, 5 file) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch14-00-more-about-cargo.md`
+  (Bab 14, 6 file; mulai dari `ch14-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
 - `mdbook test` terakhir lulus: setelah Bab 11 (exit 0); dijadwalkan lagi
   setelah Bab 14.
@@ -99,7 +99,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 10      |       4 |     0 |     0 |     4 |
 | Bab 11      |       4 |     0 |     0 |     4 |
 | Bab 12      |       7 |     0 |     0 |     7 |
-| Bab 13      |       0 |     0 |     5 |     5 |
+| Bab 13      |       5 |     0 |     0 |     5 |
 | Bab 14      |       0 |     0 |     6 |     6 |
 | Bab 15      |       0 |     0 |     7 |     7 |
 | Bab 16      |       0 |     0 |     5 |     5 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      53 |     0 |    59 |   112 |
+| TOTAL       |      58 |     0 |    54 |   112 |
 
 ## Log keputusan istilah
 
@@ -369,6 +369,32 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | ampersand | ampersand (tetap) | 12 |
 | Boolean | (tetap) | 12 |
 | cmdlet | (tetap) | 12 |
+| functional programming | pemrograman fungsional | 13 |
+| capture (closure) / capturing | menangkap / penangkapan | 13 |
+| environment (closure) | lingkungan | 13 |
+| mailing list | milis | 13 |
+| inventory | persediaan | 13 |
+| T-shirt | kaos | 13 |
+| lazy (iterator) | _lazy_ (malas) | 13 |
+| consuming adapter | _consuming adapter_ (adapter yang mengonsumsi) | 13 |
+| iterator adapter | _iterator adapter_ (tetap) | 13 |
+| associated type | *associated type* (tipe asosiasi) | 13 |
+| implementor | pengimplementasi | 13 |
+| internal state | keadaan internal | 13 |
+| behind the scenes / under the hood | di belakang layar / di balik layar | 13 |
+| running total | total berjalan | 13 |
+| chain (verba) | merantaikan | 13 |
+| intermediate (vektor) | perantara | 13 |
+| mutable state | keadaan mutable | 13 |
+| in parallel | secara paralel | 13 |
+| concurrent access | akses konkuren | 13 |
+| spawn (thread) | membuat (thread baru) | 13 |
+| zero-overhead | (tetap) | 13 |
+| loop unrolling | (tetap, tanpa miring) | 13 |
+| bounds checking | pemeriksaan batas | 13 |
+| performance penalty | denda performa | 13 |
+| expressiveness | ekspresivitas | 13 |
+| shoe size | ukuran sepatu | 13 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -411,10 +437,11 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   ch11-01 kini `## Cara Menulis Pengujian`.)
 - Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
   (dicatat di sini supaya cocok saat bab itu dikerjakan):
-  ch13-03 & ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
+  ch17-01 → ch10-02 “Memakai Trait sebagai Parameter”;
   ch15-02 & ch20-02 → ch10-02 “Mengimplementasikan Trait pada Suatu Tipe”.
-  (ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime” sudah beres:
-  teks tautan ch12-04 kini persis sama dengan heading final ch10-03.)
+  (ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime” dan
+  ch13-03 → ch10-02 “Memakai Trait sebagai Parameter” sudah beres: teks
+  tautannya kini persis sama dengan heading final file tujuan.)
 - Teks tautan ch05-02 “Mengalihkan Galat ke Standard Error” dan heading
   ch12-06 sudah beres: heading ch12-06 kini `## Mengalihkan Galat ke Standard
   Error`, persis sama dengan teks tautan ch05-02.
@@ -459,6 +486,13 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Inkonsistensi "command line": ch11-02 menulis "command line", sedangkan
   ch01/ch07/bab 12 menulis "baris perintah". Arahkan ke "baris perintah";
   perbaiki ch11-02 saat ada kesempatan (atau di Tahap 5).
+- Anchor otomatis dari heading bab 13 yang menjadi target tautan bab lain
+  (tidak ada tag `<a id>` di teks asli; heading kini diterjemahkan):
+  ch17-02 → ch13-01 `#capturing-references-or-moving-ownership` (heading kini
+  “Menangkap Reference atau Memindahkan Ownership”);
+  ch17-04 → ch13-02 `#the-iterator-trait-and-the-next-method` (heading kini
+  “Trait `Iterator` dan Metode `next`”). Solusi (tambahkan tag `<a id>`)
+  diputuskan di Tahap 5.
 
 ## Cara memulai sesi baru
 

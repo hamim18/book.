@@ -3,14 +3,15 @@
 <a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
 <a id="closures-anonymous-functions-that-capture-their-environment"></a>
 
-## Closures
+## Closure
 
-Rust’s closures are anonymous functions you can save in a variable or pass as
-arguments to other functions. You can create the closure in one place and then
-call the closure elsewhere to evaluate it in a different context. Unlike
-functions, closures can capture values from the scope in which they’re defined.
-We’ll demonstrate how these closure features allow for code reuse and behavior
-customization.
+Closure di Rust adalah fungsi anonim yang dapat Anda simpan di sebuah variabel
+atau teruskan sebagai argumen ke fungsi lain. Anda dapat membuat closure di
+satu tempat lalu memanggil closure itu di tempat lain untuk mengevaluasinya di
+dalam konteks yang berbeda. Tidak seperti fungsi, closure dapat menangkap
+nilai dari *scope* (cakupan) tempat closure itu didefinisikan. Kita akan
+mendemonstrasikan bagaimana fitur-fitur closure ini memungkinkan pemakaian
+ulang kode dan penyesuaian perilaku.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -19,27 +20,29 @@ customization.
 <a id="refactoring-with-closures-to-store-code"></a>
 <a id="capturing-the-environment-with-closures"></a>
 
-### Capturing the Environment
+### Menangkap Lingkungan
 
-We’ll first examine how we can use closures to capture values from the
-environment they’re defined in for later use. Here’s the scenario: Every so
-often, our T-shirt company gives away an exclusive, limited-edition shirt to
-someone on our mailing list as a promotion. People on the mailing list can
-optionally add their favorite color to their profile. If the person chosen for
-a free shirt has their favorite color set, they get that color shirt. If the
-person hasn’t specified a favorite color, they get whatever color the company
-currently has the most of.
+Pertama-tama, kita akan menelaah bagaimana kita dapat memakai closure untuk
+menangkap nilai dari lingkungan tempat closure itu didefinisikan untuk dipakai
+nanti. Begini skenarionya: Sesekali, perusahaan kaos kita memberikan sebuah
+kaos edisi terbatas yang eksklusif kepada seseorang di milis kita sebagai
+promosi. Orang-orang di milis itu secara opsional dapat menambahkan warna
+favorit mereka ke profil mereka. Jika orang yang terpilih untuk mendapat kaos
+gratis telah menetapkan warna favoritnya, mereka mendapat kaos dengan warna
+itu. Jika orang itu belum menentukan warna favorit, mereka mendapat warna apa
+pun yang saat ini paling banyak dimiliki perusahaan.
 
-There are many ways to implement this. For this example, we’re going to use an
-enum called `ShirtColor` that has the variants `Red` and `Blue` (limiting the
-number of colors available for simplicity). We represent the company’s
-inventory with an `Inventory` struct that has a field named `shirts` that
-contains a `Vec<ShirtColor>` representing the shirt colors currently in stock.
-The method `giveaway` defined on `Inventory` gets the optional shirt color
-preference of the free-shirt winner, and it returns the shirt color the
-person will get. This setup is shown in Listing 13-1.
+Ada banyak cara untuk mengimplementasikan ini. Untuk contoh ini, kita akan
+memakai sebuah *enum* bernama `ShirtColor` yang memiliki *variant* `Red` dan
+`Blue` (membatasi jumlah warna yang tersedia demi kesederhanaan). Kita
+merepresentasikan persediaan perusahaan dengan struct `Inventory` yang
+memiliki sebuah field bernama `shirts` berisi `Vec<ShirtColor>` yang
+merepresentasikan warna-warna kaos yang saat ini tersedia. Metode `giveaway`
+yang didefinisikan pada `Inventory` menerima preferensi warna kaos yang
+opsional dari pemenang kaos gratis, dan mengembalikan warna kaos yang akan
+didapat orang tersebut. Susunan ini ditunjukkan di Listing 13-1.
 
-<Listing number="13-1" file-name="src/main.rs" caption="Shirt company giveaway situation">
+<Listing number="13-1" file-name="src/main.rs" caption="Situasi pemberian hadiah kaos perusahaan">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-01/src/main.rs}}
@@ -47,73 +50,78 @@ person will get. This setup is shown in Listing 13-1.
 
 </Listing>
 
-The `store` defined in `main` has two blue shirts and one red shirt remaining
-to distribute for this limited-edition promotion. We call the `giveaway` method
-for a user with a preference for a red shirt and a user without any preference.
+`store` yang didefinisikan di `main` memiliki dua kaos biru dan satu kaos
+merah tersisa untuk dibagikan dalam promosi edisi terbatas ini. Kita memanggil
+metode `giveaway` untuk seorang pengguna dengan preferensi kaos merah dan
+seorang pengguna tanpa preferensi apa pun.
 
-Again, this code could be implemented in many ways, and here, to focus on
-closures, we’ve stuck to concepts you’ve already learned, except for the body of
-the `giveaway` method that uses a closure. In the `giveaway` method, we get the
-user preference as a parameter of type `Option<ShirtColor>` and call the
-`unwrap_or_else` method on `user_preference`. The [`unwrap_or_else` method on
-`Option<T>`][unwrap-or-else]<!-- ignore --> is defined by the standard library.
-It takes one argument: a closure without any arguments that returns a value `T`
-(the same type stored in the `Some` variant of the `Option<T>`, in this case
-`ShirtColor`). If the `Option<T>` is the `Some` variant, `unwrap_or_else`
-returns the value from within the `Some`. If the `Option<T>` is the `None`
-variant, `unwrap_or_else` calls the closure and returns the value returned by
-the closure.
+Lagi-lagi, kode ini bisa diimplementasikan dengan banyak cara, dan di sini,
+untuk berfokus pada closure, kita bertahan pada konsep-konsep yang telah Anda
+pelajari, kecuali badan metode `giveaway` yang memakai sebuah closure. Di
+metode `giveaway`, kita menerima preferensi pengguna sebagai parameter
+bertipe `Option<ShirtColor>` dan memanggil metode `unwrap_or_else` pada
+`user_preference`. [Metode `unwrap_or_else` pada `Option<T>`][unwrap-or-else]<!--
+ignore --> didefinisikan oleh pustaka standar. Metode ini menerima satu
+argumen: sebuah closure tanpa argumen yang mengembalikan nilai `T` (tipe yang
+sama dengan yang disimpan di *variant* `Some` dari `Option<T>`, dalam kasus
+ini `ShirtColor`). Jika `Option<T>`-nya berupa *variant* `Some`,
+`unwrap_or_else` mengembalikan nilai dari dalam `Some`. Jika `Option<T>`-nya
+berupa *variant* `None`, `unwrap_or_else` memanggil closure itu dan
+mengembalikan nilai yang dikembalikan oleh closure tersebut.
 
-We specify the closure expression `|| self.most_stocked()` as the argument to
-`unwrap_or_else`. This is a closure that takes no parameters itself (if the
-closure had parameters, they would appear between the two vertical pipes). The
-body of the closure calls `self.most_stocked()`. We’re defining the closure
-here, and the implementation of `unwrap_or_else` will evaluate the closure
-later if the result is needed.
+Kita menentukan ekspresi closure `|| self.most_stocked()` sebagai argumen
+untuk `unwrap_or_else`. Ini adalah closure yang tidak menerima parameter (jika
+closure itu punya parameter, parameter-parameter itu akan muncul di antara dua
+garis vertikal). Badan closure itu memanggil `self.most_stocked()`. Di sini
+kita sedang mendefinisikan closure itu, dan implementasi `unwrap_or_else` akan
+mengevaluasi closure tersebut nanti jika hasilnya diperlukan.
 
-Running this code prints the following:
+Menjalankan kode ini mencetak yang berikut:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-01/output.txt}}
 ```
 
-One interesting aspect here is that we’ve passed a closure that calls
-`self.most_stocked()` on the current `Inventory` instance. The standard library
-didn’t need to know anything about the `Inventory` or `ShirtColor` types we
-defined, or the logic we want to use in this scenario. The closure captures an
-immutable reference to the `self` `Inventory` instance and passes it with the
-code we specify to the `unwrap_or_else` method. Functions, on the other hand,
-are not able to capture their environment in this way.
+Satu aspek menarik di sini adalah kita telah meneruskan sebuah closure yang
+memanggil `self.most_stocked()` pada instance `Inventory` saat ini. Pustaka
+standar tidak perlu mengetahui apa pun tentang tipe `Inventory` atau
+`ShirtColor` yang kita definisikan, ataupun logika yang ingin kita pakai dalam
+skenario ini. Closure itu menangkap sebuah reference *immutable* (tidak dapat
+diubah) ke instance `Inventory` `self` dan meneruskannya beserta kode yang
+kita tentukan ke metode `unwrap_or_else`. Sebaliknya, fungsi tidak mampu
+menangkap lingkungannya dengan cara seperti ini.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="closure-type-inference-and-annotation"></a>
 
-### Inferring and Annotating Closure Types
+### Menginferensi dan Menganotasi Tipe Closure
 
-There are more differences between functions and closures. Closures don’t
-usually require you to annotate the types of the parameters or the return value
-like `fn` functions do. Type annotations are required on functions because the
-types are part of an explicit interface exposed to your users. Defining this
-interface rigidly is important for ensuring that everyone agrees on what types
-of values a function uses and returns. Closures, on the other hand, aren’t used
-in an exposed interface like this: They’re stored in variables, and they’re
-used without naming them and exposing them to users of our library.
+Ada lebih banyak perbedaan antara fungsi dan closure. Closure biasanya tidak
+mengharuskan Anda menganotasi tipe-tipe parameter atau nilai kembaliannya
+seperti fungsi `fn`. Anotasi tipe diwajibkan pada fungsi karena tipe-tipe itu
+adalah bagian dari *interface* (antarmuka) eksplisit yang diekspos kepada
+pengguna Anda. Mendefinisikan *interface* ini secara kaku penting untuk
+memastikan bahwa semua orang sepakat tentang tipe nilai apa yang dipakai dan
+dikembalikan sebuah fungsi. Sebaliknya, closure tidak dipakai di dalam
+*interface* yang diekspos seperti ini: Closure disimpan di dalam variabel, dan
+dipakai tanpa menamainya dan mengeksposnya kepada pengguna pustaka kita.
 
-Closures are typically short and relevant only within a narrow context rather
-than in any arbitrary scenario. Within these limited contexts, the compiler can
-infer the types of the parameters and the return type, similar to how it’s able
-to infer the types of most variables (there are rare cases where the compiler
-needs closure type annotations too).
+Closure biasanya pendek dan hanya relevan di dalam konteks yang sempit, bukan
+di skenario yang sembarangan. Di dalam konteks yang terbatas ini, *compiler*
+dapat menginferensi tipe-tipe parameter dan tipe kembaliannya, mirip dengan
+kemampuannya menginferensi tipe-tipe sebagian besar variabel (ada kasus
+langka ketika *compiler* juga memerlukan anotasi tipe closure).
 
-As with variables, we can add type annotations if we want to increase
-explicitness and clarity at the cost of being more verbose than is strictly
-necessary. Annotating the types for a closure would look like the definition
-shown in Listing 13-2. In this example, we’re defining a closure and storing it
-in a variable rather than defining the closure in the spot we pass it as an
-argument, as we did in Listing 13-1.
+Seperti halnya variabel, kita dapat menambahkan anotasi tipe jika ingin
+meningkatkan keeksplisitan dan kejelasan dengan biaya menjadi lebih
+bertele-tele daripada yang benar-benar diperlukan. Menganotasi tipe-tipe untuk
+sebuah closure akan tampak seperti definisi yang ditunjukkan di Listing 13-2.
+Dalam contoh ini, kita mendefinisikan sebuah closure dan menyimpannya di dalam
+sebuah variabel alih-alih mendefinisikan closure itu di tempat kita
+meneruskannya sebagai argumen, seperti yang kita lakukan di Listing 13-1.
 
-<Listing number="13-2" file-name="src/main.rs" caption="Adding optional type annotations of the parameter and return value types in the closure">
+<Listing number="13-2" file-name="src/main.rs" caption="Menambahkan anotasi tipe opsional untuk tipe parameter dan nilai kembalian di dalam closure">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-02/src/main.rs:here}}
@@ -121,12 +129,13 @@ argument, as we did in Listing 13-1.
 
 </Listing>
 
-With type annotations added, the syntax of closures looks more similar to the
-syntax of functions. Here, we define a function that adds 1 to its parameter and
-a closure that has the same behavior, for comparison. We’ve added some spaces
-to line up the relevant parts. This illustrates how closure syntax is similar
-to function syntax except for the use of pipes and the amount of syntax that is
-optional:
+Dengan anotasi tipe yang ditambahkan, sintaks closure tampak lebih mirip
+dengan sintaks fungsi. Di sini, kita mendefinisikan sebuah fungsi yang
+menambahkan 1 ke parameternya dan sebuah closure dengan perilaku yang sama,
+sebagai perbandingan. Kita telah menambahkan beberapa spasi untuk
+menyelaraskan bagian-bagian yang relevan. Ini mengilustrasikan bagaimana
+sintaks closure mirip dengan sintaks fungsi kecuali dalam pemakaian pipa dan
+banyaknya sintaks yang bersifat opsional:
 
 ```rust,ignore
 fn  add_one_v1   (x: u32) -> u32 { x + 1 }
@@ -135,26 +144,28 @@ let add_one_v3 = |x|             { x + 1 };
 let add_one_v4 = |x|               x + 1  ;
 ```
 
-The first line shows a function definition and the second line shows a fully
-annotated closure definition. In the third line, we remove the type annotations
-from the closure definition. In the fourth line, we remove the brackets, which
-are optional because the closure body has only one expression. These are all
-valid definitions that will produce the same behavior when they’re called. The
-`add_one_v3` and `add_one_v4` lines require the closures to be evaluated to be
-able to compile because the types will be inferred from their usage. This is
-similar to `let v = Vec::new();` needing either type annotations or values of
-some type to be inserted into the `Vec` for Rust to be able to infer the type.
+Baris pertama menunjukkan definisi fungsi dan baris kedua menunjukkan definisi
+closure yang dianotasi sepenuhnya. Di baris ketiga, kita menghapus anotasi
+tipe dari definisi closure. Di baris keempat, kita menghapus kurung
+kurawalnya, yang bersifat opsional karena badan closure hanya memiliki satu
+ekspresi. Semua ini adalah definisi yang valid dan akan menghasilkan perilaku
+yang sama ketika dipanggil. Baris `add_one_v3` dan `add_one_v4` mengharuskan
+closure-closure itu dievaluasi agar dapat terkompilasi karena tipe-tipenya
+akan diinferensi dari pemakaiannya. Ini mirip dengan `let v = Vec::new();`
+yang memerlukan anotasi tipe ataupun nilai-nilai bertipe tertentu untuk
+dimasukkan ke dalam `Vec` agar Rust dapat menginferensi tipenya.
 
-For closure definitions, the compiler will infer one concrete type for each of
-their parameters and for their return value. For instance, Listing 13-3 shows
-the definition of a short closure that just returns the value it receives as a
-parameter. This closure isn’t very useful except for the purposes of this
-example. Note that we haven’t added any type annotations to the definition.
-Because there are no type annotations, we can call the closure with any type,
-which we’ve done here with `String` the first time. If we then try to call
-`example_closure` with an integer, we’ll get an error.
+Untuk definisi closure, *compiler* akan menginferensi satu tipe konkret untuk
+setiap parameternya dan untuk nilai kembaliannya. Misalnya, Listing 13-3
+menunjukkan definisi sebuah closure pendek yang hanya mengembalikan nilai
+yang diterimanya sebagai parameter. Closure ini tidak terlalu berguna kecuali
+untuk keperluan contoh ini. Perhatikan bahwa kita belum menambahkan anotasi
+tipe apa pun ke definisinya. Karena tidak ada anotasi tipe, kita dapat
+memanggil closure itu dengan tipe apa pun, yang telah kita lakukan di sini
+dengan `String` pada pemanggilan pertama. Jika kemudian kita mencoba memanggil
+`example_closure` dengan sebuah integer, kita akan mendapat galat.
 
-<Listing number="13-3" file-name="src/main.rs" caption="Attempting to call a closure whose types are inferred with two different types">
+<Listing number="13-3" file-name="src/main.rs" caption="Mencoba memanggil closure yang tipe-tipenya diinferensi dengan dua tipe yang berbeda">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-03/src/main.rs:here}}
@@ -162,30 +173,32 @@ which we’ve done here with `String` the first time. If we then try to call
 
 </Listing>
 
-The compiler gives us this error:
+*Compiler* memberi kita galat ini:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-03/output.txt}}
 ```
 
-The first time we call `example_closure` with the `String` value, the compiler
-infers the type of `x` and the return type of the closure to be `String`. Those
-types are then locked into the closure in `example_closure`, and we get a type
-error when we next try to use a different type with the same closure.
+Pertama kali kita memanggil `example_closure` dengan nilai `String`,
+*compiler* menginferensi tipe `x` dan tipe kembalian closure itu sebagai
+`String`. Tipe-tipe itu kemudian dikunci ke dalam closure di
+`example_closure`, dan kita mendapat galat tipe ketika selanjutnya mencoba
+memakai tipe yang berbeda dengan closure yang sama.
 
-### Capturing References or Moving Ownership
+### Menangkap Reference atau Memindahkan Ownership
 
-Closures can capture values from their environment in three ways, which
-directly map to the three ways a function can take a parameter: borrowing
-immutably, borrowing mutably, and taking ownership. The closure will decide
-which of these to use based on what the body of the function does with the
-captured values.
+Closure dapat menangkap nilai dari lingkungannya dengan tiga cara, yang
+berpadanan langsung dengan tiga cara sebuah fungsi menerima parameter:
+meminjam secara *immutable*, meminjam secara *mutable* (dapat diubah), dan
+mengambil *ownership* (kepemilikan). Closure akan memutuskan mana yang dipakai
+berdasarkan apa yang dilakukan badan fungsi itu terhadap nilai-nilai yang
+ditangkap.
 
-In Listing 13-4, we define a closure that captures an immutable reference to
-the vector named `list` because it only needs an immutable reference to print
-the value.
+Di Listing 13-4, kita mendefinisikan sebuah closure yang menangkap sebuah
+reference *immutable* ke vektor bernama `list` karena closure itu hanya
+memerlukan reference *immutable* untuk mencetak nilainya.
 
-<Listing number="13-4" file-name="src/main.rs" caption="Defining and calling a closure that captures an immutable reference">
+<Listing number="13-4" file-name="src/main.rs" caption="Mendefinisikan dan memanggil closure yang menangkap reference immutable">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-04/src/main.rs}}
@@ -193,23 +206,25 @@ the value.
 
 </Listing>
 
-This example also illustrates that a variable can bind to a closure definition,
-and we can later call the closure by using the variable name and parentheses as
-if the variable name were a function name.
+Contoh ini juga mengilustrasikan bahwa sebuah variabel dapat terikat ke
+definisi closure, dan nanti kita dapat memanggil closure itu dengan memakai
+nama variabel beserta tanda kurung, seolah-olah nama variabel itu adalah nama
+fungsi.
 
-Because we can have multiple immutable references to `list` at the same time,
-`list` is still accessible from the code before the closure definition, after
-the closure definition but before the closure is called, and after the closure
-is called. This code compiles, runs, and prints:
+Karena kita dapat memiliki banyak reference *immutable* ke `list` pada saat
+yang sama, `list` tetap dapat diakses dari kode sebelum definisi closure,
+setelah definisi closure tetapi sebelum closure dipanggil, dan setelah closure
+dipanggil. Kode ini terkompilasi, berjalan, dan mencetak:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-04/output.txt}}
 ```
 
-Next, in Listing 13-5, we change the closure body so that it adds an element to
-the `list` vector. The closure now captures a mutable reference.
+Selanjutnya, di Listing 13-5, kita mengubah badan closure sehingga closure itu
+menambahkan sebuah elemen ke vektor `list`. Closure itu kini menangkap sebuah
+reference *mutable*.
 
-<Listing number="13-5" file-name="src/main.rs" caption="Defining and calling a closure that captures a mutable reference">
+<Listing number="13-5" file-name="src/main.rs" caption="Mendefinisikan dan memanggil closure yang menangkap reference mutable">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-05/src/main.rs}}
@@ -217,32 +232,35 @@ the `list` vector. The closure now captures a mutable reference.
 
 </Listing>
 
-This code compiles, runs, and prints:
+Kode ini terkompilasi, berjalan, dan mencetak:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-05/output.txt}}
 ```
 
-Note that there’s no longer a `println!` between the definition and the call of
-the `borrows_mutably` closure: When `borrows_mutably` is defined, it captures a
-mutable reference to `list`. We don’t use the closure again after the closure
-is called, so the mutable borrow ends. Between the closure definition and the
-closure call, an immutable borrow to print isn’t allowed, because no other
-borrows are allowed when there’s a mutable borrow. Try adding a `println!`
-there to see what error message you get!
+Perhatikan bahwa tidak ada lagi `println!` di antara definisi dan pemanggilan
+closure `borrows_mutably`: Ketika `borrows_mutably` didefinisikan, ia
+menangkap sebuah reference *mutable* ke `list`. Kita tidak memakai closure itu
+lagi setelah closure itu dipanggil, jadi peminjaman mutable-nya berakhir. Di
+antara definisi closure dan pemanggilan closure, peminjaman *immutable* untuk
+mencetak tidak diizinkan, karena tidak ada peminjaman lain yang diizinkan
+ketika ada peminjaman mutable. Coba tambahkan `println!` di sana untuk melihat
+pesan galat apa yang Anda dapat!
 
-If you want to force the closure to take ownership of the values it uses in the
-environment even though the body of the closure doesn’t strictly need
-ownership, you can use the `move` keyword before the parameter list.
+Jika Anda ingin memaksa closure mengambil *ownership* atas nilai-nilai yang
+dipakainya di lingkungan, meskipun badan closure itu tidak benar-benar
+memerlukan *ownership*, Anda dapat memakai kata kunci `move` sebelum daftar
+parameternya.
 
-This technique is mostly useful when passing a closure to a new thread to move
-the data so that it’s owned by the new thread. We’ll discuss threads and why
-you would want to use them in detail in Chapter 16 when we talk about
-concurrency, but for now, let’s briefly explore spawning a new thread using a
-closure that needs the `move` keyword. Listing 13-6 shows Listing 13-4 modified
-to print the vector in a new thread rather than in the main thread.
+Teknik ini paling berguna ketika meneruskan sebuah closure ke thread baru
+untuk memindahkan data sehingga data itu dimiliki oleh thread baru. Kita akan
+membahas thread dan alasan Anda ingin memakainya secara mendetail di Bab 16
+ketika kita berbicara tentang konkurensi, tetapi untuk saat ini, mari kita
+menelaah secara singkat pembuatan thread baru memakai closure yang memerlukan
+kata kunci `move`. Listing 13-6 menunjukkan Listing 13-4 yang dimodifikasi
+untuk mencetak vektor di thread baru alih-alih di thread utama.
 
-<Listing number="13-6" file-name="src/main.rs" caption="Using `move` to force the closure for the thread to take ownership of `list`">
+<Listing number="13-6" file-name="src/main.rs" caption="Memakai `move` untuk memaksa closure bagi thread itu mengambil ownership atas `list`">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-06/src/main.rs}}
@@ -250,21 +268,22 @@ to print the vector in a new thread rather than in the main thread.
 
 </Listing>
 
-We spawn a new thread, giving the thread a closure to run as an argument. The
-closure body prints out the list. In Listing 13-4, the closure only captured
-`list` using an immutable reference because that's the least amount of access
-to `list` needed to print it. In this example, even though the closure body
-still only needs an immutable reference, we need to specify that `list` should
-be moved into the closure by putting the `move` keyword at the beginning of the
-closure definition. If the main thread performed more operations before calling
-`join` on the new thread, the new thread might finish before the rest of the
-main thread finishes, or the main thread might finish first. If the main thread
-maintained ownership of `list` but ended before the new thread and drops
-`list`, the immutable reference in the thread would be invalid. Therefore, the
-compiler requires that `list` be moved into the closure given to the new thread
-so that the reference will be valid. Try removing the `move` keyword or using
-`list` in the main thread after the closure is defined to see what compiler
-errors you get!
+Kita membuat sebuah thread baru, memberikan closure untuk dijalankan sebagai
+argumen kepada thread itu. Badan closure itu mencetak daftarnya. Di Listing
+13-4, closure hanya menangkap `list` memakai reference *immutable* karena
+itulah jumlah akses minimum ke `list` yang diperlukan untuk mencetaknya.
+Dalam contoh ini, meskipun badan closure tetap hanya memerlukan reference
+*immutable*, kita perlu menyatakan bahwa `list` harus dipindahkan ke dalam
+closure dengan menaruh kata kunci `move` di awal definisi closure. Jika thread
+utama melakukan lebih banyak operasi sebelum memanggil `join` pada thread
+baru, thread baru itu mungkin selesai sebelum sisa thread utama selesai, atau
+thread utama mungkin selesai lebih dulu. Jika thread utama tetap memegang
+*ownership* atas `list` tetapi berakhir sebelum thread baru dan membebaskan
+`list`, reference *immutable* di dalam thread itu akan menjadi tidak valid.
+Karena itu, *compiler* mengharuskan `list` dipindahkan ke dalam closure yang
+diberikan kepada thread baru supaya reference-nya tetap valid. Coba hapus kata
+kunci `move` atau pakai `list` di thread utama setelah closure didefinisikan
+untuk melihat galat kompilasi apa yang Anda dapat!
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -273,38 +292,43 @@ errors you get!
 <a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
 <a id="moving-captured-values-out-of-closures-and-the-fn-traits"></a>
 
-### Moving Captured Values Out of Closures
+### Memindahkan Nilai yang Ditangkap Keluar dari Closure
 
-Once a closure has captured a reference or captured ownership of a value from
-the environment where the closure is defined (thus affecting what, if anything,
-is moved _into_ the closure), the code in the body of the closure defines what
-happens to the references or values when the closure is evaluated later (thus
-affecting what, if anything, is moved _out of_ the closure).
+Setelah sebuah closure menangkap reference atau menangkap *ownership* atas
+sebuah nilai dari lingkungan tempat closure itu didefinisikan (sehingga
+memengaruhi apa, jika ada, yang dipindahkan _ke dalam_ closure), kode di badan
+closure menentukan apa yang terjadi pada reference atau nilai-nilai itu ketika
+closure dievaluasi nanti (sehingga memengaruhi apa, jika ada, yang dipindahkan
+_keluar dari_ closure).
 
-A closure body can do any of the following: Move a captured value out of the
-closure, mutate the captured value, neither move nor mutate the value, or
-capture nothing from the environment to begin with.
+Badan closure dapat melakukan salah satu dari hal berikut: Memindahkan nilai
+yang ditangkap keluar dari closure, mengubah nilai yang ditangkap, tidak
+memindahkan ataupun mengubah nilai itu, atau sejak awal tidak menangkap apa
+pun dari lingkungan.
 
-The way a closure captures and handles values from the environment affects
-which traits the closure implements, and traits are how functions and structs
-can specify what kinds of closures they can use. Closures will automatically
-implement one, two, or all three of these `Fn` traits, in an additive fashion,
-depending on how the closure’s body handles the values:
+Cara sebuah closure menangkap dan menangani nilai-nilai dari lingkungan
+memengaruhi *trait* mana yang diimplementasikan closure itu, dan *trait*
+adalah cara fungsi dan struct menentukan jenis closure apa yang dapat mereka
+pakai. Closure akan secara otomatis mengimplementasikan satu, dua, atau ketiga
+*trait* `Fn` ini, secara aditif, bergantung pada bagaimana badan closure
+menangani nilai-nilainya:
 
-* `FnOnce` applies to closures that can be called once. All closures implement
-  at least this trait because all closures can be called. A closure that moves
-  captured values out of its body will only implement `FnOnce` and none of the
-  other `Fn` traits because it can only be called once.
-* `FnMut` applies to closures that don’t move captured values out of their body
-  but might mutate the captured values. These closures can be called more than
-  once.
-* `Fn` applies to closures that don’t move captured values out of their body
-  and don’t mutate captured values, as well as closures that capture nothing
-  from their environment. These closures can be called more than once without
-  mutating their environment, which is important in cases such as calling a closure multiple times concurrently.
+* `FnOnce` berlaku untuk closure yang hanya dapat dipanggil sekali. Semua
+  closure mengimplementasikan setidaknya *trait* ini karena semua closure
+  dapat dipanggil. Closure yang memindahkan nilai-nilai yang ditangkap keluar
+  dari badannya hanya akan mengimplementasikan `FnOnce` dan tidak satu pun
+  *trait* `Fn` lainnya, karena closure itu hanya dapat dipanggil sekali.
+* `FnMut` berlaku untuk closure yang tidak memindahkan nilai-nilai yang
+  ditangkap keluar dari badannya, tetapi mungkin mengubah nilai-nilai yang
+  ditangkap. Closure ini dapat dipanggil lebih dari sekali.
+* `Fn` berlaku untuk closure yang tidak memindahkan nilai-nilai yang ditangkap
+  keluar dari badannya dan tidak mengubah nilai-nilai yang ditangkap, serta
+  closure yang tidak menangkap apa pun dari lingkungannya. Closure ini dapat
+  dipanggil lebih dari sekali tanpa mengubah lingkungannya, yang penting dalam
+  kasus seperti memanggil sebuah closure berkali-kali secara konkuren.
 
-Let’s look at the definition of the `unwrap_or_else` method on `Option<T>` that
-we used in Listing 13-1:
+Mari kita lihat definisi metode `unwrap_or_else` pada `Option<T>` yang kita
+pakai di Listing 13-1:
 
 ```rust,ignore
 impl<T> Option<T> {
@@ -320,42 +344,44 @@ impl<T> Option<T> {
 }
 ```
 
-Recall that `T` is the generic type representing the type of the value in the
-`Some` variant of an `Option`. That type `T` is also the return type of the
-`unwrap_or_else` function: Code that calls `unwrap_or_else` on an
-`Option<String>`, for example, will get a `String`.
+Ingat bahwa `T` adalah tipe generik yang merepresentasikan tipe nilai di dalam
+*variant* `Some` dari sebuah `Option`. Tipe `T` itu juga merupakan tipe
+kembalian fungsi `unwrap_or_else`: Kode yang memanggil `unwrap_or_else` pada
+`Option<String>`, misalnya, akan mendapat sebuah `String`.
 
-Next, notice that the `unwrap_or_else` function has the additional generic type
-parameter `F`. The `F` type is the type of the parameter named `f`, which is
-the closure we provide when calling `unwrap_or_else`.
+Selanjutnya, perhatikan bahwa fungsi `unwrap_or_else` memiliki parameter tipe
+generik tambahan `F`. Tipe `F` adalah tipe dari parameter bernama `f`, yaitu
+closure yang kita berikan saat memanggil `unwrap_or_else`.
 
-The trait bound specified on the generic type `F` is `FnOnce() -> T`, which
-means `F` must be able to be called once, take no arguments, and return a `T`.
-Using `FnOnce` in the trait bound expresses the constraint that
-`unwrap_or_else` will not call `f` more than once. In the body of
-`unwrap_or_else`, we can see that if the `Option` is `Some`, `f` won’t be
-called. If the `Option` is `None`, `f` will be called once. Because all
-closures implement `FnOnce`, `unwrap_or_else` accepts all three kinds of
-closures and is as flexible as it can be.
+*Trait bound* (batasan trait) yang ditentukan pada tipe generik `F` adalah
+`FnOnce() -> T`, yang berarti `F` harus dapat dipanggil sekali, tidak
+menerima argumen, dan mengembalikan sebuah `T`. Memakai `FnOnce` di *trait
+bound* itu mengekspresikan batasan bahwa `unwrap_or_else` tidak akan memanggil
+`f` lebih dari sekali. Di badan `unwrap_or_else`, kita dapat melihat bahwa
+jika `Option`-nya berupa `Some`, `f` tidak akan dipanggil. Jika `Option`-nya
+berupa `None`, `f` akan dipanggil sekali. Karena semua closure
+mengimplementasikan `FnOnce`, `unwrap_or_else` menerima ketiga jenis closure
+dan sefleksibel mungkin.
 
-> Note: If what we want to do doesn’t require capturing a value from the
-> environment, we can use the name of a function rather than a closure where we
-> need something that implements one of the `Fn` traits. For example, on an
-> `Option<Vec<T>>` value, we could call `unwrap_or_else(Vec::new)` to get a
-> new, empty vector if the value is `None`. The compiler automatically
-> implements whichever of the `Fn` traits is applicable for a function
-> definition.
+> Catatan: Jika yang ingin kita lakukan tidak memerlukan penangkapan nilai
+> dari lingkungan, kita dapat memakai nama fungsi alih-alih closure di tempat
+> yang memerlukan sesuatu yang mengimplementasikan salah satu *trait* `Fn`.
+> Misalnya, pada nilai `Option<Vec<T>>`, kita dapat memanggil
+> `unwrap_or_else(Vec::new)` untuk mendapat vektor baru yang kosong jika
+> nilainya `None`. *Compiler* secara otomatis mengimplementasikan *trait* `Fn`
+> mana pun yang berlaku untuk sebuah definisi fungsi.
 
-Now let’s look at the standard library method `sort_by_key`, defined on slices,
-to see how that differs from `unwrap_or_else` and why `sort_by_key` uses
-`FnMut` instead of `FnOnce` for the trait bound. The closure gets one argument
-in the form of a reference to the current item in the slice being considered,
-and it returns a value of type `K` that can be ordered. This function is useful
-when you want to sort a slice by a particular attribute of each item. In
-Listing 13-7, we have a list of `Rectangle` instances, and we use `sort_by_key`
-to order them by their `width` attribute from low to high.
+Sekarang mari kita lihat metode pustaka standar `sort_by_key`, yang
+didefinisikan pada slice, untuk melihat perbedaannya dari `unwrap_or_else` dan
+alasan `sort_by_key` memakai `FnMut` alih-alih `FnOnce` untuk *trait bound*-nya.
+Closure itu menerima satu argumen berupa reference ke item saat ini di dalam
+slice yang sedang dipertimbangkan, dan mengembalikan nilai bertipe `K` yang
+dapat diurutkan. Fungsi ini berguna ketika Anda ingin mengurutkan sebuah slice
+berdasarkan atribut tertentu dari setiap itemnya. Di Listing 13-7, kita
+memiliki daftar instance `Rectangle`, dan kita memakai `sort_by_key` untuk
+mengurutkannya berdasarkan atribut `width` dari rendah ke tinggi.
 
-<Listing number="13-7" file-name="src/main.rs" caption="Using `sort_by_key` to order rectangles by width">
+<Listing number="13-7" file-name="src/main.rs" caption="Memakai `sort_by_key` untuk mengurutkan persegi panjang berdasarkan lebar">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-07/src/main.rs}}
@@ -363,22 +389,24 @@ to order them by their `width` attribute from low to high.
 
 </Listing>
 
-This code prints:
+Kode ini mencetak:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-07/output.txt}}
 ```
 
-The reason `sort_by_key` is defined to take an `FnMut` closure is that it calls
-the closure multiple times: once for each item in the slice. The closure `|r|
-r.width` doesn’t capture, mutate, or move anything out from its environment, so
-it meets the trait bound requirements.
+Alasan `sort_by_key` didefinisikan untuk menerima closure `FnMut` adalah
+karena ia memanggil closure itu berkali-kali: sekali untuk setiap item di
+dalam slice. Closure `|r| r.width` tidak menangkap, mengubah, atau
+memindahkan apa pun keluar dari lingkungannya, jadi closure itu memenuhi
+syarat *trait bound*-nya.
 
-In contrast, Listing 13-8 shows an example of a closure that implements just
-the `FnOnce` trait, because it moves a value out of the environment. The
-compiler won’t let us use this closure with `sort_by_key`.
+Sebaliknya, Listing 13-8 menunjukkan contoh closure yang hanya
+mengimplementasikan *trait* `FnOnce`, karena closure itu memindahkan sebuah
+nilai keluar dari lingkungan. *Compiler* tidak akan mengizinkan kita memakai
+closure ini bersama `sort_by_key`.
 
-<Listing number="13-8" file-name="src/main.rs" caption="Attempting to use an `FnOnce` closure with `sort_by_key`">
+<Listing number="13-8" file-name="src/main.rs" caption="Mencoba memakai closure `FnOnce` bersama `sort_by_key`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-08/src/main.rs}}
@@ -386,31 +414,34 @@ compiler won’t let us use this closure with `sort_by_key`.
 
 </Listing>
 
-This is a contrived, convoluted way (that doesn’t work) to try to count the
-number of times `sort_by_key` calls the closure when sorting `list`. This code
-attempts to do this counting by pushing `value`—a `String` from the closure’s
-environment—into the `sort_operations` vector. The closure captures `value` and
-then moves `value` out of the closure by transferring ownership of `value` to
-the `sort_operations` vector. This closure can be called once; trying to call
-it a second time wouldn’t work, because `value` would no longer be in the
-environment to be pushed into `sort_operations` again! Therefore, this closure
-only implements `FnOnce`. When we try to compile this code, we get this error
-that `value` can’t be moved out of the closure because the closure must
-implement `FnMut`:
+Ini adalah cara yang dibuat-buat dan berbelit (yang tidak bekerja) untuk
+mencoba menghitung berapa kali `sort_by_key` memanggil closure ketika
+mengurutkan `list`. Kode ini berusaha melakukan penghitungan itu dengan
+memasukkan `value`—sebuah `String` dari lingkungan closure—ke dalam vektor
+`sort_operations`. Closure itu menangkap `value` lalu memindahkan `value`
+keluar dari closure dengan mentransfer *ownership* atas `value` ke vektor
+`sort_operations`. Closure ini hanya dapat dipanggil sekali; mencoba
+memanggilnya untuk kedua kalinya tidak akan bekerja, karena `value` tidak lagi
+berada di lingkungan untuk dimasukkan ke dalam `sort_operations` lagi! Karena
+itu, closure ini hanya mengimplementasikan `FnOnce`. Ketika kita mencoba
+mengompilasi kode ini, kita mendapat galat bahwa `value` tidak dapat
+dipindahkan keluar dari closure karena closure itu harus mengimplementasikan
+`FnMut`:
 
 ```console
 {{#include ../listings/ch13-functional-features/listing-13-08/output.txt}}
 ```
 
-The error points to the line in the closure body that moves `value` out of the
-environment. To fix this, we need to change the closure body so that it doesn’t
-move values out of the environment. Keeping a counter in the environment and
-incrementing its value in the closure body is a more straightforward way to
-count the number of times the closure is called. The closure in Listing 13-9
-works with `sort_by_key` because it is only capturing a mutable reference to the
-`num_sort_operations` counter and can therefore be called more than once.
+Galat itu menunjuk ke baris di badan closure yang memindahkan `value` keluar
+dari lingkungan. Untuk memperbaikinya, kita perlu mengubah badan closure agar
+ia tidak memindahkan nilai keluar dari lingkungan. Menyimpan sebuah penghitung
+di lingkungan dan menaikkan nilainya di badan closure adalah cara yang lebih
+lugas untuk menghitung berapa kali closure dipanggil. Closure di Listing 13-9
+bekerja bersama `sort_by_key` karena ia hanya menangkap sebuah reference
+*mutable* ke penghitung `num_sort_operations`, dan karena itu dapat dipanggil
+lebih dari sekali.
 
-<Listing number="13-9" file-name="src/main.rs" caption="Using an `FnMut` closure with `sort_by_key` is allowed.">
+<Listing number="13-9" file-name="src/main.rs" caption="Memakai closure `FnMut` bersama `sort_by_key` diizinkan.">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-09/src/main.rs}}
@@ -418,9 +449,9 @@ works with `sort_by_key` because it is only capturing a mutable reference to the
 
 </Listing>
 
-The `Fn` traits are important when defining or using functions or types that
-make use of closures. In the next section, we’ll discuss iterators. Many
-iterator methods take closure arguments, so keep these closure details in mind
-as we continue!
+*Trait* `Fn` penting ketika mendefinisikan atau memakai fungsi atau tipe yang
+memanfaatkan closure. Di bagian berikutnya, kita akan membahas *iterator*.
+Banyak metode *iterator* menerima argumen closure, jadi ingat-ingat detail
+closure ini selagi kita melanjutkan!
 
 [unwrap-or-else]: ../std/option/enum.Option.html#method.unwrap_or_else

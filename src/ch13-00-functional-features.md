@@ -1,24 +1,26 @@
-# Functional Language Features: Iterators and Closures
+# Fitur Bahasa Fungsional: Iterator dan Closure
 
-Rust’s design has taken inspiration from many existing languages and
-techniques, and one significant influence is _functional programming_.
-Programming in a functional style often includes using functions as values by
-passing them in arguments, returning them from other functions, assigning them
-to variables for later execution, and so forth.
+Desain Rust mengambil inspirasi dari banyak bahasa dan teknik yang sudah ada,
+dan salah satu pengaruh yang signifikan adalah _functional programming_
+(pemrograman fungsional). Memprogram dengan gaya fungsional sering kali
+mencakup memakai fungsi sebagai nilai dengan meneruskannya sebagai argumen,
+mengembalikannya dari fungsi lain, menetapkannya ke variabel untuk dieksekusi
+nanti, dan seterusnya.
 
-In this chapter, we won’t debate the issue of what functional programming is or
-isn’t but will instead discuss some features of Rust that are similar to
-features in many languages often referred to as functional.
+Di bab ini, kita tidak akan memperdebatkan soal apa itu pemrograman fungsional
+atau bukan, melainkan membahas beberapa fitur Rust yang mirip dengan
+fitur-fitur di banyak bahasa yang sering disebut fungsional.
 
-More specifically, we’ll cover:
+Secara lebih spesifik, kita akan membahas:
 
-- _Closures_, a function-like construct you can store in a variable
-- _Iterators_, a way of processing a series of elements
-- How to use closures and iterators to improve the I/O project in Chapter 12
-- The performance of closures and iterators (spoiler alert: They’re faster than
-  you might think!)
+- _Closure_, konstruksi mirip fungsi yang dapat Anda simpan di sebuah variabel
+- _Iterator_, cara memproses serangkaian elemen
+- Cara memakai closure dan iterator untuk memperbaiki proyek I/O di Bab 12
+- Performa closure dan iterator (peringatan spoiler: Mereka lebih cepat
+  daripada yang mungkin Anda kira!)
 
-We’ve already covered some other Rust features, such as pattern matching and
-enums, that are also influenced by the functional style. Because mastering
-closures and iterators is an important part of writing fast, idiomatic, Rust
-code, we’ll devote this entire chapter to them.
+Kita telah membahas beberapa fitur Rust lain, seperti *pattern matching*
+(pencocokan pola) dan *enum*, yang juga dipengaruhi gaya fungsional. Karena
+menguasai closure dan iterator merupakan bagian penting dari menulis kode Rust
+yang cepat dan idiomatis, kita akan mendedikasikan seluruh bab ini untuk
+mereka.
