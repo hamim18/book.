@@ -11,14 +11,14 @@ fitur yang ditawarkan Rust.
 
 Di bab ini, kita akan membahas:
 
-- Unsafe Rust: Cara memilih untuk tidak memakai sebagian jaminan Rust dan
+- *Unsafe* Rust: Cara memilih untuk tidak memakai sebagian jaminan Rust dan
   mengambil tanggung jawab untuk menegakkan jaminan itu secara manual
-- Trait lanjutan: Tipe asosiasi, parameter tipe bawaan, sintaks fully
-  qualified, supertrait, dan pola newtype dalam kaitannya dengan trait
+- *Trait* lanjutan: Tipe asosiasi, parameter tipe bawaan, sintaks fully
+  qualified, *supertrait*, dan pola newtype dalam kaitannya dengan *trait*
 - Tipe lanjutan: Lebih jauh tentang pola newtype, alias tipe, tipe never,
   dan tipe berukuran dinamis
-- Fungsi dan closure lanjutan: Pointer fungsi dan mengembalikan closure
-- Macro: Cara mendefinisikan kode yang mendefinisikan lebih banyak kode pada
+- Fungsi dan *closure* lanjutan: *Pointer* fungsi dan mengembalikan *closure*
+- *Macro*: Cara mendefinisikan kode yang mendefinisikan lebih banyak kode pada
   waktu kompilasi
 
 Semuanya ini adalah kumpulan lengkap fitur Rust dengan sesuatu untuk semua

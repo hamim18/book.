@@ -47,7 +47,7 @@ baca atau tulis. Pemanggilan fungsinya juga mungkin gagal: misalnya, file
 mungkin tidak ada, atau kita mungkin tidak memiliki izin untuk mengakses
 file itu. Fungsi `File::open` perlu punya cara memberi tahu kita apakah ia
 berhasil atau gagal dan sekaligus memberi kita handle file atau informasi
-galat. Informasi ini persis seperti yang disampaikan enum `Result`.
+galat. Informasi ini persis seperti yang disampaikan *enum* `Result`.
 
 Pada kasus ketika `File::open` berhasil, nilai di variabel
 `greeting_file_result` akan berupa instance `Ok` yang berisi handle file.
@@ -68,8 +68,8 @@ menunjukkan satu cara menangani `Result` memakai alat dasar, ekspresi
 
 </Listing>
 
-Perhatikan bahwa, seperti enum `Option`, enum `Result` dan variant-nya telah
-dibawa ke dalam scope oleh *prelude*, jadi kita tidak perlu menuliskan
+Perhatikan bahwa, seperti *enum* `Option`, *enum* `Result` dan variant-nya telah
+dibawa ke dalam *scope* oleh *prelude*, jadi kita tidak perlu menuliskan
 `Result::` sebelum variant `Ok` dan `Err` di arm-arm `match`.
 
 Ketika hasilnya `Ok`, kode ini akan mengembalikan nilai `file` bagian dalam
@@ -78,9 +78,9 @@ dari variant `Ok`, lalu kita menetapkan nilai handle file itu ke variabel
 membaca atau menulis.
 
 Arm `match` yang lain menangani kasus ketika kita mendapat nilai `Err` dari
-`File::open`. Dalam contoh ini, kita memilih untuk memanggil macro `panic!`.
+`File::open`. Dalam contoh ini, kita memilih untuk memanggil *macro* `panic!`.
 Jika tidak ada file bernama _hello.txt_ di direktori kita saat ini dan kita
-menjalankan kode ini, kita akan melihat output berikut dari macro `panic!`:
+menjalankan kode ini, kita akan melihat output berikut dari *macro* `panic!`:
 
 ```console
 {{#include ../listings/ch09-error-handling/listing-09-04/output.txt}}
@@ -111,9 +111,9 @@ tests to fail lol -->
 </Listing>
 
 Tipe nilai yang dikembalikan `File::open` di dalam variant `Err` adalah
-`io::Error`, yaitu sebuah struct yang disediakan pustaka standar. Struct ini
+`io::Error`, yaitu sebuah *struct* yang disediakan pustaka standar. *Struct* ini
 memiliki metode `kind`, yang dapat kita panggil untuk mendapatkan nilai
-`io::ErrorKind`. Enum `io::ErrorKind` disediakan pustaka standar dan
+`io::ErrorKind`. *Enum* `io::ErrorKind` disediakan pustaka standar dan
 memiliki variant-variant yang merepresentasikan berbagai jenis galat yang
 mungkin dihasilkan dari operasi `io`. Variant yang ingin kita pakai adalah
 `ErrorKind::NotFound`, yang mengindikasikan bahwa file yang kita coba buka
@@ -121,7 +121,7 @@ belum ada. Jadi, kita mencocokkan `greeting_file_result`, tetapi kita juga
 memiliki match bagian dalam pada `error.kind()`.
 
 Kondisi yang ingin kita periksa di match bagian dalam adalah apakah nilai
-yang dikembalikan `error.kind()` adalah variant `NotFound` dari enum
+yang dikembalikan `error.kind()` adalah variant `NotFound` dari *enum*
 `ErrorKind`. Jika ya, kita mencoba membuat file dengan `File::create`.
 Namun, karena `File::create` juga bisa gagal, kita membutuhkan arm kedua di
 ekspresi `match` bagian dalam. Ketika file tidak dapat dibuat, pesan galat
@@ -137,7 +137,7 @@ program panic pada galat apa pun selain galat file tidak ditemukan.
 > menangani nilai `Result<T, E>` di kode Anda.
 >
 > Misalnya, ini cara lain untuk menulis logika yang sama seperti yang
-> ditunjukkan di Listing 9-5, kali ini memakai closure dan metode
+> ditunjukkan di Listing 9-5, kali ini memakai *closure* dan metode
 > `unwrap_or_else`:
 >
 > <!-- CAN'T EXTRACT SEE https://github.com/rust-lang/mdBook/issues/1127 -->
@@ -218,7 +218,7 @@ panic. Sintaks `expect` terlihat seperti ini:
 </Listing>
 
 Kita memakai `expect` dengan cara yang sama seperti `unwrap`: untuk
-mengembalikan handle file atau memanggil macro `panic!`. Pesan galat yang
+mengembalikan handle file atau memanggil *macro* `panic!`. Pesan galat yang
 dipakai `expect` dalam pemanggilannya ke `panic!` adalah parameter yang kita
 berikan ke `expect`, bukan pesan `panic!` default yang dipakai `unwrap`.
 Inilah tampilannya:
@@ -287,7 +287,7 @@ metode `read_to_string`.
 Badan fungsi dimulai dengan memanggil fungsi `File::open`. Lalu, kita
 menangani nilai `Result` dengan `match` yang mirip dengan `match` di Listing
 9-4. Jika `File::open` berhasil, handle file di variabel pola `file` menjadi
-nilai di variabel mutable `username_file` dan fungsinya berlanjut. Pada
+nilai di variabel *mutable* `username_file` dan fungsinya berlanjut. Pada
 kasus `Err`, alih-alih memanggil `panic!`, kita memakai kata kunci `return`
 untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai galat
 dari `File::open`, yang kini berada di variabel pola `e`, kembali ke kode
@@ -351,7 +351,7 @@ galatnya diteruskan ke kode pemanggil.
 
 Ada perbedaan antara yang dilakukan ekspresi `match` dari Listing 9-6 dan
 yang dilakukan operator `?`: nilai galat yang dipanggilkan operator `?`
-padanya melewati fungsi `from`, yang didefinisikan di trait `From` di
+padanya melewati fungsi `from`, yang didefinisikan di *trait* `From` di
 pustaka standar, yang dipakai untuk mengonversi nilai dari satu tipe ke tipe
 lain. Ketika operator `?` memanggil fungsi `from`, tipe galat yang diterima
 dikonversi menjadi tipe galat yang didefinisikan di tipe kembalian fungsi
@@ -486,20 +486,20 @@ baris pertama di teks yang diberikan.
 </Listing>
 
 Fungsi ini mengembalikan `Option<char>` karena mungkin ada karakter di
-sana, tetapi mungkin juga tidak ada. Kode ini menerima argumen string slice
-`text` dan memanggil metode `lines` padanya, yang mengembalikan iterator
+sana, tetapi mungkin juga tidak ada. Kode ini menerima argumen string *slice*
+`text` dan memanggil metode `lines` padanya, yang mengembalikan *iterator*
 atas baris-baris di string. Karena fungsi ini ingin memeriksa baris
-pertama, ia memanggil `next` pada iterator untuk mendapatkan nilai pertama
-dari iterator. Jika `text` adalah string kosong, pemanggilan `next` ini akan
+pertama, ia memanggil `next` pada *iterator* untuk mendapatkan nilai pertama
+dari *iterator*. Jika `text` adalah string kosong, pemanggilan `next` ini akan
 mengembalikan `None`, dalam hal ini kita memakai `?` untuk berhenti dan
 mengembalikan `None` dari `last_char_of_first_line`. Jika `text` bukan
 string kosong, `next` akan mengembalikan nilai `Some` yang berisi string
-slice dari baris pertama di `text`.
+*slice* dari baris pertama di `text`.
 
-`?` mengekstrak string slice-nya, dan kita dapat memanggil `chars` pada
-string slice itu untuk mendapatkan iterator karakter-karakternya. Kita
+`?` mengekstrak string *slice*-nya, dan kita dapat memanggil `chars` pada
+string *slice* itu untuk mendapatkan *iterator* karakter-karakternya. Kita
 tertarik pada karakter terakhir di baris pertama ini, jadi kita memanggil
-`last` untuk mengembalikan item terakhir di iterator. Ini adalah `Option`
+`last` untuk mengembalikan item terakhir di *iterator*. Ini adalah `Option`
 karena mungkin saja baris pertamanya adalah string kosong; misalnya, jika
 `text` dimulai dengan baris kosong tetapi memiliki karakter di baris lain,
 seperti pada `"\nhi"`. Namun, jika ada karakter terakhir di baris pertama,
@@ -535,8 +535,8 @@ berisi kode dari Listing 9-10, tetapi kita telah mengubah tipe kembalian
 
 </Listing>
 
-Tipe `Box<dyn Error>` adalah *trait object* (objek trait), yang akan kita
-bicarakan di [“Memakai Trait Object untuk Mengabstraksi Perilaku
+Tipe `Box<dyn Error>` adalah *trait object* (objek *trait*), yang akan kita
+bicarakan di [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
 Bersama”][trait-objects]<!-- ignore --> di Bab 18. Untuk saat ini, Anda
 dapat membaca `Box<dyn Error>` sebagai “galat jenis apa pun.” Memakai `?`
 pada nilai `Result` di fungsi `main` dengan tipe galat `Box<dyn Error>`
@@ -559,7 +559,7 @@ ini.
 Fungsi `main` boleh mengembalikan tipe apa pun yang mengimplementasikan
 [trait `std::process::Termination`][termination]<!-- ignore -->, yang berisi
 fungsi `report` yang mengembalikan `ExitCode`. Lihat dokumentasi pustaka
-standar untuk informasi lebih lanjut tentang mengimplementasikan trait
+standar untuk informasi lebih lanjut tentang mengimplementasikan *trait*
 `Termination` untuk tipe Anda sendiri.
 
 Setelah kita membahas detail pemanggilan `panic!` atau pengembalian

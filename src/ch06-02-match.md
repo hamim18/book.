@@ -39,7 +39,7 @@ keyword `match` yang diikuti sebuah ekspresi, yang pada kasus ini adalah nilai
 `coin`. Ini tampak sangat mirip dengan ekspresi kondisional yang dipakai
 bersama `if`, tetapi ada perbedaan besar: pada `if`, kondisinya harus
 mengevaluasi menjadi nilai Boolean, sedangkan di sini ia dapat bertipe apa
-pun. Tipe `coin` pada contoh ini adalah enum `Coin` yang kita definisikan di
+pun. Tipe `coin` pada contoh ini adalah *enum* `Coin` yang kita definisikan di
 baris pertama.
 
 Berikutnya adalah *arm*-*arm* `match`. Sebuah *arm* (lengan) memiliki dua
@@ -76,9 +76,9 @@ kode berikut mencetak “Lucky penny!” setiap kali metodenya dipanggil dengan
 
 Fitur *arm* match lain yang berguna adalah kemampuannya untuk mengikat
 bagian-bagian nilai yang cocok dengan polanya. Inilah cara kita mengekstrak
-nilai dari *variant* (varian) enum.
+nilai dari *variant* (varian) *enum*.
 
-Sebagai contoh, mari kita ubah salah satu *variant* enum kita agar menampung
+Sebagai contoh, mari kita ubah salah satu *variant* *enum* kita agar menampung
 data di dalamnya. Dari tahun 1999 sampai 2008, Amerika Serikat mencetak koin
 quarter (25 sen) dengan desain berbeda untuk masing-masing 50 negara bagian di
 salah satu sisinya. Tidak ada koin lain yang mendapat desain negara bagian,
@@ -117,7 +117,7 @@ itu dengan setiap *arm* match, tidak ada yang cocok sampai kita mencapai
 `Coin::Quarter(state)`. Pada titik itu, ikatan untuk `state` adalah nilai
 `UsState::Alaska`. Kita kemudian dapat memakai ikatan itu dalam ekspresi
 `println!`, sehingga mengeluarkan nilai negara bagian dari dalam
-*variant* enum `Coin` untuk `Quarter`.
+*variant* *enum* `Coin` untuk `Quarter`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -128,7 +128,7 @@ itu dengan setiap *arm* match, tidak ada yang cocok sampai kita mencapai
 
 Pada bagian sebelumnya, kita ingin mengeluarkan nilai `T` di dalamnya dari
 kasus `Some` ketika memakai `Option<T>`; kita juga dapat menangani `Option<T>`
-dengan `match`, seperti yang kita lakukan pada enum `Coin`! Alih-alih
+dengan `match`, seperti yang kita lakukan pada *enum* `Coin`! Alih-alih
 membandingkan koin, kita akan membandingkan *variant*-*variant* `Option<T>`,
 tetapi cara kerja ekspresi `match` tetap sama.
 
@@ -180,8 +180,8 @@ Cocok! Tidak ada nilai yang bisa ditambahi, jadi program berhenti dan
 mengembalikan nilai `None` di sisi kanan `=>`. Karena *arm* pertama cocok, tidak
 ada *arm* lain yang dibandingkan.
 
-Menggabungkan `match` dan enum berguna dalam banyak situasi. Anda akan sering
-melihat pola ini di kode Rust: `match` terhadap sebuah enum, mengikat variabel
+Menggabungkan `match` dan *enum* berguna dalam banyak situasi. Anda akan sering
+melihat pola ini di kode Rust: `match` terhadap sebuah *enum*, mengikat variabel
 ke data di dalamnya, lalu mengeksekusi kode berdasarkan itu. Pada awalnya agak
 rumit, tetapi begitu Anda terbiasa, Anda akan berharap fitur ini ada di semua
 bahasa. Fitur ini selalu menjadi favorit pengguna.
@@ -214,7 +214,7 @@ kesalahan senilai satu miliar dolar yang dibahas sebelumnya menjadi mustahil.
 
 ### Pola Catch-All dan Placeholder `_`
 
-Dengan enum, kita juga dapat mengambil tindakan khusus untuk beberapa nilai
+Dengan *enum*, kita juga dapat mengambil tindakan khusus untuk beberapa nilai
 tertentu, tetapi untuk semua nilai lain mengambil satu tindakan bawaan.
 Bayangkan kita sedang mengimplementasikan sebuah permainan ketika, jika Anda
 melempar angka 3 pada lemparan dadu, pemain Anda tidak bergerak tetapi malah
@@ -264,7 +264,7 @@ apa pun.
 
 Terakhir, kita akan mengubah aturan permainannya sekali lagi sehingga tidak
 ada hal lain yang terjadi pada giliran Anda jika Anda melempar selain 3 atau
-7. Kita dapat menyatakannya dengan memakai nilai unit (tipe tuple kosong yang
+7. Kita dapat menyatakannya dengan memakai nilai unit (tipe *tuple* kosong yang
 kita sebutkan di bagian [“Tipe Tuple”][tuples]<!-- ignore -->) sebagai kode
 yang menyertai *arm* `_`:
 

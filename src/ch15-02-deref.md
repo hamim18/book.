@@ -6,21 +6,21 @@
 <a id="treating-smart-pointers-like-regular-references"></a>
 ## Memperlakukan Smart Pointer Seperti Reference Biasa
 
-Mengimplementasikan trait `Deref` memungkinkan Anda menyesuaikan perilaku
+Mengimplementasikan *trait* `Deref` memungkinkan Anda menyesuaikan perilaku
 _operator dereferensi_ `*` (jangan tertukar dengan operator perkalian atau
 operator glob). Dengan mengimplementasikan `Deref` sedemikian rupa sehingga
-smart pointer dapat diperlakukan seperti reference biasa, Anda dapat menulis
-kode yang beroperasi pada reference dan memakai kode itu dengan smart pointer
+*smart pointer* dapat diperlakukan seperti *reference* biasa, Anda dapat menulis
+kode yang beroperasi pada *reference* dan memakai kode itu dengan *smart pointer*
 juga.
 
-Mari kita lihat dulu cara kerja operator dereferensi dengan reference biasa.
+Mari kita lihat dulu cara kerja operator dereferensi dengan *reference* biasa.
 Lalu, kita akan mencoba mendefinisikan tipe buatan sendiri yang berperilaku
 seperti `Box<T>` dan melihat mengapa operator dereferensi tidak bekerja
-seperti reference pada tipe yang baru kita definisikan itu. Kita akan
-mengeksplorasi bagaimana mengimplementasikan trait `Deref` memungkinkan smart
-pointer bekerja dengan cara yang serupa dengan reference. Kemudian, kita akan
-melihat fitur deref coercion dari Rust dan bagaimana fitur itu memungkinkan
-kita bekerja dengan reference ataupun smart pointer.
+seperti *reference* pada tipe yang baru kita definisikan itu. Kita akan
+mengeksplorasi bagaimana mengimplementasikan *trait* `Deref` memungkinkan smart
+*pointer* bekerja dengan cara yang serupa dengan *reference*. Kemudian, kita akan
+melihat fitur *deref coercion* dari Rust dan bagaimana fitur itu memungkinkan
+kita bekerja dengan *reference* ataupun *smart pointer*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -29,10 +29,10 @@ kita bekerja dengan reference ataupun smart pointer.
 
 ### Mengikuti Reference Menuju Nilai
 
-Reference biasa adalah salah satu jenis pointer, dan salah satu cara
-memandang pointer adalah sebagai anak panah menuju nilai yang tersimpan di
-tempat lain. Di Listing 15-6, kita membuat reference ke nilai `i32`, lalu
-memakai operator dereferensi untuk mengikuti reference itu menuju nilainya.
+*Reference* biasa adalah salah satu jenis *pointer*, dan salah satu cara
+memandang *pointer* adalah sebagai anak panah menuju nilai yang tersimpan di
+tempat lain. Di Listing 15-6, kita membuat *reference* ke nilai `i32`, lalu
+memakai operator dereferensi untuk mengikuti *reference* itu menuju nilainya.
 
 <Listing number="15-6" file-name="src/main.rs" caption="Memakai operator dereferensi untuk mengikuti sebuah reference menuju nilai `i32`">
 
@@ -43,9 +43,9 @@ memakai operator dereferensi untuk mengikuti reference itu menuju nilainya.
 </Listing>
 
 Variabel `x` menampung nilai `i32`, yaitu `5`. Kita menetapkan `y` sama
-dengan reference ke `x`. Kita dapat menegaskan bahwa `x` sama dengan `5`.
+dengan *reference* ke `x`. Kita dapat menegaskan bahwa `x` sama dengan `5`.
 Namun, jika kita ingin membuat asersi tentang nilai di dalam `y`, kita harus
-memakai `*y` untuk mengikuti reference itu menuju nilai yang ditunjuknya
+memakai `*y` untuk mengikuti *reference* itu menuju nilai yang ditunjuknya
 (karena itu disebut _dereference_ atau dereferensi) supaya kompilator dapat
 membandingkan nilai sebenarnya. Begitu kita melakukan dereferensi pada `y`,
 kita memiliki akses ke nilai integer yang ditunjuk `y` untuk kita bandingkan
@@ -58,16 +58,16 @@ kompilasi ini:
 {{#include ../listings/ch15-smart-pointers/output-only-01-comparing-to-reference/output.txt}}
 ```
 
-Membandingkan angka dengan reference ke angka tidak diizinkan karena keduanya
+Membandingkan angka dengan *reference* ke angka tidak diizinkan karena keduanya
 bertipe berbeda. Kita harus memakai operator dereferensi untuk mengikuti
-reference itu menuju nilai yang ditunjuknya.
+*reference* itu menuju nilai yang ditunjuknya.
 
 ### Memakai `Box<T>` Seperti Reference
 
 Kita dapat menulis ulang kode di Listing 15-6 untuk memakai `Box<T>` alih-alih
-reference; operator dereferensi yang dipakai pada `Box<T>` di Listing 15-7
+*reference*; operator dereferensi yang dipakai pada `Box<T>` di Listing 15-7
 berfungsi dengan cara yang sama seperti operator dereferensi yang dipakai pada
-reference di Listing 15-6.
+*reference* di Listing 15-6.
 
 <Listing number="15-7" file-name="src/main.rs" caption="Memakai operator dereferensi pada `Box<i32>`">
 
@@ -78,27 +78,27 @@ reference di Listing 15-6.
 </Listing>
 
 Perbedaan utama antara Listing 15-7 dan Listing 15-6 adalah bahwa di sini kita
-menetapkan `y` sebagai instance dari sebuah box yang menunjuk ke salinan nilai
-`x`, alih-alih reference yang menunjuk ke nilai `x`. Pada asersi terakhir,
-kita dapat memakai operator dereferensi untuk mengikuti pointer box dengan
-cara yang sama seperti yang kita lakukan ketika `y` adalah reference.
+menetapkan `y` sebagai instance dari sebuah *box* yang menunjuk ke salinan nilai
+`x`, alih-alih *reference* yang menunjuk ke nilai `x`. Pada asersi terakhir,
+kita dapat memakai operator dereferensi untuk mengikuti *pointer* *box* dengan
+cara yang sama seperti yang kita lakukan ketika `y` adalah *reference*.
 Selanjutnya, kita akan mengeksplorasi apa yang istimewa dari `Box<T>` yang
-memungkinkan kita memakai operator dereferensi, dengan mendefinisikan tipe box
+memungkinkan kita memakai operator dereferensi, dengan mendefinisikan tipe *box*
 kita sendiri.
 
 ### Mendefinisikan Smart Pointer Kita Sendiri
 
 Mari kita bangun tipe *wrapper* (pembungkus) yang serupa dengan tipe `Box<T>`
-yang disediakan pustaka standar untuk merasakan bagaimana tipe smart pointer
-berperilaku berbeda dari reference secara default. Kemudian, kita akan melihat
+yang disediakan pustaka standar untuk merasakan bagaimana tipe *smart pointer*
+berperilaku berbeda dari *reference* secara default. Kemudian, kita akan melihat
 cara menambahkan kemampuan untuk memakai operator dereferensi.
 
 > Catatan: Ada satu perbedaan besar antara tipe `MyBox<T>` yang akan kita
 > bangun dan `Box<T>` yang asli: Versi kita tidak akan menyimpan datanya di
-> heap. Kita memfokuskan contoh ini pada `Deref`, jadi di mana data itu
-> sebenarnya disimpan kurang penting daripada perilaku yang menyerupai pointer.
+> *heap*. Kita memfokuskan contoh ini pada `Deref`, jadi di mana data itu
+> sebenarnya disimpan kurang penting daripada perilaku yang menyerupai *pointer*.
 
-Tipe `Box<T>` pada akhirnya didefinisikan sebagai tuple struct dengan satu
+Tipe `Box<T>` pada akhirnya didefinisikan sebagai *tuple struct* dengan satu
 elemen, jadi Listing 15-8 mendefinisikan tipe `MyBox<T>` dengan cara yang
 sama. Kita juga akan mendefinisikan fungsi `new` untuk mencocokkan fungsi
 `new` yang didefinisikan pada `Box<T>`.
@@ -111,9 +111,9 @@ sama. Kita juga akan mendefinisikan fungsi `new` untuk mencocokkan fungsi
 
 </Listing>
 
-Kita mendefinisikan struct bernama `MyBox` dan mendeklarasikan parameter
+Kita mendefinisikan *struct* bernama `MyBox` dan mendeklarasikan parameter
 generik `T` karena kita ingin tipe kita menampung nilai bertipe apa pun. Tipe
-`MyBox` adalah tuple struct dengan satu elemen bertipe `T`. Fungsi
+`MyBox` adalah *tuple struct* dengan satu elemen bertipe `T`. Fungsi
 `MyBox::new` menerima satu parameter bertipe `T` dan mengembalikan instance
 `MyBox` yang menampung nilai yang diberikan.
 
@@ -138,7 +138,7 @@ Berikut galat kompilasi yang dihasilkan:
 
 Tipe `MyBox<T>` kita tidak bisa dilakukan dereferensi karena kita belum
 mengimplementasikan kemampuan itu pada tipe kita. Untuk mengaktifkan
-dereferensi dengan operator `*`, kita mengimplementasikan trait `Deref`.
+dereferensi dengan operator `*`, kita mengimplementasikan *trait* `Deref`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -146,12 +146,12 @@ dereferensi dengan operator `*`, kita mengimplementasikan trait `Deref`.
 
 ### Mengimplementasikan Trait `Deref`
 
-Seperti yang dibahas di [“Mengimplementasikan Trait pada Suatu
+Seperti yang dibahas di [“Mengimplementasikan *Trait* pada Suatu
 Tipe”][impl-trait]<!-- ignore --> di Bab 10, untuk mengimplementasikan sebuah
-trait kita perlu menyediakan implementasi untuk metode-metode yang diwajibkan
-trait itu. Trait `Deref`, yang disediakan pustaka standar, mewajibkan kita
+*trait* kita perlu menyediakan implementasi untuk metode-metode yang diwajibkan
+*trait* itu. *Trait* `Deref`, yang disediakan pustaka standar, mewajibkan kita
 mengimplementasikan satu metode bernama `deref` yang meminjam `self` dan
-mengembalikan reference ke data bagian dalam. Listing 15-10 memuat
+mengembalikan *reference* ke data bagian dalam. Listing 15-10 memuat
 implementasi `Deref` untuk ditambahkan ke definisi `MyBox<T>`.
 
 <Listing number="15-10" file-name="src/main.rs" caption="Mengimplementasikan `Deref` pada `MyBox<T>`">
@@ -163,21 +163,21 @@ implementasi `Deref` untuk ditambahkan ke definisi `MyBox<T>`.
 </Listing>
 
 Sintaks `type Target = T;` mendefinisikan *associated type* (tipe asosiasi)
-untuk dipakai oleh trait `Deref`. Associated type adalah cara yang sedikit
+untuk dipakai oleh *trait* `Deref`. *Associated type* adalah cara yang sedikit
 berbeda dalam mendeklarasikan parameter generik, tetapi Anda tidak perlu
 mengkhawatirkannya untuk sekarang; kita akan membahasnya lebih jauh di Bab 20.
 
 Kita mengisi badan metode `deref` dengan `&self.0` sehingga `deref`
-mengembalikan reference ke nilai yang ingin kita akses dengan operator `*`;
+mengembalikan *reference* ke nilai yang ingin kita akses dengan operator `*`;
 ingat kembali dari [“Membuat Tipe Berbeda dengan Tuple Struct”][tuple-structs]<!--
 ignore --> di Bab 5 bahwa `.0` mengakses nilai pertama dalam tuple struct.
 Fungsi `main` di Listing 15-9 yang memanggil `*` pada nilai `MyBox<T>` sekarang
 terkompilasi, dan asersinya lulus!
 
-Tanpa trait `Deref`, kompilator hanya bisa melakukan dereferensi pada
-reference `&`. Metode `deref` memberi kompilator kemampuan untuk mengambil
+Tanpa *trait* `Deref`, kompilator hanya bisa melakukan dereferensi pada
+*reference* `&`. Metode `deref` memberi kompilator kemampuan untuk mengambil
 nilai bertipe apa pun yang mengimplementasikan `Deref` dan memanggil metode
-`deref` untuk mendapatkan reference yang ia tahu cara melakukan dereferensi
+`deref` untuk mendapatkan *reference* yang ia tahu cara melakukan dereferensi
 padanya.
 
 Ketika kita menulis `*y` di Listing 15-9, di belakang layar Rust sebenarnya
@@ -190,14 +190,14 @@ menjalankan kode ini:
 Rust menggantikan operator `*` dengan panggilan ke metode `deref` lalu sebuah
 dereferensi biasa sehingga kita tidak perlu memikirkan apakah kita perlu
 memanggil metode `deref` atau tidak. Fitur Rust ini memungkinkan kita menulis
-kode yang berfungsi identik entah kita memiliki reference biasa ataupun tipe
+kode yang berfungsi identik entah kita memiliki *reference* biasa ataupun tipe
 yang mengimplementasikan `Deref`.
 
-Alasan metode `deref` mengembalikan reference ke nilai, dan dereferensi biasa
+Alasan metode `deref` mengembalikan *reference* ke nilai, dan dereferensi biasa
 di luar tanda kurung pada `*(y.deref())` tetap diperlukan, berkaitan dengan
-sistem ownership. Jika metode `deref` mengembalikan nilainya langsung
-alih-alih reference ke nilai itu, nilai itu akan dipindahkan keluar dari
-`self`. Kita tidak ingin mengambil ownership nilai bagian dalam `MyBox<T>`
+sistem *ownership*. Jika metode `deref` mengembalikan nilainya langsung
+alih-alih *reference* ke nilai itu, nilai itu akan dipindahkan keluar dari
+`self`. Kita tidak ingin mengambil *ownership* nilai bagian dalam `MyBox<T>`
 dalam kasus ini maupun di sebagian besar kasus ketika kita memakai operator
 dereferensi.
 
@@ -214,28 +214,28 @@ pada Listing 15-9.
 
 ### Menggunakan Deref Coercions di dalam Fungsi dan Metode
 
-_Deref coercion_ mengubah sebuah reference ke tipe yang mengimplementasikan
-trait `Deref` menjadi reference ke tipe lain. Sebagai contoh, deref coercion
+_Deref coercion_ mengubah sebuah *reference* ke tipe yang mengimplementasikan
+*trait* `Deref` menjadi *reference* ke tipe lain. Sebagai contoh, *deref coercion*
 dapat mengubah `&String` menjadi `&str` karena `String` mengimplementasikan
-trait `Deref` sedemikian rupa sehingga ia mengembalikan `&str`. Deref coercion
+*trait* `Deref` sedemikian rupa sehingga ia mengembalikan `&str`. *Deref coercion*
 adalah kemudahan yang dilakukan Rust pada argumen fungsi dan metode, dan ia
-hanya bekerja pada tipe yang mengimplementasikan trait `Deref`. Deref coercion
-terjadi secara otomatis ketika kita memberikan reference ke nilai bertipe
+hanya bekerja pada tipe yang mengimplementasikan *trait* `Deref`. *Deref coercion*
+terjadi secara otomatis ketika kita memberikan *reference* ke nilai bertipe
 tertentu sebagai argumen ke fungsi atau metode yang tidak cocok dengan tipe
 parameter dalam definisi fungsi atau metode itu. Serangkaian panggilan ke
 metode `deref` mengubah tipe yang kita berikan menjadi tipe yang dibutuhkan
 parameter.
 
-Deref coercion ditambahkan ke Rust supaya pemrogram yang menulis panggilan
-fungsi dan metode tidak perlu menambahkan sebanyak itu reference dan
-dereferensi eksplisit dengan `&` dan `*`. Fitur deref coercion juga
-memungkinkan kita menulis lebih banyak kode yang dapat bekerja untuk reference
-ataupun smart pointer.
+*Deref coercion* ditambahkan ke Rust supaya pemrogram yang menulis panggilan
+fungsi dan metode tidak perlu menambahkan sebanyak itu *reference* dan
+dereferensi eksplisit dengan `&` dan `*`. Fitur *deref coercion* juga
+memungkinkan kita menulis lebih banyak kode yang dapat bekerja untuk *reference*
+ataupun *smart pointer*.
 
-Untuk melihat deref coercion beraksi, mari kita pakai tipe `MyBox<T>` yang
+Untuk melihat *deref coercion* beraksi, mari kita pakai tipe `MyBox<T>` yang
 kita definisikan di Listing 15-8 serta implementasi `Deref` yang kita
 tambahkan di Listing 15-10. Listing 15-11 menunjukkan definisi fungsi yang
-memiliki parameter string slice.
+memiliki parameter string *slice*.
 
 <Listing number="15-11" file-name="src/main.rs" caption="Fungsi `hello` yang memiliki parameter `name` bertipe `&str`">
 
@@ -245,9 +245,9 @@ memiliki parameter string slice.
 
 </Listing>
 
-Kita dapat memanggil fungsi `hello` dengan string slice sebagai argumen,
-misalnya `hello("Rust");`. Deref coercion memungkinkan pemanggilan `hello`
-dengan reference ke nilai bertipe `MyBox<String>`, seperti ditunjukkan pada
+Kita dapat memanggil fungsi `hello` dengan string *slice* sebagai argumen,
+misalnya `hello("Rust");`. *Deref coercion* memungkinkan pemanggilan `hello`
+dengan *reference* ke nilai bertipe `MyBox<String>`, seperti ditunjukkan pada
 Listing 15-12.
 
 <Listing number="15-12" file-name="src/main.rs" caption="Memanggil `hello` dengan reference ke nilai `MyBox<String>`, yang bekerja karena deref coercion">
@@ -259,14 +259,14 @@ Listing 15-12.
 </Listing>
 
 Di sini kita memanggil fungsi `hello` dengan argumen `&m`, yang merupakan
-reference ke nilai `MyBox<String>`. Karena kita mengimplementasikan trait
+*reference* ke nilai `MyBox<String>`. Karena kita mengimplementasikan *trait*
 `Deref` pada `MyBox<T>` di Listing 15-10, Rust dapat mengubah `&MyBox<String>`
 menjadi `&String` dengan memanggil `deref`. Pustaka standar menyediakan
-implementasi `Deref` pada `String` yang mengembalikan string slice, dan ini
+implementasi `Deref` pada `String` yang mengembalikan string *slice*, dan ini
 ada di dokumentasi API untuk `Deref`. Rust memanggil `deref` lagi untuk
 mengubah `&String` menjadi `&str`, yang cocok dengan definisi fungsi `hello`.
 
-Jika Rust tidak mengimplementasikan deref coercion, kita harus menulis kode di
+Jika Rust tidak mengimplementasikan *deref coercion*, kita harus menulis kode di
 Listing 15-13 alih-alih kode di Listing 15-12 untuk memanggil `hello` dengan
 nilai bertipe `&MyBox<String>`.
 
@@ -279,15 +279,15 @@ nilai bertipe `&MyBox<String>`.
 </Listing>
 
 `(*m)` melakukan dereferensi pada `MyBox<String>` menjadi `String`. Lalu, `&`
-dan `[..]` mengambil string slice dari `String` itu yang sama dengan seluruh
-string untuk mencocokkan tanda tangan `hello`. Kode tanpa deref coercion ini
+dan `[..]` mengambil string *slice* dari `String` itu yang sama dengan seluruh
+string untuk mencocokkan tanda tangan `hello`. Kode tanpa *deref coercion* ini
 lebih sulit dibaca, ditulis, dan dipahami karena semua simbol yang terlibat.
-Deref coercion memungkinkan Rust menangani konversi-konversi itu untuk kita
+*Deref coercion* memungkinkan Rust menangani konversi-konversi itu untuk kita
 secara otomatis.
 
-Ketika trait `Deref` didefinisikan untuk tipe-tipe yang terlibat, Rust akan
+Ketika *trait* `Deref` didefinisikan untuk tipe-tipe yang terlibat, Rust akan
 menganalisis tipe-tipe itu dan memakai `Deref::deref` sebanyak yang
-diperlukan untuk mendapatkan reference yang cocok dengan tipe parameter.
+diperlukan untuk mendapatkan *reference* yang cocok dengan tipe parameter.
 Jumlah pemanggilan `Deref::deref` yang perlu disisipkan diselesaikan pada
 waktu kompilasi, jadi tidak ada denda runtime karena memanfaatkan deref
 coercion!
@@ -298,11 +298,11 @@ coercion!
 
 ### Menangani Deref Coercion dengan Mutable References
 
-Serupa dengan cara Anda memakai trait `Deref` untuk mengganti operator `*`
-pada immutable reference, Anda dapat memakai trait `DerefMut` untuk mengganti
-operator `*` pada mutable reference.
+Serupa dengan cara Anda memakai *trait* `Deref` untuk mengganti operator `*`
+pada *immutable* *reference*, Anda dapat memakai *trait* `DerefMut` untuk mengganti
+operator `*` pada *mutable* *reference*.
 
-Rust melakukan deref coercion ketika ia menemukan tipe dan implementasi trait
+Rust melakukan *deref coercion* ketika ia menemukan tipe dan implementasi *trait*
 dalam tiga kasus:
 
 1. Dari `&T` ke `&U` ketika `T: Deref<Target=U>`
@@ -312,20 +312,20 @@ dalam tiga kasus:
 Dua kasus pertama sama, kecuali bahwa kasus kedua mengimplementasikan
 mutabilitas. Kasus pertama menyatakan bahwa jika Anda memiliki `&T`, dan `T`
 mengimplementasikan `Deref` ke suatu tipe `U`, Anda dapat memperoleh `&U`
-secara transparan. Kasus kedua menyatakan bahwa deref coercion yang sama
-terjadi untuk mutable reference.
+secara transparan. Kasus kedua menyatakan bahwa *deref coercion* yang sama
+terjadi untuk *mutable* *reference*.
 
-Kasus ketiga lebih rumit: Rust juga akan mengoersi mutable reference menjadi
-immutable. Tetapi kebalikannya _tidak_ mungkin: Immutable reference tidak akan
-pernah dikoersi menjadi mutable reference. Karena aturan borrowing, jika Anda
-memiliki mutable reference, mutable reference itu harus menjadi satu-satunya
-reference ke data itu (jika tidak, program tidak akan terkompilasi). Mengubah
-satu mutable reference menjadi satu immutable reference tidak akan pernah
-melanggar aturan borrowing. Mengubah immutable reference menjadi mutable
-reference akan menuntut bahwa immutable reference awal itu adalah satu-satunya
-immutable reference ke data itu, tetapi aturan borrowing tidak menjamin hal
-itu. Karena itu, Rust tidak bisa berasumsi bahwa mengubah immutable reference
-menjadi mutable reference itu mungkin.
+Kasus ketiga lebih rumit: Rust juga akan mengoersi *mutable* *reference* menjadi
+*immutable*. Tetapi kebalikannya _tidak_ mungkin: *Immutable* *reference* tidak akan
+pernah dikoersi menjadi *mutable* *reference*. Karena aturan *borrowing*, jika Anda
+memiliki *mutable* *reference*, *mutable* *reference* itu harus menjadi satu-satunya
+*reference* ke data itu (jika tidak, program tidak akan terkompilasi). Mengubah
+satu *mutable* *reference* menjadi satu *immutable* *reference* tidak akan pernah
+melanggar aturan *borrowing*. Mengubah *immutable* *reference* menjadi *mutable*
+*reference* akan menuntut bahwa *immutable* *reference* awal itu adalah satu-satunya
+*immutable* *reference* ke data itu, tetapi aturan *borrowing* tidak menjamin hal
+itu. Karena itu, Rust tidak bisa berasumsi bahwa mengubah *immutable* *reference*
+menjadi *mutable* *reference* itu mungkin.
 
 [impl-trait]: ch10-02-traits.html#implementing-a-trait-on-a-type
 [tuple-structs]: ch05-01-defining-structs.html#creating-different-types-with-tuple-structs

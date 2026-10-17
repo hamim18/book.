@@ -1,30 +1,30 @@
 ## Penghentian yang Rapi dan Pembersihan
 
 Kode di Listing 21-20 merespons permintaan secara asinkron melalui
-pemakaian thread pool, seperti yang kita maksudkan. Kita mendapat beberapa
-peringatan tentang field `workers`, `id`, dan `thread` yang tidak kita
+pemakaian *thread pool*, seperti yang kita maksudkan. Kita mendapat beberapa
+peringatan tentang *field* `workers`, `id`, dan `thread` yang tidak kita
 pakai secara langsung yang mengingatkan kita bahwa kita belum membersihkan
 apa pun. Saat kita memakai metode <kbd>ctrl</kbd>-<kbd>C</kbd> yang kurang
 elegan untuk menghentikan thread utama, semua thread lain juga langsung
 dihentikan, bahkan jika mereka sedang berada di tengah-tengah melayani
 sebuah permintaan.
 
-Maka, berikutnya kita akan mengimplementasikan trait `Drop` untuk memanggil
+Maka, berikutnya kita akan mengimplementasikan *trait* `Drop` untuk memanggil
 `join` pada setiap thread di pool supaya mereka bisa menyelesaikan
 permintaan yang sedang mereka kerjakan sebelum menutup. Lalu, kita akan
 mengimplementasikan cara untuk memberi tahu thread-thread itu bahwa mereka
 harus berhenti menerima permintaan baru dan menghentikan diri. Untuk
 melihat kode ini bekerja, kita akan mengubah server kita untuk hanya
-menerima dua permintaan sebelum menghentikan thread pool-nya dengan rapi.
+menerima dua permintaan sebelum menghentikan *thread pool*-nya dengan rapi.
 
 Satu hal yang perlu diperhatikan selama kita melakukannya: Tidak satu pun
-dari ini memengaruhi bagian kode yang menangani eksekusi closure, jadi
-semua yang ada di sini akan sama jika kita memakai thread pool untuk
+dari ini memengaruhi bagian kode yang menangani eksekusi *closure*, jadi
+semua yang ada di sini akan sama jika kita memakai *thread pool* untuk
 runtime async.
 
 ### Mengimplementasikan Trait `Drop` pada `ThreadPool`
 
-Mari kita mulai dengan mengimplementasikan `Drop` pada thread pool kita.
+Mari kita mulai dengan mengimplementasikan `Drop` pada *thread pool* kita.
 Ketika pool itu dibebaskan, thread-thread kita seharusnya semuanya melakukan
 join untuk memastikan mereka menyelesaikan pekerjaan mereka. Listing 21-22
 menunjukkan percobaan pertama implementasi `Drop`; kode ini belum akan
@@ -38,8 +38,8 @@ bekerja.
 
 </Listing>
 
-Pertama, kita melakukan loop melalui setiap `workers` pada thread pool.
-Kita memakai `&mut` untuk ini karena `self` adalah reference mutable, dan
+Pertama, kita melakukan loop melalui setiap `workers` pada *thread pool*.
+Kita memakai `&mut` untuk ini karena `self` adalah *reference* *mutable*, dan
 kita juga perlu bisa mengubah `worker`. Untuk setiap `worker`, kita
 mencetak pesan yang menyatakan bahwa instance `Worker` tertentu ini sedang
 menghentikan diri, lalu kita memanggil `join` pada thread instance
@@ -53,8 +53,8 @@ Berikut galat yang kita dapat saat mengompilasi kode ini:
 ```
 
 Galat itu memberi tahu kita bahwa kita tidak bisa memanggil `join` karena
-kita hanya punya peminjaman mutable untuk setiap `worker` dan `join`
-mengambil ownership atas argumennya. Untuk menyelesaikan masalah ini, kita
+kita hanya punya peminjaman *mutable* untuk setiap `worker` dan `join`
+mengambil *ownership* atas argumennya. Untuk menyelesaikan masalah ini, kita
 perlu memindahkan thread keluar dari instance `Worker` yang memiliki
 `thread` supaya `join` bisa mengonsumsi thread itu. Salah satu caranya
 adalah mengambil pendekatan yang sama seperti yang kita ambil di Listing
@@ -66,7 +66,7 @@ lain, `Worker` yang sedang berjalan akan memiliki varian `Some` di
 dengan `None` supaya `Worker` itu tidak memiliki thread untuk dijalankan.
 
 Akan tetapi, satu-satunya saat hal ini muncul hanyalah ketika membebaskan
-`Worker`. Sebagai gantinya, kita harus berurusan dengan
+`Worker`. Sebagai imbalannya, kita harus berurusan dengan
 `Option<thread::JoinHandle<()>>` di mana pun kita mengakses
 `worker.thread`. Rust yang idiomatis memang cukup sering memakai `Option`,
 tetapi ketika Anda mendapati diri Anda membungkus sesuatu yang Anda tahu
@@ -76,7 +76,7 @@ dan tidak terlalu rawan galat.
 
 Dalam kasus ini, ada alternatif yang lebih baik: metode `Vec::drain`.
 Metode ini menerima parameter range untuk menentukan item-item mana yang
-akan dihapus dari vektor dan mengembalikan iterator berisi item-item itu.
+akan dihapus dari vektor dan mengembalikan *iterator* berisi item-item itu.
 Memberikan sintaks range `..` akan menghapus *semua* nilai dari vektor.
 
 Jadi, kita perlu memperbarui implementasi `drop` pada `ThreadPool` menjadi
@@ -101,7 +101,7 @@ direkomendasikan untuk kode produksi.
 
 Dengan semua perubahan yang kita buat, kode kita terkompilasi tanpa
 peringatan apa pun. Akan tetapi, kabar buruknya adalah kode ini belum
-berfungsi seperti yang kita inginkan. Kuncinya adalah logika di closure
+berfungsi seperti yang kita inginkan. Kuncinya adalah logika di *closure*
 yang dijalankan oleh thread-thread dari instance `Worker`: Saat ini, kita
 memanggil `join`, tetapi itu tidak akan menghentikan thread-thread itu,
 karena mereka melakukan `loop` selamanya mencari pekerjaan. Jika kita
@@ -126,7 +126,7 @@ dari `ThreadPool` dengan `Option::take`.
 
 </Listing>
 
-Membebaskan `sender` menutup channel, yang menandakan bahwa tidak akan ada
+Membebaskan `sender` menutup *channel*, yang menandakan bahwa tidak akan ada
 lagi pesan yang dikirim. Ketika itu terjadi, semua pemanggilan `recv` yang
 dilakukan instance `Worker` di loop tak berujung itu akan mengembalikan
 galat. Di Listing 21-24, kita mengubah loop `Worker` untuk keluar dari loop
@@ -157,8 +157,8 @@ Anda tidak akan ingin server web di dunia nyata berhenti setelah melayani
 hanya dua permintaan. Kode ini hanya menunjukkan bahwa penghentian yang
 rapi dan pembersihannya bekerja dengan baik.
 
-Metode `take` didefinisikan di trait `Iterator` dan membatasi iterasi
-paling banyak ke dua item pertama. `ThreadPool` akan keluar dari scope di
+Metode `take` didefinisikan di *trait* `Iterator` dan membatasi iterasi
+paling banyak ke dua item pertama. `ThreadPool` akan keluar dari *scope* di
 akhir `main`, dan implementasi `drop` akan berjalan.
 
 Mulai server dengan `cargo run` dan buat tiga permintaan. Permintaan ketiga
@@ -201,7 +201,7 @@ setelah koneksi kedua, dan implementasi `Drop` pada `ThreadPool` mulai
 dieksekusi bahkan sebelum `Worker 3` memulai pekerjaannya. Membebaskan
 `sender` memutuskan semua instance `Worker` dan memberi tahu mereka untuk
 menghentikan diri. Setiap instance `Worker` mencetak pesan saat mereka
-terputus, lalu thread pool memanggil `join` untuk menunggu setiap thread
+terputus, lalu *thread pool* memanggil `join` untuk menunggu setiap thread
 `Worker` selesai.
 
 Perhatikan satu aspek menarik dari eksekusi khusus ini: `ThreadPool`
@@ -214,7 +214,7 @@ galat. Ketika `Worker 0` selesai, thread utama menunggu sisa instance
 loop-nya dan berhenti.
 
 Selamat! Sekarang kita telah menyelesaikan proyek kita; kita punya server
-web dasar yang memakai thread pool untuk merespons secara asinkron. Kita
+web dasar yang memakai *thread pool* untuk merespons secara asinkron. Kita
 bisa melakukan penghentian server yang rapi, yang membersihkan semua thread
 di pool.
 
@@ -247,8 +247,8 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
 - Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
   permintaan web.
 - Menemukan crate thread pool di [crates.io](https://crates.io/)<!-- ignore -->
-  dan mengimplementasikan server web yang serupa dengan memakai crate itu.
-  Lalu, bandingkan API dan ketangguhannya dengan thread pool yang kita
+  dan mengimplementasikan server web yang serupa dengan memakai *crate* itu.
+  Lalu, bandingkan API dan ketangguhannya dengan *thread pool* yang kita
   implementasikan.
 
 ## Ringkasan

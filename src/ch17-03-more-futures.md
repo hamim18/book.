@@ -6,17 +6,17 @@
 
 Ingat kembali dari bagian [“Program Async Pertama Kita”][async-program]<!-- ignore -->
 bahwa di setiap await point, Rust memberi runtime kesempatan untuk menjeda
-task dan beralih ke task lain jika future yang sedang ditunggu belum siap.
+*task* dan beralih ke *task* lain jika *future* yang sedang ditunggu belum siap.
 Kebalikannya juga benar: Rust _hanya_ menjeda blok async dan menyerahkan
 kontrol kembali ke runtime di await point. Semua yang berada di antara
 await point bersifat sinkron.
 
 Artinya, jika Anda mengerjakan banyak pekerjaan di dalam blok async tanpa
-await point, future itu akan menghalangi future-future lain untuk membuat
-kemajuan. Anda mungkin pernah mendengar ini disebut sebagai sebuah future yang
-membuat future lain _kelaparan_. Dalam beberapa kasus, hal itu mungkin bukan
+await point, *future* itu akan menghalangi *future*-future lain untuk membuat
+kemajuan. Anda mungkin pernah mendengar ini disebut sebagai sebuah *future* yang
+membuat *future* lain _kelaparan_. Dalam beberapa kasus, hal itu mungkin bukan
 masalah besar. Akan tetapi, jika Anda sedang melakukan semacam persiapan yang
-mahal atau pekerjaan yang berjalan lama, atau jika Anda punya future yang akan
+mahal atau pekerjaan yang berjalan lama, atau jika Anda punya *future* yang akan
 terus-menerus mengerjakan suatu tugas tanpa henti, Anda perlu memikirkan kapan
 dan di mana menyerahkan kontrol kembali ke runtime.
 
@@ -38,7 +38,7 @@ Kita bisa memakai `slow` untuk mewakili operasi dunia nyata yang berjalan lama
 sekaligus memblokir.
 
 Di Listing 17-15, kita memakai `slow` untuk menirukan pengerjaan pekerjaan
-bertipe CPU-bound semacam ini pada sepasang future.
+bertipe CPU-bound semacam ini pada sepasang *future*.
 
 <Listing number="17-15" caption="Memanggil fungsi `slow` untuk mensimulasikan operasi yang lambat" file-name="src/main.rs">
 
@@ -48,7 +48,7 @@ bertipe CPU-bound semacam ini pada sepasang future.
 
 </Listing>
 
-Setiap future menyerahkan kontrol kembali ke runtime hanya _setelah_
+Setiap *future* menyerahkan kontrol kembali ke runtime hanya _setelah_
 melakukan serangkaian operasi lambat. Jika Anda menjalankan kode ini, Anda
 akan melihat output berikut:
 
@@ -72,19 +72,19 @@ copy just the output
 ```
 
 Sama seperti Listing 17-5 tempat kita memakai `trpl::select` untuk
-mempertandingkan future yang mengambil dua URL, `select` tetap selesai begitu
+mempertandingkan *future* yang mengambil dua URL, `select` tetap selesai begitu
 `a` tuntas. Akan tetapi, tidak ada penyelangan antara pemanggilan `slow` di
-kedua future itu. Future `a` mengerjakan semua pekerjaannya sampai pemanggilan
-`trpl::sleep` ditunggu, lalu future `b` mengerjakan semua pekerjaannya sampai
-pemanggilan `trpl::sleep`-nya sendiri ditunggu, dan akhirnya future `a`
-selesai. Untuk memungkinkan kedua future membuat kemajuan di antara
+kedua *future* itu. *Future* `a` mengerjakan semua pekerjaannya sampai pemanggilan
+`trpl::sleep` ditunggu, lalu *future* `b` mengerjakan semua pekerjaannya sampai
+pemanggilan `trpl::sleep`-nya sendiri ditunggu, dan akhirnya *future* `a`
+selesai. Untuk memungkinkan kedua *future* membuat kemajuan di antara
 tugas-tugas lambat mereka, kita butuh await point supaya bisa menyerahkan
 kontrol kembali ke runtime. Itu berarti kita butuh sesuatu yang bisa kita
 tunggu!
 
 Kita sebenarnya sudah bisa melihat penyerahan semacam ini terjadi di Listing
-17-15: jika kita menghapus `trpl::sleep` di akhir future `a`, future itu akan
-selesai tanpa future `b` berjalan _sama sekali_. Mari kita coba memakai fungsi
+17-15: jika kita menghapus `trpl::sleep` di akhir *future* `a`, *future* itu akan
+selesai tanpa *future* `b` berjalan _sama sekali_. Mari kita coba memakai fungsi
 `trpl::sleep` sebagai titik awal untuk membiarkan operasi saling bergantian
 membuat kemajuan, seperti yang ditunjukkan di Listing 17-16.
 
@@ -97,7 +97,7 @@ membuat kemajuan, seperti yang ditunjukkan di Listing 17-16.
 </Listing>
 
 Kita telah menambahkan pemanggilan `trpl::sleep` dengan await point di antara
-setiap pemanggilan `slow`. Sekarang pekerjaan kedua future saling menyelang:
+setiap pemanggilan `slow`. Sekarang pekerjaan kedua *future* saling menyelang:
 
 <!-- manual-regeneration
 cd listings/ch17-async-await/listing-17-16
@@ -117,9 +117,9 @@ copy just the output
 'a' finished.
 ```
 
-Future `a` tetap berjalan sebentar sebelum menyerahkan kontrol ke `b`, karena
+*Future* `a` tetap berjalan sebentar sebelum menyerahkan kontrol ke `b`, karena
 ia memanggil `slow` sebelum pernah memanggil `trpl::sleep`, tetapi setelah itu
-kedua future saling bergantian setiap kali salah satunya mencapai await point.
+kedua *future* saling bergantian setiap kali salah satunya mencapai await point.
 Dalam kasus ini, kita melakukannya setelah setiap pemanggilan `slow`, tetapi
 kita bisa memecah pekerjaan itu dengan cara apa pun yang paling masuk akal
 bagi kita.
@@ -150,8 +150,8 @@ bergantung pada apa lagi yang sedang dikerjakan program Anda, karena async
 menyediakan alat yang berguna untuk menstrukturkan hubungan antara berbagai
 bagian program (tetapi dengan membayar overhead state machine async). Ini
 adalah bentuk _cooperative multitasking_ (multitasking kooperatif), tempat
-setiap future punya kuasa untuk menentukan kapan ia menyerahkan kontrol
-melalui await point. Karena itu, setiap future juga punya tanggung jawab untuk
+setiap *future* punya kuasa untuk menentukan kapan ia menyerahkan kontrol
+melalui await point. Karena itu, setiap *future* juga punya tanggung jawab untuk
 menghindari pemblokiran terlalu lama. Di sebagian sistem operasi tertanam
 berbasis Rust, ini adalah _satu-satunya_ jenis multitasking!
 
@@ -168,13 +168,13 @@ berjalan serial padahal Anda mengharapkannya berjalan konkuren!
 <a id="building-our-own-async-abstractions"></a>
 ### Membangun Abstraksi Async Kita Sendiri
 
-Kita juga bisa menyusun future bersama-sama untuk menciptakan pola baru.
+Kita juga bisa menyusun *future* bersama-sama untuk menciptakan pola baru.
 Contohnya, kita bisa membangun fungsi `timeout` dengan batu penyusun async
 yang sudah kita miliki. Saat selesai, hasilnya akan menjadi batu penyusun lain
 yang bisa kita pakai untuk menciptakan lebih banyak abstraksi async.
 
 Listing 17-18 menunjukkan bagaimana kita mengharapkan `timeout` ini bekerja
-dengan sebuah future yang lambat.
+dengan sebuah *future* yang lambat.
 
 <Listing number="17-18" caption="Memakai `timeout` khayalan kita untuk menjalankan operasi lambat dengan batas waktu" file-name="src/main.rs">
 
@@ -188,12 +188,12 @@ Mari kita implementasikan ini! Sebagai permulaan, mari kita pikirkan API
 untuk `timeout`:
 
 - Fungsi ini harus berupa fungsi async supaya kita bisa menunggunya.
-- Parameter pertamanya harus berupa future yang akan dijalankan. Kita bisa
-  membuatnya generik supaya bisa bekerja dengan future apa pun.
+- Parameter pertamanya harus berupa *future* yang akan dijalankan. Kita bisa
+  membuatnya generik supaya bisa bekerja dengan *future* apa pun.
 - Parameter keduanya adalah waktu maksimum untuk menunggu. Jika kita memakai
   `Duration`, itu akan memudahkan kita meneruskannya ke `trpl::sleep`.
-- Fungsi ini harus mengembalikan `Result`. Jika future itu selesai dengan
-  sukses, `Result`-nya adalah `Ok` beserta nilai yang dihasilkan future
+- Fungsi ini harus mengembalikan `Result`. Jika *future* itu selesai dengan
+  sukses, `Result`-nya adalah `Ok` beserta nilai yang dihasilkan *future*
   tersebut. Jika batas waktunya habis lebih dulu, `Result`-nya adalah `Err`
   beserta durasi yang ditunggu timeout itu.
 
@@ -210,10 +210,10 @@ Listing 17-19 menunjukkan deklarasi ini.
 </Listing>
 
 Itu memenuhi tujuan kita untuk tipe-tipenya. Sekarang mari kita pikirkan
-_perilaku_ yang kita butuhkan: kita ingin mempertandingkan future yang
+_perilaku_ yang kita butuhkan: kita ingin mempertandingkan *future* yang
 diteruskan melawan durasinya. Kita bisa memakai `trpl::sleep` untuk membuat
-sebuah future timer dari durasi itu, dan memakai `trpl::select` untuk
-menjalankan timer itu bersama future yang diteruskan pemanggil.
+sebuah *future* timer dari durasi itu, dan memakai `trpl::select` untuk
+menjalankan timer itu bersama *future* yang diteruskan pemanggil.
 
 Di Listing 17-20, kita mengimplementasikan `timeout` dengan melakukan `match`
 pada hasil penungguan `trpl::select`.
@@ -248,18 +248,18 @@ kegagalannya setelah batas waktu habis:
 Failed after 2 seconds
 ```
 
-Karena future dapat disusun dengan future lain, Anda bisa membangun alat yang
+Karena *future* dapat disusun dengan *future* lain, Anda bisa membangun alat yang
 benar-benar hebat menggunakan batu penyusun async yang lebih kecil. Contohnya,
 Anda bisa memakai pendekatan yang sama ini untuk menggabungkan timeout dengan
 percobaan ulang, dan selanjutnya memakai keduanya dengan operasi seperti
 pemanggilan jaringan (seperti di Listing 17-5).
 
 Dalam praktiknya, Anda biasanya akan bekerja langsung dengan `async` dan
-`await`, dan sebagai pelengkap dengan fungsi seperti `select` serta macro
-seperti macro `join!` untuk mengontrol cara future-future terluar dijalankan.
+`await`, dan sebagai pelengkap dengan fungsi seperti `select` serta *macro*
+seperti *macro* `join!` untuk mengontrol cara *future*-future terluar dijalankan.
 
-Sekarang kita telah melihat sejumlah cara untuk bekerja dengan banyak future
+Sekarang kita telah melihat sejumlah cara untuk bekerja dengan banyak *future*
 pada saat yang sama. Berikutnya, kita akan melihat cara bekerja dengan banyak
-future dalam sebuah urutan seiring waktu dengan _stream_.
+*future* dalam sebuah urutan seiring waktu dengan _stream_.
 
 [async-program]: ch17-01-futures-and-syntax.html#our-first-async-program

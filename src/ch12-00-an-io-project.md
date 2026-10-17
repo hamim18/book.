@@ -12,7 +12,7 @@ proyek kita, kita akan membuat versi kita sendiri dari alat pencarian baris
 perintah klasik `grep` (**g**lobally search a **r**egular **e**xpression and
 **p**rint, mencari secara global sebuah ekspresi reguler lalu mencetaknya).
 Pada kasus penggunaan paling sederhana, `grep` mencari sebuah string tertentu
-di dalam sebuah file tertentu. Untuk melakukannya, `grep` menerima sebuah path
+di dalam sebuah file tertentu. Untuk melakukannya, `grep` menerima sebuah *path*
 file dan sebuah string sebagai argumennya. Kemudian, ia membaca file tersebut,
 menemukan baris-baris di dalam file itu yang memuat string argumen tersebut,
 dan mencetak baris-baris itu.

@@ -14,10 +14,10 @@ mengekspresikan kode dalam bentuk titik-titik yang mungkin dijeda dan hasil
 yang pada akhirnya diperoleh, sambil mengurus detail koordinasinya untuk kita.
 
 Bab ini melanjutkan pemakaian thread untuk paralelisme dan konkurensi di Bab 16
-dengan memperkenalkan pendekatan alternatif dalam menulis kode: futures,
-streams, dan sintaks `async` serta `await` dari Rust yang memungkinkan kita
+dengan memperkenalkan pendekatan alternatif dalam menulis kode: *futures*,
+*streams*, dan sintaks `async` serta `await` dari Rust yang memungkinkan kita
 mengekspresikan bagaimana sebuah operasi bisa berjalan asinkron, berikut
-crate-crate pihak ketiga yang mengimplementasikan runtime asinkron: kode yang
+*crate*-crate pihak ketiga yang mengimplementasikan runtime asinkron: kode yang
 mengelola dan mengoordinasikan eksekusi operasi-operasi asinkron.
 
 Mari kita lihat sebuah contoh. Katakan Anda sedang mengekspor video perayaan
@@ -73,7 +73,7 @@ Kita bisa menghindari pemblokiran thread utama dengan membuat sebuah thread
 khusus untuk mengunduh setiap file. Namun, overhead sumber daya sistem yang
 dipakai thread-thread itu pada akhirnya akan menjadi masalah. Akan lebih baik
 bila pemanggilannya sejak awal tidak memblokir, dan sebagai gantinya kita bisa
-mendefinisikan sejumlah task yang ingin diselesaikan program kita, lalu
+mendefinisikan sejumlah *task* yang ingin diselesaikan program kita, lalu
 membiarkan runtime memilih urutan dan cara terbaik untuk menjalankannya.
 
 Itulah tepatnya yang diberikan abstraksi async (singkatan dari asynchronous)
@@ -113,7 +113,7 @@ keduanya (lihat Gambar 17-1).
 
 <img src="img/trpl17-01.svg" class="center" alt="Diagram dengan kotak bertumpuk berlabel Task A dan Task B, dengan belah ketupat di dalamnya yang mewakili subtugas. Panah menunjuk dari A1 ke B1, B1 ke A2, A2 ke B2, B2 ke A3, A3 ke A4, dan A4 ke B3. Panah-panah di antara subtugas itu melintasi kotak di antara Task A dan Task B." />
 
-<figcaption>Gambar 17-1: Alur kerja konkuren, beralih antara Task A dan Task B</figcaption>
+<figcaption>Gambar 17-1: Alur kerja konkuren, beralih antara *Task* A dan *Task* B</figcaption>
 
 </figure>
 
@@ -125,7 +125,7 @@ tim bisa membuat kemajuan pada saat yang persis sama (lihat Gambar 17-2).
 
 <img src="img/trpl17-02.svg" class="center" alt="Diagram dengan kotak bertumpuk berlabel Task A dan Task B, dengan belah ketupat di dalamnya yang mewakili subtugas. Panah menunjuk dari A1 ke A2, A2 ke A3, A3 ke A4, B1 ke B2, dan B2 ke B3. Tidak ada panah yang melintas di antara kotak Task A dan Task B." />
 
-<figcaption>Gambar 17-2: Alur kerja paralel, tempat pekerjaan pada Task A dan Task B berlangsung secara independen</figcaption>
+<figcaption>Gambar 17-2: Alur kerja paralel, tempat pekerjaan pada *Task* A dan *Task* B berlangsung secara independen</figcaption>
 
 </figure>
 
@@ -141,7 +141,7 @@ tugas berikutnya, seperti pada Gambar 17-3.
 
 <img src="img/trpl17-03.svg" class="center" alt="Diagram dengan kotak bertumpuk berlabel Task A dan Task B, dengan belah ketupat di dalamnya yang mewakili subtugas. Pada Task A, panah menunjuk dari A1 ke A2, dari A2 ke sepasang garis vertikal tebal seperti simbol “pause”, dan dari simbol itu ke A3. Pada Task B, panah menunjuk dari B1 ke B2, dari B2 ke B3, dari B3 ke A3, dan dari B3 ke B4." />
 
-<figcaption>Gambar 17-3: Alur kerja yang sebagian paralel, tempat pekerjaan pada Task A dan Task B berlangsung secara independen sampai Task A3 terblokir menunggu hasil Task B3</figcaption>
+<figcaption>Gambar 17-3: Alur kerja yang sebagian paralel, tempat pekerjaan pada *Task* A dan *Task* B berlangsung secara independen sampai *Task* A3 terblokir menunggu hasil *Task* B3</figcaption>
 
 </figure>
 
@@ -159,7 +159,7 @@ tugas-tugas Anda sendiri.
 Dinamika dasar yang sama berlaku pada perangkat lunak dan perangkat keras.
 Pada mesin dengan satu inti CPU, CPU hanya bisa menjalankan satu operasi pada
 satu waktu, tetapi ia tetap bisa bekerja secara konkuren. Dengan memakai
-alat-alat seperti thread, process, dan async, komputer bisa menjeda satu
+alat-alat seperti thread, *process*, dan async, komputer bisa menjeda satu
 aktivitas dan beralih ke aktivitas lain sebelum akhirnya kembali ke aktivitas
 pertama itu. Pada mesin dengan beberapa inti CPU, komputer juga bisa bekerja
 secara paralel. Satu inti bisa mengerjakan satu tugas sementara inti lain

@@ -1,14 +1,14 @@
 ## Lampiran B: Operator dan Simbol
 
 Lampiran ini memuat glosarium sintaks Rust, termasuk operator dan simbol lain
-yang muncul sendiri-sendiri atau dalam konteks path, generics, trait bound,
-macro, atribut, komentar, tuple, dan tanda kurung.
+yang muncul sendiri-sendiri atau dalam konteks *path*, *generics*, *trait bound*,
+*macro*, atribut, komentar, *tuple*, dan tanda kurung.
 
 ### Operator
 
 Tabel B-1 memuat operator-operator di Rust, contoh bagaimana operator itu muncul
 dalam konteks, penjelasan singkat, dan apakah operator tersebut dapat
-di-overload. Jika suatu operator dapat di-overload, trait yang relevan untuk
+di-overload. Jika suatu operator dapat di-overload, *trait* yang relevan untuk
 meng-overload operator itu dicantumkan.
 
 <span class="caption">Tabel B-1: Operator</span>
@@ -97,10 +97,10 @@ lokasi.
 | `!`                                                                    | Tipe bottom yang selalu kosong untuk fungsi divergen                                             |
 | `_`                                                                    | Pengikatan pola “yang diabaikan”; juga dipakai untuk membuat literal integer mudah dibaca        |
 
-Tabel B-3 menunjukkan simbol yang muncul dalam konteks path menuju suatu item
-melalui hierarki module.
+Tabel B-3 menunjukkan simbol yang muncul dalam konteks *path* menuju suatu item
+melalui hierarki *module*.
 
-<span class="caption">Tabel B-3: Sintaks Terkait Path</span>
+<span class="caption">Tabel B-3: Sintaks Terkait *Path*</span>
 
 | Symbol                                  | Penjelasan                                                                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -117,7 +117,7 @@ melalui hierarki module.
 Tabel B-4 menunjukkan simbol yang muncul dalam konteks pemakaian parameter
 tipe generik.
 
-<span class="caption">Tabel B-4: Generics</span>
+<span class="caption">Tabel B-4: *Generics*</span>
 
 | Symbol                         | Penjelasan                                                                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -131,9 +131,9 @@ tipe generik.
 | `type<ident=type>`             | Tipe generik yang satu atau beberapa associated type-nya memiliki penetapan spesifik (misalnya, `Iterator<Item=T>`)                                            |
 
 Tabel B-5 menunjukkan simbol yang muncul dalam konteks pembatasan parameter
-tipe generik dengan trait bound.
+tipe generik dengan *trait bound*.
 
-<span class="caption">Tabel B-5: Batasan Trait Bound</span>
+<span class="caption">Tabel B-5: Batasan *Trait Bound*</span>
 
 | Symbol                        | Penjelasan                                                                                                                                              |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -145,9 +145,9 @@ tipe generik dengan trait bound.
 | `'a + trait`, `trait + trait` | Batasan tipe majemuk                                                                                                                                     |
 
 Tabel B-6 menunjukkan simbol yang muncul dalam konteks pemanggilan atau
-pendefinisian macro dan penentuan atribut pada suatu item.
+pendefinisian *macro* dan penentuan atribut pada suatu item.
 
-<span class="caption">Tabel B-6: Macro dan Atribut</span>
+<span class="caption">Tabel B-6: *Macro* dan Atribut</span>
 
 | Symbol                                      | Penjelasan         |
 | ------------------------------------------- | ------------------ |

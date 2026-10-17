@@ -168,9 +168,9 @@ Ekspresi di dalam blok `if` mengevaluasi menjadi integer, dan ekspresi di
 dalam blok `else` mengevaluasi menjadi string. Ini tidak akan berhasil, karena
 variabel harus memiliki satu tipe, dan Rust perlu tahu secara pasti pada waktu
 kompilasi tipe apa variabel `number` itu. Mengetahui tipe `number`
-memungkinkan compiler memverifikasi bahwa tipenya valid di semua tempat kita
+memungkinkan *compiler* memverifikasi bahwa tipenya valid di semua tempat kita
 memakai `number`. Rust tidak akan mampu melakukannya jika tipe `number` hanya
-ditentukan pada saat runtime; compiler akan menjadi lebih rumit dan memberikan
+ditentukan pada saat runtime; *compiler* akan menjadi lebih rumit dan memberikan
 jaminan yang lebih sedikit tentang kodenya jika ia harus melacak beberapa tipe
 hipotetis untuk setiap variabel.
 

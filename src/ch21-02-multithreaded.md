@@ -36,7 +36,7 @@ selama lima detik sebelum merespons.
 </Listing>
 
 Kita beralih dari `if` ke `match` sekarang setelah kita punya tiga kasus.
-Kita perlu mencocokkan secara eksplisit terhadap slice dari `request_line`
+Kita perlu mencocokkan secara eksplisit terhadap *slice* dari `request_line`
 untuk mencocokkan pola dengan nilai string literalnya; `match` tidak
 melakukan referencing dan dereferencing otomatis, seperti yang dilakukan
 metode kesamaan.
@@ -70,7 +70,7 @@ akan memproses tugasnya. Thread-thread tersisa di pool tersedia untuk
 menangani tugas lain apa pun yang masuk sementara thread pertama sedang
 memproses. Ketika thread pertama selesai memproses tugasnya, ia
 dikembalikan ke kumpulan thread yang menganggur, siap menangani tugas baru.
-Thread pool memungkinkan Anda memproses koneksi secara konkuren, sehingga
+*Thread pool* memungkinkan Anda memproses koneksi secara konkuren, sehingga
 throughput server Anda meningkat.
 
 Kita akan membatasi jumlah thread di pool menjadi angka kecil untuk
@@ -97,7 +97,7 @@ multithreaded. Jika Anda tertarik dengan topik ini, Anda bisa membaca lebih
 banyak tentang solusi-solusi lain dan mencoba mengimplementasikannya;
 dengan bahasa tingkat rendah seperti Rust, semua pilihan ini dimungkinkan.
 
-Sebelum kita mulai mengimplementasikan thread pool, mari kita bicarakan
+Sebelum kita mulai mengimplementasikan *thread pool*, mari kita bicarakan
 seperti apa pemakaian pool itu seharusnya. Saat Anda mencoba mendesain
 kode, menulis antarmuka client terlebih dahulu bisa membantu memandu desain
 Anda. Tulis API kodenya supaya terstruktur sesuai cara Anda ingin
@@ -124,11 +124,11 @@ membuat thread baru untuk setiap koneksi. Seperti yang disebutkan
 sebelumnya, ini bukan rencana akhir kita karena ada masalah dengan
 kemungkinan membuat thread dalam jumlah tak terbatas, tetapi ini adalah
 titik awal untuk mendapatkan server multithreaded yang bekerja terlebih
-dahulu. Lalu, kita akan menambahkan thread pool sebagai penyempurnaan, dan
+dahulu. Lalu, kita akan menambahkan *thread pool* sebagai penyempurnaan, dan
 membandingkan kedua solusi itu akan menjadi lebih mudah.
 
 Listing 21-11 menunjukkan perubahan yang harus dilakukan pada `main` untuk
-membuat thread baru yang menangani setiap stream di dalam loop `for`.
+membuat thread baru yang menangani setiap *stream* di dalam loop `for`.
 
 <Listing number="21-11" file-name="src/main.rs" caption="Membuat thread baru untuk setiap stream">
 
@@ -139,7 +139,7 @@ membuat thread baru yang menangani setiap stream di dalam loop `for`.
 </Listing>
 
 Seperti yang Anda pelajari di Bab 16, `thread::spawn` akan membuat thread
-baru lalu menjalankan kode di closure itu di thread baru. Jika Anda
+baru lalu menjalankan kode di *closure* itu di thread baru. Jika Anda
 menjalankan kode ini dan memuat _/sleep_ di peramban Anda, lalu _/_ di dua
 tab peramban lagi, Anda memang akan melihat bahwa permintaan ke _/_ tidak
 harus menunggu _/sleep_ selesai. Akan tetapi, seperti yang kami sebutkan,
@@ -148,7 +148,7 @@ tanpa batas.
 
 Anda mungkin juga ingat dari Bab 17 bahwa ini persis jenis situasi di mana
 async dan await benar-benar bersinar! Ingatlah itu sambil kita membangun
-thread pool dan pikirkan bagaimana semuanya akan tampak berbeda atau sama
+*thread pool* dan pikirkan bagaimana semuanya akan tampak berbeda atau sama
 dengan async.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -158,10 +158,10 @@ dengan async.
 <a id="creating-a-finite-number-of-threads"></a>
 #### Membuat Thread dalam Jumlah Terbatas
 
-Kita ingin thread pool kita bekerja dengan cara yang serupa dan familier
-sehingga peralihan dari thread ke thread pool tidak memerlukan perubahan
+Kita ingin *thread pool* kita bekerja dengan cara yang serupa dan familier
+sehingga peralihan dari thread ke *thread pool* tidak memerlukan perubahan
 besar pada kode yang memakai API kita. Listing 21-12 menunjukkan antarmuka
-hipotetis untuk struct `ThreadPool` yang ingin kita pakai alih-alih
+hipotetis untuk *struct* `ThreadPool` yang ingin kita pakai alih-alih
 `thread::spawn`.
 
 <Listing number="21-12" file-name="src/main.rs" caption="Antarmuka `ThreadPool` ideal kita">
@@ -172,11 +172,11 @@ hipotetis untuk struct `ThreadPool` yang ingin kita pakai alih-alih
 
 </Listing>
 
-Kita memakai `ThreadPool::new` untuk membuat thread pool baru dengan jumlah
+Kita memakai `ThreadPool::new` untuk membuat *thread pool* baru dengan jumlah
 thread yang dapat dikonfigurasi, dalam kasus ini empat. Lalu, di loop `for`,
 `pool.execute` memiliki antarmuka yang mirip dengan `thread::spawn`, yaitu
-menerima closure yang harus dijalankan pool untuk setiap stream. Kita perlu
-mengimplementasikan `pool.execute` supaya ia menerima closure itu dan
+menerima *closure* yang harus dijalankan pool untuk setiap *stream*. Kita perlu
+mengimplementasikan `pool.execute` supaya ia menerima *closure* itu dan
 memberikannya kepada thread di pool untuk dijalankan. Kode ini belum akan
 terkompilasi, tetapi kita akan mencobanya supaya kompilator bisa memandu
 kita dalam memperbaikinya.
@@ -195,17 +195,17 @@ Berikut galat pertama yang kita dapat:
 {{#include ../listings/ch21-web-server/listing-21-12/output.txt}}
 ```
 
-Bagus! Galat ini memberi tahu kita bahwa kita memerlukan tipe atau module
+Bagus! Galat ini memberi tahu kita bahwa kita memerlukan tipe atau *module*
 `ThreadPool`, jadi sekarang kita akan membangunnya. Implementasi
 `ThreadPool` kita akan tidak bergantung pada jenis pekerjaan yang dilakukan
-server web kita. Jadi, mari kita alihkan crate `hello` dari crate binary
-menjadi crate library untuk menampung implementasi `ThreadPool` kita.
-Setelah kita mengubahnya menjadi crate library, kita juga bisa memakai
-library thread pool terpisah itu untuk pekerjaan apa pun yang ingin kita
-lakukan dengan thread pool, bukan hanya untuk melayani permintaan web.
+server web kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
+menjadi *crate* library untuk menampung implementasi `ThreadPool` kita.
+Setelah kita mengubahnya menjadi *crate* library, kita juga bisa memakai
+library *thread pool* terpisah itu untuk pekerjaan apa pun yang ingin kita
+lakukan dengan *thread pool*, bukan hanya untuk melayani permintaan web.
 
 Buat file _src/lib.rs_ yang berisi hal berikut, yaitu definisi paling
-sederhana dari struct `ThreadPool` yang bisa kita miliki untuk saat ini:
+sederhana dari *struct* `ThreadPool` yang bisa kita miliki untuk saat ini:
 
 <Listing file-name="src/lib.rs">
 
@@ -216,8 +216,8 @@ sederhana dari struct `ThreadPool` yang bisa kita miliki untuk saat ini:
 </Listing>
 
 
-Lalu, sunting file _main.rs_ untuk membawa `ThreadPool` ke dalam scope dari
-crate library dengan menambahkan kode berikut ke bagian atas
+Lalu, sunting file _main.rs_ untuk membawa `ThreadPool` ke dalam *scope* dari
+*crate* library dengan menambahkan kode berikut ke bagian atas
 _src/main.rs_:
 
 <Listing file-name="src/main.rs">
@@ -264,17 +264,17 @@ Mari kita periksa kodenya lagi:
 Sekarang galatnya muncul karena kita tidak punya metode `execute` pada
 `ThreadPool`. Ingat kembali dari seksi [“Membuat Thread dalam Jumlah
 Terbatas”](#creating-a-finite-number-of-threads)<!-- ignore --> bahwa kita
-memutuskan thread pool kita seharusnya memiliki antarmuka yang mirip dengan
+memutuskan *thread pool* kita seharusnya memiliki antarmuka yang mirip dengan
 `thread::spawn`. Selain itu, kita akan mengimplementasikan fungsi `execute`
-supaya ia menerima closure yang diberikan kepadanya dan memberikannya
+supaya ia menerima *closure* yang diberikan kepadanya dan memberikannya
 kepada thread yang menganggur di pool untuk dijalankan.
 
 Kita akan mendefinisikan metode `execute` pada `ThreadPool` untuk menerima
-closure sebagai parameter. Ingat kembali dari [“Memindahkan Nilai yang
+*closure* sebagai parameter. Ingat kembali dari [“Memindahkan Nilai yang
 Ditangkap Keluar dari Closure”][moving-out-of-closures]<!-- ignore --> pada
-Bab 13 bahwa kita bisa menerima closure sebagai parameter dengan tiga trait
+Bab 13 bahwa kita bisa menerima *closure* sebagai parameter dengan tiga *trait*
 yang berbeda: `Fn`, `FnMut`, dan `FnOnce`. Kita perlu memutuskan jenis
-closure mana yang dipakai di sini. Kita tahu pada akhirnya kita akan
+*closure* mana yang dipakai di sini. Kita tahu pada akhirnya kita akan
 melakukan sesuatu yang mirip dengan implementasi `thread::spawn` di
 pustaka standar, jadi kita bisa melihat bound apa yang dimiliki tanda
 tangan `thread::spawn` pada parameternya. Dokumentasinya menunjukkan hal
@@ -290,16 +290,16 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 
 Parameter tipe `F` adalah yang menjadi perhatian kita di sini; parameter
 tipe `T` berkaitan dengan nilai kembalian, dan itu bukan perhatian kita.
-Kita bisa melihat bahwa `spawn` memakai `FnOnce` sebagai trait bound pada
+Kita bisa melihat bahwa `spawn` memakai `FnOnce` sebagai *trait bound* pada
 `F`. Kemungkinan besar ini juga yang kita inginkan, karena pada akhirnya
 kita akan meneruskan argumen yang kita dapat di `execute` ke `spawn`. Kita
-bisa semakin yakin bahwa `FnOnce` adalah trait yang ingin kita pakai karena
-thread untuk menjalankan sebuah permintaan hanya akan mengeksekusi closure
+bisa semakin yakin bahwa `FnOnce` adalah *trait* yang ingin kita pakai karena
+thread untuk menjalankan sebuah permintaan hanya akan mengeksekusi *closure*
 permintaan itu satu kali, yang cocok dengan `Once` pada `FnOnce`.
 
-Parameter tipe `F` juga memiliki trait bound `Send` dan bound lifetime
+Parameter tipe `F` juga memiliki *trait bound* `Send` dan bound *lifetime*
 `'static`, yang berguna dalam situasi kita: Kita memerlukan `Send` untuk
-mentransfer closure dari satu thread ke thread lain dan `'static` karena
+mentransfer *closure* dari satu thread ke thread lain dan `'static` karena
 kita tidak tahu berapa lama thread itu akan butuh untuk mengeksekusi. Mari
 kita buat metode `execute` pada `ThreadPool` yang akan menerima parameter
 generik bertipe `F` dengan bound-bound ini:
@@ -313,7 +313,7 @@ generik bertipe `F` dengan bound-bound ini:
 </Listing>
 
 Kita tetap memakai `()` setelah `FnOnce` karena `FnOnce` ini mewakili
-closure yang tidak menerima parameter dan mengembalikan tipe unit `()`.
+*closure* yang tidak menerima parameter dan mengembalikan tipe unit `()`.
 Sama seperti definisi fungsi, tipe kembalian boleh dihilangkan dari tanda
 tangannya, tetapi meskipun kita tidak punya parameter, kita tetap
 memerlukan tanda kurungnya.
@@ -329,7 +329,7 @@ kode kita terkompilasi. Mari kita periksa lagi:
 Ia terkompilasi! Tetapi perhatikan bahwa jika Anda mencoba `cargo run` dan
 membuat permintaan di peramban, Anda akan melihat galat-galat di peramban
 yang kita lihat di awal bab ini. Library kita belum benar-benar memanggil
-closure yang diberikan ke `execute`!
+*closure* yang diberikan ke `execute`!
 
 > Catatan: Pepatah yang mungkin Anda dengar tentang bahasa dengan
 > kompilator yang ketat, seperti Haskell dan Rust, adalah “Jika kodenya
@@ -341,7 +341,7 @@ closure yang diberikan ke `execute`!
 > inginkan.
 
 Pertimbangkan: Apa yang akan berbeda di sini jika kita akan mengeksekusi
-future alih-alih closure?
+*future* alih-alih *closure*?
 
 #### Memvalidasi Jumlah Thread di `new`
 
@@ -354,7 +354,7 @@ dengan nol thread juga tidak masuk akal, padahal nol adalah `usize` yang
 sah sepenuhnya. Kita akan menambahkan kode untuk memeriksa bahwa `size`
 lebih besar daripada nol sebelum kita mengembalikan instance `ThreadPool`,
 dan kita akan membuat program panic jika ia menerima nol dengan memakai
-macro `assert!`, seperti yang ditunjukkan di Listing 21-13.
+*macro* `assert!`, seperti yang ditunjukkan di Listing 21-13.
 
 <Listing number="21-13" file-name="src/lib.rs" caption="Mengimplementasikan `ThreadPool::new` untuk panic jika `size` adalah nol">
 
@@ -368,13 +368,13 @@ Kita juga telah menambahkan sebagian dokumentasi untuk `ThreadPool` kita
 dengan komentar dok. Perhatikan bahwa kita mengikuti praktik dokumentasi
 yang baik dengan menambahkan seksi yang menyebutkan situasi-situasi di mana
 fungsi kita bisa panic, seperti yang dibahas di Bab 14. Coba jalankan
-`cargo doc --open` dan klik struct `ThreadPool` untuk melihat seperti apa
+`cargo doc --open` dan klik *struct* `ThreadPool` untuk melihat seperti apa
 dokumentasi yang dihasilkan untuk `new`!
 
-Alih-alih menambahkan macro `assert!` seperti yang kita lakukan di sini,
+Alih-alih menambahkan *macro* `assert!` seperti yang kita lakukan di sini,
 kita bisa mengubah `new` menjadi `build` dan mengembalikan `Result` seperti
 yang kita lakukan dengan `Config::build` di proyek I/O pada Listing 12-9.
-Tetapi dalam kasus ini kami memutuskan bahwa mencoba membuat thread pool
+Tetapi dalam kasus ini kami memutuskan bahwa mencoba membuat *thread pool*
 tanpa thread apa pun seharusnya merupakan galat yang tidak dapat
 dipulihkan. Jika Anda merasa tertantang, cobalah menulis fungsi bernama
 `build` dengan tanda tangan berikut untuk dibandingkan dengan fungsi `new`:
@@ -387,7 +387,7 @@ pub fn build(size: usize) -> Result<ThreadPool, PoolCreationError> {
 
 Sekarang setelah kita punya cara untuk mengetahui bahwa kita punya jumlah
 thread yang valid untuk disimpan di pool, kita bisa membuat thread-thread
-itu dan menyimpannya di struct `ThreadPool` sebelum mengembalikan struct
+itu dan menyimpannya di *struct* `ThreadPool` sebelum mengembalikan *struct*
 itu. Tetapi bagaimana cara kita “menyimpan” thread? Mari kita lihat lagi
 tanda tangan `thread::spawn`:
 
@@ -400,9 +400,9 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 ```
 
 Fungsi `spawn` mengembalikan `JoinHandle<T>`, dengan `T` adalah tipe yang
-dikembalikan closure itu. Mari kita coba memakai `JoinHandle` juga dan
-lihat apa yang terjadi. Dalam kasus kita, closure yang kita berikan ke
-thread pool akan menangani koneksi dan tidak mengembalikan apa pun, jadi
+dikembalikan *closure* itu. Mari kita coba memakai `JoinHandle` juga dan
+lihat apa yang terjadi. Dalam kasus kita, *closure* yang kita berikan ke
+*thread pool* akan menangani koneksi dan tidak mengembalikan apa pun, jadi
 `T` akan menjadi tipe unit `()`.
 
 Kode di Listing 21-14 akan terkompilasi, tetapi ia belum membuat thread
@@ -420,7 +420,7 @@ yang memuatnya.
 
 </Listing>
 
-Kita telah membawa `std::thread` ke dalam scope di crate library karena
+Kita telah membawa `std::thread` ke dalam *scope* di *crate* library karena
 kita memakai `thread::JoinHandle` sebagai tipe item-item di vektor pada
 `ThreadPool`.
 
@@ -459,25 +459,25 @@ Bayangkan orang-orang yang bekerja di dapur sebuah restoran: Para pekerja
 menunggu sampai pesanan masuk dari pelanggan, lalu mereka bertanggung jawab
 mengambil pesanan-pesanan itu dan memenuhinya.
 
-Alih-alih menyimpan vektor instance `JoinHandle<()>` di thread pool, kita
-akan menyimpan instance struct `Worker`. Setiap `Worker` akan menyimpan
+Alih-alih menyimpan vektor instance `JoinHandle<()>` di *thread pool*, kita
+akan menyimpan instance *struct* `Worker`. Setiap `Worker` akan menyimpan
 satu instance `JoinHandle<()>`. Lalu, kita akan mengimplementasikan metode
-pada `Worker` yang akan menerima closure berisi kode untuk dijalankan dan
+pada `Worker` yang akan menerima *closure* berisi kode untuk dijalankan dan
 mengirimnya ke thread yang sudah berjalan untuk dieksekusi. Kita juga akan
 memberi setiap `Worker` sebuah `id` supaya kita bisa membedakan antara
 instance-instance `Worker` yang berbeda di pool saat logging atau
 debugging.
 
 Berikut proses baru yang akan terjadi ketika kita membuat `ThreadPool`.
-Kita akan mengimplementasikan kode yang mengirim closure ke thread setelah
+Kita akan mengimplementasikan kode yang mengirim *closure* ke thread setelah
 kita menyiapkan `Worker` dengan cara ini:
 
-1. Mendefinisikan struct `Worker` yang menampung `id` dan
+1. Mendefinisikan *struct* `Worker` yang menampung `id` dan
    `JoinHandle<()>`.
 2. Mengubah `ThreadPool` untuk menampung vektor instance `Worker`.
 3. Mendefinisikan fungsi `Worker::new` yang menerima nomor `id` dan
    mengembalikan instance `Worker` yang menampung `id` itu dan sebuah
-   thread yang dibuat dengan closure kosong.
+   thread yang dibuat dengan *closure* kosong.
 4. Di `ThreadPool::new`, memakai pencacah loop `for` untuk menghasilkan
    `id`, membuat `Worker` baru dengan `id` itu, dan menyimpan `Worker`
    tersebut di vektor.
@@ -496,63 +496,63 @@ modifikasi-modifikasi sebelumnya.
 
 </Listing>
 
-Kita telah mengubah nama field pada `ThreadPool` dari `threads` menjadi
+Kita telah mengubah nama *field* pada `ThreadPool` dari `threads` menjadi
 `workers` karena sekarang ia menampung instance `Worker`, bukan instance
 `JoinHandle<()>`. Kita memakai pencacah di loop `for` sebagai argumen
 untuk `Worker::new`, dan kita menyimpan setiap `Worker` baru di vektor
 bernama `workers`.
 
 Kode eksternal (seperti server kita di _src/main.rs_) tidak perlu tahu
-detail implementasi tentang pemakaian struct `Worker` di dalam
-`ThreadPool`, jadi kita membuat struct `Worker` dan fungsi `new`-nya
+detail implementasi tentang pemakaian *struct* `Worker` di dalam
+`ThreadPool`, jadi kita membuat *struct* `Worker` dan fungsi `new`-nya
 privat. Fungsi `Worker::new` memakai `id` yang kita berikan dan menyimpan
 instance `JoinHandle<()>` yang dibuat dengan membuat thread baru memakai
-closure kosong.
+*closure* kosong.
 
 > Catatan: Jika sistem operasi tidak bisa membuat thread karena tidak ada
 > cukup sumber daya sistem, `thread::spawn` akan panic. Itu akan membuat
 > seluruh server kita panic, meskipun pembuatan sebagian thread mungkin
 > berhasil. Demi kesederhanaan, perilaku ini tidak apa-apa, tetapi dalam
-> implementasi thread pool produksi, kemungkinan besar Anda ingin memakai
+> implementasi *thread pool* produksi, kemungkinan besar Anda ingin memakai
 > [`std::thread::Builder`][builder]<!-- ignore --> dan metode
 > [`spawn`][builder-spawn]<!-- ignore -->-nya yang mengembalikan `Result`.
 
 Kode ini akan terkompilasi dan akan menyimpan jumlah instance `Worker`
 yang kita tentukan sebagai argumen untuk `ThreadPool::new`. Tetapi kita
-_masih_ belum memproses closure yang kita dapat di `execute`. Mari kita
+_masih_ belum memproses *closure* yang kita dapat di `execute`. Mari kita
 lihat cara melakukannya berikutnya.
 
 #### Mengirim Permintaan ke Thread melalui Channel
 
-Masalah berikutnya yang akan kita tangani adalah closure yang diberikan ke
+Masalah berikutnya yang akan kita tangani adalah *closure* yang diberikan ke
 `thread::spawn` sama sekali tidak melakukan apa pun. Saat ini, kita
-mendapatkan closure yang ingin kita eksekusi di metode `execute`. Tetapi
-kita perlu memberikan closure kepada `thread::spawn` untuk dijalankan saat
+mendapatkan *closure* yang ingin kita eksekusi di metode `execute`. Tetapi
+kita perlu memberikan *closure* kepada `thread::spawn` untuk dijalankan saat
 kita membuat setiap `Worker` selama pembuatan `ThreadPool`.
 
-Kita ingin struct `Worker` yang baru kita buat mengambil kode yang akan
+Kita ingin *struct* `Worker` yang baru kita buat mengambil kode yang akan
 dijalankan dari antrean yang dipegang `ThreadPool` dan mengirim kode itu ke
 thread-nya untuk dijalankan.
 
-Channel yang kita pelajari di Bab 16—cara sederhana untuk berkomunikasi
+*Channel* yang kita pelajari di Bab 16—cara sederhana untuk berkomunikasi
 antara dua thread—akan sempurna untuk kasus pemakaian ini. Kita akan
-memakai channel untuk berfungsi sebagai antrean pekerjaan, dan `execute`
+memakai *channel* untuk berfungsi sebagai antrean pekerjaan, dan `execute`
 akan mengirim sebuah pekerjaan dari `ThreadPool` ke instance `Worker`,
 yang akan mengirim pekerjaan itu ke thread-nya. Berikut rencananya:
 
-1. `ThreadPool` akan membuat channel dan memegang pengirimnya.
+1. `ThreadPool` akan membuat *channel* dan memegang pengirimnya.
 2. Setiap `Worker` akan memegang penerimanya.
-3. Kita akan membuat struct `Job` baru yang akan menampung closure yang
-   ingin kita kirim melalui channel.
+3. Kita akan membuat *struct* `Job` baru yang akan menampung *closure* yang
+   ingin kita kirim melalui *channel*.
 4. Metode `execute` akan mengirim pekerjaan yang ingin ia eksekusi melalui
    pengirim.
 5. Di thread-nya, `Worker` akan melakukan loop pada penerimanya dan
-   mengeksekusi closure dari pekerjaan apa pun yang ia terima.
+   mengeksekusi *closure* dari pekerjaan apa pun yang ia terima.
 
-Mari kita mulai dengan membuat channel di `ThreadPool::new` dan memegang
+Mari kita mulai dengan membuat *channel* di `ThreadPool::new` dan memegang
 pengirimnya di instance `ThreadPool`, seperti yang ditunjukkan di Listing
-21-16. Struct `Job` tidak menampung apa pun untuk saat ini, tetapi ia akan
-menjadi tipe item yang kita kirim melalui channel.
+21-16. *Struct* `Job` tidak menampung apa pun untuk saat ini, tetapi ia akan
+menjadi tipe item yang kita kirim melalui *channel*.
 
 <Listing number="21-16" file-name="src/lib.rs" caption="Mengubah `ThreadPool` untuk menyimpan pengirim channel yang mentransmisikan instance `Job`">
 
@@ -562,13 +562,13 @@ menjadi tipe item yang kita kirim melalui channel.
 
 </Listing>
 
-Di `ThreadPool::new`, kita membuat channel baru kita dan membuat pool itu
+Di `ThreadPool::new`, kita membuat *channel* baru kita dan membuat pool itu
 memegang pengirimnya. Ini akan terkompilasi dengan sukses.
 
-Mari kita coba memberikan penerima channel itu ke setiap `Worker` saat
-thread pool membuat channel-nya. Kita tahu kita ingin memakai penerima itu
+Mari kita coba memberikan penerima *channel* itu ke setiap `Worker` saat
+*thread pool* membuat *channel*-nya. Kita tahu kita ingin memakai penerima itu
 di thread yang dibuat instance `Worker`, jadi kita akan mereferensikan
-parameter `receiver` di closure itu. Kode di Listing 21-17 belum akan
+parameter `receiver` di *closure* itu. Kode di Listing 21-17 belum akan
 terkompilasi.
 
 <Listing number="21-17" file-name="src/lib.rs" caption="Memberikan penerima ke setiap `Worker`">
@@ -580,7 +580,7 @@ terkompilasi.
 </Listing>
 
 Kita telah membuat beberapa perubahan kecil dan langsung: Kita memberikan
-penerima itu ke `Worker::new`, lalu kita memakainya di dalam closure.
+penerima itu ke `Worker::new`, lalu kita memakainya di dalam *closure*.
 
 Ketika kita mencoba memeriksa kode ini, kita mendapat galat ini:
 
@@ -590,22 +590,22 @@ Ketika kita mencoba memeriksa kode ini, kita mendapat galat ini:
 
 Kode itu sedang mencoba memberikan `receiver` ke banyak instance `Worker`.
 Ini tidak akan bekerja, seperti yang Anda ingat dari Bab 16: Implementasi
-channel yang disediakan Rust adalah banyak _produsen_, satu _konsumen_.
-Ini berarti kita tidak bisa sekadar mengklon ujung konsumsi dari channel
+*channel* yang disediakan Rust adalah banyak _produsen_, satu _konsumen_.
+Ini berarti kita tidak bisa sekadar mengklon ujung konsumsi dari *channel*
 untuk memperbaiki kode ini. Kita juga tidak ingin mengirim pesan berkali-
 kali ke banyak konsumen; kita ingin satu daftar pesan dengan banyak
 instance `Worker` sedemikian rupa sehingga setiap pesan diproses satu kali.
 
-Selain itu, mengambil sebuah pekerjaan dari antrean channel melibatkan
+Selain itu, mengambil sebuah pekerjaan dari antrean *channel* melibatkan
 pengubahan `receiver`, jadi thread-thread itu memerlukan cara yang aman
 untuk berbagi dan mengubah `receiver`; jika tidak, kita mungkin mendapat
 race condition (seperti yang dibahas di Bab 16).
 
-Ingat kembali smart pointer yang thread-safe yang dibahas di Bab 16: Untuk
-berbagi ownership lintas banyak thread dan memungkinkan thread-thread itu
+Ingat kembali *smart pointer* yang thread-safe yang dibahas di Bab 16: Untuk
+berbagi *ownership* lintas banyak thread dan memungkinkan thread-thread itu
 mengubah nilainya, kita perlu memakai `Arc<Mutex<T>>`. Tipe `Arc` akan
-memungkinkan banyak instance `Worker` memiliki receiver, dan `Mutex` akan
-memastikan bahwa hanya satu `Worker` yang mendapat pekerjaan dari receiver
+memungkinkan banyak instance `Worker` memiliki *receiver*, dan `Mutex` akan
+memastikan bahwa hanya satu `Worker` yang mendapat pekerjaan dari *receiver*
 pada satu waktu. Listing 21-18 menunjukkan perubahan yang perlu kita buat.
 
 <Listing number="21-18" file-name="src/lib.rs" caption="Berbagi receiver di antara instance `Worker` dengan memakai `Arc` dan `Mutex`">
@@ -616,18 +616,18 @@ pada satu waktu. Listing 21-18 menunjukkan perubahan yang perlu kita buat.
 
 </Listing>
 
-Di `ThreadPool::new`, kita meletakkan receiver di dalam `Arc` dan `Mutex`.
+Di `ThreadPool::new`, kita meletakkan *receiver* di dalam `Arc` dan `Mutex`.
 Untuk setiap `Worker` baru, kita mengklon `Arc` itu untuk menaikkan
-hitungan referensinya supaya instance `Worker` bisa berbagi ownership atas
-receiver itu.
+hitungan referensinya supaya instance `Worker` bisa berbagi *ownership* atas
+*receiver* itu.
 
 Dengan perubahan ini, kodenya terkompilasi! Kita sudah hampir sampai!
 
 #### Mengimplementasikan Metode `execute`
 
 Akhirnya, mari kita implementasikan metode `execute` pada `ThreadPool`.
-Kita juga akan mengubah `Job` dari struct menjadi alias tipe untuk trait
-object yang menampung jenis closure yang diterima `execute`. Seperti yang
+Kita juga akan mengubah `Job` dari *struct* menjadi alias tipe untuk *trait*
+object yang menampung jenis *closure* yang diterima `execute`. Seperti yang
 dibahas di seksi [“Sinonim Tipe dan Alias Tipe”][type-aliases]<!-- ignore -->
 pada Bab 20, alias tipe memungkinkan kita memendekkan tipe yang panjang
 demi kemudahan pemakaian. Lihat Listing 21-19.
@@ -640,8 +640,8 @@ demi kemudahan pemakaian. Lihat Listing 21-19.
 
 </Listing>
 
-Setelah membuat instance `Job` baru dengan memakai closure yang kita dapat
-di `execute`, kita mengirim pekerjaan itu melalui ujung pengiriman channel.
+Setelah membuat instance `Job` baru dengan memakai *closure* yang kita dapat
+di `execute`, kita mengirim pekerjaan itu melalui ujung pengiriman *channel*.
 Kita memanggil `unwrap` pada `send` untuk kasus pengiriman gagal. Ini bisa
 terjadi jika, misalnya, kita menghentikan semua thread kita dari
 mengeksekusi, yang berarti ujung penerimaan berhenti menerima pesan baru.
@@ -650,10 +650,10 @@ mengeksekusi: Thread-thread kita terus mengeksekusi selama pool itu ada.
 Alasan kita memakai `unwrap` adalah kita tahu kasus kegagalan itu tidak
 akan terjadi, tetapi kompilator tidak mengetahuinya.
 
-Tetapi kita belum selesai! Di `Worker`, closure yang kita berikan ke
-`thread::spawn` masih hanya _mereferensikan_ ujung penerimaan channel.
-Sebaliknya, kita perlu closure itu melakukan loop selamanya, meminta
-pekerjaan dari ujung penerimaan channel dan menjalankan pekerjaan itu saat
+Tetapi kita belum selesai! Di `Worker`, *closure* yang kita berikan ke
+`thread::spawn` masih hanya _mereferensikan_ ujung penerimaan *channel*.
+Sebaliknya, kita perlu *closure* itu melakukan loop selamanya, meminta
+pekerjaan dari ujung penerimaan *channel* dan menjalankan pekerjaan itu saat
 ia mendapatkannya. Mari kita buat perubahan yang ditunjukkan di Listing
 21-20 pada `Worker::new`.
 
@@ -675,7 +675,7 @@ Silakan mengubah `unwrap` ini menjadi `expect` dengan pesan galat yang
 bermakna bagi Anda.
 
 Jika kita mendapatkan kunci pada mutex itu, kita memanggil `recv` untuk
-menerima `Job` dari channel. `unwrap` terakhir melewati galat apa pun di
+menerima `Job` dari *channel*. `unwrap` terakhir melewati galat apa pun di
 sini juga, yang bisa terjadi jika thread yang memegang pengirim telah
 berhenti, mirip dengan cara metode `send` mengembalikan `Err` jika
 penerimanya berhenti.
@@ -685,7 +685,7 @@ ini akan menunggu sampai ada pekerjaan yang tersedia. `Mutex<T>` memastikan
 bahwa hanya satu thread `Worker` pada satu waktu yang sedang mencoba
 meminta pekerjaan.
 
-Thread pool kita sekarang dalam keadaan bekerja! Jalankan `cargo run` dan
+*Thread pool* kita sekarang dalam keadaan bekerja! Jalankan `cargo run` dan
 buat beberapa permintaan:
 
 <!-- manual-regeneration
@@ -733,7 +733,7 @@ Worker 0 got a job; executing.
 Worker 2 got a job; executing.
 ```
 
-Sukses! Sekarang kita punya thread pool yang mengeksekusi koneksi secara
+Sukses! Sekarang kita punya *thread pool* yang mengeksekusi koneksi secara
 asinkron. Tidak pernah ada lebih dari empat thread yang dibuat, jadi sistem
 kita tidak akan kelebihan beban jika server menerima banyak permintaan.
 Jika kita membuat permintaan ke _/sleep_, server akan bisa melayani
@@ -747,7 +747,7 @@ permintaan lain dengan meminta thread lain menjalankannya.
 
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
 kode di Listing 21-18, 21-19, dan 21-20 akan berbeda jika kita memakai
-future alih-alih closure untuk pekerjaan yang akan dilakukan. Tipe apa yang
+*future* alih-alih *closure* untuk pekerjaan yang akan dilakukan. Tipe apa yang
 akan berubah? Bagaimana tanda tangan metodenya akan berbeda, jika ada?
 Bagian kode mana yang akan tetap sama?
 
@@ -766,17 +766,17 @@ ditunjukkan di Listing 21-21.
 Kode ini terkompilasi dan berjalan, tetapi tidak menghasilkan perilaku
 threading yang diinginkan: Permintaan yang lambat tetap akan membuat
 permintaan lain menunggu untuk diproses. Alasannya agak tidak kentara:
-Struct `Mutex` tidak memiliki metode `unlock` publik karena ownership atas
-kuncinya didasarkan pada lifetime `MutexGuard<T>` di dalam
+*Struct* `Mutex` tidak memiliki metode `unlock` publik karena *ownership* atas
+kuncinya didasarkan pada *lifetime* `MutexGuard<T>` di dalam
 `LockResult<MutexGuard<T>>` yang dikembalikan metode `lock`. Pada waktu
-kompilasi, borrow checker kemudian bisa menegakkan aturan bahwa sumber
+kompilasi, *borrow checker* kemudian bisa menegakkan aturan bahwa sumber
 daya yang dijaga oleh `Mutex` tidak bisa diakses kecuali kita memegang
 kuncinya. Akan tetapi, implementasi ini juga bisa mengakibatkan kuncinya
 dipegang lebih lama daripada yang dimaksudkan jika kita tidak memerhatikan
-lifetime `MutexGuard<T>` itu.
+*lifetime* `MutexGuard<T>` itu.
 
 Kode di Listing 21-20 yang memakai `let job =
-receiver.lock().unwrap().recv().unwrap();` bekerja karena dengan `let`,
+*receiver*.lock().unwrap().recv().unwrap();` bekerja karena dengan `let`,
 nilai-nilai temporer apa pun yang dipakai di ekspresi pada sisi kanan tanda
 sama dengan segera dibebaskan saat pernyataan `let` itu berakhir. Akan
 tetapi, `while let` (dan `if let` dan `match`) tidak membebaskan nilai

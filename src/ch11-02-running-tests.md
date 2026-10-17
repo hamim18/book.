@@ -8,9 +8,9 @@ yang dihasilkan `cargo test` adalah menjalankan semua pengujian secara
 paralel dan menangkap keluaran yang dihasilkan selama pengujian berjalan,
 mencegah keluaran itu ditampilkan dan membuatnya lebih mudah untuk membaca
 keluaran yang berkaitan dengan hasil pengujian. Namun, Anda bisa
-menentukan opsi command line untuk mengubah perilaku bawaan ini.
+menentukan opsi baris perintah untuk mengubah perilaku bawaan ini.
 
-Sebagian opsi command line diteruskan ke `cargo test`, dan sebagian lagi ke
+Sebagian opsi baris perintah diteruskan ke `cargo test`, dan sebagian lagi ke
 binary pengujian yang dihasilkan. Untuk memisahkan kedua jenis argumen ini,
 Anda mendaftarkan argumen yang diteruskan ke `cargo test`, diikuti pemisah
 `--`, lalu argumen-argumen yang diteruskan ke binary pengujian. Menjalankan

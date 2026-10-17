@@ -80,10 +80,10 @@ dengan fungsi privat `internal_adder`.
 
 Perhatikan bahwa fungsi `internal_adder` tidak ditandai sebagai `pub`.
 Pengujian hanyalah kode Rust, dan modul `tests` hanyalah modul lain.
-Seperti yang kita bahas di [“Path untuk Merujuk Item di dalam Pohon
+Seperti yang kita bahas di [“*Path* untuk Merujuk Item di dalam Pohon
 Modul”][paths]<!-- ignore -->, item di modul anak bisa memakai item di
 modul leluhurnya. Dalam pengujian ini, kita membawa semua item milik induk
-modul `tests` ke dalam scope dengan `use super::*`, lalu pengujian bisa
+modul `tests` ke dalam *scope* dengan `use super::*`, lalu pengujian bisa
 memanggil `internal_adder`. Jika Anda berpendapat fungsi privat tidak
 seharusnya diuji, tidak ada apa pun di Rust yang akan memaksa Anda
 melakukannya.
@@ -105,7 +105,7 @@ Kita membuat direktori _tests_ di tingkat teratas direktori proyek kita,
 bersebelahan dengan _src_. Cargo tahu untuk mencari file pengujian
 integrasi di direktori ini. Kita kemudian bisa membuat file pengujian
 sebanyak yang kita mau, dan Cargo akan mengompilasi setiap file sebagai
-crate tersendiri.
+*crate* tersendiri.
 
 Mari kita buat pengujian integrasi. Dengan kode Listing 11-12 yang masih
 berada di file _src/lib.rs_, buat direktori _tests_, dan buat file baru
@@ -124,7 +124,7 @@ adder
 
 Masukkan kode di Listing 11-13 ke file _tests/integration_test.rs_.
 
-<Listing number="11-13" file-name="tests/integration_test.rs" caption="Pengujian integrasi untuk fungsi di crate `adder`">
+<Listing number="11-13" file-name="tests/integration_test.rs" caption="Pengujian integrasi untuk fungsi di *crate* `adder`">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-13/tests/integration_test.rs}}
@@ -132,8 +132,8 @@ Masukkan kode di Listing 11-13 ke file _tests/integration_test.rs_.
 
 </Listing>
 
-Setiap file di direktori _tests_ adalah crate yang terpisah, jadi kita
-perlu membawa library kita ke dalam scope setiap crate pengujian. Karena
+Setiap file di direktori _tests_ adalah *crate* yang terpisah, jadi kita
+perlu membawa library kita ke dalam *scope* setiap *crate* pengujian. Karena
 alasan itu, kita menambahkan `use adder::add_two;` di bagian atas kode,
 yang tidak kita perlukan di pengujian unit.
 
@@ -240,7 +240,7 @@ Menamai file dengan cara ini memberi tahu Rust untuk tidak memperlakukan
 modul `common` sebagai file pengujian integrasi. Ketika kita memindahkan
 kode fungsi `setup` ke _tests/common/mod.rs_ dan menghapus file
 _tests/common.rs_, bagian di keluaran pengujian itu tidak akan muncul lagi.
-File di subdirektori direktori _tests_ tidak dikompilasi sebagai crate
+File di subdirektori direktori _tests_ tidak dikompilasi sebagai *crate*
 terpisah dan tidak memiliki bagian di keluaran pengujian.
 
 Setelah kita membuat _tests/common/mod.rs_, kita bisa memakainya dari file
@@ -259,17 +259,17 @@ memanggil fungsi `common::setup()`.
 
 #### Pengujian Integrasi untuk Crate Binary
 
-Jika proyek kita adalah crate binary yang hanya berisi file _src/main.rs_
+Jika proyek kita adalah *crate* binary yang hanya berisi file _src/main.rs_
 dan tidak memiliki file _src/lib.rs_, kita tidak bisa membuat pengujian
 integrasi di direktori _tests_ dan membawa fungsi yang didefinisikan di
-file _src/main.rs_ ke dalam scope dengan pernyataan `use`. Hanya crate
-library yang mengekspos fungsi yang bisa dipakai crate lain; crate binary
+file _src/main.rs_ ke dalam *scope* dengan pernyataan `use`. Hanya *crate*
+library yang mengekspos fungsi yang bisa dipakai *crate* lain; *crate* binary
 dimaksudkan untuk dijalankan sendiri.
 
 Ini adalah salah satu alasan proyek Rust yang menyediakan binary memiliki
 file _src/main.rs_ yang sederhana yang memanggil logika yang berada di file
 _src/lib.rs_. Dengan memakai struktur itu, pengujian integrasi _bisa_
-menguji crate library dengan `use` untuk membuat fungsionalitas pentingnya
+menguji *crate* library dengan `use` untuk membuat fungsionalitas pentingnya
 tersedia. Jika fungsionalitas pentingnya berfungsi, sedikit kode di file
 _src/main.rs_ juga akan berfungsi, dan sedikit kode itu tidak perlu diuji.
 
@@ -282,7 +282,7 @@ bagian-bagian library yang berbeda secara terpisah dan bisa menguji detail
 implementasi privat. Pengujian integrasi memeriksa bahwa banyak bagian
 library bekerja bersama dengan benar, dan mereka memakai API publik library
 untuk menguji kode dengan cara yang sama seperti yang akan dilakukan kode
-eksternal. Meskipun sistem tipe dan aturan ownership Rust membantu mencegah
+eksternal. Meskipun sistem tipe dan aturan *ownership* Rust membantu mencegah
 beberapa jenis bug, pengujian tetap penting untuk mengurangi bug logika
 yang berkaitan dengan bagaimana kode Anda diharapkan berperilaku.
 

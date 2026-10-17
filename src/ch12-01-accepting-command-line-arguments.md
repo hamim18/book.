@@ -11,10 +11,10 @@ $ cd minigrep
 ```
 
 Tugas pertama adalah membuat `minigrep` menerima dua argumen baris
-perintahnya: path file dan sebuah string yang akan dicari. Artinya, kita ingin
+perintahnya: *path* file dan sebuah string yang akan dicari. Artinya, kita ingin
 dapat menjalankan program kita dengan `cargo run`, dua tanda hubung untuk
 menandakan bahwa argumen-argumen berikutnya ditujukan untuk program kita dan
-bukan untuk `cargo`, sebuah string yang dicari, dan sebuah path menuju file
+bukan untuk `cargo`, sebuah string yang dicari, dan sebuah *path* menuju file
 yang akan dicari di dalamnya, seperti berikut:
 
 ```console
@@ -122,7 +122,7 @@ Seperti yang kita lihat saat mencetak vektor tersebut, nama program menempati
 nilai pertama di dalam vektor pada `args[0]`, jadi kita memulai argumen dari
 indeks 1. Argumen pertama yang diterima `minigrep` adalah string yang kita
 cari, jadi kita menaruh sebuah *reference* (referensi) ke argumen pertama di
-dalam variabel `query`. Argumen kedua adalah path file, jadi kita menaruh
+dalam variabel `query`. Argumen kedua adalah *path* file, jadi kita menaruh
 sebuah *reference* ke argumen kedua di dalam variabel `file_path`.
 
 Kita mencetak nilai variabel-variabel ini untuk sementara guna membuktikan

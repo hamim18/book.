@@ -20,7 +20,7 @@ berguna.
 
 </Listing>
 
-Iterator itu disimpan di variabel `v1_iter`. Setelah membuat sebuah
+*Iterator* itu disimpan di variabel `v1_iter`. Setelah membuat sebuah
 *iterator*, kita dapat memakainya dengan berbagai cara. Di Listing 3-5, kita
 melakukan iterasi atas sebuah array memakai perulangan `for` untuk menjalankan
 sebagian kode pada setiap itemnya. Di balik layar, ini secara implisit
@@ -103,12 +103,12 @@ memakan satu item dari *iterator*. Kita tidak perlu membuat `v1_iter`
 *ownership* atas `v1_iter` dan membuatnya *mutable* di belakang layar.
 
 Perhatikan juga bahwa nilai-nilai yang kita dapat dari pemanggilan `next`
-adalah reference *immutable* ke nilai-nilai di dalam vektor. Metode `iter`
-menghasilkan sebuah *iterator* atas reference-reference *immutable*. Jika kita
+adalah *reference* *immutable* ke nilai-nilai di dalam vektor. Metode `iter`
+menghasilkan sebuah *iterator* atas *reference*-reference *immutable*. Jika kita
 ingin membuat *iterator* yang mengambil *ownership* atas `v1` dan
 mengembalikan nilai-nilai yang dimiliki, kita dapat memanggil `into_iter`
 alih-alih `iter`. Demikian pula, jika kita ingin melakukan iterasi atas
-reference-reference *mutable*, kita dapat memanggil `iter_mut` alih-alih
+*reference*-reference *mutable*, kita dapat memanggil `iter_mut` alih-alih
 `iter`.
 
 ### Metode yang Mengonsumsi Iterator
@@ -147,10 +147,10 @@ _Iterator adapter_ adalah metode-metode yang didefinisikan pada *trait*
 *iterator* yang berbeda dengan mengubah sebagian aspek dari *iterator*
 aslinya.
 
-Listing 13-14 menunjukkan contoh pemanggilan metode adapter iterator `map`,
-yang menerima sebuah closure untuk dipanggil pada setiap item selagi
+Listing 13-14 menunjukkan contoh pemanggilan metode adapter *iterator* `map`,
+yang menerima sebuah *closure* untuk dipanggil pada setiap item selagi
 item-item itu diiterasi. Metode `map` mengembalikan sebuah *iterator* baru
-yang menghasilkan item-item yang telah dimodifikasi. Closure di sini membuat
+yang menghasilkan item-item yang telah dimodifikasi. *Closure* di sini membuat
 sebuah *iterator* baru yang di dalamnya setiap item dari vektor akan
 dinaikkan sebesar 1.
 
@@ -168,8 +168,8 @@ Namun, kode ini menghasilkan sebuah peringatan:
 {{#include ../listings/ch13-functional-features/listing-13-14/output.txt}}
 ```
 
-Kode di Listing 13-14 tidak melakukan apa pun; closure yang kita tentukan
-tidak pernah dipanggil. Peringatan itu mengingatkan kita alasannya: Iterator
+Kode di Listing 13-14 tidak melakukan apa pun; *closure* yang kita tentukan
+tidak pernah dipanggil. Peringatan itu mengingatkan kita alasannya: *Iterator*
 adapter bersifat lazy, dan kita perlu mengonsumsi *iterator*-nya di sini.
 
 Untuk memperbaiki peringatan ini dan mengonsumsi *iterator*-nya, kita akan
@@ -189,15 +189,15 @@ akhirnya akan memuat setiap item dari vektor aslinya, dinaikkan sebesar 1.
 
 </Listing>
 
-Karena `map` menerima sebuah closure, kita dapat menentukan operasi apa pun
+Karena `map` menerima sebuah *closure*, kita dapat menentukan operasi apa pun
 yang ingin kita lakukan pada setiap item. Ini adalah contoh yang bagus
-tentang bagaimana closure memungkinkan Anda menyesuaikan sebagian perilaku
+tentang bagaimana *closure* memungkinkan Anda menyesuaikan sebagian perilaku
 sambil memakai ulang perilaku iterasi yang disediakan *trait* `Iterator`.
 
-Anda dapat merantaikan banyak pemanggilan iterator adapter untuk melakukan
+Anda dapat merantaikan banyak pemanggilan *iterator adapter* untuk melakukan
 tindakan yang rumit dengan cara yang mudah dibaca. Tetapi karena semua
 *iterator* bersifat lazy, Anda harus memanggil salah satu metode consuming
-adapter untuk mendapat hasil dari pemanggilan-pemanggilan iterator adapter.
+adapter untuk mendapat hasil dari pemanggilan-pemanggilan *iterator adapter*.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -205,19 +205,19 @@ adapter untuk mendapat hasil dari pemanggilan-pemanggilan iterator adapter.
 
 ### Closure yang Menangkap Lingkungannya
 
-Banyak iterator adapter menerima closure sebagai argumen, dan umumnya closure
-yang kita tentukan sebagai argumen untuk iterator adapter adalah closure yang
+Banyak *iterator adapter* menerima *closure* sebagai argumen, dan umumnya *closure*
+yang kita tentukan sebagai argumen untuk *iterator adapter* adalah *closure* yang
 menangkap lingkungannya.
 
 Untuk contoh ini, kita akan memakai metode `filter` yang menerima sebuah
-closure. Closure itu mendapat sebuah item dari *iterator* dan mengembalikan
-sebuah `bool`. Jika closure mengembalikan `true`, nilainya akan disertakan di
-dalam *iterator* yang dihasilkan oleh `filter`. Jika closure mengembalikan
+*closure*. *Closure* itu mendapat sebuah item dari *iterator* dan mengembalikan
+sebuah `bool`. Jika *closure* mengembalikan `true`, nilainya akan disertakan di
+dalam *iterator* yang dihasilkan oleh `filter`. Jika *closure* mengembalikan
 `false`, nilainya tidak akan disertakan.
 
-Di Listing 13-16, kita memakai `filter` dengan sebuah closure yang menangkap
+Di Listing 13-16, kita memakai `filter` dengan sebuah *closure* yang menangkap
 variabel `shoe_size` dari lingkungannya untuk melakukan iterasi atas koleksi
-instance struct `Shoe`. Closure itu hanya akan mengembalikan sepatu-sepatu
+instance *struct* `Shoe`. *Closure* itu hanya akan mengembalikan sepatu-sepatu
 yang ukurannya sesuai.
 
 <Listing number="13-16" file-name="src/lib.rs" caption="Memakai metode `filter` dengan closure yang menangkap `shoe_size`">
@@ -235,9 +235,9 @@ vektor yang hanya memuat sepatu dengan ukuran yang ditentukan.
 Di badan `shoes_in_size`, kita memanggil `into_iter` untuk membuat sebuah
 *iterator* yang mengambil *ownership* atas vektor itu. Lalu, kita memanggil
 `filter` untuk mengadaptasi *iterator* itu menjadi *iterator* baru yang hanya
-memuat elemen-elemen yang membuat closure mengembalikan `true`.
+memuat elemen-elemen yang membuat *closure* mengembalikan `true`.
 
-Closure itu menangkap parameter `shoe_size` dari lingkungan dan membandingkan
+*Closure* itu menangkap parameter `shoe_size` dari lingkungan dan membandingkan
 nilainya dengan ukuran setiap sepatu, hanya menyimpan sepatu dengan ukuran
 yang ditentukan. Akhirnya, pemanggilan `collect` mengumpulkan nilai-nilai yang
 dikembalikan oleh *iterator* yang diadaptasi itu ke dalam sebuah vektor yang

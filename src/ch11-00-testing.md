@@ -20,7 +20,7 @@ sebagai parameter dan mengembalikan sebuah integer sebagai hasil. Ketika
 kita mengimplementasikan dan mengompilasi fungsi itu, Rust melakukan semua
 pemeriksaan tipe dan pemeriksaan borrow yang telah Anda pelajari sejauh ini
 untuk memastikan bahwa, misalnya, kita tidak meneruskan nilai `String` atau
-reference yang tidak valid ke fungsi ini. Akan tetapi, Rust _tidak bisa_
+*reference* yang tidak valid ke fungsi ini. Akan tetapi, Rust _tidak bisa_
 memeriksa bahwa fungsi ini akan melakukan persis apa yang kita maksudkan,
 yaitu mengembalikan parameter plus 2 alih-alih, katakanlah, parameter plus
 10 atau parameter minus 50! Di sinilah pengujian berperan.

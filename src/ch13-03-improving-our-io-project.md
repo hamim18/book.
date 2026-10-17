@@ -8,9 +8,9 @@ kita.
 
 ### Menghapus `clone` Menggunakan Iterator
 
-Di Listing 12-6, kita menambahkan kode yang mengambil sebuah slice berisi
-nilai `String` dan membuat instance struct `Config` dengan mengindeks ke dalam
-slice dan meng-clone nilai-nilainya, sehingga struct `Config` dapat memiliki
+Di Listing 12-6, kita menambahkan kode yang mengambil sebuah *slice* berisi
+nilai `String` dan membuat instance *struct* `Config` dengan mengindeks ke dalam
+*slice* dan meng-clone nilai-nilainya, sehingga *struct* `Config` dapat memiliki
 nilai-nilai itu. Di Listing 13-17, kita telah menampilkan ulang implementasi
 fungsi `Config::build` sebagaimana adanya di Listing 12-23.
 
@@ -26,16 +26,16 @@ Pada saat itu, kita berkata untuk tidak mengkhawatirkan pemanggilan `clone`
 yang tidak efisien karena kita akan menghapusnya di masa depan. Nah, saatnya
 adalah sekarang!
 
-Kita memerlukan `clone` di sini karena kita memiliki sebuah slice dengan
+Kita memerlukan `clone` di sini karena kita memiliki sebuah *slice* dengan
 elemen-elemen `String` di parameter `args`, tetapi fungsi `build` tidak
 memiliki `args`. Untuk mengembalikan *ownership* atas sebuah instance
-`Config`, kita harus meng-clone nilai dari field `query` dan `file_path` pada
+`Config`, kita harus meng-clone nilai dari *field* `query` dan `file_path` pada
 `Config` sehingga instance `Config` dapat memiliki nilai-nilainya.
 
 Dengan pengetahuan baru kita tentang *iterator*, kita dapat mengubah fungsi
 `build` untuk mengambil *ownership* atas sebuah *iterator* sebagai
-argumennya alih-alih meminjam sebuah slice. Kita akan memakai fungsionalitas
-*iterator* alih-alih kode yang memeriksa panjang slice dan mengindeks ke
+argumennya alih-alih meminjam sebuah *slice*. Kita akan memakai fungsionalitas
+*iterator* alih-alih kode yang memeriksa panjang *slice* dan mengindeks ke
 lokasi-lokasi tertentu. Ini akan memperjelas apa yang dilakukan fungsi
 `Config::build` karena *iterator*-lah yang akan mengakses nilai-nilainya.
 
@@ -67,7 +67,7 @@ Ini tidak akan terkompilasi sampai kita memperbarui `Config::build` juga.
 </Listing>
 
 Fungsi `env::args` mengembalikan sebuah *iterator*! Alih-alih mengumpulkan
-nilai-nilai *iterator* ke dalam sebuah vektor lalu meneruskan slice ke
+nilai-nilai *iterator* ke dalam sebuah vektor lalu meneruskan *slice* ke
 `Config::build`, sekarang kita meneruskan *ownership* atas *iterator* yang
 dikembalikan dari `env::args` ke `Config::build` secara langsung.
 
@@ -121,7 +121,7 @@ Ingat bahwa nilai pertama di dalam nilai kembalian `env::args` adalah nama
 programnya. Kita ingin mengabaikannya dan lanjut ke nilai berikutnya, jadi
 pertama kita memanggil `next` dan tidak melakukan apa pun dengan nilai
 kembaliannya. Lalu, kita memanggil `next` untuk mendapat nilai yang ingin
-kita taruh di field `query` pada `Config`. Jika `next` mengembalikan `Some`,
+kita taruh di *field* `query` pada `Config`. Jika `next` mengembalikan `Some`,
 kita memakai `match` untuk mengekstrak nilainya. Jika ia mengembalikan `None`,
 itu berarti argumen yang diberikan tidak cukup, dan kita melakukan return dini
 dengan nilai `Err`. Kita melakukan hal yang sama untuk nilai `file_path`.
@@ -145,10 +145,10 @@ Listing 12-19.
 </Listing>
 
 Kita dapat menulis kode ini dengan cara yang lebih ringkas memakai
-metode-metode iterator adapter. Melakukannya juga memungkinkan kita
+metode-metode *iterator adapter*. Melakukannya juga memungkinkan kita
 menghindari vektor `results` *mutable* perantara. Gaya pemrograman fungsional
-lebih suka meminimalkan jumlah keadaan mutable untuk membuat kode lebih
-jelas. Menghapus keadaan mutable mungkin memungkinkan penyempurnaan di masa
+lebih suka meminimalkan jumlah keadaan *mutable* untuk membuat kode lebih
+jelas. Menghapus keadaan *mutable* mungkin memungkinkan penyempurnaan di masa
 depan untuk membuat pencarian berjalan secara paralel karena kita tidak harus
 mengelola akses konkuren ke vektor `results`. Listing 13-22 menunjukkan
 perubahan ini.
@@ -172,7 +172,7 @@ di fungsi `search_case_insensitive` juga.
 Untuk penyempurnaan lebih lanjut, kembalikan sebuah *iterator* dari fungsi
 `search` dengan menghapus pemanggilan `collect` dan mengubah tipe kembaliannya
 menjadi `impl Iterator<Item = &'a str>` sehingga fungsi itu menjadi sebuah
-iterator adapter. Perhatikan bahwa Anda juga perlu memperbarui
+*iterator adapter*. Perhatikan bahwa Anda juga perlu memperbarui
 pengujian-pengujiannya! Cari di file yang besar memakai alat `minigrep` Anda
 sebelum dan sesudah melakukan perubahan ini untuk mengamati perbedaan
 perilakunya. Sebelum perubahan ini, program tidak akan mencetak hasil apa pun
@@ -192,7 +192,7 @@ yang memakai *iterator* di Listing 13-22 (dengan asumsi kita mengumpulkan
 semua hasilnya sebelum mengembalikannya, alih-alih mengembalikan
 *iterator*-nya). Sebagian besar pemrogram Rust lebih suka memakai gaya
 *iterator*. Sedikit lebih sulit untuk membiasakan diri pada awalnya, tetapi
-begitu Anda mendapat pemahaman tentang berbagai iterator adapter dan apa yang
+begitu Anda mendapat pemahaman tentang berbagai *iterator adapter* dan apa yang
 mereka lakukan, *iterator* bisa jadi lebih mudah dipahami. Alih-alih
 mengutak-atik berbagai bagian perulangan dan membangun vektor-vektor baru,
 kode berfokus pada tujuan tingkat tinggi dari perulangan tersebut. Ini

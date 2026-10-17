@@ -214,7 +214,7 @@ tidak seperti yang Anda kira.
 ### Dangling References
 
 Pada bahasa yang memiliki *pointer*, mudah untuk secara keliru membuat
-*dangling pointer* (pointer menggantung)—yaitu *pointer* yang merujuk ke
+*dangling pointer* (*pointer* menggantung)—yaitu *pointer* yang merujuk ke
 lokasi di dalam memori yang mungkin sudah diberikan kepada pihak lain—dengan
 membebaskan sebagian memori sambil tetap menyimpan *pointer* ke memori
 tersebut. Sebaliknya, di Rust, *compiler* menjamin bahwa *reference* tidak
@@ -278,7 +278,7 @@ tidak ada yang didealokasikan.
 
 Mari kita rangkum apa yang telah kita bahas tentang *reference*:
 
-- Pada satu waktu tertentu, Anda dapat memiliki _salah satu_ dari satu
+- Pada satu waktu tertentu, Anda dapat memiliki _salah satu_: satu
   *mutable reference* _atau_ sejumlah *immutable reference*.
 - *Reference* harus selalu valid.
 

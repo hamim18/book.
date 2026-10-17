@@ -11,7 +11,7 @@ menjadi *mutable* (dapat diubah). Mari kita lihat bagaimana dan mengapa Rust
 mendorong Anda untuk memilih immutability, dan mengapa kadang-kadang Anda
 mungkin ingin tidak mengikutinya.
 
-Ketika sebuah variabel bersifat immutable, begitu sebuah nilai terikat pada
+Ketika sebuah variabel bersifat *immutable*, begitu sebuah nilai terikat pada
 sebuah nama, Anda tidak dapat mengubah nilai itu. Untuk memperlihatkannya,
 buat proyek baru bernama _variables_ di direktori _projects_ Anda dengan
 memakai `cargo new variables`.
@@ -34,29 +34,29 @@ keluaran berikut:
 ```
 
 Contoh ini menunjukkan bagaimana *compiler* (kompilator) membantu Anda
-menemukan galat dalam program Anda. Galat dari compiler bisa membuat
+menemukan galat dalam program Anda. Galat dari *compiler* bisa membuat
 frustrasi, tetapi sebenarnya galat itu hanya berarti program Anda belum
 secara aman melakukan apa yang Anda inginkan; galat itu _bukan_ berarti Anda
 bukan pemrogram yang baik! Rustacean yang berpengalaman pun masih mendapatkan
-galat compiler.
+galat *compiler*.
 
-Anda menerima pesan galat `` cannot assign twice to immutable variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang immutable.
+Anda menerima pesan galat `` cannot assign twice to *immutable* variable `x` `` karena Anda mencoba menetapkan nilai kedua ke variabel `x` yang *immutable*.
 
 Penting bagi kita untuk mendapatkan galat pada waktu kompilasi ketika kita
-mencoba mengubah nilai yang ditetapkan sebagai immutable, karena situasi
+mencoba mengubah nilai yang ditetapkan sebagai *immutable*, karena situasi
 seperti ini dapat menimbulkan bug. Jika satu bagian kode kita berjalan dengan
 asumsi bahwa sebuah nilai tidak akan pernah berubah dan bagian lain dari kode
 kita mengubah nilai itu, mungkin saja bagian pertama kode tidak akan melakukan
 apa yang dirancang untuk dilakukannya. Penyebab bug semacam ini bisa sulit
 dilacak setelah terjadi, apalagi ketika bagian kode kedua hanya mengubah nilai
-itu _kadang-kadang_ saja. Compiler Rust menjamin bahwa ketika Anda menyatakan
+itu _kadang-kadang_ saja. *Compiler* Rust menjamin bahwa ketika Anda menyatakan
 sebuah nilai tidak akan berubah, nilai itu benar-benar tidak akan berubah,
 sehingga Anda tidak perlu melacaknya sendiri. Dengan demikian kode Anda lebih
 mudah untuk dinalar.
 
 Tetapi mutabilitas bisa sangat berguna dan dapat membuat kode lebih nyaman
-ditulis. Meskipun variabel bersifat immutable secara bawaan, Anda dapat
-membuatnya mutable dengan menambahkan `mut` di depan nama variabel seperti
+ditulis. Meskipun variabel bersifat *immutable* secara bawaan, Anda dapat
+membuatnya *mutable* dengan menambahkan `mut` di depan nama variabel seperti
 yang Anda lakukan di [Bab 2][storing-values-with-variables]<!-- ignore -->.
 Menambahkan `mut` juga menyampaikan maksud kepada pembaca kode di masa depan
 dengan menandakan bahwa bagian lain dari kode akan mengubah nilai variabel
@@ -88,19 +88,19 @@ paling jelas dalam situasi tersebut.
 <a id="declaring-constants"></a>
 ### Mendeklarasikan Konstanta
 
-Seperti variabel immutable, _konstanta_ adalah nilai yang terikat pada sebuah
+Seperti variabel *immutable*, _konstanta_ adalah nilai yang terikat pada sebuah
 nama dan tidak diizinkan untuk berubah, tetapi ada beberapa perbedaan antara
 konstanta dan variabel.
 
 Pertama, Anda tidak diizinkan memakai `mut` pada konstanta. Konstanta tidak
-hanya immutable secara bawaan—konstanta selalu immutable. Anda mendeklarasikan
+hanya *immutable* secara bawaan—konstanta selalu *immutable*. Anda mendeklarasikan
 konstanta dengan memakai keyword `const`, bukan keyword `let`, dan tipe
 nilainya _harus_ diberi anotasi. Kita akan membahas tipe dan anotasi tipe di
 bagian berikutnya, [“Tipe Data”][data-types]<!-- ignore -->, jadi jangan
 khawatir soal detailnya untuk sekarang. Cukup ketahui bahwa Anda harus selalu
 memberi anotasi pada tipenya.
 
-Konstanta dapat dideklarasikan di *scope* (cakupan) mana pun, termasuk scope
+Konstanta dapat dideklarasikan di *scope* (cakupan) mana pun, termasuk *scope*
 global, yang membuatnya berguna untuk nilai yang perlu diketahui oleh banyak
 bagian kode.
 
@@ -117,14 +117,14 @@ Nama konstantanya adalah `THREE_HOURS_IN_SECONDS`, dan nilainya diisi dengan
 hasil perkalian 60 (jumlah detik dalam satu menit) dengan 60 (jumlah menit
 dalam satu jam) dengan 3 (jumlah jam yang ingin kita hitung dalam program
 ini). Konvensi penamaan Rust untuk konstanta adalah memakai huruf kapital
-semua dengan garis bawah di antara kata. Compiler mampu mengevaluasi
+semua dengan garis bawah di antara kata. *Compiler* mampu mengevaluasi
 sekumpulan operasi terbatas pada waktu kompilasi, sehingga kita dapat memilih
 untuk menulis nilai ini dengan cara yang lebih mudah dipahami dan diverifikasi
 daripada mengisi konstanta ini dengan nilai 10.800. Lihat bagian evaluasi
-konstanta di [Rust Reference][const-eval] untuk informasi lebih lanjut tentang
+konstanta di [Rust *Reference*][const-eval] untuk informasi lebih lanjut tentang
 operasi apa saja yang dapat dipakai saat mendeklarasikan konstanta.
 
-Konstanta berlaku selama program berjalan, di dalam scope tempat konstanta itu
+Konstanta berlaku selama program berjalan, di dalam *scope* tempat konstanta itu
 dideklarasikan. Sifat ini membuat konstanta berguna untuk nilai dalam domain
 aplikasi Anda yang mungkin perlu diketahui oleh banyak bagian program, seperti
 jumlah poin maksimum yang boleh diperoleh pemain mana pun dalam sebuah
@@ -142,10 +142,10 @@ Seperti yang Anda lihat dalam tutorial permainan tebak angka di [Bab
 2][comparing-the-guess-to-the-secret-number]<!-- ignore -->, Anda dapat
 mendeklarasikan variabel baru dengan nama yang sama seperti variabel
 sebelumnya. Para Rustacean mengatakan bahwa variabel pertama di-_shadow_ oleh
-variabel kedua, artinya variabel kedualah yang akan dilihat compiler ketika
+variabel kedua, artinya variabel kedualah yang akan dilihat *compiler* ketika
 Anda memakai nama variabel tersebut. Pada dasarnya, variabel kedua menutupi
 variabel pertama, mengambil semua pemakaian nama variabel itu untuk dirinya
-sendiri sampai variabel kedua itu sendiri di-shadow atau scope-nya berakhir.
+sendiri sampai variabel kedua itu sendiri di-shadow atau *scope*-nya berakhir.
 Kita dapat melakukan shadowing pada sebuah variabel dengan memakai nama
 variabel yang sama dan mengulangi penggunaan keyword `let` seperti berikut:
 
@@ -157,10 +157,10 @@ variabel yang sama dan mengulangi penggunaan keyword `let` seperti berikut:
 
 Program ini mula-mula mengikat `x` pada nilai `5`. Lalu, program membuat
 variabel baru `x` dengan mengulangi `let x =`, mengambil nilai aslinya dan
-menambahkan `1` sehingga nilai `x` menjadi `6`. Kemudian, di dalam scope
+menambahkan `1` sehingga nilai `x` menjadi `6`. Kemudian, di dalam *scope*
 bagian dalam yang dibuat dengan kurung kurawal, pernyataan `let` ketiga juga
 melakukan shadowing terhadap `x` dan membuat variabel baru, dengan mengalikan
-nilai sebelumnya dengan `2` sehingga `x` bernilai `12`. Ketika scope itu
+nilai sebelumnya dengan `2` sehingga `x` bernilai `12`. Ketika *scope* itu
 berakhir, shadowing bagian dalam pun berakhir dan `x` kembali menjadi `6`.
 Ketika kita menjalankan program ini, program akan menampilkan keluaran
 berikut:
@@ -173,7 +173,7 @@ Shadowing berbeda dari menandai variabel sebagai `mut` karena kita akan
 mendapatkan galat pada waktu kompilasi jika tanpa sengaja mencoba menetapkan
 ulang variabel ini tanpa memakai keyword `let`. Dengan memakai `let`, kita
 dapat melakukan beberapa transformasi pada sebuah nilai, tetapi variabelnya
-tetap immutable setelah transformasi itu selesai.
+tetap *immutable* setelah transformasi itu selesai.
 
 Perbedaan lain antara `mut` dan shadowing adalah, karena kita pada dasarnya
 membuat variabel baru ketika memakai keyword `let` lagi, kita dapat mengubah

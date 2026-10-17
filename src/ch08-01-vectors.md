@@ -23,7 +23,7 @@ seperti yang ditunjukkan di Listing 8-1.
 Perhatikan bahwa kita menambahkan anotasi tipe di sini. Karena kita belum
 memasukkan nilai apa pun ke dalam vektor ini, Rust tidak tahu elemen bertipe
 apa yang ingin kita simpan. Ini poin yang penting. Vektor diimplementasikan
-memakai *generics* (tipe generik); kita akan membahas cara memakai generics
+memakai *generics* (tipe generik); kita akan membahas cara memakai *generics*
 dengan tipe Anda sendiri di Bab 10. Untuk saat ini, ketahuilah bahwa tipe
 `Vec<T>` yang disediakan pustaka standar dapat menampung tipe apa pun. Ketika
 kita membuat vektor untuk menampung tipe tertentu, kita dapat menyebutkan
@@ -126,12 +126,12 @@ memberi tahu pengguna berapa banyak item yang ada di vektor saat ini dan
 memberi mereka kesempatan lagi untuk memasukkan nilai yang valid. Itu akan
 lebih ramah pengguna daripada membuat program crash gara-gara salah ketik!
 
-Ketika program memiliki reference yang valid, borrow checker menegakkan
-aturan ownership dan *borrowing* (peminjaman) (yang dibahas di Bab 4) untuk
-memastikan bahwa reference ini dan reference lain mana pun ke isi vektor
+Ketika program memiliki *reference* yang valid, *borrow checker* menegakkan
+aturan *ownership* dan *borrowing* (peminjaman) (yang dibahas di Bab 4) untuk
+memastikan bahwa *reference* ini dan *reference* lain mana pun ke isi vektor
 tetap valid. Ingat aturan yang menyatakan bahwa Anda tidak dapat memiliki
-reference mutable dan immutable di scope yang sama. Aturan itu berlaku di
-Listing 8-6, ketika kita memegang reference immutable ke elemen pertama di
+*reference* *mutable* dan *immutable* di *scope* yang sama. Aturan itu berlaku di
+Listing 8-6, ketika kita memegang *reference* *immutable* ke elemen pertama di
 vektor dan mencoba menambahkan elemen ke ujungnya. Program ini tidak akan
 bekerja jika kita juga mencoba merujuk elemen itu di bagian selanjutnya dari
 fungsi.
@@ -150,15 +150,15 @@ Mengompilasi kode ini akan menghasilkan galat berikut:
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
 ```
 
-Kode di Listing 8-6 mungkin terlihat seharusnya bekerja: mengapa reference
+Kode di Listing 8-6 mungkin terlihat seharusnya bekerja: mengapa *reference*
 ke elemen pertama harus peduli dengan perubahan di ujung vektor? Galat ini
 disebabkan oleh cara kerja vektor: karena vektor menempatkan nilai-nilai
 bersebelahan di memori, menambahkan elemen baru ke ujung vektor mungkin
 mengharuskan pengalokasian memori baru dan penyalinan elemen-elemen lama ke
 ruang yang baru, jika tidak ada cukup ruang untuk menempatkan semua elemen
-bersebelahan di tempat vektor saat ini disimpan. Dalam kasus itu, reference
+bersebelahan di tempat vektor saat ini disimpan. Dalam kasus itu, *reference*
 ke elemen pertama akan menunjuk ke memori yang telah dibebaskan. Aturan
-borrowing mencegah program berakhir di situasi semacam itu.
+*borrowing* mencegah program berakhir di situasi semacam itu.
 
 > Catatan: Untuk lebih lanjut tentang detail implementasi tipe `Vec<T>`,
 > lihat [“The Rustonomicon”][nomicon].
@@ -168,7 +168,7 @@ borrowing mencegah program berakhir di situasi semacam itu.
 Untuk mengakses setiap elemen di vektor secara bergantian, kita akan
 mengiterasi semua elemen alih-alih memakai indeks untuk mengakses satu per
 satu. Listing 8-7 menunjukkan cara memakai perulangan `for` untuk
-mendapatkan reference immutable ke setiap elemen di vektor berisi nilai
+mendapatkan *reference* *immutable* ke setiap elemen di vektor berisi nilai
 `i32` dan mencetaknya.
 
 <Listing number="8-7" caption="Mencetak setiap elemen di vektor dengan mengiterasi elemen-elemennya memakai perulangan `for`">
@@ -179,8 +179,8 @@ mendapatkan reference immutable ke setiap elemen di vektor berisi nilai
 
 </Listing>
 
-Kita juga dapat mengiterasi reference mutable ke setiap elemen di vektor
-mutable untuk membuat perubahan pada semua elemen. Perulangan `for` di
+Kita juga dapat mengiterasi *reference* *mutable* ke setiap elemen di vektor
+*mutable* untuk membuat perubahan pada semua elemen. Perulangan `for` di
 Listing 8-8 akan menambahkan `50` ke setiap elemen.
 
 <Listing number="8-8" caption="Mengiterasi reference mutable ke elemen-elemen di vektor">
@@ -191,34 +191,34 @@ Listing 8-8 akan menambahkan `50` ke setiap elemen.
 
 </Listing>
 
-Untuk mengubah nilai yang dirujuk reference mutable, kita harus memakai
+Untuk mengubah nilai yang dirujuk *reference* *mutable*, kita harus memakai
 operator dereferensi `*` untuk sampai ke nilai di `i` sebelum kita dapat
 memakai operator `+=`. Kita akan membahas lebih lanjut operator dereferensi
 di bagian [“Mengikuti Reference Menuju Nilai”][deref]<!-- ignore --> di Bab
 15.
 
-Mengiterasi vektor, baik secara immutable maupun mutable, aman karena aturan
-borrow checker. Jika kita mencoba memasukkan atau menghapus item di badan
+Mengiterasi vektor, baik secara *immutable* maupun *mutable*, aman karena aturan
+*borrow checker*. Jika kita mencoba memasukkan atau menghapus item di badan
 perulangan `for` di Listing 8-7 dan Listing 8-8, kita akan mendapat galat
-compiler yang mirip dengan yang kita dapatkan pada kode di Listing 8-6.
-Reference ke vektor yang dipegang perulangan `for` mencegah modifikasi
+*compiler* yang mirip dengan yang kita dapatkan pada kode di Listing 8-6.
+*Reference* ke vektor yang dipegang perulangan `for` mencegah modifikasi
 seluruh vektor secara bersamaan.
 
 ### Memakai Enum untuk Menyimpan Beberapa Tipe
 
 Vektor hanya dapat menyimpan nilai yang bertipe sama. Ini bisa merepotkan;
 pasti ada kasus penggunaan yang membutuhkan penyimpanan daftar item dengan
-tipe berbeda. Untungnya, variant-variant sebuah enum didefinisikan di bawah
-tipe enum yang sama, jadi ketika kita membutuhkan satu tipe untuk
+tipe berbeda. Untungnya, variant-variant sebuah *enum* didefinisikan di bawah
+tipe *enum* yang sama, jadi ketika kita membutuhkan satu tipe untuk
 merepresentasikan elemen-elemen dengan tipe berbeda, kita dapat
-mendefinisikan dan memakai enum!
+mendefinisikan dan memakai *enum*!
 
 Misalnya, katakanlah kita ingin mengambil nilai dari sebuah baris di
 spreadsheet yang sebagian kolomnya berisi bilangan bulat, sebagian berisi
 angka titik mengambang, dan sebagian berisi string. Kita dapat mendefinisikan
-enum yang variant-nya akan menampung tipe nilai yang berbeda, dan semua
-variant enum akan dianggap sebagai tipe yang sama: tipe enum itu. Lalu, kita
-dapat membuat vektor untuk menampung enum itu dan, pada akhirnya, menampung
+*enum* yang variant-nya akan menampung tipe nilai yang berbeda, dan semua
+variant *enum* akan dianggap sebagai tipe yang sama: tipe *enum* itu. Lalu, kita
+dapat membuat vektor untuk menampung *enum* itu dan, pada akhirnya, menampung
 tipe-tipe yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
 
 <Listing number="8-9" caption="Mendefinisikan enum untuk menyimpan nilai dengan tipe berbeda di satu vektor">
@@ -230,18 +230,18 @@ tipe-tipe yang berbeda. Kita telah mendemonstrasikannya di Listing 8-9.
 </Listing>
 
 Rust perlu tahu tipe apa saja yang akan berada di vektor pada waktu
-kompilasi supaya ia tahu persis berapa banyak memori di heap yang akan
+kompilasi supaya ia tahu persis berapa banyak memori di *heap* yang akan
 dibutuhkan untuk menyimpan setiap elemen. Kita juga harus eksplisit tentang
 tipe apa saja yang diperbolehkan di vektor ini. Jika Rust mengizinkan vektor
 menampung tipe apa pun, ada kemungkinan satu tipe atau lebih menyebabkan
 galat pada operasi yang dilakukan terhadap elemen-elemen vektor. Memakai
-enum ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
+*enum* ditambah ekspresi `match` berarti Rust akan memastikan pada waktu
 kompilasi bahwa setiap kasus yang mungkin tertangani, seperti yang dibahas
 di Bab 6.
 
 Jika Anda tidak tahu himpunan tipe yang lengkap yang akan diterima program
-pada runtime untuk disimpan di vektor, teknik enum tidak akan bekerja.
-Sebagai gantinya, Anda dapat memakai *trait object* (objek trait), yang akan
+pada runtime untuk disimpan di vektor, teknik *enum* tidak akan bekerja.
+Sebagai gantinya, Anda dapat memakai *trait object* (objek *trait*), yang akan
 kita bahas di Bab 18.
 
 Setelah kita membahas beberapa cara paling umum untuk memakai vektor,
@@ -252,7 +252,7 @@ mengembalikan elemen terakhir.
 
 ### Membebaskan Vektor Ikut Membebaskan Elemen-Elemennya
 
-Seperti `struct` lainnya, sebuah vektor dibebaskan ketika keluar dari scope,
+Seperti `struct` lainnya, sebuah vektor dibebaskan ketika keluar dari *scope*,
 seperti yang dianotasi di Listing 8-10.
 
 <Listing number="8-10" caption="Menunjukkan tempat vektor dan elemen-elemennya dibebaskan">
@@ -264,8 +264,8 @@ seperti yang dianotasi di Listing 8-10.
 </Listing>
 
 Ketika vektor dibebaskan, semua isinya juga ikut dibebaskan, yang berarti
-bilangan bulat yang ditampungnya akan dibersihkan. Borrow checker memastikan
-bahwa reference mana pun ke isi vektor hanya dipakai selama vektornya
+bilangan bulat yang ditampungnya akan dibersihkan. *Borrow checker* memastikan
+bahwa *reference* mana pun ke isi vektor hanya dipakai selama vektornya
 sendiri masih valid.
 
 Mari kita lanjut ke tipe koleksi berikutnya: `String`!

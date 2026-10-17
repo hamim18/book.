@@ -108,17 +108,17 @@ terjadi.
 #### Mengelompokkan Nilai Konfigurasi
 
 Kita dapat mengambil satu langkah kecil lagi untuk memperbaiki fungsi
-`parse_config` lebih jauh. Saat ini, kita mengembalikan sebuah tuple, tetapi
-kemudian kita langsung memecah tuple itu menjadi bagian-bagian individual
+`parse_config` lebih jauh. Saat ini, kita mengembalikan sebuah *tuple*, tetapi
+kemudian kita langsung memecah *tuple* itu menjadi bagian-bagian individual
 lagi. Ini adalah tanda bahwa mungkin kita belum memiliki abstraksi yang tepat.
 
 Indikator lain yang menunjukkan masih ada ruang untuk perbaikan adalah bagian
 `config` dari `parse_config`, yang mengisyaratkan bahwa dua nilai yang kita
 kembalikan saling berkaitan dan keduanya merupakan bagian dari satu nilai
 konfigurasi. Saat ini kita belum menyampaikan makna ini di dalam struktur
-datanya selain dengan mengelompokkan kedua nilai itu ke dalam sebuah tuple;
-sebagai gantinya, kita akan menaruh kedua nilai tersebut ke dalam satu struct
-dan memberi setiap *field* (medan) struct itu nama yang bermakna. Dengan
+datanya selain dengan mengelompokkan kedua nilai itu ke dalam sebuah *tuple*;
+sebagai gantinya, kita akan menaruh kedua nilai tersebut ke dalam satu *struct*
+dan memberi setiap *field* (medan) *struct* itu nama yang bermakna. Dengan
 begitu, pengelola kode ini di masa depan akan lebih mudah memahami bagaimana
 nilai-nilai yang berbeda saling berkaitan dan apa tujuan mereka.
 
@@ -132,11 +132,11 @@ Listing 12-6 menunjukkan perbaikan pada fungsi `parse_config`.
 
 </Listing>
 
-Kita telah menambahkan sebuah struct bernama `Config` yang didefinisikan
-memiliki field-field bernama `query` dan `file_path`. Tanda tangan
+Kita telah menambahkan sebuah *struct* bernama `Config` yang didefinisikan
+memiliki *field*-field bernama `query` dan `file_path`. Tanda tangan
 `parse_config` kini menunjukkan bahwa fungsi itu mengembalikan sebuah nilai
 `Config`. Di dalam badan `parse_config`, tempat yang sebelumnya kita pakai
-untuk mengembalikan string slice yang mereferensikan nilai-nilai `String` di
+untuk mengembalikan string *slice* yang mereferensikan nilai-nilai `String` di
 `args`, kini kita mendefinisikan `Config` untuk memuat nilai-nilai `String`
 yang dimiliki. Variabel `args` di dalam `main` adalah *owner* (pemilik) dari
 nilai-nilai argumen dan hanya membiarkan fungsi `parse_config` meminjam
@@ -149,8 +149,8 @@ tidak efisien, adalah memanggil metode `clone` pada nilai-nilai tersebut. Cara
 ini akan membuat salinan penuh dari data tersebut untuk dimiliki oleh instance
 `Config`, yang memakan lebih banyak waktu dan memori daripada menyimpan sebuah
 *reference* ke data string itu. Akan tetapi, meng-clone data juga membuat kode
-kita sangat lugas karena kita tidak perlu mengelola lifetime dari
-reference-reference itu; dalam keadaan ini, melepaskan sedikit performa demi
+kita sangat lugas karena kita tidak perlu mengelola *lifetime* dari
+*reference*-reference itu; dalam keadaan ini, melepaskan sedikit performa demi
 kesederhanaan adalah pertukaran yang layak.
 
 > ### Pertukaran dari Pemakaian `clone`
@@ -160,7 +160,7 @@ kesederhanaan adalah pertukaran yang layak.
 > [Bab 13][ch13]<!-- ignore -->, Anda akan mempelajari cara memakai metode
 > yang lebih efisien dalam situasi semacam ini. Tetapi untuk saat ini, tidak
 > apa-apa menyalin beberapa string untuk terus membuat kemajuan karena Anda
-> hanya akan membuat salinan-salinan ini sekali dan path file serta string
+> hanya akan membuat salinan-salinan ini sekali dan *path* file serta string
 > kueri Anda sangat kecil. Lebih baik memiliki program yang bekerja meskipun
 > sedikit tidak efisien daripada mencoba mengoptimasi kode secara berlebihan
 > pada percobaan pertama Anda. Seiring bertambahnya pengalaman Anda dengan
@@ -170,13 +170,13 @@ kesederhanaan adalah pertukaran yang layak.
 Kita telah memperbarui `main` sehingga ia menaruh instance `Config` yang
 dikembalikan oleh `parse_config` ke dalam sebuah variabel bernama `config`,
 dan kita memperbarui kode yang sebelumnya memakai variabel `query` dan
-`file_path` yang terpisah sehingga kini memakai field-field pada struct
+`file_path` yang terpisah sehingga kini memakai *field*-field pada *struct*
 `Config`.
 
 Sekarang kode kita menyampaikan dengan lebih jelas bahwa `query` dan
 `file_path` saling berkaitan dan tujuan mereka adalah mengonfigurasi cara
 kerja program. Kode mana pun yang memakai nilai-nilai ini tahu bahwa
-nilai-nilai itu dapat ditemukan di instance `config`, pada field-field yang
+nilai-nilai itu dapat ditemukan di instance `config`, pada *field*-field yang
 dinamai sesuai tujuannya.
 
 #### Membuat Konstruktor untuk `Config`
@@ -185,13 +185,13 @@ Sejauh ini, kita telah mengekstrak logika yang bertanggung jawab atas parsing
 argumen baris perintah dari `main` dan menaruhnya di fungsi `parse_config`.
 Hal ini membantu kita melihat bahwa nilai `query` dan `file_path` saling
 berkaitan, dan hubungan itu seharusnya disampaikan di dalam kode kita. Kita
-kemudian menambahkan struct `Config` untuk menamai tujuan bersama dari
+kemudian menambahkan *struct* `Config` untuk menamai tujuan bersama dari
 `query` dan `file_path`, serta agar nama-nama nilai itu dapat dikembalikan
-sebagai nama field struct dari fungsi `parse_config`.
+sebagai nama *field* *struct* dari fungsi `parse_config`.
 
 Jadi, sekarang karena tujuan fungsi `parse_config` adalah membuat sebuah
 instance `Config`, kita dapat mengubah `parse_config` dari fungsi biasa
-menjadi sebuah fungsi bernama `new` yang terasosiasi dengan struct `Config`.
+menjadi sebuah fungsi bernama `new` yang terasosiasi dengan *struct* `Config`.
 Perubahan ini akan membuat kode lebih idiomatis. Kita dapat membuat instance
 tipe-tipe di pustaka standar, seperti `String`, dengan memanggil `String::new`.
 Demikian pula, dengan mengubah `parse_config` menjadi fungsi `new` yang
@@ -232,8 +232,8 @@ sekarang.
 #### Memperbaiki Pesan Galat
 
 Di Listing 12-8, kita menambahkan sebuah pemeriksaan di fungsi `new` yang akan
-memverifikasi bahwa slice itu cukup panjang sebelum mengakses indeks 1 dan
-indeks 2. Jika slice itu tidak cukup panjang, program akan panic dan
+memverifikasi bahwa *slice* itu cukup panjang sebelum mengakses indeks 1 dan
+indeks 2. Jika *slice* itu tidak cukup panjang, program akan panic dan
 menampilkan pesan galat yang lebih baik.
 
 <Listing number="12-8" file-name="src/main.rs" caption="Menambahkan pemeriksaan jumlah argumen">
@@ -300,8 +300,8 @@ listing berikutnya.
 </Listing>
 
 Fungsi `build` kita mengembalikan sebuah `Result` dengan instance `Config`
-pada kasus keberhasilan dan sebuah string literal pada kasus galat.
-Nilai-nilai galat kita akan selalu berupa string literal yang memiliki
+pada kasus keberhasilan dan sebuah *string literal* pada kasus galat.
+Nilai-nilai galat kita akan selalu berupa *string literal* yang memiliki
 *lifetime* (masa hidup) `'static`.
 
 Kita telah membuat dua perubahan di badan fungsi: Alih-alih memanggil
@@ -509,12 +509,12 @@ mendetail saat mengisi implementasinya.
 </Listing>
 
 Kita telah memakai kata kunci `pub` pada definisi fungsi tersebut untuk
-menandai `search` sebagai bagian dari API publik crate library kita. Sekarang
-kita memiliki sebuah crate library yang dapat kita pakai dari crate binary
+menandai `search` sebagai bagian dari API publik *crate* library kita. Sekarang
+kita memiliki sebuah *crate* library yang dapat kita pakai dari *crate* binary
 kita dan yang dapat kita uji!
 
 Sekarang kita perlu membawa kode yang didefinisikan di _src/lib.rs_ ke dalam
-*scope* crate binary di _src/main.rs_ dan memanggilnya, seperti yang
+*scope* *crate* binary di _src/main.rs_ dan memanggilnya, seperti yang
 ditunjukkan di Listing 12-14.
 
 <Listing number="12-14" file-name="src/main.rs" caption="Memakai fungsi `search` dari crate library `minigrep` di *src/main.rs*">
@@ -526,13 +526,13 @@ ditunjukkan di Listing 12-14.
 </Listing>
 
 Kita menambahkan baris `use minigrep::search` untuk membawa fungsi `search`
-dari crate library ke dalam *scope* crate binary. Kemudian, di dalam fungsi
+dari *crate* library ke dalam *scope* *crate* binary. Kemudian, di dalam fungsi
 `run`, alih-alih mencetak isi file, kita memanggil fungsi `search` dan
 meneruskan nilai `config.query` dan `contents` sebagai argumen. Lalu, `run`
 akan memakai sebuah perulangan `for` untuk mencetak setiap baris yang
 dikembalikan dari `search` yang cocok dengan kueri. Ini juga saat yang tepat
 untuk menghapus pemanggilan `println!` di fungsi `main` yang menampilkan
-kueri dan path file, sehingga program kita hanya mencetak hasil pencarian
+kueri dan *path* file, sehingga program kita hanya mencetak hasil pencarian
 (jika tidak ada galat yang terjadi).
 
 Perhatikan bahwa fungsi pencarian akan mengumpulkan semua hasil ke dalam

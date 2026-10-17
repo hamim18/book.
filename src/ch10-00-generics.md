@@ -3,17 +3,17 @@
 Setiap bahasa pemrograman memiliki alat untuk menangani duplikasi konsep
 secara efektif. Di Rust, salah satu alat tersebut adalah *generics* (tipe
 generik): pengganti abstrak untuk tipe konkret atau properti lain. Kita bisa
-mengekspresikan perilaku generics atau bagaimana mereka berhubungan dengan
-generics lain tanpa mengetahui apa yang akan berada di tempatnya saat kode
+mengekspresikan perilaku *generics* atau bagaimana mereka berhubungan dengan
+*generics* lain tanpa mengetahui apa yang akan berada di tempatnya saat kode
 dikompilasi dan dijalankan.
 
 Fungsi dapat menerima parameter bertipe generik, alih-alih tipe konkret
 seperti `i32` atau `String`, sama seperti mereka menerima parameter dengan
 nilai yang tidak diketahui untuk menjalankan kode yang sama pada banyak nilai
-konkret. Nyatanya, kita sudah memakai generics di Bab 6 dengan `Option<T>`,
+konkret. Nyatanya, kita sudah memakai *generics* di Bab 6 dengan `Option<T>`,
 di Bab 8 dengan `Vec<T>` dan `HashMap<K, V>`, serta di Bab 9 dengan
 `Result<T, E>`. Di bab ini, Anda akan mengeksplorasi cara mendefinisikan
-tipe, fungsi, dan metode Anda sendiri dengan generics!
+tipe, fungsi, dan metode Anda sendiri dengan *generics*!
 
 Pertama, kita akan meninjau cara mengekstrak fungsi untuk mengurangi
 duplikasi kode. Kemudian, kita akan memakai teknik yang sama untuk membuat
@@ -26,24 +26,24 @@ perilaku secara generik. Anda bisa menggabungkan *trait* dengan tipe generik
 untuk membatasi tipe generik agar hanya menerima tipe-tipe yang memiliki
 perilaku tertentu, alih-alih sembarang tipe.
 
-Terakhir, kita akan membahas *lifetime* (masa hidup): sejenis generics yang
+Terakhir, kita akan membahas *lifetime* (masa hidup): sejenis *generics* yang
 memberi *compiler* (kompilator) informasi tentang bagaimana *reference*
-(referensi) berhubungan satu sama lain. Lifetime memungkinkan kita memberi
-compiler informasi yang cukup tentang nilai yang dipinjam sehingga ia bisa
-memastikan bahwa reference akan tetap valid dalam lebih banyak situasi
+(referensi) berhubungan satu sama lain. *Lifetime* memungkinkan kita memberi
+*compiler* informasi yang cukup tentang nilai yang dipinjam sehingga ia bisa
+memastikan bahwa *reference* akan tetap valid dalam lebih banyak situasi
 daripada yang bisa ia lakukan tanpa bantuan kita.
 
 ## Menghilangkan Duplikasi dengan Mengekstrak Fungsi
 
-Generics memungkinkan kita mengganti tipe spesifik dengan placeholder yang
+*Generics* memungkinkan kita mengganti tipe spesifik dengan placeholder yang
 mewakili banyak tipe untuk menghilangkan duplikasi kode. Sebelum menyelami
-sintaks generics, mari kita lihat dulu cara menghilangkan duplikasi dengan
+sintaks *generics*, mari kita lihat dulu cara menghilangkan duplikasi dengan
 cara yang tidak melibatkan tipe generik, yaitu dengan mengekstrak fungsi yang
 mengganti nilai spesifik dengan placeholder yang mewakili banyak nilai.
 Kemudian, kita akan menerapkan teknik yang sama untuk mengekstrak fungsi
 generik! Dengan melihat cara mengenali kode duplikat yang bisa Anda ekstrak
 menjadi sebuah fungsi, Anda akan mulai mengenali kode duplikat yang bisa
-memakai generics.
+memakai *generics*.
 
 Kita akan mulai dengan program pendek di Listing 10-1 yang menemukan angka
 terbesar dalam sebuah daftar.
@@ -57,10 +57,10 @@ terbesar dalam sebuah daftar.
 </Listing>
 
 Kita menyimpan daftar bilangan bulat dalam variabel `number_list` dan
-menempatkan reference ke angka pertama dalam daftar itu pada variabel
+menempatkan *reference* ke angka pertama dalam daftar itu pada variabel
 bernama `largest`. Kita kemudian mengiterasi seluruh angka dalam daftar itu,
 dan jika angka saat ini lebih besar daripada angka yang tersimpan di
-`largest`, kita mengganti reference di variabel tersebut. Akan tetapi, jika
+`largest`, kita mengganti *reference* di variabel tersebut. Akan tetapi, jika
 angka saat ini lebih kecil dari atau sama dengan angka terbesar yang sudah
 terlihat sejauh ini, variabel itu tidak berubah dan kode melanjutkan ke angka
 berikutnya dalam daftar. Setelah mempertimbangkan semua angka dalam daftar,
@@ -117,9 +117,9 @@ Listing 10-2 menjadi Listing 10-3:
    nilai kembalian kode itu di tanda tangan fungsi.
 1. Perbarui dua instance kode duplikat itu agar memanggil fungsi tersebut.
 
-Selanjutnya, kita akan memakai langkah-langkah yang sama dengan generics
+Selanjutnya, kita akan memakai langkah-langkah yang sama dengan *generics*
 untuk mengurangi duplikasi kode. Sama seperti badan fungsi yang dapat
-beroperasi pada `list` yang abstrak alih-alih nilai-nilai spesifik, generics
+beroperasi pada `list` yang abstrak alih-alih nilai-nilai spesifik, *generics*
 memungkinkan kode beroperasi pada tipe-tipe abstrak.
 
 Sebagai contoh, katakanlah kita memiliki dua fungsi: satu yang menemukan item

@@ -82,7 +82,7 @@ variabel `x`, apa pun nilainya.”
 
 Untuk melihat aspek pencocokan pola dari `let` dengan lebih jelas,
 perhatikan Listing 19-1, yang memakai pola dengan `let` untuk
-mendestrukturisasi sebuah tuple.
+mendestrukturisasi sebuah *tuple*.
 
 <Listing number="19-1" caption="Memakai pola untuk mendestrukturisasi tuple dan membuat tiga variabel sekaligus">
 
@@ -92,16 +92,16 @@ mendestrukturisasi sebuah tuple.
 
 </Listing>
 
-Di sini, kita mencocokkan sebuah tuple terhadap sebuah pola. Rust
+Di sini, kita mencocokkan sebuah *tuple* terhadap sebuah pola. Rust
 membandingkan nilai `(1, 2, 3)` dengan pola `(x, y, z)` dan melihat bahwa
 nilai itu cocok dengan polanya—artinya, ia melihat bahwa jumlah elemen
 keduanya sama—jadi Rust mengikat `1` ke `x`, `2` ke `y`, dan `3` ke `z`. Anda
-bisa menganggap pola tuple ini sebagai tiga pola variabel individual yang
+bisa menganggap pola *tuple* ini sebagai tiga pola variabel individual yang
 bersarang di dalamnya.
 
-Jika jumlah elemen pada pola tidak cocok dengan jumlah elemen pada tuple,
+Jika jumlah elemen pada pola tidak cocok dengan jumlah elemen pada *tuple*,
 tipe keseluruhannya tidak akan cocok dan kita akan mendapat galat kompilator.
-Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi tuple dengan
+Contohnya, Listing 19-2 menunjukkan upaya mendestrukturisasi *tuple* dengan
 tiga elemen menjadi dua variabel, yang tidak akan berhasil.
 
 <Listing number="19-2" caption="Membuat pola secara keliru dengan variabel yang jumlahnya tidak cocok dengan jumlah elemen pada tuple">
@@ -119,11 +119,11 @@ Upaya mengompilasi kode ini menghasilkan galat tipe berikut:
 ```
 
 Untuk memperbaiki galatnya, kita bisa mengabaikan satu atau beberapa nilai di
-tuple itu menggunakan `_` atau `..`, seperti yang akan Anda lihat di bagian
+*tuple* itu menggunakan `_` atau `..`, seperti yang akan Anda lihat di bagian
 [“Mengabaikan Nilai dalam Pola”][ignoring-values-in-a-pattern]<!-- ignore -->.
 Jika masalahnya adalah kita punya terlalu banyak variabel di pola, solusinya
 adalah membuat tipe-tipenya cocok dengan menghapus variabel sehingga jumlah
-variabel sama dengan jumlah elemen di tuple.
+variabel sama dengan jumlah elemen di *tuple*.
 
 ### Ekspresi Kondisional `if let`
 
@@ -170,7 +170,7 @@ memperkenalkan variabel `age` baru yang memuat nilai di dalam varian `Ok`,
 melakukan shadowing terhadap variabel `age` yang sudah ada. Ini berarti kita
 perlu menaruh kondisi `if age > 30` di dalam blok itu: kita tidak bisa
 menggabungkan dua kondisi ini menjadi `if let Ok(age) = age && age > 30`.
-`age` baru yang ingin kita bandingkan dengan 30 tidak valid sampai scope baru
+`age` baru yang ingin kita bandingkan dengan 30 tidak valid sampai *scope* baru
 dimulai dengan kurung kurawal.
 
 Kekurangan memakai ekspresi `if let` adalah kompilator tidak memeriksa
@@ -196,9 +196,9 @@ dikirim antar-thread, tetapi dalam kasus ini memeriksa `Result` alih-alih
 </Listing>
 
 Contoh ini mencetak `1`, `2`, lalu `3`. Metode `recv` mengambil pesan pertama
-dari sisi penerima channel dan mengembalikan `Ok(value)`. Ketika pertama kali
+dari sisi penerima *channel* dan mengembalikan `Ok(value)`. Ketika pertama kali
 kita melihat `recv` di Bab 16, kita melakukan unwrap pada galatnya secara
-langsung, atau kita berinteraksi dengannya sebagai iterator menggunakan
+langsung, atau kita berinteraksi dengannya sebagai *iterator* menggunakan
 perulangan `for`. Akan tetapi, seperti yang ditunjukkan Listing 19-4, kita
 juga bisa memakai `while let`, karena metode `recv` mengembalikan `Ok` setiap
 kali pesan tiba, selama pengirimnya ada, dan kemudian menghasilkan `Err`
@@ -209,7 +209,7 @@ begitu sisi pengirim terputus.
 Pada perulangan `for`, nilai yang langsung mengikuti kata kunci `for` adalah
 sebuah pola. Contohnya, pada `for x in y`, `x` adalah polanya. Listing 19-5
 mendemonstrasikan cara memakai pola di perulangan `for` untuk
-mendestrukturisasi, atau memecah, sebuah tuple sebagai bagian dari perulangan
+mendestrukturisasi, atau memecah, sebuah *tuple* sebagai bagian dari perulangan
 `for`.
 
 <Listing number="19-5" caption="Memakai pola di perulangan `for` untuk mendestrukturisasi tuple">
@@ -226,9 +226,9 @@ Kode di Listing 19-5 akan mencetak hal berikut:
 {{#include ../listings/ch19-patterns-and-matching/listing-19-05/output.txt}}
 ```
 
-Kita mengadaptasi sebuah iterator menggunakan metode `enumerate` sehingga ia
+Kita mengadaptasi sebuah *iterator* menggunakan metode `enumerate` sehingga ia
 menghasilkan sebuah nilai dan indeks untuk nilai itu, ditempatkan ke dalam
-sebuah tuple. Nilai pertama yang dihasilkan adalah tuple `(0, 'a')`. Ketika
+sebuah *tuple*. Nilai pertama yang dihasilkan adalah *tuple* `(0, 'a')`. Ketika
 nilai ini dicocokkan dengan pola `(index, value)`, index akan menjadi `0` dan
 value akan menjadi `'a'`, mencetak baris pertama dari output.
 
@@ -247,8 +247,8 @@ bertipe `i32`, sekarang seharusnya terasa familier.
 </Listing>
 
 Bagian `x` adalah sebuah pola! Seperti yang kita lakukan dengan `let`, kita
-bisa mencocokkan tuple pada argumen fungsi terhadap polanya. Listing 19-7
-memecah nilai-nilai pada sebuah tuple saat kita meneruskannya ke fungsi.
+bisa mencocokkan *tuple* pada argumen fungsi terhadap polanya. Listing 19-7
+memecah nilai-nilai pada sebuah *tuple* saat kita meneruskannya ke fungsi.
 
 <Listing number="19-7" file-name="src/main.rs" caption="Fungsi dengan parameter yang mendestrukturisasi tuple">
 
@@ -261,13 +261,13 @@ memecah nilai-nilai pada sebuah tuple saat kita meneruskannya ke fungsi.
 Kode ini mencetak `Current location: (3, 5)`. Nilai `&(3, 5)` cocok dengan
 pola `&(x, y)`, jadi `x` adalah nilai `3` dan `y` adalah nilai `5`.
 
-Kita juga bisa memakai pola di daftar parameter closure dengan cara yang sama
-seperti di daftar parameter fungsi karena closure mirip dengan fungsi, seperti
+Kita juga bisa memakai pola di daftar parameter *closure* dengan cara yang sama
+seperti di daftar parameter fungsi karena *closure* mirip dengan fungsi, seperti
 yang dibahas di Bab 13.
 
 Pada titik ini, Anda telah melihat beberapa cara memakai pola, tetapi pola
 tidak bekerja dengan cara yang sama di setiap tempat kita bisa memakainya. Di
-sebagian tempat, polanya harus irrefutable; di kondisi lain, pola boleh
-refutable. Kita akan membahas dua konsep ini berikutnya.
+sebagian tempat, polanya harus *irrefutable*; di kondisi lain, pola boleh
+*refutable*. Kita akan membahas dua konsep ini berikutnya.
 
 [ignoring-values-in-a-pattern]: ch19-03-pattern-syntax.html#ignoring-values-in-a-pattern

@@ -43,16 +43,16 @@ Dalam banyak kasus, kode Rust yang memakai *iterator* terkompilasi menjadi
 assembly yang sama dengan yang akan Anda tulis secara manual. Optimasi seperti
 loop unrolling dan penghapusan pemeriksaan batas pada akses array berlaku dan
 membuat kode yang dihasilkan menjadi sangat efisien. Sekarang setelah Anda
-tahu ini, Anda dapat memakai *iterator* dan closure tanpa takut! Mereka
+tahu ini, Anda dapat memakai *iterator* dan *closure* tanpa takut! Mereka
 membuat kode tampak lebih tinggi tingkatnya tetapi tidak mengenakan denda
 performa runtime karenanya.
 
 ## Ringkasan
 
-Closure dan *iterator* adalah fitur Rust yang terinspirasi oleh gagasan-gagasan
+*Closure* dan *iterator* adalah fitur Rust yang terinspirasi oleh gagasan-gagasan
 bahasa pemrograman fungsional. Keduanya berkontribusi pada kemampuan Rust
 untuk mengekspresikan gagasan tingkat tinggi dengan jelas pada performa
-tingkat rendah. Implementasi closure dan *iterator* dibuat sedemikian rupa
+tingkat rendah. Implementasi *closure* dan *iterator* dibuat sedemikian rupa
 sehingga performa runtime tidak terpengaruh. Ini adalah bagian dari tujuan
 Rust untuk berupaya menyediakan *zero-cost abstraction*.
 

@@ -6,7 +6,7 @@ kompleks maupun yang sederhana. Memakai pola bersamaan dengan ekspresi
 kontrol program. Sebuah pola terdiri dari kombinasi hal-hal berikut:
 
 - Literal
-- Array, enum, struct, atau tuple yang didestrukturisasi
+- Array, *enum*, *struct*, atau *tuple* yang didestrukturisasi
 - Variabel
 - Wildcard
 - Placeholder
@@ -26,6 +26,6 @@ dikaitkan dengan pola itu tidak akan berjalan.
 
 Bab ini adalah rujukan untuk segala hal yang berkaitan dengan pola. Kita
 akan membahas tempat-tempat yang valid untuk memakai pola, perbedaan antara
-pola refutable dan irrefutable, serta berbagai jenis sintaks pola yang
+pola *refutable* dan *irrefutable*, serta berbagai jenis sintaks pola yang
 mungkin Anda lihat. Di akhir bab ini, Anda akan tahu cara memakai pola untuk
 mengekspresikan banyak konsep dengan cara yang jelas.

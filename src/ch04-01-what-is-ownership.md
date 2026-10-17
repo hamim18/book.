@@ -186,7 +186,7 @@ ini ke dalam *namespace* (ruang nama) dari tipe `String`, alih-alih
 menggunakan semacam nama seperti `string_from`. Kita akan membahas sintaks
 ini lebih lanjut di bagian [“Metode”][methods]<!-- ignore --> pada Bab 5,
 serta ketika kita membicarakan ruang nama dengan *module* (modul) di bagian
-[“Path untuk Merujuk Item di dalam Pohon
+[“*Path* untuk Merujuk Item di dalam Pohon
 Modul”][paths-module-tree]<!-- ignore --> pada Bab 7.
 
 String jenis ini _dapat_ diubah:
@@ -326,7 +326,7 @@ kedua string di stack, dan keduanya menunjuk ke data string yang sama di
 heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 4-2: Representasi di dalam memori dari variabel
-`s2` yang memiliki salinan pointer, panjang, dan kapasitas dari `s1`</span>
+`s2` yang memiliki salinan *pointer*, panjang, dan kapasitas dari `s1`</span>
 
 Representasi ini _tidak_ tampak seperti Gambar 4-3, yang merupakan bentuk
 memori jika Rust ikut menyalin data di *heap*. Jika Rust melakukan itu,
@@ -338,7 +338,7 @@ dan s2, dan masing-masing menunjuk ke salinan data string miliknya sendiri di
 heap." src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 4-3: Kemungkinan lain dari apa yang mungkin
-dilakukan `s2 = s1` jika Rust ikut menyalin data heap</span>
+dilakukan `s2 = s1` jika Rust ikut menyalin data *heap*</span>
 
 Sebelumnya kita telah mengatakan bahwa ketika sebuah variabel keluar dari
 *scope*, Rust secara otomatis memanggil fungsi `drop` dan membersihkan memori
@@ -421,7 +421,7 @@ awal digantikan seluruhnya</span>
 
 Dengan demikian, *string* aslinya segera keluar dari *scope*. Rust akan
 menjalankan fungsi `drop` pada *string* tersebut dan memorinya akan langsung
-dibebaskan. Ketika kita mencetak nilainya di akhir program, hasilnya adalah
+dibebaskan. Ketika kita mencetak nilainya di akhir, hasilnya adalah
 `"ahoy, world!"`.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -487,7 +487,7 @@ ketika nilainya keluar dari *scope*, dan kita menambahkan anotasi `Copy` ke
 tipe itu, kita akan mendapatkan galat waktu kompilasi. Untuk mempelajari cara
 menambahkan anotasi `Copy` pada tipe Anda guna mengimplementasikan *trait*
 tersebut, lihat [“Trait yang Dapat Diturunkan”][derivable-traits]<!-- ignore
---> di Appendix C.
+--> di Lampiran C.
 
 Lalu, tipe apa saja yang mengimplementasikan *trait* `Copy`? Anda dapat
 memeriksa dokumentasi untuk tipe tertentu demi memastikannya, tetapi sebagai
@@ -563,7 +563,7 @@ Rust memang mengizinkan kita mengembalikan beberapa nilai menggunakan sebuah
 
 </Listing>
 
-Namun, ini terlalu banyak upacara dan pekerjaan untuk sebuah konsep yang
+Namun, ini terlalu banyak formalitas dan pekerjaan untuk sebuah konsep yang
 seharusnya lumrah. Untungnya bagi kita, Rust memiliki fitur untuk
 menggunakan sebuah nilai tanpa memindahkan *ownership*-nya: *reference*.
 

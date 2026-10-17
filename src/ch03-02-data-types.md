@@ -7,7 +7,7 @@ Kita akan melihat dua himpunan bagian tipe data: skalar dan majemuk.
 
 Ingatlah bahwa Rust adalah bahasa yang *statically typed* (bertipe statis),
 artinya bahasa ini harus mengetahui tipe semua variabel pada waktu kompilasi.
-Compiler biasanya dapat menyimpulkan tipe apa yang ingin kita pakai berdasarkan
+*Compiler* biasanya dapat menyimpulkan tipe apa yang ingin kita pakai berdasarkan
 nilainya dan cara kita memakainya. Pada kasus ketika banyak tipe yang mungkin,
 seperti ketika kita mengonversi `String` menjadi tipe numerik memakai `parse`
 di bagian [“Membandingkan Tebakan dengan Angka
@@ -19,7 +19,7 @@ let guess: u32 = "42".parse().expect("Not a number!");
 ```
 
 Jika kita tidak menambahkan anotasi tipe `: u32` yang ditunjukkan pada kode
-sebelumnya, Rust akan menampilkan galat berikut, yang berarti compiler
+sebelumnya, Rust akan menampilkan galat berikut, yang berarti *compiler*
 membutuhkan lebih banyak informasi dari kita untuk mengetahui tipe mana yang
 ingin kita pakai:
 
@@ -216,18 +216,18 @@ Bab 8.
 ### Tipe Majemuk
 
 Tipe majemuk dapat mengelompokkan beberapa nilai menjadi satu tipe. Rust
-memiliki dua tipe majemuk primitif: tuple dan array.
+memiliki dua tipe majemuk primitif: *tuple* dan array.
 
 <a id="the-tuple-type"></a>
 #### Tipe Tuple
 
 Sebuah *tuple* adalah cara umum untuk mengelompokkan sejumlah nilai dengan
-beragam tipe menjadi satu tipe majemuk. Tuple memiliki panjang yang tetap:
+beragam tipe menjadi satu tipe majemuk. *Tuple* memiliki panjang yang tetap:
 begitu dideklarasikan, ukurannya tidak dapat membesar atau mengecil.
 
-Kita membuat tuple dengan menuliskan daftar nilai yang dipisahkan koma di
-dalam tanda kurung. Setiap posisi di dalam tuple memiliki tipe, dan tipe
-nilai-nilai yang berbeda di dalam tuple tidak harus sama. Kita menambahkan
+Kita membuat *tuple* dengan menuliskan daftar nilai yang dipisahkan koma di
+dalam tanda kurung. Setiap posisi di dalam *tuple* memiliki tipe, dan tipe
+nilai-nilai yang berbeda di dalam *tuple* tidak harus sama. Kita menambahkan
 anotasi tipe opsional pada contoh ini:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -236,10 +236,10 @@ anotasi tipe opsional pada contoh ini:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
-Variabel `tup` terikat pada keseluruhan tuple karena tuple dianggap sebagai
+Variabel `tup` terikat pada keseluruhan *tuple* karena *tuple* dianggap sebagai
 satu elemen majemuk tunggal. Untuk mengambil nilai-nilai individual dari
-sebuah tuple, kita dapat memakai *pattern matching* (pencocokan pola) untuk
-mendestrukturisasi nilai tuple, seperti ini:
+sebuah *tuple*, kita dapat memakai *pattern matching* (pencocokan pola) untuk
+mendestrukturisasi nilai *tuple*, seperti ini:
 
 <span class="filename">Nama File: src/main.rs</span>
 
@@ -247,13 +247,13 @@ mendestrukturisasi nilai tuple, seperti ini:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-11-destructuring-tuples/src/main.rs}}
 ```
 
-Program ini mula-mula membuat sebuah tuple dan mengikatnya ke variabel `tup`.
+Program ini mula-mula membuat sebuah *tuple* dan mengikatnya ke variabel `tup`.
 Lalu program memakai sebuah pola dengan `let` untuk mengambil `tup` dan
 mengubahnya menjadi tiga variabel terpisah, `x`, `y`, dan `z`. Ini disebut
-*destructuring* (destrukturisasi) karena ia memecah satu tuple menjadi tiga
+*destructuring* (destrukturisasi) karena ia memecah satu *tuple* menjadi tiga
 bagian. Terakhir, program mencetak nilai `y`, yaitu `6.4`.
 
-Kita juga dapat mengakses elemen tuple secara langsung dengan memakai titik
+Kita juga dapat mengakses elemen *tuple* secara langsung dengan memakai titik
 (`.`) yang diikuti indeks nilai yang ingin kita akses. Contohnya:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -262,11 +262,11 @@ Kita juga dapat mengakses elemen tuple secara langsung dengan memakai titik
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-12-tuple-indexing/src/main.rs}}
 ```
 
-Program ini membuat tuple `x` lalu mengakses setiap elemen tuple dengan memakai
+Program ini membuat *tuple* `x` lalu mengakses setiap elemen *tuple* dengan memakai
 indeksnya masing-masing. Seperti pada sebagian besar bahasa pemrograman, indeks
-pertama dalam sebuah tuple adalah 0.
+pertama dalam sebuah *tuple* adalah 0.
 
-Tuple tanpa nilai apa pun memiliki nama khusus, *unit*. Nilai ini dan tipe yang
+*Tuple* tanpa nilai apa pun memiliki nama khusus, *unit*. Nilai ini dan tipe yang
 bersesuaian dengannya sama-sama ditulis `()` dan merepresentasikan nilai kosong
 atau tipe kembalian kosong. Ekspresi secara implisit mengembalikan nilai unit
 jika tidak mengembalikan nilai lain.
@@ -274,7 +274,7 @@ jika tidak mengembalikan nilai lain.
 #### Tipe Array
 
 Cara lain untuk memiliki koleksi berisi banyak nilai adalah dengan array.
-Tidak seperti tuple, setiap elemen array harus memiliki tipe yang sama. Tidak
+Tidak seperti *tuple*, setiap elemen array harus memiliki tipe yang sama. Tidak
 seperti array pada beberapa bahasa lain, array di Rust memiliki panjang yang
 tetap.
 
@@ -289,12 +289,12 @@ dalam kurung siku:
 
 Array berguna ketika Anda ingin data Anda dialokasikan di *stack* (tumpukan),
 sama seperti tipe-tipe lain yang telah kita lihat sejauh ini, alih-alih di
-*heap* (timbunan) (kita akan membahas stack dan heap lebih lanjut di
+*heap* (timbunan) (kita akan membahas *stack* dan *heap* lebih lanjut di
 [Bab 4][stack-and-heap]<!-- ignore -->) atau ketika Anda ingin memastikan
 bahwa Anda selalu memiliki jumlah elemen yang tetap. Meski begitu, array tidak
 sefleksibel tipe vektor. Vektor adalah tipe koleksi serupa yang disediakan oleh
 pustaka standar yang _diizinkan_ untuk membesar atau mengecil ukurannya karena
-isinya berada di heap. Jika Anda ragu apakah harus memakai array atau vektor,
+isinya berada di *heap*. Jika Anda ragu apakah harus memakai array atau vektor,
 kemungkinan besar Anda sebaiknya memakai vektor. [Bab 8][vectors]<!-- ignore
 --> membahas vektor secara lebih mendetail.
 
@@ -336,7 +336,7 @@ yang lebih ringkas.
 #### Mengakses Elemen Array
 
 Array adalah satu bongkah memori berukuran tetap yang diketahui dan dapat
-dialokasikan di stack. Anda dapat mengakses elemen-elemen array dengan
+dialokasikan di *stack*. Anda dapat mengakses elemen-elemen array dengan
 pengindeksan, seperti ini:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -385,7 +385,7 @@ mengeksekusi pernyataan `println!` terakhir. Ketika Anda mencoba mengakses
 sebuah elemen dengan pengindeksan, Rust akan memeriksa bahwa indeks yang Anda
 berikan lebih kecil daripada panjang array. Jika indeksnya lebih besar daripada
 atau sama dengan panjangnya, Rust akan panic. Pemeriksaan ini harus terjadi
-pada saat runtime, khususnya pada kasus ini, karena compiler tidak mungkin tahu
+pada saat runtime, khususnya pada kasus ini, karena *compiler* tidak mungkin tahu
 nilai apa yang akan dimasukkan pengguna ketika mereka menjalankan kodenya
 nanti.
 

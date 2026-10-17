@@ -3,7 +3,7 @@
 Semua pemrogram berusaha membuat kode mereka mudah dipahami, tetapi
 kadang-kadang penjelasan tambahan memang diperlukan. Pada kasus seperti itu,
 pemrogram meninggalkan komentar di kode sumber mereka yang akan diabaikan
-compiler tetapi mungkin berguna bagi orang yang membaca kode sumbernya.
+*compiler* tetapi mungkin berguna bagi orang yang membaca kode sumbernya.
 
 Berikut komentar sederhana:
 

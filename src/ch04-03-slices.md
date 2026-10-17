@@ -149,7 +149,7 @@ yang menunjuk ke byte pada indeks 0 di tabel data string
 slice world, yang memiliki nilai panjang 5 dan menunjuk ke byte 6 dari tabel
 data heap." src="img/trpl04-07.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Gambar 4-7: Sebuah string slice yang merujuk ke sebagian
+<span class="caption">Gambar 4-7: Sebuah string *slice* yang merujuk ke sebagian
 dari `String`</span>
 
 Dengan sintaks rentang `..` milik Rust, jika Anda ingin memulai dari indeks
@@ -193,7 +193,7 @@ let slice = &s[..];
 > karakter multibyte, program Anda akan keluar dengan galat.
 
 Dengan semua informasi ini, mari kita tulis ulang `first_word` agar
-mengembalikan sebuah *slice*. Tipe yang menandakan “string slice” ditulis
+mengembalikan sebuah *slice*. Tipe yang menandakan “string *slice*” ditulis
 sebagai `&str`:
 
 <Listing file-name="src/main.rs">

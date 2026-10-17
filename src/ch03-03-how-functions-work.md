@@ -16,7 +16,7 @@ bawah. Berikut program yang berisi contoh definisi fungsi:
 ```
 
 Kita mendefinisikan fungsi di Rust dengan menuliskan `fn` yang diikuti nama
-fungsi dan sepasang tanda kurung. Kurung kurawalnya memberi tahu compiler di
+fungsi dan sepasang tanda kurung. Kurung kurawalnya memberi tahu *compiler* di
 mana badan fungsi dimulai dan diakhiri.
 
 Kita dapat memanggil fungsi apa pun yang telah kita definisikan dengan
@@ -71,9 +71,9 @@ berisi `x` di dalam string format.
 
 Dalam tanda tangan fungsi, Anda _harus_ mendeklarasikan tipe setiap parameter.
 Ini adalah keputusan yang disengaja dalam desain Rust: mewajibkan anotasi tipe
-dalam definisi fungsi berarti compiler hampir tidak pernah meminta Anda
+dalam definisi fungsi berarti *compiler* hampir tidak pernah meminta Anda
 memakainya di bagian lain kode untuk mengetahui tipe yang Anda maksud.
-Compiler juga mampu memberikan pesan galat yang lebih membantu jika ia tahu
+*Compiler* juga mampu memberikan pesan galat yang lebih membantu jika ia tahu
 tipe apa yang diharapkan fungsi tersebut.
 
 Ketika mendefinisikan beberapa parameter, pisahkan deklarasi parameternya
@@ -162,7 +162,7 @@ kode yang akan Anda tulis di Rust. Perhatikan sebuah operasi matematika,
 seperti `5 + 6`, yang merupakan ekspresi yang mengevaluasi menjadi nilai `11`.
 Ekspresi dapat menjadi bagian dari pernyataan: Pada Listing 3-1, `6` di dalam
 pernyataan `let y = 6;` adalah ekspresi yang mengevaluasi menjadi nilai `6`.
-Memanggil fungsi adalah ekspresi. Memanggil macro adalah ekspresi. Blok scope
+Memanggil fungsi adalah ekspresi. Memanggil *macro* adalah ekspresi. Blok *scope*
 baru yang dibuat dengan kurung kurawal adalah ekspresi, contohnya:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -204,7 +204,7 @@ implisit. Berikut contoh fungsi yang mengembalikan nilai:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/src/main.rs}}
 ```
 
-Tidak ada pemanggilan fungsi, macro, ataupun pernyataan `let` di dalam fungsi
+Tidak ada pemanggilan fungsi, *macro*, ataupun pernyataan `let` di dalam fungsi
 `five`—hanya angka `5` itu sendiri. Itu adalah fungsi yang sepenuhnya valid di
 Rust. Perhatikan bahwa tipe kembalian fungsinya juga ditentukan, yaitu
 `-> i32`. Coba jalankan kode ini; keluarannya seharusnya terlihat seperti ini:

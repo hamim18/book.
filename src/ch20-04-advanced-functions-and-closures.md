@@ -1,22 +1,22 @@
 ## Fungsi dan Closure Lanjutan
 
 Seksi ini mengeksplorasi beberapa fitur lanjutan yang berkaitan dengan fungsi
-dan closure, termasuk pointer fungsi dan mengembalikan closure.
+dan *closure*, termasuk *pointer* fungsi dan mengembalikan *closure*.
 
 ### Pointer Fungsi
 
-Kita sudah membahas cara memberikan closure ke fungsi; Anda juga bisa
+Kita sudah membahas cara memberikan *closure* ke fungsi; Anda juga bisa
 memberikan fungsi biasa ke fungsi! Teknik ini berguna ketika Anda ingin
 memberikan fungsi yang sudah Anda definisikan alih-alih mendefinisikan
-closure baru. Fungsi terkoersi menjadi tipe `fn` (dengan huruf *f* kecil),
-jangan tertukar dengan trait closure `Fn`. Tipe `fn` disebut *function
-pointer* (pointer fungsi). Memberikan fungsi dengan pointer fungsi akan
+*closure* baru. Fungsi terkoersi menjadi tipe `fn` (dengan huruf *f* kecil),
+jangan tertukar dengan *trait* *closure* `Fn`. Tipe `fn` disebut *function
+pointer* (*pointer* fungsi). Memberikan fungsi dengan *pointer* fungsi akan
 memungkinkan Anda memakai fungsi sebagai argumen untuk fungsi lain.
 
-Sintaks untuk menentukan bahwa sebuah parameter adalah pointer fungsi mirip
-dengan sintaks closure, seperti yang ditunjukkan di Listing 20-28, tempat
+Sintaks untuk menentukan bahwa sebuah parameter adalah *pointer* fungsi mirip
+dengan sintaks *closure*, seperti yang ditunjukkan di Listing 20-28, tempat
 kita mendefinisikan fungsi `add_one` yang menambahkan 1 ke parameternya.
-Fungsi `do_twice` menerima dua parameter: sebuah pointer fungsi ke fungsi apa
+Fungsi `do_twice` menerima dua parameter: sebuah *pointer* fungsi ke fungsi apa
 pun yang menerima parameter `i32` dan mengembalikan `i32`, dan satu nilai
 `i32`. Fungsi `do_twice` memanggil fungsi `f` dua kali, memberikannya nilai
 `arg`, lalu menjumlahkan hasil kedua pemanggilan fungsi itu. Fungsi `main`
@@ -36,26 +36,26 @@ mengembalikan `i32`. Kita kemudian bisa memanggil `f` di tubuh `do_twice`.
 Di `main`, kita bisa memberikan nama fungsi `add_one` sebagai argumen pertama
 ke `do_twice`.
 
-Tidak seperti closure, `fn` adalah tipe, bukan trait, jadi kita menuliskan
+Tidak seperti *closure*, `fn` adalah tipe, bukan *trait*, jadi kita menuliskan
 `fn` langsung sebagai tipe parameter alih-alih mendeklarasikan parameter tipe
-generik dengan salah satu trait `Fn` sebagai trait bound.
+generik dengan salah satu *trait* `Fn` sebagai *trait bound*.
 
-Pointer fungsi mengimplementasikan ketiga trait closure (`Fn`, `FnMut`, dan
-`FnOnce`), artinya Anda selalu bisa memberikan pointer fungsi sebagai argumen
-untuk fungsi yang mengharapkan closure. Sebaiknya tulis fungsi dengan memakai
-tipe generik dan salah satu trait closure supaya fungsi Anda bisa menerima
-fungsi ataupun closure.
+*Pointer* fungsi mengimplementasikan ketiga *trait* *closure* (`Fn`, `FnMut`, dan
+`FnOnce`), artinya Anda selalu bisa memberikan *pointer* fungsi sebagai argumen
+untuk fungsi yang mengharapkan *closure*. Sebaiknya tulis fungsi dengan memakai
+tipe generik dan salah satu *trait* *closure* supaya fungsi Anda bisa menerima
+fungsi ataupun *closure*.
 
 Meskipun begitu, satu contoh situasi di mana Anda hanya ingin menerima `fn`
-dan bukan closure adalah saat berinteraksi dengan kode eksternal yang tidak
-memiliki closure: Fungsi C bisa menerima fungsi sebagai argumen, tetapi C
-tidak memiliki closure.
+dan bukan *closure* adalah saat berinteraksi dengan kode eksternal yang tidak
+memiliki *closure*: Fungsi C bisa menerima fungsi sebagai argumen, tetapi C
+tidak memiliki *closure*.
 
-Sebagai contoh situasi di mana Anda bisa memakai closure yang didefinisikan
+Sebagai contoh situasi di mana Anda bisa memakai *closure* yang didefinisikan
 secara inline ataupun fungsi bernama, mari kita lihat pemakaian metode `map`
-yang disediakan trait `Iterator` di pustaka standar. Untuk memakai metode
+yang disediakan *trait* `Iterator` di pustaka standar. Untuk memakai metode
 `map` guna mengubah vektor berisi angka menjadi vektor berisi string, kita
-bisa memakai closure, seperti di Listing 20-29.
+bisa memakai *closure*, seperti di Listing 20-29.
 
 <Listing number="20-29" caption="Memakai closure dengan metode `map` untuk mengubah angka menjadi string">
 
@@ -66,7 +66,7 @@ bisa memakai closure, seperti di Listing 20-29.
 </Listing>
 
 Atau kita bisa memberikan fungsi bernama sebagai argumen `map`, bukan
-closure. Listing 20-30 menunjukkan tampilannya.
+*closure*. Listing 20-30 menunjukkan tampilannya.
 
 <Listing number="20-30" caption="Memakai fungsi `String::to_string` dengan metode `map` untuk mengubah angka menjadi string">
 
@@ -80,16 +80,16 @@ Perhatikan bahwa kita harus memakai sintaks fully qualified yang kita bahas
 di seksi [“Trait Lanjutan”][advanced-traits]<!-- ignore --> karena ada banyak
 fungsi bernama `to_string` yang tersedia.
 
-Di sini, kita memakai fungsi `to_string` yang didefinisikan di trait
+Di sini, kita memakai fungsi `to_string` yang didefinisikan di *trait*
 `ToString`, yang telah diimplementasikan pustaka standar untuk tipe apa pun
 yang mengimplementasikan `Display`.
 
 Ingat kembali dari seksi [“Nilai Enum”][enum-values]<!-- ignore --> di Bab 6
-bahwa nama setiap varian enum yang kita definisikan juga menjadi fungsi
+bahwa nama setiap varian *enum* yang kita definisikan juga menjadi fungsi
 penginisialisasi. Kita bisa memakai fungsi-fungsi penginisialisasi ini
-sebagai pointer fungsi yang mengimplementasikan trait-trait closure, yang
+sebagai *pointer* fungsi yang mengimplementasikan *trait*-trait *closure*, yang
 berarti kita bisa memberikan fungsi-fungsi penginisialisasi itu sebagai
-argumen untuk metode yang menerima closure, seperti terlihat di Listing
+argumen untuk metode yang menerima *closure*, seperti terlihat di Listing
 20-31.
 
 <Listing number="20-31" caption="Memakai penginisialisasi enum dengan metode `map` untuk membuat instance `Status` dari angka">
@@ -103,19 +103,19 @@ argumen untuk metode yang menerima closure, seperti terlihat di Listing
 Di sini, kita membuat instance `Status::Value` dengan memakai setiap nilai
 `u32` di range tempat `map` dipanggil, yaitu dengan memakai fungsi
 penginisialisasi `Status::Value`. Sebagian orang lebih menyukai gaya ini dan
-sebagian lagi lebih suka memakai closure. Keduanya terkompilasi menjadi kode
+sebagian lagi lebih suka memakai *closure*. Keduanya terkompilasi menjadi kode
 yang sama, jadi pakailah gaya mana pun yang lebih jelas bagi Anda.
 
 ### Mengembalikan Closure
 
-Closure direpresentasikan oleh trait, yang berarti Anda tidak bisa
-mengembalikan closure secara langsung. Pada sebagian besar kasus ketika Anda
-ingin mengembalikan sebuah trait, Anda bisa memakai tipe konkret yang
-mengimplementasikan trait itu sebagai nilai kembalian fungsi. Akan tetapi,
-biasanya Anda tidak bisa melakukan itu dengan closure karena closure tidak
+*Closure* direpresentasikan oleh *trait*, yang berarti Anda tidak bisa
+mengembalikan *closure* secara langsung. Pada sebagian besar kasus ketika Anda
+ingin mengembalikan sebuah *trait*, Anda bisa memakai tipe konkret yang
+mengimplementasikan *trait* itu sebagai nilai kembalian fungsi. Akan tetapi,
+biasanya Anda tidak bisa melakukan itu dengan *closure* karena *closure* tidak
 memiliki tipe konkret yang bisa dikembalikan; misalnya, Anda tidak diizinkan
-memakai pointer fungsi `fn` sebagai tipe kembalian jika closure itu menangkap
-nilai apa pun dari scope-nya.
+memakai *pointer* fungsi `fn` sebagai tipe kembalian jika *closure* itu menangkap
+nilai apa pun dari *scope*-nya.
 
 Sebagai gantinya, biasanya Anda akan memakai sintaks `impl Trait` yang kita
 pelajari di Bab 10. Anda bisa mengembalikan tipe fungsi apa pun, dengan
@@ -132,9 +132,9 @@ terkompilasi dengan baik.
 
 Akan tetapi, seperti yang kita catat di seksi [“Menginferensi dan
 Menganotasi Tipe Closure”][closure-types]<!-- ignore --> pada Bab 13, setiap
-closure juga merupakan tipenya sendiri yang berbeda. Jika Anda perlu bekerja
+*closure* juga merupakan tipenya sendiri yang berbeda. Jika Anda perlu bekerja
 dengan banyak fungsi yang memiliki tanda tangan yang sama tetapi implementasi
-yang berbeda, Anda perlu memakai trait object untuk fungsi-fungsi itu.
+yang berbeda, Anda perlu memakai *trait object* untuk fungsi-fungsi itu.
 Perhatikan apa yang terjadi jika Anda menulis kode seperti yang ditunjukkan
 di Listing 20-33.
 
@@ -148,7 +148,7 @@ di Listing 20-33.
 
 Di sini kita punya dua fungsi, `returns_closure` dan
 `returns_initialized_closure`, yang sama-sama mengembalikan `impl Fn(i32) ->
-i32`. Perhatikan bahwa closure yang mereka kembalikan berbeda, meskipun
+i32`. Perhatikan bahwa *closure* yang mereka kembalikan berbeda, meskipun
 keduanya mengimplementasikan tipe yang sama. Jika kita mencoba
 mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 
@@ -157,16 +157,16 @@ mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 ```
 
 Pesan galat itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
-Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
+*Trait*`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
 detailnya tidak bisa kita lihat dari apa yang Rust bangun untuk kita, dan
 kita juga tidak bisa menebak tipe yang akan dihasilkan Rust untuk kita tulis
-sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan closure yang
-mengimplementasikan trait yang sama, `Fn(i32) -> i32`, tipe opak yang
+sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan *closure* yang
+mengimplementasikan *trait* yang sama, `Fn(i32) -> i32`, tipe opak yang
 dihasilkan Rust untuk masing-masing fungsi berbeda. (Ini mirip dengan cara
 Rust menghasilkan tipe konkret yang berbeda untuk blok async yang berbeda
 meskipun tipe keluarannya sama, seperti yang kita lihat di [“Tipe `Pin` dan
 Trait `Unpin`”][future-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
-solusi untuk masalah ini beberapa kali: Kita bisa memakai trait object,
+solusi untuk masalah ini beberapa kali: Kita bisa memakai *trait object*,
 seperti di Listing 20-34.
 
 <Listing number="20-34" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan `Box<dyn Fn>` sehingga semuanya bertipe sama">
@@ -177,11 +177,11 @@ seperti di Listing 20-34.
 
 </Listing>
 
-Kode ini akan terkompilasi dengan baik. Untuk lebih lanjut tentang trait
-object, lihat seksi [“Memakai Trait Object untuk Mengabstraksi Perilaku
+Kode ini akan terkompilasi dengan baik. Untuk lebih lanjut tentang *trait*
+object, lihat seksi [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
 Bersama”][trait-objects]<!-- ignore --> pada Bab 18.
 
-Selanjutnya, mari kita lihat macro!
+Selanjutnya, mari kita lihat *macro*!
 
 [advanced-traits]: ch20-02-advanced-traits.html#advanced-traits
 [enum-values]: ch06-01-defining-an-enum.html#enum-values

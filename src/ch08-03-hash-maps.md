@@ -38,11 +38,11 @@ memulai dengan 50.
 Perhatikan bahwa kita perlu terlebih dahulu `use` `HashMap` dari bagian
 collections pustaka standar. Dari tiga koleksi umum kita, yang satu ini
 paling jarang dipakai, jadi ia tidak termasuk dalam fitur-fitur yang dibawa
-ke dalam scope secara otomatis di *prelude*. Hash map juga mendapat dukungan
-lebih sedikit dari pustaka standar; tidak ada macro bawaan untuk
+ke dalam *scope* secara otomatis di *prelude*. Hash map juga mendapat dukungan
+lebih sedikit dari pustaka standar; tidak ada *macro* bawaan untuk
 mengonstruksinya, misalnya.
 
-Sama seperti vektor, hash map menyimpan datanya di heap. `HashMap` ini
+Sama seperti vektor, hash map menyimpan datanya di *heap*. `HashMap` ini
 memiliki kunci bertipe `String` dan nilai bertipe `i32`. Seperti vektor,
 hash map bersifat homogen: semua kunci harus bertipe sama, dan semua nilai
 harus bertipe sama.
@@ -105,10 +105,10 @@ tersebut, seperti yang didemonstrasikan di Listing 8-22.
 Kita tidak dapat memakai variabel `field_name` dan `field_value` setelah
 keduanya dipindahkan ke dalam hash map lewat pemanggilan `insert`.
 
-Jika kita memasukkan reference ke nilai ke dalam hash map, nilainya tidak
-akan dipindahkan ke dalam hash map. Nilai yang ditunjuk reference harus
+Jika kita memasukkan *reference* ke nilai ke dalam hash map, nilainya tidak
+akan dipindahkan ke dalam hash map. Nilai yang ditunjuk *reference* harus
 tetap valid paling tidak selama hash map valid. Kita akan membicarakan
-masalah-masalah ini lebih lanjut di [“Memvalidasi Reference dengan
+masalah-masalah ini lebih lanjut di [“Memvalidasi *Reference* dengan
 Lifetime”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
 
 ### Memperbarui Hash Map
@@ -157,7 +157,7 @@ kunci itu tidak ada, masukkan kunci itu dan sebuah nilai untuknya.
 
 Hash map memiliki API khusus untuk ini yang disebut `entry` yang menerima
 kunci yang ingin Anda periksa sebagai parameter. Nilai kembalian metode
-`entry` adalah enum bernama `Entry` yang merepresentasikan nilai yang
+`entry` adalah *enum* bernama `Entry` yang merepresentasikan nilai yang
 mungkin ada atau tidak ada. Katakanlah kita ingin memeriksa apakah kunci
 untuk tim Yellow memiliki nilai yang terasosiasi dengannya. Jika tidak, kita
 ingin memasukkan nilai `50`, dan begitu pula untuk tim Blue. Memakai API
@@ -171,12 +171,12 @@ ingin memasukkan nilai `50`, dan begitu pula untuk tim Blue. Memakai API
 
 </Listing>
 
-Metode `or_insert` pada `Entry` didefinisikan untuk mengembalikan reference
-mutable ke nilai untuk kunci `Entry` yang bersangkutan jika kunci itu ada,
+Metode `or_insert` pada `Entry` didefinisikan untuk mengembalikan *reference*
+*mutable* ke nilai untuk kunci `Entry` yang bersangkutan jika kunci itu ada,
 dan jika tidak, ia memasukkan parameter sebagai nilai baru untuk kunci ini
-dan mengembalikan reference mutable ke nilai baru tersebut. Teknik ini jauh
+dan mengembalikan *reference* *mutable* ke nilai baru tersebut. Teknik ini jauh
 lebih bersih daripada menulis logikanya sendiri dan, selain itu, lebih akur
-dengan borrow checker.
+dengan *borrow checker*.
 
 Menjalankan kode di Listing 8-24 akan mencetak `{"Yellow": 50, "Blue": 10}`.
 Pemanggilan `entry` yang pertama akan memasukkan kunci untuk tim Yellow
@@ -207,14 +207,14 @@ mungkin melihat pasangan kunci-nilai yang sama dicetak dalam urutan yang
 berbeda: ingat dari [“Mengakses Nilai di dalam Hash Map”][access]<!-- ignore
 --> bahwa mengiterasi hash map terjadi dalam urutan sembarang.
 
-Metode `split_whitespace` mengembalikan sebuah iterator atas subslice,
+Metode `split_whitespace` mengembalikan sebuah *iterator* atas subslice,
 dipisahkan oleh spasi, dari nilai di `text`. Metode `or_insert`
-mengembalikan reference mutable (`&mut V`) ke nilai untuk kunci yang
-ditentukan. Di sini, kita menyimpan reference mutable itu di variabel
+mengembalikan *reference* *mutable* (`&mut V`) ke nilai untuk kunci yang
+ditentukan. Di sini, kita menyimpan *reference* *mutable* itu di variabel
 `count`, jadi untuk menetapkan nilai itu, kita harus mendereferensi `count`
-terlebih dahulu memakai tanda bintang (`*`). Reference mutable keluar dari
-scope di akhir perulangan `for`, jadi semua perubahan ini aman dan
-diperbolehkan oleh aturan borrowing.
+terlebih dahulu memakai tanda bintang (`*`). *Reference* *mutable* keluar dari
+*scope* di akhir perulangan `for`, jadi semua perubahan ini aman dan
+diperbolehkan oleh aturan *borrowing*.
 
 ### Fungsi Hashing
 
@@ -225,8 +225,8 @@ tercepat yang tersedia, tetapi kompromi demi keamanan yang lebih baik yang
 datang bersama turunnya kinerja itu sepadan. Jika Anda memprofil kode Anda
 dan menemukan bahwa hash function default terlalu lambat untuk keperluan
 Anda, Anda dapat beralih ke fungsi lain dengan menentukan hasher yang
-berbeda. Sebuah *hasher* adalah tipe yang mengimplementasikan trait
-`BuildHasher`. Kita akan membicarakan trait dan cara mengimplementasikannya
+berbeda. Sebuah *hasher* adalah tipe yang mengimplementasikan *trait*
+`BuildHasher`. Kita akan membicarakan *trait* dan cara mengimplementasikannya
 di [Bab 10][traits]<!-- ignore -->. Anda tidak harus mengimplementasikan
 hasher Anda sendiri dari nol; [crates.io](https://crates.io/)<!-- ignore -->
 memiliki pustaka-pustaka yang dibagikan pengguna Rust lain yang menyediakan

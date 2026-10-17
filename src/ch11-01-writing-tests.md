@@ -11,7 +11,7 @@ biasanya melakukan tiga tindakan berikut:
 
 Mari kita lihat fitur-fitur yang disediakan Rust secara khusus untuk
 menulis pengujian yang melakukan tindakan-tindakan tersebut, yang meliputi
-atribut `test`, beberapa macro, dan atribut `should_panic`.
+atribut `test`, beberapa *macro*, dan atribut `should_panic`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -82,7 +82,7 @@ pengujian. Kita mungkin juga memiliki fungsi non-pengujian di modul `tests`
 untuk membantu menyiapkan skenario umum atau melakukan operasi umum, jadi
 kita selalu perlu menandai fungsi mana yang merupakan pengujian.
 
-Badan fungsi contoh ini memakai macro `assert_eq!` untuk menegaskan bahwa
+Badan fungsi contoh ini memakai *macro* `assert_eq!` untuk menegaskan bahwa
 `result`, yang berisi hasil pemanggilan `add` dengan 2 dan 2, sama dengan 4.
 Asersi ini berfungsi sebagai contoh format pengujian yang khas. Mari kita
 jalankan untuk melihat bahwa pengujian ini lulus.
@@ -124,10 +124,10 @@ lanjut.
 
 Bagian keluaran pengujian berikutnya, yang dimulai dari `Doc-tests adder`,
 adalah untuk hasil dari *documentation test* (test dokumentasi) mana pun.
-Kita belum memiliki documentation test apa pun, tetapi Rust bisa
+Kita belum memiliki *documentation test* apa pun, tetapi Rust bisa
 mengompilasi contoh kode mana pun yang muncul di dokumentasi API kita.
 Fitur ini membantu menjaga dokumen dan kode Anda tetap sinkron! Kita akan
-membahas cara menulis documentation test di bagian [“Komentar Dokumentasi
+membahas cara menulis *documentation test* di bagian [“Komentar Dokumentasi
 sebagai Pengujian”][doc-comments]<!-- ignore --> pada Bab 14. Untuk saat
 ini, kita akan mengabaikan keluaran `Doc-tests`.
 
@@ -153,7 +153,7 @@ membuat pengujian yang gagal! Sebuah pengujian gagal ketika ada sesuatu di
 fungsi pengujian yang panic. Setiap pengujian dijalankan dalam thread baru,
 dan ketika thread utama melihat bahwa thread pengujian telah mati,
 pengujian itu ditandai sebagai gagal. Di Bab 9, kita membahas bahwa cara
-paling sederhana untuk panic adalah memanggil macro `panic!`. Masukkan
+paling sederhana untuk panic adalah memanggil *macro* `panic!`. Masukkan
 pengujian baru itu sebagai fungsi bernama `another`, sehingga file
 _src/lib.rs_ Anda terlihat seperti Listing 11-3.
 
@@ -199,7 +199,7 @@ adalah `FAILED`. Kita memiliki satu pengujian yang lulus dan satu yang
 gagal.
 
 Sekarang setelah Anda melihat seperti apa hasil pengujian dalam berbagai
-skenario, mari kita lihat beberapa macro selain `panic!` yang berguna
+skenario, mari kita lihat beberapa *macro* selain `panic!` yang berguna
 dalam pengujian.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -208,18 +208,18 @@ dalam pengujian.
 
 ### Memeriksa Hasil dengan `assert!`
 
-Macro `assert!`, yang disediakan pustaka standar, berguna ketika Anda ingin
+*Macro* `assert!`, yang disediakan pustaka standar, berguna ketika Anda ingin
 memastikan bahwa sebuah kondisi dalam pengujian bernilai `true`. Kita
-memberi macro `assert!` sebuah argumen yang bernilai Boolean. Jika nilainya
+memberi *macro* `assert!` sebuah argumen yang bernilai Boolean. Jika nilainya
 `true`, tidak ada yang terjadi dan pengujian lulus. Jika nilainya `false`,
-macro `assert!` memanggil `panic!` untuk membuat pengujian gagal. Memakai
-macro `assert!` membantu kita memeriksa bahwa kode kita berfungsi sesuai
+*macro* `assert!` memanggil `panic!` untuk membuat pengujian gagal. Memakai
+*macro* `assert!` membantu kita memeriksa bahwa kode kita berfungsi sesuai
 yang kita maksudkan.
 
-Di Bab 5, Listing 5-15, kita memakai struct `Rectangle` dan metode
+Di Bab 5, Listing 5-15, kita memakai *struct* `Rectangle` dan metode
 `can_hold`, yang diulang di sini di Listing 11-5. Mari kita letakkan kode
 ini di file _src/lib.rs_, lalu menulis beberapa pengujian untuknya memakai
-macro `assert!`.
+*macro* `assert!`.
 
 <Listing number="11-5" file-name="src/lib.rs" caption="Struct `Rectangle` dan metode `can_hold`-nya dari Bab 5">
 
@@ -230,7 +230,7 @@ macro `assert!`.
 </Listing>
 
 Metode `can_hold` mengembalikan sebuah Boolean, yang berarti ini adalah
-kasus pemakaian yang sempurna untuk macro `assert!`. Di Listing 11-6, kita
+kasus pemakaian yang sempurna untuk *macro* `assert!`. Di Listing 11-6, kita
 menulis pengujian yang melatih metode `can_hold` dengan membuat instance
 `Rectangle` yang memiliki lebar 8 dan tinggi 7, lalu menegaskan bahwa ia
 bisa menampung instance `Rectangle` lain yang memiliki lebar 5 dan tinggi 1.
@@ -245,16 +245,16 @@ bisa menampung instance `Rectangle` lain yang memiliki lebar 5 dan tinggi 1.
 
 Perhatikan baris `use super::*;` di dalam modul `tests`. Modul `tests`
 adalah modul biasa yang mengikuti aturan visibilitas yang kita bahas di Bab
-7 pada bagian [“Path untuk Merujuk Item di dalam Pohon
+7 pada bagian [“*Path* untuk Merujuk Item di dalam Pohon
 Modul”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
 Karena modul `tests` adalah modul dalam, kita perlu membawa kode yang
-sedang diuji di modul luar ke dalam scope modul dalam. Kita memakai glob di
+sedang diuji di modul luar ke dalam *scope* modul dalam. Kita memakai glob di
 sini, sehingga apa pun yang kita definisikan di modul luar tersedia untuk
 modul `tests` ini.
 
 Kita telah menamai pengujian kita `larger_can_hold_smaller`, dan kita telah
 membuat dua instance `Rectangle` yang kita perlukan. Kemudian, kita
-memanggil macro `assert!` dan meneruskan kepadanya hasil pemanggilan
+memanggil *macro* `assert!` dan meneruskan kepadanya hasil pemanggilan
 `larger.can_hold(&smaller)`. Ekspresi ini seharusnya mengembalikan `true`,
 jadi pengujian kita seharusnya lulus. Mari kita cari tahu!
 
@@ -273,7 +273,7 @@ persegi panjang yang lebih besar:
 ```
 
 Karena hasil yang benar dari fungsi `can_hold` dalam kasus ini adalah
-`false`, kita perlu menegasikan hasil itu sebelum meneruskannya ke macro
+`false`, kita perlu menegasikan hasil itu sebelum meneruskannya ke *macro*
 `assert!`. Alhasil, pengujian kita akan lulus jika `can_hold` mengembalikan
 `false`:
 
@@ -309,19 +309,19 @@ mengembalikan `false`: 8 tidak lebih kecil dari 5.
 
 Cara umum untuk memverifikasi fungsionalitas adalah menguji kesamaan antara
 hasil kode yang sedang diuji dan nilai yang Anda harapkan dikembalikan kode
-itu. Anda bisa melakukannya dengan memakai macro `assert!` dan meneruskan
+itu. Anda bisa melakukannya dengan memakai *macro* `assert!` dan meneruskan
 kepadanya ekspresi yang memakai operator `==`. Namun, ini adalah pengujian
 yang begitu umum sehingga pustaka standar menyediakan sepasang
-macro—`assert_eq!` dan `assert_ne!`—untuk melakukan pengujian ini dengan
-lebih nyaman. Macro-macro ini masing-masing membandingkan kesamaan atau
+*macro*—`assert_eq!` dan `assert_ne!`—untuk melakukan pengujian ini dengan
+lebih nyaman. *Macro*-macro ini masing-masing membandingkan kesamaan atau
 ketidaksamaan dua argumen. Mereka juga akan mencetak kedua nilai itu jika
 asersinya gagal, yang memudahkan kita melihat _alasan_ pengujian gagal;
-sebaliknya, macro `assert!` hanya menandakan bahwa ia mendapatkan nilai
+sebaliknya, *macro* `assert!` hanya menandakan bahwa ia mendapatkan nilai
 `false` untuk ekspresi `==`, tanpa mencetak nilai-nilai yang menyebabkan
 nilai `false` itu.
 
 Di Listing 11-7, kita menulis fungsi bernama `add_two` yang menambahkan `2`
-ke parameternya, lalu kita menguji fungsi ini memakai macro `assert_eq!`.
+ke parameternya, lalu kita menguji fungsi ini memakai *macro* `assert_eq!`.
 
 <Listing number="11-7" file-name="src/lib.rs" caption="Menguji fungsi `add_two` memakai macro `assert_eq!`">
 
@@ -339,7 +339,7 @@ Mari kita periksa bahwa ia lulus!
 
 Kita membuat variabel bernama `result` yang menampung hasil pemanggilan
 `add_two(2)`. Lalu, kita meneruskan `result` dan `4` sebagai argumen ke
-macro `assert_eq!`. Baris keluaran untuk pengujian ini adalah `test
+*macro* `assert_eq!`. Baris keluaran untuk pengujian ini adalah `test
 tests::it_adds_two ... ok`, dan teks `ok` menandakan bahwa pengujian kita
 lulus!
 
@@ -373,8 +373,8 @@ dihasilkan kode tidak penting. Kita bisa menulis asersi di pengujian ini
 sebagai `assert_eq!(4, result)`, yang akan menghasilkan pesan kegagalan
 yang sama yang menampilkan `` assertion `left == right` failed ``.
 
-Macro `assert_ne!` akan lulus jika dua nilai yang kita berikan tidak sama
-dan akan gagal jika keduanya sama. Macro ini paling berguna untuk kasus
+*Macro* `assert_ne!` akan lulus jika dua nilai yang kita berikan tidak sama
+dan akan gagal jika keduanya sama. *Macro* ini paling berguna untuk kasus
 ketika kita tidak yakin nilai apa yang _akan_ dihasilkan, tetapi kita tahu
 nilai apa yang pasti _tidak seharusnya_ dihasilkan. Sebagai contoh, jika
 kita menguji fungsi yang dijamin mengubah masukannya dengan cara tertentu,
@@ -382,27 +382,27 @@ tetapi cara masukannya diubah bergantung pada hari dalam seminggu saat kita
 menjalankan pengujian, hal terbaik untuk ditegaskan mungkin adalah bahwa
 keluaran fungsinya tidak sama dengan masukannya.
 
-Di balik layar, macro `assert_eq!` dan `assert_ne!` masing-masing memakai
-operator `==` dan `!=`. Ketika asersinya gagal, macro-macro ini mencetak
+Di balik layar, *macro* `assert_eq!` dan `assert_ne!` masing-masing memakai
+operator `==` dan `!=`. Ketika asersinya gagal, *macro*-macro ini mencetak
 argumennya memakai pemformatan debug, yang berarti nilai yang dibandingkan
 harus mengimplementasikan *trait* `PartialEq` dan `Debug`. Semua tipe
-primitif dan sebagian besar tipe pustaka standar mengimplementasikan trait
-ini. Untuk struct dan *enum* yang Anda definisikan sendiri, Anda perlu
+primitif dan sebagian besar tipe pustaka standar mengimplementasikan *trait*
+ini. Untuk *struct* dan *enum* yang Anda definisikan sendiri, Anda perlu
 mengimplementasikan `PartialEq` untuk menegaskan kesamaan tipe-tipe itu.
 Anda juga perlu mengimplementasikan `Debug` untuk mencetak nilai-nilainya
-ketika asersinya gagal. Karena kedua trait itu adalah trait yang dapat
+ketika asersinya gagal. Karena kedua *trait* itu adalah *trait* yang dapat
 diturunkan, seperti yang disebutkan di Listing 5-12 pada Bab 5, ini
 biasanya semudah menambahkan anotasi `#[derive(PartialEq, Debug)]` ke
-definisi struct atau enum Anda. Lihat Lampiran C, [“Trait yang Dapat
+definisi *struct* atau *enum* Anda. Lihat Lampiran C, [“*Trait* yang Dapat
 Diturunkan,”][derivable-traits]<!-- ignore --> untuk detail lebih lanjut
-tentang trait-trait yang dapat diturunkan ini dan yang lainnya.
+tentang *trait*-trait yang dapat diturunkan ini dan yang lainnya.
 
 ### Menambahkan Pesan Kegagalan Kustom
 
 Anda juga bisa menambahkan pesan kustom untuk dicetak bersama pesan
-kegagalan sebagai argumen opsional ke macro `assert!`, `assert_eq!`, dan
+kegagalan sebagai argumen opsional ke *macro* `assert!`, `assert_eq!`, dan
 `assert_ne!`. Argumen apa pun yang ditentukan setelah argumen wajib
-diteruskan ke macro `format!` (dibahas di [“Menggabungkan dengan `+` atau
+diteruskan ke *macro* `format!` (dibahas di [“Menggabungkan dengan `+` atau
 `format!`”][concatenating]<!--
 ignore --> di Bab 8), jadi Anda bisa meneruskan string format yang berisi
 placeholder `{}` dan nilai-nilai untuk mengisi placeholder itu. Pesan
@@ -574,7 +574,7 @@ panic:
 ```
 
 Fungsi `it_works` sekarang memiliki tipe kembalian `Result<(), String>`. Di
-badan fungsi, alih-alih memanggil macro `assert_eq!`, kita mengembalikan
+badan fungsi, alih-alih memanggil *macro* `assert_eq!`, kita mengembalikan
 `Ok(())` ketika pengujian lulus dan `Err` dengan `String` di dalamnya
 ketika pengujian gagal.
 

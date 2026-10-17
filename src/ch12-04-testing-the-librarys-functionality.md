@@ -51,7 +51,7 @@ Listing 12-15 menunjukkan pengujian ini.
 Pengujian ini mencari string `"duct"`. Teks yang kita cari terdiri dari tiga
 baris, dan hanya satu baris yang memuat `"duct"` (perhatikan bahwa backslash
 setelah tanda kutip ganda pembuka memberi tahu Rust untuk tidak menaruh
-karakter newline di awal isi string literal ini). Kita menegaskan bahwa nilai
+karakter newline di awal isi *string literal* ini). Kita menegaskan bahwa nilai
 yang dikembalikan dari fungsi `search` hanya memuat baris yang kita harapkan.
 
 Jika kita menjalankan pengujian ini, saat ini ia akan gagal karena makro
@@ -77,14 +77,14 @@ argumen `contents` dan nilai kembaliannya. Ingat kembali di [Bab
 10][ch10-lifetimes]<!-- ignore --> bahwa parameter *lifetime* menentukan
 *lifetime* argumen mana yang terhubung dengan *lifetime* nilai kembalian.
 Dalam kasus ini, kita menunjukkan bahwa vektor yang dikembalikan harus memuat
-string slice yang mereferensikan slice-slice dari argumen `contents` (bukan
+string *slice* yang mereferensikan *slice*-slice dari argumen `contents` (bukan
 argumen `query`).
 
 Dengan kata lain, kita memberi tahu Rust bahwa data yang dikembalikan oleh
 fungsi `search` akan hidup selama data yang diteruskan ke fungsi `search`
 melalui argumen `contents`. Ini penting! Data yang direferensikan _oleh_
-sebuah slice harus tetap valid agar reference-nya valid; jika *compiler*
-mengasumsikan kita membuat string slice dari `query` dan bukan `contents`, ia
+sebuah *slice* harus tetap valid agar *reference*-nya valid; jika *compiler*
+mengasumsikan kita membuat string *slice* dari `query` dan bukan `contents`, ia
 akan melakukan pemeriksaan keamanannya secara keliru.
 
 Jika kita lupa anotasi *lifetime*-nya dan mencoba mengompilasi fungsi ini,
@@ -106,7 +106,7 @@ nilai kembalian menggunakan sintaks *lifetime*.
 Bahasa-bahasa pemrograman lain tidak mengharuskan Anda menghubungkan argumen
 dengan nilai kembalian di tanda tangan, tetapi praktik ini akan menjadi lebih
 mudah seiring waktu. Anda mungkin ingin membandingkan contoh ini dengan
-contoh-contoh di bagian [“Memvalidasi Reference dengan
+contoh-contoh di bagian [“Memvalidasi *Reference* dengan
 Lifetime”][validating-references-with-lifetimes]<!-- ignore --> di Bab 10.
 
 ### Menulis Kode agar Pengujian Lulus

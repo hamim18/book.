@@ -49,7 +49,7 @@ mengabaikan semua nilai lain.
 
 Kita dapat menyertakan `else` bersama `if let`. Blok kode yang menyertai
 `else` sama dengan blok kode yang akan menyertai kasus `_` pada ekspresi
-`match` yang setara dengan `if let` dan `else` tersebut. Ingat definisi enum
+`match` yang setara dengan `if let` dan `else` tersebut. Ingat definisi *enum*
 `Coin` pada Listing 6-4, di mana *variant* `Quarter` juga menampung nilai
 `UsState`. Jika kita ingin menghitung semua koin selain quarter yang kita
 lihat sambil mengumumkan negara bagian pada koin-koin quarter, kita dapat
@@ -136,16 +136,16 @@ dan `let...else` juga ada di kotak peralatan Rust Anda.
 
 ## Ringkasan
 
-Kini kita telah membahas cara memakai enum untuk membuat tipe kustom yang
+Kini kita telah membahas cara memakai *enum* untuk membuat tipe kustom yang
 dapat menjadi salah satu dari sekumpulan nilai yang dienumerasikan. Kita telah
 menunjukkan bagaimana tipe `Option<T>` milik pustaka standar membantu Anda
-memakai sistem tipe untuk mencegah galat. Ketika nilai enum memiliki data di
+memakai sistem tipe untuk mencegah galat. Ketika nilai *enum* memiliki data di
 dalamnya, Anda dapat memakai `match` atau `if let` untuk mengekstrak dan
 memakai nilai-nilai itu, bergantung pada seberapa banyak kasus yang perlu Anda
 tangani.
 
 Program Rust Anda kini dapat menyatakan konsep-konsep di domain Anda dengan
-memakai struct dan enum. Membuat tipe kustom untuk dipakai di API Anda
+memakai *struct* dan *enum*. Membuat tipe kustom untuk dipakai di API Anda
 menjamin keamanan tipe: *compiler* (kompilator) akan memastikan fungsi-fungsi
 Anda hanya mendapatkan nilai dengan tipe yang diharapkan setiap fungsi.
 

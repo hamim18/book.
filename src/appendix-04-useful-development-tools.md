@@ -21,7 +21,7 @@ Untuk memformat proyek Cargo mana pun, masukkan yang berikut:
 $ cargo fmt
 ```
 
-Menjalankan perintah ini memformat ulang semua kode Rust di crate saat ini.
+Menjalankan perintah ini memformat ulang semua kode Rust di *crate* saat ini.
 Perintah ini seharusnya hanya mengubah gaya kode, bukan semantik kodenya. Untuk
 informasi lebih lanjut tentang `rustfmt`, lihat [dokumentasinya][rustfmt].
 
@@ -82,7 +82,7 @@ fn main() {
 }
 ```
 
-Variabel `x` sekarang immutable, dan peringatannya tidak lagi muncul.
+Variabel `x` sekarang *immutable*, dan peringatannya tidak lagi muncul.
 
 Anda juga dapat memakai perintah `cargo fix` untuk memindahkan kode Anda dari
 satu edisi Rust ke edisi lainnya. Edisi dibahas di [Lampiran E][editions]<!--

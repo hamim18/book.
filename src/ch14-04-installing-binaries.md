@@ -4,17 +4,17 @@
 
 ## Memasang Binary dengan `cargo install`
 
-Perintah `cargo install` memungkinkan Anda memasang dan memakai crate binary
-secara lokal. Ini tidak dimaksudkan untuk menggantikan package sistem; ini
+Perintah `cargo install` memungkinkan Anda memasang dan memakai *crate* binary
+secara lokal. Ini tidak dimaksudkan untuk menggantikan *package* sistem; ini
 dimaksudkan sebagai cara yang nyaman bagi pengembang Rust untuk memasang alat
 yang telah dibagikan orang lain di
 [crates.io](https://crates.io/)<!-- ignore -->. Perhatikan bahwa Anda hanya
-dapat memasang package yang memiliki target binary. Sebuah _binary target_
-adalah program yang dapat dijalankan yang dibuat jika crate itu memiliki file
+dapat memasang *package* yang memiliki target binary. Sebuah _binary target_
+adalah program yang dapat dijalankan yang dibuat jika *crate* itu memiliki file
 _src/main.rs_ atau file lain yang disebutkan sebagai binary, berbeda dengan
 target library yang tidak dapat dijalankan sendiri tetapi cocok untuk
-disertakan di dalam program lain. Biasanya, crate memiliki informasi di file
-README tentang apakah crate itu merupakan library, memiliki target binary,
+disertakan di dalam program lain. Biasanya, *crate* memiliki informasi di file
+README tentang apakah *crate* itu merupakan library, memiliki target binary,
 atau keduanya.
 
 Semua binary yang dipasang dengan `cargo install` disimpan di folder _bin_

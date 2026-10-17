@@ -1,10 +1,10 @@
 ## Galat yang Tidak Dapat Dipulihkan dengan `panic!`
 
 Terkadang hal buruk terjadi di kode Anda, dan tidak ada yang dapat Anda
-lakukan untuk itu. Dalam kasus-kasus ini, Rust memiliki macro `panic!`. Ada
+lakukan untuk itu. Dalam kasus-kasus ini, Rust memiliki *macro* `panic!`. Ada
 dua cara menyebabkan panic dalam praktik: dengan melakukan tindakan yang
 membuat kode kita panic (seperti mengakses array melewati ujungnya) atau
-dengan memanggil macro `panic!` secara eksplisit. Dalam kedua kasus, kita
+dengan memanggil *macro* `panic!` secara eksplisit. Dalam kedua kasus, kita
 menyebabkan panic di program kita. Secara default, panic ini akan mencetak
 pesan kegagalan, melakukan unwinding, membersihkan tumpukan, dan berhenti.
 Lewat sebuah variabel lingkungan, Anda juga dapat membuat Rust menampilkan
@@ -54,10 +54,10 @@ sumber kita tempat panic terjadi: _src/main.rs:2:5_ menunjukkan bahwa itu
 adalah baris kedua, karakter kelima dari file _src/main.rs_ kita.
 
 Dalam kasus ini, baris yang ditunjukkan adalah bagian dari kode kita, dan
-jika kita pergi ke baris itu, kita melihat pemanggilan macro `panic!`. Dalam
+jika kita pergi ke baris itu, kita melihat pemanggilan *macro* `panic!`. Dalam
 kasus lain, pemanggilan `panic!` mungkin berada di kode yang dipanggil kode
 kita, dan nama file serta nomor baris yang dilaporkan pesan galat akan
-menjadi kode orang lain tempat macro `panic!` dipanggil, bukan baris kode
+menjadi kode orang lain tempat *macro* `panic!` dipanggil, bukan baris kode
 kita yang akhirnya berujung ke pemanggilan `panic!`.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -68,7 +68,7 @@ Kita dapat memakai backtrace dari fungsi-fungsi asal pemanggilan `panic!`
 untuk mencari tahu bagian kode kita yang menyebabkan masalah. Untuk memahami
 cara memakai backtrace `panic!`, mari kita lihat contoh lain dan seperti apa
 rasanya ketika pemanggilan `panic!` datang dari sebuah library karena bug di
-kode kita, alih-alih dari kode kita yang memanggil macro itu secara
+kode kita, alih-alih dari kode kita yang memanggil *macro* itu secara
 langsung. Listing 9-1 memiliki kode yang mencoba mengakses indeks di vektor
 di luar jangkauan indeks yang valid.
 
@@ -115,7 +115,7 @@ adalah memulai dari atas dan membaca sampai Anda melihat file yang Anda
 tulis. Di situlah tempat masalah bermula. Baris-baris di atas titik itu
 adalah kode yang telah dipanggil kode Anda; baris-baris di bawahnya adalah
 kode yang memanggil kode Anda. Baris-baris sebelum-dan-sesudah ini mungkin
-mencakup kode inti Rust, kode pustaka standar, atau crate yang sedang Anda
+mencakup kode inti Rust, kode pustaka standar, atau *crate* yang sedang Anda
 pakai. Mari kita coba mendapatkan backtrace dengan menetapkan variabel
 lingkungan `RUST_BACKTRACE` ke nilai apa pun kecuali `0`. Listing 9-2
 menunjukkan output yang mirip dengan yang akan Anda lihat.

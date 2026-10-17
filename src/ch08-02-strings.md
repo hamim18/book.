@@ -25,19 +25,19 @@ perbedaan antara cara manusia dan komputer menafsirkan data `String`.
 
 Pertama-tama, kita akan mendefinisikan apa yang kita maksud dengan istilah
 *string*. Rust hanya memiliki satu tipe string di bahasa intinya, yaitu
-string slice `str` yang biasanya terlihat dalam bentuk pinjamannya, `&str`.
-Di Bab 4, kita membicarakan string slice, yang merupakan reference ke
+string *slice* `str` yang biasanya terlihat dalam bentuk pinjamannya, `&str`.
+Di Bab 4, kita membicarakan string *slice*, yang merupakan *reference* ke
 sebagian data string terenkode UTF-8 yang tersimpan di tempat lain. String
 literal, misalnya, tersimpan di binary program dan karena itu adalah string
-slice.
+*slice*.
 
 Tipe `String`, yang disediakan oleh pustaka standar Rust alih-alih
 dikodekan ke dalam bahasa inti, adalah tipe string yang dapat membesar,
-mutable, dimiliki, dan terenkode UTF-8. Ketika para Rustacean merujuk
-“string” di Rust, mereka mungkin merujuk ke tipe `String` atau string slice
+*mutable*, dimiliki, dan terenkode UTF-8. Ketika para Rustacean merujuk
+“string” di Rust, mereka mungkin merujuk ke tipe `String` atau string *slice*
 `&str`, bukan hanya salah satu dari tipe-tipe itu. Meskipun bagian ini
 sebagian besar tentang `String`, kedua tipe dipakai secara besar-besaran di
-pustaka standar Rust, dan baik `String` maupun string slice sama-sama
+pustaka standar Rust, dan baik `String` maupun string *slice* sama-sama
 terenkode UTF-8.
 
 ### Membuat String Baru
@@ -61,7 +61,7 @@ Baris ini membuat string kosong baru bernama `s`, yang kemudian dapat kita
 isi dengan data. Sering kali, kita akan memiliki data awal yang ingin kita
 pakai untuk memulai string. Untuk itu, kita memakai metode `to_string`, yang
 tersedia pada tipe apa pun yang mengimplementasikan *trait* `Display`,
-seperti halnya string literal. Listing 8-12 menunjukkan dua contoh.
+seperti halnya *string literal*. Listing 8-12 menunjukkan dua contoh.
 
 <Listing number="8-12" caption="Memakai metode `to_string` untuk membuat `String` dari string literal">
 
@@ -74,7 +74,7 @@ seperti halnya string literal. Listing 8-12 menunjukkan dua contoh.
 Kode ini membuat string berisi `initial contents`.
 
 Kita juga dapat memakai fungsi `String::from` untuk membuat `String` dari
-string literal. Kode di Listing 8-13 setara dengan kode di Listing 8-12 yang
+*string literal*. Kode di Listing 8-13 setara dengan kode di Listing 8-12 yang
 memakai `to_string`.
 
 <Listing number="8-13" caption="Memakai fungsi `String::from` untuk membuat `String` dari string literal">
@@ -120,7 +120,7 @@ Selain itu, Anda dapat dengan mudah memakai operator `+` atau *macro*
 #### Menambahkan dengan `push_str` atau `push`
 
 Kita dapat memperbesar `String` dengan memakai metode `push_str` untuk
-menambahkan sebuah string slice, seperti yang ditunjukkan di Listing 8-15.
+menambahkan sebuah string *slice*, seperti yang ditunjukkan di Listing 8-15.
 
 <Listing number="8-15" caption="Menambahkan sebuah string slice ke `String` memakai metode `push_str`">
 
@@ -131,7 +131,7 @@ menambahkan sebuah string slice, seperti yang ditunjukkan di Listing 8-15.
 </Listing>
 
 Setelah dua baris ini, `s` akan berisi `foobar`. Metode `push_str` menerima
-string slice karena kita belum tentu ingin mengambil ownership parameter.
+string *slice* karena kita belum tentu ingin mengambil *ownership* parameter.
 Misalnya, pada kode di Listing 8-16, kita ingin dapat memakai `s2` setelah
 menambahkan isinya ke `s1`.
 
@@ -143,7 +143,7 @@ menambahkan isinya ke `s1`.
 
 </Listing>
 
-Jika metode `push_str` mengambil ownership `s2`, kita tidak akan dapat
+Jika metode `push_str` mengambil *ownership* `s2`, kita tidak akan dapat
 mencetak nilainya di baris terakhir. Namun, kode ini bekerja seperti yang
 kita harapkan!
 
@@ -181,7 +181,7 @@ caranya adalah memakai operator `+`, seperti yang ditunjukkan di Listing
 </Listing>
 
 String `s3` akan berisi `Hello, world!`. Alasan `s1` tidak lagi valid
-setelah penambahan, dan alasan kita memakai reference ke `s2`, berkaitan
+setelah penambahan, dan alasan kita memakai *reference* ke `s2`, berkaitan
 dengan tanda tangan metode yang dipanggil ketika kita memakai operator `+`.
 Operator `+` memakai metode `add`, yang tanda tangannya terlihat seperti
 ini:
@@ -190,33 +190,33 @@ ini:
 fn add(self, s: &str) -> String {
 ```
 
-Di pustaka standar, Anda akan melihat `add` didefinisikan memakai generics
+Di pustaka standar, Anda akan melihat `add` didefinisikan memakai *generics*
 dan tipe asosiasi. Di sini, kita telah menggantinya dengan tipe konkret,
 yang memang terjadi ketika kita memanggil metode ini dengan nilai `String`.
-Kita akan membahas generics di Bab 10. Tanda tangan ini memberi kita
+Kita akan membahas *generics* di Bab 10. Tanda tangan ini memberi kita
 petunjuk yang kita perlukan untuk memahami bagian-bagian rumit dari operator
 `+`.
 
-Pertama, `s2` memiliki `&`, yang berarti kita menambahkan sebuah reference
+Pertama, `s2` memiliki `&`, yang berarti kita menambahkan sebuah *reference*
 ke string kedua ke string pertama. Ini karena parameter `s` di fungsi
-`add`: kita hanya dapat menambahkan string slice ke `String`; kita tidak
+`add`: kita hanya dapat menambahkan string *slice* ke `String`; kita tidak
 dapat menjumlahkan dua nilai `String`. Tapi tunggu—tipe `&s2` adalah
 `&String`, bukan `&str`, seperti yang disebutkan di parameter kedua `add`.
 Jadi, mengapa Listing 8-18 bisa dikompilasi?
 
-Alasan kita dapat memakai `&s2` di pemanggilan `add` adalah bahwa compiler
+Alasan kita dapat memakai `&s2` di pemanggilan `add` adalah bahwa *compiler*
 dapat mengoersi argumen `&String` menjadi `&str`. Ketika kita memanggil
-metode `add`, Rust memakai deref coercion, yang di sini mengubah `&s2`
-menjadi `&s2[..]`. Kita akan membahas deref coercion lebih mendalam di Bab
-15. Karena `add` tidak mengambil ownership parameter `s`, `s2` akan tetap
+metode `add`, Rust memakai *deref coercion*, yang di sini mengubah `&s2`
+menjadi `&s2[..]`. Kita akan membahas *deref coercion* lebih mendalam di Bab
+15. Karena `add` tidak mengambil *ownership* parameter `s`, `s2` akan tetap
 menjadi `String` yang valid setelah operasi ini.
 
-Kedua, kita dapat melihat di tanda tangan bahwa `add` mengambil ownership
+Kedua, kita dapat melihat di tanda tangan bahwa `add` mengambil *ownership*
 `self` karena `self` _tidak_ memiliki `&`. Ini berarti `s1` di Listing 8-18
 akan dipindahkan ke dalam pemanggilan `add` dan tidak lagi valid setelahnya.
 Jadi, meskipun `let s3 = s1 + &s2;` terlihat seperti menyalin kedua string
-dan membuat yang baru, pernyataan ini sebenarnya mengambil ownership `s1`,
-menambahkan salinan isi `s2`, lalu mengembalikan ownership hasilnya. Dengan
+dan membuat yang baru, pernyataan ini sebenarnya mengambil *ownership* `s1`,
+menambahkan salinan isi `s2`, lalu mengembalikan *ownership* hasilnya. Dengan
 kata lain, ia terlihat membuat banyak salinan, tetapi tidak;
 implementasinya lebih efisien daripada menyalin.
 
@@ -229,17 +229,17 @@ sulit dikendalikan:
 
 Pada titik ini, `s` akan menjadi `tic-tac-toe`. Dengan semua karakter `+`
 dan `"`, sulit untuk melihat apa yang sedang terjadi. Untuk menggabungkan
-string dengan cara yang lebih rumit, kita dapat memakai macro `format!`:
+string dengan cara yang lebih rumit, kita dapat memakai *macro* `format!`:
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/no-listing-02-format/src/main.rs:here}}
 ```
 
-Kode ini juga menetapkan `s` menjadi `tic-tac-toe`. Macro `format!` bekerja
+Kode ini juga menetapkan `s` menjadi `tic-tac-toe`. *Macro* `format!` bekerja
 seperti `println!`, tetapi alih-alih mencetak output ke layar, ia
 mengembalikan `String` berisi kontennya. Versi kode yang memakai `format!`
-jauh lebih mudah dibaca, dan kode yang dihasilkan macro `format!` memakai
-reference sehingga pemanggilan ini tidak mengambil ownership parameter mana
+jauh lebih mudah dibaca, dan kode yang dihasilkan *macro* `format!` memakai
+*reference* sehingga pemanggilan ini tidak mengambil *ownership* parameter mana
 pun.
 
 ### Mengindeks ke dalam String
@@ -368,12 +368,12 @@ indeks itu untuk menentukan berapa banyak karakter valid yang ada.
 
 Mengindeks ke dalam string sering kali merupakan ide buruk karena tidak
 jelas tipe kembalian operasi pengindeksan string seharusnya apa: nilai
-byte, karakter, grapheme cluster, atau string slice. Jika Anda benar-benar
-perlu memakai indeks untuk membuat string slice, maka Rust meminta Anda
+byte, karakter, grapheme cluster, atau string *slice*. Jika Anda benar-benar
+perlu memakai indeks untuk membuat string *slice*, maka Rust meminta Anda
 untuk lebih spesifik.
 
 Alih-alih mengindeks memakai `[]` dengan satu angka, Anda dapat memakai
-`[]` dengan sebuah range untuk membuat string slice yang berisi byte-byte
+`[]` dengan sebuah range untuk membuat string *slice* yang berisi byte-byte
 tertentu:
 
 ```rust
@@ -394,7 +394,7 @@ yang sama seperti jika indeks tidak valid diakses di vektor:
 {{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
 ```
 
-Anda harus berhati-hati saat membuat string slice dengan range, karena
+Anda harus berhati-hati saat membuat string *slice* dengan range, karena
 melakukannya dapat membuat program Anda crash.
 
 <!-- Old headings. Do not remove or links may break. -->

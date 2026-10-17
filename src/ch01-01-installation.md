@@ -47,11 +47,11 @@ Rust is installed now. Great!
 Anda juga memerlukan _linker_, yaitu program yang dipakai Rust untuk
 menggabungkan keluaran hasil kompilasinya menjadi satu file. Kemungkinan
 besar Anda sudah memilikinya. Jika Anda mendapat galat linker, Anda harus
-memasang compiler C, yang biasanya menyertakan linker. Compiler C juga
+memasang *compiler* C, yang biasanya menyertakan linker. *Compiler* C juga
 berguna karena beberapa *package* (paket) Rust yang umum bergantung pada
-kode C dan akan membutuhkan compiler C.
+kode C dan akan membutuhkan *compiler* C.
 
-Di macOS, Anda bisa mendapatkan compiler C dengan menjalankan:
+Di macOS, Anda bisa mendapatkan *compiler* C dengan menjalankan:
 
 ```console
 $ xcode-select --install

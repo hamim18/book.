@@ -15,12 +15,12 @@ Secara lebih spesifik, kita akan membahas:
 
 - _Closure_, konstruksi mirip fungsi yang dapat Anda simpan di sebuah variabel
 - _Iterator_, cara memproses serangkaian elemen
-- Cara memakai closure dan iterator untuk memperbaiki proyek I/O di Bab 12
-- Performa closure dan iterator (peringatan spoiler: Mereka lebih cepat
+- Cara memakai *closure* dan *iterator* untuk memperbaiki proyek I/O di Bab 12
+- Performa *closure* dan *iterator* (peringatan spoiler: Mereka lebih cepat
   daripada yang mungkin Anda kira!)
 
 Kita telah membahas beberapa fitur Rust lain, seperti *pattern matching*
 (pencocokan pola) dan *enum*, yang juga dipengaruhi gaya fungsional. Karena
-menguasai closure dan iterator merupakan bagian penting dari menulis kode Rust
+menguasai *closure* dan *iterator* merupakan bagian penting dari menulis kode Rust
 yang cepat dan idiomatis, kita akan mendedikasikan seluruh bab ini untuk
 mereka.

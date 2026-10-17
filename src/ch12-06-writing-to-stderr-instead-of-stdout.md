@@ -30,7 +30,7 @@ belum berperilaku baik: Sebentar lagi kita akan melihat bahwa program itu
 justru menyimpan keluaran pesan galatnya ke sebuah file!
 
 Untuk mendemonstrasikan perilaku ini, kita akan menjalankan programnya dengan
-`>` dan path file _output.txt_, tujuan pengalihan aliran standard output yang
+`>` dan *path* file _output.txt_, tujuan pengalihan aliran standard output yang
 kita inginkan. Kita tidak akan meneruskan argumen apa pun, yang seharusnya
 memicu galat:
 

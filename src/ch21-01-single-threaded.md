@@ -24,7 +24,7 @@ permintaan dan respons TCP dan HTTP.
 ### Mendengarkan Koneksi TCP
 
 Server web kita perlu mendengarkan koneksi TCP, jadi itulah bagian pertama
-yang akan kita kerjakan. Pustaka standar menyediakan module `std::net` yang
+yang akan kita kerjakan. Pustaka standar menyediakan *module* `std::net` yang
 memungkinkan kita melakukannya. Mari kita buat proyek baru dengan cara yang
 biasa:
 
@@ -35,8 +35,8 @@ $ cd hello
 ```
 
 Sekarang masukkan kode di Listing 21-1 ke _src/main.rs_ untuk memulai. Kode
-ini akan mendengarkan alamat lokal `127.0.0.1:7878` untuk stream TCP yang
-masuk. Ketika ia menerima stream yang masuk, ia akan mencetak `Connection
+ini akan mendengarkan alamat lokal `127.0.0.1:7878` untuk *stream* TCP yang
+masuk. Ketika ia menerima *stream* yang masuk, ia akan mencetak `Connection
 established!`.
 
 <Listing number="21-1" file-name="src/main.rs" caption="Mendengarkan stream yang masuk dan mencetak pesan saat kita menerima stream">
@@ -68,19 +68,19 @@ Karena kita menulis server dasar hanya untuk tujuan belajar, kita tidak
 akan memusingkan penanganan galat semacam ini; sebagai gantinya, kita
 memakai `unwrap` untuk menghentikan program jika terjadi galat.
 
-Metode `incoming` pada `TcpListener` mengembalikan iterator yang memberi
-kita urutan stream (lebih tepatnya, stream bertipe `TcpStream`). Sebuah
+Metode `incoming` pada `TcpListener` mengembalikan *iterator* yang memberi
+kita urutan *stream* (lebih tepatnya, *stream* bertipe `TcpStream`). Sebuah
 _stream_ tunggal mewakili koneksi terbuka antara client dan server.
 _Koneksi_ adalah nama untuk seluruh proses permintaan dan respons di mana
 client terhubung ke server, server menghasilkan respons, dan server menutup
 koneksinya. Dengan demikian, kita akan membaca dari `TcpStream` untuk
-melihat apa yang dikirim client lalu menulis respons kita ke stream itu
+melihat apa yang dikirim client lalu menulis respons kita ke *stream* itu
 untuk mengirim data kembali ke client. Secara keseluruhan, loop `for` ini
 akan memproses setiap koneksi secara bergiliran dan menghasilkan
-serangkaian stream untuk kita tangani.
+serangkaian *stream* untuk kita tangani.
 
-Untuk saat ini, penanganan stream kita terdiri dari memanggil `unwrap`
-untuk mengakhiri program kita jika stream itu memiliki galat; jika tidak
+Untuk saat ini, penanganan *stream* kita terdiri dari memanggil `unwrap`
+untuk mengakhiri program kita jika *stream* itu memiliki galat; jika tidak
 ada galat, program akan mencetak pesan. Kita akan menambahkan lebih banyak
 fungsionalitas untuk kasus sukses di listing berikutnya. Alasan kita
 mungkin menerima galat dari metode `incoming` saat client terhubung ke
@@ -112,7 +112,7 @@ muncul di tab peramban.
 
 Bisa juga peramban sedang mencoba terhubung ke server berkali-kali karena
 server tidak merespons dengan data apa pun. Ketika `stream` keluar dari
-scope dan dibebaskan di akhir loop, koneksinya ditutup sebagai bagian dari
+*scope* dan dibebaskan di akhir loop, koneksinya ditutup sebagai bagian dari
 implementasi `drop`. Peramban terkadang menangani koneksi yang tertutup
 dengan mencoba ulang, karena masalahnya mungkin hanya sementara.
 
@@ -139,7 +139,7 @@ Mari kita implementasikan fungsionalitas untuk membaca permintaan dari
 peramban! Untuk memisahkan tanggung jawab antara mendapatkan koneksi
 terlebih dahulu lalu mengambil tindakan dengan koneksi itu, kita akan
 memulai fungsi baru untuk memproses koneksi. Di fungsi `handle_connection`
-yang baru ini, kita akan membaca data dari stream TCP dan mencetaknya
+yang baru ini, kita akan membaca data dari *stream* TCP dan mencetaknya
 supaya kita bisa melihat data yang dikirim dari peramban. Ubah kodenya agar
 tampak seperti Listing 21-2.
 
@@ -151,16 +151,16 @@ tampak seperti Listing 21-2.
 
 </Listing>
 
-Kita membawa `std::io::BufReader` dan `std::io::prelude` ke dalam scope
-untuk mendapatkan akses ke trait dan tipe yang memungkinkan kita membaca
-dari dan menulis ke stream. Di loop `for` pada fungsi `main`, alih-alih
+Kita membawa `std::io::BufReader` dan `std::io::prelude` ke dalam *scope*
+untuk mendapatkan akses ke *trait* dan tipe yang memungkinkan kita membaca
+dari dan menulis ke *stream*. Di loop `for` pada fungsi `main`, alih-alih
 mencetak pesan yang menyatakan bahwa kita membuat koneksi, kita sekarang
 memanggil fungsi `handle_connection` yang baru dan memberikan `stream`
 kepadanya.
 
 Di fungsi `handle_connection`, kita membuat instance `BufReader` baru yang
-membungkus sebuah reference ke `stream`. `BufReader` menambahkan buffering
-dengan mengelola pemanggilan metode-metode trait `std::io::Read` untuk
+membungkus sebuah *reference* ke `stream`. `BufReader` menambahkan buffering
+dengan mengelola pemanggilan metode-metode *trait* `std::io::Read` untuk
 kita.
 
 Kita membuat variabel bernama `http_request` untuk mengumpulkan
@@ -168,19 +168,19 @@ baris-baris permintaan yang dikirim peramban ke server kita. Kita
 menandakan bahwa kita ingin mengumpulkan baris-baris itu ke dalam vektor
 dengan menambahkan anotasi tipe `Vec<_>`.
 
-`BufReader` mengimplementasikan trait `std::io::BufRead`, yang menyediakan
+`BufReader` mengimplementasikan *trait* `std::io::BufRead`, yang menyediakan
 metode `lines`. Metode `lines` mengembalikan iterator `Result<String,
 std::io::Error>` dengan membelah stream data setiap kali ia melihat byte
 newline. Untuk mendapatkan setiap `String`, kita me-`map` dan me-`unwrap`
 setiap `Result`. `Result` itu mungkin galat jika datanya bukan UTF-8 yang
-valid atau jika ada masalah saat membaca dari stream. Sekali lagi, program
+valid atau jika ada masalah saat membaca dari *stream*. Sekali lagi, program
 produksi seharusnya menangani galat-galat ini dengan lebih baik, tetapi
 kita memilih untuk menghentikan program pada kasus galat demi
 kesederhanaan.
 
 Peramban menandakan akhir sebuah permintaan HTTP dengan mengirim dua
 karakter newline berturut-turut, jadi untuk mendapatkan satu permintaan
-dari stream, kita mengambil baris-baris sampai kita mendapat baris yang
+dari *stream*, kita mengambil baris-baris sampai kita mendapat baris yang
 berupa string kosong. Setelah kita mengumpulkan baris-baris itu ke dalam
 vektor, kita mencetaknya dengan format debug yang rapi supaya kita bisa
 melihat instruksi yang dikirim peramban web ke server kita.
@@ -222,7 +222,7 @@ Request: [
 
 Bergantung pada peramban Anda, outputnya mungkin sedikit berbeda. Sekarang
 setelah kita mencetak data permintaannya, kita bisa melihat mengapa kita
-mendapat banyak koneksi dari satu permintaan peramban dengan melihat path
+mendapat banyak koneksi dari satu permintaan peramban dengan melihat *path*
 setelah `GET` di baris pertama permintaan. Jika koneksi yang berulang
 semuanya meminta _/_, kita tahu peramban sedang mencoba mengambil _/_
 berkali-kali karena ia tidak mendapat respons dari program kita.
@@ -305,7 +305,7 @@ HTTP/1.1 200 OK\r\n\r\n
 ```
 
 Kode status 200 adalah respons sukses standar. Teks itu adalah respons HTTP
-sukses yang kecil. Mari kita tulis ini ke stream sebagai respons kita
+sukses yang kecil. Mari kita tulis ini ke *stream* sebagai respons kita
 terhadap permintaan yang sukses! Dari fungsi `handle_connection`, hapus
 `println!` yang mencetak data permintaan dan ganti dengan kode di Listing
 21-3.
@@ -362,8 +362,8 @@ mengirimkannya.
 
 </Listing>
 
-Kita telah menambahkan `fs` ke pernyataan `use` untuk membawa module
-filesystem pustaka standar ke dalam scope. Kode untuk membaca isi file
+Kita telah menambahkan `fs` ke pernyataan `use` untuk membawa *module*
+filesystem pustaka standar ke dalam *scope*. Kode untuk membaca isi file
 menjadi string seharusnya tampak familier; kita memakainya saat membaca isi
 file untuk proyek I/O kita di Listing 12-4.
 
@@ -382,7 +382,7 @@ tetap akan mendapat respons HTML yang sama itu. Saat ini, server kita
 sangat terbatas dan tidak melakukan apa yang dilakukan sebagian besar
 server web. Kita ingin menyesuaikan respons kita bergantung pada
 permintaannya dan hanya mengirim kembali file HTML itu untuk permintaan
-yang well-formed ke _/_.
+yang *well-formed* ke _/_.
 
 ### Memvalidasi Permintaan dan Merespons Secara Selektif
 
@@ -406,16 +406,16 @@ berbeda.
 
 Kita hanya akan melihat baris pertama dari permintaan HTTP, jadi alih-alih
 membaca seluruh permintaan ke dalam vektor, kita memanggil `next` untuk
-mendapatkan item pertama dari iterator. `unwrap` pertama menangani
-`Option` itu dan menghentikan program jika iterator tidak memiliki item.
+mendapatkan item pertama dari *iterator*. `unwrap` pertama menangani
+`Option` itu dan menghentikan program jika *iterator* tidak memiliki item.
 `unwrap` kedua menangani `Result` dan memiliki efek yang sama dengan
 `unwrap` yang ada di `map` yang ditambahkan di Listing 21-2.
 
 Berikutnya, kita memeriksa `request_line` untuk melihat apakah ia sama
-dengan baris permintaan dari permintaan GET ke path _/_. Jika ya, blok `if`
+dengan baris permintaan dari permintaan GET ke *path* _/_. Jika ya, blok `if`
 mengembalikan isi file HTML kita.
 
-Jika `request_line` *tidak* sama dengan permintaan GET ke path _/_, itu
+Jika `request_line` *tidak* sama dengan permintaan GET ke *path* _/_, itu
 berarti kita menerima permintaan lain. Sebentar lagi kita akan menambahkan
 kode ke blok `else` untuk merespons semua permintaan lainnya.
 
@@ -464,7 +464,7 @@ galat dari _404.html_.
 ### Refactoring
 
 Saat ini, blok `if` dan `else` memiliki banyak pengulangan: Keduanya
-membaca file dan menulis isi file itu ke stream. Satu-satunya perbedaan
+membaca file dan menulis isi file itu ke *stream*. Satu-satunya perbedaan
 adalah baris status dan nama filenya. Mari kita buat kodenya lebih ringkas
 dengan menarik perbedaan-perbedaan itu keluar ke baris `if` dan `else`
 terpisah yang akan menetapkan nilai baris status dan nama file ke
@@ -481,7 +481,7 @@ kode yang dihasilkan setelah mengganti blok `if` dan `else` yang besar itu.
 </Listing>
 
 Sekarang blok `if` dan `else` hanya mengembalikan nilai yang sesuai untuk
-baris status dan nama file di dalam tuple; lalu kita memakai destructuring
+baris status dan nama file di dalam *tuple*; lalu kita memakai destructuring
 untuk menetapkan kedua nilai itu ke `status_line` dan `filename` dengan
 memakai pola di pernyataan `let`, seperti yang dibahas di Bab 19.
 

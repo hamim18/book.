@@ -166,12 +166,12 @@ beta-x86_64-pc-windows-msvc
 nightly-x86_64-pc-windows-msvc
 ```
 
-Seperti yang Anda lihat, toolchain stable adalah bawaannya. Sebagian besar
+Seperti yang Anda lihat, *toolchain* stable adalah bawaannya. Sebagian besar
 pengguna Rust memakai stable hampir sepanjang waktu. Anda mungkin ingin memakai
 stable hampir sepanjang waktu, tetapi memakai nightly pada proyek tertentu,
 karena Anda menginginkan fitur yang paling mutakhir. Untuk melakukannya, Anda
 dapat memakai `rustup override` di direktori proyek itu untuk menetapkan
-toolchain nightly sebagai yang harus dipakai `rustup` ketika Anda berada di
+*toolchain* nightly sebagai yang harus dipakai `rustup` ketika Anda berada di
 direktori itu:
 
 ```console

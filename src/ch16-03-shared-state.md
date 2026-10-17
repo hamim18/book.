@@ -1,21 +1,21 @@
 ## Konkurensi Shared-State
 
-Message passing adalah cara yang baik untuk menangani konkurensi, tetapi itu
+*Message passing* adalah cara yang baik untuk menangani konkurensi, tetapi itu
 bukan satu-satunya cara. Metode lain adalah membiarkan beberapa thread
 mengakses data bersama yang sama. Perhatikan kembali bagian slogan dari
 dokumentasi bahasa Go ini: “Do not communicate by sharing memory.”
 
 Seperti apa rupa komunikasi dengan berbagi memori? Selain itu, mengapa para
-penggemar message passing mengingatkan agar tidak memakai pembagian memori?
+penggemar *message passing* mengingatkan agar tidak memakai pembagian memori?
 
-Dengan satu cara, channel dalam bahasa pemrograman mana pun mirip dengan
-ownership tunggal karena begitu Anda mentransfer nilai melalui channel, Anda
+Dengan satu cara, *channel* dalam bahasa pemrograman mana pun mirip dengan
+*ownership* tunggal karena begitu Anda mentransfer nilai melalui *channel*, Anda
 tidak boleh lagi memakai nilai itu. Konkurensi shared-memory seperti
-ownership ganda: Beberapa thread dapat mengakses lokasi memori yang sama pada
-saat yang sama. Seperti yang Anda lihat di Bab 15, ketika smart pointer
-memungkinkan ownership ganda, ownership ganda dapat menambah kompleksitas
+*ownership* ganda: Beberapa thread dapat mengakses lokasi memori yang sama pada
+saat yang sama. Seperti yang Anda lihat di Bab 15, ketika *smart pointer*
+memungkinkan *ownership* ganda, *ownership* ganda dapat menambah kompleksitas
 karena pemilik-pemilik yang berbeda ini perlu dikelola. Sistem tipe dan
-aturan ownership Rust sangat membantu dalam menangani pengelolaan ini dengan
+aturan *ownership* Rust sangat membantu dalam menangani pengelolaan ini dengan
 benar. Sebagai contoh, mari kita lihat mutex, salah satu primitif konkurensi
 yang lebih umum untuk memori bersama.
 
@@ -50,8 +50,8 @@ selesai memakainya, tidak ada orang lain yang bisa berbicara. Jika pengelolaan
 mikrofon bersama itu kacau, panel tidak akan berjalan sesuai rencana!
 
 Pengelolaan mutex bisa sangat rumit untuk dilakukan dengan benar, yang menjadi
-alasan begitu banyak orang antusias dengan channel. Namun, berkat sistem tipe
-dan aturan ownership Rust, Anda tidak bisa salah dalam mengunci dan membuka
+alasan begitu banyak orang antusias dengan *channel*. Namun, berkat sistem tipe
+dan aturan *ownership* Rust, Anda tidak bisa salah dalam mengunci dan membuka
 kunci.
 
 #### API dari `Mutex<T>`
@@ -79,7 +79,7 @@ memilih untuk `unwrap` dan membuat thread ini panic jika kita berada dalam
 situasi itu.
 
 Setelah kita memperoleh lock, kita dapat memperlakukan nilai kembaliannya,
-yang bernama `num` dalam kasus ini, sebagai mutable reference ke data di
+yang bernama `num` dalam kasus ini, sebagai *mutable* *reference* ke data di
 dalamnya. Sistem tipe memastikan bahwa kita memperoleh lock sebelum memakai
 nilai di dalam `m`. Tipe `m` adalah `Mutex<i32>`, bukan `i32`, jadi kita
 _harus_ memanggil `lock` untuk bisa memakai nilai `i32` itu. Kita tidak bisa
@@ -90,8 +90,8 @@ Panggilan ke `lock` mengembalikan tipe bernama `MutexGuard`, yang dibungkus
 dalam `LockResult` yang kita tangani dengan panggilan ke `unwrap`. Tipe
 `MutexGuard` mengimplementasikan `Deref` untuk menunjuk ke data bagian dalam
 kita; tipe itu juga memiliki implementasi `Drop` yang melepas lock secara
-otomatis ketika sebuah `MutexGuard` keluar dari scope, yang terjadi di akhir
-scope dalam. Akibatnya, kita tidak berisiko lupa melepas lock dan menghalangi
+otomatis ketika sebuah `MutexGuard` keluar dari *scope*, yang terjadi di akhir
+*scope* dalam. Akibatnya, kita tidak berisiko lupa melepas lock dan menghalangi
 mutex dipakai thread lain karena pelepasan lock terjadi secara otomatis.
 
 Setelah melepas lock, kita dapat mencetak nilai mutex dan melihat bahwa kita
@@ -122,10 +122,10 @@ bagaimana Rust membantu kita memakainya dengan benar.
 Kita membuat variabel `counter` untuk menampung `i32` di dalam `Mutex<T>`,
 seperti yang kita lakukan di Listing 16-12. Selanjutnya, kita membuat 10
 thread dengan mengiterasi range angka. Kita memakai `thread::spawn` dan
-memberikan closure yang sama kepada semua thread: closure yang memindahkan
+memberikan *closure* yang sama kepada semua thread: *closure* yang memindahkan
 counter ke dalam thread, memperoleh lock pada `Mutex<T>` dengan memanggil
 metode `lock`, lalu menambahkan 1 ke nilai di dalam mutex. Ketika sebuah
-thread selesai menjalankan closure-nya, `num` akan keluar dari scope dan
+thread selesai menjalankan *closure*-nya, `num` akan keluar dari *scope* dan
 melepas lock sehingga thread lain dapat memperolehnya.
 
 Di thread utama, kita mengumpulkan semua handle join. Kemudian, seperti yang
@@ -142,16 +142,16 @@ mari kita cari tahu alasannya!
 
 Pesan galat itu menyatakan bahwa nilai `counter` telah dipindahkan pada
 iterasi perulangan sebelumnya. Rust memberi tahu kita bahwa kita tidak bisa
-memindahkan ownership lock `counter` ke banyak thread. Mari kita perbaiki
-galat kompilator itu dengan metode ownership ganda yang kita bahas di Bab 15.
+memindahkan *ownership* lock `counter` ke banyak thread. Mari kita perbaiki
+galat kompilator itu dengan metode *ownership* ganda yang kita bahas di Bab 15.
 
 #### Kepemilikan Ganda dengan Banyak Thread
 
 Di Bab 15, kita memberikan nilai kepada beberapa pemilik dengan memakai smart
-pointer `Rc<T>` untuk membuat nilai dengan penghitungan referensi. Mari kita
+*pointer* `Rc<T>` untuk membuat nilai dengan penghitungan referensi. Mari kita
 lakukan hal yang sama di sini dan lihat apa yang terjadi. Kita akan membungkus
 `Mutex<T>` di dalam `Rc<T>` di Listing 16-14 dan mengklon `Rc<T>` itu sebelum
-memindahkan ownership ke thread.
+memindahkan *ownership* ke thread.
 
 <Listing number="16-14" file-name="src/main.rs" caption="Mencoba memakai `Rc<T>` untuk mengizinkan beberapa thread memiliki `Mutex<T>`">
 
@@ -170,9 +170,9 @@ sedang mengajari kita banyak hal:
 
 Wah, pesan galat itu panjang lebar sekali! Berikut bagian penting yang perlu
 difokuskan: `` `Rc<Mutex<i32>>` cannot be sent between threads safely ``.
-Kompilator juga memberi tahu alasannya: `` the trait `Send` is not implemented
+Kompilator juga memberi tahu alasannya: `` the *trait* `Send` is not implemented
 for `Rc<Mutex<i32>>` ``. Kita akan membahas `Send` di seksi berikutnya: Ini
-adalah salah satu trait yang memastikan bahwa tipe yang kita pakai dengan
+adalah salah satu *trait* yang memastikan bahwa tipe yang kita pakai dengan
 thread memang dimaksudkan untuk dipakai dalam situasi konkuren.
 
 Sayangnya, `Rc<T>` tidak aman untuk dibagikan antar-thread. Ketika `Rc<T>`
@@ -246,16 +246,16 @@ dapat berkonsentrasi pada cara kerja `Mutex<T>`.
 
 ### Membandingkan `RefCell<T>`/`Rc<T>` dan `Mutex<T>`/`Arc<T>`
 
-Anda mungkin menyadari bahwa `counter` bersifat immutable tetapi kita bisa
-mendapat mutable reference ke nilai di dalamnya; ini berarti `Mutex<T>`
-menyediakan interior mutability, seperti yang dilakukan keluarga `Cell`.
+Anda mungkin menyadari bahwa `counter` bersifat *immutable* tetapi kita bisa
+mendapat *mutable* *reference* ke nilai di dalamnya; ini berarti `Mutex<T>`
+menyediakan *interior mutability*, seperti yang dilakukan keluarga `Cell`.
 Dengan cara yang sama ketika kita memakai `RefCell<T>` di Bab 15 untuk
 mengizinkan kita mengubah isi di dalam `Rc<T>`, kita memakai `Mutex<T>` untuk
 mengubah isi di dalam `Arc<T>`.
 
 Detail lain yang perlu dicatat adalah bahwa Rust tidak bisa melindungi Anda
 dari semua jenis galat logika ketika Anda memakai `Mutex<T>`. Ingat dari Bab
-15 bahwa memakai `Rc<T>` datang dengan risiko menciptakan reference cycle,
+15 bahwa memakai `Rc<T>` datang dengan risiko menciptakan *reference cycle*,
 ketika dua nilai `Rc<T>` saling merujuk, menyebabkan kebocoran memori.
 Demikian pula, `Mutex<T>` datang dengan risiko menciptakan deadlock. Ini
 terjadi ketika sebuah operasi perlu mengunci dua resource dan dua thread
@@ -266,7 +266,7 @@ mutex dalam bahasa apa pun dan cobalah mengimplementasikannya di Rust.
 Dokumentasi API pustaka standar untuk `Mutex<T>` dan `MutexGuard` menawarkan
 informasi yang berguna.
 
-Kita akan menutup bab ini dengan membicarakan trait `Send` dan `Sync` serta
+Kita akan menutup bab ini dengan membicarakan *trait* `Send` dan `Sync` serta
 cara kita dapat memakainya dengan tipe buatan sendiri.
 
 [atomic]: ../std/sync/atomic/index.html

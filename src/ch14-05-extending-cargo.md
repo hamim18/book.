@@ -13,7 +13,7 @@ Cargo yang sangat praktis!
 
 Berbagi kode dengan Cargo dan [crates.io](https://crates.io/)<!-- ignore -->
 adalah bagian dari hal yang membuat ekosistem Rust berguna untuk banyak tugas
-yang berbeda. Pustaka standar Rust memang kecil dan stabil, tetapi crate
+yang berbeda. Pustaka standar Rust memang kecil dan stabil, tetapi *crate*
 mudah dibagikan, dipakai, dan ditingkatkan dengan jadwal yang berbeda dari
 jadwal bahasa itu sendiri. Jangan ragu membagikan kode yang berguna bagi Anda
 di [crates.io](https://crates.io/)<!-- ignore -->; kemungkinan besar kode itu

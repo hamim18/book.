@@ -209,13 +209,13 @@ kita meneruskan string tersebut sebagai argumen. Argumen string itu harus
 Tanda `&` menandakan bahwa argumen ini adalah sebuah *reference*
 (referensi), yang memberi Anda cara untuk memungkinkan banyak bagian kode
 mengakses satu data tanpa perlu menyalin data itu ke memori berkali-kali.
-Reference adalah fitur yang kompleks, dan salah satu keunggulan utama Rust
-adalah betapa aman dan mudahnya memakai reference. Anda tidak perlu tahu
+*Reference* adalah fitur yang kompleks, dan salah satu keunggulan utama Rust
+adalah betapa aman dan mudahnya memakai *reference*. Anda tidak perlu tahu
 banyak detail itu untuk menyelesaikan program ini. Untuk saat ini, yang
-perlu Anda ketahui hanyalah bahwa, seperti variabel, reference bersifat
+perlu Anda ketahui hanyalah bahwa, seperti variabel, *reference* bersifat
 *immutable* secara bawaan. Karena itu, Anda perlu menulis `&mut guess`
 alih-alih `&guess` untuk membuatnya *mutable*. (Bab 4 akan menjelaskan
-reference lebih tuntas.)
+*reference* lebih tuntas.)
 
 <!-- Old headings. Do not remove or links may break. -->
 
@@ -357,14 +357,14 @@ tersebut.
 ### Menambah Fungsionalitas dengan Crate
 
 Ingat bahwa *crate* adalah kumpulan file kode sumber Rust. Proyek yang
-sedang kita bangun adalah crate biner, yaitu sebuah file yang dapat
-dieksekusi. Crate `rand` adalah crate pustaka, yang berisi kode yang
+sedang kita bangun adalah *crate* biner, yaitu sebuah file yang dapat
+dieksekusi. *Crate* `rand` adalah *crate* pustaka, yang berisi kode yang
 dimaksudkan untuk dipakai di program lain dan tidak dapat dieksekusi
 sendiri.
 
-Koordinasi crate eksternal adalah tempat Cargo benar-benar bersinar.
+Koordinasi *crate* eksternal adalah tempat Cargo benar-benar bersinar.
 Sebelum kita bisa menulis kode yang memakai `rand`, kita perlu mengubah
-file _Cargo.toml_ untuk menyertakan crate `rand` sebagai dependensi. Buka
+file _Cargo.toml_ untuk menyertakan *crate* `rand` sebagai dependensi. Buka
 file itu sekarang dan tambahkan baris berikut ke bagian bawah, di bawah
 judul seksi `[dependencies]` yang dibuat Cargo untuk Anda. Pastikan untuk
 menuliskan `rand` persis seperti di sini, dengan nomor versi ini, atau
@@ -386,9 +386,9 @@ contoh kode dalam tutorial ini mungkin tidak akan bekerja:
 
 Di file _Cargo.toml_, semua yang mengikuti sebuah judul adalah bagian dari
 seksi itu, yang berlanjut sampai seksi lain dimulai. Di `[dependencies]`,
-Anda memberi tahu Cargo crate eksternal mana yang menjadi dependensi proyek
-Anda dan versi crate mana yang Anda butuhkan. Dalam kasus ini, kita
-menentukan crate `rand` dengan spesifikasi versi semantik `0.10.1`. Cargo
+Anda memberi tahu Cargo *crate* eksternal mana yang menjadi dependensi proyek
+Anda dan versi *crate* mana yang Anda butuhkan. Dalam kasus ini, kita
+menentukan *crate* `rand` dengan spesifikasi versi semantik `0.10.1`. Cargo
 memahami [Semantic Versioning][semver]<!-- ignore --> (kadang disebut
 _SemVer_), yaitu standar untuk menulis nomor versi. Spesifikasi `0.10.1`
 sebenarnya adalah singkatan dari `^0.10.1`, yang berarti versi apa pun yang
@@ -400,7 +400,7 @@ patch terbaru yang tetap terkompilasi dengan kode di bab ini. Versi 0.11.0
 atau yang lebih tinggi tidak dijamin memiliki API yang sama dengan yang
 dipakai contoh-contoh berikut.
 
-Sekarang, tanpa mengubah kode apa pun, mari kita build proyeknya, seperti
+Sekarang, tanpa mengubah kode apa pun, mari kita membangun proyeknya, seperti
 yang ditunjukkan pada Listing 2-2.
 
 <!-- manual-regeneration
@@ -438,15 +438,15 @@ berbeda.
 
 Ketika kita menyertakan dependensi eksternal, Cargo mengambil versi
 terbaru dari semua yang dibutuhkan dependensi itu dari *registry*
-(registri), yang merupakan salinan data dari [Crates.io][cratesio].
-Crates.io adalah tempat orang-orang di ekosistem Rust memublikasikan proyek
+(registri), yang merupakan salinan data dari [*Crates*.io][cratesio].
+*Crates*.io adalah tempat orang-orang di ekosistem Rust memublikasikan proyek
 Rust open source mereka untuk dipakai orang lain.
 
 Setelah memperbarui *registry*, Cargo memeriksa seksi `[dependencies]` dan
-mengunduh crate apa pun yang terdaftar dan belum diunduh. Dalam kasus ini,
+mengunduh *crate* apa pun yang terdaftar dan belum diunduh. Dalam kasus ini,
 meskipun kita hanya mendaftarkan `rand` sebagai dependensi, Cargo juga
-mengambil crate lain yang dibutuhkan `rand` agar bisa bekerja. Setelah
-mengunduh crate-crate tersebut, Rust mengompilasinya, lalu mengompilasi
+mengambil *crate* lain yang dibutuhkan `rand` agar bisa bekerja. Setelah
+mengunduh *crate*-crate tersebut, Rust mengompilasinya, lalu mengompilasi
 proyek dengan dependensi yang tersedia.
 
 Jika Anda langsung menjalankan `cargo build` lagi tanpa mengubah apa pun,
@@ -486,7 +486,7 @@ Cargo memiliki mekanisme yang menjamin bahwa Anda dapat membangun ulang
 artefak yang sama setiap kali Anda atau siapa pun membangun kode Anda:
 Cargo hanya akan memakai versi dependensi yang Anda tentukan sampai Anda
 menyatakan sebaliknya. Misalnya, katakanlah minggu depan versi 0.10.2 dari
-crate `rand` dirilis, dan versi itu memuat perbaikan bug yang penting,
+*crate* `rand` dirilis, dan versi itu memuat perbaikan bug yang penting,
 tetapi juga memuat regresi yang akan merusak kode Anda. Untuk menangani
 ini, Rust membuat file _Cargo.lock_ saat pertama kali Anda menjalankan
 `cargo build`, jadi sekarang kita punya file ini di direktori
@@ -509,8 +509,8 @@ kode lain di proyek Anda.
 Ketika Anda _memang_ ingin memperbarui crate, Cargo menyediakan perintah
 `update`, yang akan mengabaikan file _Cargo.lock_ dan mencari tahu semua
 versi terbaru yang sesuai dengan spesifikasi Anda di _Cargo.toml_. Cargo
-kemudian akan menulis versi-versi itu ke file _Cargo.lock_. Selain itu,
-secara bawaan, Cargo hanya akan mencari versi yang lebih besar dari 0.10.1
+kemudian akan menulis versi-versi itu ke file _Cargo.lock_. Jika tidak
+demikian, secara bawaan, Cargo hanya akan mencari versi yang lebih besar dari 0.10.1
 dan kurang dari 0.11.0. Jika crate `rand` telah merilis dua versi baru
 0.10.2 dan 0.999.0, Anda akan melihat yang berikut jika menjalankan
 `cargo update`:
@@ -568,7 +568,7 @@ ditunjukkan pada Listing 2-3.
 </Listing>
 
 Pertama, kita menambahkan baris `use rand::prelude::*;`. *Module*
-`prelude` memuat bagian-bagian yang paling sering dipakai dari crate
+`prelude` memuat bagian-bagian yang paling sering dipakai dari *crate*
 `rand`, dan `use` membuat item-item itu tersedia di *scope* program kita.
 
 Berikutnya, kita menambahkan dua baris di tengah. Pada baris pertama, kita
@@ -586,11 +586,11 @@ meminta angka antara 1 dan 100.
 
 > Catatan: Anda tidak akan langsung tahu apa yang harus dibawa ke dalam
 > *scope* dan metode serta fungsi apa yang harus dipanggil dari sebuah
-> crate, jadi setiap crate memiliki dokumentasi berisi petunjuk
+> *crate*, jadi setiap *crate* memiliki dokumentasi berisi petunjuk
 > pemakaiannya. Fitur rapi lain dari Cargo adalah bahwa menjalankan
 > perintah `cargo doc --open` akan membangun dokumentasi yang disediakan
 > semua dependensi Anda secara lokal dan membukanya di peramban Anda.
-> Misalnya, jika Anda tertarik pada fungsionalitas lain di crate `rand`,
+> Misalnya, jika Anda tertarik pada fungsionalitas lain di *crate* `rand`,
 > jalankan `cargo doc --open` dan klik `rand` di bilah sisi sebelah kiri.
 
 Baris baru kedua mencetak angka rahasia. Ini berguna selagi kita
@@ -654,7 +654,7 @@ jelaskan.
 
 Pertama, kita menambahkan pernyataan `use` lain, membawa tipe bernama
 `std::cmp::Ordering` ke dalam *scope* dari pustaka standar. Tipe
-`Ordering` adalah enum lain dan memiliki *variant* `Less`, `Greater`, dan
+`Ordering` adalah *enum* lain dan memiliki *variant* `Less`, `Greater`, dan
 `Equal`. Ketiganya adalah tiga kemungkinan hasil ketika Anda membandingkan
 dua nilai.
 
@@ -663,7 +663,7 @@ tipe `Ordering`. Metode `cmp` membandingkan dua nilai dan dapat dipanggil
 pada apa pun yang dapat dibandingkan. Metode ini menerima sebuah
 *reference* ke apa pun yang ingin Anda bandingkan dengannya: Di sini, ia
 membandingkan `guess` dengan `secret_number`. Lalu, ia mengembalikan
-*variant* dari enum `Ordering` yang kita bawa ke dalam *scope* dengan
+*variant* dari *enum* `Ordering` yang kita bawa ke dalam *scope* dengan
 pernyataan `use`. Kita memakai ekspresi [`match`][match]<!-- ignore -->
 untuk memutuskan apa yang harus dilakukan berikutnya berdasarkan *variant*
 `Ordering` mana yang dikembalikan dari pemanggilan `cmp` dengan nilai di
@@ -887,7 +887,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 Mengetik `quit` akan menghentikan permainan, tetapi seperti yang akan Anda
 perhatikan, memasukkan masukan non-angka lain juga akan menghentikannya.
-Ini kurang optimal, bisa dibilang; kita ingin permainannya juga berhenti
+Ini kurang optimal, paling tidak; kita ingin permainannya juga berhenti
 ketika angka yang benar ditebak.
 
 <a id="quitting-after-a-correct-guess"></a>
@@ -925,7 +925,7 @@ menjadi `u32`, seperti yang ditunjukkan pada Listing 2-5.
 
 Kita beralih dari pemanggilan `expect` ke ekspresi `match` untuk beralih
 dari crash karena galat menjadi menangani galat. Ingat bahwa `parse`
-mengembalikan tipe `Result` dan `Result` adalah enum yang memiliki
+mengembalikan tipe `Result` dan `Result` adalah *enum* yang memiliki
 *variant* `Ok` dan `Err`. Kita memakai ekspresi `match` di sini, seperti
 yang kita lakukan dengan hasil `Ordering` dari metode `cmp`.
 
@@ -1002,7 +1002,7 @@ Selamat!
 ## Ringkasan
 
 Proyek ini adalah cara praktik untuk memperkenalkan Anda pada banyak
-konsep baru Rust: `let`, `match`, fungsi, penggunaan crate eksternal, dan
+konsep baru Rust: `let`, `match`, fungsi, penggunaan *crate* eksternal, dan
 lainnya. Dalam beberapa bab berikutnya, Anda akan mempelajari
 konsep-konsep ini lebih detail. Bab 3 membahas konsep yang dimiliki
 sebagian besar bahasa pemrograman, seperti variabel, tipe data, dan

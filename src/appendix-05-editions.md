@@ -39,7 +39,7 @@ memakai perubahan itu, kode Anda akan tetap terkompilasi meskipun Anda
 meningkatkan versi kompilator Rust yang Anda pakai.
 
 Semua versi kompilator Rust mendukung edisi mana pun yang sudah ada sebelum
-rilis kompilator tersebut, dan mereka dapat menautkan crate dari edisi mana pun
+rilis kompilator tersebut, dan mereka dapat menautkan *crate* dari edisi mana pun
 yang didukung secara bersamaan. Perubahan edisi hanya memengaruhi cara
 kompilator melakukan parsing awal terhadap kode. Karena itu, jika Anda memakai
 Rust 2015 dan salah satu dependensi Anda memakai Rust 2018, proyek Anda akan

@@ -4,10 +4,10 @@
 Metode mirip dengan fungsi: kita mendeklarasikannya dengan keyword `fn` dan
 sebuah nama, ia dapat memiliki parameter dan nilai kembalian, dan ia berisi
 sejumlah kode yang dijalankan ketika metodenya dipanggil dari tempat lain.
-Tidak seperti fungsi, metode didefinisikan di dalam konteks sebuah struct
-(atau enum atau trait object, yang kita bahas masing-masing di
+Tidak seperti fungsi, metode didefinisikan di dalam konteks sebuah *struct*
+(atau *enum* atau *trait object*, yang kita bahas masing-masing di
 [Bab 6][enums]<!-- ignore --> dan [Bab 18][trait-objects]<!-- ignore -->), dan
-parameter pertamanya selalu `self`, yang merepresentasikan instance struct
+parameter pertamanya selalu `self`, yang merepresentasikan instance *struct*
 tempat metode itu dipanggil.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -19,7 +19,7 @@ tempat metode itu dipanggil.
 
 Mari kita ubah fungsi `area` yang memiliki instance `Rectangle` sebagai
 parameter, dan sebagai gantinya membuat metode `area` yang didefinisikan pada
-struct `Rectangle`, seperti yang ditunjukkan pada Listing 5-13.
+*struct* `Rectangle`, seperti yang ditunjukkan pada Listing 5-13.
 
 <Listing number="5-13" file-name="src/main.rs" caption="Mendefinisikan metode `area` pada struct `Rectangle`">
 
@@ -54,7 +54,7 @@ secara *mutable* (dapat diubah), sama seperti parameter lainnya.
 
 Kita memilih `&self` di sini dengan alasan yang sama ketika kita memakai
 `&Rectangle` pada versi fungsinya: kita tidak ingin mengambil kepemilikan, dan
-kita hanya ingin membaca data di dalam struct, bukan menulisnya. Jika kita
+kita hanya ingin membaca data di dalam *struct*, bukan menulisnya. Jika kita
 ingin mengubah instance tempat metode dipanggil sebagai bagian dari pekerjaan
 metodenya, kita akan memakai `&mut self` sebagai parameter pertama. Memiliki
 metode yang mengambil kepemilikan instance dengan hanya memakai `self` sebagai
@@ -70,7 +70,7 @@ pengguna kode kita di masa depan mencari kemampuan `Rectangle` di berbagai
 tempat pada pustaka yang kita sediakan.
 
 Perhatikan bahwa kita dapat memilih untuk memberi metode nama yang sama dengan
-salah satu field struct. Contohnya, kita dapat mendefinisikan metode pada
+salah satu *field* *struct*. Contohnya, kita dapat mendefinisikan metode pada
 `Rectangle` yang juga bernama `width`:
 
 <Listing file-name="src/main.rs">
@@ -82,21 +82,21 @@ salah satu field struct. Contohnya, kita dapat mendefinisikan metode pada
 </Listing>
 
 Di sini, kita memilih untuk membuat metode `width` mengembalikan `true` jika
-nilai pada field `width` instance lebih besar daripada `0` dan `false` jika
-nilainya `0`: kita dapat memakai field di dalam metode dengan nama yang sama
+nilai pada *field* `width` instance lebih besar daripada `0` dan `false` jika
+nilainya `0`: kita dapat memakai *field* di dalam metode dengan nama yang sama
 untuk tujuan apa pun. Di `main`, ketika kita mengikuti `rect1.width` dengan
 tanda kurung, Rust tahu bahwa yang kita maksud adalah metode `width`. Ketika
-kita tidak memakai tanda kurung, Rust tahu bahwa yang kita maksud adalah field
+kita tidak memakai tanda kurung, Rust tahu bahwa yang kita maksud adalah *field*
 `width`.
 
 Sering kali, tetapi tidak selalu, ketika kita memberi sebuah metode nama yang
-sama dengan sebuah field, kita ingin metode itu hanya mengembalikan nilai di
-dalam field dan tidak melakukan hal lain. Metode seperti ini disebut *getter*,
-dan Rust tidak mengimplementasikannya secara otomatis untuk field struct
+sama dengan sebuah *field*, kita ingin metode itu hanya mengembalikan nilai di
+dalam *field* dan tidak melakukan hal lain. Metode seperti ini disebut *getter*,
+dan Rust tidak mengimplementasikannya secara otomatis untuk *field* *struct*
 seperti yang dilakukan beberapa bahasa lain. Getter berguna karena Anda dapat
-membuat field-nya privat tetapi metodenya publik, sehingga memungkinkan akses
-baca-saja ke field itu sebagai bagian dari API publik tipe tersebut. Kita akan
-membahas apa itu publik dan privat serta cara menetapkan field atau metode
+membuat *field*-nya privat tetapi metodenya publik, sehingga memungkinkan akses
+baca-saja ke *field* itu sebagai bagian dari API publik tipe tersebut. Kita akan
+membahas apa itu publik dan privat serta cara menetapkan *field* atau metode
 sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 
 <a id="wheres-the---operator"></a>
@@ -152,7 +152,7 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 ### Metode dengan Parameter Lebih Banyak
 
 Mari kita berlatih memakai metode dengan mengimplementasikan metode kedua
-pada struct `Rectangle`. Kali ini kita ingin sebuah instance `Rectangle`
+pada *struct* `Rectangle`. Kali ini kita ingin sebuah instance `Rectangle`
 menerima instance `Rectangle` lain dan mengembalikan `true` jika `Rectangle`
 kedua dapat muat sepenuhnya di dalam `self` (`Rectangle` pertama); jika tidak,
 ia seharusnya mengembalikan `false`. Artinya, setelah kita mendefinisikan
@@ -208,16 +208,16 @@ fungsi.
 
 Semua fungsi yang didefinisikan di dalam blok `impl` disebut *associated
 function* (fungsi asosiasi) karena ia terkait dengan tipe yang disebutkan
-setelah `impl`. Kita dapat mendefinisikan associated function yang tidak
+setelah `impl`. Kita dapat mendefinisikan *associated function* yang tidak
 memiliki `self` sebagai parameter pertamanya (dan dengan demikian bukan
 metode) karena ia tidak memerlukan instance dari tipenya untuk bekerja. Kita
 telah memakai satu fungsi seperti ini: fungsi `String::from` yang didefinisikan
 pada tipe `String`.
 
-Associated function yang bukan metode sering dipakai sebagai konstruktor yang
-mengembalikan instance baru struct. Fungsi seperti ini sering disebut `new`,
+*Associated function* yang bukan metode sering dipakai sebagai konstruktor yang
+mengembalikan instance baru *struct*. Fungsi seperti ini sering disebut `new`,
 tetapi `new` bukanlah nama istimewa dan tidak dibangun ke dalam bahasa.
-Contohnya, kita dapat memilih untuk menyediakan associated function bernama
+Contohnya, kita dapat memilih untuk menyediakan *associated function* bernama
 `square` yang memiliki satu parameter dimensi dan memakainya sebagai lebar
 sekaligus tinggi, sehingga lebih mudah membuat `Rectangle` persegi daripada
 harus menyebutkan nilai yang sama dua kali:
@@ -232,15 +232,15 @@ Keyword `Self` pada tipe kembalian dan pada badan fungsi adalah alias untuk
 tipe yang muncul setelah keyword `impl`, yang pada kasus ini adalah
 `Rectangle`.
 
-Untuk memanggil associated function ini, kita memakai sintaks `::` dengan nama
-struct; `let sq = Rectangle::square(3);` adalah contohnya. Fungsi ini berada
-dalam ruang nama struct: sintaks `::` dipakai untuk associated function maupun
-ruang nama yang dibuat oleh *module* (modul). Kita akan membahas module di
+Untuk memanggil *associated function* ini, kita memakai sintaks `::` dengan nama
+*struct*; `let sq = Rectangle::square(3);` adalah contohnya. Fungsi ini berada
+dalam ruang nama *struct*: sintaks `::` dipakai untuk *associated function* maupun
+ruang nama yang dibuat oleh *module* (modul). Kita akan membahas *module* di
 [Bab 7][modules]<!-- ignore -->.
 
 ### Beberapa Blok `impl`
 
-Setiap struct diizinkan memiliki beberapa blok `impl`. Contohnya, Listing 5-15
+Setiap *struct* diizinkan memiliki beberapa blok `impl`. Contohnya, Listing 5-15
 setara dengan kode yang ditunjukkan pada Listing 5-16, yang menempatkan setiap
 metode di blok `impl`-nya sendiri.
 
@@ -255,20 +255,20 @@ metode di blok `impl`-nya sendiri.
 Tidak ada alasan untuk memisahkan metode-metode ini ke beberapa blok `impl` di
 sini, tetapi ini adalah sintaks yang valid. Kita akan melihat kasus ketika
 beberapa blok `impl` berguna di Bab 10, tempat kita membahas tipe generik dan
-trait.
+*trait*.
 
 ## Ringkasan
 
-Struct memungkinkan Anda membuat tipe kustom yang bermakna bagi domain Anda.
-Dengan memakai struct, Anda dapat menjaga bagian-bagian data yang berkaitan
+*Struct* memungkinkan Anda membuat tipe kustom yang bermakna bagi domain Anda.
+Dengan memakai *struct*, Anda dapat menjaga bagian-bagian data yang berkaitan
 tetap saling terhubung dan memberi nama pada setiap bagiannya untuk membuat
 kode Anda jelas. Di dalam blok `impl`, Anda dapat mendefinisikan fungsi yang
 terkait dengan tipe Anda, dan metode adalah salah satu jenis associated
 function yang memungkinkan Anda menentukan perilaku yang dimiliki instance
-struct Anda.
+*struct* Anda.
 
-Tetapi struct bukanlah satu-satunya cara untuk membuat tipe kustom: mari kita
-beralih ke fitur enum milik Rust untuk menambah alat lain ke kotak peralatan
+Tetapi *struct* bukanlah satu-satunya cara untuk membuat tipe kustom: mari kita
+beralih ke fitur *enum* milik Rust untuk menambah alat lain ke kotak peralatan
 Anda.
 
 [enums]: ch06-00-enums.html

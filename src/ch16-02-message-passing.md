@@ -11,34 +11,34 @@ itu dalam sebuah slogan dari [dokumentasi bahasa Go](https://golang.org/doc/effe
 “Do not communicate by sharing memory; instead, share memory by communicating.”
 
 Untuk mewujudkan konkurensi pengiriman pesan, pustaka standar Rust menyediakan
-implementasi channel. Sebuah _channel_ (saluran) adalah konsep pemrograman
+implementasi *channel*. Sebuah _channel_ (saluran) adalah konsep pemrograman
 umum untuk mengirim data dari satu thread ke thread lain.
 
-Anda dapat membayangkan channel dalam pemrograman seperti saluran air
+Anda dapat membayangkan *channel* dalam pemrograman seperti saluran air
 berarah, misalnya anak sungai atau sungai. Jika Anda meletakkan sesuatu
 seperti bebek karet ke sebuah sungai, benda itu akan hanyut ke hilir sampai
 ujung aliran air.
 
-Sebuah channel memiliki dua bagian: transmitter dan receiver. Bagian
-transmitter adalah lokasi di hulu tempat Anda meletakkan bebek karet ke
-sungai, dan bagian receiver adalah tempat bebek karet itu berakhir di hilir.
-Satu bagian kode Anda memanggil metode pada transmitter dengan data yang ingin
+Sebuah *channel* memiliki dua bagian: *transmitter* dan *receiver*. Bagian
+*transmitter* adalah lokasi di hulu tempat Anda meletakkan bebek karet ke
+sungai, dan bagian *receiver* adalah tempat bebek karet itu berakhir di hilir.
+Satu bagian kode Anda memanggil metode pada *transmitter* dengan data yang ingin
 Anda kirim, dan bagian lain memeriksa ujung penerima untuk pesan yang datang.
-Sebuah channel dikatakan _closed_ (tertutup) jika bagian transmitter atau
-receiver-nya dibebaskan.
+Sebuah *channel* dikatakan _closed_ (tertutup) jika bagian *transmitter* atau
+*receiver*-nya dibebaskan.
 
 Di sini, kita akan menyusun program yang memiliki satu thread untuk
-menghasilkan nilai dan mengirimkannya lewat sebuah channel, serta thread lain
+menghasilkan nilai dan mengirimkannya lewat sebuah *channel*, serta thread lain
 yang akan menerima nilai-nilai itu dan mencetaknya. Kita akan mengirim nilai
-sederhana antar-thread memakai channel untuk menggambarkan fiturnya. Begitu
-Anda terbiasa dengan teknik ini, Anda dapat memakai channel untuk thread mana
+sederhana antar-thread memakai *channel* untuk menggambarkan fiturnya. Begitu
+Anda terbiasa dengan teknik ini, Anda dapat memakai *channel* untuk thread mana
 pun yang perlu saling berkomunikasi, seperti sistem obrolan atau sistem ketika
 banyak thread mengerjakan bagian-bagian sebuah perhitungan dan mengirim
 bagian-bagian itu ke satu thread yang menggabungkan hasilnya.
 
-Pertama, di Listing 16-6, kita akan membuat channel tetapi tidak melakukan
+Pertama, di Listing 16-6, kita akan membuat *channel* tetapi tidak melakukan
 apa pun dengannya. Perhatikan bahwa ini belum akan terkompilasi karena Rust
-tidak bisa tahu tipe nilai apa yang ingin kita kirim melalui channel itu.
+tidak bisa tahu tipe nilai apa yang ingin kita kirim melalui *channel* itu.
 
 <Listing number="16-6" file-name="src/main.rs" caption="Membuat channel dan menetapkan kedua bagiannya ke `tx` dan `rx`">
 
@@ -48,10 +48,10 @@ tidak bisa tahu tipe nilai apa yang ingin kita kirim melalui channel itu.
 
 </Listing>
 
-Kita membuat channel baru menggunakan fungsi `mpsc::channel`; `mpsc` adalah
+Kita membuat *channel* baru menggunakan fungsi `mpsc::channel`; `mpsc` adalah
 singkatan dari _multiple producer, single consumer_ (banyak produsen, satu
-konsumen). Singkatnya, cara pustaka standar Rust mengimplementasikan channel
-berarti sebuah channel dapat memiliki beberapa ujung _pengirim_ yang
+konsumen). Singkatnya, cara pustaka standar Rust mengimplementasikan *channel*
+berarti sebuah *channel* dapat memiliki beberapa ujung _pengirim_ yang
 menghasilkan nilai tetapi hanya satu ujung _penerima_ yang mengonsumsi
 nilai-nilai itu. Bayangkan beberapa anak sungai mengalir bersama menjadi satu
 sungai besar: Semua yang dikirim melalui anak sungai mana pun akan berakhir di
@@ -59,18 +59,18 @@ satu sungai di ujungnya. Untuk sekarang kita akan mulai dengan satu produsen,
 tetapi kita akan menambahkan banyak produsen ketika contoh ini sudah
 berfungsi.
 
-Fungsi `mpsc::channel` mengembalikan sebuah tuple, elemen pertamanya adalah
-ujung pengirim—transmitter—dan elemen keduanya adalah ujung penerima—receiver.
+Fungsi `mpsc::channel` mengembalikan sebuah *tuple*, elemen pertamanya adalah
+ujung pengirim—*transmitter*—dan elemen keduanya adalah ujung penerima—*receiver*.
 Singkatan `tx` dan `rx` secara tradisional dipakai di banyak bidang untuk
 _transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variabel
 kita seperti itu untuk menandai masing-masing ujung. Kita memakai pernyataan
-`let` dengan pola yang mendestrukturisasi tuple; kita akan membahas pemakaian
+`let` dengan pola yang mendestrukturisasi *tuple*; kita akan membahas pemakaian
 pola dalam pernyataan `let` dan destrukturisasi di Bab 19. Untuk sekarang,
 cukup ketahui bahwa memakai pernyataan `let` dengan cara ini adalah pendekatan
-praktis untuk mengekstrak bagian-bagian tuple yang dikembalikan
+praktis untuk mengekstrak bagian-bagian *tuple* yang dikembalikan
 `mpsc::channel`.
 
-Mari kita pindahkan ujung transmitter ke thread yang dibuat dan menyuruhnya
+Mari kita pindahkan ujung *transmitter* ke thread yang dibuat dan menyuruhnya
 mengirim satu string supaya thread yang dibuat itu berkomunikasi dengan thread
 utama, seperti ditunjukkan pada Listing 16-7. Ini seperti meletakkan bebek
 karet di hulu sungai atau mengirim pesan obrolan dari satu thread ke thread
@@ -85,19 +85,19 @@ lain.
 </Listing>
 
 Sekali lagi, kita memakai `thread::spawn` untuk membuat thread baru, lalu
-memakai `move` untuk memindahkan `tx` ke closure supaya thread yang dibuat
-memiliki `tx`. Thread yang dibuat perlu memiliki transmitter untuk bisa
-mengirim pesan melalui channel.
+memakai `move` untuk memindahkan `tx` ke *closure* supaya thread yang dibuat
+memiliki `tx`. Thread yang dibuat perlu memiliki *transmitter* untuk bisa
+mengirim pesan melalui *channel*.
 
-Transmitter memiliki metode `send` yang menerima nilai yang ingin kita kirim.
-Metode `send` mengembalikan tipe `Result<T, E>`, jadi jika receiver telah
+*Transmitter* memiliki metode `send` yang menerima nilai yang ingin kita kirim.
+Metode `send` mengembalikan tipe `Result<T, E>`, jadi jika *receiver* telah
 dibebaskan dan tidak ada tempat untuk mengirim nilai, operasi pengiriman akan
 mengembalikan galat. Dalam contoh ini, kita memanggil `unwrap` untuk panic
 jika terjadi galat. Tetapi dalam aplikasi nyata, kita akan menanganinya dengan
 benar: Kembalilah ke Bab 9 untuk mengulas strategi penanganan galat yang
 tepat.
 
-Di Listing 16-8, kita akan mengambil nilai dari receiver di thread utama. Ini
+Di Listing 16-8, kita akan mengambil nilai dari *receiver* di thread utama. Ini
 seperti mengambil bebek karet dari air di ujung sungai atau menerima pesan
 obrolan.
 
@@ -109,11 +109,11 @@ obrolan.
 
 </Listing>
 
-Receiver memiliki dua metode yang berguna: `recv` dan `try_recv`. Kita
+*Receiver* memiliki dua metode yang berguna: `recv` dan `try_recv`. Kita
 memakai `recv`, singkatan dari _receive_ (menerima), yang akan memblokir
 eksekusi thread utama dan menunggu sampai sebuah nilai dikirim melalui
-channel. Begitu sebuah nilai terkirim, `recv` akan mengembalikannya dalam
-`Result<T, E>`. Ketika transmitter tertutup, `recv` akan mengembalikan galat
+*channel*. Begitu sebuah nilai terkirim, `recv` akan mengembalikannya dalam
+`Result<T, E>`. Ketika *transmitter* tertutup, `recv` akan mengembalikan galat
 untuk menandakan bahwa tidak akan ada nilai lagi yang datang.
 
 Metode `try_recv` tidak memblokir, tetapi langsung mengembalikan
@@ -146,13 +146,13 @@ Sempurna!
 
 ### Mentransfer Ownership Melalui Channel
 
-Aturan ownership memainkan peran penting dalam pengiriman pesan karena
+Aturan *ownership* memainkan peran penting dalam pengiriman pesan karena
 aturan itu membantu Anda menulis kode konkuren yang aman. Mencegah galat
-dalam pemrograman konkuren adalah keuntungan memikirkan ownership di seluruh
+dalam pemrograman konkuren adalah keuntungan memikirkan *ownership* di seluruh
 program Rust Anda. Mari kita lakukan eksperimen untuk menunjukkan bagaimana
-channel dan ownership bekerja sama mencegah masalah: Kita akan mencoba memakai
+*channel* dan *ownership* bekerja sama mencegah masalah: Kita akan mencoba memakai
 nilai `val` di thread yang dibuat _setelah_ kita mengirimkannya melalui
-channel. Coba kompilasi kode di Listing 16-9 untuk melihat mengapa kode ini
+*channel*. Coba kompilasi kode di Listing 16-9 untuk melihat mengapa kode ini
 tidak diizinkan.
 
 <Listing number="16-9" file-name="src/main.rs" caption="Mencoba memakai `val` setelah kita mengirimkannya melalui channel">
@@ -163,7 +163,7 @@ tidak diizinkan.
 
 </Listing>
 
-Di sini, kita mencoba mencetak `val` setelah mengirimkannya melalui channel
+Di sini, kita mencoba mencetak `val` setelah mengirimkannya melalui *channel*
 lewat `tx.send`. Mengizinkan hal ini adalah ide yang buruk: Begitu nilai itu
 dikirim ke thread lain, thread itu bisa memodifikasi atau membebaskannya
 sebelum kita mencoba memakai nilai itu lagi. Berpotensi, modifikasi thread
@@ -176,9 +176,9 @@ mencoba mengompilasi kode di Listing 16-9:
 ```
 
 Kesalahan konkurensi kita telah menyebabkan galat waktu kompilasi. Fungsi
-`send` mengambil ownership atas parameternya, dan ketika nilainya dipindahkan,
-receiver mengambil ownership atasnya. Ini mencegah kita tanpa sengaja memakai
-nilai itu lagi setelah mengirimkannya; sistem ownership memeriksa bahwa
+`send` mengambil *ownership* atas parameternya, dan ketika nilainya dipindahkan,
+*receiver* mengambil *ownership* atasnya. Ini mencegah kita tanpa sengaja memakai
+nilai itu lagi setelah mengirimkannya; sistem *ownership* memeriksa bahwa
 semuanya baik-baik saja.
 
 <!-- Old headings. Do not remove or links may break. -->
@@ -189,7 +189,7 @@ semuanya baik-baik saja.
 
 Kode di Listing 16-8 terkompilasi dan berjalan, tetapi kode itu tidak
 menunjukkan dengan jelas kepada kita bahwa dua thread terpisah sedang saling
-berbicara melalui channel.
+berbicara melalui *channel*.
 
 Di Listing 16-10, kita telah membuat beberapa modifikasi yang akan
 membuktikan bahwa kode di Listing 16-8 berjalan secara konkuren: Thread yang
@@ -210,8 +210,8 @@ satu, dan berhenti sejenak di antara setiap pengiriman dengan memanggil fungsi
 `thread::sleep` dengan nilai `Duration` satu detik.
 
 Di thread utama, kita tidak lagi memanggil fungsi `recv` secara eksplisit:
-Sebagai gantinya, kita memperlakukan `rx` sebagai iterator. Untuk setiap nilai
-yang diterima, kita mencetaknya. Ketika channel tertutup, iterasi akan
+Sebagai gantinya, kita memperlakukan `rx` sebagai *iterator*. Untuk setiap nilai
+yang diterima, kita mencetaknya. Ketika *channel* tertutup, iterasi akan
 berakhir.
 
 Ketika menjalankan kode di Listing 16-10, Anda seharusnya melihat keluaran
@@ -240,8 +240,8 @@ untuk menerima nilai dari thread yang dibuat.
 
 Sebelumnya kita menyebutkan bahwa `mpsc` adalah akronim dari _multiple
 producer, single consumer_. Mari kita pakai `mpsc` dan perluas kode di Listing
-16-10 untuk membuat banyak thread yang semuanya mengirim nilai ke receiver
-yang sama. Kita dapat melakukannya dengan mengklon transmitter, seperti
+16-10 untuk membuat banyak thread yang semuanya mengirim nilai ke *receiver*
+yang sama. Kita dapat melakukannya dengan mengklon *transmitter*, seperti
 ditunjukkan pada Listing 16-11.
 
 <Listing number="16-11" file-name="src/main.rs" caption="Mengirim banyak pesan dari banyak produsen">
@@ -253,10 +253,10 @@ ditunjukkan pada Listing 16-11.
 </Listing>
 
 Kali ini, sebelum kita membuat thread pertama, kita memanggil `clone` pada
-transmitter. Ini akan memberi kita transmitter baru yang dapat kita berikan
-ke thread pertama. Kita memberikan transmitter asli ke thread kedua. Ini
+*transmitter*. Ini akan memberi kita *transmitter* baru yang dapat kita berikan
+ke thread pertama. Kita memberikan *transmitter* asli ke thread kedua. Ini
 memberi kita dua thread, masing-masing mengirim pesan berbeda ke satu
-receiver.
+*receiver*.
 
 Ketika Anda menjalankan kodenya, keluaran Anda seharusnya tampak seperti ini:
 
@@ -281,5 +281,5 @@ bereksperimen dengan `thread::sleep`, memberinya berbagai nilai di thread yang
 berbeda, setiap penjalanan akan semakin nondeterministik dan menghasilkan
 keluaran yang berbeda setiap kali.
 
-Sekarang setelah kita melihat cara kerja channel, mari kita lihat metode
+Sekarang setelah kita melihat cara kerja *channel*, mari kita lihat metode
 konkurensi yang berbeda.

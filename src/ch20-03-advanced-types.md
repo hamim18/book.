@@ -18,7 +18,7 @@ Pola newtype juga berguna untuk tugas-tugas di luar yang sudah kita bahas
 sejauh ini, termasuk menegakkan secara statis bahwa nilai-nilai tidak pernah
 tertukar dan menunjukkan satuan dari sebuah nilai. Anda sudah melihat contoh
 pemakaian newtype untuk menunjukkan satuan di Listing 20-16: Ingat kembali
-bahwa struct `Millimeters` dan `Meters` membungkus nilai `u32` di dalam
+bahwa *struct* `Millimeters` dan `Meters` membungkus nilai `u32` di dalam
 sebuah newtype. Jika kita menulis fungsi dengan parameter bertipe
 `Millimeters`, kita tidak akan bisa mengompilasi program yang tanpa sengaja
 mencoba memanggil fungsi itu dengan nilai bertipe `Meters` atau `u32` polos.
@@ -107,15 +107,15 @@ dengan alias `Thunk` yang lebih pendek.
 Kode ini jauh lebih mudah dibaca dan ditulis! Memilih nama yang bermakna
 untuk alias tipe juga bisa membantu menyampaikan maksud Anda (*thunk* adalah
 kata untuk kode yang akan dievaluasi pada waktu yang akan datang, jadi itu
-nama yang tepat untuk closure yang disimpan).
+nama yang tepat untuk *closure* yang disimpan).
 
 Alias tipe juga umum dipakai bersama tipe `Result<T, E>` untuk mengurangi
 pengulangan. Perhatikan modul `std::io` di pustaka standar. Operasi I/O
 sering kali mengembalikan `Result<T, E>` untuk menangani situasi ketika
-operasi gagal bekerja. Library ini memiliki struct `std::io::Error` yang
+operasi gagal bekerja. Library ini memiliki *struct* `std::io::Error` yang
 mewakili semua galat I/O yang mungkin terjadi. Banyak fungsi di `std::io`
 mengembalikan `Result<T, E>` dengan `E` berupa `std::io::Error`, seperti
-fungsi-fungsi berikut di trait `Write`:
+fungsi-fungsi berikut di *trait* `Write`:
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-05-write-trait/src/lib.rs}}
@@ -130,7 +130,7 @@ deklarasi alias tipe berikut:
 
 Karena deklarasi ini berada di modul `std::io`, kita bisa memakai alias yang
 fully qualified, `std::io::Result<T>`; artinya, sebuah `Result<T, E>` dengan
-`E` diisi `std::io::Error`. Tanda tangan fungsi trait `Write` akhirnya
+`E` diisi `std::io::Error`. Tanda tangan fungsi *trait* `Write` akhirnya
 tampak seperti ini:
 
 ```rust,noplayground
@@ -197,7 +197,7 @@ Cara formal untuk menggambarkan perilaku ini adalah bahwa ekspresi bertipe
 sebaliknya, ia memindahkan kontrol kembali ke bagian atas loop, sehingga pada
 kasus `Err`, kita tidak pernah menetapkan nilai ke `guess`.
 
-Tipe never juga berguna bersama macro `panic!`. Ingat kembali fungsi
+Tipe never juga berguna bersama *macro* `panic!`. Ingat kembali fungsi
 `unwrap` yang kita panggil pada nilai `Option<T>` untuk menghasilkan nilai
 atau memicu panic, dengan definisi berikut:
 
@@ -252,32 +252,32 @@ berbeda: `s1` butuh 12 byte penyimpanan dan `s2` butuh 15. Inilah sebabnya
 tidak mungkin membuat variabel yang menyimpan tipe berukuran dinamis.
 
 Jadi, apa yang kita lakukan? Dalam kasus ini, Anda sudah tahu jawabannya:
-Kita membuat tipe `s1` dan `s2` menjadi string slice (`&str`), bukan `str`.
+Kita membuat tipe `s1` dan `s2` menjadi string *slice* (`&str`), bukan `str`.
 Ingat kembali dari seksi [“Slice String”][string-slices]<!-- ignore --> di
-Bab 4 bahwa struktur data slice hanya menyimpan posisi awal dan panjang
-slice. Jadi, meskipun `&T` adalah nilai tunggal yang menyimpan alamat memori
-tempat `T` berada, string slice adalah *dua* nilai: alamat `str` dan
-panjangnya. Dengan begitu, kita bisa mengetahui ukuran nilai string slice
+Bab 4 bahwa struktur data *slice* hanya menyimpan posisi awal dan panjang
+*slice*. Jadi, meskipun `&T` adalah nilai tunggal yang menyimpan alamat memori
+tempat `T` berada, string *slice* adalah *dua* nilai: alamat `str` dan
+panjangnya. Dengan begitu, kita bisa mengetahui ukuran nilai string *slice*
 pada waktu kompilasi: ukurannya dua kali panjang `usize`. Artinya, kita
-selalu tahu ukuran string slice, tidak peduli seberapa panjang string yang
+selalu tahu ukuran string *slice*, tidak peduli seberapa panjang string yang
 dirujuknya. Secara umum, beginilah cara tipe berukuran dinamis dipakai di
 Rust: Tipe-tipe itu memiliki sedikit metadata tambahan yang menyimpan ukuran
 informasi dinamisnya. Aturan emas tipe berukuran dinamis adalah kita harus
-selalu menempatkan nilai tipe berukuran dinamis di belakang pointer dalam
+selalu menempatkan nilai tipe berukuran dinamis di belakang *pointer* dalam
 bentuk apa pun.
 
-Kita bisa menggabungkan `str` dengan segala macam pointer: misalnya,
+Kita bisa menggabungkan `str` dengan segala macam *pointer*: misalnya,
 `Box<str>` atau `Rc<str>`. Bahkan, Anda sudah pernah melihat hal ini
-sebelumnya, tetapi dengan tipe berukuran dinamis yang berbeda: trait. Setiap
-trait adalah tipe berukuran dinamis yang bisa kita rujuk dengan memakai nama
-trait itu. Di seksi [“Memakai Trait Object untuk Mengabstraksi Perilaku
+sebelumnya, tetapi dengan tipe berukuran dinamis yang berbeda: *trait*. Setiap
+*trait* adalah tipe berukuran dinamis yang bisa kita rujuk dengan memakai nama
+*trait* itu. Di seksi [“Memakai *Trait Object* untuk Mengabstraksi Perilaku
 Bersama”][using-trait-objects-to-abstract-over-shared-behavior]<!-- ignore -->
-pada Bab 18, kita menyebutkan bahwa untuk memakai trait sebagai trait object,
-kita harus menempatkannya di belakang pointer, seperti `&dyn Trait` atau
+pada Bab 18, kita menyebutkan bahwa untuk memakai *trait* sebagai *trait object*,
+kita harus menempatkannya di belakang *pointer*, seperti `&dyn Trait` atau
 `Box<dyn Trait>` (`Rc<dyn Trait>` juga bisa).
 
-Untuk bekerja dengan DST, Rust menyediakan trait `Sized` untuk menentukan
-apakah ukuran sebuah tipe diketahui pada waktu kompilasi atau tidak. Trait
+Untuk bekerja dengan DST, Rust menyediakan *trait* `Sized` untuk menentukan
+apakah ukuran sebuah tipe diketahui pada waktu kompilasi atau tidak. *Trait*
 ini diimplementasikan secara otomatis untuk semua hal yang ukurannya
 diketahui pada waktu kompilasi. Selain itu, Rust secara implisit menambahkan
 bound pada `Sized` ke setiap fungsi generik. Artinya, definisi fungsi generik
@@ -301,17 +301,17 @@ berikut untuk melonggarkan batasan ini:
 {{#rustdoc_include ../listings/ch20-advanced-features/no-listing-14-generic-maybe-sized/src/lib.rs}}
 ```
 
-Trait bound pada `?Sized` berarti “`T` bisa `Sized` atau tidak,” dan notasi
+*Trait bound* pada `?Sized` berarti “`T` bisa `Sized` atau tidak,” dan notasi
 ini menggantikan bawaan bahwa tipe generik harus memiliki ukuran yang
 diketahui pada waktu kompilasi. Sintaks `?Trait` dengan makna ini hanya
-tersedia untuk `Sized`, tidak untuk trait lainnya.
+tersedia untuk `Sized`, tidak untuk *trait* lainnya.
 
 Perhatikan juga bahwa kita mengubah tipe parameter `t` dari `T` menjadi
 `&T`. Karena tipe itu mungkin bukan `Sized`, kita perlu memakainya di
-belakang pointer dalam bentuk apa pun. Dalam kasus ini, kita memilih
-reference.
+belakang *pointer* dalam bentuk apa pun. Dalam kasus ini, kita memilih
+*reference*.
 
-Selanjutnya, kita akan membahas fungsi dan closure!
+Selanjutnya, kita akan membahas fungsi dan *closure*!
 
 [encapsulation-that-hides-implementation-details]: ch18-01-what-is-oo.html#encapsulation-that-hides-implementation-details
 [string-slices]: ch04-03-slices.html#string-slices

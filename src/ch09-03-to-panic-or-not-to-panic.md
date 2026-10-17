@@ -16,7 +16,7 @@ baik ketika Anda mendefinisikan fungsi yang mungkin gagal.
 
 Dalam situasi seperti contoh, kode prototipe, dan pengujian, lebih tepat
 menulis kode yang panic alih-alih mengembalikan `Result`. Mari kita telusuri
-alasannya, lalu membahas situasi ketika compiler tidak dapat mengetahui
+alasannya, lalu membahas situasi ketika *compiler* tidak dapat mengetahui
 bahwa kegagalan itu mustahil, tetapi Anda sebagai manusia bisa. Bab ini akan
 ditutup dengan beberapa panduan umum tentang cara memutuskan apakah
 sebaiknya panic di kode library.
@@ -48,7 +48,7 @@ memanggil `unwrap` atau `expect` adalah persis yang seharusnya terjadi.
 
 Memanggil `expect` juga tepat ketika Anda memiliki logika lain yang menjamin
 bahwa `Result` akan memiliki nilai `Ok`, tetapi logika itu bukanlah sesuatu
-yang dipahami compiler. Anda tetap akan memiliki nilai `Result` yang perlu
+yang dipahami *compiler*. Anda tetap akan memiliki nilai `Result` yang perlu
 Anda tangani: operasi apa pun yang Anda panggil tetap memiliki kemungkinan
 gagal secara umum, meskipun secara logis mustahil dalam situasi khusus Anda.
 Jika Anda dapat memastikan dengan memeriksa kode secara manual bahwa Anda
@@ -64,9 +64,9 @@ Kita membuat instance `IpAddr` dengan mengurai string yang ditulis langsung
 (hardcoded). Kita dapat melihat bahwa `127.0.0.1` adalah alamat IP yang
 valid, jadi dapat diterima untuk memakai `expect` di sini. Namun, memiliki
 string valid yang ditulis langsung tidak mengubah tipe kembalian metode
-`parse`: kita tetap mendapat nilai `Result`, dan compiler tetap mengharuskan
+`parse`: kita tetap mendapat nilai `Result`, dan *compiler* tetap mengharuskan
 kita menangani `Result` itu seolah-olah variant `Err` adalah sebuah
-kemungkinan karena compiler tidak cukup pintar untuk melihat bahwa string
+kemungkinan karena *compiler* tidak cukup pintar untuk melihat bahwa string
 ini selalu merupakan alamat IP yang valid. Jika string alamat IP berasal
 dari pengguna alih-alih ditulis langsung ke dalam program dan karena itu
 _memang_ memiliki kemungkinan gagal, kita tentu ingin menangani `Result` itu
@@ -132,10 +132,10 @@ di dokumentasi API fungsi tersebut.
 
 Namun, memiliki banyak pemeriksaan galat di semua fungsi Anda akan
 bertele-tele dan menjengkelkan. Untungnya, Anda dapat memakai sistem tipe
-Rust (dan dengan demikian pemeriksaan tipe yang dilakukan compiler) untuk
+Rust (dan dengan demikian pemeriksaan tipe yang dilakukan *compiler*) untuk
 melakukan banyak pemeriksaan itu untuk Anda. Jika fungsi Anda memiliki tipe
 tertentu sebagai parameter, Anda dapat melanjutkan logika kode Anda dengan
-mengetahui bahwa compiler telah memastikan Anda memiliki nilai yang valid.
+mengetahui bahwa *compiler* telah memastikan Anda memiliki nilai yang valid.
 Misalnya, jika Anda memiliki sebuah tipe alih-alih `Option`, program Anda
 mengharapkan memiliki _sesuatu_ alih-alih _tidak ada apa-apa_. Kode Anda
 kemudian tidak harus menangani dua kasus untuk variant `Some` dan `None`: ia
@@ -186,7 +186,7 @@ hanya beroperasi pada nilai antara 1 dan 100, dan program memiliki banyak
 fungsi dengan persyaratan ini, memiliki pemeriksaan seperti ini di setiap
 fungsi akan melelahkan (dan mungkin memengaruhi kinerja).
 
-Sebagai gantinya, kita dapat membuat tipe baru di module khusus dan menaruh
+Sebagai gantinya, kita dapat membuat tipe baru di *module* khusus dan menaruh
 validasinya di fungsi untuk membuat instance tipe itu alih-alih mengulang
 validasinya di mana-mana. Dengan begitu, aman bagi fungsi untuk memakai tipe
 baru di tanda tangannya dan dengan yakin memakai nilai yang diterimanya.
@@ -203,9 +203,9 @@ hanya akan membuat instance `Guess` jika fungsi `new` menerima nilai antara
 </Listing>
 
 Perhatikan bahwa kode di *src/guessing_game.rs* ini bergantung pada
-penambahan deklarasi module `mod guessing_game;` di *src/lib.rs* yang belum
-kita tampilkan di sini. Di dalam file module baru ini, kita mendefinisikan
-struct bernama `Guess` yang memiliki field bernama `value` yang memegang
+penambahan deklarasi *module* `mod guessing_game;` di *src/lib.rs* yang belum
+kita tampilkan di sini. Di dalam file *module* baru ini, kita mendefinisikan
+*struct* bernama `Guess` yang memiliki *field* bernama `value` yang memegang
 `i32`. Di sinilah angkanya akan disimpan.
 
 Lalu, kita mengimplementasikan *associated function* (fungsi asosiasi)
@@ -220,16 +220,16 @@ kontrak yang diandalkan `Guess::new`. Kondisi ketika `Guess::new` mungkin
 panic sebaiknya dibahas di dokumentasi API yang menghadap publik; kita akan
 membahas konvensi dokumentasi yang mengindikasikan kemungkinan `panic!` di
 dokumentasi API yang Anda buat di Bab 14. Jika `value` lulus uji, kita
-membuat `Guess` baru dengan field `value`-nya ditetapkan ke parameter
+membuat `Guess` baru dengan *field* `value`-nya ditetapkan ke parameter
 `value` dan mengembalikan `Guess` itu.
 
 Berikutnya, kita mengimplementasikan metode bernama `value` yang meminjam
 `self`, tidak memiliki parameter lain, dan mengembalikan `i32`. Metode
 semacam ini kadang disebut *getter* karena tujuannya adalah mengambil
-sebagian data dari field-fieldnya dan mengembalikannya. Metode publik ini
-diperlukan karena field `value` dari struct `Guess` bersifat privat. Penting
-bahwa field `value` privat sehingga kode yang memakai struct `Guess` tidak
-diizinkan menetapkan `value` secara langsung: kode di luar module
+sebagian data dari *field*-fieldnya dan mengembalikannya. Metode publik ini
+diperlukan karena *field* `value` dari *struct* `Guess` bersifat privat. Penting
+bahwa *field* `value` privat sehingga kode yang memakai *struct* `Guess` tidak
+diizinkan menetapkan `value` secara langsung: kode di luar *module*
 `guessing_game` _harus_ memakai fungsi `Guess::new` untuk membuat instance
 `Guess`, sehingga terjamin tidak ada cara bagi `Guess` untuk memiliki
 `value` yang belum diperiksa oleh kondisi-kondisi di fungsi `Guess::new`.
@@ -242,10 +242,10 @@ pemeriksaan tambahan apa pun di badannya.
 ## Ringkasan
 
 Fitur penanganan galat Rust dirancang untuk membantu Anda menulis kode yang
-lebih tangguh. Macro `panic!` menandakan bahwa program Anda berada dalam
+lebih tangguh. *Macro* `panic!` menandakan bahwa program Anda berada dalam
 state yang tidak dapat ditanganinya dan memungkinkan Anda menyuruh
 prosesnya berhenti alih-alih mencoba melanjutkan dengan nilai yang tidak
-valid atau tidak benar. Enum `Result` memakai sistem tipe Rust untuk
+valid atau tidak benar. *Enum* `Result` memakai sistem tipe Rust untuk
 mengindikasikan bahwa operasi mungkin gagal dengan cara yang dapat
 dipulihkan kode Anda. Anda dapat memakai `Result` untuk memberi tahu kode
 yang memanggil kode Anda bahwa ia juga perlu menangani kemungkinan sukses
@@ -253,8 +253,8 @@ atau gagal. Memakai `panic!` dan `Result` pada situasi yang tepat akan
 membuat kode Anda lebih andal dalam menghadapi masalah yang tak
 terhindarkan.
 
-Setelah Anda melihat cara-cara bermanfaat pustaka standar memakai generics
-dengan enum `Option` dan `Result`, kita akan membicarakan cara kerja
-generics dan cara Anda dapat memakainya di kode Anda.
+Setelah Anda melihat cara-cara bermanfaat pustaka standar memakai *generics*
+dengan *enum* `Option` dan `Result`, kita akan membicarakan cara kerja
+*generics* dan cara Anda dapat memakainya di kode Anda.
 
 [encoding]: ch18-03-oo-design-patterns.html#encoding-states-and-behavior-as-types

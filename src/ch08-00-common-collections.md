@@ -3,8 +3,8 @@
 Pustaka standar Rust menyertakan sejumlah struktur data yang sangat berguna
 yang disebut koleksi. Sebagian besar tipe data lain merepresentasikan satu
 nilai tertentu, tetapi koleksi dapat menampung banyak nilai. Tidak seperti
-tipe built-in array dan tuple, data yang ditunjuk koleksi-koleksi ini
-disimpan di heap, yang berarti banyaknya data tidak perlu diketahui pada
+tipe built-in array dan *tuple*, data yang ditunjuk koleksi-koleksi ini
+disimpan di *heap*, yang berarti banyaknya data tidak perlu diketahui pada
 waktu kompilasi dan dapat bertambah atau menyusut seiring berjalannya
 program. Setiap jenis koleksi memiliki kemampuan dan biaya yang berbeda, dan
 memilih yang tepat untuk situasi Anda saat ini adalah keterampilan yang akan

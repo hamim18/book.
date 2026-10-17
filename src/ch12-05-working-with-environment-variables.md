@@ -78,14 +78,14 @@ kita akan melakukan sedikit lebih banyak pekerjaan di sini, tetapi bagian ini
 membahas variabel lingkungan, bukan Unicode, jadi kita biarkan saja seperti
 ini.
 
-Perhatikan bahwa `query` kini adalah sebuah `String`, bukan string slice,
+Perhatikan bahwa `query` kini adalah sebuah `String`, bukan string *slice*,
 karena memanggil `to_lowercase` menciptakan data baru, bukan mereferensikan
-data yang sudah ada. Misalnya kuerinya adalah `"rUsT"`: String slice itu tidak
+data yang sudah ada. Misalnya kuerinya adalah `"rUsT"`: String *slice* itu tidak
 memuat huruf kecil `u` atau `t` yang dapat kita pakai, jadi kita harus
 mengalokasikan sebuah `String` baru yang memuat `"rust"`. Ketika kita
 meneruskan `query` sebagai argumen ke metode `contains` sekarang, kita perlu
 menambahkan ampersand karena tanda tangan `contains` didefinisikan untuk
-menerima sebuah string slice.
+menerima sebuah string *slice*.
 
 Selanjutnya, kita menambahkan pemanggilan `to_lowercase` pada setiap `line`
 untuk mengubah semua karakter menjadi huruf kecil. Sekarang setelah kita
@@ -100,9 +100,9 @@ Mari kita lihat apakah implementasi ini meloloskan pengujian-pengujiannya:
 
 Hebat! Mereka lulus. Sekarang mari kita panggil fungsi
 `search_case_insensitive` yang baru itu dari fungsi `run`. Pertama, kita akan
-menambahkan sebuah opsi konfigurasi ke struct `Config` untuk berpindah antara
-pencarian case-sensitive dan case-insensitive. Menambahkan field ini akan
-menyebabkan galat kompilasi karena kita belum menginisialisasi field ini di
+menambahkan sebuah opsi konfigurasi ke *struct* `Config` untuk berpindah antara
+pencarian case-sensitive dan case-insensitive. Menambahkan *field* ini akan
+menyebabkan galat kompilasi karena kita belum menginisialisasi *field* ini di
 mana pun:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -111,8 +111,8 @@ mana pun:
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/main.rs:here}}
 ```
 
-Kita telah menambahkan field `ignore_case` yang menampung sebuah Boolean.
-Selanjutnya, kita perlu membuat fungsi `run` memeriksa nilai field
+Kita telah menambahkan *field* `ignore_case` yang menampung sebuah Boolean.
+Selanjutnya, kita perlu membuat fungsi `run` memeriksa nilai *field*
 `ignore_case` dan memakainya untuk memutuskan apakah akan memanggil fungsi
 `search` atau fungsi `search_case_insensitive`, seperti yang ditunjukkan di
 Listing 12-22. Ini masih belum akan terkompilasi.

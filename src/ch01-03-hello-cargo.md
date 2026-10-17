@@ -168,7 +168,7 @@ Hello, world!
 ```
 
 Memakai `cargo run` lebih praktis daripada harus ingat untuk menjalankan
-`cargo build` lalu memakai seluruh path menuju file binernya, jadi
+`cargo build` lalu memakai seluruh *path* menuju file binernya, jadi
 kebanyakan pengembang memakai `cargo run`.
 
 Perhatikan bahwa kali ini kita tidak melihat keluaran yang menandakan
