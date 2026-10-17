@@ -1,29 +1,31 @@
-# Patterns and Matching
+# Pola dan Pencocokan
 
-Patterns are a special syntax in Rust for matching against the structure of
-types, both complex and simple. Using patterns in conjunction with `match`
-expressions and other constructs gives you more control over a program’s
-control flow. A pattern consists of some combination of the following:
+Pola adalah sintaks khusus di Rust untuk mencocokkan struktur tipe, baik yang
+kompleks maupun yang sederhana. Memakai pola bersamaan dengan ekspresi
+`match` dan konstruksi lain memberi Anda kontrol yang lebih besar atas alur
+kontrol program. Sebuah pola terdiri dari kombinasi hal-hal berikut:
 
-- Literals
-- Destructured arrays, enums, structs, or tuples
-- Variables
-- Wildcards
-- Placeholders
+- Literal
+- Array, enum, struct, atau tuple yang didestrukturisasi
+- Variabel
+- Wildcard
+- Placeholder
 
-Some example patterns include `x`, `(a, 3)`, and `Some(Color::Red)`. In the
-contexts in which patterns are valid, these components describe the shape of
-data. Our program then matches values against the patterns to determine whether
-it has the correct shape of data to continue running a particular piece of code.
+Beberapa contoh pola mencakup `x`, `(a, 3)`, dan `Some(Color::Red)`. Pada
+konteks tempat pola valid, komponen-komponen ini menggambarkan bentuk data.
+Program kita kemudian mencocokkan nilai terhadap pola-pola itu untuk
+menentukan apakah ia memiliki bentuk data yang tepat untuk terus menjalankan
+potongan kode tertentu.
 
-To use a pattern, we compare it to some value. If the pattern matches the
-value, we use the value parts in our code. Recall the `match` expressions in
-Chapter 6 that used patterns, such as the coin-sorting machine example. If the
-value fits the shape of the pattern, we can use the named pieces. If it
-doesn’t, the code associated with the pattern won’t run.
+Untuk memakai sebuah pola, kita membandingkannya dengan suatu nilai. Jika
+pola itu cocok dengan nilainya, kita memakai bagian-bagian nilai itu di kode
+kita. Ingat kembali ekspresi `match` di Bab 6 yang memakai pola, seperti
+contoh mesin penyortir koin. Jika nilai itu sesuai dengan bentuk polanya,
+kita bisa memakai bagian-bagian yang diberi nama. Jika tidak, kode yang
+dikaitkan dengan pola itu tidak akan berjalan.
 
-This chapter is a reference on all things related to patterns. We’ll cover the
-valid places to use patterns, the difference between refutable and irrefutable
-patterns, and the different kinds of pattern syntax that you might see. By the
-end of the chapter, you’ll know how to use patterns to express many concepts in
-a clear way.
+Bab ini adalah rujukan untuk segala hal yang berkaitan dengan pola. Kita
+akan membahas tempat-tempat yang valid untuk memakai pola, perbedaan antara
+pola refutable dan irrefutable, serta berbagai jenis sintaks pola yang
+mungkin Anda lihat. Di akhir bab ini, Anda akan tahu cara memakai pola untuk
+mengekspresikan banyak konsep dengan cara yang jelas.
