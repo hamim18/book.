@@ -6,11 +6,11 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 10 (tipe generik, trait, dan lifetime) — Tahap 2 berjalan.
-- File berikutnya yang dikerjakan: `ch11-00-testing.md`
-  (Bab 11, 4 file; mulai dari `ch11-00`).
+- Bab terakhir selesai: Bab 11 (menulis pengujian terotomatisasi) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch12-00-an-io-project.md`
+  (Bab 12, 7 file; mulai dari `ch12-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 10 (exit 0); dijadwalkan lagi
+- `mdbook test` terakhir lulus: setelah Bab 11 (exit 0); dijadwalkan lagi
   setelah Bab 14.
 - Terakhir diperbarui: 2026-10-17
 
@@ -97,7 +97,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 08      |       4 |     0 |     0 |     4 |
 | Bab 09      |       4 |     0 |     0 |     4 |
 | Bab 10      |       4 |     0 |     0 |     4 |
-| Bab 11      |       0 |     0 |     4 |     4 |
+| Bab 11      |       4 |     0 |     0 |     4 |
 | Bab 12      |       0 |     0 |     7 |     7 |
 | Bab 13      |       0 |     0 |     5 |     5 |
 | Bab 14      |       0 |     0 |     6 |     6 |
@@ -109,7 +109,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       0 |     0 |     6 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      42 |     0 |    70 |   112 |
+| TOTAL       |      46 |     0 |    66 |   112 |
 
 ## Log keputusan istilah
 
@@ -338,6 +338,17 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | dynamically typed | *dynamically typed* (bertipe dinamis) | 10 |
 | default implementation | implementasi bawaan | 10 |
 | Appendix (merujuk lampiran buku) | Lampiran | 10 |
+| test / testing | pengujian (kemunculan pertama: *test* (pengujian)) | 11 |
+| assert (verba) / assertion | menegaskan / asersi | 11 |
+| unit tests / integration tests | pengujian unit / pengujian integrasi | 11 |
+| documentation test | *documentation test* (test dokumentasi) | 11 |
+| test runner / test harness / test suite | (tetap, tanpa miring) | 11 |
+| filtering | *filtering* (penyaringan) | 11 |
+| helper function | fungsi pembantu | 11 |
+| environment variable | variabel lingkungan | 11 |
+| coverage | cakupan | 11 |
+| ancestor (modul) | leluhur | 11 |
+| artifact (hasil kompilasi) | artefak | 11 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -370,12 +381,14 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   `#methods` → `#metode` masuk pemeriksaan Tahap 5.)
 - Teks tautan baru yang diterjemahkan di sesi ini, harus cocok dengan
   heading final file tujuan (diperiksa saat file itu dikerjakan):
-  ch11-01 “Cara Menulis Pengujian” (dari ch07-04);
   ch14-02 seksi “Mengekspor API Publik yang Mudah Dipakai” (dari ch07-04);
+  ch14-02 seksi “Komentar Dokumentasi sebagai Pengujian” (dari ch11-01);
   ch15-02 “Mengikuti Reference Menuju Nilai” (dari ch08-01);
   ch18-02 “Memakai Trait Object untuk Mengabstraksi Perilaku Bersama”
   (dari ch09-02);
   ch18-03 “Menyandikan State dan Perilaku sebagai Tipe” (dari ch09-03).
+  (ch11-01 “Cara Menulis Pengujian” dari ch07-04 sudah beres: heading
+  ch11-01 kini `## Cara Menulis Pengujian`.)
 - Teks tautan di bab yang belum diterjemahkan, menuju heading final bab 10
   (dicatat di sini supaya cocok saat bab itu dikerjakan):
   ch12-04 → ch10-03 “Memvalidasi Reference dengan Lifetime”;
@@ -399,7 +412,14 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   Reference dengan Lifetime”), ch15-02 & ch20-02 → ch10-02
   (`#implementing-a-trait-on-a-type`, heading kini “Mengimplementasikan
   Trait pada Suatu Tipe”; anchor ini otomatis dari heading, tidak ada
-  tag `<a id>` lama), dan ch12-01 → ch07-04
+  tag `<a id>` lama), ch11-01 → ch11-02 (`#controlling-how-tests-are-run`
+  kini “Mengontrol Cara Pengujian Dijalankan”,
+  `#running-a-subset-of-tests-by-name` kini “Menjalankan Sebagian
+  Pengujian Berdasarkan Nama”, `#ignoring-tests-unless-specifically-requested`
+  kini “Mengabaikan Pengujian Kecuali Diminta Secara Spesifik”; ketiganya
+  otomatis dari heading, sementara `<a id>` lama
+  `ignoring-some-tests-unless-specifically-requested` tetap ada), dan
+  ch12-01 → ch07-04
   (`#creating-idiomatic-use-paths`, heading kini “Membuat Path `use` yang
   Idiomatis”; sumbernya belum diterjemahkan, ingat saat ch12 dikerjakan).
   Heading `### Shadowing` (ch03-01) sengaja dipertahankan karena ch02
@@ -410,6 +430,10 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Kejanggalan teks asli ch00: kalimat "In most situations, we'll lead you to
   the correct version of any code that doesn't compile." muncul dua kali
   (sebelum dan sesudah tabel Ferris). Diterjemahkan apa adanya, tidak diperbaiki.
+- Kejanggalan teks asli ch11-03: tautan [alt-paths] menuju
+  `ch07-05-...#alternate-file-paths`, tetapi anchor itu tidak ada di ch07-05
+  bahkan di teks asli (bagian "Alternate File Paths" sudah dihapus dari
+  edisi ini). Target tautan dipertahankan apa adanya.
 
 ## Cara memulai sesi baru
 

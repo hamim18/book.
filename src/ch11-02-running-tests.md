@@ -1,67 +1,77 @@
-## Controlling How Tests Are Run
+## Mengontrol Cara Pengujian Dijalankan
 
-Just as `cargo run` compiles your code and then runs the resultant binary,
-`cargo test` compiles your code in test mode and runs the resultant test
-binary. The default behavior of the binary produced by `cargo test` is to run
-all the tests in parallel and capture output generated during test runs,
-preventing the output from being displayed and making it easier to read the
-output related to the test results. You can, however, specify command line
-options to change this default behavior.
+Sama seperti `cargo run` mengompilasi kode Anda lalu menjalankan binary
+yang dihasilkan, `cargo test` mengompilasi kode Anda dalam mode pengujian
+dan menjalankan binary pengujian yang dihasilkan. Perilaku bawaan binary
+yang dihasilkan `cargo test` adalah menjalankan semua pengujian secara
+paralel dan menangkap keluaran yang dihasilkan selama pengujian berjalan,
+mencegah keluaran itu ditampilkan dan membuatnya lebih mudah untuk membaca
+keluaran yang berkaitan dengan hasil pengujian. Namun, Anda bisa
+menentukan opsi command line untuk mengubah perilaku bawaan ini.
 
-Some command line options go to `cargo test`, and some go to the resultant test
-binary. To separate these two types of arguments, you list the arguments that
-go to `cargo test` followed by the separator `--` and then the ones that go to
-the test binary. Running `cargo test --help` displays the options you can use
-with `cargo test`, and running `cargo test -- --help` displays the options you
-can use after the separator. These options are also documented in [the “Tests”
-section of _The `rustc` Book_][tests].
+Sebagian opsi command line diteruskan ke `cargo test`, dan sebagian lagi ke
+binary pengujian yang dihasilkan. Untuk memisahkan kedua jenis argumen ini,
+Anda mendaftarkan argumen yang diteruskan ke `cargo test`, diikuti pemisah
+`--`, lalu argumen-argumen yang diteruskan ke binary pengujian. Menjalankan
+`cargo test --help` menampilkan opsi-opsi yang bisa Anda pakai bersama
+`cargo test`, dan menjalankan `cargo test -- --help` menampilkan opsi-opsi
+yang bisa Anda pakai setelah pemisah. Opsi-opsi ini juga didokumentasikan di
+[bagian “Tests” pada _The `rustc` Book_][tests].
 
 [tests]: https://doc.rust-lang.org/rustc/tests/index.html
 
-### Running Tests in Parallel or Consecutively
+### Menjalankan Pengujian secara Paralel atau Berurutan
 
-When you run multiple tests, by default they run in parallel using threads,
-meaning they finish running more quickly and you get feedback sooner. Because
-the tests are running at the same time, you must make sure your tests don’t
-depend on each other or on any shared state, including a shared environment,
-such as the current working directory or environment variables.
+Ketika Anda menjalankan beberapa pengujian, secara bawaan mereka berjalan
+paralel memakai thread, yang berarti mereka lebih cepat selesai berjalan
+dan Anda lebih cepat mendapat umpan balik. Karena pengujian-pengujian itu
+berjalan pada saat yang sama, Anda harus memastikan pengujian Anda tidak
+bergantung satu sama lain atau pada state bersama mana pun, termasuk
+lingkungan bersama seperti direktori kerja saat ini atau variabel
+lingkungan.
 
-For example, say each of your tests runs some code that creates a file on disk
-named _test-output.txt_ and writes some data to that file. Then, each test
-reads the data in that file and asserts that the file contains a particular
-value, which is different in each test. Because the tests run at the same time,
-one test might overwrite the file in the time between when another test is
-writing and reading the file. The second test will then fail, not because the
-code is incorrect but because the tests have interfered with each other while
-running in parallel. One solution is to make sure each test writes to a
-different file; another solution is to run the tests one at a time.
+Sebagai contoh, katakanlah setiap pengujian Anda menjalankan beberapa kode
+yang membuat file di disk bernama _test-output.txt_ dan menulis beberapa
+data ke file itu. Kemudian, setiap pengujian membaca data di file itu dan
+menegaskan bahwa file tersebut berisi nilai tertentu, yang berbeda di
+setiap pengujian. Karena pengujian-pengujian itu berjalan pada saat yang
+sama, satu pengujian mungkin menimpa file itu di selang waktu antara saat
+pengujian lain menulis dan membaca file itu. Pengujian kedua kemudian akan
+gagal, bukan karena kodenya salah, melainkan karena pengujian-pengujian itu
+saling mengganggu saat berjalan paralel. Salah satu solusinya adalah
+memastikan setiap pengujian menulis ke file yang berbeda; solusi lain
+adalah menjalankan pengujian satu per satu.
 
-If you don’t want to run the tests in parallel or if you want more fine-grained
-control over the number of threads used, you can send the `--test-threads` flag
-and the number of threads you want to use to the test binary. Take a look at
-the following example:
+Jika Anda tidak ingin menjalankan pengujian secara paralel atau jika Anda
+ingin kontrol yang lebih halus atas jumlah thread yang dipakai, Anda bisa
+mengirimkan flag `--test-threads` dan jumlah thread yang ingin Anda pakai
+ke binary pengujian. Lihat contoh berikut:
 
 ```console
 $ cargo test -- --test-threads=1
 ```
 
-We set the number of test threads to `1`, telling the program not to use any
-parallelism. Running the tests using one thread will take longer than running
-them in parallel, but the tests won’t interfere with each other if they share
-state.
+Kita menetapkan jumlah thread pengujian menjadi `1`, memberi tahu program
+untuk tidak memakai paralelisme apa pun. Menjalankan pengujian memakai satu
+thread akan memakan waktu lebih lama daripada menjalankannya secara
+paralel, tetapi pengujian-pengujian itu tidak akan saling mengganggu jika
+mereka berbagi state.
 
-### Showing Function Output
+### Menampilkan Keluaran Fungsi
 
-By default, if a test passes, Rust’s test library captures anything printed to
-standard output. For example, if we call `println!` in a test and the test
-passes, we won’t see the `println!` output in the terminal; we’ll see only the
-line that indicates the test passed. If a test fails, we’ll see whatever was
-printed to standard output with the rest of the failure message.
+Secara bawaan, jika sebuah pengujian lulus, pustaka pengujian Rust
+menangkap apa pun yang dicetak ke standard output. Sebagai contoh, jika
+kita memanggil `println!` dalam sebuah pengujian dan pengujian itu lulus,
+kita tidak akan melihat keluaran `println!` di terminal; kita hanya akan
+melihat baris yang menandakan pengujian itu lulus. Jika sebuah pengujian
+gagal, kita akan melihat apa pun yang dicetak ke standard output bersama
+sisa pesan kegagalannya.
 
-As an example, Listing 11-10 has a silly function that prints the value of its
-parameter and returns 10, as well as a test that passes and a test that fails.
+Sebagai contoh, Listing 11-10 memiliki fungsi konyol yang mencetak nilai
+parameternya dan mengembalikan 10, beserta pengujian yang lulus dan
+pengujian yang gagal.
 
-<Listing number="11-10" file-name="src/lib.rs" caption="Tests for a function that calls `println!`">
+<Listing number="11-10" file-name="src/lib.rs" caption="Pengujian untuk fungsi yang memanggil `println!`">
 
 ```rust,panics,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-10/src/lib.rs}}
@@ -69,42 +79,47 @@ parameter and returns 10, as well as a test that passes and a test that fails.
 
 </Listing>
 
-When we run these tests with `cargo test`, we’ll see the following output:
+Ketika kita menjalankan pengujian-pengujian ini dengan `cargo test`, kita
+akan melihat keluaran berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-10/output.txt}}
 ```
 
-Note that nowhere in this output do we see `I got the value 4`, which is
-printed when the test that passes runs. That output has been captured. The
-output from the test that failed, `I got the value 8`, appears in the section
-of the test summary output, which also shows the cause of the test failure.
+Perhatikan bahwa di keluaran ini tidak ada tempat kita melihat `I got the
+value 4`, yang dicetak ketika pengujian yang lulus dijalankan. Keluaran itu
+telah ditangkap. Keluaran dari pengujian yang gagal, `I got the value 8`,
+muncul di bagian keluaran ringkasan pengujian, yang juga menunjukkan
+penyebab kegagalan pengujian.
 
-If we want to see printed values for passing tests as well, we can tell Rust to
-also show the output of successful tests with `--show-output`:
+Jika kita ingin melihat nilai yang dicetak untuk pengujian yang lulus juga,
+kita bisa memberi tahu Rust untuk menampilkan juga keluaran pengujian yang
+berhasil dengan `--show-output`:
 
 ```console
 $ cargo test -- --show-output
 ```
 
-When we run the tests in Listing 11-10 again with the `--show-output` flag, we
-see the following output:
+Ketika kita menjalankan lagi pengujian di Listing 11-10 dengan flag
+`--show-output`, kita melihat keluaran berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-01-show-output/output.txt}}
 ```
 
-### Running a Subset of Tests by Name
+### Menjalankan Sebagian Pengujian Berdasarkan Nama
 
-Running a full test suite can sometimes take a long time. If you’re working on
-code in a particular area, you might want to run only the tests pertaining to
-that code. You can choose which tests to run by passing `cargo test` the name
-or names of the test(s) you want to run as an argument.
+Menjalankan test suite penuh kadang bisa memakan waktu lama. Jika Anda
+sedang mengerjakan kode di area tertentu, Anda mungkin ingin menjalankan
+hanya pengujian yang berkaitan dengan kode itu. Anda bisa memilih pengujian
+mana yang dijalankan dengan meneruskan nama pengujian yang ingin Anda
+jalankan ke `cargo test` sebagai argumen.
 
-To demonstrate how to run a subset of tests, we’ll first create three tests for
-our `add_two` function, as shown in Listing 11-11, and choose which ones to run.
+Untuk mendemonstrasikan cara menjalankan sebagian pengujian, pertama kita
+akan membuat tiga pengujian untuk fungsi `add_two` kita, seperti yang
+ditunjukkan di Listing 11-11, lalu memilih mana yang akan dijalankan.
 
-<Listing number="11-11" file-name="src/lib.rs" caption="Three tests with three different names">
+<Listing number="11-11" file-name="src/lib.rs" caption="Tiga pengujian dengan tiga nama berbeda">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-11/src/lib.rs}}
@@ -112,77 +127,87 @@ our `add_two` function, as shown in Listing 11-11, and choose which ones to run.
 
 </Listing>
 
-If we run the tests without passing any arguments, as we saw earlier, all the
-tests will run in parallel:
+Jika kita menjalankan pengujian tanpa meneruskan argumen apa pun, seperti
+yang kita lihat sebelumnya, semua pengujian akan berjalan paralel:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-11/output.txt}}
 ```
 
-#### Running Single Tests
+#### Menjalankan Satu Pengujian
 
-We can pass the name of any test function to `cargo test` to run only that test:
+Kita bisa meneruskan nama fungsi pengujian mana pun ke `cargo test` untuk
+menjalankan pengujian itu saja:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-02-single-test/output.txt}}
 ```
 
-Only the test with the name `one_hundred` ran; the other two tests didn’t match
-that name. The test output lets us know we had more tests that didn’t run by
-displaying `2 filtered out` at the end.
+Hanya pengujian dengan nama `one_hundred` yang berjalan; dua pengujian
+lainnya tidak cocok dengan nama itu. Keluaran pengujian memberi tahu kita
+bahwa ada pengujian lain yang tidak dijalankan dengan menampilkan `2
+filtered out` di bagian akhir.
 
-We can’t specify the names of multiple tests in this way; only the first value
-given to `cargo test` will be used. But there is a way to run multiple tests.
+Kita tidak bisa menentukan nama beberapa pengujian dengan cara ini; hanya
+nilai pertama yang diberikan ke `cargo test` yang akan dipakai. Namun, ada
+cara untuk menjalankan beberapa pengujian.
 
-#### Filtering to Run Multiple Tests
+#### Menyaring untuk Menjalankan Beberapa Pengujian
 
-We can specify part of a test name, and any test whose name matches that value
-will be run. For example, because two of our tests’ names contain `add`, we can
-run those two by running `cargo test add`:
+Kita bisa menentukan sebagian nama pengujian, dan pengujian mana pun yang
+namanya cocok dengan nilai itu akan dijalankan. Sebagai contoh, karena dua
+nama pengujian kita mengandung `add`, kita bisa menjalankan keduanya dengan
+menjalankan `cargo test add`:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-03-multiple-tests/output.txt}}
 ```
 
-This command ran all tests with `add` in the name and filtered out the test
-named `one_hundred`. Also note that the module in which a test appears becomes
-part of the test’s name, so we can run all the tests in a module by filtering
-on the module’s name.
+Perintah ini menjalankan semua pengujian dengan `add` di namanya dan
+menyaring keluar pengujian bernama `one_hundred`. Perhatikan juga bahwa
+modul tempat sebuah pengujian muncul menjadi bagian dari nama pengujian itu,
+jadi kita bisa menjalankan semua pengujian dalam sebuah modul dengan
+menyaring berdasarkan nama modulnya.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="ignoring-some-tests-unless-specifically-requested"></a>
 
-### Ignoring Tests Unless Specifically Requested
+### Mengabaikan Pengujian Kecuali Diminta Secara Spesifik
 
-Sometimes a few specific tests can be very time-consuming to execute, so you
-might want to exclude them during most runs of `cargo test`. Rather than
-listing as arguments all tests you do want to run, you can instead annotate the
-time-consuming tests using the `ignore` attribute to exclude them, as shown
-here:
+Terkadang beberapa pengujian tertentu bisa sangat memakan waktu untuk
+dieksekusi, jadi Anda mungkin ingin mengecualikannya pada sebagian besar
+penjalanan `cargo test`. Alih-alih mendaftarkan semua pengujian yang ingin
+Anda jalankan sebagai argumen, Anda bisa menganotasi pengujian yang memakan
+waktu itu memakai atribut `ignore` untuk mengecualikannya, seperti yang
+ditunjukkan di sini:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nama File: src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs:here}}
 ```
 
-After `#[test]`, we add the `#[ignore]` line to the test we want to exclude.
-Now when we run our tests, `it_works` runs, but `expensive_test` doesn’t:
+Setelah `#[test]`, kita menambahkan baris `#[ignore]` ke pengujian yang
+ingin kita kecualikan. Sekarang ketika kita menjalankan pengujian,
+`it_works` berjalan, tetapi `expensive_test` tidak:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/output.txt}}
 ```
 
-The `expensive_test` function is listed as `ignored`. If we want to run only
-the ignored tests, we can use `cargo test -- --ignored`:
+Fungsi `expensive_test` didaftarkan sebagai `ignored`. Jika kita ingin
+menjalankan hanya pengujian yang diabaikan, kita bisa memakai `cargo test
+-- --ignored`:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/output-only-04-running-ignored/output.txt}}
 ```
 
-By controlling which tests run, you can make sure your `cargo test` results
-will be returned quickly. When you’re at a point where it makes sense to check
-the results of the `ignored` tests and you have time to wait for the results,
-you can run `cargo test -- --ignored` instead. If you want to run all tests
-whether they’re ignored or not, you can run `cargo test -- --include-ignored`.
+Dengan mengontrol pengujian mana yang dijalankan, Anda bisa memastikan
+hasil `cargo test` Anda akan kembali dengan cepat. Ketika Anda berada pada
+titik ketika masuk akal untuk memeriksa hasil pengujian `ignored` dan Anda
+punya waktu untuk menunggu hasilnya, Anda bisa menjalankan `cargo test --
+--ignored`. Jika Anda ingin menjalankan semua pengujian, baik yang
+diabaikan maupun tidak, Anda bisa menjalankan `cargo test --
+--include-ignored`.

@@ -1,42 +1,47 @@
-## How to Write Tests
+## Cara Menulis Pengujian
 
-_Tests_ are Rust functions that verify that the non-test code is functioning in
-the expected manner. The bodies of test functions typically perform these three
-actions:
+*Test* (pengujian) adalah fungsi Rust yang memverifikasi bahwa kode
+non-pengujian berfungsi sebagaimana yang diharapkan. Badan fungsi pengujian
+biasanya melakukan tiga tindakan berikut:
 
-- Set up any needed data or state.
-- Run the code you want to test.
-- Assert that the results are what you expect.
+- Menyiapkan data atau state yang diperlukan.
+- Menjalankan kode yang ingin Anda uji.
+- Menegaskan bahwa hasilnya sesuai dengan yang Anda harapkan.
 
-Let’s look at the features Rust provides specifically for writing tests that
-take these actions, which include the `test` attribute, a few macros, and the
-`should_panic` attribute.
+Mari kita lihat fitur-fitur yang disediakan Rust secara khusus untuk
+menulis pengujian yang melakukan tindakan-tindakan tersebut, yang meliputi
+atribut `test`, beberapa macro, dan atribut `should_panic`.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="the-anatomy-of-a-test-function"></a>
 
-### Structuring Test Functions
+### Menyusun Fungsi Pengujian
 
-At its simplest, a test in Rust is a function that’s annotated with the `test`
-attribute. Attributes are metadata about pieces of Rust code; one example is
-the `derive` attribute we used with structs in Chapter 5. To change a function
-into a test function, add `#[test]` on the line before `fn`. When you run your
-tests with the `cargo test` command, Rust builds a test runner binary that runs
-the annotated functions and reports on whether each test function passes or
-fails.
+Dalam bentuknya yang paling sederhana, sebuah pengujian di Rust adalah
+fungsi yang dianotasi dengan atribut `test`. Atribut adalah metadata
+tentang potongan-potongan kode Rust; salah satu contohnya adalah atribut
+`derive` yang kita pakai bersama *struct* di Bab 5. Untuk mengubah sebuah
+fungsi menjadi fungsi pengujian, tambahkan `#[test]` pada baris sebelum
+`fn`. Ketika Anda menjalankan pengujian dengan perintah `cargo test`, Rust
+membangun sebuah binary test runner yang menjalankan fungsi-fungsi yang
+dianotasi dan melaporkan apakah setiap fungsi pengujian lulus atau gagal.
 
-Whenever we make a new library project with Cargo, a test module with a test
-function in it is automatically generated for us. This module gives you a
-template for writing your tests so that you don’t have to look up the exact
-structure and syntax every time you start a new project. You can add as many
-additional test functions and as many test modules as you want!
+Setiap kali kita membuat proyek library baru dengan Cargo, sebuah *module*
+(modul) pengujian dengan fungsi pengujian di dalamnya otomatis dibuatkan
+untuk kita. Modul ini memberi Anda templat untuk menulis pengujian sehingga
+Anda tidak perlu mencari tahu struktur dan sintaks persisnya setiap kali
+memulai proyek baru. Anda bisa menambahkan fungsi pengujian dan modul
+pengujian tambahan sebanyak yang Anda mau!
 
-We’ll explore some aspects of how tests work by experimenting with the template
-test before we actually test any code. Then, we’ll write some real-world tests
-that call some code that we’ve written and assert that its behavior is correct.
+Kita akan mengeksplorasi beberapa aspek tentang cara kerja pengujian dengan
+bereksperimen dengan pengujian templat itu sebelum kita benar-benar menguji
+kode apa pun. Kemudian, kita akan menulis beberapa pengujian dunia nyata
+yang memanggil kode yang telah kita tulis dan menegaskan bahwa perilakunya
+benar.
 
-Let’s create a new library project called `adder` that will add two numbers:
+Mari kita buat proyek library baru bernama `adder` yang akan menambahkan
+dua angka:
 
 ```console
 $ cargo new adder --lib
@@ -44,10 +49,10 @@ $ cargo new adder --lib
 $ cd adder
 ```
 
-The contents of the _src/lib.rs_ file in your `adder` library should look like
+Isi file _src/lib.rs_ di library `adder` Anda seharusnya terlihat seperti
 Listing 11-1.
 
-<Listing number="11-1" file-name="src/lib.rs" caption="The code generated automatically by `cargo new`">
+<Listing number="11-1" file-name="src/lib.rs" caption="Kode yang dibuat otomatis oleh `cargo new`">
 
 <!-- manual-regeneration
 cd listings/ch11-writing-automated-tests
@@ -66,24 +71,25 @@ cd ../../..
 
 </Listing>
 
-The file starts with an example `add` function so that we have something to
-test.
+File ini dimulai dengan contoh fungsi `add` supaya kita punya sesuatu untuk
+diuji.
 
-For now, let’s focus solely on the `it_works` function. Note the `#[test]`
-annotation: This attribute indicates this is a test function, so the test
-runner knows to treat this function as a test. We might also have non-test
-functions in the `tests` module to help set up common scenarios or perform
-common operations, so we always need to indicate which functions are tests.
+Untuk saat ini, mari kita fokus hanya pada fungsi `it_works`. Perhatikan
+anotasi `#[test]`: atribut ini menandakan bahwa ini adalah fungsi
+pengujian, sehingga test runner tahu untuk memperlakukan fungsi ini sebagai
+pengujian. Kita mungkin juga memiliki fungsi non-pengujian di modul `tests`
+untuk membantu menyiapkan skenario umum atau melakukan operasi umum, jadi
+kita selalu perlu menandai fungsi mana yang merupakan pengujian.
 
-The example function body uses the `assert_eq!` macro to assert that `result`,
-which contains the result of calling `add` with 2 and 2, equals 4. This
-assertion serves as an example of the format for a typical test. Let’s run it
-to see that this test passes.
+Badan fungsi contoh ini memakai macro `assert_eq!` untuk menegaskan bahwa
+`result`, yang berisi hasil pemanggilan `add` dengan 2 dan 2, sama dengan 4.
+Asersi ini berfungsi sebagai contoh format pengujian yang khas. Mari kita
+jalankan untuk melihat bahwa pengujian ini lulus.
 
-The `cargo test` command runs all tests in our project, as shown in Listing
-11-2.
+Perintah `cargo test` menjalankan semua pengujian dalam proyek kita,
+seperti yang ditunjukkan di Listing 11-2.
 
-<Listing number="11-2" caption="The output from running the automatically generated test">
+<Listing number="11-2" caption="Keluaran dari menjalankan pengujian yang dibuat otomatis">
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-01/output.txt}}
@@ -91,57 +97,66 @@ The `cargo test` command runs all tests in our project, as shown in Listing
 
 </Listing>
 
-Cargo compiled and ran the test. We see the line `running 1 test`. The next
-line shows the name of the generated test function, called `tests::it_works`,
-and that the result of running that test is `ok`. The overall summary `test
-result: ok.` means that all the tests passed, and the portion that reads `1
-passed; 0 failed` totals the number of tests that passed or failed.
+Cargo mengompilasi dan menjalankan pengujian itu. Kita melihat baris
+`running 1 test`. Baris berikutnya menunjukkan nama fungsi pengujian yang
+dibuat, yaitu `tests::it_works`, dan bahwa hasil menjalankan pengujian
+tersebut adalah `ok`. Ringkasan keseluruhan `test result: ok.` berarti
+semua pengujian lulus, dan bagian yang berbunyi `1 passed; 0 failed`
+menjumlahkan banyaknya pengujian yang lulus atau gagal.
 
-It’s possible to mark a test as ignored so that it doesn’t run in a particular
-instance; we’ll cover that in the [“Ignoring Tests Unless Specifically
-Requested”][ignoring]<!-- ignore --> section later in this chapter. Because we
-haven’t done that here, the summary shows `0 ignored`. We can also pass an
-argument to the `cargo test` command to run only tests whose name matches a
-string; this is called _filtering_, and we’ll cover it in the [“Running a
-Subset of Tests by Name”][subset]<!-- ignore --> section. Here, we haven’t
-filtered the tests being run, so the end of the summary shows `0 filtered out`.
+Kita bisa menandai sebuah pengujian sebagai diabaikan supaya tidak
+dijalankan dalam kasus tertentu; kita akan membahasnya di bagian
+[“Mengabaikan Pengujian Kecuali Diminta Secara
+Spesifik”][ignoring]<!-- ignore --> nanti di bab ini. Karena kita belum
+melakukannya di sini, ringkasannya menunjukkan `0 ignored`. Kita juga bisa
+meneruskan sebuah argumen ke perintah `cargo test` untuk menjalankan hanya
+pengujian yang namanya cocok dengan sebuah string; ini disebut *filtering*
+(penyaringan), dan kita akan membahasnya di bagian [“Menjalankan Sebagian
+Pengujian Berdasarkan Nama”][subset]<!-- ignore -->. Di sini, kita belum
+menyaring pengujian yang dijalankan, jadi di akhir ringkasan tertulis `0
+filtered out`.
 
-The `0 measured` statistic is for benchmark tests that measure performance.
-Benchmark tests are, as of this writing, only available in nightly Rust. See
-[the documentation about benchmark tests][bench] to learn more.
+Statistik `0 measured` adalah untuk test benchmark yang mengukur kinerja.
+Test benchmark, hingga tulisan ini dibuat, hanya tersedia di Rust nightly.
+Lihat [dokumentasi tentang test benchmark][bench] untuk mempelajari lebih
+lanjut.
 
-The next part of the test output starting at `Doc-tests adder` is for the
-results of any documentation tests. We don’t have any documentation tests yet,
-but Rust can compile any code examples that appear in our API documentation.
-This feature helps keep your docs and your code in sync! We’ll discuss how to
-write documentation tests in the [“Documentation Comments as
-Tests”][doc-comments]<!-- ignore --> section of Chapter 14. For now, we’ll
-ignore the `Doc-tests` output.
+Bagian keluaran pengujian berikutnya, yang dimulai dari `Doc-tests adder`,
+adalah untuk hasil dari *documentation test* (test dokumentasi) mana pun.
+Kita belum memiliki documentation test apa pun, tetapi Rust bisa
+mengompilasi contoh kode mana pun yang muncul di dokumentasi API kita.
+Fitur ini membantu menjaga dokumen dan kode Anda tetap sinkron! Kita akan
+membahas cara menulis documentation test di bagian [“Komentar Dokumentasi
+sebagai Pengujian”][doc-comments]<!-- ignore --> pada Bab 14. Untuk saat
+ini, kita akan mengabaikan keluaran `Doc-tests`.
 
-Let’s start to customize the test to our own needs. First, change the name of
-the `it_works` function to a different name, such as `exploration`, like so:
+Mari kita mulai menyesuaikan pengujian itu dengan kebutuhan kita sendiri.
+Pertama, ubah nama fungsi `it_works` menjadi nama yang berbeda, misalnya
+`exploration`, seperti ini:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nama File: src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/src/lib.rs}}
 ```
 
-Then, run `cargo test` again. The output now shows `exploration` instead of
-`it_works`:
+Lalu, jalankan `cargo test` lagi. Keluarannya sekarang menunjukkan
+`exploration`, bukan `it_works`:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/output.txt}}
 ```
 
-Now we’ll add another test, but this time we’ll make a test that fails! Tests
-fail when something in the test function panics. Each test is run in a new
-thread, and when the main thread sees that a test thread has died, the test is
-marked as failed. In Chapter 9, we talked about how the simplest way to panic
-is to call the `panic!` macro. Enter the new test as a function named
-`another`, so your _src/lib.rs_ file looks like Listing 11-3.
+Sekarang kita akan menambahkan pengujian lain, tetapi kali ini kita akan
+membuat pengujian yang gagal! Sebuah pengujian gagal ketika ada sesuatu di
+fungsi pengujian yang panic. Setiap pengujian dijalankan dalam thread baru,
+dan ketika thread utama melihat bahwa thread pengujian telah mati,
+pengujian itu ditandai sebagai gagal. Di Bab 9, kita membahas bahwa cara
+paling sederhana untuk panic adalah memanggil macro `panic!`. Masukkan
+pengujian baru itu sebagai fungsi bernama `another`, sehingga file
+_src/lib.rs_ Anda terlihat seperti Listing 11-3.
 
-<Listing number="11-3" file-name="src/lib.rs" caption="Adding a second test that will fail because we call the `panic!` macro">
+<Listing number="11-3" file-name="src/lib.rs" caption="Menambahkan pengujian kedua yang akan gagal karena kita memanggil macro `panic!`">
 
 ```rust,panics,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs}}
@@ -149,10 +164,11 @@ is to call the `panic!` macro. Enter the new test as a function named
 
 </Listing>
 
-Run the tests again using `cargo test`. The output should look like Listing
-11-4, which shows that our `exploration` test passed and `another` failed.
+Jalankan pengujian lagi memakai `cargo test`. Keluarannya seharusnya
+terlihat seperti Listing 11-4, yang menunjukkan bahwa pengujian
+`exploration` kita lulus dan `another` gagal.
 
-<Listing number="11-4" caption="Test results when one test passes and one test fails">
+<Listing number="11-4" caption="Hasil pengujian ketika satu pengujian lulus dan satu pengujian gagal">
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-03/output.txt}}
@@ -165,41 +181,46 @@ rg panicked listings/ch11-writing-automated-tests/listing-11-03/output.txt
 check the line number of the panic matches the line number in the following paragraph
  -->
 
-Instead of `ok`, the line `test tests::another` shows `FAILED`. Two new
-sections appear between the individual results and the summary: The first
-displays the detailed reason for each test failure. In this case, we get the
-details that `tests::another` failed because it panicked with the message `Make
-this test fail` on line 17 in the _src/lib.rs_ file. The next section lists
-just the names of all the failing tests, which is useful when there are lots of
-tests and lots of detailed failing test output. We can use the name of a
-failing test to run just that test to debug it more easily; we’ll talk more
-about ways to run tests in the [“Controlling How Tests Are
-Run”][controlling-how-tests-are-run]<!-- ignore --> section.
+Alih-alih `ok`, baris `test tests::another` menunjukkan `FAILED`. Dua
+bagian baru muncul di antara hasil individual dan ringkasannya: yang
+pertama menampilkan alasan detail dari setiap kegagalan pengujian. Dalam
+kasus ini, kita mendapatkan detail bahwa `tests::another` gagal karena ia
+panic dengan pesan `Make this test fail` pada baris 17 di file _src/lib.rs_.
+Bagian berikutnya mendaftarkan nama semua pengujian yang gagal, yang
+berguna ketika ada banyak pengujian dan banyak keluaran detail pengujian
+yang gagal. Kita bisa memakai nama pengujian yang gagal untuk menjalankan
+pengujian itu saja supaya lebih mudah men-debug-nya; kita akan membahas
+lebih lanjut cara-cara menjalankan pengujian di bagian [“Mengontrol Cara
+Pengujian Dijalankan”][controlling-how-tests-are-run]<!-- ignore -->.
 
-The summary line displays at the end: Overall, our test result is `FAILED`. We
-had one test pass and one test fail.
+Baris ringkasan muncul di akhir: secara keseluruhan, hasil pengujian kita
+adalah `FAILED`. Kita memiliki satu pengujian yang lulus dan satu yang
+gagal.
 
-Now that you’ve seen what the test results look like in different scenarios,
-let’s look at some macros other than `panic!` that are useful in tests.
+Sekarang setelah Anda melihat seperti apa hasil pengujian dalam berbagai
+skenario, mari kita lihat beberapa macro selain `panic!` yang berguna
+dalam pengujian.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="checking-results-with-the-assert-macro"></a>
 
-### Checking Results with `assert!`
+### Memeriksa Hasil dengan `assert!`
 
-The `assert!` macro, provided by the standard library, is useful when you want
-to ensure that some condition in a test evaluates to `true`. We give the
-`assert!` macro an argument that evaluates to a Boolean. If the value is
-`true`, nothing happens and the test passes. If the value is `false`, the
-`assert!` macro calls `panic!` to cause the test to fail. Using the `assert!`
-macro helps us check that our code is functioning in the way we intend.
+Macro `assert!`, yang disediakan pustaka standar, berguna ketika Anda ingin
+memastikan bahwa sebuah kondisi dalam pengujian bernilai `true`. Kita
+memberi macro `assert!` sebuah argumen yang bernilai Boolean. Jika nilainya
+`true`, tidak ada yang terjadi dan pengujian lulus. Jika nilainya `false`,
+macro `assert!` memanggil `panic!` untuk membuat pengujian gagal. Memakai
+macro `assert!` membantu kita memeriksa bahwa kode kita berfungsi sesuai
+yang kita maksudkan.
 
-In Chapter 5, Listing 5-15, we used a `Rectangle` struct and a `can_hold`
-method, which are repeated here in Listing 11-5. Let’s put this code in the
-_src/lib.rs_ file, then write some tests for it using the `assert!` macro.
+Di Bab 5, Listing 5-15, kita memakai struct `Rectangle` dan metode
+`can_hold`, yang diulang di sini di Listing 11-5. Mari kita letakkan kode
+ini di file _src/lib.rs_, lalu menulis beberapa pengujian untuknya memakai
+macro `assert!`.
 
-<Listing number="11-5" file-name="src/lib.rs" caption="The `Rectangle` struct and its `can_hold` method from Chapter 5">
+<Listing number="11-5" file-name="src/lib.rs" caption="Struct `Rectangle` dan metode `can_hold`-nya dari Bab 5">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs}}
@@ -207,13 +228,13 @@ _src/lib.rs_ file, then write some tests for it using the `assert!` macro.
 
 </Listing>
 
-The `can_hold` method returns a Boolean, which means it’s a perfect use case
-for the `assert!` macro. In Listing 11-6, we write a test that exercises the
-`can_hold` method by creating a `Rectangle` instance that has a width of 8 and
-a height of 7 and asserting that it can hold another `Rectangle` instance that
-has a width of 5 and a height of 1.
+Metode `can_hold` mengembalikan sebuah Boolean, yang berarti ini adalah
+kasus pemakaian yang sempurna untuk macro `assert!`. Di Listing 11-6, kita
+menulis pengujian yang melatih metode `can_hold` dengan membuat instance
+`Rectangle` yang memiliki lebar 8 dan tinggi 7, lalu menegaskan bahwa ia
+bisa menampung instance `Rectangle` lain yang memiliki lebar 5 dan tinggi 1.
 
-<Listing number="11-6" file-name="src/lib.rs" caption="A test for `can_hold` that checks whether a larger rectangle can indeed hold a smaller rectangle">
+<Listing number="11-6" file-name="src/lib.rs" caption="Pengujian untuk `can_hold` yang memeriksa apakah persegi panjang yang lebih besar memang bisa menampung persegi panjang yang lebih kecil">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-06/src/lib.rs:here}}
@@ -221,81 +242,87 @@ has a width of 5 and a height of 1.
 
 </Listing>
 
-Note the `use super::*;` line inside the `tests` module. The `tests` module is
-a regular module that follows the usual visibility rules we covered in Chapter
-7 in the [“Paths for Referring to an Item in the Module
-Tree”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->
-section. Because the `tests` module is an inner module, we need to bring the
-code under test in the outer module into the scope of the inner module. We use
-a glob here, so anything we define in the outer module is available to this
-`tests` module.
+Perhatikan baris `use super::*;` di dalam modul `tests`. Modul `tests`
+adalah modul biasa yang mengikuti aturan visibilitas yang kita bahas di Bab
+7 pada bagian [“Path untuk Merujuk Item di dalam Pohon
+Modul”][paths-for-referring-to-an-item-in-the-module-tree]<!-- ignore -->.
+Karena modul `tests` adalah modul dalam, kita perlu membawa kode yang
+sedang diuji di modul luar ke dalam scope modul dalam. Kita memakai glob di
+sini, sehingga apa pun yang kita definisikan di modul luar tersedia untuk
+modul `tests` ini.
 
-We’ve named our test `larger_can_hold_smaller`, and we’ve created the two
-`Rectangle` instances that we need. Then, we called the `assert!` macro and
-passed it the result of calling `larger.can_hold(&smaller)`. This expression is
-supposed to return `true`, so our test should pass. Let’s find out!
+Kita telah menamai pengujian kita `larger_can_hold_smaller`, dan kita telah
+membuat dua instance `Rectangle` yang kita perlukan. Kemudian, kita
+memanggil macro `assert!` dan meneruskan kepadanya hasil pemanggilan
+`larger.can_hold(&smaller)`. Ekspresi ini seharusnya mengembalikan `true`,
+jadi pengujian kita seharusnya lulus. Mari kita cari tahu!
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-06/output.txt}}
 ```
 
-It does pass! Let’s add another test, this time asserting that a smaller
-rectangle cannot hold a larger rectangle:
+Ternyata memang lulus! Mari kita tambahkan pengujian lain, kali ini
+menegaskan bahwa persegi panjang yang lebih kecil tidak bisa menampung
+persegi panjang yang lebih besar:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nama File: src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/src/lib.rs:here}}
 ```
 
-Because the correct result of the `can_hold` function in this case is `false`,
-we need to negate that result before we pass it to the `assert!` macro. As a
-result, our test will pass if `can_hold` returns `false`:
+Karena hasil yang benar dari fungsi `can_hold` dalam kasus ini adalah
+`false`, kita perlu menegasikan hasil itu sebelum meneruskannya ke macro
+`assert!`. Alhasil, pengujian kita akan lulus jika `can_hold` mengembalikan
+`false`:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/output.txt}}
 ```
 
-Two tests that pass! Now let’s see what happens to our test results when we
-introduce a bug in our code. We’ll change the implementation of the `can_hold`
-method by replacing the greater-than sign (`>`) with a less-than sign (`<`)
-when it compares the widths:
+Dua pengujian lulus! Sekarang mari kita lihat apa yang terjadi pada hasil
+pengujian kita ketika kita memasukkan bug ke dalam kode kita. Kita akan
+mengubah implementasi metode `can_hold` dengan mengganti tanda lebih besar
+dari (`>`) menjadi tanda lebih kecil dari (`<`) ketika ia membandingkan
+lebarnya:
 
 ```rust,not_desired_behavior,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/src/lib.rs:here}}
 ```
 
-Running the tests now produces the following:
+Menjalankan pengujian sekarang menghasilkan hal berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/output.txt}}
 ```
 
-Our tests caught the bug! Because `larger.width` is `8` and `smaller.width` is
-`5`, the comparison of the widths in `can_hold` now returns `false`: 8 is not
-less than 5.
+Pengujian kita menangkap bug itu! Karena `larger.width` adalah `8` dan
+`smaller.width` adalah `5`, perbandingan lebar di `can_hold` sekarang
+mengembalikan `false`: 8 tidak lebih kecil dari 5.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="testing-equality-with-the-assert_eq-and-assert_ne-macros"></a>
 
-### Testing Equality with `assert_eq!` and `assert_ne!`
+### Menguji Kesamaan dengan `assert_eq!` dan `assert_ne!`
 
-A common way to verify functionality is to test for equality between the result
-of the code under test and the value you expect the code to return. You could
-do this by using the `assert!` macro and passing it an expression using the
-`==` operator. However, this is such a common test that the standard library
-provides a pair of macros—`assert_eq!` and `assert_ne!`—to perform this test
-more conveniently. These macros compare two arguments for equality or
-inequality, respectively. They’ll also print the two values if the assertion
-fails, which makes it easier to see _why_ the test failed; conversely, the
-`assert!` macro only indicates that it got a `false` value for the `==`
-expression, without printing the values that led to the `false` value.
+Cara umum untuk memverifikasi fungsionalitas adalah menguji kesamaan antara
+hasil kode yang sedang diuji dan nilai yang Anda harapkan dikembalikan kode
+itu. Anda bisa melakukannya dengan memakai macro `assert!` dan meneruskan
+kepadanya ekspresi yang memakai operator `==`. Namun, ini adalah pengujian
+yang begitu umum sehingga pustaka standar menyediakan sepasang
+macro—`assert_eq!` dan `assert_ne!`—untuk melakukan pengujian ini dengan
+lebih nyaman. Macro-macro ini masing-masing membandingkan kesamaan atau
+ketidaksamaan dua argumen. Mereka juga akan mencetak kedua nilai itu jika
+asersinya gagal, yang memudahkan kita melihat _alasan_ pengujian gagal;
+sebaliknya, macro `assert!` hanya menandakan bahwa ia mendapatkan nilai
+`false` untuk ekspresi `==`, tanpa mencetak nilai-nilai yang menyebabkan
+nilai `false` itu.
 
-In Listing 11-7, we write a function named `add_two` that adds `2` to its
-parameter, and then we test this function using the `assert_eq!` macro.
+Di Listing 11-7, kita menulis fungsi bernama `add_two` yang menambahkan `2`
+ke parameternya, lalu kita menguji fungsi ini memakai macro `assert_eq!`.
 
-<Listing number="11-7" file-name="src/lib.rs" caption="Testing the function `add_two` using the `assert_eq!` macro">
+<Listing number="11-7" file-name="src/lib.rs" caption="Menguji fungsi `add_two` memakai macro `assert_eq!`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-07/src/lib.rs}}
@@ -303,143 +330,155 @@ parameter, and then we test this function using the `assert_eq!` macro.
 
 </Listing>
 
-Let’s check that it passes!
+Mari kita periksa bahwa ia lulus!
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-07/output.txt}}
 ```
 
-We create a variable named `result` that holds the result of calling
-`add_two(2)`. Then, we pass `result` and `4` as the arguments to the
-`assert_eq!` macro. The output line for this test is `test tests::it_adds_two
-... ok`, and the `ok` text indicates that our test passed!
+Kita membuat variabel bernama `result` yang menampung hasil pemanggilan
+`add_two(2)`. Lalu, kita meneruskan `result` dan `4` sebagai argumen ke
+macro `assert_eq!`. Baris keluaran untuk pengujian ini adalah `test
+tests::it_adds_two ... ok`, dan teks `ok` menandakan bahwa pengujian kita
+lulus!
 
-Let’s introduce a bug into our code to see what `assert_eq!` looks like when it
-fails. Change the implementation of the `add_two` function to instead add `3`:
+Mari kita masukkan bug ke dalam kode kita untuk melihat seperti apa
+`assert_eq!` ketika gagal. Ubah implementasi fungsi `add_two` menjadi
+menambahkan `3`:
 
 ```rust,not_desired_behavior,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/src/lib.rs:here}}
 ```
 
-Run the tests again:
+Jalankan pengujian lagi:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/output.txt}}
 ```
 
-Our test caught the bug! The `tests::it_adds_two` test failed, and the message
-tells us that the assertion that failed was `left == right` and what the `left`
-and `right` values are. This message helps us start debugging: The `left`
-argument, where we had the result of calling `add_two(2)`, was `5`, but the
-`right` argument was `4`. You can imagine that this would be especially helpful
-when we have a lot of tests going on.
+Pengujian kita menangkap bug itu! Pengujian `tests::it_adds_two` gagal, dan
+pesannya memberi tahu kita bahwa asersi yang gagal adalah `left == right`
+serta berapa nilai `left` dan `right`. Pesan ini membantu kita mulai
+men-debug: argumen `left`, tempat kita meletakkan hasil pemanggilan
+`add_two(2)`, adalah `5`, tetapi argumen `right` adalah `4`. Anda bisa
+membayangkan bahwa ini akan sangat membantu ketika kita memiliki banyak
+pengujian yang sedang berjalan.
 
-Note that in some languages and test frameworks, the parameters to equality
-assertion functions are called `expected` and `actual`, and the order in which
-we specify the arguments matters. However, in Rust, they’re called `left` and
-`right`, and the order in which we specify the value we expect and the value
-the code produces doesn’t matter. We could write the assertion in this test as
-`assert_eq!(4, result)`, which would result in the same failure message that
-displays `` assertion `left == right` failed ``.
+Perhatikan bahwa di beberapa bahasa dan framework pengujian, parameter
+fungsi asersi kesamaan disebut `expected` dan `actual`, dan urutan kita
+menentukan argumen itu penting. Namun, di Rust, mereka disebut `left` dan
+`right`, dan urutan kita menentukan nilai yang kita harapkan dan nilai yang
+dihasilkan kode tidak penting. Kita bisa menulis asersi di pengujian ini
+sebagai `assert_eq!(4, result)`, yang akan menghasilkan pesan kegagalan
+yang sama yang menampilkan `` assertion `left == right` failed ``.
 
-The `assert_ne!` macro will pass if the two values we give it are not equal and
-will fail if they are equal. This macro is most useful for cases when we’re not
-sure what a value _will_ be, but we know what the value definitely _shouldn’t_
-be. For example, if we’re testing a function that is guaranteed to change its
-input in some way, but the way in which the input is changed depends on the day
-of the week that we run our tests, the best thing to assert might be that the
-output of the function is not equal to the input.
+Macro `assert_ne!` akan lulus jika dua nilai yang kita berikan tidak sama
+dan akan gagal jika keduanya sama. Macro ini paling berguna untuk kasus
+ketika kita tidak yakin nilai apa yang _akan_ dihasilkan, tetapi kita tahu
+nilai apa yang pasti _tidak seharusnya_ dihasilkan. Sebagai contoh, jika
+kita menguji fungsi yang dijamin mengubah masukannya dengan cara tertentu,
+tetapi cara masukannya diubah bergantung pada hari dalam seminggu saat kita
+menjalankan pengujian, hal terbaik untuk ditegaskan mungkin adalah bahwa
+keluaran fungsinya tidak sama dengan masukannya.
 
-Under the surface, the `assert_eq!` and `assert_ne!` macros use the operators
-`==` and `!=`, respectively. When the assertions fail, these macros print their
-arguments using debug formatting, which means the values being compared must
-implement the `PartialEq` and `Debug` traits. All primitive types and most of
-the standard library types implement these traits. For structs and enums that
-you define yourself, you’ll need to implement `PartialEq` to assert equality of
-those types. You’ll also need to implement `Debug` to print the values when the
-assertion fails. Because both traits are derivable traits, as mentioned in
-Listing 5-12 in Chapter 5, this is usually as straightforward as adding the
-`#[derive(PartialEq, Debug)]` annotation to your struct or enum definition. See
-Appendix C, [“Derivable Traits,”][derivable-traits]<!-- ignore --> for more
-details about these and other derivable traits.
+Di balik layar, macro `assert_eq!` dan `assert_ne!` masing-masing memakai
+operator `==` dan `!=`. Ketika asersinya gagal, macro-macro ini mencetak
+argumennya memakai pemformatan debug, yang berarti nilai yang dibandingkan
+harus mengimplementasikan *trait* `PartialEq` dan `Debug`. Semua tipe
+primitif dan sebagian besar tipe pustaka standar mengimplementasikan trait
+ini. Untuk struct dan *enum* yang Anda definisikan sendiri, Anda perlu
+mengimplementasikan `PartialEq` untuk menegaskan kesamaan tipe-tipe itu.
+Anda juga perlu mengimplementasikan `Debug` untuk mencetak nilai-nilainya
+ketika asersinya gagal. Karena kedua trait itu adalah trait yang dapat
+diturunkan, seperti yang disebutkan di Listing 5-12 pada Bab 5, ini
+biasanya semudah menambahkan anotasi `#[derive(PartialEq, Debug)]` ke
+definisi struct atau enum Anda. Lihat Lampiran C, [“Trait yang Dapat
+Diturunkan,”][derivable-traits]<!-- ignore --> untuk detail lebih lanjut
+tentang trait-trait yang dapat diturunkan ini dan yang lainnya.
 
-### Adding Custom Failure Messages
+### Menambahkan Pesan Kegagalan Kustom
 
-You can also add a custom message to be printed with the failure message as
-optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
-arguments specified after the required arguments are passed along to the
-`format!` macro (discussed in [“Concatenating with `+` or
+Anda juga bisa menambahkan pesan kustom untuk dicetak bersama pesan
+kegagalan sebagai argumen opsional ke macro `assert!`, `assert_eq!`, dan
+`assert_ne!`. Argumen apa pun yang ditentukan setelah argumen wajib
+diteruskan ke macro `format!` (dibahas di [“Menggabungkan dengan `+` atau
 `format!`”][concatenating]<!--
-ignore --> in Chapter 8), so you can pass a format string that contains `{}`
-placeholders and values to go in those placeholders. Custom messages are useful
-for documenting what an assertion means; when a test fails, you’ll have a better
-idea of what the problem is with the code.
+ignore --> di Bab 8), jadi Anda bisa meneruskan string format yang berisi
+placeholder `{}` dan nilai-nilai untuk mengisi placeholder itu. Pesan
+kustom berguna untuk mendokumentasikan makna sebuah asersi; ketika sebuah
+pengujian gagal, Anda akan mendapat gambaran yang lebih baik tentang apa
+masalahnya dengan kode itu.
 
-For example, let’s say we have a function that greets people by name and we
-want to test that the name we pass into the function appears in the output:
+Sebagai contoh, katakanlah kita memiliki fungsi yang menyapa orang
+berdasarkan nama dan kita ingin menguji bahwa nama yang kita teruskankan ke
+fungsi itu muncul di keluarannya:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">Nama File: src/lib.rs</span>
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-05-greeter/src/lib.rs}}
 ```
 
-The requirements for this program haven’t been agreed upon yet, and we’re
-pretty sure the `Hello` text at the beginning of the greeting will change. We
-decided we don’t want to have to update the test when the requirements change,
-so instead of checking for exact equality to the value returned from the
-`greeting` function, we’ll just assert that the output contains the text of the
-input parameter.
+Persyaratan untuk program ini belum disepakati, dan kita cukup yakin bahwa
+teks `Hello` di awal sapaan akan berubah. Kita memutuskan untuk tidak perlu
+memperbarui pengujian ketika persyaratannya berubah, jadi alih-alih
+memeriksa kesamaan persis dengan nilai yang dikembalikan fungsi `greeting`,
+kita hanya menegaskan bahwa keluarannya mengandung teks parameter
+masukannya.
 
-Now let’s introduce a bug into this code by changing `greeting` to exclude
-`name` to see what the default test failure looks like:
+Sekarang mari kita masukkan bug ke dalam kode ini dengan mengubah
+`greeting` agar tidak menyertakan `name` untuk melihat seperti apa kegagalan
+pengujian bawaan:
 
 ```rust,not_desired_behavior,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/src/lib.rs:here}}
 ```
 
-Running this test produces the following:
+Menjalankan pengujian ini menghasilkan hal berikut:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/output.txt}}
 ```
 
-This result just indicates that the assertion failed and which line the
-assertion is on. A more useful failure message would print the value from the
-`greeting` function. Let’s add a custom failure message composed of a format
-string with a placeholder filled in with the actual value we got from the
-`greeting` function:
+Hasil ini hanya menandakan bahwa asersinya gagal dan di baris mana asersi
+itu berada. Pesan kegagalan yang lebih berguna akan mencetak nilai dari
+fungsi `greeting`. Mari kita tambahkan pesan kegagalan kustom yang terdiri
+atas string format dengan placeholder yang diisi dengan nilai aktual yang
+kita dapatkan dari fungsi `greeting`:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/src/lib.rs:here}}
 ```
 
-Now when we run the test, we’ll get a more informative error message:
+Sekarang ketika kita menjalankan pengujian, kita akan mendapatkan pesan
+galat yang lebih informatif:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
 ```
 
-We can see the value we actually got in the test output, which would help us
-debug what happened instead of what we were expecting to happen.
+Kita bisa melihat nilai yang sebenarnya kita dapatkan di keluaran
+pengujian, yang akan membantu kita men-debug apa yang terjadi alih-alih apa
+yang kita harapkan terjadi.
 
-### Checking for Panics with `should_panic`
+### Memeriksa Panic dengan `should_panic`
 
-In addition to checking return values, it’s important to check that our code
-handles error conditions as we expect. For example, consider the `Guess` type
-that we created in Chapter 9, Listing 9-13. Other code that uses `Guess`
-depends on the guarantee that `Guess` instances will contain only values
-between 1 and 100. We can write a test that ensures that attempting to create a
-`Guess` instance with a value outside that range panics.
+Selain memeriksa nilai kembalian, penting untuk memeriksa bahwa kode kita
+menangani kondisi galat seperti yang kita harapkan. Sebagai contoh,
+perhatikan tipe `Guess` yang kita buat di Bab 9, Listing 9-13. Kode lain
+yang memakai `Guess` bergantung pada jaminan bahwa instance `Guess` hanya
+akan berisi nilai antara 1 dan 100. Kita bisa menulis pengujian yang
+memastikan bahwa percobaan membuat instance `Guess` dengan nilai di luar
+rentang itu akan panic.
 
-We do this by adding the attribute `should_panic` to our test function. The
-test passes if the code inside the function panics; the test fails if the code
-inside the function doesn’t panic.
+Kita melakukannya dengan menambahkan atribut `should_panic` ke fungsi
+pengujian kita. Pengujian lulus jika kode di dalam fungsi itu panic;
+pengujian gagal jika kode di dalam fungsi itu tidak panic.
 
-Listing 11-8 shows a test that checks that the error conditions of `Guess::new`
-happen when we expect them to.
+Listing 11-8 menunjukkan pengujian yang memeriksa bahwa kondisi galat
+`Guess::new` terjadi ketika kita mengharapkannya.
 
-<Listing number="11-8" file-name="src/lib.rs" caption="Testing that a condition will cause a `panic!`">
+<Listing number="11-8" file-name="src/lib.rs" caption="Menguji bahwa sebuah kondisi akan menyebabkan `panic!`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-08/src/lib.rs}}
@@ -447,41 +486,44 @@ happen when we expect them to.
 
 </Listing>
 
-We place the `#[should_panic]` attribute after the `#[test]` attribute and
-before the test function it applies to. Let’s look at the result when this test
-passes:
+Kita menempatkan atribut `#[should_panic]` setelah atribut `#[test]` dan
+sebelum fungsi pengujian yang diatributinya. Mari kita lihat hasilnya
+ketika pengujian ini lulus:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-08/output.txt}}
 ```
 
-Looks good! Now let’s introduce a bug in our code by removing the condition
-that the `new` function will panic if the value is greater than 100:
+Terlihat bagus! Sekarang mari kita masukkan bug ke dalam kode kita dengan
+menghapus kondisi bahwa fungsi `new` akan panic jika nilainya lebih besar
+dari 100:
 
 ```rust,not_desired_behavior,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/src/lib.rs:here}}
 ```
 
-When we run the test in Listing 11-8, it will fail:
+Ketika kita menjalankan pengujian di Listing 11-8, ia akan gagal:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/output.txt}}
 ```
 
-We don’t get a very helpful message in this case, but when we look at the test
-function, we see that it’s annotated with `#[should_panic]`. The failure we got
-means that the code in the test function did not cause a panic.
+Kita tidak mendapatkan pesan yang sangat membantu dalam kasus ini, tetapi
+ketika kita melihat fungsi pengujiannya, kita melihat bahwa ia dianotasi
+dengan `#[should_panic]`. Kegagalan yang kita dapatkan berarti kode di
+fungsi pengujian tidak menyebabkan panic.
 
-Tests that use `should_panic` can be imprecise. A `should_panic` test would
-pass even if the test panics for a different reason from the one we were
-expecting. To make `should_panic` tests more precise, we can add an optional
-`expected` parameter to the `should_panic` attribute. The test harness will
-make sure that the failure message contains the provided text. For example,
-consider the modified code for `Guess` in Listing 11-9 where the `new` function
-panics with different messages depending on whether the value is too small or
-too large.
+Pengujian yang memakai `should_panic` bisa tidak presisi. Pengujian
+`should_panic` akan lulus bahkan jika pengujian itu panic karena alasan
+yang berbeda dari yang kita harapkan. Untuk membuat pengujian
+`should_panic` lebih presisi, kita bisa menambahkan parameter opsional
+`expected` ke atribut `should_panic`. Test harness akan memastikan bahwa
+pesan kegagalannya mengandung teks yang diberikan. Sebagai contoh,
+perhatikan kode `Guess` yang dimodifikasi di Listing 11-9, ketika fungsi
+`new` panic dengan pesan yang berbeda tergantung pada apakah nilainya
+terlalu kecil atau terlalu besar.
 
-<Listing number="11-9" file-name="src/lib.rs" caption="Testing for a `panic!` with a panic message containing a specified substring">
+<Listing number="11-9" file-name="src/lib.rs" caption="Menguji `panic!` dengan pesan panic yang mengandung substring tertentu">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-09/src/lib.rs:here}}
@@ -489,63 +531,65 @@ too large.
 
 </Listing>
 
-This test will pass because the value we put in the `should_panic` attribute’s
-`expected` parameter is a substring of the message that the `Guess::new`
-function panics with. We could have specified the entire panic message that we
-expect, which in this case would be `Guess value must be less than or equal to
-100, got 200`. What you choose to specify depends on how much of the panic
-message is unique or dynamic and how precise you want your test to be. In this
-case, a substring of the panic message is enough to ensure that the code in the
-test function executes the `else if value > 100` case.
+Pengujian ini akan lulus karena nilai yang kita letakkan di parameter
+`expected` atribut `should_panic` adalah substring dari pesan yang dipakai
+fungsi `Guess::new` untuk panic. Kita bisa saja menentukan seluruh pesan
+panic yang kita harapkan, yang dalam kasus ini adalah `Guess value must be
+less than or equal to 100, got 200`. Apa yang Anda pilih untuk ditentukan
+bergantung pada seberapa unik atau dinamis pesan panic itu dan seberapa
+presisi Anda ingin pengujiannya. Dalam kasus ini, substring dari pesan
+panic sudah cukup untuk memastikan bahwa kode di fungsi pengujian
+mengeksekusi kasus `else if value > 100`.
 
-To see what happens when a `should_panic` test with an `expected` message
-fails, let’s again introduce a bug into our code by swapping the bodies of the
-`if value < 1` and the `else if value > 100` blocks:
+Untuk melihat apa yang terjadi ketika pengujian `should_panic` dengan pesan
+`expected` gagal, mari kita masukkan lagi bug ke dalam kode kita dengan
+menukar badan blok `if value < 1` dan blok `else if value > 100`:
 
 ```rust,ignore,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/src/lib.rs:here}}
 ```
 
-This time when we run the `should_panic` test, it will fail:
+Kali ini ketika kita menjalankan pengujian `should_panic`, ia akan gagal:
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/output.txt}}
 ```
 
-The failure message indicates that this test did indeed panic as we expected,
-but the panic message did not include the expected string `less than or equal
-to 100`. The panic message that we did get in this case was `Guess value must
-be greater than or equal to 1, got 200`. Now we can start figuring out where
-our bug is!
+Pesan kegagalannya menandakan bahwa pengujian ini memang panic seperti yang
+kita harapkan, tetapi pesan panic-nya tidak menyertakan string yang
+diharapkan `less than or equal to 100`. Pesan panic yang sebenarnya kita
+dapatkan dalam kasus ini adalah `Guess value must be greater than or equal
+to 1, got 200`. Sekarang kita bisa mulai mencari tahu di mana bug kita!
 
-### Using `Result<T, E>` in Tests
+### Memakai `Result<T, E>` dalam Pengujian
 
-All of our tests so far panic when they fail. We can also write tests that use
-`Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use `Result<T,
-E>` and return an `Err` instead of panicking:
+Semua pengujian kita sejauh ini panic ketika gagal. Kita juga bisa menulis
+pengujian yang memakai `Result<T, E>`! Berikut pengujian dari Listing 11-1,
+ditulis ulang untuk memakai `Result<T, E>` dan mengembalikan `Err` alih-alih
+panic:
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs:here}}
 ```
 
-The `it_works` function now has the `Result<(), String>` return type. In the
-body of the function, rather than calling the `assert_eq!` macro, we return
-`Ok(())` when the test passes and an `Err` with a `String` inside when the test
-fails.
+Fungsi `it_works` sekarang memiliki tipe kembalian `Result<(), String>`. Di
+badan fungsi, alih-alih memanggil macro `assert_eq!`, kita mengembalikan
+`Ok(())` ketika pengujian lulus dan `Err` dengan `String` di dalamnya
+ketika pengujian gagal.
 
-Writing tests so that they return a `Result<T, E>` enables you to use the
-question mark operator in the body of tests, which can be a convenient way to
-write tests that should fail if any operation within them returns an `Err`
-variant.
+Menulis pengujian sehingga ia mengembalikan `Result<T, E>` memungkinkan
+Anda memakai operator tanda tanya di badan pengujian, yang bisa menjadi
+cara yang nyaman untuk menulis pengujian yang seharusnya gagal jika operasi
+mana pun di dalamnya mengembalikan varian `Err`.
 
-You can’t use the `#[should_panic]` annotation on tests that use `Result<T,
-E>`. To assert that an operation returns an `Err` variant, _don’t_ use the
-question mark operator on the `Result<T, E>` value. Instead, use
-`assert!(value.is_err())`.
+Anda tidak bisa memakai anotasi `#[should_panic]` pada pengujian yang
+memakai `Result<T, E>`. Untuk menegaskan bahwa sebuah operasi mengembalikan
+varian `Err`, _jangan_ memakai operator tanda tanya pada nilai `Result<T,
+E>` itu. Sebagai gantinya, pakailah `assert!(value.is_err())`.
 
-Now that you know several ways to write tests, let’s look at what is happening
-when we run our tests and explore the different options we can use with `cargo
-test`.
+Sekarang setelah Anda tahu beberapa cara menulis pengujian, mari kita lihat
+apa yang terjadi ketika kita menjalankan pengujian kita dan menjelajahi
+opsi-opsi berbeda yang bisa kita pakai bersama `cargo test`.
 
 [concatenating]: ch08-02-strings.html#concatenating-with--or-format
 [bench]: ../unstable-book/library-features/test.html
