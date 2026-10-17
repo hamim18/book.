@@ -9,25 +9,31 @@ Diperbarui di akhir setiap sesi.
 - Tahap 4 selesai — Pendahuluan (`title-page.md`, `foreword.md`, `SUMMARY.md`)
   diterjemahkan dan lulus `cek_terjemahan.py`. **Semua 112 file selesai,
   0 galat.** `mdbook test` lulus (exit 0).
-- Tahap 5 (pemeriksaan menyeluruh) sedang berjalan:
-  - **Selesai — anchor internal**: 70 tag `<a id>` kompatibilitas ditambahkan
-    di 41 file tujuan; pemindaian 291 tautan internal ber-anchor kini 0 rusak.
-    Dua tautan stale (ch17-05 → ch17-03#working-with-any-number-of-futures dan
-    ch17-06 → ch17-04#composing-streams) dibiarkan: keduanya definisi tautan
-    mati yang tidak pernah dipakai di prosa. Commit `0324fd6`.
-  - **Selesai — review kedua gelombang 1** (bab 02, 04, 08, 10, 15, 17, 20,
-    21, per bab oleh agen pembanding `asli/` ↔ `src/`): tidak ada pergeseran
-    makna; 18 catatan kecil diperbaiki. Commit `24bd8b8`.
-  - **Selesai — konsistensi istilah**: "command line" → "baris perintah"
-    (ch11-02); "di Appendix C" → "di Lampiran C" (ch04-01).
-  - **Selesai — konvensi miring**: atas keputusan pengguna, istilah teknis
-    Inggris kini dimiringkan pada SETIAP kemunculan di prosa (4.358
-    kemunculan, 96 file), termasuk istilah berkapital di awal kalimat;
-    heading, kode, tautan, komentar HTML, dan judul karya dikecualikan.
-  - **Berjalan — review kedua gelombang 2**: bab 00, 01, 03, 05, 06, 07, 09,
-    11, 12, 13, 14, 16, 18, 19, dan Appendix (9 agen pembanding).
-- File berikutnya yang dikerjakan: selesaikan review gelombang 2, lalu
-  Tahap 6 — cetak A5.
+- Tahap 5 (pemeriksaan menyeluruh) **selesai** (menunggu dua keputusan istilah,
+  lihat Masalah terbuka):
+  - **Anchor internal**: 70 tag `<a id>` kompatibilitas ditambahkan di 41
+    file tujuan; pemindaian ~290 tautan internal ber-anchor kini 0 rusak.
+    Dua tautan stale (ch17-05 → ch17-03#working-with-any-number-of-futures
+    dan ch17-06 → ch17-04#composing-streams) dibiarkan: keduanya definisi
+    tautan mati yang tidak pernah dipakai di prosa. Commit `0324fd6`.
+  - **Review kedua** (seluruh buku, 17 agen pembanding `asli/` ↔ `src/`
+    dalam 2 gelombang): tidak ada pergeseran makna berarti; ±50 catatan
+    kecil diperbaiki; kerusakan markup warisan sesi penerjemahan (asterisk
+    di dalam span/blok kode, label tautan `[*X*]`, asterisk di tengah kata)
+    dibersihkan. Commit `24bd8b8` dan `30de8a7`.
+  - **Konsistensi istilah**: "command line" → "baris perintah" (ch11-02);
+    "di Appendix C" → "di Lampiran C" (ch04-01); "kami" → "kita" (52
+    kemunculan); header tabel appendix-02 Symbol/Context → Simbol/Konteks;
+    "nilai hardcoded" → "nilai yang ditulis langsung (hardcoded)";
+    "resource" → "sumber daya".
+  - **Konvensi miring**: atas keputusan pengguna, istilah teknis Inggris
+    dimiringkan pada SETIAP kemunculan di prosa (≈4.400 kemunculan, 97
+    file), termasuk istilah berkapital di awal kalimat; heading, kode,
+    tautan, komentar HTML, dan judul karya dikecualikan.
+  - `cek_terjemahan.py` 97 file OK; `mdbook build` tanpa tautan rusak;
+    `mdbook test` exit 0.
+- File berikutnya yang dikerjakan: Tahap 6 — cetak A5 (lihat Tahap 8
+  `PANDUAN_PROMPT.md`).
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -42,9 +48,11 @@ Diperbarui di akhir setiap sesi.
 - [x] Tahap 3 — `appendix-00` s/d `appendix-07`
 - [x] Tahap 4 — `title-page.md` + `foreword.md` + `SUMMARY.md` (judul bab
       diterjemahkan, path tetap; label SUMMARY mengikuti heading final tiap bab).
-- [ ] Tahap 5 — Pemeriksaan menyeluruh: review kedua (banding `asli/` ↔ `src/`),
+- [x] Tahap 5 — Pemeriksaan menyeluruh: review kedua (banding `asli/` ↔ `src/`),
       `mdbook test` (lihat Catatan teknis), `mdbook build` (tautan anchor rusak
-      karena heading diterjemahkan), konsistensi istilah antar-bab.
+      karena heading diterjemahkan), konsistensi istilah antar-bab. Selesai
+      2026-10-17; dua keputusan istilah menunggu konfirmasi (lihat Masalah
+      terbuka).
 - [ ] Tahap 6 — Cetak A5 (lihat Tahap 8 `PANDUAN_PROMPT.md`).
 
 ## Ukuran kerja per kelompok (kata, dari `asli/`)
