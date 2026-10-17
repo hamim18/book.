@@ -427,6 +427,7 @@ kita bisa. Mari kita lihat beberapa perubahan yang bisa kita buat pada crate
 `blog` yang bisa menjadikan state dan transisi yang tidak valid sebagai galat
 waktu kompilasi.
 
+<a id="encoding-states-and-behavior-as-types"></a>
 ### Menyandikan State dan Perilaku sebagai Tipe
 
 Kami akan menunjukkan cara memikirkan ulang pola state untuk mendapatkan

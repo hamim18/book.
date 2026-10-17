@@ -66,6 +66,7 @@ tepat pada sebagian besar situasi. Mari kita lihat kasus di mana box
 memungkinkan kita mendefinisikan tipe yang tidak boleh kita definisikan jika
 kita tidak memiliki box.
 
+<a id="enabling-recursive-types-with-boxes"></a>
 ### Mengaktifkan Tipe Rekursif dengan Boxes
 
 Sebuah nilai bertipe _recursive type_ (tipe rekursif) dapat memiliki nilai

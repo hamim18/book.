@@ -169,6 +169,7 @@ karena nilainya tidak dipindahkan keluar dari `user1`.
 
 <a id="using-tuple-structs-without-named-fields-to-create-different-types"></a>
 
+<a id="creating-different-types-with-tuple-structs"></a>
 ### Membuat Tipe Berbeda dengan Tuple Struct
 
 Rust juga mendukung struct yang tampak mirip tuple, yang disebut *tuple

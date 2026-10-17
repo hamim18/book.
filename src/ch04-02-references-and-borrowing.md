@@ -1,3 +1,4 @@
+<a id="references-and-borrowing"></a>
 ## References dan Borrowing
 
 Masalah dengan kode *tuple* pada Listing 4-5 adalah kita harus mengembalikan

@@ -1,3 +1,4 @@
+<a id="macros"></a>
 ## Macro
 
 Kita sudah memakai macro seperti `println!` di sepanjang buku ini, tetapi
@@ -204,6 +205,7 @@ membuat bentuk lainnya berbeda.
 
 <a id="how-to-write-a-custom-derive-macro"></a>
 
+<a id="custom-derive-macros"></a>
 ### Macro `derive` Kustom
 
 Mari kita buat crate bernama `hello_macro` yang mendefinisikan trait

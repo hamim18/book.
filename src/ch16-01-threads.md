@@ -35,6 +35,7 @@ mengimplementasikan model threading lain yang membuat kompromi berbeda dari
 model 1:1. (Sistem async Rust, yang akan kita lihat di bab berikutnya, juga
 menyediakan pendekatan lain terhadap konkurensi.)
 
+<a id="creating-a-new-thread-with-spawn"></a>
 ### Membuat Thread Baru dengan `spawn`
 
 Untuk membuat thread baru, kita memanggil fungsi `thread::spawn` dan
@@ -89,6 +90,7 @@ berpindah antar-thread.
 
 <a id="waiting-for-all-threads-to-finish-using-join-handles"></a>
 
+<a id="waiting-for-all-threads-to-finish"></a>
 ### Menunggu Semua Thread Selesai
 
 Kode di Listing 16-1 tidak hanya menghentikan thread yang dibuat secara dini
@@ -181,6 +183,7 @@ hi number 4 from the main thread!
 Detail kecil, seperti di mana `join` dipanggil, dapat memengaruhi apakah
 thread-thread Anda berjalan pada saat yang sama atau tidak.
 
+<a id="using-move-closures-with-threads"></a>
 ### Memakai Closure `move` dengan Thread
 
 Kita akan sering memakai kata kunci `move` dengan closure yang diberikan ke

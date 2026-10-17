@@ -1,3 +1,4 @@
+<a id="data-types"></a>
 ## Tipe Data
 
 Setiap nilai di Rust memiliki tipe data tertentu, yang memberi tahu Rust jenis
@@ -35,6 +36,7 @@ skalar utama: integer, bilangan floating-point, Boolean, dan karakter. Anda
 mungkin mengenalinya dari bahasa pemrograman lain. Mari kita langsung lihat
 cara kerjanya di Rust.
 
+<a id="integer-types"></a>
 #### Tipe Integer
 
 Sebuah integer adalah angka tanpa komponen pecahan. Kita memakai satu tipe
@@ -216,6 +218,7 @@ Bab 8.
 Tipe majemuk dapat mengelompokkan beberapa nilai menjadi satu tipe. Rust
 memiliki dua tipe majemuk primitif: tuple dan array.
 
+<a id="the-tuple-type"></a>
 #### Tipe Tuple
 
 Sebuah *tuple* adalah cara umum untuk mengelompokkan sejumlah nilai dengan

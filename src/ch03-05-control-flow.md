@@ -1,3 +1,4 @@
+<a id="control-flow"></a>
 ## Alur Kontrol
 
 Kemampuan untuk menjalankan sebagian kode bergantung pada apakah sebuah
@@ -322,6 +323,7 @@ memakai `loop`, `if`, `else`, dan `break`, dan ia pun lebih jelas. Selama
 sebuah kondisi mengevaluasi menjadi `true`, kodenya berjalan; jika tidak,
 program keluar dari perulangan.
 
+<a id="looping-through-a-collection-with-for"></a>
 #### Melakukan Perulangan pada Koleksi dengan `for`
 
 Anda dapat memilih memakai konstruk `while` untuk melakukan perulangan pada

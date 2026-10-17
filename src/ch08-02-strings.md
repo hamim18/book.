@@ -1,3 +1,4 @@
+<a id="storing-utf-8-encoded-text-with-strings"></a>
 ## Menyimpan Teks Terenkode UTF-8 dengan String
 
 Kita telah membicarakan string di Bab 4, tetapi sekarang kita akan
@@ -164,6 +165,7 @@ Akibatnya, `s` akan berisi `lol`.
 
 <a id="concatenation-with-the--operator-or-the-format-macro"></a>
 
+<a id="concatenating-with--or-format"></a>
 #### Menggabungkan dengan `+` atau `format!`
 
 Sering kali, Anda ingin menggabungkan dua string yang ada. Salah satu

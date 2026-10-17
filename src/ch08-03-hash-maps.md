@@ -47,6 +47,7 @@ memiliki kunci bertipe `String` dan nilai bertipe `i32`. Seperti vektor,
 hash map bersifat homogen: semua kunci harus bertipe sama, dan semua nilai
 harus bertipe sama.
 
+<a id="accessing-values-in-a-hash-map"></a>
 ### Mengakses Nilai di dalam Hash Map
 
 Kita dapat mengeluarkan sebuah nilai dari hash map dengan memberikan

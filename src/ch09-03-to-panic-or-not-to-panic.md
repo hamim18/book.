@@ -1,3 +1,4 @@
+<a id="to-panic-or-not-to-panic"></a>
 ## Untuk `panic!` atau Tidak `panic!`
 
 Jadi, bagaimana Anda memutuskan kapan sebaiknya memanggil `panic!` dan kapan
@@ -74,6 +75,7 @@ ditulis langsung akan mendorong kita mengubah `expect` menjadi kode
 penanganan galat yang lebih baik jika, di masa depan, kita perlu mendapatkan
 alamat IP dari sumber lain.
 
+<a id="guidelines-for-error-handling"></a>
 ### Panduan untuk Penanganan Galat
 
 Disarankan agar kode Anda panic ketika ada kemungkinan kode Anda berakhir

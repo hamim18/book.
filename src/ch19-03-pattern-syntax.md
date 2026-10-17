@@ -286,6 +286,7 @@ Mendestrukturisasi dengan pola adalah cara yang nyaman untuk memakai
 bagian-bagian nilai, seperti nilai dari setiap field di struct, secara
 terpisah satu sama lain.
 
+<a id="ignoring-values-in-a-pattern"></a>
 ### Mengabaikan Nilai dalam Pola
 
 Anda telah melihat bahwa terkadang berguna untuk mengabaikan nilai pada pola,
@@ -505,6 +506,7 @@ bersifat ambigu.
 
 <a id="extra-conditionals-with-match-guards"></a>
 
+<a id="adding-conditionals-with-match-guards"></a>
 ### Menambahkan Kondisional dengan Match Guard
 
 _Match guard_ (pengawal match) adalah kondisi `if` tambahan, yang ditentukan

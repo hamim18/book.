@@ -1,3 +1,4 @@
+<a id="variables-and-mutability"></a>
 ## Variabel dan Mutabilitas
 
 Seperti disebutkan di bagian [“Menyimpan Nilai dengan
@@ -84,6 +85,7 @@ paling jelas dalam situasi tersebut.
 <!-- Old headings. Do not remove or links may break. -->
 <a id="constants"></a>
 
+<a id="declaring-constants"></a>
 ### Mendeklarasikan Konstanta
 
 Seperti variabel immutable, _konstanta_ adalah nilai yang terikat pada sebuah

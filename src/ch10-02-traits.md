@@ -62,6 +62,7 @@ dengan tanda tangan persis seperti ini.
 Sebuah trait bisa memiliki banyak metode di badannya: tanda tangan
 metodenya didaftarkan satu per baris, dan setiap baris diakhiri titik koma.
 
+<a id="implementing-a-trait-on-a-type"></a>
 ### Mengimplementasikan Trait pada Suatu Tipe
 
 Sekarang setelah kita mendefinisikan tanda tangan yang diinginkan untuk

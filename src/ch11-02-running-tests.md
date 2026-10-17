@@ -1,3 +1,4 @@
+<a id="controlling-how-tests-are-run"></a>
 ## Mengontrol Cara Pengujian Dijalankan
 
 Sama seperti `cargo run` mengompilasi kode Anda lalu menjalankan binary
@@ -107,6 +108,7 @@ Ketika kita menjalankan lagi pengujian di Listing 11-10 dengan flag
 {{#include ../listings/ch11-writing-automated-tests/output-only-01-show-output/output.txt}}
 ```
 
+<a id="running-a-subset-of-tests-by-name"></a>
 ### Menjalankan Sebagian Pengujian Berdasarkan Nama
 
 Menjalankan test suite penuh kadang bisa memakan waktu lama. Jika Anda
@@ -173,6 +175,7 @@ menyaring berdasarkan nama modulnya.
 
 <a id="ignoring-some-tests-unless-specifically-requested"></a>
 
+<a id="ignoring-tests-unless-specifically-requested"></a>
 ### Mengabaikan Pengujian Kecuali Diminta Secara Spesifik
 
 Terkadang beberapa pengujian tertentu bisa sangat memakan waktu untuk

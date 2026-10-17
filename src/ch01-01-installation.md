@@ -1,3 +1,4 @@
+<a id="installation"></a>
 ## Instalasi
 
 Langkah pertama adalah memasang Rust. Kita akan mengunduh Rust melalui
@@ -73,6 +74,7 @@ ignore -->.
 Sisa buku ini memakai perintah yang bekerja di _cmd.exe_ maupun PowerShell.
 Jika ada perbedaan tertentu, kami akan menjelaskan mana yang harus dipakai.
 
+<a id="troubleshooting"></a>
 ### Pemecahan Masalah
 
 Untuk memeriksa apakah Rust telah terpasang dengan benar, buka shell dan

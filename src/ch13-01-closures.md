@@ -185,6 +185,7 @@ Pertama kali kita memanggil `example_closure` dengan nilai `String`,
 `example_closure`, dan kita mendapat galat tipe ketika selanjutnya mencoba
 memakai tipe yang berbeda dengan closure yang sama.
 
+<a id="capturing-references-or-moving-ownership"></a>
 ### Menangkap Reference atau Memindahkan Ownership
 
 Closure dapat menangkap nilai dari lingkungannya dengan tiga cara, yang
@@ -292,6 +293,7 @@ untuk melihat galat kompilasi apa yang Anda dapat!
 <a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
 <a id="moving-captured-values-out-of-closures-and-the-fn-traits"></a>
 
+<a id="moving-captured-values-out-of-closures"></a>
 ### Memindahkan Nilai yang Ditangkap Keluar dari Closure
 
 Setelah sebuah closure menangkap reference atau menangkap *ownership* atas

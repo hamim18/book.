@@ -76,6 +76,7 @@ Sebagian besar komentar dokumentasi tidak membutuhkan semua seksi ini, tetapi
 ini adalah daftar periksa yang baik untuk mengingatkan Anda tentang
 aspek-aspek kode yang ingin diketahui pengguna Anda.
 
+<a id="documentation-comments-as-tests"></a>
 #### Komentar Dokumentasi sebagai Pengujian
 
 Menambahkan blok kode contoh di komentar dokumentasi Anda dapat membantu
@@ -155,6 +156,7 @@ termasuk komentar yang menjelaskan crate secara keseluruhan</span>
 
 <a id="exporting-a-convenient-public-api-with-pub-use"></a>
 
+<a id="exporting-a-convenient-public-api"></a>
 ### Mengekspor API Publik yang Mudah Dipakai
 
 Struktur API publik Anda merupakan pertimbangan utama ketika menerbitkan sebuah

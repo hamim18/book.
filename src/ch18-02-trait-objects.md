@@ -2,6 +2,7 @@
 
 <a id="using-trait-objects-that-allow-for-values-of-different-types"></a>
 
+<a id="using-trait-objects-to-abstract-over-shared-behavior"></a>
 ## Memakai Trait Object untuk Mengabstraksi Perilaku Bersama
 
 Di Bab 8, kami menyebutkan bahwa salah satu keterbatasan vektor adalah mereka

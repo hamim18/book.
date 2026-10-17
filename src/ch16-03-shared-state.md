@@ -101,6 +101,7 @@ berhasil mengubah `i32` bagian dalam menjadi `6`.
 
 <a id="sharing-a-mutext-between-multiple-threads"></a>
 
+<a id="shared-access-to-mutext"></a>
 #### Akses Bersama ke `Mutex<T>`
 
 Sekarang mari kita coba berbagi nilai di antara beberapa thread menggunakan

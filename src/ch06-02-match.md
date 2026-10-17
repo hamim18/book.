@@ -2,6 +2,7 @@
 
 <a id="the-match-control-flow-operator"></a>
 
+<a id="the-match-control-flow-construct"></a>
 ## Konstruk Alur Kontrol `match`
 
 Rust memiliki konstruk alur kontrol yang sangat tangguh bernama `match` yang
@@ -70,6 +71,7 @@ kode berikut mencetak “Lucky penny!” setiap kali metodenya dipanggil dengan
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-08-match-arm-multiple-lines/src/main.rs:here}}
 ```
 
+<a id="patterns-that-bind-to-values"></a>
 ### Pola yang Mengikat Nilai
 
 Fitur *arm* match lain yang berguna adalah kemampuannya untuk mengikat

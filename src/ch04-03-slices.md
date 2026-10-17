@@ -1,3 +1,4 @@
+<a id="the-slice-type"></a>
 ## Tipe Slice
 
 *Slice* memungkinkan Anda merujuk pada urutan elemen yang berkesinambungan di
@@ -119,6 +120,7 @@ berhubungan bertebaran yang harus dijaga agar tetap sinkron.
 
 Untungnya, Rust memiliki solusi untuk masalah ini: *string slice*.
 
+<a id="string-slices"></a>
 ### Slice String
 
 Sebuah *string slice* adalah *reference* ke urutan elemen yang
@@ -271,6 +273,7 @@ Tipe `s` di sini adalah `&str`: ia adalah sebuah *slice* yang menunjuk ke
 titik tertentu di dalam biner. Inilah juga mengapa *string literal* bersifat
 *immutable*; `&str` adalah *immutable reference*.
 
+<a id="string-slices-as-parameters"></a>
 #### Slice String sebagai Parameter
 
 Mengetahui bahwa Anda dapat mengambil *slice* dari *literal* maupun nilai

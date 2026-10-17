@@ -1,3 +1,4 @@
+<a id="methods"></a>
 ## Metode
 
 Metode mirip dengan fungsi: kita mendeklarasikannya dengan keyword `fn` dan
@@ -13,6 +14,7 @@ tempat metode itu dipanggil.
 
 <a id="defining-methods"></a>
 
+<a id="method-syntax"></a>
 ### Sintaks Metode
 
 Mari kita ubah fungsi `area` yang memiliki instance `Rectangle` sebagai
@@ -97,6 +99,7 @@ baca-saja ke field itu sebagai bagian dari API publik tipe tersebut. Kita akan
 membahas apa itu publik dan privat serta cara menetapkan field atau metode
 sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 
+<a id="wheres-the---operator"></a>
 > ### Di Mana Operator `->`?
 >
 > Di C dan C++, dua operator berbeda dipakai untuk memanggil metode: Anda

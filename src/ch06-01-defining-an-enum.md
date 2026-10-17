@@ -34,6 +34,7 @@ Kita dapat menyatakan konsep ini dalam kode dengan mendefinisikan enumerasi
 `IpAddrKind` kini adalah tipe data kustom yang dapat kita pakai di bagian lain
 kode kita.
 
+<a id="enum-values"></a>
 ### Nilai Enum
 
 Kita dapat membuat instance dari masing-masing dua *variant* `IpAddrKind`

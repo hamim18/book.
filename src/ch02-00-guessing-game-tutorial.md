@@ -124,6 +124,7 @@ mencetak string ke layar:
 Kode ini mencetak prompt yang menyatakan apa permainan ini dan meminta
 masukan dari pengguna.
 
+<a id="storing-values-with-variables"></a>
 ### Menyimpan Nilai dengan Variabel
 
 Berikutnya, kita akan membuat variabel untuk menyimpan masukan pengguna,
@@ -220,6 +221,7 @@ reference lebih tuntas.)
 
 <a id="handling-potential-failure-with-the-result-type"></a>
 
+<a id="handling-potential-failure-with-result"></a>
 ### Menangani Kemungkinan Kegagalan dengan `Result`
 
 Kita masih mengerjakan baris kode ini. Sekarang kita membahas baris teks
@@ -550,6 +552,7 @@ pemakaian ulang pustaka menjadi sangat mudah, sehingga para Rustaceans
 mampu menulis proyek-proyek yang lebih kecil yang dirangkai dari sejumlah
 *package* (paket).
 
+<a id="generating-a-random-number"></a>
 ### Menghasilkan Angka Acak
 
 Mari kita mulai memakai `rand` untuk menghasilkan angka yang akan ditebak.
@@ -633,6 +636,7 @@ memiliki `rand = "0.10.1"` di *Cargo.toml* Anda, karena versi `rand` di
 masa depan mungkin memiliki API yang berbeda, tetapi versi mana pun dalam
 seri `0.10` seharusnya bekerja dengan kode di bab ini.
 
+<a id="comparing-the-guess-to-the-secret-number"></a>
 ## Membandingkan Tebakan dengan Angka Rahasia
 
 Sekarang setelah kita memiliki masukan pengguna dan angka acak, kita dapat
@@ -886,6 +890,7 @@ perhatikan, memasukkan masukan non-angka lain juga akan menghentikannya.
 Ini kurang optimal, bisa dibilang; kita ingin permainannya juga berhenti
 ketika angka yang benar ditebak.
 
+<a id="quitting-after-a-correct-guess"></a>
 ### Berhenti Setelah Tebakan Benar
 
 Mari kita program permainannya agar berhenti ketika pengguna menang dengan

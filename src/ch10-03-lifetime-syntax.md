@@ -1,3 +1,4 @@
+<a id="validating-references-with-lifetimes"></a>
 ## Memvalidasi Reference dengan Lifetime
 
 Lifetime adalah jenis generik lain yang sudah kita pakai. Alih-alih

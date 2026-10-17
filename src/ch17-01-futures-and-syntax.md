@@ -45,6 +45,7 @@ dari URL mana pun yang selesai lebih dulu. Contoh ini akan memuat cukup banyak
 sintaks baru, tetapi jangan khawatir—kami akan menjelaskan semua yang perlu
 Anda ketahui seiring kita berjalan.
 
+<a id="our-first-async-program"></a>
 ## Program Async Pertama Kita
 
 Untuk menjaga fokus bab ini pada mempelajari async alih-alih menyulap berbagai

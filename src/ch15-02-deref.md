@@ -3,6 +3,7 @@
 <a id="treating-smart-pointers-like-regular-references-with-the-deref-trait"></a>
 <a id="treating-smart-pointers-like-regular-references-with-deref"></a>
 
+<a id="treating-smart-pointers-like-regular-references"></a>
 ## Memperlakukan Smart Pointer Seperti Reference Biasa
 
 Mengimplementasikan trait `Deref` memungkinkan Anda menyesuaikan perilaku

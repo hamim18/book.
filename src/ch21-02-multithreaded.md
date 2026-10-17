@@ -155,6 +155,7 @@ dengan async.
 
 <a id="creating-a-similar-interface-for-a-finite-number-of-threads"></a>
 
+<a id="creating-a-finite-number-of-threads"></a>
 #### Membuat Thread dalam Jumlah Terbatas
 
 Kita ingin thread pool kita bekerja dengan cara yang serupa dan familier

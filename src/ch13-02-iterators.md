@@ -52,6 +52,7 @@ fleksibilitas untuk memakai logika yang sama dengan berbagai jenis urutan,
 bukan hanya struktur data yang dapat Anda indeks, seperti vektor. Mari kita
 telaah bagaimana *iterator* melakukannya.
 
+<a id="the-iterator-trait-and-the-next-method"></a>
 ### Trait `Iterator` dan Metode `next`
 
 Semua *iterator* mengimplementasikan sebuah *trait* bernama `Iterator` yang

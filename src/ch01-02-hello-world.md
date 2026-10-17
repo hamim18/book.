@@ -49,6 +49,7 @@ Untuk Windows CMD, masukkan ini:
 <!-- Old headings. Do not remove or links may break. -->
 <a id="writing-and-running-a-rust-program"></a>
 
+<a id="rust-program-basics"></a>
 ### Dasar-Dasar Program Rust
 
 Berikutnya, buat file sumber baru dan beri nama _main.rs_. File Rust selalu

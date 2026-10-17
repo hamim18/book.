@@ -22,6 +22,7 @@ memahami fitur-fitur yang membuat Rust unik. Dalam bab ini, Anda akan
 mempelajari *ownership* dengan menelusuri beberapa contoh yang berfokus pada
 satu struktur data yang sangat umum: string.
 
+<a id="the-stack-and-the-heap"></a>
 > ### Stack dan Heap
 >
 > Banyak bahasa pemrograman tidak mengharuskan Anda untuk terlalu sering
@@ -262,6 +263,7 @@ beberapa situasi tersebut sekarang.
 
 <a id="ways-variables-and-data-interact-move"></a>
 
+<a id="variables-and-data-interacting-with-move"></a>
 #### Variabel dan Data yang Berinteraksi dengan Move
 
 Beberapa variabel dapat berinteraksi dengan data yang sama dengan berbagai
@@ -426,6 +428,7 @@ dibebaskan. Ketika kita mencetak nilainya di akhir program, hasilnya adalah
 
 <a id="ways-variables-and-data-interact-clone"></a>
 
+<a id="variables-and-data-interacting-with-clone"></a>
 #### Variabel dan Data yang Berinteraksi dengan Clone
 
 Jika kita _memang_ ingin menyalin secara mendalam data *heap* dari `String`,
@@ -447,6 +450,7 @@ Ketika Anda melihat pemanggilan `clone`, Anda tahu bahwa ada kode arbitrer
 yang sedang dieksekusi dan kode tersebut mungkin mahal. Ini adalah penanda
 visual bahwa ada sesuatu yang berbeda sedang terjadi.
 
+<a id="stack-only-data-copy"></a>
 #### Data yang Hanya Ada di Stack: Copy
 
 Ada satu kerumitan lagi yang belum kita bicarakan. Kode yang menggunakan

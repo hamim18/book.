@@ -54,6 +54,7 @@ scope-nya! Untuk memperbaiki masalah ini, pindahkan `use` ke dalam module
 `customer` juga, atau rujuk pintasan di module induk dengan `super::hosting`
 di dalam module anak `customer`.
 
+<a id="creating-idiomatic-use-paths"></a>
 ### Membuat Path `use` yang Idiomatis
 
 Di Listing 7-11, Anda mungkin bertanya-tanya mengapa kita menuliskan `use

@@ -81,6 +81,7 @@ module `front_of_house`. Aturan compiler tentang file mana yang diperiksa
 untuk kode module mana berarti direktori dan file akan lebih mendekati module
 tree.
 
+<a id="alternate-file-paths"></a>
 > ### Path File Alternatif
 >
 > Sejauh ini kita telah membahas path file yang paling idiomatis yang dipakai

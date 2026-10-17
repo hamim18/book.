@@ -1,3 +1,4 @@
+<a id="advanced-traits"></a>
 ## Trait Lanjutan
 
 Pertama kali kita membahas trait di seksi [“Mendefinisikan Perilaku Bersama
@@ -452,6 +453,7 @@ instance `Point` untuk menampilkannya di dalam bingkai tanda bintang.
 <a id="using-the-newtype-pattern-to-implement-external-traits-on-external-types"></a>
 <a id="using-the-newtype-pattern-to-implement-external-traits"></a>
 
+<a id="implementing-external-traits-with-the-newtype-pattern"></a>
 ### Mengimplementasikan Trait Eksternal dengan Pola Newtype
 
 Di seksi [“Mengimplementasikan Trait pada Suatu Tipe”][implementing-a-trait-on-a-type]<!--

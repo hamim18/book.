@@ -43,6 +43,7 @@ pada Bab 18.
 
 <a id="creating-type-synonyms-with-type-aliases"></a>
 
+<a id="type-synonyms-and-type-aliases"></a>
 ### Sinonim Tipe dan Alias Tipe
 
 Rust menyediakan kemampuan untuk mendeklarasikan *type alias* (alias tipe)
@@ -220,6 +221,7 @@ Di sini, loop-nya tidak pernah berakhir, jadi `!` adalah nilai dari ekspresi
 itu. Akan tetapi, hal ini tidak akan berlaku jika kita menyertakan `break`,
 karena loop itu akan berakhir saat ia mencapai `break`.
 
+<a id="dynamically-sized-types-and-the-sized-trait"></a>
 ### Tipe Berukuran Dinamis dan Trait `Sized`
 
 Rust perlu mengetahui detail tertentu tentang tipe-tipenya, seperti berapa

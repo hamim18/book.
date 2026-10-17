@@ -109,6 +109,7 @@ tanpa merusak kode bagian luar. Namun, Rust memang memberi Anda opsi untuk
 mengekspos bagian dalam kode module anak ke module leluhur di luarnya dengan
 memakai kata kunci `pub` untuk menjadikan sebuah item publik.
 
+<a id="exposing-paths-with-the-pub-keyword"></a>
 ### Mengekspos Path dengan Kata Kunci `pub`
 
 Mari kita kembali ke galat di Listing 7-4 yang memberi tahu kita bahwa module

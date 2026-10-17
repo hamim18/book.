@@ -284,6 +284,7 @@ dideklarasikan dengan definisi metode. Di sini, parameter generik `X1` dan
 Parameter generik `X2` dan `Y2` dideklarasikan setelah `fn mixup` karena
 mereka hanya relevan untuk metode tersebut.
 
+<a id="performance-of-code-using-generics"></a>
 ### Kinerja Kode yang Memakai Generics
 
 Anda mungkin bertanya-tanya apakah ada biaya *runtime* ketika memakai

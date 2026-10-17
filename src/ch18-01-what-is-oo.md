@@ -25,6 +25,7 @@ data, dan blok `impl` menyediakan metode pada struct dan enum. Meskipun struct
 dan enum yang bermetode tidak _disebut_ objek, keduanya menyediakan
 fungsionalitas yang sama, menurut definisi objek dari Gang of Four.
 
+<a id="encapsulation-that-hides-implementation-details"></a>
 ### Enkapsulasi yang Menyembunyikan Detail Implementasi
 
 Aspek lain yang umumnya dikaitkan dengan OOP adalah gagasan tentang
