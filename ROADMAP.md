@@ -6,13 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Tahap 3 — Appendix A s/d G (8 file) selesai dan lulus
-  `cek_terjemahan.py`. Tinggal Tahap 4 (Pendahuluan: `title-page.md`,
-  `foreword.md`, `SUMMARY.md`) dan Tahap 5 (pemeriksaan menyeluruh).
-- File berikutnya yang dikerjakan: Tahap 4 — `title-page.md` + `foreword.md`
-  + `SUMMARY.md` (judul bab diterjemahkan, path tetap; paling akhir supaya
-  judul SUMMARY cocok dengan heading final tiap bab).
-- `mdbook test` terakhir lulus: setelah Appendix (exit 0).
+- Tahap 4 selesai — Pendahuluan (`title-page.md`, `foreword.md`, `SUMMARY.md`)
+  diterjemahkan dan lulus `cek_terjemahan.py`. **Semua 112 file selesai,
+  0 galat.** `mdbook test` lulus (exit 0).
+- File berikutnya yang dikerjakan: Tahap 5 — pemeriksaan menyeluruh: review
+  kedua (banding `asli/` ↔ `src/`), `mdbook build` (anchor heading
+  diterjemahkan), konsistensi istilah antar-bab.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -25,8 +24,8 @@ Diperbarui di akhir setiap sesi.
       setiap beberapa bab. (`foreword.md` dipindah ke Tahap 4, bersama kelompok
       Pendahuluan.)
 - [x] Tahap 3 — `appendix-00` s/d `appendix-07`
-- [ ] Tahap 4 — `title-page.md` + `SUMMARY.md` (judul bab diterjemahkan, path tetap).
-      Paling akhir, supaya judul SUMMARY pasti cocok dengan heading final tiap bab.
+- [x] Tahap 4 — `title-page.md` + `foreword.md` + `SUMMARY.md` (judul bab
+      diterjemahkan, path tetap; label SUMMARY mengikuti heading final tiap bab).
 - [ ] Tahap 5 — Pemeriksaan menyeluruh: review kedua (banding `asli/` ↔ `src/`),
       `mdbook test` (lihat Catatan teknis), `mdbook build` (tautan anchor rusak
       karena heading diterjemahkan), konsistensi istilah antar-bab.
@@ -87,7 +86,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 
 | Kelompok    | Selesai | Galat | Belum | Total |
 |-------------|--------:|------:|------:|------:|
-| Pendahuluan |       0 |     0 |     3 |     3 |
+| Pendahuluan |       3 |     0 |     0 |     3 |
 | Bab 00      |       1 |     0 |     0 |     1 |
 | Bab 01      |       4 |     0 |     0 |     4 |
 | Bab 02      |       1 |     0 |     0 |     1 |
@@ -111,7 +110,7 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 20      |       6 |     0 |     0 |     6 |
 | Bab 21      |       4 |     0 |     0 |     4 |
 | Appendix    |       8 |     0 |     0 |     8 |
-| TOTAL       |     109 |     0 |     3 |   112 |
+| TOTAL       |     112 |     0 |     0 |   112 |
 
 ## Log keputusan istilah
 
@@ -672,6 +671,9 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | opt in (verba) | ikut serta / memilih untuk memakai | App G |
 | rock-solid | kokoh | App G |
 | bleeding edge | garis terdepan | App G |
+| empowerment / empowering | pemberdayaan / memberdayakan | Kata Pengantar |
+| enthusiasts | para penggemar | Kata Pengantar |
+| advocates (verba) | mengadvokasi | Kata Pengantar |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -694,6 +696,21 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Judul karya (“The Twelve Days of Christmas”) tetap Inggris.
 
 ## Masalah terbuka
+
+- Keputusan Tahap 4 (Pendahuluan), mohon konfirmasi:
+  - Judul buku di `title-page.md` dipertahankan “The Rust Programming
+    Language” (nama resmi; prosa bab lain juga mempertahankannya dalam
+    miring). Bila ingin diterjemahkan, ubah sekaligus SUMMARY baris pertama.
+  - Label SUMMARY untuk Lampiran memakai pola asli “A - Keywords”, “B -
+    Operator dan Simbol”, dst. (bukan “Lampiran A: …”), dengan induk
+    “[Lampiran]”.
+  - `ch17-03-more-futures.md` tidak punya heading H2 (sama dengan aslinya),
+    jadi label SUMMARY dipilih bebas: “Bekerja dengan Futures dalam Jumlah
+    Berapa Pun” (asli: “Working With Any Number of Futures”).
+  - Heading `ch17-06` kini “Merangkai Semuanya: Futures, Tasks, dan Threads”;
+    label SUMMARY mengikutinya. Perlu dicek di Tahap 5 apakah aslinya memang
+    memuat “Tying It All Together” (belum bisa dibandingkan karena `asli/`
+    tidak dibuka di sesi ini).
 
 - Teks tautan yang diterjemahkan di bab terdahulu harus cocok dengan heading
   final file tujuan (diperiksa saat file itu dikerjakan):

@@ -1,47 +1,52 @@
-# Foreword
+# Kata Pengantar
 
-The Rust programming language has come a long way in a few short years, from
-its creation and incubation by a small and nascent community of enthusiasts, to
-becoming one of the most loved and in-demand programming languages in the
-world. Looking back, it was inevitable that the power and promise of Rust would
-turn heads and gain a foothold in systems programming. What was not inevitable
-was the global growth in interest and innovation that permeated through open
-source communities and catalyzed wide-scale adoption across industries.
+Bahasa pemrograman Rust telah menempuh perjalanan yang panjang dalam beberapa
+tahun yang singkat, dari penciptaan dan inkubasinya oleh komunitas kecil para
+penggemar yang baru tumbuh, hingga menjadi salah satu bahasa pemrograman yang
+paling dicintai dan paling diminati di dunia. Menoleh ke belakang, sudah
+menjadi keniscayaan bahwa kekuatan dan janji yang ditawarkan Rust akan
+menarik perhatian banyak orang dan memperoleh pijakan dalam pemrograman
+sistem. Yang bukan keniscayaan adalah pertumbuhan minat dan inovasi berskala
+global yang merembes ke dalam komunitas open source dan mengatalisasi adopsi
+berskala luas di berbagai industri.
 
-At this point in time, it is easy to point to the wonderful features that Rust
-has to offer to explain this explosion in interest and adoption. Who doesn’t
-want memory safety, *and* fast performance, *and* a friendly compiler, *and*
-great tooling, among a host of other wonderful features? The Rust language you
-see today combines years of research in systems programming with the practical
-wisdom of a vibrant and passionate community. This language was designed with
-purpose and crafted with care, offering developers a tool that makes it easier
-to write safe, fast, and reliable code.
+Pada titik ini, mudah untuk menunjuk fitur-fitur hebat yang ditawarkan Rust
+sebagai penjelasan atas ledakan minat dan adopsi ini. Siapa yang tidak
+menginginkan keamanan memori, *dan* performa yang cepat, *dan* *compiler*
+(kompilator) yang ramah, *dan* perangkat yang hebat, di antara segudang fitur
+hebat lainnya? Bahasa Rust yang Anda lihat hari ini menggabungkan riset
+bertahun-tahun di bidang pemrograman sistem dengan kebijaksanaan praktis dari
+komunitas yang hidup dan bergairah. Bahasa ini dirancang dengan tujuan yang
+jelas dan dikerjakan dengan penuh kecermatan, menawarkan kepada para pengembang
+sebuah alat yang memudahkan mereka menulis kode yang aman, cepat, dan andal.
 
-But what makes Rust truly special is its roots in empowering you, the user, to
-achieve your goals. This is a language that wants you to succeed, and the
-principle of empowerment runs through the core of the community that builds,
-maintains, and advocates for this language. Since the previous edition of this
-definitive text, Rust has further developed into a truly global and trusted
-language. The Rust Project is now robustly supported by the Rust Foundation,
-which also invests in key initiatives to ensure that Rust is secure, stable,
-and sustainable.
+Namun, yang membuat Rust benar-benar istimewa adalah akarnya yang memberdayakan
+Anda, sang pengguna, untuk mencapai tujuan Anda. Ini adalah bahasa yang
+ingin Anda berhasil, dan prinsip pemberdayaan itu mengalir melalui inti
+komunitas yang membangun, memelihara, dan mengadvokasi bahasa ini. Sejak edisi
+sebelumnya dari teks definitif ini, Rust semakin berkembang menjadi bahasa
+yang benar-benar global dan tepercaya. Rust Project kini didukung secara kokoh
+oleh Rust Foundation, yang juga berinvestasi dalam berbagai inisiatif kunci
+untuk memastikan bahwa Rust aman, stabil, dan berkelanjutan.
 
-This edition of *The Rust Programming Language* is a comprehensive update,
-reflecting the language’s evolution over the years and providing valuable new
-information. But it is not just a guide to syntax and libraries—it’s an
-invitation to join a community that values quality, performance, and thoughtful
-design. Whether you’re a seasoned developer looking to explore Rust for the
-first time or an experienced Rustacean looking to refine your skills, this
-edition offers something for everyone.
+Edisi *The Rust Programming Language* ini adalah pembaruan yang menyeluruh,
+mencerminkan evolusi bahasa ini selama bertahun-tahun dan menyediakan
+informasi baru yang berharga. Namun, buku ini bukan sekadar panduan sintaks
+dan pustaka—buku ini adalah undangan untuk bergabung dengan komunitas yang
+menghargai kualitas, performa, dan desain yang dipikirkan matang-matang. Entah
+Anda seorang pengembang kawakan yang ingin menjelajahi Rust untuk pertama
+kalinya atau seorang Rustacean berpengalaman yang ingin mengasah keterampilan,
+edisi ini menawarkan sesuatu untuk semua orang.
 
-The Rust journey has been one of collaboration, learning, and iteration. The
-growth of the language and its ecosystem is a direct reflection of the vibrant,
-diverse community behind it. The contributions of thousands of developers, from
-core language designers to casual contributors, are what make Rust such a
-unique and powerful tool. By picking up this book, you’re not just learning a
-new programming language—you’re joining a movement to make software better,
-safer, and more enjoyable to work with.
+Perjalanan Rust adalah perjalanan kolaborasi, pembelajaran, dan iterasi.
+Pertumbuhan bahasa ini beserta ekosistemnya merupakan cerminan langsung dari
+komunitas yang hidup dan beragam di belakangnya. Kontribusi ribuan pengembang,
+dari perancang inti bahasa hingga kontributor biasa, adalah yang membuat Rust
+menjadi alat yang begitu unik dan kuat. Dengan mengambil buku ini, Anda tidak
+sekadar mempelajari bahasa pemrograman baru—Anda ikut bergabung dalam gerakan
+untuk membuat perangkat lunak menjadi lebih baik, lebih aman, dan lebih
+menyenangkan untuk dikerjakan.
 
-Welcome to the Rust community!
+Selamat datang di komunitas Rust!
 
-- Bec Rumbul, Executive Director of the Rust Foundation
+- Bec Rumbul, Direktur Eksekutif Rust Foundation
