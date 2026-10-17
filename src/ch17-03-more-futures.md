@@ -82,7 +82,7 @@ tugas-tugas lambat mereka, kita butuh await point supaya bisa menyerahkan
 kontrol kembali ke runtime. Itu berarti kita butuh sesuatu yang bisa kita
 tunggu!
 
-Kita sebenarnya sudah bisa melihat penyerahan semacam ini terjadi di Listing
+Kita sebenarnya sudah bisa melihat handoff semacam ini terjadi di Listing
 17-15: jika kita menghapus `trpl::sleep` di akhir *future* `a`, *future* itu akan
 selesai tanpa *future* `b` berjalan _sama sekali_. Mari kita coba memakai fungsi
 `trpl::sleep` sebagai titik awal untuk membiarkan operasi saling bergantian

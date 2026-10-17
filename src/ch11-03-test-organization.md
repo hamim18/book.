@@ -96,7 +96,7 @@ berarti mereka hanya bisa memanggil fungsi yang merupakan bagian dari API
 publik library Anda. Tujuannya adalah menguji apakah banyak bagian library
 Anda bekerja bersama dengan benar. Unit-unit kode yang bekerja dengan benar
 sendiri-sendiri bisa bermasalah ketika diintegrasikan, jadi coverage
-test atas kode yang terintegrasi juga penting. Untuk membuat test
+atas kode yang terintegrasi juga penting. Untuk membuat test
 integrasi, pertama Anda perlu direktori _tests_.
 
 #### Direktori _tests_

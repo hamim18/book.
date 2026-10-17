@@ -239,7 +239,7 @@ io::stdin().read_line(&mut guess).expect("Failed to read line");
 ```
 
 Namun, satu baris panjang sulit dibaca, jadi sebaiknya dibagi. Sering kali
-bijak untuk menyisipkan baris baru dan spasi lain untuk membantu memecah
+bijak untuk menyisipkan baris baru dan whitespace lain untuk membantu memecah
 baris-baris panjang ketika Anda memanggil method dengan sintaks
 `.method_name()`. Sekarang mari kita bahas apa yang dilakukan baris ini.
 
@@ -749,7 +749,7 @@ type ke type lain.
 Kita mengikat variable baru ini ke expression `guess.trim().parse()`.
 `guess` dalam expression itu merujuk ke variable `guess` asli yang berisi
 input sebagai string. Method `trim` pada instance `String` akan
-menghapus spasi apa pun di awal dan akhir, yang harus kita lakukan sebelum
+menghapus whitespace apa pun di awal dan akhir, yang harus kita lakukan sebelum
 kita dapat mengonversi string itu ke `u32`, yang hanya dapat memuat data
 numerik. Pengguna harus menekan <kbd>enter</kbd> untuk memenuhi
 `read_line` dan memasukkan tebakannya, yang menambahkan karakter newline
