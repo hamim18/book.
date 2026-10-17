@@ -6,13 +6,12 @@ Diperbarui di akhir setiap sesi.
 
 ## Status terkini
 
-- Bab terakhir selesai: Bab 19 (pola dan pencocokan, 4 file) — Tahap 2
-  berjalan.
-- File berikutnya yang dikerjakan: `ch20-00-advanced-features.md`
-  (Bab 20, 6 file; mulai dari `ch20-00`).
+- Bab terakhir selesai: Bab 20 (fitur lanjutan, 6 file) — Tahap 2 berjalan.
+- File berikutnya yang dikerjakan: `ch21-00-final-project-a-web-server.md`
+  (Bab 21, 4 file; mulai dari `ch21-00`).
   `foreword.md` masih di kelompok Pendahuluan (dikerjakan belakangan).
-- `mdbook test` terakhir lulus: setelah Bab 19 (exit 0); dijadwalkan lagi
-  setelah Bab 20.
+- `mdbook test` terakhir lulus: setelah Bab 20 (exit 0); dijadwalkan lagi
+  setelah Bab 21.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -107,10 +106,10 @@ File tunggal terbesar (>3.500 kata, butuh beberapa sesi): `ch02-00` (6.028),
 | Bab 17      |       7 |     0 |     0 |     7 |
 | Bab 18      |       4 |     0 |     0 |     4 |
 | Bab 19      |       4 |     0 |     0 |     4 |
-| Bab 20      |       0 |     0 |     6 |     6 |
+| Bab 20      |       6 |     0 |     0 |     6 |
 | Bab 21      |       0 |     0 |     4 |     4 |
 | Appendix    |       0 |     0 |     8 |     8 |
-| TOTAL       |      91 |     0 |    21 |   112 |
+| TOTAL       |      97 |     0 |    15 |   112 |
 
 ## Log keputusan istilah
 
@@ -537,6 +536,68 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 | remainder | sisa pembagian | 19 |
 | hypothetical | hipotetis | 19 |
 | one level deep | sedalam satu tingkat | 19 |
+| superpowers (unsafe superpowers) | kekuatan super (unsafe) | 20 |
+| opt out (verba) | memilih untuk tidak memakai | 20 |
+| alter ego | alter ego (tetap) | 20 |
+| static analysis | analisis statis | 20 |
+| low-level systems programming | pemrograman sistem tingkat rendah | 20 |
+| raw borrow operator | operator borrow mentah | 20 |
+| cast (verba) | melakukan cast | 20 |
+| segmentation fault | (tetap) | 20 |
+| use case | kasus pemakaian | 20 |
+| cleanup | pembersihan | 20 |
+| union | *union* (tetap) | 20 |
+| lint | lint (tanpa miring) | 20 |
+| unsound | tidak sound (tetap) | 20 |
+| mangling / name mangling | melakukan mangling / name mangling (tetap) | 20 |
+| name collision | bentrokan nama | 20 |
+| shared library | library bersama | 20 |
+| Foreign Function Interface (FFI) | *Foreign Function Interface* (FFI, Antarmuka Fungsi Asing) | 20 |
+| application binary interface (ABI) | *application binary interface* (ABI, antarmuka biner aplikasi) | 20 |
+| assembly level | tingkat assembly | 20 |
+| dynamic analysis | analisis dinamis | 20 |
+| operator overloading | *operator overloading* (overload operator) | 20 |
+| overload (verba) | meng-overload | 20 |
+| default type parameter | *default type parameter* (parameter tipe bawaan) | 20 |
+| fully qualified syntax | sintaks fully qualified (miring) | 20 |
+| supertrait | supertrait (tetap, miring) | 20 |
+| newtype pattern | *newtype pattern* (pola newtype) | 20 |
+| disambiguate | mendisambiguasi | 20 |
+| angle brackets | kurung sudut | 20 |
+| right-hand side | sisi kanan | 20 |
+| puppy | puppy (tetap) | 20 |
+| animal shelter | penampungan hewan | 20 |
+| delegate (verba) | mendelegasikan | 20 |
+| elide (tipe wrapper) | menghilangkan (pada waktu kompilasi) | 20 |
+| type synonym | sinonim tipe | 20 |
+| type alias | *type alias* (alias tipe) | 20 |
+| thunk | thunk (tetap, miring) | 20 |
+| never type | *never type* (tipe never) | 20 |
+| empty type | *empty type* (tipe kosong) | 20 |
+| diverging function | *diverging function* (fungsi divergen) | 20 |
+| type theory | teori tipe | 20 |
+| dynamically sized type (DST) | *dynamically sized type* (tipe berukuran dinamis); DST (tetap) | 20 |
+| unsized type | *unsized type* (tipe yang tidak berukuran) | 20 |
+| metadata | metadata (tetap) | 20 |
+| golden rule | aturan emas | 20 |
+| initializer function | fungsi penginisialisasi | 20 |
+| opaque type | *opaque type* (tipe opak) | 20 |
+| metaprogramming | *metaprogramming* (metapemrograman) | 20 |
+| expand (macro) | diekspansi | 20 |
+| declarative macro | *declarative macro* (macro deklaratif) | 20 |
+| procedural macro | *procedural macro* (macro prosedural) | 20 |
+| attribute-like macro | macro mirip atribut | 20 |
+| function-like macro | macro mirip fungsi | 20 |
+| token / TokenStream | token (tetap); TokenStream (tetap) | 20 |
+| reflection | refleksi | 20 |
+| syntax tree | pohon sintaks | 20 |
+| intermediate representation | representasi perantara | 20 |
+| templating | templating (tetap) | 20 |
+| production code | kode produksi | 20 |
+| toolbox | kotak perkakas | 20 |
+| emitted (kode) | dihasilkan | 20 |
+| pre-allocate (up front) | mengalokasikan di muka | 20 |
+| syntactically correct | benar secara sintaksis | 20 |
 
 ## Konvensi yang dipakai di Bab 4 (usulan, mohon konfirmasi)
 
@@ -574,9 +635,9 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   (dari ch09-02 dan ch15-01) dan ch18-03 “Menyandikan State dan Perilaku
   sebagai Tipe” (dari ch09-03) sudah beres: heading finalnya kini persis
   sama dengan teks tautan itu.
-  Belum beres (file tujuan belum dikerjakan): ch18-02 → ch20-03
-  “Tipe Berukuran Dinamis dan Trait `Sized`”; ch18-03 → ch20-05
-  “Macro” (`#macros`).
+  Sudah beres setelah Bab 20 dikerjakan: ch18-02 → ch20-03 (heading kini
+  “Tipe Berukuran Dinamis dan Trait `Sized`”) dan ch18-03 → ch20-05
+  (heading kini “Macro”).
 - Teks tautan ch07-00 “[“Cargo Workspaces”]” diubah menjadi “[“Workspace
   Cargo”]” agar cocok dengan heading final ch14-03 (`## Workspace Cargo`),
   satu commit dengan bab 14.
@@ -662,6 +723,28 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
   “Menambahkan Kondisional dengan Match Guard”; tag
   `<a id="extra-conditionals-with-match-guards">` tetap ada tetapi target
   tautan memakai anchor otomatis). Solusi diputuskan di Tahap 5.
+- Anchor otomatis dari heading bab 20 yang menjadi target tautan (heading
+  kini diterjemahkan; tag `<a id>` yang ada tidak cocok dengan target
+  tautan, yang di teks asli mengandalkan anchor otomatis):
+  ch20-04 → ch20-02 `#advanced-traits` (heading kini “Trait Lanjutan”);
+  ch20-02 dan ch20-03 → ch20-02 `#implementing-external-traits-with-the-newtype-pattern`
+  (heading kini “Mengimplementasikan Trait Eksternal dengan Pola Newtype”).
+  Tag `<a id>` yang dipertahankan di ch20 (unsafe-superpowers,
+  when-to-use-unsafe-code, associated-types, default-generic-type-parameters-…,
+  disambiguating-between-methods-with-the-same-name, using-supertraits-…,
+  using-the-newtype-pattern-…, declarative-macros-with-macro_rules-…,
+  how-to-write-a-custom-derive-macro) tetap cocok dengan target tautan
+  aslinya. Solusi diputuskan di Tahap 5.
+- Teks tautan ch20-01 → appendix-07 “Lampiran G: Bagaimana Rust Dibuat dan
+  “Nightly Rust”” harus cocok dengan heading final appendix-07
+  (diperiksa saat Tahap 3 mengerjakan file itu).
+- Kejanggalan teks asli ch20-05: kalimat “Let’s walk through what the
+  pattern pieces in Listing 20-29 mean” merujuk Listing 20-29, padahal
+  konteksnya adalah definisi `vec!` di Listing 20-35. Diterjemahkan apa
+  adanya, tidak diperbaiki.
+- Kejanggalan teks asli ch20-04: tautan [future-types] menunjuk
+  `ch17-03-more-futures.html`, tetapi seksi “The `Pin` Type and the `Unpin`
+  Trait” berada di ch17-05. Target tautan dipertahankan apa adanya.
 
 ## Cara memulai sesi baru
 

@@ -1,28 +1,28 @@
-## Advanced Functions and Closures
+## Fungsi dan Closure Lanjutan
 
-This section explores some advanced features related to functions and closures,
-including function pointers and returning closures.
+Seksi ini mengeksplorasi beberapa fitur lanjutan yang berkaitan dengan fungsi
+dan closure, termasuk pointer fungsi dan mengembalikan closure.
 
-### Function Pointers
+### Pointer Fungsi
 
-We’ve talked about how to pass closures to functions; you can also pass regular
-functions to functions! This technique is useful when you want to pass a
-function you’ve already defined rather than defining a new closure. Functions
-coerce to the type `fn` (with a lowercase _f_), not to be confused with the
-`Fn` closure trait. The `fn` type is called a _function pointer_. Passing
-functions with function pointers will allow you to use functions as arguments
-to other functions.
+Kita sudah membahas cara memberikan closure ke fungsi; Anda juga bisa
+memberikan fungsi biasa ke fungsi! Teknik ini berguna ketika Anda ingin
+memberikan fungsi yang sudah Anda definisikan alih-alih mendefinisikan
+closure baru. Fungsi terkoersi menjadi tipe `fn` (dengan huruf *f* kecil),
+jangan tertukar dengan trait closure `Fn`. Tipe `fn` disebut *function
+pointer* (pointer fungsi). Memberikan fungsi dengan pointer fungsi akan
+memungkinkan Anda memakai fungsi sebagai argumen untuk fungsi lain.
 
-The syntax for specifying that a parameter is a function pointer is similar to
-that of closures, as shown in Listing 20-28, where we’ve defined a function
-`add_one` that adds 1 to its parameter. The function `do_twice` takes two
-parameters: a function pointer to any function that takes an `i32` parameter
-and returns an `i32`, and one `i32` value. The `do_twice` function calls the
-function `f` twice, passing it the `arg` value, then adds the two function call
-results together. The `main` function calls `do_twice` with the arguments
-`add_one` and `5`.
+Sintaks untuk menentukan bahwa sebuah parameter adalah pointer fungsi mirip
+dengan sintaks closure, seperti yang ditunjukkan di Listing 20-28, tempat
+kita mendefinisikan fungsi `add_one` yang menambahkan 1 ke parameternya.
+Fungsi `do_twice` menerima dua parameter: sebuah pointer fungsi ke fungsi apa
+pun yang menerima parameter `i32` dan mengembalikan `i32`, dan satu nilai
+`i32`. Fungsi `do_twice` memanggil fungsi `f` dua kali, memberikannya nilai
+`arg`, lalu menjumlahkan hasil kedua pemanggilan fungsi itu. Fungsi `main`
+memanggil `do_twice` dengan argumen `add_one` dan `5`.
 
-<Listing number="20-28" file-name="src/main.rs" caption="Using the `fn` type to accept a function pointer as an argument">
+<Listing number="20-28" file-name="src/main.rs" caption="Memakai tipe `fn` untuk menerima pointer fungsi sebagai argumen">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-28/src/main.rs}}
@@ -30,31 +30,34 @@ results together. The `main` function calls `do_twice` with the arguments
 
 </Listing>
 
-This code prints `The answer is: 12`. We specify that the parameter `f` in
-`do_twice` is an `fn` that takes one parameter of type `i32` and returns an
-`i32`. We can then call `f` in the body of `do_twice`. In `main`, we can pass
-the function name `add_one` as the first argument to `do_twice`.
+Kode ini mencetak `The answer is: 12`. Kita menentukan bahwa parameter `f`
+di `do_twice` adalah `fn` yang menerima satu parameter bertipe `i32` dan
+mengembalikan `i32`. Kita kemudian bisa memanggil `f` di tubuh `do_twice`.
+Di `main`, kita bisa memberikan nama fungsi `add_one` sebagai argumen pertama
+ke `do_twice`.
 
-Unlike closures, `fn` is a type rather than a trait, so we specify `fn` as the
-parameter type directly rather than declaring a generic type parameter with one
-of the `Fn` traits as a trait bound.
+Tidak seperti closure, `fn` adalah tipe, bukan trait, jadi kita menuliskan
+`fn` langsung sebagai tipe parameter alih-alih mendeklarasikan parameter tipe
+generik dengan salah satu trait `Fn` sebagai trait bound.
 
-Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and
-`FnOnce`), meaning you can always pass a function pointer as an argument for a
-function that expects a closure. It’s best to write functions using a generic
-type and one of the closure traits so that your functions can accept either
-functions or closures.
+Pointer fungsi mengimplementasikan ketiga trait closure (`Fn`, `FnMut`, dan
+`FnOnce`), artinya Anda selalu bisa memberikan pointer fungsi sebagai argumen
+untuk fungsi yang mengharapkan closure. Sebaiknya tulis fungsi dengan memakai
+tipe generik dan salah satu trait closure supaya fungsi Anda bisa menerima
+fungsi ataupun closure.
 
-That said, one example of where you would want to only accept `fn` and not
-closures is when interfacing with external code that doesn’t have closures: C
-functions can accept functions as arguments, but C doesn’t have closures.
+Meskipun begitu, satu contoh situasi di mana Anda hanya ingin menerima `fn`
+dan bukan closure adalah saat berinteraksi dengan kode eksternal yang tidak
+memiliki closure: Fungsi C bisa menerima fungsi sebagai argumen, tetapi C
+tidak memiliki closure.
 
-As an example of where you could use either a closure defined inline or a named
-function, let’s look at a use of the `map` method provided by the `Iterator`
-trait in the standard library. To use the `map` method to turn a vector of
-numbers into a vector of strings, we could use a closure, as in Listing 20-29.
+Sebagai contoh situasi di mana Anda bisa memakai closure yang didefinisikan
+secara inline ataupun fungsi bernama, mari kita lihat pemakaian metode `map`
+yang disediakan trait `Iterator` di pustaka standar. Untuk memakai metode
+`map` guna mengubah vektor berisi angka menjadi vektor berisi string, kita
+bisa memakai closure, seperti di Listing 20-29.
 
-<Listing number="20-29" caption="Using a closure with the `map` method to convert numbers to strings">
+<Listing number="20-29" caption="Memakai closure dengan metode `map` untuk mengubah angka menjadi string">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-29/src/main.rs:here}}
@@ -62,10 +65,10 @@ numbers into a vector of strings, we could use a closure, as in Listing 20-29.
 
 </Listing>
 
-Or we could name a function as the argument to `map` instead of the closure.
-Listing 20-30 shows what this would look like.
+Atau kita bisa memberikan fungsi bernama sebagai argumen `map`, bukan
+closure. Listing 20-30 menunjukkan tampilannya.
 
-<Listing number="20-30" caption="Using the `String::to_string` function with the `map` method to convert numbers to strings">
+<Listing number="20-30" caption="Memakai fungsi `String::to_string` dengan metode `map` untuk mengubah angka menjadi string">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-30/src/main.rs:here}}
@@ -73,21 +76,23 @@ Listing 20-30 shows what this would look like.
 
 </Listing>
 
-Note that we must use the fully qualified syntax that we talked about in the
-[“Advanced Traits”][advanced-traits]<!-- ignore --> section because there are
-multiple functions available named `to_string`.
+Perhatikan bahwa kita harus memakai sintaks fully qualified yang kita bahas
+di seksi [“Trait Lanjutan”][advanced-traits]<!-- ignore --> karena ada banyak
+fungsi bernama `to_string` yang tersedia.
 
-Here, we’re using the `to_string` function defined in the `ToString` trait,
-which the standard library has implemented for any type that implements
-`Display`.
+Di sini, kita memakai fungsi `to_string` yang didefinisikan di trait
+`ToString`, yang telah diimplementasikan pustaka standar untuk tipe apa pun
+yang mengimplementasikan `Display`.
 
-Recall from the [“Enum Values”][enum-values]<!-- ignore --> section in Chapter
-6 that the name of each enum variant that we define also becomes an initializer
-function. We can use these initializer functions as function pointers that
-implement the closure traits, which means we can specify the initializer
-functions as arguments for methods that take closures, as seen in Listing 20-31.
+Ingat kembali dari seksi [“Nilai Enum”][enum-values]<!-- ignore --> di Bab 6
+bahwa nama setiap varian enum yang kita definisikan juga menjadi fungsi
+penginisialisasi. Kita bisa memakai fungsi-fungsi penginisialisasi ini
+sebagai pointer fungsi yang mengimplementasikan trait-trait closure, yang
+berarti kita bisa memberikan fungsi-fungsi penginisialisasi itu sebagai
+argumen untuk metode yang menerima closure, seperti terlihat di Listing
+20-31.
 
-<Listing number="20-31" caption="Using an enum initializer with the `map` method to create a `Status` instance from numbers">
+<Listing number="20-31" caption="Memakai penginisialisasi enum dengan metode `map` untuk membuat instance `Status` dari angka">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-31/src/main.rs:here}}
@@ -95,26 +100,29 @@ functions as arguments for methods that take closures, as seen in Listing 20-31.
 
 </Listing>
 
-Here, we create `Status::Value` instances using each `u32` value in the range
-that `map` is called on by using the initializer function of `Status::Value`.
-Some people prefer this style and some people prefer to use closures. They
-compile to the same code, so use whichever style is clearer to you.
+Di sini, kita membuat instance `Status::Value` dengan memakai setiap nilai
+`u32` di range tempat `map` dipanggil, yaitu dengan memakai fungsi
+penginisialisasi `Status::Value`. Sebagian orang lebih menyukai gaya ini dan
+sebagian lagi lebih suka memakai closure. Keduanya terkompilasi menjadi kode
+yang sama, jadi pakailah gaya mana pun yang lebih jelas bagi Anda.
 
-### Returning Closures
+### Mengembalikan Closure
 
-Closures are represented by traits, which means you can’t return closures
-directly. In most cases where you might want to return a trait, you can instead
-use the concrete type that implements the trait as the return value of the
-function. However, you can’t usually do that with closures because they don’t
-have a concrete type that is returnable; you’re not allowed to use the function
-pointer `fn` as a return type if the closure captures any values from its
-scope, for example.
+Closure direpresentasikan oleh trait, yang berarti Anda tidak bisa
+mengembalikan closure secara langsung. Pada sebagian besar kasus ketika Anda
+ingin mengembalikan sebuah trait, Anda bisa memakai tipe konkret yang
+mengimplementasikan trait itu sebagai nilai kembalian fungsi. Akan tetapi,
+biasanya Anda tidak bisa melakukan itu dengan closure karena closure tidak
+memiliki tipe konkret yang bisa dikembalikan; misalnya, Anda tidak diizinkan
+memakai pointer fungsi `fn` sebagai tipe kembalian jika closure itu menangkap
+nilai apa pun dari scope-nya.
 
-Instead, you will normally use the `impl Trait` syntax we learned about in
-Chapter 10. You can return any function type, using `Fn`, `FnOnce`, and `FnMut`.
-For example, the code in Listing 20-32 will compile just fine.
+Sebagai gantinya, biasanya Anda akan memakai sintaks `impl Trait` yang kita
+pelajari di Bab 10. Anda bisa mengembalikan tipe fungsi apa pun, dengan
+memakai `Fn`, `FnOnce`, dan `FnMut`. Misalnya, kode di Listing 20-32 akan
+terkompilasi dengan baik.
 
-<Listing number="20-32" caption="Returning a closure from a function using the `impl Trait` syntax">
+<Listing number="20-32" caption="Mengembalikan closure dari fungsi dengan memakai sintaks `impl Trait`">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-32/src/lib.rs}}
@@ -122,14 +130,15 @@ For example, the code in Listing 20-32 will compile just fine.
 
 </Listing>
 
-However, as we noted in the [“Inferring and Annotating Closure
-Types”][closure-types]<!-- ignore --> section in Chapter 13, each closure is
-also its own distinct type. If you need to work with multiple functions that
-have the same signature but different implementations, you will need to use a
-trait object for them. Consider what happens if you write code like that shown
-in Listing 20-33.
+Akan tetapi, seperti yang kita catat di seksi [“Menginferensi dan
+Menganotasi Tipe Closure”][closure-types]<!-- ignore --> pada Bab 13, setiap
+closure juga merupakan tipenya sendiri yang berbeda. Jika Anda perlu bekerja
+dengan banyak fungsi yang memiliki tanda tangan yang sama tetapi implementasi
+yang berbeda, Anda perlu memakai trait object untuk fungsi-fungsi itu.
+Perhatikan apa yang terjadi jika Anda menulis kode seperti yang ditunjukkan
+di Listing 20-33.
 
-<Listing file-name="src/main.rs" number="20-33" caption="Creating a `Vec<T>` of closures defined by functions that return `impl Fn` types">
+<Listing file-name="src/main.rs" number="20-33" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan tipe `impl Fn`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-33/src/main.rs}}
@@ -137,27 +146,30 @@ in Listing 20-33.
 
 </Listing>
 
-Here we have two functions, `returns_closure` and `returns_initialized_closure`,
-which both return `impl Fn(i32) -> i32`. Notice that the closures that they
-return are different, even though they implement the same type. If we try to
-compile this, Rust lets us know that it won’t work:
+Di sini kita punya dua fungsi, `returns_closure` dan
+`returns_initialized_closure`, yang sama-sama mengembalikan `impl Fn(i32) ->
+i32`. Perhatikan bahwa closure yang mereka kembalikan berbeda, meskipun
+keduanya mengimplementasikan tipe yang sama. Jika kita mencoba
+mengompilasinya, Rust memberi tahu kita bahwa itu tidak akan bekerja:
 
 ```text
 {{#include ../listings/ch20-advanced-features/listing-20-33/output.txt}}
 ```
 
-The error message tells us that whenever we return an `impl Trait`, Rust
-creates a unique _opaque type_, a type where we cannot see into the details of
-what Rust constructs for us, nor can we guess the type Rust will generate to
-write ourselves. So, even though these functions return closures that implement
-the same trait, `Fn(i32) -> i32`, the opaque types Rust generates for each are
-distinct. (This is similar to how Rust produces different concrete types for
-distinct async blocks even when they have the same output type, as we saw in
-[“The `Pin` Type and the `Unpin` Trait”][future-types]<!-- ignore --> in
-Chapter 17.) We have seen a solution to this problem a few times now: We can
-use a trait object, as in Listing 20-34.
+Pesan galat itu memberi tahu kita bahwa setiap kali kita mengembalikan `impl
+Trait`, Rust membuat *opaque type* (tipe opak) yang unik, yaitu tipe yang
+detailnya tidak bisa kita lihat dari apa yang Rust bangun untuk kita, dan
+kita juga tidak bisa menebak tipe yang akan dihasilkan Rust untuk kita tulis
+sendiri. Jadi, meskipun fungsi-fungsi ini mengembalikan closure yang
+mengimplementasikan trait yang sama, `Fn(i32) -> i32`, tipe opak yang
+dihasilkan Rust untuk masing-masing fungsi berbeda. (Ini mirip dengan cara
+Rust menghasilkan tipe konkret yang berbeda untuk blok async yang berbeda
+meskipun tipe keluarannya sama, seperti yang kita lihat di [“Tipe `Pin` dan
+Trait `Unpin`”][future-types]<!-- ignore --> pada Bab 17.) Kita sudah melihat
+solusi untuk masalah ini beberapa kali: Kita bisa memakai trait object,
+seperti di Listing 20-34.
 
-<Listing number="20-34" caption="Creating a `Vec<T>` of closures defined by functions that return `Box<dyn Fn>` so that they have the same type">
+<Listing number="20-34" caption="Membuat `Vec<T>` berisi closure yang didefinisikan oleh fungsi-fungsi yang mengembalikan `Box<dyn Fn>` sehingga semuanya bertipe sama">
 
 ```rust
 {{#rustdoc_include ../listings/ch20-advanced-features/listing-20-34/src/main.rs:here}}
@@ -165,11 +177,11 @@ use a trait object, as in Listing 20-34.
 
 </Listing>
 
-This code will compile just fine. For more about trait objects, refer to the
-section [“Using Trait Objects To Abstract over Shared
-Behavior”][trait-objects]<!-- ignore --> in Chapter 18.
+Kode ini akan terkompilasi dengan baik. Untuk lebih lanjut tentang trait
+object, lihat seksi [“Memakai Trait Object untuk Mengabstraksi Perilaku
+Bersama”][trait-objects]<!-- ignore --> pada Bab 18.
 
-Next, let’s look at macros!
+Selanjutnya, mari kita lihat macro!
 
 [advanced-traits]: ch20-02-advanced-traits.html#advanced-traits
 [enum-values]: ch06-01-defining-an-enum.html#enum-values
