@@ -572,7 +572,7 @@ memakai parameter *lifetime* bergantung pada apakah parameter itu terkait
 dengan *field* *struct* atau dengan parameter dan return value method.
 
 Nama-nama *lifetime* untuk *field* *struct* selalu perlu dideklarasikan setelah
-kata kunci `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
+*keyword* `impl`, lalu dipakai setelah nama *struct*, karena *lifetime*
 tersebut merupakan bagian dari type *struct*.
 
 Di *signature* method dalam blok `impl`, *reference* mungkin terikat dengan

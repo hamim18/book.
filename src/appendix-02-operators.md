@@ -1,6 +1,6 @@
 ## Lampiran B: Operator dan Simbol
 
-Lampiran ini memuat glosarium sintaks Rust, termasuk operator dan simbol lain
+Lampiran ini memuat glossary sintaks Rust, termasuk operator dan simbol lain
 yang muncul sendiri-sendiri atau dalam konteks *path*, *generics*, *trait bound*,
 *macro*, atribut, komentar, *tuple*, dan tanda kurung.
 
@@ -24,7 +24,7 @@ meng-overload operator itu dicantumkan.
 | `&`                       | `&type`, `&mut type`, `&'a type`, `&'a mut type`        | Type pointer yang dipinjam                                                     |                    |
 | `&`                       | `expr & expr`                                           | AND bitwise                                                                    | `BitAnd`           |
 | `&=`                      | `var &= expr`                                           | AND bitwise dan assignment                                                      | `BitAndAssign`     |
-| `&&`                      | `expr && expr`                                          | AND logis dengan evaluasi hubung singkat                                       |                    |
+| `&&`                      | `expr && expr`                                          | AND logis dengan short-circuit evaluation                                       |                    |
 | `*`                       | `expr * expr`                                           | Perkalian aritmetika                                                           | `Mul`              |
 | `*=`                      | `var *= expr`                                           | Perkalian aritmetika dan assignment                                             | `MulAssign`        |
 | `*`                       | `*expr`                                                 | Dereferensi                                                                    | `Deref`            |
@@ -69,7 +69,7 @@ meng-overload operator itu dicantumkan.
 | <code>&vert;</code>       | <code>pat &vert; pat</code>                             | Alternatif pattern                                                                |                    |
 | <code>&vert;</code>       | <code>expr &vert; expr</code>                           | OR bitwise                                                                     | `BitOr`            |
 | <code>&vert;=</code>      | <code>var &vert;= expr</code>                           | OR bitwise dan assignment                                                       | `BitOrAssign`      |
-| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan evaluasi hubung singkat                                        |                    |
+| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>                     | OR logis dengan short-circuit evaluation                                        |                    |
 | `?`                       | `expr?`                                                 | Penerusan error                                                                |                    |
 
 ### Simbol Non-operator

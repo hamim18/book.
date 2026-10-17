@@ -5,15 +5,15 @@
 ## Mengontrol Scope dan Privasi dengan Module
 
 Di bagian ini, kita akan membahas *module* dan bagian-bagian lain dari *module*
-system, yaitu *path*, yang memungkinkan Anda memberi nama item; kata kunci
-`use` yang membawa sebuah *path* ke dalam *scope*; dan kata kunci `pub` untuk
-menjadikan item publik. Kita juga akan membahas kata kunci `as`, *package*
+system, yaitu *path*, yang memungkinkan Anda memberi nama item; *keyword*
+`use` yang membawa sebuah *path* ke dalam *scope*; dan *keyword* `pub` untuk
+menjadikan item publik. Kita juga akan membahas *keyword* `as`, *package*
 eksternal, dan operator *glob*.
 
 ### Lembar Contekan Module
 
 Sebelum masuk ke detail *module* dan *path*, di sini kita menyediakan rujukan
-cepat tentang cara kerja *module*, *path*, kata kunci `use`, dan kata kunci `pub`
+cepat tentang cara kerja *module*, *path*, *keyword* `use`, dan *keyword* `pub`
 di dalam *compiler*, serta cara sebagian besar pengembang mengatur kode mereka.
 Kita akan menelusuri contoh dari masing-masing aturan ini di sepanjang bab
 ini, tetapi bagian ini adalah tempat yang bagus untuk dirujuk sebagai
@@ -50,7 +50,7 @@ pengingat cara kerja *module*.
   publik, deklarasikan dengan `pub mod`, bukan `mod`. Untuk menjadikan
   item-item di dalam *module* publik ikut publik, pakai `pub` sebelum
   deklarasinya.
-- **Kata kunci `use`**: Di dalam sebuah *scope*, kata kunci `use` membuat
+- ***keyword* `use`**: Di dalam sebuah *scope*, *keyword* `use` membuat
   pintasan menuju item untuk mengurangi pengulangan *path* yang panjang. Di
   *scope* mana pun yang dapat merujuk ke
   `crate::garden::vegetables::Asparagus`, Anda dapat membuat pintasan dengan
@@ -141,7 +141,7 @@ kode di Listing 7-1 ke _src/lib.rs_ untuk mendefinisikan beberapa *module* dan
 
 </Listing>
 
-Kita mendefinisikan sebuah *module* dengan kata kunci `mod` yang diikuti nama
+Kita mendefinisikan sebuah *module* dengan *keyword* `mod` yang diikuti nama
 *module* (dalam kasus ini, `front_of_house`). Badan *module* kemudian diletakkan
 di dalam kurung kurawal. Di dalam *module*, kita dapat menempatkan *module* lain,
 seperti dalam kasus ini dengan *module* `hosting` dan `serving`. *Module* juga

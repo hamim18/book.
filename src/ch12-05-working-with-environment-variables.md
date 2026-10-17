@@ -33,7 +33,7 @@ ditunjukkan di Listing 12-20.
 
 Perhatikan bahwa kita juga telah mengedit `contents` pada test lama.
 Kita telah menambahkan sebuah baris baru dengan teks `"Duct tape."` memakai
-huruf kapital _D_ yang seharusnya tidak cocok dengan kueri `"duct"` ketika
+huruf kapital _D_ yang seharusnya tidak cocok dengan query `"duct"` ketika
 kita mencari secara case-sensitive. Mengubah test lama dengan cara ini
 membantu memastikan bahwa kita tidak secara tidak sengaja merusak
 fungsionalitas pencarian case-sensitive yang telah kita implementasikan.
@@ -42,7 +42,7 @@ mengerjakan pencarian case-insensitive.
 
 Test baru untuk pencarian case-_insensitive_ memakai `"rUsT"` sebagai
 kuerinya. Di fungsi `search_case_insensitive` yang akan segera kita tambahkan,
-kueri `"rUsT"` seharusnya cocok dengan baris yang memuat `"Rust:"` dengan
+query `"rUsT"` seharusnya cocok dengan baris yang memuat `"Rust:"` dengan
 huruf kapital _R_ dan cocok dengan baris `"Trust me."` meskipun keduanya
 memiliki kapitalisasi yang berbeda dari kuerinya. Ini adalah test kita
 yang gagal, dan ia akan gagal terkompilasi karena kita belum mendefinisikan
@@ -59,7 +59,7 @@ mengubah `query` dan setiap `line` menjadi huruf kecil sehingga apa pun
 kapitalisasi argumen inputnya, mereka akan memiliki kapitalisasi yang sama
 ketika kita memeriksa apakah baris itu memuat kuerinya.
 
-<Listing number="12-21" file-name="src/lib.rs" caption="Mendefinisikan fungsi `search_case_insensitive` untuk mengubah kueri dan baris menjadi huruf kecil sebelum membandingkannya">
+<Listing number="12-21" file-name="src/lib.rs" caption="Mendefinisikan fungsi `search_case_insensitive` untuk mengubah query dan baris menjadi huruf kecil sebelum membandingkannya">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-21/src/lib.rs:here}}
@@ -69,8 +69,8 @@ ketika kita memeriksa apakah baris itu memuat kuerinya.
 
 Pertama, kita mengubah string `query` menjadi huruf kecil dan menyimpannya di
 sebuah variable baru dengan nama yang sama, melakukan *shadowing* terhadap
-`query` yang asli. Memanggil `to_lowercase` pada kueri itu perlu agar apa pun
-kueri pengguna—`"rust"`, `"RUST"`, `"Rust"`, ataupun `"rUsT"`—kita akan
+`query` yang asli. Memanggil `to_lowercase` pada query itu perlu agar apa pun
+query pengguna—`"rust"`, `"RUST"`, `"Rust"`, ataupun `"rUsT"`—kita akan
 memperlakukan kuerinya seolah-olah ia adalah `"rust"` dan menjadi tidak peka
 terhadap huruf besar-kecil. Meskipun `to_lowercase` akan menangani Unicode
 dasar, ia tidak akan akurat 100 persen. Jika kita menulis aplikasi sungguhan,
@@ -163,7 +163,7 @@ fungsi `run` dapat membaca nilai itu dan memutuskan apakah akan memanggil
 Listing 12-22.
 
 Mari kita coba! Pertama, kita akan menjalankan program kita tanpa variable
-lingkungan yang ditetapkan dan dengan kueri `to`, yang seharusnya cocok dengan
+lingkungan yang ditetapkan dan dengan query `to`, yang seharusnya cocok dengan
 semua baris yang memuat kata _to_ dengan huruf kecil semua:
 
 ```console
@@ -171,7 +171,7 @@ semua baris yang memuat kata _to_ dengan huruf kecil semua:
 ```
 
 Tampaknya itu masih bekerja! Sekarang mari kita jalankan programnya dengan
-`IGNORE_CASE` ditetapkan ke `1` tetapi dengan kueri yang sama `to`:
+`IGNORE_CASE` ditetapkan ke `1` tetapi dengan query yang sama `to`:
 
 ```console
 $ IGNORE_CASE=1 cargo run -- to poem.txt

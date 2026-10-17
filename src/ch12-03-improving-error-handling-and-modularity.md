@@ -161,7 +161,7 @@ kesederhanaan adalah pertukaran yang layak.
 > yang lebih efisien dalam situasi semacam ini. Tetapi untuk saat ini, tidak
 > apa-apa menyalin beberapa string untuk terus membuat kemajuan karena Anda
 > hanya akan membuat copy-copy ini sekali dan *path* file serta string
-> kueri Anda sangat kecil. Lebih baik memiliki program yang bekerja meskipun
+> query Anda sangat kecil. Lebih baik memiliki program yang bekerja meskipun
 > sedikit tidak efisien daripada mencoba mengoptimasi kode secara berlebihan
 > pada percobaan pertama Anda. Seiring bertambahnya pengalaman Anda dengan
 > Rust, akan lebih mudah untuk memulai dengan solusi yang paling efisien,
@@ -356,7 +356,7 @@ Kita telah menambahkan baris `use` baru untuk membawa `process` dari pustaka
 standar ke dalam *scope*. Kode di dalam *closure* yang akan dijalankan pada
 kasus error hanya terdiri dari dua baris: Kita mencetak nilai `err`, lalu
 memanggil `process::exit`. Fungsi `process::exit` akan menghentikan program
-dengan segera dan mengembalikan angka yang diteruskan sebagai kode status
+dengan segera dan mengembalikan angka yang diteruskan sebagai status code
 keluar. Ini mirip dengan penanganan berbasis `panic!` yang kita pakai di
 Listing 12-8, tetapi kini kita tidak lagi mendapat semua output tambahan
 itu. Mari kita coba:
@@ -431,7 +431,7 @@ Untuk saat ini, cukup ketahui bahwa `Box<dyn Error>` berarti fungsi ini akan
 mengembalikan sebuah type yang mengimplementasikan *trait* `Error`, tetapi
 kita tidak perlu menentukan type tertentu apa return valuenya. Ini memberi
 kita fleksibilitas untuk mengembalikan nilai-nilai error yang mungkin berbeda
-typenya pada kasus-kasus error yang berbeda. *Keyword* (kata kunci) `dyn`
+typenya pada kasus-kasus error yang berbeda. *Keyword* (*keyword*) `dyn`
 adalah singkatan dari _dynamic_.
 
 Kedua, kita telah menghapus pemanggilan `expect` demi operator `?`, seperti
@@ -508,7 +508,7 @@ mendetail saat mengisi implementasinya.
 
 </Listing>
 
-Kita telah memakai kata kunci `pub` pada definisi fungsi tersebut untuk
+Kita telah memakai *keyword* `pub` pada definisi fungsi tersebut untuk
 menandai `search` sebagai bagian dari API publik *crate* library kita. Sekarang
 kita memiliki sebuah *crate* library yang dapat kita pakai dari *crate* binary
 kita dan yang dapat kita uji!
@@ -530,9 +530,9 @@ dari *crate* library ke dalam *scope* *crate* binary. Kemudian, di dalam fungsi
 `run`, alih-alih mencetak isi file, kita memanggil fungsi `search` dan
 meneruskan nilai `config.query` dan `contents` sebagai argumen. Lalu, `run`
 akan memakai sebuah loop `for` untuk mencetak setiap baris yang
-dikembalikan dari `search` yang cocok dengan kueri. Ini juga saat yang tepat
+dikembalikan dari `search` yang cocok dengan query. Ini juga saat yang tepat
 untuk menghapus pemanggilan `println!` di fungsi `main` yang menampilkan
-kueri dan *path* file, sehingga program kita hanya mencetak hasil pencarian
+query dan *path* file, sehingga program kita hanya mencetak hasil pencarian
 (jika tidak ada error yang terjadi).
 
 Perhatikan bahwa fungsi pencarian akan mengumpulkan semua hasil ke dalam

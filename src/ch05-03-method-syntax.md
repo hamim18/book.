@@ -143,10 +143,10 @@ sebagai publik atau privat di [Bab 7][public]<!-- ignore -->.
 >
 > Yang pertama tampak jauh lebih bersih. Perilaku *reference* otomatis ini
 > bekerja karena method memiliki *receiver* (penerima) yang jelas—type dari
-> `self`. Dengan mengetahui penerima dan nama sebuah method, Rust dapat
+> `self`. Dengan mengetahui receiver dan nama sebuah method, Rust dapat
 > memastikan secara definitif apakah methodnya membaca (`&self`), mengubah
 > (`&mut self`), atau mengonsumsi (`self`). Fakta bahwa Rust membuat
-> *borrowing* menjadi implisit untuk penerima method adalah bagian besar dari
+> *borrowing* menjadi implisit untuk receiver method adalah bagian besar dari
 > menjadikan *ownership* (kepemilikan) ergonomis dalam praktik.
 
 ### Method dengan Parameter Lebih Banyak

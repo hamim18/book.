@@ -41,7 +41,7 @@ mendefinisikan zero-overhead dalam presentasi utama (keynote) ETAPS tahun
 
 Dalam banyak kasus, kode Rust yang memakai *iterator* terkompilasi menjadi
 assembly yang sama dengan yang akan Anda tulis secara manual. Optimasi seperti
-loop unrolling dan penghapusan pemeriksaan batas pada akses array berlaku dan
+loop unrolling dan penghapusan bounds checking pada akses array berlaku dan
 membuat kode yang dihasilkan menjadi sangat efisien. Sekarang setelah Anda
 tahu ini, Anda dapat memakai *iterator* dan *closure* tanpa takut! Mereka
 membuat kode tampak lebih tinggi tingkatnya tetapi tidak mengenakan denda
@@ -56,6 +56,6 @@ tingkat rendah. Implementasi *closure* dan *iterator* dibuat sedemikian rupa
 sehingga performa runtime tidak terpengaruh. Ini adalah bagian dari tujuan
 Rust untuk berupaya menyediakan *zero-cost abstraction*.
 
-Sekarang setelah kita memperbaiki ekspresivitas proyek I/O kita, mari kita
+Sekarang setelah kita memperbaiki expressiveness proyek I/O kita, mari kita
 lihat beberapa fitur `cargo` lainnya yang akan membantu kita membagikan
 proyek ini kepada dunia.

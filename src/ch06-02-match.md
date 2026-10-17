@@ -10,7 +10,7 @@ memungkinkan Anda membandingkan sebuah nilai dengan serangkaian pattern, lalu
 mengeksekusi kode berdasarkan pattern mana yang cocok. Pattern dapat tersusun dari
 nilai literal, nama variable, wildcard, dan banyak hal lain; [Bab
 19][ch19-00-patterns]<!-- ignore --> membahas semua jenis pattern yang berbeda
-dan apa yang dilakukannya. Kekuatan `match` berasal dari ekspresivitas patternnya
+dan apa yang dilakukannya. Kekuatan `match` berasal dari expressiveness patternnya
 dan fakta bahwa *compiler* (kompilator) memastikan semua kasus yang mungkin
 tertangani.
 

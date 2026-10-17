@@ -18,10 +18,10 @@ meningkatkan ke versi baru Rust stable. Setiap peningkatan seharusnya tidak
 menyakitkan, tetapi juga memberi Anda fitur baru, lebih sedikit bug, dan waktu
 kompilasi yang lebih cepat.
 
-### Choo, Choo! Saluran Rilis dan Menumpangi Kereta
+### Choo, Choo! *channel* Rilis dan Menumpangi Kereta
 
-Pengembangan Rust berjalan menurut _jadwal kereta_. Artinya, semua pengembangan
-dilakukan di branch main repositori Rust. Rilis mengikuti model kereta rilis
+Pengembangan Rust berjalan menurut _train schedule_. Artinya, semua pengembangan
+dilakukan di branch main repositori Rust. Rilis mengikuti train model rilis
 perangkat lunak, yang telah dipakai oleh Cisco IOS dan proyek perangkat lunak
 lainnya. Ada tiga *release channel* (saluran rilis) untuk Rust:
 
@@ -29,7 +29,7 @@ lainnya. Ada tiga *release channel* (saluran rilis) untuk Rust:
 - Beta
 - Stable
 
-Sebagian besar pengembang Rust terutama memakai saluran stable, tetapi mereka
+Sebagian besar pengembang Rust terutama memakai stable channel, tetapi mereka
 yang ingin mencoba fitur eksperimental baru boleh memakai nightly atau beta.
 
 Berikut contoh cara kerja proses pengembangan dan rilis: anggaplah tim Rust
@@ -55,7 +55,7 @@ beta:                *
 
 Sebagian besar pengguna Rust tidak memakai rilis beta secara aktif, tetapi
 menguji terhadap beta di sistem CI mereka untuk membantu Rust menemukan
-kemungkinan regresi. Sementara itu, masih ada rilis nightly setiap malam:
+kemungkinan regression. Sementara itu, masih ada rilis nightly setiap malam:
 
 ```text
 nightly: * - - * - - * - - * - - *
@@ -63,8 +63,8 @@ nightly: * - - * - - * - - * - - *
 beta:                *
 ```
 
-Katakanlah sebuah regresi ditemukan. Untungnya kita sempat menguji rilis beta
-sebelum regresi itu menyelinap ke rilis stable! Perbaikan diterapkan ke branch
+Katakanlah sebuah regression ditemukan. Untungnya kita sempat menguji rilis beta
+sebelum regression itu menyelinap ke rilis stable! Perbaikan diterapkan ke branch
 main, sehingga nightly diperbaiki, lalu perbaikan itu di-backport ke branch
 `beta`, dan rilis beta baru diproduksi:
 
@@ -98,8 +98,8 @@ beta:                * - - - - - - - - *       *
 stable:                                *
 ```
 
-Ini disebut “model kereta” karena setiap enam minggu, sebuah rilis “berangkat
-dari stasiun”, tetapi masih harus menempuh perjalanan melalui saluran beta
+Ini disebut “train model” karena setiap enam minggu, sebuah rilis “berangkat
+dari stasiun”, tetapi masih harus menempuh perjalanan melalui *channel* beta
 sebelum tiba sebagai rilis stable.
 
 Rust merilis setiap enam minggu, seperti jarum jam. Jika Anda tahu tanggal salah
@@ -147,7 +147,7 @@ dapat menemukan dokumentasi fitur-fitur yang hanya ada di nightly secara daring.
 
 ### Rustup dan Peran Rust Nightly
 
-Rustup memudahkan perpindahan antara saluran rilis Rust yang berbeda, baik
+Rustup memudahkan perpindahan antara release channel Rust yang berbeda, baik
 secara global maupun per proyek. Secara bawaan, Anda akan memiliki Rust stable yang terpasang.
 Untuk memasang nightly, misalnya:
 

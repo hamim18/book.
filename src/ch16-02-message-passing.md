@@ -11,10 +11,10 @@ itu dalam sebuah slogan dari [dokumentasi bahasa Go](https://golang.org/doc/effe
 “Do not communicate by sharing memory; instead, share memory by communicating.”
 
 Untuk mewujudkan concurrency message passing, standard library Rust menyediakan
-implementasi *channel*. Sebuah _channel_ (saluran) adalah konsep pemrograman
+implementasi *channel*. Sebuah _channel_ (*channel*) adalah konsep pemrograman
 umum untuk mengirim data dari satu thread ke thread lain.
 
-Anda dapat membayangkan *channel* dalam pemrograman seperti saluran air
+Anda dapat membayangkan *channel* dalam pemrograman seperti *channel* air
 berarah, misalnya anak sungai atau sungai. Jika Anda meletakkan sesuatu
 seperti bebek karet ke sebuah sungai, benda itu akan hanyut ke hilir sampai
 ujung aliran air.
@@ -23,7 +23,7 @@ Sebuah *channel* memiliki dua bagian: *transmitter* dan *receiver*. Bagian
 *transmitter* adalah lokasi di hulu tempat Anda meletakkan bebek karet ke
 sungai, dan bagian *receiver* adalah tempat bebek karet itu berakhir di hilir.
 Satu bagian kode Anda memanggil method pada *transmitter* dengan data yang ingin
-Anda kirim, dan bagian lain memeriksa ujung penerima untuk pesan yang datang.
+Anda kirim, dan bagian lain memeriksa ujung *receiver* untuk pesan yang datang.
 Sebuah *channel* dikatakan _closed_ (tertutup) jika bagian *transmitter* atau
 *receiver*-nya dibebaskan.
 
@@ -60,9 +60,9 @@ tetapi kita akan menambahkan banyak produsen ketika contoh ini sudah
 berfungsi.
 
 Fungsi `mpsc::channel` mengembalikan sebuah *tuple*, elemen pertamanya adalah
-ujung pengirim—*transmitter*—dan elemen keduanya adalah ujung penerima—*receiver*.
+ujung *transmitter*—*transmitter*—dan elemen keduanya adalah ujung *receiver*—*receiver*.
 Singkatan `tx` dan `rx` secara tradisional dipakai di banyak bidang untuk
-_transmitter_ (pengirim) dan _receiver_ (penerima), jadi kita menamai variable
+_transmitter_ (*transmitter*) dan _receiver_ (*receiver*), jadi kita menamai variable
 kita seperti itu untuk menandai masing-masing ujung. Kita memakai statement
 `let` dengan pattern yang mendestrukturisasi *tuple*; kita akan membahas pemakaian
 pattern dalam statement `let` dan destrukturisasi di Bab 19. Untuk sekarang,

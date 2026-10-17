@@ -531,17 +531,17 @@ genap).
 
 Contoh ini akan mencetak `The number 4 is even`. Ketika `num` dibandingkan
 dengan pattern di arm pertama, ia cocok karena `Some(4)` cocok dengan `Some(x)`.
-Kemudian, *match guard* memeriksa apakah sisa pembagian `x` dengan 2 sama
+Kemudian, *match guard* memeriksa apakah remainder `x` dengan 2 sama
 dengan 0, dan karena memang begitu, arm pertama dipilih.
 
 Jika `num` adalah `Some(5)`, *match guard* di arm pertama akan bernilai `false`
-karena sisa pembagian 5 dengan 2 adalah 1, yang tidak sama dengan 0. Rust
+karena remainder 5 dengan 2 adalah 1, yang tidak sama dengan 0. Rust
 kemudian akan pergi ke arm kedua, yang akan cocok karena arm kedua tidak
 memiliki *match guard* dan karena itu cocok dengan varian `Some` mana pun.
 
 Tidak ada cara untuk mengekspresikan kondisi `if x % 2 == 0` di dalam sebuah
 pattern, jadi *match guard* memberi kita kemampuan untuk mengekspresikan logika
-ini. Sisi buruk dari ekspresivitas tambahan ini adalah *compiler* tidak
+ini. Sisi buruk dari expressiveness tambahan ini adalah *compiler* tidak
 mencoba memeriksa ekshaustivitas ketika expression *match guard* terlibat.
 
 Saat membahas Listing 19-11, kita menyebutkan bahwa kita bisa memakai match
@@ -574,7 +574,7 @@ dengan membandingkan `n` dengan `y`.
 
 Anda juga bisa memakai operator _or_ `|` di *match guard* untuk menentukan
 beberapa pattern; kondisi *match guard* akan berlaku untuk semua pattern itu. Listing
-19-28 menunjukkan prioritas ketika menggabungkan pattern yang memakai `|` dengan
+19-28 menunjukkan precedence ketika menggabungkan pattern yang memakai `|` dengan
 *match guard*. Bagian penting dari contoh ini adalah bahwa *match guard* `if y`
 berlaku untuk `4`, `5`, _dan_ `6`, meskipun mungkin terlihat seperti `if y`
 hanya berlaku untuk `6`.
@@ -593,7 +593,7 @@ berjalan, pattern arm pertama cocok karena `x` adalah `4`, tetapi *match guard*
 `if y` bernilai `false`, jadi arm pertama tidak dipilih. Kode berlanjut ke
 arm kedua, yang cocok, dan program ini mencetak `no`. Alasannya adalah
 kondisi `if` berlaku untuk seluruh pattern `4 | 5 | 6`, bukan hanya untuk nilai
-terakhir `6`. Dengan kata lain, prioritas *match guard* dalam hubungannya
+terakhir `6`. Dengan kata lain, precedence *match guard* dalam hubungannya
 dengan sebuah pattern berperilaku seperti ini:
 
 ```text
@@ -606,7 +606,7 @@ alih-alih seperti ini:
 4 | 5 | (6 if y) => ...
 ```
 
-Setelah menjalankan kodenya, perilaku prioritasnya terbukti: jika *match guard*
+Setelah menjalankan kodenya, perilaku precedencenya terbukti: jika *match guard*
 hanya diterapkan pada nilai terakhir dalam daftar nilai yang ditentukan
 menggunakan operator `|`, arm itu akan cocok dan program akan mencetak `yes`.
 

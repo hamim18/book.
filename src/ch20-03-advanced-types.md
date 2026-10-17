@@ -48,7 +48,7 @@ pada Bab 18.
 
 Rust menyediakan kemampuan untuk mendeklarasikan *type alias* (alias tipe)
 untuk memberi nama lain pada sebuah type yang sudah ada. Untuk ini kita
-memakai kata kunci `type`. Misalnya, kita bisa membuat alias `Kilometers`
+memakai *keyword* `type`. Misalnya, kita bisa membuat alias `Kilometers`
 untuk `i32` seperti berikut:
 
 ```rust

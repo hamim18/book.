@@ -146,7 +146,7 @@ Baris ini membuat variable baru bernama `apples` dan mengikatnya ke nilai
 `5`. Di Rust, variable bersifat *immutable* (tidak dapat diubah) secara
 bawaan, artinya begitu kita memberikan nilai ke variable, nilainya tidak
 akan berubah. Kita akan membahas konsep ini secara detail di bagian
-[“Variable dan Mutabilitas”][variables-and-mutability]<!-- ignore -->
+[“Variable dan Mutability”][variables-and-mutability]<!-- ignore -->
 pada Bab 3. Untuk membuat variable menjadi *mutable* (dapat diubah), kita
 menambahkan `mut` sebelum nama variablenya:
 
@@ -487,7 +487,7 @@ artefak yang sama setiap kali Anda atau siapa pun membangun kode Anda:
 Cargo hanya akan memakai versi dependency yang Anda tentukan sampai Anda
 menyatakan sebaliknya. Misalnya, katakanlah minggu depan versi 0.10.2 dari
 *crate* `rand` dirilis, dan versi itu memuat perbaikan bug yang penting,
-tetapi juga memuat regresi yang akan merusak kode Anda. Untuk menangani
+tetapi juga memuat regression yang akan merusak kode Anda. Untuk menangani
 ini, Rust membuat file _Cargo.lock_ saat pertama kali Anda menjalankan
 `cargo build`, jadi sekarang kita punya file ini di direktori
 _guessing_game_.
@@ -822,7 +822,7 @@ bisa menebak satu kali. Mari kita ubah itu dengan menambahkan loop!
 
 ## Mengizinkan Beberapa Tebakan dengan Loop
 
-Kata kunci `loop` membuat infinite loop. Kita akan menambahkan
+*keyword* `loop` membuat infinite loop. Kita akan menambahkan
 loop untuk memberi pengguna lebih banyak kesempatan menebak
 angkanya:
 

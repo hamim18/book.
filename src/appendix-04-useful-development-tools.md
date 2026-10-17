@@ -59,7 +59,7 @@ warning: variable does not need to be mutable
   = note: `#[warn(unused_mut)]` on by default
 ```
 
-Peringatan itu menyarankan kita menghapus kata kunci `mut`. Kita dapat
+Peringatan itu menyarankan kita menghapus *keyword* `mut`. Kita dapat
 menerapkan saran itu secara otomatis memakai tool `rustfix` dengan menjalankan
 perintah `cargo fix`:
 
@@ -85,7 +85,7 @@ fn main() {
 Variable `x` sekarang *immutable*, dan peringatannya tidak lagi muncul.
 
 Anda juga dapat memakai perintah `cargo fix` untuk memindahkan kode Anda dari
-satu edisi Rust ke edisi lainnya. Edisi dibahas di [Lampiran E][editions]<!--
+satu edition Rust ke edition lainnya. Edition dibahas di [Lampiran E][editions]<!--
 ignore -->.
 
 ### Lint Tambahan dengan Clippy
@@ -161,7 +161,7 @@ saling berkomunikasi. Berbagai client dapat memakai `rust-analyzer`, seperti
 
 Kunjungi [laman utama][rust-analyzer]<!-- ignore --> proyek `rust-analyzer`
 untuk petunjuk instalasi, lalu pasang dukungan language server di IDE Anda.
-IDE Anda akan memperoleh kemampuan seperti pelengkapan otomatis, lompat ke
+IDE Anda akan memperoleh kemampuan seperti autocompletion, lompat ke
 definisi, dan error inline.
 
 [rustfmt]: https://github.com/rust-lang/rustfmt

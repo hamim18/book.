@@ -26,8 +26,8 @@ membuat test itu lulus membantu mempertahankan coverage test yang
 tinggi di sepanjang proses.
 
 Kita akan menulis testnya terlebih dahulu untuk menggerakkan
-implementasi fungsionalitas yang benar-benar melakukan pencarian string kueri
-di dalam isi file dan menghasilkan daftar baris yang cocok dengan kueri
+implementasi fungsionalitas yang benar-benar melakukan pencarian string query
+di dalam isi file dan menghasilkan daftar baris yang cocok dengan query
 tersebut. Kita akan menambahkan fungsionalitas ini di dalam sebuah fungsi
 bernama `search`.
 
@@ -36,8 +36,8 @@ bernama `search`.
 Di _src/lib.rs_, kita akan menambahkan modul `tests` dengan sebuah fungsi
 test, seperti yang kita lakukan di [Bab 11][ch11-anatomy]<!-- ignore -->.
 Fungsi test itu menentukan perilaku yang kita inginkan dari fungsi
-`search`: Fungsi ini akan menerima sebuah kueri dan teks yang akan dicari,
-lalu mengembalikan hanya baris-baris dari teks itu yang memuat kueri tersebut.
+`search`: Fungsi ini akan menerima sebuah query dan teks yang akan dicari,
+lalu mengembalikan hanya baris-baris dari teks itu yang memuat query tersebut.
 Listing 12-15 menunjukkan test ini.
 
 <Listing number="12-15" file-name="src/lib.rs" caption="Membuat test yang gagal untuk fungsi `search` demi fungsionalitas yang kita inginkan">
@@ -116,7 +116,7 @@ kosong. Untuk memperbaikinya dan mengimplementasikan `search`, program kita
 perlu mengikuti langkah-langkah ini:
 
 1. Melakukan iterasi pada setiap baris dari contents.
-2. Memeriksa apakah baris itu memuat string kueri kita.
+2. Memeriksa apakah baris itu memuat string query kita.
 3. Jika ya, menambahkan baris itu ke daftar nilai yang kita kembalikan.
 4. Jika tidak, tidak melakukan apa-apa.
 5. Mengembalikan daftar hasil yang cocok.
@@ -145,9 +145,9 @@ bahwa Anda pernah melihat cara memakai *iterator* seperti ini di [Listing
 sebuah *iterator* untuk menjalankan sebagian kode pada setiap item di dalam
 sebuah collection.
 
-#### Mencari Kueri di Setiap Baris
+#### Mencari Query di Setiap Baris
 
-Selanjutnya, kita akan memeriksa apakah baris saat ini memuat string kueri
+Selanjutnya, kita akan memeriksa apakah baris saat ini memuat string query
 kita. Untungnya, string memiliki method yang membantu bernama `contains` yang
 melakukan ini untuk kita! Tambahkan pemanggilan method `contains` di fungsi
 `search`, seperti yang ditunjukkan di Listing 12-18. Perhatikan bahwa ini

@@ -5,13 +5,13 @@
 
 ## Dari Server Single-Threaded Menjadi Multithreaded
 
-Saat ini, server akan memproses setiap permintaan secara bergiliran, yang
-berarti ia tidak akan memproses koneksi kedua sampai koneksi pertama
-selesai diproses. Jika server menerima permintaan yang semakin banyak,
+Saat ini, server akan memproses setiap request secara bergiliran, yang
+berarti ia tidak akan memproses connection kedua sampai connection pertama
+selesai diproses. Jika server menerima request yang semakin banyak,
 eksekusi serial ini akan semakin tidak optimal. Jika server menerima
-permintaan yang butuh waktu lama untuk diproses, permintaan-permintaan
-berikutnya harus menunggu sampai permintaan yang lama itu selesai, bahkan
-jika permintaan-permintaan baru itu bisa diproses dengan cepat. Kita perlu
+request yang butuh waktu lama untuk diproses, request-request
+berikutnya harus menunggu sampai request yang lama itu selesai, bahkan
+jika request-request baru itu bisa diproses dengan cepat. Kita perlu
 memperbaikinya, tetapi pertama-tama mari kita lihat masalahnya secara
 langsung.
 
@@ -19,15 +19,15 @@ langsung.
 
 <a id="simulating-a-slow-request-in-the-current-server-implementation"></a>
 
-### Menyimulasikan Permintaan yang Lambat
+### Menyimulasikan Request yang Lambat
 
-Kita akan melihat bagaimana permintaan yang diproses dengan lambat bisa
-memengaruhi permintaan lain yang dibuat ke implementasi server kita saat
-ini. Listing 21-10 mengimplementasikan penanganan permintaan ke _/sleep_
-dengan respons lambat yang disimulasikan yang akan membuat server tidur
+Kita akan melihat bagaimana request yang diproses dengan lambat bisa
+memengaruhi request lain yang dibuat ke implementasi server kita saat
+ini. Listing 21-10 mengimplementasikan penanganan request ke _/sleep_
+dengan response lambat yang disimulasikan yang akan membuat server tidur
 selama lima detik sebelum merespons.
 
-<Listing number="21-10" file-name="src/main.rs" caption="Menyimulasikan permintaan yang lambat dengan tidur selama lima detik">
+<Listing number="21-10" file-name="src/main.rs" caption="Menyimulasikan request yang lambat dengan tidur selama lima detik">
 
 ```rust,no_run
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-10/src/main.rs:here}}
@@ -42,12 +42,12 @@ melakukan referencing dan dereferencing otomatis, seperti yang dilakukan
 method kesamaan.
 
 Arm pertama sama dengan blok `if` dari Listing 21-9. Arm kedua mencocokkan
-permintaan ke _/sleep_. Ketika permintaan itu diterima, server akan tidur
+request ke _/sleep_. Ketika request itu diterima, server akan tidur
 selama lima detik sebelum merender halaman HTML sukses. Arm ketiga sama
 dengan blok `else` dari Listing 21-9.
 
 Anda bisa melihat betapa primitifnya server kita: Library sungguhan akan
-menangani pengenalan banyak permintaan dengan cara yang jauh lebih ringkas!
+menangani pengenalan banyak request dengan cara yang jauh lebih ringkas!
 
 Mulai server dengan memakai `cargo run`. Lalu, buka dua jendela peramban:
 satu untuk _http://127.0.0.1:7878_ dan satu lagi untuk
@@ -56,8 +56,8 @@ seperti sebelumnya, Anda akan melihat ia merespons dengan cepat. Tetapi
 jika Anda memasukkan _/sleep_ lalu memuat _/_, Anda akan melihat bahwa _/_
 menunggu sampai `sleep` tidur selama lima detik penuh sebelum dimuat.
 
-Ada banyak teknik yang bisa kita pakai untuk menghindari permintaan yang
-menumpuk di belakang permintaan yang lambat, termasuk memakai async seperti
+Ada banyak teknik yang bisa kita pakai untuk menghindari request yang
+menumpuk di belakang request yang lambat, termasuk memakai async seperti
 yang kita lakukan di Bab 17; yang akan kita implementasikan adalah thread
 pool.
 
@@ -70,24 +70,24 @@ akan memproses tugasnya. Thread-thread tersisa di pool tersedia untuk
 menangani tugas lain apa pun yang masuk sementara thread pertama sedang
 memproses. Ketika thread pertama selesai memproses tugasnya, ia
 dikembalikan ke kumpulan thread yang menganggur, siap menangani tugas baru.
-*Thread pool* memungkinkan Anda memproses koneksi secara concurrent, sehingga
+*Thread pool* memungkinkan Anda memproses connection secara concurrent, sehingga
 throughput server Anda meningkat.
 
 Kita akan membatasi jumlah thread di pool menjadi angka kecil untuk
 melindungi kita dari serangan DoS; jika program kita membuat thread baru
-untuk setiap permintaan yang masuk, seseorang yang membuat 10 juta
-permintaan ke server kita bisa membuat kekacauan dengan menghabiskan semua
-sumber daya server kita dan membuat processing permintaan berhenti total.
+untuk setiap request yang masuk, seseorang yang membuat 10 juta
+request ke server kita bisa membuat kekacauan dengan menghabiskan semua
+sumber daya server kita dan membuat processing request berhenti total.
 
 Jadi, alih-alih membuat thread tanpa batas, kita akan punya sejumlah tetap
-thread yang menunggu di pool. Permintaan yang masuk dikirim ke pool untuk
-diproses. Pool akan memelihara antrean permintaan yang masuk. Setiap thread
-di pool akan mengambil sebuah permintaan dari antrean ini, menangani
-permintaan itu, lalu meminta permintaan lain dari antrean. Dengan desain
-ini, kita bisa memproses hingga _`N`_ permintaan secara concurrent, dengan
-_`N`_ adalah jumlah thread. Jika setiap thread sedang merespons permintaan
-yang berjalan lama, permintaan-permintaan berikutnya tetap bisa menumpuk di
-antrean, tetapi kita telah meningkatkan jumlah permintaan berjalan lama
+thread yang menunggu di pool. Request yang masuk dikirim ke pool untuk
+diproses. Pool akan memelihara queue request yang masuk. Setiap thread
+di pool akan mengambil sebuah request dari queue ini, menangani
+request itu, lalu meminta request lain dari queue. Dengan desain
+ini, kita bisa memproses hingga _`N`_ request secara concurrent, dengan
+_`N`_ adalah jumlah thread. Jika setiap thread sedang merespons request
+yang berjalan lama, request-request berikutnya tetap bisa menumpuk di
+queue, tetapi kita telah meningkatkan jumlah request berjalan lama
 yang bisa kita tangani sebelum mencapai titik itu.
 
 Teknik ini hanyalah salah satu dari banyak cara untuk meningkatkan
@@ -117,10 +117,10 @@ teknik yang tidak akan kita pakai sebagai titik awal.
 
 <a id="code-structure-if-we-could-spawn-a-thread-for-each-request"></a>
 
-#### Membuat Thread untuk Setiap Permintaan
+#### Membuat Thread untuk Setiap Request
 
 Pertama, mari kita telusuri bagaimana kode kita akan tampak jika ia memang
-membuat thread baru untuk setiap koneksi. Seperti yang disebutkan
+membuat thread baru untuk setiap connection. Seperti yang disebutkan
 sebelumnya, ini bukan rencana akhir kita karena ada masalah dengan
 kemungkinan membuat thread dalam jumlah tak terbatas, tetapi ini adalah
 titik awal untuk mendapatkan server multithreaded yang bekerja terlebih
@@ -141,7 +141,7 @@ membuat thread baru yang menangani setiap *stream* di dalam loop `for`.
 Seperti yang Anda pelajari di Bab 16, `thread::spawn` akan membuat thread
 baru lalu menjalankan kode di *closure* itu di thread baru. Jika Anda
 menjalankan kode ini dan memuat _/sleep_ di peramban Anda, lalu _/_ di dua
-tab peramban lagi, Anda memang akan melihat bahwa permintaan ke _/_ tidak
+tab peramban lagi, Anda memang akan melihat bahwa request ke _/_ tidak
 harus menunggu _/sleep_ selesai. Akan tetapi, seperti yang kita sebutkan,
 ini pada akhirnya akan membebani sistem karena Anda membuat thread baru
 tanpa batas.
@@ -202,7 +202,7 @@ web server kita. Jadi, mari kita alihkan *crate* `hello` dari *crate* binary
 menjadi *crate* library untuk menampung implementasi `ThreadPool` kita.
 Setelah kita mengubahnya menjadi *crate* library, kita juga bisa memakai
 library *thread pool* terpisah itu untuk pekerjaan apa pun yang ingin kita
-lakukan dengan *thread pool*, bukan hanya untuk melayani permintaan web.
+lakukan dengan *thread pool*, bukan hanya untuk melayani request web.
 
 Buat file _src/lib.rs_ yang berisi hal berikut, yaitu definisi paling
 sederhana dari *struct* `ThreadPool` yang bisa kita miliki untuk saat ini:
@@ -294,8 +294,8 @@ Kita bisa melihat bahwa `spawn` memakai `FnOnce` sebagai *trait bound* pada
 `F`. Kemungkinan besar ini juga yang kita inginkan, karena pada akhirnya
 kita akan meneruskan argumen yang kita dapat di `execute` ke `spawn`. Kita
 bisa semakin yakin bahwa `FnOnce` adalah *trait* yang ingin kita pakai karena
-thread untuk menjalankan sebuah permintaan hanya akan mengeksekusi *closure*
-permintaan itu satu kali, yang cocok dengan `Once` pada `FnOnce`.
+thread untuk menjalankan sebuah request hanya akan mengeksekusi *closure*
+request itu satu kali, yang cocok dengan `Once` pada `FnOnce`.
 
 Parameter type `F` juga memiliki *trait bound* `Send` dan bound *lifetime*
 `'static`, yang berguna dalam situasi kita: Kita memerlukan `Send` untuk
@@ -327,7 +327,7 @@ kode kita terkompilasi. Mari kita periksa lagi:
 ```
 
 Ia terkompilasi! Tetapi perhatikan bahwa jika Anda mencoba `cargo run` dan
-membuat permintaan di peramban, Anda akan melihat error-error di peramban
+membuat request di peramban, Anda akan melihat error-error di peramban
 yang kita lihat di awal bab ini. Library kita belum benar-benar memanggil
 *closure* yang diberikan ke `execute`!
 
@@ -402,13 +402,13 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 Fungsi `spawn` mengembalikan `JoinHandle<T>`, dengan `T` adalah type yang
 dikembalikan *closure* itu. Mari kita coba memakai `JoinHandle` juga dan
 lihat apa yang terjadi. Dalam kasus kita, *closure* yang kita berikan ke
-*thread pool* akan menangani koneksi dan tidak mengembalikan apa pun, jadi
+*thread pool* akan menangani connection dan tidak mengembalikan apa pun, jadi
 `T` akan menjadi type unit `()`.
 
 Kode di Listing 21-14 akan terkompilasi, tetapi ia belum membuat thread
 apa pun. Kita telah mengubah definisi `ThreadPool` untuk menampung vector
 instance `thread::JoinHandle<()>`, menginisialisasi vector itu dengan
-kapasitas `size`, menyiapkan loop `for` yang akan menjalankan sebagian kode
+capacity `size`, menyiapkan loop `for` yang akan menjalankan sebagian kode
 untuk membuat thread-thread itu, dan mengembalikan instance `ThreadPool`
 yang memuatnya.
 
@@ -478,7 +478,7 @@ kita menyiapkan `Worker` dengan cara ini:
 3. Mendefinisikan fungsi `Worker::new` yang menerima nomor `id` dan
    mengembalikan instance `Worker` yang menampung `id` itu dan sebuah
    thread yang dibuat dengan *closure* kosong.
-4. Di `ThreadPool::new`, memakai pencacah loop `for` untuk menghasilkan
+4. Di `ThreadPool::new`, memakai counter loop `for` untuk menghasilkan
    `id`, membuat `Worker` baru dengan `id` itu, dan menyimpan `Worker`
    tersebut di vector.
 
@@ -498,7 +498,7 @@ modifikasi-modifikasi sebelumnya.
 
 Kita telah mengubah nama *field* pada `ThreadPool` dari `threads` menjadi
 `workers` karena sekarang ia menampung instance `Worker`, bukan instance
-`JoinHandle<()>`. Kita memakai pencacah di loop `for` sebagai argumen
+`JoinHandle<()>`. Kita memakai counter di loop `for` sebagai argumen
 untuk `Worker::new`, dan kita menyimpan setiap `Worker` baru di vector
 bernama `workers`.
 
@@ -522,7 +522,7 @@ yang kita tentukan sebagai argumen untuk `ThreadPool::new`. Tetapi kita
 _masih_ belum memproses *closure* yang kita dapat di `execute`. Mari kita
 lihat cara melakukannya berikutnya.
 
-#### Mengirim Permintaan ke Thread melalui Channel
+#### Mengirim Request ke Thread melalui Channel
 
 Masalah berikutnya yang akan kita tangani adalah *closure* yang diberikan ke
 `thread::spawn` sama sekali tidak melakukan apa pun. Saat ini, kita
@@ -531,30 +531,30 @@ kita perlu memberikan *closure* kepada `thread::spawn` untuk dijalankan saat
 kita membuat setiap `Worker` selama pembuatan `ThreadPool`.
 
 Kita ingin *struct* `Worker` yang baru kita buat mengambil kode yang akan
-dijalankan dari antrean yang dipegang `ThreadPool` dan mengirim kode itu ke
+dijalankan dari queue yang dipegang `ThreadPool` dan mengirim kode itu ke
 thread-nya untuk dijalankan.
 
 *Channel* yang kita pelajari di Bab 16—cara sederhana untuk berkomunikasi
 antara dua thread—akan sempurna untuk kasus pemakaian ini. Kita akan
-memakai *channel* untuk berfungsi sebagai antrean pekerjaan, dan `execute`
+memakai *channel* untuk berfungsi sebagai queue pekerjaan, dan `execute`
 akan mengirim sebuah pekerjaan dari `ThreadPool` ke instance `Worker`,
 yang akan mengirim pekerjaan itu ke thread-nya. Berikut rencananya:
 
-1. `ThreadPool` akan membuat *channel* dan memegang pengirimnya.
+1. `ThreadPool` akan membuat *channel* dan memegang sendernya.
 2. Setiap `Worker` akan memegang penerimanya.
 3. Kita akan membuat *struct* `Job` baru yang akan menampung *closure* yang
    ingin kita kirim melalui *channel*.
 4. Method `execute` akan mengirim pekerjaan yang ingin ia eksekusi melalui
-   pengirim.
+   sender.
 5. Di thread-nya, `Worker` akan melakukan loop pada penerimanya dan
    mengeksekusi *closure* dari pekerjaan apa pun yang ia terima.
 
 Mari kita mulai dengan membuat *channel* di `ThreadPool::new` dan memegang
-pengirimnya di instance `ThreadPool`, seperti yang ditunjukkan di Listing
+sendernya di instance `ThreadPool`, seperti yang ditunjukkan di Listing
 21-16. *Struct* `Job` tidak menampung apa pun untuk saat ini, tetapi ia akan
 menjadi type item yang kita kirim melalui *channel*.
 
-<Listing number="21-16" file-name="src/lib.rs" caption="Mengubah `ThreadPool` untuk menyimpan pengirim channel yang mentransmisikan instance `Job`">
+<Listing number="21-16" file-name="src/lib.rs" caption="Mengubah `ThreadPool` untuk menyimpan sender channel yang mentransmisikan instance `Job`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-16/src/lib.rs:here}}
@@ -563,15 +563,15 @@ menjadi type item yang kita kirim melalui *channel*.
 </Listing>
 
 Di `ThreadPool::new`, kita membuat *channel* baru kita dan membuat pool itu
-memegang pengirimnya. Ini akan terkompilasi dengan sukses.
+memegang sendernya. Ini akan terkompilasi dengan sukses.
 
-Mari kita coba memberikan penerima *channel* itu ke setiap `Worker` saat
-*thread pool* membuat *channel*-nya. Kita tahu kita ingin memakai penerima itu
+Mari kita coba memberikan receiver *channel* itu ke setiap `Worker` saat
+*thread pool* membuat *channel*-nya. Kita tahu kita ingin memakai receiver itu
 di thread yang dibuat instance `Worker`, jadi kita akan mereferensikan
 parameter `receiver` di *closure* itu. Kode di Listing 21-17 belum akan
 terkompilasi.
 
-<Listing number="21-17" file-name="src/lib.rs" caption="Memberikan penerima ke setiap `Worker`">
+<Listing number="21-17" file-name="src/lib.rs" caption="Memberikan receiver ke setiap `Worker`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-17/src/lib.rs:here}}
@@ -580,7 +580,7 @@ terkompilasi.
 </Listing>
 
 Kita telah membuat beberapa perubahan kecil dan langsung: Kita memberikan
-penerima itu ke `Worker::new`, lalu kita memakainya di dalam *closure*.
+receiver itu ke `Worker::new`, lalu kita memakainya di dalam *closure*.
 
 Ketika kita mencoba memeriksa kode ini, kita mendapat error ini:
 
@@ -596,7 +596,7 @@ untuk memperbaiki kode ini. Kita juga tidak ingin mengirim pesan berkali-
 kali ke banyak konsumen; kita ingin satu daftar pesan dengan banyak
 instance `Worker` sedemikian rupa sehingga setiap pesan diproses satu kali.
 
-Selain itu, mengambil sebuah pekerjaan dari antrean *channel* melibatkan
+Selain itu, mengambil sebuah pekerjaan dari queue *channel* melibatkan
 pengubahan `receiver`, jadi thread-thread itu memerlukan cara yang aman
 untuk berbagi dan mengubah `receiver`; jika tidak, kita mungkin mendapat
 race condition (seperti yang dibahas di Bab 16).
@@ -676,7 +676,7 @@ bermakna bagi Anda.
 
 Jika kita mendapatkan kunci pada mutex itu, kita memanggil `recv` untuk
 menerima `Job` dari *channel*. `unwrap` terakhir melewati error apa pun di
-sini juga, yang bisa terjadi jika thread yang memegang pengirim telah
+sini juga, yang bisa terjadi jika thread yang memegang sender telah
 berhenti, mirip dengan cara method `send` mengembalikan `Err` jika
 penerimanya berhenti.
 
@@ -686,7 +686,7 @@ bahwa hanya satu thread `Worker` pada satu waktu yang sedang mencoba
 meminta pekerjaan.
 
 *Thread pool* kita sekarang dalam keadaan bekerja! Jalankan `cargo run` dan
-buat beberapa permintaan:
+buat beberapa request:
 
 <!-- manual-regeneration
 cd listings/ch21-web-server/listing-21-20
@@ -733,16 +733,16 @@ Worker 0 got a job; executing.
 Worker 2 got a job; executing.
 ```
 
-Sukses! Sekarang kita punya *thread pool* yang mengeksekusi koneksi secara
+Sukses! Sekarang kita punya *thread pool* yang mengeksekusi connection secara
 asynchronous. Tidak pernah ada lebih dari empat thread yang dibuat, jadi sistem
-kita tidak akan kelebihan beban jika server menerima banyak permintaan.
-Jika kita membuat permintaan ke _/sleep_, server akan bisa melayani
-permintaan lain dengan meminta thread lain menjalankannya.
+kita tidak akan kelebihan beban jika server menerima banyak request.
+Jika kita membuat request ke _/sleep_, server akan bisa melayani
+request lain dengan meminta thread lain menjalankannya.
 
 > Catatan: Jika Anda membuka _/sleep_ di banyak jendela peramban secara
 > bersamaan, halaman-halaman itu mungkin dimuat satu per satu dengan jeda
 > lima detik. Sebagian web browser mengeksekusi banyak instance dari
-> permintaan yang sama secara berurutan karena alasan caching. Batasan ini
+> request yang sama secara berurutan karena alasan caching. Batasan ini
 > bukan disebabkan oleh web server kita.
 
 Ini saat yang tepat untuk berhenti sejenak dan mempertimbangkan bagaimana
@@ -764,8 +764,8 @@ ditunjukkan di Listing 21-21.
 </Listing>
 
 Kode ini terkompilasi dan berjalan, tetapi tidak menghasilkan perilaku
-threading yang diinginkan: Permintaan yang lambat tetap akan membuat
-permintaan lain menunggu untuk diproses. Alasannya agak tidak kentara:
+threading yang diinginkan: Request yang lambat tetap akan membuat
+request lain menunggu untuk diproses. Alasannya agak tidak kentara:
 *Struct* `Mutex` tidak memiliki method `unlock` publik karena *ownership* atas
 kuncinya didasarkan pada *lifetime* `MutexGuard<T>` di dalam
 `LockResult<MutexGuard<T>>` yang dikembalikan method `lock`. Pada waktu

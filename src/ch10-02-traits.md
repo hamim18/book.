@@ -43,7 +43,7 @@ ini.
 
 </Listing>
 
-Di sini, kita mendeklarasikan sebuah *trait* memakai kata kunci `trait` lalu
+Di sini, kita mendeklarasikan sebuah *trait* memakai *keyword* `trait` lalu
 nama *trait*-nya, yang dalam kasus ini adalah `Summary`. Kita juga
 mendeklarasikan *trait* itu sebagai `pub` supaya *crate*-crate yang bergantung
 pada *crate* ini juga bisa memakai *trait* ini, seperti yang akan kita lihat
@@ -84,7 +84,7 @@ menjadi 280 karakter.
 
 Mengimplementasikan *trait* pada sebuah type mirip dengan mengimplementasikan
 method biasa. Bedanya, setelah `impl`, kita menuliskan nama *trait* yang ingin
-kita implementasikan, lalu memakai kata kunci `for`, dan kemudian menentukan
+kita implementasikan, lalu memakai *keyword* `for`, dan kemudian menentukan
 nama type yang ingin kita implementasikan *trait* tersebut. Di dalam blok
 `impl`, kita menuliskan *signature* method yang telah didefinisikan oleh
 definisi *trait*. Alih-alih menambahkan titik koma setelah setiap tanda
@@ -231,7 +231,7 @@ sintaks `impl Trait`, seperti ini:
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-04-traits-as-parameters/src/lib.rs:here}}
 ```
 
-Alih-alih type konkret untuk parameter `item`, kita menentukan kata kunci
+Alih-alih type konkret untuk parameter `item`, kita menentukan *keyword*
 `impl` dan nama *trait*. Parameter ini menerima type apa pun yang
 mengimplementasikan *trait* yang ditentukan. Di dalam badan `notify`, kita
 bisa memanggil method apa pun pada `item` yang berasal dari *trait* `Summary`,

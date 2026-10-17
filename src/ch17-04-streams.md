@@ -9,7 +9,7 @@ ini pada bagian [“Message Passing”][17-02-messages]<!-- ignore -->. Method
 async `recv` menghasilkan serangkaian item seiring waktu. Ini adalah instance
 dari pattern yang jauh lebih umum yang dikenal sebagai _stream_. Banyak konsep
 yang secara alami direpresentasikan sebagai *stream*: item yang tersedia di
-antrean, potongan-potongan data yang ditarik sedikit demi sedikit dari sistem
+queue, potongan-potongan data yang ditarik sedikit demi sedikit dari sistem
 file ketika kumpulan datanya terlalu besar untuk memori komputer, atau data
 yang tiba melalui jaringan seiring waktu. Karena *stream* adalah *future*, kita
 bisa memakainya dengan *future* jenis apa pun dan menggabungkannya dengan

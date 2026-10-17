@@ -5,7 +5,7 @@ berulang-ulang. Di Listing 7-7, entah kita memilih *path* absolut maupun
 relatif menuju fungsi `add_to_waitlist`, setiap kali ingin memanggil
 `add_to_waitlist` kita harus menyebutkan `front_of_house` dan `hosting` juga.
 Untungnya, ada cara untuk menyederhanakan proses ini: kita dapat membuat
-pintasan menuju sebuah *path* dengan kata kunci `use` satu kali, lalu memakai
+pintasan menuju sebuah *path* dengan *keyword* `use` satu kali, lalu memakai
 nama yang lebih pendek di tempat lain mana pun di dalam *scope*.
 
 Di Listing 7-11, kita membawa *module* `crate::front_of_house::hosting` ke
@@ -125,7 +125,7 @@ sebuah nama lokal baru, atau *alias*, untuk type tersebut. Listing 7-16
 menunjukkan cara lain untuk menulis kode di Listing 7-15 dengan mengganti
 nama salah satu dari dua type `Result` memakai `as`.
 
-<Listing number="7-16" file-name="src/lib.rs" caption="Mengganti nama sebuah type saat type itu dibawa ke dalam scope dengan kata kunci `as`">
+<Listing number="7-16" file-name="src/lib.rs" caption="Mengganti nama sebuah type saat type itu dibawa ke dalam scope dengan *keyword* `as`">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
@@ -140,7 +140,7 @@ dianggap idiomatis, jadi pilihannya ada di tangan Anda!
 
 ### Mengekspor Ulang Nama dengan `pub use`
 
-Ketika kita membawa sebuah nama ke dalam *scope* dengan kata kunci `use`, nama
+Ketika kita membawa sebuah nama ke dalam *scope* dengan *keyword* `use`, nama
 tersebut bersifat privat terhadap *scope* tempat kita mengimpornya. Untuk
 memungkinkan kode di luar *scope* itu merujuk nama tersebut seolah-olah nama
 itu telah didefinisikan di *scope* itu, kita dapat menggabungkan `pub` dan

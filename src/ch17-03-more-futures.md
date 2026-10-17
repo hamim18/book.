@@ -21,7 +21,7 @@ terus-menerus mengerjakan suatu tugas tanpa henti, Anda perlu memikirkan kapan
 dan di mana menyerahkan kontrol kembali ke runtime.
 
 Mari kita simulasikan operasi yang berjalan lama untuk mengilustrasikan
-masalah kelaparan itu, lalu mengeksplorasi cara mengatasinya. Listing 17-14
+masalah starvation itu, lalu mengeksplorasi cara mengatasinya. Listing 17-14
 memperkenalkan fungsi `slow`.
 
 <Listing number="17-14" caption="Memakai `thread::sleep` untuk mensimulasikan operasi yang lambat" file-name="src/main.rs">
@@ -161,7 +161,7 @@ kontrol dengan cara ini relatif murah, itu tidak gratis. Dalam banyak kasus,
 mencoba memecah tugas yang terikat komputasi bisa membuatnya jauh lebih
 lambat, jadi terkadang lebih baik bagi performa _keseluruhan_ untuk
 membiarkan sebuah operasi memblokir sebentar. Selalu ukur untuk melihat di
-mana hambatan performa sesungguhnya dari kode Anda. Meski begitu, dinamika
+mana performance bottleneck sesungguhnya dari kode Anda. Meski begitu, dinamika
 mendasar ini penting untuk diingat jika Anda _memang_ melihat banyak pekerjaan
 berjalan serial padahal Anda mengharapkannya berjalan concurrent!
 
@@ -169,8 +169,8 @@ berjalan serial padahal Anda mengharapkannya berjalan concurrent!
 ### Membangun Abstraksi Async Kita Sendiri
 
 Kita juga bisa menyusun *future* bersama-sama untuk menciptakan pattern baru.
-Contohnya, kita bisa membangun fungsi `timeout` dengan batu penyusun async
-yang sudah kita miliki. Saat selesai, hasilnya akan menjadi batu penyusun lain
+Contohnya, kita bisa membangun fungsi `timeout` dengan building block async
+yang sudah kita miliki. Saat selesai, hasilnya akan menjadi building block lain
 yang bisa kita pakai untuk menciptakan lebih banyak abstraksi async.
 
 Listing 17-18 menunjukkan bagaimana kita mengharapkan `timeout` ini bekerja
@@ -249,9 +249,9 @@ Failed after 2 seconds
 ```
 
 Karena *future* dapat disusun dengan *future* lain, Anda bisa membangun tool yang
-benar-benar hebat menggunakan batu penyusun async yang lebih kecil. Contohnya,
+benar-benar hebat menggunakan building block async yang lebih kecil. Contohnya,
 Anda bisa memakai pendekatan yang sama ini untuk menggabungkan timeout dengan
-percobaan ulang, dan selanjutnya memakai keduanya dengan operasi seperti
+retries, dan selanjutnya memakai keduanya dengan operasi seperti
 pemanggilan jaringan (seperti di Listing 17-5).
 
 Dalam praktiknya, Anda biasanya akan bekerja langsung dengan `async` dan

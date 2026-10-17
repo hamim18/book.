@@ -52,7 +52,7 @@ _trait object_ (objek *trait*) menunjuk ke instance type yang
 mengimplementasikan *trait* yang kita tentukan sekaligus ke tabel yang dipakai
 untuk mencari method *trait* pada type itu saat runtime. Kita membuat *trait*
 object dengan menentukan semacam *pointer*, seperti *reference* atau smart
-*pointer* `Box<T>`, lalu kata kunci `dyn`, dan kemudian *trait* yang relevan.
+*pointer* `Box<T>`, lalu *keyword* `dyn`, dan kemudian *trait* yang relevan.
 (Kita akan membahas alasan *trait object* harus memakai *pointer* di [“Type
 Berukuran Dinamis dan *Trait* `Sized`”][dynamically-sized]<!-- ignore --> di Bab
 20.) Kita bisa memakai *trait object* sebagai pengganti generic type atau type

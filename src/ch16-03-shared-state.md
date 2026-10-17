@@ -106,12 +106,12 @@ berhasil mengubah `i32` bagian dalam menjadi `6`.
 
 Sekarang mari kita coba berbagi nilai di antara beberapa thread menggunakan
 `Mutex<T>`. Kita akan menjalankan 10 thread dan menyuruh masing-masing
-menambah nilai pencacah sebesar 1, sehingga pencacahnya bergerak dari 0 ke
+menambah nilai counter sebesar 1, sehingga pencacahnya bergerak dari 0 ke
 10. Contoh di Listing 16-13 akan menghasilkan error *compiler*, dan kita akan
 memakai error itu untuk belajar lebih banyak tentang pemakaian `Mutex<T>` dan
 bagaimana Rust membantu kita memakainya dengan benar.
 
-<Listing number="16-13" file-name="src/main.rs" caption="Sepuluh thread, masing-masing menambah pencacah yang dijaga oleh `Mutex<T>`">
+<Listing number="16-13" file-name="src/main.rs" caption="Sepuluh thread, masing-masing menambah counter yang dijaga oleh `Mutex<T>`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-13/src/main.rs}}
@@ -228,7 +228,7 @@ Result: 10
 Kita berhasil! Kita menghitung dari 0 sampai 10, yang mungkin tidak tampak
 begitu mengesankan, tetapi itu memang mengajari kita banyak tentang `Mutex<T>`
 dan thread safety. Anda juga bisa memakai struktur program ini untuk melakukan
-operasi yang lebih rumit daripada sekadar menambah pencacah. Dengan strategi
+operasi yang lebih rumit daripada sekadar menambah counter. Dengan strategi
 ini, Anda dapat membagi perhitungan menjadi bagian-bagian independen,
 memecah bagian-bagian itu lintas thread, lalu memakai `Mutex<T>` agar setiap
 thread memperbarui hasil akhir dengan bagiannya.

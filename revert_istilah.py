@@ -169,6 +169,44 @@ GROUPS["memory"] = [
     (b("Cakupan"), "*Scope*"),
 ]
 
+GROUPS["misc2"] = [
+    ("percobaan koneksi", "connection attempt"),
+    ("baris permintaan", "request line"),
+    ("baris status", "status line"),
+    ("kode status", "status code"),
+    ("frasa alasan", "reason phrase"),
+    ("hambatan performa", "performance bottleneck"),
+    ("percobaan ulang", "retries"),
+    ("batu penyusun", "building block"),
+    ("pemeriksaan batas", "bounds checking"),
+    ("pelengkapan otomatis", "autocompletion"),
+    ("evaluasi hubung singkat", "short-circuit evaluation"),
+    ("sisa pembagian", "remainder"),
+    ("saluran rilis", "release channel"),
+    ("saluran stable", "stable channel"),
+    ("model kereta", "train model"),
+    ("jadwal kereta", "train schedule"),
+    ("prioritasnya", "precedencenya"),
+] + buat_rules([
+    ("kueri", "query"),
+    ("antrean", "queue"),
+    ("permintaan", "request"),
+    ("respons", "response"),
+    ("protokol", "protocol"),
+    ("koneksi", "connection"),
+    ("kapasitas", "capacity"),
+    ("kelaparan", "starvation"),
+    ("ekspresivitas", "expressiveness"),
+    ("pencacah", "counter"),
+    ("glosarium", "glossary"),
+    ("edisi", "edition"),
+    ("regresi", "regression"),
+    ("prioritas", "precedence"),
+    ("mutabilitas", "mutability"),
+    ("kata kunci", "*keyword*"),
+    ("saluran", "*channel*"),
+])
+
 GROUPS["misc"] = [
     ("pengelola dependensi", "dependency manager"),
     ("sistem kontrol versi", "version control system"),
@@ -246,14 +284,31 @@ PROTECT: dict[str, list[str]] = {
         r"\*shared-state\* \([^()]*state bersama[^()]*\)",
         r"\*release channel\* \([^()]*saluran rilis[^()]*\)",
     ],
+    "misc2": [
+        r"\*keyword\* \([^()]*kata kunci[^()]*\)",
+        r"\*[^*]*(mutability|immutability)[^*]*\* \([^()]*mutabilitas[^()]*\)",
+        r"\*transmitter\* \([^()]*pengirim[^()]*\)",
+        r"\*receiver\* \([^()]*penerima[^()]*\)",
+        r"\*channel\* \([^()]*saluran[^()]*\)",
+        r"\*release channel\* \([^()]*saluran rilis[^()]*\)",
+    ],
 }
 
 # Rule tertentu hanya berlaku di file tertentu.
 # cakupan di bab 11 = coverage (polos), bukan scope.
 FILE_RULES: dict[str, list[tuple[str, str, callable]]] = {
     "memory": [
-        (b("cakupan"), "coverage", lambda f: f.name.startswith("ch11-")),
-        (b("Cakupan"), "Coverage", lambda f: f.name.startswith("ch11-")),
+        (b("cakupan"), "coverage", lambda f: f.startswith("ch11-")),
+        (b("Cakupan"), "Coverage", lambda f: f.startswith("ch11-")),
+    ],
+    # pengirim/penerima: bab 16 → transmitter/receiver (miring), selebihnya sender/receiver
+    "misc2": [
+        (b("pengirim"), "*transmitter*", lambda f: f.startswith("ch16-")),
+        (b("penerima"), "*receiver*", lambda f: f.startswith("ch16-")),
+        (b("pengirim"), "sender", lambda f: not f.startswith("ch16-")),
+        (b("penerima"), "receiver", lambda f: not f.startswith("ch16-")),
+        (b("pengirimnya"), "*transmitter*nya", lambda f: f.startswith("ch16-")),
+        (b("pengirimnya"), "sendernya", lambda f: not f.startswith("ch16-")),
     ],
 }
 
@@ -261,17 +316,16 @@ FILE_RULES: dict[str, list[tuple[str, str, callable]]] = {
 # Mesin
 # --------------------------------------------------------------------------
 
-def proses(teks: str, rules, protect: list[str], file_rules) -> tuple[str, dict]:
-    n = 0
+def proses(teks: str, rules, protect: list[str], file_rules, nama: str) -> tuple[str, dict]:
     hitung = {}
     # 1) lindungi blok kode berfence
     potong = re.split(r"(```.*?```)", teks, flags=re.DOTALL)
     for i in range(0, len(potong), 2):
-        potong[i] = _proses_prosa(potong[i], rules, protect, file_rules, hitung)
+        potong[i] = _proses_prosa(potong[i], rules, protect, file_rules, hitung, nama)
     return "".join(potong), hitung
 
 
-def _proses_prosa(prosa: str, rules, protect, file_rules, hitung) -> str:
+def _proses_prosa(prosa: str, rules, protect, file_rules, hitung, nama: str) -> str:
     # lindungi inline code
     inline = re.findall(r"`[^`]*`", prosa)
     for j, kode in enumerate(inline):
@@ -299,6 +353,8 @@ def _proses_prosa(prosa: str, rules, protect, file_rules, hitung) -> str:
 
     # aturan spesifik-file dulu (mis. cakupan bab 11)
     for pat, repl, filt in file_rules:
+        if filt is not None and not filt(nama):
+            continue
         prosa2, nsub = re.subn(pat, repl, prosa)
         if nsub:
             hitung[f"{repl} [{filt.__name__}]"] = hitung.get(repl, 0) + nsub
@@ -328,7 +384,7 @@ def main():
     for f in files:
         teks = f.read_text()
         baru, hitung = proses(teks, GROUPS[group], PROTECT.get(group, []),
-                              FILE_RULES.get(group, []))
+                              FILE_RULES.get(group, []), f.name)
         if baru != teks:
             if not dry:
                 f.write_text(baru)

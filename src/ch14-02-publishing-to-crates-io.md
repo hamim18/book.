@@ -164,8 +164,8 @@ Struktur API publik Anda merupakan pertimbangan utama ketika menerbitkan sebuah
 mungkin kesulitan menemukan bagian yang ingin mereka pakai jika *crate* Anda
 memiliki hierarki modul yang besar.
 
-Di Bab 7, kita membahas cara membuat item menjadi publik dengan kata kunci
-`pub`, dan cara membawa item ke dalam sebuah *scope* dengan kata kunci `use`.
+Di Bab 7, kita membahas cara membuat item menjadi publik dengan *keyword*
+`pub`, dan cara membawa item ke dalam sebuah *scope* dengan *keyword* `use`.
 Namun, struktur yang masuk akal bagi Anda ketika mengembangkan *crate* mungkin
 tidak begitu nyaman bagi pengguna Anda. Anda mungkin ingin mengorganisasi
 *struct* Anda dalam hierarki yang memuat beberapa tingkat, tetapi orang yang

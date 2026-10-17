@@ -25,7 +25,7 @@ ulang kode dan penyesuaian perilaku.
 Pertama-tama, kita akan menelaah bagaimana kita dapat memakai *closure* untuk
 menangkap nilai dari lingkungan tempat *closure* itu didefinisikan untuk dipakai
 nanti. Begini skenarionya: Sesekali, perusahaan kaos kita memberikan sebuah
-kaos edisi terbatas yang eksklusif kepada seseorang di milis kita sebagai
+kaos edition terbatas yang eksklusif kepada seseorang di milis kita sebagai
 promosi. Orang-orang di milis itu secara opsional dapat menambahkan warna
 favorit mereka ke profil mereka. Jika orang yang terpilih untuk mendapat kaos
 gratis telah menetapkan warna favoritnya, mereka mendapat kaos dengan warna
@@ -51,7 +51,7 @@ didapat orang tersebut. Susunan ini ditunjukkan di Listing 13-1.
 </Listing>
 
 `store` yang didefinisikan di `main` memiliki dua kaos biru dan satu kaos
-merah tersisa untuk dibagikan dalam promosi edisi terbatas ini. Kita memanggil
+merah tersisa untuk dibagikan dalam promosi edition terbatas ini. Kita memanggil
 method `giveaway` untuk seorang pengguna dengan preferensi kaos merah dan
 seorang pengguna tanpa preferensi apa pun.
 
@@ -250,7 +250,7 @@ pesan error apa yang Anda dapat!
 
 Jika Anda ingin memaksa *closure* mengambil *ownership* atas nilai-nilai yang
 dipakainya di lingkungan, meskipun badan *closure* itu tidak benar-benar
-memerlukan *ownership*, Anda dapat memakai kata kunci `move` sebelum daftar
+memerlukan *ownership*, Anda dapat memakai *keyword* `move` sebelum daftar
 parameternya.
 
 Teknik ini paling berguna ketika meneruskan sebuah *closure* ke thread baru
@@ -258,7 +258,7 @@ untuk memindahkan data sehingga data itu dimiliki oleh thread baru. Kita akan
 membahas thread dan alasan Anda ingin memakainya secara mendetail di Bab 16
 ketika kita berbicara tentang concurrency, tetapi untuk saat ini, mari kita
 menelaah secara singkat pembuatan thread baru memakai *closure* yang memerlukan
-kata kunci `move`. Listing 13-6 menunjukkan Listing 13-4 yang dimodifikasi
+*keyword* `move`. Listing 13-6 menunjukkan Listing 13-4 yang dimodifikasi
 untuk mencetak vector di thread baru alih-alih di thread utama.
 
 <Listing number="13-6" file-name="src/main.rs" caption="Memakai `move` untuk memaksa closure bagi thread itu mengambil ownership atas `list`">
@@ -275,7 +275,7 @@ argumen kepada thread itu. Badan *closure* itu mencetak daftarnya. Di Listing
 itulah jumlah akses minimum ke `list` yang diperlukan untuk mencetaknya.
 Dalam contoh ini, meskipun badan *closure* tetap hanya memerlukan *reference*
 *immutable*, kita perlu menyatakan bahwa `list` harus dipindahkan ke dalam
-*closure* dengan menaruh kata kunci `move` di awal definisi *closure*. Jika thread
+*closure* dengan menaruh *keyword* `move` di awal definisi *closure*. Jika thread
 utama melakukan lebih banyak operasi sebelum memanggil `join` pada thread
 baru, thread baru itu mungkin selesai sebelum sisa thread utama selesai, atau
 thread utama mungkin selesai lebih dulu. Jika thread utama tetap memegang

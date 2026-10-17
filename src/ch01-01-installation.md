@@ -3,7 +3,7 @@
 
 Langkah pertama adalah memasang Rust. Kita akan mengunduh Rust melalui
 `rustup`, tool command line untuk mengelola versi Rust dan tool-tool
-terkaitnya. Anda memerlukan koneksi internet untuk pengunduhan ini.
+terkaitnya. Anda memerlukan connection internet untuk pengunduhan ini.
 
 > Catatan: Jika karena suatu alasan Anda memilih untuk tidak memakai
 > `rustup`, silakan lihat [halaman Method Instalasi Rust Lainnya][otherinstall]
@@ -162,7 +162,7 @@ situs web Rust.
 ### Bekerja Offline dengan Buku Ini
 
 Dalam beberapa contoh, kita akan memakai *package* Rust di luar pustaka
-standar. Untuk mengerjakan contoh-contoh tersebut, Anda memerlukan koneksi
+standar. Untuk mengerjakan contoh-contoh tersebut, Anda memerlukan connection
 internet atau harus mengunduh dependency-dependency itu lebih dulu. Untuk
 mengunduh dependencynya lebih dulu, Anda dapat menjalankan perintah-perintah
 berikut. (Nanti kita akan menjelaskan secara detail apa itu `cargo` dan apa

@@ -30,7 +30,7 @@ contoh ini terkompilasi apa adanya. Kami akan menjelaskan alasannya sebentar
 lagi.
 
 Fungsi `eat_at_restaurant` adalah bagian dari API publik *crate* library kita,
-jadi kita menandainya dengan kata kunci `pub`. Di bagian [“Mengekspos *Path*
+jadi kita menandainya dengan *keyword* `pub`. Di bagian [“Mengekspos *Path*
 dengan Kata Kunci `pub`”][pub]<!-- ignore -->, kita akan membahas `pub` lebih
 detail.
 
@@ -107,7 +107,7 @@ menyembunyikan detail implementasi bagian dalam menjadi default. Dengan
 begitu, Anda tahu bagian mana dari kode bagian dalam yang dapat Anda ubah
 tanpa merusak kode bagian luar. Namun, Rust memang memberi Anda opsi untuk
 mengekspos bagian dalam kode *module* anak ke *module* leluhur di luarnya dengan
-memakai kata kunci `pub` untuk menjadikan sebuah item publik.
+memakai *keyword* `pub` untuk menjadikan sebuah item publik.
 
 <a id="exposing-paths-with-the-pub-keyword"></a>
 ### Mengekspos Path dengan Kata Kunci `pub`
@@ -115,7 +115,7 @@ memakai kata kunci `pub` untuk menjadikan sebuah item publik.
 Mari kita kembali ke error di Listing 7-4 yang memberi tahu kita bahwa *module*
 `hosting` bersifat privat. Kita ingin fungsi `eat_at_restaurant` di *module*
 induk memiliki akses ke fungsi `add_to_waitlist` di *module* anak, jadi kita
-menandai *module* `hosting` dengan kata kunci `pub`, seperti yang ditunjukkan
+menandai *module* `hosting` dengan *keyword* `pub`, seperti yang ditunjukkan
 di Listing 7-5.
 
 <Listing number="7-5" file-name="src/lib.rs" caption="Mendeklarasikan module `hosting` sebagai `pub` untuk memakainya dari `eat_at_restaurant`">
@@ -137,11 +137,11 @@ yang ditunjukkan di Listing 7-6.
 
 </Listing>
 
-Apa yang terjadi? Menambahkan kata kunci `pub` di depan `mod hosting`
+Apa yang terjadi? Menambahkan *keyword* `pub` di depan `mod hosting`
 menjadikan *module* tersebut publik. Dengan perubahan ini, jika kita dapat
 mengakses `front_of_house`, kita dapat mengakses `hosting`. Tetapi _isi_ dari
 `hosting` masih privat; menjadikan *module* publik tidak menjadikan isinya
-publik. Kata kunci `pub` pada sebuah *module* hanya mengizinkan kode di
+publik. *keyword* `pub` pada sebuah *module* hanya mengizinkan kode di
 *module*-module leluhurnya untuk merujuk kepadanya, bukan untuk mengakses kode
 bagian dalamnya. Karena *module* adalah kontainer, tidak banyak yang bisa kita
 lakukan hanya dengan menjadikan *module* publik; kita perlu melangkah lebih
@@ -155,7 +155,7 @@ privat. Aturan privasi berlaku untuk *struct*, *enum*, fungsi, dan method, juga
 Mari kita jadikan fungsi `add_to_waitlist` publik dengan menambahkan kata
 kunci `pub` sebelum definisinya, seperti di Listing 7-7.
 
-<Listing number="7-7" file-name="src/lib.rs" caption="Menambahkan kata kunci `pub` ke `mod hosting` dan `fn add_to_waitlist` memungkinkan kita memanggil fungsi tersebut dari `eat_at_restaurant`.">
+<Listing number="7-7" file-name="src/lib.rs" caption="Menambahkan *keyword* `pub` ke `mod hosting` dan `fn add_to_waitlist` memungkinkan kita memanggil fungsi tersebut dari `eat_at_restaurant`.">
 
 ```rust,noplayground,test_harness
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs:here}}
@@ -289,7 +289,7 @@ kita tidak dapat menetapkan nilai *field* privat `seasonal_fruit` di
 `eat_at_restaurant`.
 
 Sebaliknya, jika kita menjadikan sebuah *enum* publik, semua *variant*
-(varian)-nya ikut publik. Kita hanya perlu `pub` sebelum kata kunci `enum`,
+(varian)-nya ikut publik. Kita hanya perlu `pub` sebelum *keyword* `enum`,
 seperti yang ditunjukkan di Listing 7-10.
 
 <Listing number="7-10" file-name="src/lib.rs" caption="Menetapkan sebuah enum sebagai publik menjadikan semua variant-nya publik.">
@@ -310,7 +310,7 @@ default untuk variant *enum* adalah publik. *Struct* sering berguna tanpa
 semuanya privat secara default kecuali dianotasi dengan `pub`.
 
 Ada satu situasi lagi yang melibatkan `pub` yang belum kita bahas, dan itu
-adalah fitur *module system* terakhir kita: kata kunci `use`. Kita akan
+adalah fitur *module system* terakhir kita: *keyword* `use`. Kita akan
 membahas `use` sendiri terlebih dahulu, lalu kita akan menunjukkan cara
 menggabungkan `pub` dan `use`.
 

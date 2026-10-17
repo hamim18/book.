@@ -23,20 +23,20 @@ sebuah tool yang memudahkan mereka menulis kode yang aman, cepat, dan andal.
 Namun, yang membuat Rust benar-benar istimewa adalah akarnya yang memberdayakan
 Anda, sang pengguna, untuk mencapai tujuan Anda. Ini adalah bahasa yang
 ingin Anda berhasil, dan prinsip pemberdayaan itu mengalir melalui inti
-komunitas yang membangun, memelihara, dan mengadvokasi bahasa ini. Sejak edisi
+komunitas yang membangun, memelihara, dan mengadvokasi bahasa ini. Sejak edition
 sebelumnya dari teks definitif ini, Rust semakin berkembang menjadi bahasa
 yang benar-benar global dan tepercaya. Rust Project kini didukung secara kokoh
 oleh Rust Foundation, yang juga berinvestasi dalam berbagai inisiatif kunci
 untuk memastikan bahwa Rust aman, stabil, dan berkelanjutan.
 
-Edisi *The Rust Programming Language* ini adalah pembaruan yang menyeluruh,
+Edition *The Rust Programming Language* ini adalah pembaruan yang menyeluruh,
 mencerminkan evolusi bahasa ini selama bertahun-tahun dan menyediakan
 informasi baru yang berharga. Namun, buku ini bukan sekadar panduan sintaks
 dan pustaka—buku ini adalah undangan untuk bergabung dengan komunitas yang
 menghargai kualitas, performa, dan desain yang dipikirkan matang-matang. Entah
 Anda seorang pengembang kawakan yang ingin menjelajahi Rust untuk pertama
 kalinya atau seorang Rustacean berpengalaman yang ingin mengasah keterampilan,
-edisi ini menawarkan sesuatu untuk semua orang.
+edition ini menawarkan sesuatu untuk semua orang.
 
 Perjalanan Rust adalah perjalanan kolaborasi, pembelajaran, dan iterasi.
 Pertumbuhan bahasa ini beserta ekosistemnya merupakan cerminan langsung dari

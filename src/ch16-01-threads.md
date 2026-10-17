@@ -6,7 +6,7 @@ beberapa proses sekaligus. Di dalam sebuah program, Anda juga dapat memiliki
 bagian-bagian independen yang berjalan secara bersamaan. Fitur yang
 menjalankan bagian-bagian independen ini disebut _thread_. Sebagai contoh,
 sebuah web server bisa memiliki beberapa thread supaya ia dapat menanggapi
-lebih dari satu permintaan pada saat yang sama.
+lebih dari satu request pada saat yang sama.
 
 Memecah komputasi dalam program Anda menjadi beberapa thread untuk
 menjalankan beberapa tugas pada saat yang sama dapat meningkatkan performa,
@@ -186,7 +186,7 @@ thread-thread Anda berjalan pada saat yang sama atau tidak.
 <a id="using-move-closures-with-threads"></a>
 ### Memakai Closure `move` dengan Thread
 
-Kita akan sering memakai kata kunci `move` dengan *closure* yang diberikan ke
+Kita akan sering memakai *keyword* `move` dengan *closure* yang diberikan ke
 `thread::spawn` karena *closure* itu kemudian akan mengambil *ownership* atas
 nilai-nilai yang dipakainya dari lingkungannya, sehingga memindahkan
 *ownership* nilai-nilai itu dari satu thread ke thread lain. Di [“Menangkap
@@ -256,13 +256,13 @@ help: to force the closure to take ownership of `v` (and any other referenced va
   |                                ++++
 ```
 
-Dengan menambahkan kata kunci `move` sebelum *closure*, kita memaksa *closure*
+Dengan menambahkan *keyword* `move` sebelum *closure*, kita memaksa *closure*
 untuk mengambil *ownership* atas nilai-nilai yang dipakainya alih-alih
 membiarkan Rust menginferensi bahwa ia harus meminjam nilai-nilai itu.
 Modifikasi Listing 16-3 yang ditunjukkan pada Listing 16-5 akan terkompilasi
 dan berjalan seperti yang kita maksud.
 
-<Listing number="16-5" file-name="src/main.rs" caption="Memakai kata kunci `move` untuk memaksa closure mengambil ownership atas nilai-nilai yang dipakainya">
+<Listing number="16-5" file-name="src/main.rs" caption="Memakai *keyword* `move` untuk memaksa closure mengambil ownership atas nilai-nilai yang dipakainya">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}
@@ -289,7 +289,7 @@ validitas *reference* thread yang dibuat. Dengan menyuruh Rust memindahkan
 *ownership* `v` ke thread yang dibuat, kita menjamin kepada Rust bahwa thread
 utama tidak akan memakai `v` lagi. Jika kita mengubah Listing 16-4 dengan
 cara yang sama, kita kemudian melanggar aturan *ownership* ketika mencoba
-memakai `v` di thread utama. Kata kunci `move` menimpa default konservatif
+memakai `v` di thread utama. *keyword* `move` menimpa default konservatif
 Rust berupa *borrowing*; ia tidak mengizinkan kita melanggar aturan *ownership*.
 
 Sekarang setelah kita membahas apa itu thread dan method-method yang

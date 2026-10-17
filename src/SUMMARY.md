@@ -12,7 +12,7 @@
 - [Memprogram Permainan Tebak Angka](ch02-00-guessing-game-tutorial.md)
 
 - [Konsep Dasar Pemrograman](ch03-00-common-programming-concepts.md)
-  - [Variable dan Mutabilitas](ch03-01-variables-and-mutability.md)
+  - [Variable dan Mutability](ch03-01-variables-and-mutability.md)
   - [Type Data](ch03-02-data-types.md)
   - [Fungsi](ch03-03-how-functions-work.md)
   - [Komentar](ch03-04-comments.md)
@@ -130,6 +130,6 @@
   - [B - Operator dan Simbol](appendix-02-operators.md)
   - [C - Trait yang Dapat Diturunkan](appendix-03-derivable-traits.md)
   - [D - Tool Pengembangan yang Berguna](appendix-04-useful-development-tools.md)
-  - [E - Edisi](appendix-05-editions.md)
+  - [E - Edition](appendix-05-editions.md)
   - [F - Terjemahan Buku Ini](appendix-06-translation.md)
   - [G - Bagaimana Rust Dibuat dan “Nightly Rust”](appendix-07-nightly-rust.md)

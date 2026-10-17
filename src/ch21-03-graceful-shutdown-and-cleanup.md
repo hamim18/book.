@@ -1,21 +1,21 @@
 ## Penghentian yang Rapi dan Pembersihan
 
-Kode di Listing 21-20 merespons permintaan secara asynchronous melalui
+Kode di Listing 21-20 merespons request secara asynchronous melalui
 pemakaian *thread pool*, seperti yang kita maksudkan. Kita mendapat beberapa
 peringatan tentang *field* `workers`, `id`, dan `thread` yang tidak kita
 pakai secara langsung yang mengingatkan kita bahwa kita belum membersihkan
 apa pun. Saat kita memakai method <kbd>ctrl</kbd>-<kbd>C</kbd> yang kurang
 elegan untuk menghentikan thread utama, semua thread lain juga langsung
 dihentikan, bahkan jika mereka sedang berada di tengah-tengah melayani
-sebuah permintaan.
+sebuah request.
 
 Maka, berikutnya kita akan mengimplementasikan *trait* `Drop` untuk memanggil
 `join` pada setiap thread di pool supaya mereka bisa menyelesaikan
-permintaan yang sedang mereka kerjakan sebelum menutup. Lalu, kita akan
+request yang sedang mereka kerjakan sebelum menutup. Lalu, kita akan
 mengimplementasikan cara untuk memberi tahu thread-thread itu bahwa mereka
-harus berhenti menerima permintaan baru dan menghentikan diri. Untuk
+harus berhenti menerima request baru dan menghentikan diri. Untuk
 melihat kode ini bekerja, kita akan mengubah server kita untuk hanya
-menerima dua permintaan sebelum menghentikan *thread pool*-nya dengan rapi.
+menerima dua request sebelum menghentikan *thread pool*-nya dengan rapi.
 
 Satu hal yang perlu diperhatikan selama kita melakukannya: Tidak satu pun
 dari ini memengaruhi bagian kode yang menangani eksekusi *closure*, jadi
@@ -142,10 +142,10 @@ saat implementasi `drop` pada `ThreadPool` memanggil `join` pada mereka.
 </Listing>
 
 Untuk melihat kode ini bekerja, mari kita ubah `main` untuk hanya menerima
-dua permintaan sebelum menghentikan server dengan rapi, seperti yang
+dua request sebelum menghentikan server dengan rapi, seperti yang
 ditunjukkan di Listing 21-25.
 
-<Listing number="21-25" file-name="src/main.rs" caption="Menghentikan server setelah melayani dua permintaan dengan keluar dari loop">
+<Listing number="21-25" file-name="src/main.rs" caption="Menghentikan server setelah melayani dua request dengan keluar dari loop">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch21-web-server/listing-21-25/src/main.rs:here}}
@@ -154,14 +154,14 @@ ditunjukkan di Listing 21-25.
 </Listing>
 
 Anda tidak akan ingin web server di dunia nyata berhenti setelah melayani
-hanya dua permintaan. Kode ini hanya menunjukkan bahwa penghentian yang
+hanya dua request. Kode ini hanya menunjukkan bahwa penghentian yang
 rapi dan pembersihannya bekerja dengan baik.
 
 Method `take` didefinisikan di *trait* `Iterator` dan membatasi iterasi
 paling banyak ke dua item pertama. `ThreadPool` akan keluar dari *scope* di
 akhir `main`, dan implementasi `drop` akan berjalan.
 
-Mulai server dengan `cargo run` dan buat tiga permintaan. Permintaan ketiga
+Mulai server dengan `cargo run` dan buat tiga request. Request ketiga
 seharusnya error, dan di terminal Anda, Anda seharusnya melihat output yang
 mirip dengan ini:
 
@@ -196,8 +196,8 @@ Shutting down worker 3
 
 Anda mungkin melihat urutan ID `Worker` dan pesan yang berbeda. Kita bisa
 melihat bagaimana kode ini bekerja dari pesan-pesannya: Instance `Worker` 0
-dan 3 mendapat dua permintaan pertama. Server berhenti menerima koneksi
-setelah koneksi kedua, dan implementasi `Drop` pada `ThreadPool` mulai
+dan 3 mendapat dua request pertama. Server berhenti menerima connection
+setelah connection kedua, dan implementasi `Drop` pada `ThreadPool` mulai
 dieksekusi bahkan sebelum `Worker 3` memulai pekerjaannya. Membebaskan
 `sender` memutuskan semua instance `Worker` dan memberi tahu mereka untuk
 menghentikan diri. Setiap instance `Worker` mencetak pesan saat mereka
@@ -245,7 +245,7 @@ menyempurnakan proyek ini, berikut beberapa gagasan:
 - Mengubah pemanggilan `unwrap` menjadi penanganan error yang lebih
   tangguh.
 - Memakai `ThreadPool` untuk melakukan tugas lain selain melayani
-  permintaan web.
+  request web.
 - Menemukan *crate* *thread pool* di [crates.io](https://crates.io/)<!-- ignore -->
   dan mengimplementasikan web server yang serupa dengan memakai *crate* itu.
   Lalu, bandingkan API dan ketangguhannya dengan *thread pool* yang kita

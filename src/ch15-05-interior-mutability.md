@@ -1,6 +1,6 @@
 ## `RefCell<T>` dan Pattern Interior Mutability
 
-_Interior mutability_ (mutabilitas internal) adalah pattern desain di Rust yang
+_Interior mutability_ (mutability internal) adalah pattern desain di Rust yang
 memungkinkan Anda mengubah data meskipun ada *immutable* *reference* ke data itu;
 biasanya, tindakan ini dilarang oleh aturan *borrowing*. Untuk mengubah data,
 pattern ini memakai kode `unsafe` di dalam struktur data untuk melenturkan aturan

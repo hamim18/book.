@@ -353,7 +353,7 @@ Secara umum, sintaks fully qualified didefinisikan sebagai berikut:
 ```
 
 Untuk fungsi asosiasi yang bukan method, tidak akan ada *receiver*
-(penerima): Yang ada hanya daftar argumen-argumen lain. Anda bisa memakai
+(receiver): Yang ada hanya daftar argumen-argumen lain. Anda bisa memakai
 sintaks fully qualified di setiap tempat Anda memanggil fungsi atau method.
 Akan tetapi, Anda boleh menghilangkan bagian mana pun dari sintaks ini yang
 bisa disimpulkan Rust dari informasi lain di program. Anda hanya perlu

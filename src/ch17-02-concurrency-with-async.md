@@ -216,14 +216,14 @@ banyak-produsen, satu-konsumen yang kita pakai dengan thread di Bab 16. Versi
 async dari API ini hanya sedikit berbeda dari versi berbasis threadnya: versi
 ini memakai `rx` yang *mutable* alih-alih *immutable*, dan method `recv`-nya
 menghasilkan sebuah *future* yang perlu kita tunggu alih-alih langsung
-menghasilkan nilainya. Sekarang kita bisa mengirim pesan dari pengirim ke
-penerima. Perhatikan bahwa kita tidak perlu membuat thread terpisah atau
+menghasilkan nilainya. Sekarang kita bisa mengirim pesan dari sender ke
+receiver. Perhatikan bahwa kita tidak perlu membuat thread terpisah atau
 bahkan *task*; kita cukup menunggu pemanggilan `rx.recv`.
 
 Method `Receiver::recv` yang sinkron di `std::mpsc::channel` memblokir sampai
 ia menerima sebuah pesan. Method `trpl::Receiver::recv` tidak, karena method
 itu async. Alih-alih memblokir, method itu menyerahkan kontrol kembali ke
-runtime sampai sebuah pesan diterima atau sisi pengirim *channel* ditutup.
+runtime sampai sebuah pesan diterima atau sisi sender *channel* ditutup.
 Sebaliknya, kita tidak menunggu pemanggilan `send`, karena pemanggilan itu
 tidak memblokir. Memang tidak perlu, karena *channel* yang menjadi tujuan
 pengirimannya tidak terbatas.
@@ -293,7 +293,7 @@ program menunggu pesan baru selamanya. Anda harus mematikannya menggunakan
 
 Mari mulai dengan memeriksa mengapa pesan-pesan itu datang sekaligus setelah
 seluruh penundaan, alih-alih datang dengan penundaan di antara setiap pesan.
-Di dalam sebuah blok async tertentu, urutan kemunculan kata kunci `await` di
+Di dalam sebuah blok async tertentu, urutan kemunculan *keyword* `await` di
 kode juga merupakan urutan eksekusinya saat program berjalan.
 
 Hanya ada satu blok async di Listing 17-10, jadi semua yang ada di dalamnya
@@ -339,7 +339,7 @@ let` berinteraksi dengan `trpl::join`:
 - Menunggu `rx.recv` akan mengembalikan `None` hanya ketika ujung lain
   *channel* ditutup.
 - *Channel* akan ditutup hanya jika kita memanggil `rx.close` atau ketika sisi
-  pengirimnya, `tx`, di-drop.
+  sendernya, `tx`, di-drop.
 - Kita tidak memanggil `rx.close` di mana pun, dan `tx` tidak akan di-drop
   sampai blok async terluar yang diteruskan ke `trpl::block_on` berakhir.
 - Blok itu tidak bisa berakhir karena ia terblokir menunggu `trpl::join`
@@ -350,10 +350,10 @@ mengirim pesan tidak memerlukan *ownership*, tetapi jika kita bisa _memindahkan_
 `tx` ke dalam blok async itu, `tx` akan di-drop begitu blok itu berakhir. Di
 bagian [“Menangkap *Reference* atau Memindahkan
 *Ownership*”][capture-or-move]<!-- ignore --> di Bab 13, Anda belajar cara
-memakai kata kunci `move` dengan *closure*, dan seperti yang dibahas di bagian
+memakai *keyword* `move` dengan *closure*, dan seperti yang dibahas di bagian
 [“Memakai Closure `move` dengan Thread”][move-threads]<!-- ignore --> di Bab
 16, kita sering perlu memindahkan data ke dalam *closure* saat bekerja dengan
-thread. Dinamika dasar yang sama berlaku pada blok async, jadi kata kunci
+thread. Dinamika dasar yang sama berlaku pada blok async, jadi *keyword*
 `move` bekerja dengan blok async sama seperti dengan *closure*.
 
 Di Listing 17-12, kita mengubah blok yang dipakai untuk mengirim pesan dari
@@ -403,8 +403,8 @@ Terakhir, kita beralih dari `trpl::join` ke `trpl::join!` untuk menangani
 jumlahnya kita ketahui pada waktu kompilasi. Kita akan membahas penungguan
 collection *future* dengan jumlah yang tidak diketahui nanti di bab ini.
 
-Sekarang kita melihat semua pesan dari kedua *future* pengirim, dan karena
-*future*-future pengirim itu memakai penundaan yang sedikit berbeda setelah
+Sekarang kita melihat semua pesan dari kedua *future* sender, dan karena
+*future*-future sender itu memakai penundaan yang sedikit berbeda setelah
 mengirim, pesan-pesan juga diterima pada selang yang berbeda:
 
 <!-- Not extracting output because changes to this output aren't significant;

@@ -1,5 +1,5 @@
 <a id="variables-and-mutability"></a>
-## Variable dan Mutabilitas
+## Variable dan Mutability
 
 Seperti disebutkan di bagian [“Menyimpan Nilai dengan
 Variable”][storing-values-with-variables]<!-- ignore -->, secara bawaan
@@ -54,7 +54,7 @@ sebuah nilai tidak akan berubah, nilai itu benar-benar tidak akan berubah,
 sehingga Anda tidak perlu melacaknya sendiri. Dengan demikian kode Anda lebih
 mudah untuk dinalar.
 
-Tetapi mutabilitas bisa sangat berguna dan dapat membuat kode lebih nyaman
+Tetapi mutability bisa sangat berguna dan dapat membuat kode lebih nyaman
 ditulis. Meskipun variable bersifat *immutable* secara bawaan, Anda dapat
 membuatnya *mutable* dengan menambahkan `mut` di depan nama variable seperti
 yang Anda lakukan di [Bab 2][storing-values-with-variables]<!-- ignore -->.

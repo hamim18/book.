@@ -95,7 +95,7 @@ pada Bab 10 ini berarti `args` dapat berupa type apa pun yang
 mengimplementasikan *trait* `Iterator` dan mengembalikan item `String`.
 
 Karena kita mengambil *ownership* atas `args` dan kita akan mengubah `args`
-dengan melakukan iterasi atasnya, kita dapat menambahkan kata kunci `mut` ke
+dengan melakukan iterasi atasnya, kita dapat menambahkan *keyword* `mut` ke
 dalam spesifikasi parameter `args` untuk membuatnya *mutable*.
 
 <!-- Old headings. Do not remove or links may break. -->

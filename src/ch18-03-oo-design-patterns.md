@@ -78,7 +78,7 @@ yang bagus untuk ini adalah menegaskan bahwa post blog draf mengembalikan
 string kosong dari method `content`, tetapi kita tidak akan menulis test
 untuk contoh ini.
 
-Berikutnya, kita ingin mengaktifkan permintaan review terhadap post itu, dan
+Berikutnya, kita ingin mengaktifkan request review terhadap post itu, dan
 kita ingin `content` mengembalikan string kosong selagi menunggu review.
 Ketika post itu menerima persetujuan, post itu seharusnya diterbitkan,
 artinya teks post itu akan dikembalikan saat `content` dipanggil.
@@ -88,7 +88,7 @@ kita gunakan adalah type `Post`. Type ini akan memakai state pattern dan akan me
 nilai yang berupa salah satu dari tiga *state object* yang merepresentasikan
 berbagai state yang bisa dialami sebuah post—draf, review, atau diterbitkan.
 Perubahan dari satu state ke state lain akan dikelola secara internal di dalam
-type `Post`. State-state itu berubah sebagai respons terhadap method yang
+type `Post`. State-state itu berubah sebagai response terhadap method yang
 dipanggil pengguna library kita pada instance `Post`, tetapi mereka tidak
 harus mengelola perubahan state secara langsung. Selain itu, pengguna tidak
 bisa membuat kesalahan dengan state-state itu, seperti menerbitkan post

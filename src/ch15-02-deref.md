@@ -310,7 +310,7 @@ dalam tiga kasus:
 3. Dari `&mut T` ke `&U` ketika `T: Deref<Target=U>`
 
 Dua kasus pertama sama, kecuali bahwa kasus kedua mengimplementasikan
-mutabilitas. Kasus pertama menyatakan bahwa jika Anda memiliki `&T`, dan `T`
+mutability. Kasus pertama menyatakan bahwa jika Anda memiliki `&T`, dan `T`
 mengimplementasikan `Deref` ke suatu type `U`, Anda dapat memperoleh `&U`
 secara transparan. Kasus kedua menyatakan bahwa *deref coercion* yang sama
 terjadi untuk *mutable* *reference*.

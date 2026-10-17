@@ -34,7 +34,7 @@ melakukannya.
 
 ### Menjalankan Unsafe Superpowers
 
-Untuk beralih ke *unsafe* Rust, pakailah kata kunci `unsafe` lalu bukalah blok
+Untuk beralih ke *unsafe* Rust, pakailah *keyword* `unsafe` lalu bukalah blok
 baru yang memuat kode *unsafe* itu. Anda bisa melakukan lima tindakan di *unsafe*
 Rust yang tidak bisa Anda lakukan di Rust yang aman, yang kita sebut *unsafe
 superpowers* (kekuatan super *unsafe*). Kekuatan super itu mencakup kemampuan
@@ -114,7 +114,7 @@ Listing 20-1 menunjukkan cara membuat *raw pointer* *immutable* dan *mutable*.
 
 </Listing>
 
-Perhatikan bahwa kita tidak menyertakan kata kunci `unsafe` di kode ini.
+Perhatikan bahwa kita tidak menyertakan *keyword* `unsafe` di kode ini.
 Kita bisa membuat *raw pointer* di kode yang aman; kita hanya tidak bisa
 melakukan dereferensi *raw pointer* di luar blok *unsafe*, seperti yang akan Anda
 lihat sebentar lagi.
@@ -126,7 +126,7 @@ dari sebuah variable lokal, kita tahu raw pointer khusus ini valid, tetapi
 kita tidak bisa membuat asumsi itu terhadap sembarang raw pointer.
 
 Untuk menunjukkan hal ini, berikutnya kita akan membuat sebuah raw pointer
-yang validitasnya tidak begitu bisa kita pastikan, dengan memakai kata kunci
+yang validitasnya tidak begitu bisa kita pastikan, dengan memakai *keyword*
 `as` untuk melakukan cast pada sebuah nilai alih-alih memakai operator borrow
 mentah. Listing 20-2 menunjukkan cara membuat raw pointer ke lokasi memori
 yang sembarang. Berusaha memakai memori sembarang adalah perilaku tak
@@ -183,7 +183,7 @@ memakai kode *unsafe*.
 Jenis operasi kedua yang bisa Anda lakukan di dalam blok *unsafe* adalah
 memanggil fungsi *unsafe*. Fungsi dan method *unsafe* tampak persis seperti
 fungsi dan method biasa, tetapi mereka memiliki tambahan `unsafe` sebelum
-bagian definisi lainnya. Kata kunci `unsafe` dalam konteks ini menandakan
+bagian definisi lainnya. *keyword* `unsafe` dalam konteks ini menandakan
 bahwa fungsi itu memiliki persyaratan yang perlu kita tegakkan saat
 memanggilnya, karena Rust tidak bisa menjamin bahwa kita telah memenuhi
 persyaratan-persyaratan itu. Dengan memanggil fungsi *unsafe* di dalam blok
@@ -341,7 +341,7 @@ terdefinisi.
 #### Memakai Fungsi `extern` untuk Memanggil Kode Eksternal
 
 Terkadang kode Rust Anda mungkin perlu berinteraksi dengan kode yang ditulis
-dalam bahasa lain. Untuk ini, Rust memiliki kata kunci `extern` yang
+dalam bahasa lain. Untuk ini, Rust memiliki *keyword* `extern` yang
 memfasilitasi pembuatan dan pemakaian *Foreign Function Interface* (FFI,
 Antarmuka Fungsi Asing), yaitu cara bagi sebuah bahasa pemrograman untuk
 mendefinisikan fungsi dan memungkinkan bahasa pemrograman lain (asing) untuk
@@ -374,7 +374,7 @@ Setiap item yang dideklarasikan di dalam blok `unsafe extern` secara implisit
 bersifat *unsafe*. Akan tetapi, beberapa fungsi FFI *memang* aman untuk
 dipanggil. Misalnya, fungsi `abs` dari standard library C tidak memiliki
 pertimbangan memory safety apa pun, dan kita tahu ia bisa dipanggil dengan
-`i32` apa pun. Dalam kasus seperti ini, kita bisa memakai kata kunci `safe`
+`i32` apa pun. Dalam kasus seperti ini, kita bisa memakai *keyword* `safe`
 untuk menyatakan bahwa fungsi khusus ini aman untuk dipanggil meskipun ia
 berada di dalam blok `unsafe extern`. Setelah kita membuat perubahan itu,
 memanggilnya tidak lagi memerlukan blok `unsafe`, seperti yang ditunjukkan di
@@ -397,8 +397,8 @@ Anda!
 
 Kita juga bisa memakai `extern` untuk membuat antarmuka yang memungkinkan
 bahasa lain memanggil fungsi Rust. Alih-alih membuat satu blok `extern` utuh,
-kita menambahkan kata kunci `extern` dan menentukan ABI yang akan dipakai
-tepat sebelum kata kunci `fn` untuk fungsi yang bersangkutan. Kita juga perlu
+kita menambahkan *keyword* `extern` dan menentukan ABI yang akan dipakai
+tepat sebelum *keyword* `fn` untuk fungsi yang bersangkutan. Kita juga perlu
 menambahkan anotasi `#[unsafe(no_mangle)]` untuk memberi tahu *compiler* Rust
 agar tidak melakukan mangling pada nama fungsi ini. *Mangling* adalah ketika
 sebuah *compiler* mengubah nama yang kita berikan kepada sebuah fungsi
@@ -467,7 +467,7 @@ mendeklarasikan, mengakses, dan mengubah variable static *mutable* bernama
 
 </Listing>
 
-Sama seperti variable biasa, kita menentukan mutabilitas dengan memakai kata
+Sama seperti variable biasa, kita menentukan mutability dengan memakai kata
 kunci `mut`. Kode apa pun yang membaca atau menulis `COUNTER` harus berada di
 dalam blok `unsafe`. Kode di Listing 20-11 terkompilasi dan mencetak
 `COUNTER: 3` seperti yang kita harapkan karena kode ini single-threaded.

@@ -110,7 +110,7 @@ argumen command line. Sekarang kita perlu menyimpan nilai kedua argumen
 tersebut di dalam variable agar kita dapat memakai nilai-nilai itu di seluruh
 bagian program selanjutnya. Kita melakukannya di Listing 12-2.
 
-<Listing number="12-2" file-name="src/main.rs" caption="Membuat variable untuk menampung argumen kueri dan argumen path file">
+<Listing number="12-2" file-name="src/main.rs" caption="Membuat variable untuk menampung argumen query dan argumen path file">
 
 ```rust,should_panic,noplayground
 {{#rustdoc_include ../listings/ch12-an-io-project/listing-12-02/src/main.rs}}

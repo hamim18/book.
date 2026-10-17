@@ -297,7 +297,7 @@ mengikatnya ke `s2`. Namun, bukan itu yang terjadi.
 Lihatlah Gambar 4-1 untuk mengetahui apa yang terjadi pada `String` di balik
 layar. Sebuah `String` terdiri atas tiga bagian, seperti yang ditunjukkan di
 sebelah kiri: sebuah *pointer* ke memori yang menampung isi *string*, sebuah
-panjang (*length*), dan sebuah kapasitas (*capacity*). Kumpulan data ini
+panjang (*length*), dan sebuah capacity (*capacity*). Kumpulan data ini
 disimpan di *stack*. Di sebelah kanan adalah memori di *heap* yang menampung
 isinya.
 
@@ -311,13 +311,13 @@ style="width: 50%;" />
 `String` yang memuat nilai `"hello"` dan terikat ke `s1`</span>
 
 Panjang adalah seberapa banyak memori, dalam satuan *byte*, yang sedang
-digunakan oleh isi `String` tersebut. Kapasitas adalah jumlah total memori,
+digunakan oleh isi `String` tersebut. Capacity adalah jumlah total memori,
 dalam satuan *byte*, yang telah diterima `String` tersebut dari *allocator*.
-Perbedaan antara panjang dan kapasitas itu penting, tetapi tidak dalam
-konteks ini, jadi untuk sekarang tidak apa-apa mengabaikan kapasitas.
+Perbedaan antara panjang dan capacity itu penting, tetapi tidak dalam
+konteks ini, jadi untuk sekarang tidak apa-apa mengabaikan capacity.
 
 Ketika kita menetapkan `s1` ke `s2`, data `String`-nya disalin, artinya kita
-menyalin *pointer*, panjang, dan kapasitas yang berada di *stack*. Kita tidak
+menyalin *pointer*, panjang, dan capacity yang berada di *stack*. Kita tidak
 menyalin data di *heap* yang dirujuk oleh *pointer* tersebut. Dengan kata
 lain, representasi data di dalam memori tampak seperti pada Gambar 4-2.
 
@@ -326,7 +326,7 @@ kedua string di stack, dan keduanya menunjuk ke data string yang sama di
 heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
 <span class="caption">Gambar 4-2: Representasi di dalam memori dari variable
-`s2` yang memiliki copy *pointer*, panjang, dan kapasitas dari `s1`</span>
+`s2` yang memiliki copy *pointer*, panjang, dan capacity dari `s1`</span>
 
 Representasi ini _tidak_ tampak seperti Gambar 4-3, yang merupakan bentuk
 memori jika Rust ikut menyalin data di *heap*. Jika Rust melakukan itu,
@@ -368,7 +368,7 @@ menggunakan *reference* (referensi) yang telah dibatalkan validitasnya:
 
 Jika Anda pernah mendengar istilah *shallow copy* (*shallow copy*) dan
 *deep copy* (*deep copy*) saat bekerja dengan bahasa lain, konsep menyalin
-*pointer*, panjang, dan kapasitas tanpa menyalin datanya mungkin terdengar
+*pointer*, panjang, dan capacity tanpa menyalin datanya mungkin terdengar
 seperti membuat *shallow copy*. Namun, karena Rust juga membatalkan
 validitas variable pertama, alih-alih disebut *shallow copy*, proses ini
 dikenal sebagai *move* (pemindahan). Dalam contoh ini, kita dapat mengatakan

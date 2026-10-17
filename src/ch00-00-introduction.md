@@ -1,6 +1,6 @@
 # Pendahuluan
 
-> Catatan: Edisi buku ini sama dengan [The Rust Programming Language][nsprust]
+> Catatan: Edition buku ini sama dengan [The Rust Programming Language][nsprust]
 > yang tersedia dalam format cetak dan ebook dari [No Starch Press][nsp].
 
 [nsprust]: https://nostarch.com/rust-programming-language-3rd-edition
@@ -10,7 +10,7 @@ Selamat datang di _The Rust Programming Language_, sebuah buku pengantar
 tentang Rust. Bahasa pemrograman Rust membantu Anda menulis perangkat lunak
 yang lebih cepat dan lebih andal. Ergonomi tingkat tinggi dan kendali tingkat
 rendah sering kali saling bertentangan dalam desain bahasa pemrograman; Rust
-menantang pertentangan itu. Dengan menyeimbangkan kapasitas teknis yang kuat
+menantang pertentangan itu. Dengan menyeimbangkan capacity teknis yang kuat
 dan pengalaman pengembang yang hebat, Rust memberi Anda pilihan untuk
 mengendalikan detail-detail tingkat rendah (seperti penggunaan memori) tanpa
 semua kerepotan yang biasanya melekat pada kendali semacam itu.
@@ -176,7 +176,7 @@ dalam format yang lebih menyerupai *reference*. **Lampiran A** membahas kata
 kunci Rust, **Lampiran B** membahas operator dan simbol Rust, **Lampiran C**
 membahas *trait* yang dapat diturunkan yang disediakan standard library,
 **Lampiran D** membahas beberapa tool pengembangan yang berguna, dan
-**Lampiran E** menjelaskan edisi Rust. Di **Lampiran F**, Anda dapat
+**Lampiran E** menjelaskan edition Rust. Di **Lampiran F**, Anda dapat
 menemukan terjemahan buku ini, dan di **Lampiran G** kita akan membahas
 bagaimana Rust dibuat dan apa itu Rust nightly.
 

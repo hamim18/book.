@@ -11,9 +11,9 @@ dan tampak seperti Gambar 21-1 di web browser.
 Berikut rencana kita untuk membangun web server itu:
 
 1. Mempelajari sedikit tentang TCP dan HTTP.
-2. Mendengarkan koneksi TCP pada sebuah soket.
-3. Melakukan parsing sejumlah kecil permintaan HTTP.
-4. Membuat respons HTTP yang tepat.
+2. Mendengarkan connection TCP pada sebuah soket.
+3. Melakukan parsing sejumlah kecil request HTTP.
+4. Membuat response HTTP yang tepat.
 5. Meningkatkan throughput server kita dengan *thread pool*.
 
 <img alt="Tangkapan layar web browser yang mengunjungi alamat 127.0.0.1:8080 dan menampilkan halaman web dengan konten teks “Hello! Hi from Rust”" src="img/trpl21-01.png" class="center" style="width: 50%;" />

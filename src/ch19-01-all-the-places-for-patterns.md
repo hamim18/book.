@@ -6,7 +6,7 @@ tanpa menyadarinya! Bagian ini membahas semua tempat pattern valid.
 ### Arm `match`
 
 Seperti yang dibahas di Bab 6, kita memakai pattern di arm expression `match`.
-Secara formal, expression `match` didefinisikan sebagai kata kunci `match`,
+Secara formal, expression `match` didefinisikan sebagai *keyword* `match`,
 sebuah nilai untuk dicocokkan, dan satu atau lebih arm match yang terdiri dari
 sebuah pattern dan expression yang dijalankan jika nilainya cocok dengan pattern arm
 itu, seperti ini:
@@ -196,17 +196,17 @@ dikirim antar-thread, tetapi dalam kasus ini memeriksa `Result` alih-alih
 </Listing>
 
 Contoh ini mencetak `1`, `2`, lalu `3`. Method `recv` mengambil pesan pertama
-dari sisi penerima *channel* dan mengembalikan `Ok(value)`. Ketika pertama kali
+dari sisi receiver *channel* dan mengembalikan `Ok(value)`. Ketika pertama kali
 kita melihat `recv` di Bab 16, kita melakukan unwrap pada errornya secara
 langsung, atau kita berinteraksi dengannya sebagai *iterator* menggunakan
 loop `for`. Akan tetapi, seperti yang ditunjukkan Listing 19-4, kita
 juga bisa memakai `while let`, karena method `recv` mengembalikan `Ok` setiap
-kali pesan tiba, selama pengirimnya ada, dan kemudian menghasilkan `Err`
-begitu sisi pengirim terputus.
+kali pesan tiba, selama sendernya ada, dan kemudian menghasilkan `Err`
+begitu sisi sender terputus.
 
 ### Loop `for`
 
-Pada loop `for`, nilai yang langsung mengikuti kata kunci `for` adalah
+Pada loop `for`, nilai yang langsung mengikuti *keyword* `for` adalah
 sebuah pattern. Contohnya, pada `for x in y`, `x` adalah patternnya. Listing 19-5
 mendemonstrasikan cara memakai pattern di loop `for` untuk
 mendestrukturisasi, atau memecah, sebuah *tuple* sebagai bagian dari loop

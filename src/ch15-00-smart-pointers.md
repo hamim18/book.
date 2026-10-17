@@ -42,7 +42,7 @@ standard library:
 - `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, type yang menegakkan
   aturan *borrowing* pada runtime alih-alih pada waktu kompilasi
 
-Selain itu, kita akan membahas pattern _interior mutability_ (mutabilitas
+Selain itu, kita akan membahas pattern _interior mutability_ (mutability
 internal) di mana sebuah type *immutable* mengekspos API untuk mengubah nilai
 di bagian dalamnya. Kita juga akan membahas *reference cycle* (siklus
 *reference*): bagaimana siklus itu bisa membocorkan memori dan bagaimana

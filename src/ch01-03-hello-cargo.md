@@ -85,7 +85,7 @@ Saat kita menambahkan lebih banyak informasi ke file ini, kita akan
 menambahkan bagian-bagian lain.
 
 Tiga baris berikutnya menetapkan informasi konfigurasi yang dibutuhkan
-Cargo untuk mengompilasi program Anda: nama, versi, dan edisi Rust yang
+Cargo untuk mengompilasi program Anda: nama, versi, dan edition Rust yang
 akan dipakai. Kita akan membahas kunci `edition` di
 [Lampiran E][appendix-e]<!-- ignore -->.
 

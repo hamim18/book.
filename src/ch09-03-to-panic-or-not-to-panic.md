@@ -107,7 +107,7 @@ mengembalikan state yang tidak valid yang tidak dapat Anda perbaiki.
 
 Namun, ketika kegagalan itu diharapkan, lebih tepat mengembalikan `Result`
 daripada melakukan pemanggilan `panic!`. Contohnya termasuk parser yang
-diberi data yang cacat atau permintaan HTTP yang mengembalikan status yang
+diberi data yang cacat atau request HTTP yang mengembalikan status yang
 mengindikasikan Anda telah melampaui batas laju (rate limit). Dalam
 kasus-kasus ini, mengembalikan `Result` mengindikasikan bahwa kegagalan
 adalah kemungkinan yang diharapkan yang harus diputuskan cara

@@ -65,7 +65,7 @@ method `push`, seperti yang ditunjukkan di Listing 8-3.
 </Listing>
 
 Seperti variable mana pun, jika kita ingin dapat mengubah nilainya, kita
-perlu menjadikannya *mutable* (dapat diubah) memakai kata kunci `mut`, seperti
+perlu menjadikannya *mutable* (dapat diubah) memakai *keyword* `mut`, seperti
 yang dibahas di Bab 3. Angka-angka yang kita tempatkan di dalamnya semuanya
 typed `i32`, dan Rust menginferensi hal ini dari datanya, jadi kita tidak
 perlu anotasi `Vec<i32>`.

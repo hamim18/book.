@@ -288,7 +288,7 @@ Badan fungsi dimulai dengan memanggil fungsi `File::open`. Lalu, kita
 menangani nilai `Result` dengan `match` yang mirip dengan `match` di Listing
 9-4. Jika `File::open` berhasil, handle file di variable pattern `file` menjadi
 nilai di variable *mutable* `username_file` dan fungsinya berlanjut. Pada
-kasus `Err`, alih-alih memanggil `panic!`, kita memakai kata kunci `return`
+kasus `Err`, alih-alih memanggil `panic!`, kita memakai *keyword* `return`
 untuk keluar lebih awal dari fungsi sepenuhnya dan meneruskan nilai error
 dari `File::open`, yang kini berada di variable pattern `e`, kembali ke kode
 pemanggil sebagai nilai error fungsi ini.
@@ -346,7 +346,7 @@ dengan cara yang hampir sama dengan expression `match` yang kita definisikan
 untuk menangani nilai `Result` di Listing 9-6. Jika nilai `Result` adalah
 `Ok`, nilai di dalam `Ok` akan dikembalikan dari expression ini, dan program
 akan berlanjut. Jika nilainya `Err`, `Err` akan dikembalikan dari seluruh
-fungsi seolah-olah kita memakai kata kunci `return`, sehingga nilai
+fungsi seolah-olah kita memakai *keyword* `return`, sehingga nilai
 errornya diteruskan ke kode pemanggil.
 
 Ada perbedaan antara yang dilakukan expression `match` dari Listing 9-6 dan

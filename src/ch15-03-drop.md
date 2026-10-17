@@ -4,7 +4,7 @@
 memungkinkan Anda menyesuaikan apa yang terjadi ketika sebuah nilai akan
 keluar dari *scope*. Anda dapat menyediakan implementasi untuk *trait* `Drop` pada
 type apa pun, dan kode itu dapat dipakai untuk melepaskan sumber daya seperti file
-atau koneksi jaringan.
+atau connection jaringan.
 
 Kita memperkenalkan `Drop` dalam konteks *smart pointer* karena fungsionalitas
 *trait* `Drop` hampir selalu dipakai ketika mengimplementasikan *smart pointer*.

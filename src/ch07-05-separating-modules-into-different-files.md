@@ -115,7 +115,7 @@ ukuran *module*.
 
 Perhatikan bahwa statement `pub use crate::front_of_house::hosting` di
 _src/lib.rs_ juga tidak berubah, dan `use` tidak memiliki dampak apa pun
-terhadap file mana yang dikompilasi sebagai bagian dari *crate*. Kata kunci
+terhadap file mana yang dikompilasi sebagai bagian dari *crate*. *keyword*
 `mod` mendeklarasikan *module*, dan Rust mencari di file dengan nama yang sama
 dengan *module* untuk kode yang masuk ke *module* itu.
 
@@ -128,7 +128,7 @@ menuliskan *path* absolut atau relatif. *Path*-path ini dapat dibawa ke dalam
 *scope* dengan statement `use` sehingga Anda dapat memakai *path* yang lebih
 pendek untuk beberapa pemakaian item di *scope* itu. Kode *module* bersifat
 privat secara default, tetapi Anda dapat menjadikan definisi publik dengan
-menambahkan kata kunci `pub`.
+menambahkan *keyword* `pub`.
 
 Di bab berikutnya, kita akan melihat beberapa struktur data collection di
 standard library yang dapat Anda pakai di kode yang tertata rapi.

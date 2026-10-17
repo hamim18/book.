@@ -14,7 +14,7 @@ atribut, type, *trait*, atau *lifetime* (masa hidup).
 
 ### Keyword yang Sedang Dipakai
 
-Berikut adalah daftar kata kunci yang sedang dipakai, beserta penjelasan
+Berikut adalah daftar *keyword* yang sedang dipakai, beserta penjelasan
 fungsionalitasnya.
 
 - **`as`**: Melakukan casting primitif, mendisambiguasi *trait* tertentu yang
@@ -42,7 +42,7 @@ fungsionalitasnya.
 - **`mod`**: Mendefinisikan *module*.
 - **`move`**: Membuat *closure* mengambil *ownership* atas semua yang
   ditangkapnya.
-- **`mut`**: Menandai mutabilitas pada *reference*, *raw pointer*, atau pengikatan
+- **`mut`**: Menandai mutability pada *reference*, *raw pointer*, atau pengikatan
   pattern.
 - **`pub`**: Menandai visibilitas publik pada *field* *struct*, blok `impl`, atau
   *module*.
@@ -69,7 +69,7 @@ fungsionalitasnya.
 
 ### Kata Kunci yang Dicadangkan untuk Pemakaian Masa Depan
 
-Kata kunci berikut belum memiliki fungsionalitas apa pun, tetapi dicadangkan
+*keyword* berikut belum memiliki fungsionalitas apa pun, tetapi dicadangkan
 oleh Rust untuk kemungkinan pemakaian di masa depan:
 
 - `abstract`
@@ -89,11 +89,11 @@ oleh Rust untuk kemungkinan pemakaian di masa depan:
 
 ### Raw Identifiers
 
-_Raw identifiers_ adalah sintaks yang memungkinkan Anda memakai kata kunci di
+_Raw identifiers_ adalah sintaks yang memungkinkan Anda memakai *keyword* di
 tempat yang biasanya tidak mengizinkannya. Anda memakai *raw identifier* dengan
-memberi prefiks `r#` pada kata kunci.
+memberi prefiks `r#` pada *keyword*.
 
-Sebagai contoh, `match` adalah kata kunci. Jika Anda mencoba mengompilasi fungsi
+Sebagai contoh, `match` adalah *keyword*. Jika Anda mencoba mengompilasi fungsi
 berikut yang memakai `match` sebagai namanya:
 
 <span class="filename">Nama File: src/main.rs</span>
@@ -114,7 +114,7 @@ error: expected identifier, found keyword `match`
   |    ^^^^^ expected identifier, found keyword
 ```
 
-Error tersebut menunjukkan bahwa Anda tidak dapat memakai kata kunci `match`
+Error tersebut menunjukkan bahwa Anda tidak dapat memakai *keyword* `match`
 sebagai identifier fungsi. Untuk memakai `match` sebagai nama fungsi, Anda perlu
 memakai sintaks *raw identifier*, seperti ini:
 
@@ -135,17 +135,17 @@ nama fungsi, baik pada definisinya maupun pada tempat fungsi itu dipanggil di
 dalam `main`.
 
 *Raw identifier* memungkinkan Anda memakai kata apa pun yang Anda pilih sebagai
-identifier, bahkan jika kata itu kebetulan merupakan kata kunci yang
+identifier, bahkan jika kata itu kebetulan merupakan *keyword* yang
 dicadangkan. Ini memberi kita lebih banyak kebebasan untuk memilih nama
 identifier, sekaligus memungkinkan kita berintegrasi dengan program yang ditulis
 dalam bahasa yang kata-kata ini bukan kata kuncinya. Selain itu, *raw identifier*
-memungkinkan Anda memakai library yang ditulis dengan edisi Rust yang berbeda
-dari yang dipakai *crate* Anda. Sebagai contoh, `try` bukan kata kunci pada edisi
-2015, tetapi merupakan kata kunci pada edisi 2018, 2021, dan 2024. Jika Anda
-bergantung pada library yang ditulis memakai edisi 2015 dan memiliki fungsi
+memungkinkan Anda memakai library yang ditulis dengan edition Rust yang berbeda
+dari yang dipakai *crate* Anda. Sebagai contoh, `try` bukan *keyword* pada edition
+2015, tetapi merupakan *keyword* pada edition 2018, 2021, dan 2024. Jika Anda
+bergantung pada library yang ditulis memakai edition 2015 dan memiliki fungsi
 `try`, Anda perlu memakai sintaks *raw identifier*, `r#try` dalam kasus ini, untuk
-memanggil fungsi tersebut dari kode Anda pada edisi yang lebih baru. Lihat
+memanggil fungsi tersebut dari kode Anda pada edition yang lebih baru. Lihat
 [Lampiran E][appendix-e]<!-- ignore --> untuk informasi lebih lanjut tentang
-edisi.
+edition.
 
 [appendix-e]: appendix-05-editions.html

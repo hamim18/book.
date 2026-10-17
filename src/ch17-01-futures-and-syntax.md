@@ -1,33 +1,33 @@
 ## Futures dan Sintaks Async
 
-Elemen kunci dari asynchronous programming di Rust adalah _future_ dan kata kunci
+Elemen kunci dari asynchronous programming di Rust adalah _future_ dan *keyword*
 `async` serta `await` dari Rust.
 
 Sebuah _future_ adalah nilai yang mungkin belum siap sekarang, tetapi akan siap
 pada suatu titik di masa depan. (Konsep yang sama ini muncul di banyak bahasa,
 terkadang dengan nama lain seperti _task_ atau _promise_.) Rust menyediakan
-*trait* `Future` sebagai batu penyusun supaya berbagai operasi async bisa
+*trait* `Future` sebagai building block supaya berbagai operasi async bisa
 diimplementasikan dengan struktur data yang berbeda-beda, tetapi dengan
 antarmuka yang sama. Di Rust, *future* adalah type yang mengimplementasikan *trait*
 `Future`. Setiap *future* menyimpan informasinya sendiri tentang kemajuan yang
 telah dibuat dan apa arti “siap”.
 
-Anda bisa menerapkan kata kunci `async` pada blok dan fungsi untuk menentukan
+Anda bisa menerapkan *keyword* `async` pada blok dan fungsi untuk menentukan
 bahwa keduanya bisa diinterupsi dan dilanjutkan kembali. Di dalam blok async
-atau fungsi async, Anda bisa memakai kata kunci `await` untuk _menunggu sebuah
+atau fungsi async, Anda bisa memakai *keyword* `await` untuk _menunggu sebuah
 future_ (artinya, menunggu *future* itu menjadi siap). Setiap titik tempat Anda
 menunggu sebuah *future* di dalam blok atau fungsi async adalah titik yang
 berpotensi membuat blok atau fungsi tersebut berhenti sejenak dan dilanjutkan
 kembali. Proses mengecek sebuah *future* untuk melihat apakah nilainya sudah
 tersedia disebut _polling_.
 
-Beberapa bahasa lain, seperti C# dan JavaScript, juga memakai kata kunci
+Beberapa bahasa lain, seperti C# dan JavaScript, juga memakai *keyword*
 `async` dan `await` untuk asynchronous programming. Jika Anda familier dengan
 bahasa-bahasa itu, Anda mungkin akan melihat beberapa perbedaan yang cukup
 besar dalam cara Rust menangani sintaks ini. Ada alasan kuat di baliknya,
 seperti yang akan kita lihat nanti!
 
-Saat menulis kode async di Rust, kita memakai kata kunci `async` dan `await`
+Saat menulis kode async di Rust, kita memakai *keyword* `async` dan `await`
 hampir setiap saat. Rust mengompilasinya menjadi kode yang setara dengan
 memakai *trait* `Future`, sebagaimana Rust mengompilasi loop `for` menjadi
 kode yang setara dengan memakai *trait* `Iterator`. Akan tetapi, karena Rust
@@ -85,7 +85,7 @@ menyelesaikan seluruh proses itu lebih dulu.
 ### Mendefinisikan Fungsi page_title
 
 Mari mulai dengan menulis sebuah fungsi yang menerima satu URL halaman sebagai
-parameter, membuat permintaan ke URL itu, dan mengembalikan teks dari elemen
+parameter, membuat request ke URL itu, dan mengembalikan teks dari elemen
 `<title>` (lihat Listing 17-1).
 
 <Listing number="17-1" file-name="src/main.rs" caption="Mendefinisikan sebuah fungsi async untuk mendapatkan elemen title dari sebuah halaman HTML">
@@ -97,20 +97,20 @@ parameter, membuat permintaan ke URL itu, dan mengembalikan teks dari elemen
 </Listing>
 
 Pertama, kita mendefinisikan sebuah fungsi bernama `page_title` dan menandainya
-dengan kata kunci `async`. Kemudian kita memakai fungsi `trpl::get` untuk
-mengambil URL apa pun yang diteruskan, lalu menambahkan kata kunci `await`
+dengan *keyword* `async`. Kemudian kita memakai fungsi `trpl::get` untuk
+mengambil URL apa pun yang diteruskan, lalu menambahkan *keyword* `await`
 untuk menunggu responsnya. Untuk mendapatkan teks dari `response`, kita
-memanggil method `text`-nya dan sekali lagi menunggunya dengan kata kunci
+memanggil method `text`-nya dan sekali lagi menunggunya dengan *keyword*
 `await`. Kedua langkah ini asynchronous. Untuk fungsi `get`, kita harus menunggu
 server mengirim balik bagian pertama dari responsnya, yang akan mencakup
 header HTTP, cookie, dan seterusnya, dan bisa dikirim terpisah dari badan
-respons. Apalagi jika badannya sangat besar, semuanya bisa butuh waktu untuk
-tiba. Karena kita harus menunggu _keseluruhan_ respons tiba, method `text` juga
+response. Apalagi jika badannya sangat besar, semuanya bisa butuh waktu untuk
+tiba. Karena kita harus menunggu _keseluruhan_ response tiba, method `text` juga
 bersifat async.
 
 Kita harus menunggu kedua *future* ini secara eksplisit, karena *future* di Rust
 bersifat _lazy_: *future* tidak melakukan apa pun sampai Anda memintanya dengan
-kata kunci `await`. (Bahkan, Rust akan menampilkan peringatan *compiler* jika
+*keyword* `await`. (Bahkan, Rust akan menampilkan peringatan *compiler* jika
 Anda tidak memakai sebuah *future*.) Ini mungkin mengingatkan Anda pada
 pembahasan *iterator* di bagian [“Memproses Serangkaian Item dengan
 *Iterator*”][*iterators*-lazy]<!-- ignore --> di Bab 13. *Iterator* tidak melakukan
@@ -143,15 +143,15 @@ berikan kepada `map`, kita memanggil `inner_html` pada `title` untuk
 mendapatkan isinya, yang berupa `String`. Pada akhirnya, kita memiliki sebuah
 `Option<String>`.
 
-Perhatikan bahwa kata kunci `await` dari Rust berada _setelah_ expression yang
-Anda tunggu, bukan sebelumnya. Artinya, kata kunci ini bersifat _postfix_. Ini
+Perhatikan bahwa *keyword* `await` dari Rust berada _setelah_ expression yang
+Anda tunggu, bukan sebelumnya. Artinya, *keyword* ini bersifat _postfix_. Ini
 mungkin berbeda dari yang biasa Anda lihat jika Anda pernah memakai `async` di
 bahasa lain, tetapi di Rust ini membuat rantai method jauh lebih nyaman
 dipakai. Hasilnya, kita bisa mengubah badan `page_title` untuk merantaikan
 pemanggilan fungsi `trpl::get` dan `text` dengan `await` di antaranya, seperti
 yang ditunjukkan di Listing 17-2.
 
-<Listing number="17-2" file-name="src/main.rs" caption="Merantaikan dengan kata kunci `await`">
+<Listing number="17-2" file-name="src/main.rs" caption="Merantaikan dengan *keyword* `await`">
 
 ```rust
 {{#rustdoc_include ../listings/ch17-async-await/listing-17-02/src/main.rs:chaining}}
@@ -163,7 +163,7 @@ Dengan itu, kita berhasil menulis fungsi async pertama kita! Sebelum
 menambahkan beberapa kode di `main` untuk memanggilnya, mari kita bahas
 sedikit lagi apa yang telah kita tulis dan apa artinya.
 
-Ketika Rust melihat sebuah _blok_ yang ditandai dengan kata kunci `async`,
+Ketika Rust melihat sebuah _blok_ yang ditandai dengan *keyword* `async`,
 Rust mengompilasinya menjadi sebuah data type anonim yang unik yang
 mengimplementasikan *trait* `Future`. Ketika Rust melihat sebuah _fungsi_ yang
 ditandai dengan `async`, Rust mengompilasinya menjadi sebuah fungsi non-async
@@ -235,7 +235,7 @@ URL itu ke `page_title` dan menunggu hasilnya. Karena nilai yang dihasilkan
 mencetak pesan yang berbeda sesuai ada atau tidaknya `<title>` di halaman
 tersebut.
 
-Satu-satunya tempat kita bisa memakai kata kunci `await` adalah di fungsi atau
+Satu-satunya tempat kita bisa memakai *keyword* `await` adalah di fungsi atau
 blok async, dan Rust tidak mengizinkan kita menandai fungsi khusus `main`
 sebagai `async`.
 
@@ -320,7 +320,7 @@ Fiuh—akhirnya kita punya kode async yang berfungsi! Namun, sebelum
 menambahkan kode untuk mempertandingkan dua situs satu sama lain, mari kita
 alihkan perhatian sejenak kembali ke cara kerja *future*.
 
-Setiap _await point_—artinya, setiap tempat yang memakai kata kunci
+Setiap _await point_—artinya, setiap tempat yang memakai *keyword*
 `await`—merepresentasikan tempat kontrol diserahkan kembali ke runtime. Untuk
 membuatnya bekerja, Rust perlu melacak state yang terlibat dalam blok async
 sehingga runtime bisa memulai pekerjaan lain lalu kembali ketika siap mencoba
