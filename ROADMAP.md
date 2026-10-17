@@ -9,9 +9,25 @@ Diperbarui di akhir setiap sesi.
 - Tahap 4 selesai — Pendahuluan (`title-page.md`, `foreword.md`, `SUMMARY.md`)
   diterjemahkan dan lulus `cek_terjemahan.py`. **Semua 112 file selesai,
   0 galat.** `mdbook test` lulus (exit 0).
-- File berikutnya yang dikerjakan: Tahap 5 — pemeriksaan menyeluruh: review
-  kedua (banding `asli/` ↔ `src/`), `mdbook build` (anchor heading
-  diterjemahkan), konsistensi istilah antar-bab.
+- Tahap 5 (pemeriksaan menyeluruh) sedang berjalan:
+  - **Selesai — anchor internal**: 70 tag `<a id>` kompatibilitas ditambahkan
+    di 41 file tujuan; pemindaian 291 tautan internal ber-anchor kini 0 rusak.
+    Dua tautan stale (ch17-05 → ch17-03#working-with-any-number-of-futures dan
+    ch17-06 → ch17-04#composing-streams) dibiarkan: keduanya definisi tautan
+    mati yang tidak pernah dipakai di prosa. Commit `0324fd6`.
+  - **Selesai — review kedua gelombang 1** (bab 02, 04, 08, 10, 15, 17, 20,
+    21, per bab oleh agen pembanding `asli/` ↔ `src/`): tidak ada pergeseran
+    makna; 18 catatan kecil diperbaiki. Commit `24bd8b8`.
+  - **Selesai — konsistensi istilah**: "command line" → "baris perintah"
+    (ch11-02); "di Appendix C" → "di Lampiran C" (ch04-01).
+  - **Selesai — konvensi miring**: atas keputusan pengguna, istilah teknis
+    Inggris kini dimiringkan pada SETIAP kemunculan di prosa (4.358
+    kemunculan, 96 file), termasuk istilah berkapital di awal kalimat;
+    heading, kode, tautan, komentar HTML, dan judul karya dikecualikan.
+  - **Berjalan — review kedua gelombang 2**: bab 00, 01, 03, 05, 06, 07, 09,
+    11, 12, 13, 14, 16, 18, 19, dan Appendix (9 agen pembanding).
+- File berikutnya yang dikerjakan: selesaikan review gelombang 2, lalu
+  Tahap 6 — cetak A5.
 - Terakhir diperbarui: 2026-10-17
 
 ## Urutan kerja
@@ -685,6 +701,19 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Kutipan di prosa memakai tanda kutip tipografis “ ” dan apostrof ’
   mengikuti teks asli (diperbaiki menyusul di bab 01: "Hello, world!" → “Hello, world!”).
 
+## Konvensi baru Tahap 5 (disetujui pengguna 2026-10-17)
+
+- Istilah teknis Inggris dari glosarium dicetak miring pada **setiap**
+  kemunculan di prosa, bukan hanya kemunculan pertama (selaras gaya Bab 4).
+  Kemunculan pertama per bab tetap diberi padanan dalam kurung.
+- Istilah berkapital di awal kalimat ikut dimiringkan (“*Compiler*
+  biasanya…”).
+- Yang dikecualikan dari pemiringan: heading, blok kode dan komentar di
+  dalamnya, inline code (backtick), tautan dan label tautan, komentar HTML,
+  judul karya/kutipan Inggris yang memang dipertahankan, serta istilah yang
+  glosariumnya bertanda "tanpa miring"/"tetap" polos (mis. thread, panic,
+  hash map, linter, workspace).
+
 ## Konvensi yang dipakai di Bab 3 (usulan, mohon konfirmasi)
 
 - Heading yang anchor-nya menjadi target tautan dari bab lain dipertahankan
@@ -696,6 +725,33 @@ masukkan juga ke tabel glosarium di `CLAUDE.md`.
 - Judul karya (“The Twelve Days of Christmas”) tetap Inggris.
 
 ## Masalah terbuka
+
+- **SELESAI (Tahap 5)**: semua masalah anchor di bawah ini (heading
+  diterjemahkan → tautan `file.html#anchor` rusak) ditangani dengan
+  menambahkan tag `<a id="...">` pada heading tujuan di `src/`; pemindaian
+  291 tautan internal ber-anchor kini 0 rusak (commit `0324fd6`). Daftar lama
+  tetap di bawah sebagai jejak.
+- **SELESAI (Tahap 5)**: "command line" di ch11-02 kini "baris perintah";
+  "di Appendix C" di ch04-01 kini "di Lampiran C" (commit `24bd8b8`).
+- **SELESAI (Tahap 5)**: heading ch17-06 dikonfirmasi setia pada asli
+  ("Putting It All Together: Futures, Tasks, and Threads" →
+  "Merangkai Semuanya: Futures, Tasks, dan Threads").
+- **KEPUTUSAN (Tahap 5)**: konvensi miring — istilah teknis Inggris
+  dimiringkan pada SETIAP kemunculan di prosa (bukan hanya kemunculan
+  pertama), sesuai pilihan pengguna; istilah berkapital di awal kalimat ikut
+  dirapikan. Dicatat juga di seksi Konvensi.
+- **BARU (Tahap 5), mohon konfirmasi**: istilah "performance penalty"
+  diterjemahkan "denda performa" (keputusan glosarium bab 13; konsisten di
+  bab 13, 15, 16, 20), tetapi reviewer bab 15 mengusulkan "penalti performa"
+  karena "denda" bernuansa hukuman uang. Mana yang resmi?
+- **BARU (Tahap 5), catatan**: bab 02 menerjemahkan *whitespace* menjadi
+  "spasi" (keputusan glosarium bab 02). Teknisnya kurang tepat karena `trim`
+  juga menghapus `\r\n`; reviewer mengusulkan mempertahankan *whitespace*.
+  Dipertahankan dulu sesuai glosarium; ubah bila pengguna setuju.
+- Baris glosarium CLAUDE.md "error handling | penanganan *error*" tidak cocok
+  dengan pemakaian buku ("galat", "penanganan galat"). Mohon konfirmasi
+  pemakaian mana yang dianggap resmi, lalu sinkronkan tabel glosarium dengan
+  log istilah (item lama, masih terbuka).
 
 - Keputusan Tahap 4 (Pendahuluan), mohon konfirmasi:
   - Judul buku di `title-page.md` dipertahankan “The Rust Programming
