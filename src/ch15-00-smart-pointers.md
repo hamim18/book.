@@ -1,46 +1,51 @@
 # Smart Pointers
 
-A pointer is a general concept for a variable that contains an address in
-memory. This address refers to, or “points at,” some other data. The most
-common kind of pointer in Rust is a reference, which you learned about in
-Chapter 4. References are indicated by the `&` symbol and borrow the value they
-point to. They don’t have any special capabilities other than referring to
-data, and they have no overhead.
+Pointer adalah konsep umum untuk variabel yang memuat sebuah alamat di memori.
+Alamat ini merujuk ke, atau "menunjuk ke," sejumlah data lain. Jenis pointer
+yang paling umum di Rust adalah reference, yang telah Anda pelajari di Bab 4.
+Reference ditandai dengan simbol `&` dan meminjam nilai yang ditunjuknya.
+Reference tidak memiliki kemampuan khusus apa pun selain merujuk data, dan
+tidak memiliki overhead.
 
-_Smart pointers_, on the other hand, are data structures that act like a
-pointer but also have additional metadata and capabilities. The concept of
-smart pointers isn’t unique to Rust: Smart pointers originated in C++ and exist
-in other languages as well. Rust has a variety of smart pointers defined in the
-standard library that provide functionality beyond that provided by references.
-To explore the general concept, we’ll look at a couple of different examples of
-smart pointers, including a _reference counting_ smart pointer type. This
-pointer enables you to allow data to have multiple owners by keeping track of
-the number of owners and, when no owners remain, cleaning up the data.
+_Smart pointer_ (penunjuk pintar), di sisi lain, adalah struktur data yang
+berperilaku seperti pointer tetapi juga memiliki metadata dan kemampuan
+tambahan. Konsep smart pointer tidak unik bagi Rust: Smart pointer berasal
+dari C++ dan ada juga di bahasa-bahasa lain. Rust memiliki beragam smart
+pointer yang didefinisikan di pustaka standar yang menyediakan fungsionalitas
+di luar yang disediakan oleh reference. Untuk mengeksplorasi konsep umumnya,
+kita akan melihat beberapa contoh smart pointer yang berbeda, termasuk tipe
+smart pointer _reference counting_ (penghitungan referensi). Pointer ini
+memungkinkan Anda mengizinkan data memiliki beberapa pemilik dengan melacak
+jumlah pemilik dan, ketika tidak ada pemilik tersisa, membersihkan data itu.
 
-In Rust, with its concept of ownership and borrowing, there is an additional
-difference between references and smart pointers: While references only borrow
-data, in many cases smart pointers _own_ the data they point to.
+Di Rust, dengan konsep ownership dan borrowing-nya, ada perbedaan tambahan
+antara reference dan smart pointer: Sementara reference hanya meminjam data,
+dalam banyak kasus smart pointer _memiliki_ data yang ditunjuknya.
 
-Smart pointers are usually implemented using structs. Unlike an ordinary
-struct, smart pointers implement the `Deref` and `Drop` traits. The `Deref`
-trait allows an instance of the smart pointer struct to behave like a reference
-so that you can write your code to work with either references or smart
-pointers. The `Drop` trait allows you to customize the code that’s run when an
-instance of the smart pointer goes out of scope. In this chapter, we’ll discuss
-both of these traits and demonstrate why they’re important to smart pointers.
+Smart pointer biasanya diimplementasikan menggunakan struct. Tidak seperti
+struct biasa, smart pointer mengimplementasikan trait `Deref` dan `Drop`.
+Trait `Deref` memungkinkan sebuah instance dari struct smart pointer
+berperilaku seperti sebuah reference sehingga Anda dapat menulis kode yang
+bekerja dengan reference ataupun smart pointer. Trait `Drop` memungkinkan Anda
+menyesuaikan kode yang dijalankan ketika sebuah instance smart pointer keluar
+dari scope. Di bab ini, kita akan membahas kedua trait ini dan menunjukkan
+mengapa keduanya penting bagi smart pointer.
 
-Given that the smart pointer pattern is a general design pattern used
-frequently in Rust, this chapter won’t cover every existing smart pointer. Many
-libraries have their own smart pointers, and you can even write your own. We’ll
-cover the most common smart pointers in the standard library:
+Mengingat pola smart pointer adalah pola desain umum yang sering dipakai di
+Rust, bab ini tidak akan membahas setiap smart pointer yang ada. Banyak
+library memiliki smart pointer sendiri, dan Anda bahkan dapat menulis smart
+pointer Anda sendiri. Kita akan membahas smart pointer yang paling umum di
+pustaka standar:
 
-- `Box<T>`, for allocating values on the heap
-- `Rc<T>`, a reference counting type that enables multiple ownership
-- `Ref<T>` and `RefMut<T>`, accessed through `RefCell<T>`, a type that enforces
-  the borrowing rules at runtime instead of compile time
+- `Box<T>`, untuk mengalokasikan nilai di heap
+- `Rc<T>`, tipe penghitungan referensi yang memungkinkan banyak kepemilikan
+- `Ref<T>` dan `RefMut<T>`, diakses melalui `RefCell<T>`, tipe yang menegakkan
+  aturan borrowing pada runtime alih-alih pada waktu kompilasi
 
-In addition, we’ll cover the _interior mutability_ pattern where an immutable
-type exposes an API for mutating an interior value. We’ll also discuss
-reference cycles: how they can leak memory and how to prevent them.
+Selain itu, kita akan membahas pola _interior mutability_ (mutabilitas
+internal) di mana sebuah tipe immutable mengekspos API untuk mengubah nilai
+di bagian dalamnya. Kita juga akan membahas reference cycle (siklus
+referensi): bagaimana siklus itu bisa membocorkan memori dan bagaimana
+mencegahnya.
 
-Let’s dive in!
+Mari kita mulai!

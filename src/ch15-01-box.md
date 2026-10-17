@@ -1,44 +1,49 @@
-## Using `Box<T>` to Point to Data on the Heap
+## Memakai `Box<T>` untuk Menunjuk ke Data di Heap
 
-The most straightforward smart pointer is a box, whose type is written
-`Box<T>`. _Boxes_ allow you to store data on the heap rather than the stack.
-What remains on the stack is the pointer to the heap data. Refer to Chapter 4
-to review the difference between the stack and the heap.
+Smart pointer yang paling sederhana adalah _box_ (tetap), yang tipenya ditulis
+`Box<T>`. _Box_ memungkinkan Anda menyimpan data di heap alih-alih di stack.
+Yang tersisa di stack adalah pointer ke data di heap itu. Baca kembali Bab 4
+untuk mengulas perbedaan antara stack dan heap.
 
-Boxes don’t have performance overhead, other than storing their data on the
-heap instead of on the stack. But they don’t have many extra capabilities
-either. You’ll use them most often in these situations:
+Box tidak memiliki overhead performa, selain menyimpan datanya di heap
+alih-alih di stack. Namun, box juga tidak memiliki banyak kemampuan tambahan.
+Anda paling sering akan memakainya dalam situasi-situasi berikut:
 
-- When you have a type whose size can’t be known at compile time, and you want
-  to use a value of that type in a context that requires an exact size
-- When you have a large amount of data, and you want to transfer ownership but
-  ensure that the data won’t be copied when you do so
-- When you want to own a value, and you care only that it’s a type that
-  implements a particular trait rather than being of a specific type
+- Ketika Anda memiliki tipe yang ukurannya tidak bisa diketahui pada waktu
+  kompilasi, dan Anda ingin memakai nilai bertipe itu dalam konteks yang
+  menuntut ukuran yang pasti
+- Ketika Anda memiliki data dalam jumlah besar, dan Anda ingin memindahkan
+  ownership tetapi memastikan data itu tidak akan disalin ketika Anda
+  melakukannya
+- Ketika Anda ingin memiliki sebuah nilai, dan Anda hanya peduli bahwa nilai
+  itu bertipe yang mengimplementasikan trait tertentu alih-alih bertipe
+  spesifik tertentu
 
-We’ll demonstrate the first situation in [“Enabling Recursive Types with
-Boxes”](#enabling-recursive-types-with-boxes)<!-- ignore -->. In the second
-case, transferring ownership of a large amount of data can take a long time
-because the data is copied around on the stack. To improve performance in this
-situation, we can store the large amount of data on the heap in a box. Then,
-only the small amount of pointer data is copied around on the stack, while the
-data it references stays in one place on the heap. The third case is known as a
-_trait object_, and [“Using Trait Objects to Abstract over Shared
-Behavior”][trait-objects]<!-- ignore --> in Chapter 18 is devoted to that
-topic. So, what you learn here you’ll apply again in that section!
+Kita akan menunjukkan situasi pertama di [“Mengaktifkan Tipe Rekursif dengan
+Boxes”](#enabling-recursive-types-with-boxes)<!-- ignore -->. Pada kasus
+kedua, memindahkan ownership data dalam jumlah besar bisa memakan waktu lama
+karena data itu disalin bolak-balik di stack. Untuk meningkatkan performa
+dalam situasi ini, kita dapat menyimpan data berjumlah besar itu di heap dalam
+sebuah box. Dengan begitu, hanya data pointer yang berjumlah kecil yang
+disalin bolak-balik di stack, sementara data yang dirujuknya tetap berada di
+satu tempat di heap. Kasus ketiga dikenal sebagai _trait object_ (objek
+trait), dan [“Memakai Trait Object untuk Mengabstraksi Perilaku
+Bersama”][trait-objects]<!-- ignore --> di Bab 18 dikhususkan untuk topik itu.
+Jadi, apa yang Anda pelajari di sini akan Anda terapkan lagi di seksi itu!
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-boxt-to-store-data-on-the-heap"></a>
 
-### Storing Data on the Heap
+### Menyimpan Data di Heap
 
-Before we discuss the heap storage use case for `Box<T>`, we’ll cover the
-syntax and how to interact with values stored within a `Box<T>`.
+Sebelum membahas kasus penggunaan penyimpanan heap untuk `Box<T>`, kita akan
+membahas sintaks dan cara berinteraksi dengan nilai yang disimpan di dalam
+sebuah `Box<T>`.
 
-Listing 15-1 shows how to use a box to store an `i32` value on the heap.
+Listing 15-1 menunjukkan cara memakai box untuk menyimpan nilai `i32` di heap.
 
-<Listing number="15-1" file-name="src/main.rs" caption="Storing an `i32` value on the heap using a box">
+<Listing number="15-1" file-name="src/main.rs" caption="Menyimpan nilai `i32` di heap menggunakan sebuah box">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-01/src/main.rs}}
@@ -46,73 +51,79 @@ Listing 15-1 shows how to use a box to store an `i32` value on the heap.
 
 </Listing>
 
-We define the variable `b` to have the value of a `Box` that points to the
-value `5`, which is allocated on the heap. This program will print `b = 5`; in
-this case, we can access the data in the box similarly to how we would if this
-data were on the stack. Just like any owned value, when a box goes out of
-scope, as `b` does at the end of `main`, it will be deallocated. The
-deallocation happens both for the box (stored on the stack) and the data it
-points to (stored on the heap).
+Kita mendefinisikan variabel `b` agar memiliki nilai sebuah `Box` yang
+menunjuk ke nilai `5`, yang dialokasikan di heap. Program ini akan mencetak
+`b = 5`; dalam kasus ini, kita dapat mengakses data di dalam box dengan cara
+yang serupa seperti jika data itu berada di stack. Sama seperti nilai yang
+dimiliki mana pun, ketika sebuah box keluar dari scope, seperti yang dialami
+`b` di akhir `main`, box itu akan didealokasikan. Dealokasi terjadi untuk box
+(disimpan di stack) sekaligus data yang ditunjuknya (disimpan di heap).
 
-Putting a single value on the heap isn’t very useful, so you won’t use boxes by
-themselves in this way very often. Having values like a single `i32` on the
-stack, where they’re stored by default, is more appropriate in the majority of
-situations. Let’s look at a case where boxes allow us to define types that we
-wouldn’t be allowed to define if we didn’t have boxes.
+Meletakkan satu nilai saja di heap tidak terlalu berguna, jadi Anda tidak
+akan sering memakai box sendirian dengan cara seperti ini. Menyimpan nilai
+seperti satu `i32` di stack, tempat nilai itu disimpan secara default, lebih
+tepat pada sebagian besar situasi. Mari kita lihat kasus di mana box
+memungkinkan kita mendefinisikan tipe yang tidak boleh kita definisikan jika
+kita tidak memiliki box.
 
-### Enabling Recursive Types with Boxes
+### Mengaktifkan Tipe Rekursif dengan Boxes
 
-A value of a _recursive type_ can have another value of the same type as part of
-itself. Recursive types pose an issue because Rust needs to know at compile time
-how much space a type takes up. However, the nesting of values of recursive
-types could theoretically continue infinitely, so Rust can’t know how much space
-the value needs. Because boxes have a known size, we can enable recursive types
-by inserting a box in the recursive type definition.
+Sebuah nilai bertipe _recursive type_ (tipe rekursif) dapat memiliki nilai
+lain bertipe sama sebagai bagian dari dirinya sendiri. Tipe rekursif
+menimbulkan masalah karena Rust perlu tahu pada waktu kompilasi berapa banyak
+ruang yang ditempati sebuah tipe. Namun, penyarangan nilai-nilai bertipe
+rekursif secara teoretis bisa berlanjut tanpa batas, jadi Rust tidak bisa tahu
+berapa banyak ruang yang dibutuhkan nilai itu. Karena box memiliki ukuran yang
+diketahui, kita dapat mengaktifkan tipe rekursif dengan menyisipkan sebuah box
+di definisi tipe rekursif itu.
 
-As an example of a recursive type, let’s explore the cons list. This is a data
-type commonly found in functional programming languages. The cons list type
-we’ll define is straightforward except for the recursion; therefore, the
-concepts in the example we’ll work with will be useful anytime you get into
-more complex situations involving recursive types.
+Sebagai contoh tipe rekursif, mari kita jelajahi cons list. Ini adalah tipe
+data yang umum ditemukan di bahasa-bahasa pemrograman fungsional. Tipe cons
+list yang akan kita definisikan ini sederhana, kecuali bagian rekursinya;
+karena itu, konsep-konsep dalam contoh yang akan kita kerjakan akan berguna
+kapan pun Anda menghadapi situasi yang lebih kompleks yang melibatkan tipe
+rekursif.
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="more-information-about-the-cons-list"></a>
 
-#### Understanding the Cons List
+#### Memahami Cons List
 
-A _cons list_ is a data structure that comes from the Lisp programming language
-and its dialects, is made up of nested pairs, and is the Lisp version of a
-linked list. Its name comes from the `cons` function (short for _construct
-function_) in Lisp that constructs a new pair from its two arguments. By
-calling `cons` on a pair consisting of a value and another pair, we can
-construct cons lists made up of recursive pairs.
+_Cons list_ adalah struktur data yang berasal dari bahasa pemrograman Lisp dan
+dialek-dialeknya, tersusun dari pasangan-pasangan bersarang, dan merupakan
+versi Lisp dari *linked list* (senarai berantai). Namanya berasal dari fungsi
+`cons` (singkatan dari _construct function_ atau fungsi pembangun) di Lisp
+yang membangun sebuah pasangan baru dari dua argumennya. Dengan memanggil
+`cons` pada pasangan yang terdiri atas sebuah nilai dan pasangan lain, kita
+dapat membangun cons list yang tersusun dari pasangan-pasangan rekursif.
 
-For example, here’s a pseudocode representation of a cons list containing the
-list `1, 2, 3` with each pair in parentheses:
+Sebagai contoh, berikut representasi pseudokode sebuah cons list yang memuat
+list `1, 2, 3` dengan setiap pasangan di dalam tanda kurung:
 
 ```text
 (1, (2, (3, Nil)))
 ```
 
-Each item in a cons list contains two elements: the value of the current item
-and of the next item. The last item in the list contains only a value called
-`Nil` without a next item. A cons list is produced by recursively calling the
-`cons` function. The canonical name to denote the base case of the recursion is
-`Nil`. Note that this is not the same as the “null” or “nil” concept discussed
-in Chapter 6, which is an invalid or absent value.
+Setiap item dalam cons list memuat dua elemen: nilai item saat ini dan item
+berikutnya. Item terakhir dalam list hanya memuat nilai yang disebut `Nil`
+tanpa item berikutnya. Sebuah cons list dihasilkan dengan memanggil fungsi
+`cons` secara rekursif. Nama kanonis untuk menyatakan kasus dasar rekursi itu
+adalah `Nil`. Perhatikan bahwa ini tidak sama dengan konsep “null” atau “nil”
+yang dibahas di Bab 6, yang merupakan nilai yang tidak valid atau tidak ada.
 
-The cons list isn’t a commonly used data structure in Rust. Most of the time
-when you have a list of items in Rust, `Vec<T>` is a better choice to use.
-Other, more complex recursive data types _are_ useful in various situations,
-but by starting with the cons list in this chapter, we can explore how boxes
-let us define a recursive data type without much distraction.
+Cons list bukanlah struktur data yang umum dipakai di Rust. Sebagian besar
+waktu, ketika Anda memiliki list berisi item-item di Rust, `Vec<T>` adalah
+pilihan yang lebih baik. Tipe data rekursif lain yang lebih kompleks _memang_
+berguna dalam berbagai situasi, tetapi dengan memulai dari cons list di bab
+ini, kita dapat mengeksplorasi bagaimana box memungkinkan kita mendefinisikan
+tipe data rekursif tanpa banyak gangguan.
 
-Listing 15-2 contains an enum definition for a cons list. Note that this code
-won’t compile yet, because the `List` type doesn’t have a known size, which
-we’ll demonstrate.
+Listing 15-2 memuat definisi enum untuk sebuah cons list. Perhatikan bahwa
+kode ini belum bisa dikompilasi, karena tipe `List` tidak memiliki ukuran yang
+diketahui, yang akan kita tunjukkan.
 
-<Listing number="15-2" file-name="src/main.rs" caption="The first attempt at defining an enum to represent a cons list data structure of `i32` values">
+<Listing number="15-2" file-name="src/main.rs" caption="Percobaan pertama mendefinisikan enum untuk merepresentasikan struktur data cons list berisi nilai `i32`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-02/src/main.rs:here}}
@@ -120,15 +131,15 @@ we’ll demonstrate.
 
 </Listing>
 
-> Note: We’re implementing a cons list that holds only `i32` values for the
-> purposes of this example. We could have implemented it using generics, as we
-> discussed in Chapter 10, to define a cons list type that could store values of
-> any type.
+> Catatan: Kita mengimplementasikan cons list yang hanya menampung nilai
+> `i32` demi keperluan contoh ini. Kita bisa saja mengimplementasikannya
+> menggunakan generics, seperti yang kita bahas di Bab 10, untuk mendefinisikan
+> tipe cons list yang dapat menyimpan nilai bertipe apa pun.
 
-Using the `List` type to store the list `1, 2, 3` would look like the code in
-Listing 15-3.
+Memakai tipe `List` untuk menyimpan list `1, 2, 3` akan tampak seperti kode
+di Listing 15-3.
 
-<Listing number="15-3" file-name="src/main.rs" caption="Using the `List` enum to store the list `1, 2, 3`">
+<Listing number="15-3" file-name="src/main.rs" caption="Memakai enum `List` untuk menyimpan list `1, 2, 3`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-03/src/main.rs:here}}
@@ -136,15 +147,16 @@ Listing 15-3.
 
 </Listing>
 
-The first `Cons` value holds `1` and another `List` value. This `List` value is
-another `Cons` value that holds `2` and another `List` value. This `List` value
-is one more `Cons` value that holds `3` and a `List` value, which is finally
-`Nil`, the non-recursive variant that signals the end of the list.
+Nilai `Cons` pertama menampung `1` dan nilai `List` lain. Nilai `List` ini
+adalah nilai `Cons` lain yang menampung `2` dan nilai `List` lain. Nilai
+`List` ini adalah satu lagi nilai `Cons` yang menampung `3` dan sebuah nilai
+`List`, yang akhirnya berupa `Nil`, variant non-rekursif yang menandai akhir
+list.
 
-If we try to compile the code in Listing 15-3, we get the error shown in
-Listing 15-4.
+Jika kita mencoba mengompilasi kode di Listing 15-3, kita mendapat galat yang
+ditunjukkan pada Listing 15-4.
 
-<Listing number="15-4" caption="The error we get when attempting to define a recursive enum">
+<Listing number="15-4" caption="Galat yang kita dapat ketika mencoba mendefinisikan enum rekursif">
 
 ```console
 {{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
@@ -152,50 +164,55 @@ Listing 15-4.
 
 </Listing>
 
-The error shows this type “has infinite size.” The reason is that we’ve defined
-`List` with a variant that is recursive: It holds another value of itself
-directly. As a result, Rust can’t figure out how much space it needs to store a
-`List` value. Let’s break down why we get this error. First, we’ll look at how
-Rust decides how much space it needs to store a value of a non-recursive type.
+Galat itu menunjukkan bahwa tipe ini “memiliki ukuran tak terhingga.” Alasannya
+adalah kita telah mendefinisikan `List` dengan sebuah variant yang rekursif:
+Variant itu langsung menampung nilai lain dari dirinya sendiri. Akibatnya,
+Rust tidak bisa memperhitungkan berapa banyak ruang yang dibutuhkannya untuk
+menyimpan nilai `List`. Mari kita uraikan mengapa kita mendapat galat ini.
+Pertama, kita akan melihat cara Rust memutuskan berapa banyak ruang yang
+dibutuhkannya untuk menyimpan nilai bertipe non-rekursif.
 
-#### Computing the Size of a Non-Recursive Type
+#### Menghitung Ukuran Tipe Non-Rekursif
 
-Recall the `Message` enum we defined in Listing 6-2 when we discussed enum
-definitions in Chapter 6:
+Ingat kembali enum `Message` yang kita definisikan di Listing 6-2 ketika kita
+membahas definisi enum di Bab 6:
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}
 ```
 
-To determine how much space to allocate for a `Message` value, Rust goes
-through each of the variants to see which variant needs the most space. Rust
-sees that `Message::Quit` doesn’t need any space, `Message::Move` needs enough
-space to store two `i32` values, and so forth. Because only one variant will be
-used, the most space a `Message` value will need is the space it would take to
-store the largest of its variants.
+Untuk menentukan berapa banyak ruang yang dialokasikan bagi nilai `Message`,
+Rust menelusuri setiap variant untuk melihat variant mana yang membutuhkan
+ruang paling banyak. Rust melihat bahwa `Message::Quit` tidak membutuhkan
+ruang, `Message::Move` membutuhkan ruang yang cukup untuk menyimpan dua nilai
+`i32`, dan seterusnya. Karena hanya satu variant yang akan dipakai, ruang
+paling banyak yang akan dibutuhkan nilai `Message` adalah ruang yang
+dibutuhkan untuk menyimpan variant terbesarnya.
 
-Contrast this with what happens when Rust tries to determine how much space a
-recursive type like the `List` enum in Listing 15-2 needs. The compiler starts
-by looking at the `Cons` variant, which holds a value of type `i32` and a value
-of type `List`. Therefore, `Cons` needs an amount of space equal to the size of
-an `i32` plus the size of a `List`. To figure out how much memory the `List`
-type needs, the compiler looks at the variants, starting with the `Cons`
-variant. The `Cons` variant holds a value of type `i32` and a value of type
-`List`, and this process continues infinitely, as shown in Figure 15-1.
+Bandingkan hal itu dengan yang terjadi ketika Rust mencoba menentukan berapa
+banyak ruang yang dibutuhkan tipe rekursif seperti enum `List` di Listing
+15-2. Kompilator mulai dengan melihat variant `Cons`, yang menampung sebuah
+nilai bertipe `i32` dan sebuah nilai bertipe `List`. Karena itu, `Cons`
+membutuhkan ruang sebesar ukuran sebuah `i32` ditambah ukuran sebuah `List`.
+Untuk memperhitungkan berapa banyak memori yang dibutuhkan tipe `List`,
+kompilator melihat variant-variantnya, dimulai dengan variant `Cons`. Variant
+`Cons` menampung sebuah nilai bertipe `i32` dan sebuah nilai bertipe `List`,
+dan proses ini berlanjut tanpa batas, seperti ditunjukkan pada Gambar 15-1.
 
-<img alt="An infinite Cons list: a rectangle labeled 'Cons' split into two smaller rectangles. The first smaller rectangle holds the label 'i32', and the second smaller rectangle holds the label 'Cons' and a smaller version of the outer 'Cons' rectangle. The 'Cons' rectangles continue to hold smaller and smaller versions of themselves until the smallest comfortably sized rectangle holds an infinity symbol, indicating that this repetition goes on forever." src="img/trpl15-01.svg" class="center" style="width: 50%;" />
+<img alt="Cons list tak terhingga: sebuah persegi panjang berlabel 'Cons' yang terbagi menjadi dua persegi panjang lebih kecil. Persegi panjang kecil pertama memuat label 'i32', dan persegi panjang kecil kedua memuat label 'Cons' beserta versi lebih kecil dari persegi panjang 'Cons' luar. Persegi panjang 'Cons' terus memuat versi dirinya yang semakin kecil sampai persegi panjang terkecil yang masih cukup besar memuat simbol tak hingga, yang menunjukkan bahwa pengulangan ini berlangsung selamanya." src="img/trpl15-01.svg" class="center" style="width: 50%;" />
 
-<span class="caption">Figure 15-1: An infinite `List` consisting of infinite
-`Cons` variants</span>
+<span class="caption">Gambar 15-1: `List` tak terhingga yang terdiri atas
+variant `Cons` yang tak terhingga</span>
 
 <!-- Old headings. Do not remove or links may break. -->
 
 <a id="using-boxt-to-get-a-recursive-type-with-a-known-size"></a>
 
-#### Getting a Recursive Type with a Known Size
+#### Mendapatkan Tipe Rekursif dengan Ukuran yang Diketahui
 
-Because Rust can’t figure out how much space to allocate for recursively
-defined types, the compiler gives an error with this helpful suggestion:
+Karena Rust tidak bisa memperhitungkan berapa banyak ruang yang dialokasikan
+untuk tipe yang didefinisikan secara rekursif, kompilator memberikan galat
+dengan saran yang membantu berikut:
 
 <!-- manual-regeneration
 after doing automatic regeneration, look at listings/ch15-smart-pointers/listing-15-03/output.txt and copy the relevant line
@@ -208,23 +225,24 @@ help: insert some indirection (e.g., a `Box`, `Rc`, or `&`) to break the cycle
   |               ++++    +
 ```
 
-In this suggestion, _indirection_ means that instead of storing a value
-directly, we should change the data structure to store the value indirectly by
-storing a pointer to the value instead.
+Dalam saran ini, _indirection_ (indireksi) berarti alih-alih menyimpan nilai
+secara langsung, kita harus mengubah struktur data itu untuk menyimpan nilai
+secara tidak langsung dengan menyimpan pointer ke nilai itu.
 
-Because a `Box<T>` is a pointer, Rust always knows how much space a `Box<T>`
-needs: A pointer’s size doesn’t change based on the amount of data it’s
-pointing to. This means we can put a `Box<T>` inside the `Cons` variant instead
-of another `List` value directly. The `Box<T>` will point to the next `List`
-value that will be on the heap rather than inside the `Cons` variant.
-Conceptually, we still have a list, created with lists holding other lists, but
-this implementation is now more like placing the items next to one another
-rather than inside one another.
+Karena `Box<T>` adalah sebuah pointer, Rust selalu tahu berapa banyak ruang
+yang dibutuhkan `Box<T>`: Ukuran pointer tidak berubah berdasarkan banyaknya
+data yang ditunjuknya. Ini berarti kita dapat meletakkan `Box<T>` di dalam
+variant `Cons` alih-alih nilai `List` lain secara langsung. `Box<T>` itu akan
+menunjuk ke nilai `List` berikutnya yang akan berada di heap alih-alih di
+dalam variant `Cons`. Secara konseptual, kita tetap memiliki list, yang dibuat
+dari list yang menampung list lain, tetapi implementasi ini sekarang lebih
+seperti menempatkan item-item bersebelahan alih-alih saling bertumpuk di
+dalam satu sama lain.
 
-We can change the definition of the `List` enum in Listing 15-2 and the usage
-of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile.
+Kita dapat mengubah definisi enum `List` di Listing 15-2 dan pemakaian `List`
+di Listing 15-3 menjadi kode di Listing 15-5, yang akan terkompilasi.
 
-<Listing number="15-5" file-name="src/main.rs" caption="The definition of `List` that uses `Box<T>` in order to have a known size">
+<Listing number="15-5" file-name="src/main.rs" caption="Definisi `List` yang memakai `Box<T>` agar memiliki ukuran yang diketahui">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-05/src/main.rs}}
@@ -232,32 +250,33 @@ of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile.
 
 </Listing>
 
-The `Cons` variant needs the size of an `i32` plus the space to store the box’s
-pointer data. The `Nil` variant stores no values, so it needs less space on the
-stack than the `Cons` variant. We now know that any `List` value will take up
-the size of an `i32` plus the size of a box’s pointer data. By using a box,
-we’ve broken the infinite, recursive chain, so the compiler can figure out the
-size it needs to store a `List` value. Figure 15-2 shows what the `Cons`
-variant looks like now.
+Variant `Cons` membutuhkan ukuran sebuah `i32` ditambah ruang untuk menyimpan
+data pointer box. Variant `Nil` tidak menyimpan nilai, jadi ia membutuhkan
+lebih sedikit ruang di stack daripada variant `Cons`. Sekarang kita tahu bahwa
+nilai `List` mana pun akan menempati ukuran sebuah `i32` ditambah ukuran data
+pointer box. Dengan memakai box, kita telah memutus rantai rekursif yang tak
+terhingga, sehingga kompilator dapat memperhitungkan ukuran yang
+dibutuhkannya untuk menyimpan nilai `List`. Gambar 15-2 menunjukkan seperti
+apa variant `Cons` sekarang.
 
-<img alt="A rectangle labeled 'Cons' split into two smaller rectangles. The first smaller rectangle holds the label 'i32', and the second smaller rectangle holds the label 'Box' with one inner rectangle that contains the label 'usize', representing the finite size of the box's pointer." src="img/trpl15-02.svg" class="center" />
+<img alt="Persegi panjang berlabel 'Cons' yang terbagi menjadi dua persegi panjang lebih kecil. Persegi panjang kecil pertama memuat label 'i32', dan persegi panjang kecil kedua memuat label 'Box' dengan satu persegi panjang di dalamnya yang memuat label 'usize', yang merepresentasikan ukuran terbatas pointer box." src="img/trpl15-02.svg" class="center" />
 
-<span class="caption">Figure 15-2: A `List` that is not infinitely sized,
-because `Cons` holds a `Box`</span>
+<span class="caption">Gambar 15-2: `List` yang ukurannya tidak tak terhingga,
+karena `Cons` menampung sebuah `Box`</span>
 
-Boxes provide only the indirection and heap allocation; they don’t have any
-other special capabilities, like those we’ll see with the other smart pointer
-types. They also don’t have the performance overhead that these special
-capabilities incur, so they can be useful in cases like the cons list where the
-indirection is the only feature we need. We’ll look at more use cases for boxes
-in Chapter 18.
+Box hanya menyediakan indireksi dan alokasi heap; box tidak memiliki
+kemampuan khusus lain, seperti yang akan kita lihat pada tipe smart pointer
+lainnya. Box juga tidak memiliki overhead performa yang ditimbulkan oleh
+kemampuan-kemampuan khusus itu, jadi box dapat berguna dalam kasus seperti
+cons list di mana indireksi adalah satu-satunya fitur yang kita butuhkan.
+Kita akan melihat lebih banyak kasus penggunaan box di Bab 18.
 
-The `Box<T>` type is a smart pointer because it implements the `Deref` trait,
-which allows `Box<T>` values to be treated like references. When a `Box<T>`
-value goes out of scope, the heap data that the box is pointing to is cleaned
-up as well because of the `Drop` trait implementation. These two traits will be
-even more important to the functionality provided by the other smart pointer
-types we’ll discuss in the rest of this chapter. Let’s explore these two traits
-in more detail.
+Tipe `Box<T>` adalah smart pointer karena ia mengimplementasikan trait
+`Deref`, yang memungkinkan nilai `Box<T>` diperlakukan seperti reference.
+Ketika sebuah nilai `Box<T>` keluar dari scope, data heap yang ditunjuk box
+itu juga dibersihkan karena implementasi trait `Drop`. Kedua trait ini akan
+menjadi lebih penting lagi bagi fungsionalitas yang disediakan tipe-tipe
+smart pointer lain yang akan kita bahas di sisa bab ini. Mari kita jelajahi
+kedua trait ini lebih jauh.
 
 [trait-objects]: ch18-02-trait-objects.html#using-trait-objects-to-abstract-over-shared-behavior
