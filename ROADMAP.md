@@ -135,6 +135,10 @@ Diperbarui di akhir setiap sesi.
   disusun sebagai glosarium Inggris–Indonesia di akhir buku (poin 3).
   `cek_terjemahan.py` 112/112 OK, `mdbook build` tanpa peringatan,
   `mdbook test` exit 0. Detail per istilah: lihat Log keputusan istilah.
+- **Push ke GitHub (2026-10-18)**: branch `terjemahan-id` dipush ke fork
+  `hamim18/book.` (remote baru `fork`, via SSH; `origin` tetap
+  `rust-lang/book`). 62 commit. URL:
+  https://github.com/hamim18/book./tree/terjemahan-id
 - Terakhir diperbarui: 2026-10-18
 
 ## Urutan kerja
