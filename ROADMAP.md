@@ -68,8 +68,15 @@ Diperbarui di akhir setiap sesi.
   kolom; 0 caption menembus batas bawah area teks; blok kode > 1 halaman
   (8 di j1, 27 di j2) pecah lintas halaman; Tabel B-1 pecah 2 halaman.
   Hasil: jilid 1 = 442 hal., jilid 2 = 436 hal. Pratinjau PNG halaman yang
-  diperbaiki di `cetak/keluaran/pratinjau-j{1,2}-*.png`. **Menunggu
-  pemeriksaan visual putaran kedua pengguna.**
+  diperbaiki di `cetak/keluaran/pratinjau-j{1,2}-*.png`.
+- **Selesai 2026-10-18 — persetujuan pemeriksaan visual putaran kedua
+  pengguna ("sudah sangat bagus, siap cetak")**: titik potong jilid final
+  dikunci — **Jilid 1 = 442 hal., Jilid 2 = 436 hal.** PDF final dibangun
+  ulang (`./cetak/konversi.sh`; PDF lama di `cetak/keluaran/` ternyata
+  belum memuat perbaikan poin 1) lalu diverifikasi penuh dengan
+  `cetak/periksa.py`: 22 gambar, 0 melebihi kolom teks; 978 blok kode,
+  35 pecah lintas halaman (bukan terpotong); 26 tabel, 4 pecah; 431 label
+  caption. **Tahap 6 selesai.** Opsi .docx tetap terbuka bila diminta.
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak
@@ -115,10 +122,11 @@ Diperbarui di akhir setiap sesi.
       karena heading diterjemahkan), konsistensi istilah antar-bab. Selesai
       2026-10-17; dua keputusan istilah menunggu konfirmasi (lihat Masalah
       terbuka).
-- [ ] Tahap 6 — Cetak B5 ISO 176 × 250 mm, mesin Pandoc + Typst (keputusan
+- [x] Tahap 6 — Cetak B5 ISO 176 × 250 mm, mesin Pandoc + Typst (keputusan
       2026-10-17: A5 diganti B5 agar baris kode muat tanpa terpotong; Typst
       dipilih karena cepat, ringan, dan Unicode-native, XeLaTeX cadangan;
-      lihat Tahap 8 `PANDUAN_PROMPT.md`).
+      lihat Tahap 8 `PANDUAN_PROMPT.md`). Selesai 2026-10-18: dua jilid
+      final dikunci (J1 442 hal. / J2 436 hal.) dan disetujui pengguna.
 
 ## Ukuran kerja per kelompok (kata, dari `asli/`)
 
@@ -852,17 +860,15 @@ mengalokasikan, menetapkan, menangkap, menyalin, memproses, menyaring).
 
 ## Masalah terbuka
 
-- **PENDING (menunggu pemeriksaan visual putaran kedua)**: perbaikan poin 1
-  selesai dan terverifikasi terprogram (lihat Status terkini). Hal yang
-  belum otomatis terverifikasi dan perlu dilihat pengguna: (a) judul bab
-  kini rata tengah; (b) teks label di dalam diagram SVG kini memakai
-  Liberation Serif — konfirmasi label tidak lagi meluber keluar kotak;
-  (c) caption kadang jatuh sendirian di puncak halaman berikutnya bila
-  blok kode pas memenuhi satu halaman (14 kasus di j1, 4 di j2 — wajar
-  dalam tipografi, bisa diubah bila mengganggu); (d) tabel B-1 kini pecah
-  dua halaman dengan header berulang.
-  Setelah disetujui: kunci titik potong jilid final (kini J1 442 hal. /
-  J2 436 hal.).
+- **SELESAI (2026-10-18)**: pemeriksaan visual putaran kedua disetujui
+  pengguna ("sudah sangat bagus, siap cetak"). Titik potong jilid final
+  dikunci: J1 442 hal. / J2 436 hal.; PDF final dibangun ulang dan lulus
+  `cetak/periksa.py` (rincian di Status terkini). Titik yang belum
+  otomatis terverifikasi dan kini dianggap beres oleh pengguna: (a) judul
+  bab rata tengah; (b) label diagram SVG memakai Liberation Serif, tidak
+  lagi meluber; (c) caption sendirian di puncak halaman (14 di j1, 4 di
+  j2) dianggap wajar; (d) tabel B-1 pecah dua halaman dengan header
+  berulang.
 - **SELESAI (2026-10-18)**: semua temuan visual pengguna 2026-10-18
   (gambar 4-1..4-7, 15-1, 15-2 terlalu besar; Tabel B-1 berdempetan; blok
   kode terpotong dengan caption menimpa nomor halaman di ±30 listing;
