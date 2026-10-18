@@ -53,9 +53,11 @@ Diperbarui di akhir setiap sesi.
     ±10 detik untuk iterasi gaya.
   - Menunggu pemeriksaan visual pengguna; pratinjau PNG halaman terpilih
     di `cetak/keluaran/`.
-- Sedang dikerjakan: Tahap 6 — cetak B5 + poin 3 (susunan buku lengkap,
-  kedua jilid lengkap, nama penerjemah "AI"); menunggu pemeriksaan visual
-  pengguna (lihat `cetak/README.md`; pratinjau PNG di `cetak/keluaran/`).
+- Sedang dikerjakan: Tahap 6 — cetak B5. Poin 3 selesai (kedua jilid
+  lengkap, nama penerjemah "AI"). **Sesi berikutnya: poin 1** — perbaikan
+  tata letak cetak (blok kode saling menimpa & terpisah lintas halaman,
+  ukuran gambar, opsi .docx) + perbaikan temuan pemeriksaan visual
+  pengguna; rinciannya di Masalah terbuka.
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak
@@ -82,7 +84,7 @@ Diperbarui di akhir setiap sesi.
   disusun sebagai glosarium Inggris–Indonesia di akhir buku (poin 3).
   `cek_terjemahan.py` 112/112 OK, `mdbook build` tanpa peringatan,
   `mdbook test` exit 0. Detail per istilah: lihat Log keputusan istilah.
-- Terakhir diperbarui: 2026-10-17
+- Terakhir diperbarui: 2026-10-18
 
 ## Urutan kerja
 
@@ -838,17 +840,28 @@ mengalokasikan, menetapkan, menangkap, menyalin, memproses, menyaring).
 
 ## Masalah terbuka
 
-- **PENDING (Tahap 6, untuk sesi berikutnya)**: pemeriksaan visual pengguna
-  terhadap PDF jilid 1 & 2 (`cetak/keluaran/rust-book-id-jilid-*.pdf`;
-  pratinjau PNG `j1-*`/`j2-*` di folder yang sama, tidak di-commit):
-  (1) daftar isi hal. 3 — nomor "Bab N" muncul, nomor halaman benar;
-  (2) blok kode — mono 8,5 pt, latar kelabu, tanpa nomor baris; lipatan
-  baris panjang bertanda ↪ (cek `j2-302.png`/`j2-303.png`, baris 241
-  karakter); (3) kotak catatan berlatar krem dengan garis kiri (`j1-94.png`);
-  (4) tabel Ferris (SVG) tampil utuh (`j1-12.png`); (5) setiap bab mulai
-  halaman baru; (6) temuan janggal lain. Perbaikan memakai mode dev
-  (`./cetak/dev-bab.sh <id>`), lalu rebuild penuh; titik potong jilid
-  final ditentukan setelahnya.
+- **PENDING (sesi berikutnya = poin 1 + temuan visual)**: pemeriksaan visual
+  pengguna terhadap PDF final jilid 1 & 2
+  (`cetak/keluaran/rust-book-id-jilid-*.pdf`; pratinjau PNG baru
+  `pratinjau-*.png` di folder yang sama, tidak di-commit — PNG lama
+  `j1-*`/`j2-*`/`p-*` dari 2026-10-17 tidak lagi sesuai paginasi baru).
+  Agenda perbaikan sesi berikutnya:
+  (1) **Blok kode** — temuan pengguna 2026-10-17: beberapa blok dipaksa
+      muat satu halaman sehingga bagian bawah saling menimpa; banyak blok
+      terpisah lintas halaman sehingga keterbacaan turun. Perbaikan di
+      `template.typ` (opsi: izinkan pemecahan blok dengan penanda
+      sambungan, kecilkan font kode, atau batasi tinggi blok), diuji lewat
+      mode dev (`./cetak/dev-bab.sh <id>`) lalu rebuild penuh.
+  (2) **Ukuran gambar** — beberapa gambar terlalu besar (teks tabel Ferris
+      tidak muat di selnya); gambar lain sudah pas. Atur lebar gambar/SVG
+      di `template.typ` (mis. `width: 80%`).
+  (3) **Opsi .docx** — pertanyaan pengguna 2026-10-17: apakah bisa diedit
+      manual; bila tetap diinginkan, buat versi .docx lewat pandoc.
+  (4) Checklist visual pengguna (daftar isi, kotak catatan krem, tabel
+      Ferris utuh, tiap bab mulai halaman baru, halaman-halaman baru poin 3)
+      — perbaiki temuan apa pun.
+  Setelah beres: kunci titik potong jilid final (kini J1 509 hal. /
+  J2 510 hal.).
 - **SELESAI (Tahap 5)**: semua masalah anchor di bawah ini (heading
   diterjemahkan → tautan `file.html#anchor` rusak) ditangani dengan
   menambahkan tag `<a id="...">` pada heading tujuan di `src/`; pemindaian
