@@ -1,0 +1,226 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Opsi Sampul Buku</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+  /* Rancangan: halaman "kertas cetak" — netral hangat, aksen oranye karat
+     (warna sampul), tipografi IBM Plex mengikuti buku yang dinilai.
+     Layout: tiga kartu opsi berdampingan, masing-masing depan+belakang. */
+  :root {
+    --bg: #F7F5F0;
+    --card: #FFFFFF;
+    --fg: #2B2824;
+    --mut: #6E6A63;
+    --line: #E2DED5;
+    --rust: #B93B14;
+    --rust-soft: #F3E1D8;
+    --chip: #2B2824;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E1C19; --card: #262420; --fg: #EDEAE4; --mut: #A8A39A;
+      --line: #3A362F; --rust: #E8612A; --rust-soft: #3A2A22; --chip: #EDEAE4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E1C19; --card: #262420; --fg: #EDEAE4; --mut: #A8A39A;
+    --line: #3A362F; --rust: #E8612A; --rust-soft: #3A2A22; --chip: #EDEAE4;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 16px/1.55 "IBM Plex Sans", system-ui, sans-serif;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .lebar { max-width: 1120px; margin-inline: auto; }
+  header { padding-block: 40px 8px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--rust);
+  }
+  h1 {
+    font: 700 clamp(26px, 4vw, 36px)/1.15 "IBM Plex Serif", Georgia, serif;
+    margin: 10px 0 0; text-wrap: balance;
+  }
+  .lede { color: var(--mut); max-width: 62ch; margin: 12px 0 0; }
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; padding-block: 28px 12px;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px;
+    padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 12px;
+    min-width: 0;
+  }
+  .card.terpilih { border-color: var(--rust); box-shadow: 0 0 0 1px var(--rust); }
+  .kepala { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .kepala h2 {
+    font: 700 19px/1.2 "IBM Plex Serif", Georgia, serif; margin: 0;
+  }
+  .rekomendasi {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--rust);
+    background: var(--rust-soft); padding: 3px 8px; border-radius: 3px;
+  }
+  .kepala .jilid { color: var(--mut); font-size: 13px; margin-left: auto; }
+  .gambar {
+    display: grid; grid-template-columns: 1.55fr 1fr; gap: 10px; align-items: start;
+  }
+  figure { margin: 0; min-width: 0; }
+  figure img { width: 100%; display: block; border: 1px solid var(--line); }
+  figcaption {
+    font-size: 12px; color: var(--mut); margin-top: 6px; text-align: center;
+  }
+  .deskripsi { font-size: 14.5px; color: var(--fg); margin: 0; }
+  ul.ciri { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--mut); }
+  ul.ciri li { margin-block: 3px; }
+  .tombol {
+    margin-top: auto; padding: 9px 0 0; border-top: 1px solid var(--line);
+  }
+  .tombol button {
+    font: 600 13.5px/1 "IBM Plex Sans", system-ui, sans-serif;
+    color: var(--fg); background: none; border: 1px solid var(--line);
+    border-radius: 4px; padding: 9px 14px; cursor: pointer; width: 100%;
+  }
+  .tombol button:hover { border-color: var(--rust); }
+  .card.terpilih .tombol button { border-color: var(--rust); color: var(--rust); }
+  button:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
+  .catatan {
+    border-top: 1px solid var(--line); margin-block: 20px 8px; padding-top: 20px;
+    color: var(--mut); font-size: 14px; max-width: 72ch;
+  }
+  .catatan strong { color: var(--fg); }
+  footer {
+    color: var(--mut); font-size: 13px; padding-block: 24px 40px;
+  }
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+<div class="lebar">
+  <header>
+    <div class="eyebrow">Tahap 6 · Cetak — Sampul</div>
+    <h1>Tiga Opsi Sampul Buku</h1>
+    <p class="lede">Pratinjau depan &amp; belakang untuk <em>The Rust Programming Language — Terjemahan Bahasa Indonesia</em>, ukuran B5 (176 × 250 mm), dua jilid. Semua dirender lewat mesin cetak yang sama dengan isi buku (Typst), jadi tampilannya akurat seperti hasil cetak.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+
+      <section class="card" id="opsi-a">
+        <div class="kepala">
+          <h2>A · Klasik Oranye</h2>
+          <span class="jilid">Jilid 1</span>
+        </div>
+        <div class="gambar">
+          <figure>
+            <img src="../keluaran/sampul-a-1.png" alt="Sampul depan desain A: putih dengan kepiting oranye kecil, judul serif, pita oranye JILID 1">
+            <figcaption>Depan</figcaption>
+          </figure>
+          <figure>
+            <img src="../keluaran/sampul-a-2.png" alt="Sampul belakang desain A: oranye penuh dengan sinopsis">
+            <figcaption>Belakang</figcaption>
+          </figure>
+        </div>
+        <p class="deskripsi">Putih bersih, emblem kepiting kecil, judul serif terpusat, pita oranye penuh di bawah. Belakang: oranye solid dengan sinopsis dan daftar isi buku.</p>
+        <ul class="ciri">
+          <li>Karakter: tenang, akademis — kesan "buku referensi"</li>
+          <li>Hemat tinta: 1 warna + hitam</li>
+          <li>Belakang penuh tinta oranye (full-bleed)</li>
+        </ul>
+        <div class="tombol"><button type="button" data-pilih="a">Pilih desain ini</button></div>
+      </section>
+
+      <section class="card" id="opsi-b">
+        <div class="kepala">
+          <h2>B · Ferris Raksasa</h2>
+          <span class="rekomendasi">Rekomendasi</span>
+          <span class="jilid">Jilid 1</span>
+        </div>
+        <div class="gambar">
+          <figure>
+            <img src="../keluaran/sampul-b-1.png" alt="Sampul depan desain B: krem dengan siluet kepiting Ferris merah besar, pita marun JILID 1">
+            <figcaption>Depan</figcaption>
+          </figure>
+          <figure>
+            <img src="../keluaran/sampul-b-2.png" alt="Sampul belakang desain B: marun dengan sinopsis dan kepiting oranye kecil">
+            <figcaption>Belakang</figcaption>
+          </figure>
+        </div>
+        <p class="deskripsi">Krem hangat, siluet Ferris merah besar sebagai tokoh visual, pita marun. Belakang: marun penuh dengan sinopsis dan kepiting oranye kecil.</p>
+        <ul class="ciri">
+          <li>Karakter: ramah dan khas Rust — selaras nada buku yang memakai catatan "Ferris says" sepanjang isi</li>
+          <li>2 tinta (merah + marun), siluet tajam</li>
+          <li>Paling "menarik" dari ketiganya</li>
+        </ul>
+        <div class="tombol"><button type="button" data-pilih="b">Pilih desain ini</button></div>
+      </section>
+
+      <section class="card" id="opsi-c">
+        <div class="kepala">
+          <h2>C · Gelap Modern</h2>
+          <span class="jilid">Jilid 1</span>
+        </div>
+        <div class="gambar">
+          <figure>
+            <img src="../keluaran/sampul-c-1.png" alt="Sampul depan desain C: arang gelap, judul rata kiri dengan aksen oranye, panel kode Hello world, badge JILID 1">
+            <figcaption>Depan</figcaption>
+          </figure>
+          <figure>
+            <img src="../keluaran/sampul-c-2.png" alt="Sampul belakang desain C: arang dengan sinopsis dan kepiting putih kecil">
+            <figcaption>Belakang</figcaption>
+          </figure>
+        </div>
+        <p class="deskripsi">Arang gelap, judul rata kiri dengan aksen oranye, panel kode <code>Hello, world!</code> sebagai visual utama, badge oranye. Belakang: arang penuh.</p>
+        <ul class="ciri">
+          <li>Karakter: modern, "buku teknik masa kini"</li>
+          <li>Panel kode asli dari Bab 1 buku</li>
+          <li>Tinta gelap penuh — terlihat mewah, paling boros tinta</li>
+        </ul>
+        <div class="tombol"><button type="button" data-pilih="c">Pilih desain ini</button></div>
+      </section>
+
+    </div>
+
+    <aside class="catatan">
+      <p><strong>Untuk kedua jilid:</strong> desain sama persis; hanya badge yang berganti — Jilid 1: "Bab 1–12 · Kata Pengantar · Pendahuluan", Jilid 2: "Bab 13–21 · Lampiran A–G".</p>
+      <p><strong>Untuk cetak percetakan:</strong> nanti saya buatkan lembar sampul menyebar (belakang–punggung–depan) dengan <em>bleed</em> 3 mm; perkiraan lebar punggung Jilid 1 ≈ 22 mm dan Jilid 2 ≈ 22 mm pada kertas 80 gsm.</p>
+      <p><strong>Atribusi:</strong> ikon kepiting memakai gambar favicon buku (CC BY 4.0) — baris atribusinya akan ditambahkan ke halaman hak cipta jilid.</p>
+    </aside>
+  </main>
+
+  <footer>
+    Pilih salah satu opsi, lalu saya integrasikan ke <code>template.typ</code> dan bangun ulang kedua PDF.
+  </footer>
+</div>
+<script>
+  // Pilihan bersifat lokal per peramban; tanpa penyimpanan halaman tetap berfungsi.
+  (function () {
+    var tombol = document.querySelectorAll("[data-pilih]");
+    var simpan = null;
+    try {
+      var dibaca = localStorage.getItem("pilihan-sampul");
+      if (dibaca) simpan = dibaca;
+    } catch (e) {}
+    function tampilkan(pilihan) {
+      tombol.forEach(function (b) {
+        b.closest(".card").classList.toggle("terpilih", b.dataset.pilih === pilihan);
+        b.textContent = b.dataset.pilih === pilihan ? "Terpilih ✓" : "Pilih desain ini";
+      });
+    }
+    if (simpan) tampilkan(simpan);
+    tombol.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var pilihan = b.dataset.pilih;
+        if (simpan === pilihan) { pilihan = null; }
+        simpan = pilihan;
+        try { localStorage.setItem("pilihan-sampul", pilihan || ""); } catch (e) {}
+        tampilkan(pilihan);
+      });
+    });
+  })();
+</script>
