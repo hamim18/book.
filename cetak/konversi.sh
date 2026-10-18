@@ -72,5 +72,11 @@ for nama in jilid-1 jilid-2 ebook-1 ebook-2; do
     "cetak/$nama.typ" "cetak/keluaran/rust-book-id-$nama.pdf"
 done
 
+echo "== sampul sablon (percetakan, bleed 3 mm)"
+for j in 1 2; do
+  typst compile --root cetak --font-path cetak/fonts \
+    "cetak/sablon-jilid-$j.typ" "cetak/keluaran/sampul-sablon-jilid-$j.pdf"
+done
+
 echo "Selesai:"
 ls -la cetak/keluaran/

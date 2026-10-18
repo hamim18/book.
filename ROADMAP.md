@@ -90,8 +90,14 @@ Diperbarui di akhir setiap sesi.
   atribusi maskot (Dave Gandy, CC BY 4.0) ditambahkan ke `hak-cipta.md`.
   Jumlah halaman berubah: **Jilid 1 = 443 hal., Jilid 2 = 437 hal.**
   (menggantikan 442/436). `periksa.py` lulus: 0 gambar melebihi kolom,
-  semua blok kode pecah lintas halaman. Masih terbuka: lembar sampul
-  menyebar (belakang–punggung–depan) dengan bleed 3 mm untuk percetakan.
+  semua blok kode pecah lintas halaman.
+- **Sablon sampul percetakan (2026-10-18)**: `cetak/sablon-jilid-{1,2}.typ`
+  menghasilkan satu lembar belakang–punggung–depan dengan bleed 3 mm
+  (`cetak/keluaran/sampul-sablon-jilid-{1,2}.pdf`). Lebar punggung
+  dihitung dari jumlah halaman pada kertas 80 gsm (J1 443 hal. → 22,2 mm;
+  J2 437 hal. → 21,9 mm); untuk kertas lain sesuaikan `LEBAR_PUNGGUNG`
+  di file sablon. Area bleed diisi warna latar halaman; teks punggung
+  tegak (baca atas ke bawah) dengan judul + JILID.
 - **Versi e-book + perbaikan teks sampul (2026-10-18)**: (1) teks
   "pengumpul sampah" di sinopsis sampul belakang diganti "garbage
   collector" — file PNG/SVG sampul diperbarui langsung oleh pengguna di
