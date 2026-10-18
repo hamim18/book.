@@ -39,24 +39,32 @@ echo "== pandoc html/markdown -> typst"
   # tidak boleh dibungkus #figure oleh pandoc).
 )
 
+echo "== lepas pembungkus figure (listing & tabel)"
+python3 cetak/lepas-figure.py
+# Diagram SVG meminta font Times yang tidak terpasang; ganti ke Liberation
+# Serif (metrik identik dengan Times New Roman, dipasok di cetak/fonts/)
+# supaya label di dalam kotak diagram tidak meluber.
+sed -i 's/font-family="Times,serif"/font-family="Liberation Serif"/g' \
+  cetak/build/media/img/*.svg
+
 echo "== typst compile pass 1"
 mkdir -p cetak/keluaran
-typst compile --root cetak cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
-typst compile --root cetak cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
+typst compile --root cetak --font-path cetak/fonts cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
+typst compile --root cetak --font-path cetak/fonts cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
 
 echo "== peta heading -> halaman"
 typst eval 'query(heading).map(h => (h.level, h.body, h.location().page()))' \
-  --in cetak/jilid-1.typ > cetak/build/halaman-1.json
+  --in cetak/jilid-1.typ --font-path cetak/fonts > cetak/build/halaman-1.json
 typst eval 'query(heading).map(h => (h.level, h.body, h.location().page()))' \
-  --in cetak/jilid-2.typ > cetak/build/halaman-2.json
+  --in cetak/jilid-2.typ --font-path cetak/fonts > cetak/build/halaman-2.json
 
 echo "== indeks istilah"
 python3 cetak/buat-materi.py indeks-scan
 python3 cetak/buat-materi.py indeks-rakit
 
 echo "== typst compile pass 2"
-typst compile --root cetak cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
-typst compile --root cetak cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
+typst compile --root cetak --font-path cetak/fonts cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
+typst compile --root cetak --font-path cetak/fonts cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
 
 echo "Selesai:"
 ls -la cetak/keluaran/

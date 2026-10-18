@@ -10,5 +10,3 @@ yang mengasumsikan Rust 1.98.0 atau lebih baru dengan `edition = "2024"`.
 Catatan koreksi — kesalahan ketik, saran terjemahan, atau koreksi teknis —
 dapat ditambahkan ke berkas `ROADMAP.md` pada repositori proyek terjemahan
 ini.
-
-Buku ini dicetak untuk pembelajaran pribadi dan tidak diperjualbelikan.

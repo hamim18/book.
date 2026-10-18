@@ -31,7 +31,6 @@ ditambah kata pengantar penulis dan pendahuluan. Bagian akhir buku memuat
 glosarium Inggris–Indonesia, daftar referensi, dan indeks istilah yang tidak
 ada pada versi daring aslinya.
 
-Buku ini dicetak untuk pembelajaran pribadi dan tidak diperjualbelikan.
 Jika Anda menemukan kesalahan ketik, terjemahan yang janggal, atau koreksi
 teknis, saya akan sangat berterima kasih bila Anda menyampaikannya melalui
 kanal pada halaman *Informasi Edisi dan Kanal Koreksi*.

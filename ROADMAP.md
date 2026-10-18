@@ -53,11 +53,23 @@ Diperbarui di akhir setiap sesi.
     ±10 detik untuk iterasi gaya.
   - Menunggu pemeriksaan visual pengguna; pratinjau PNG halaman terpilih
     di `cetak/keluaran/`.
-- Sedang dikerjakan: Tahap 6 — cetak B5. Poin 3 selesai (kedua jilid
-  lengkap, nama penerjemah "AI"). **Sesi berikutnya: poin 1** — perbaikan
-  tata letak cetak (blok kode saling menimpa & terpisah lintas halaman,
-  ukuran gambar, opsi .docx) + perbaikan temuan pemeriksaan visual
-  pengguna; rinciannya di Masalah terbuka.
+- **Selesai 2026-10-18 — poin 1 (tata letak cetak, umpan balik pemeriksaan
+  visual pengguna)**: margin buku B5 dengan sisi dalam 22 mm untuk ruang
+  jilid (luar 15, atas 18, bawah 20); judul bab (h1) rata tengah; jarak
+  antar-baris kode dirapatkan (codly `leading: 1.5pt`, bawaan 0.32em/sisi);
+  kalimat "tidak diperjualbelikan" dihapus dari kata pengantar penerjemah
+  dan info edisi. Pembungkus `#figure` pandoc dibuka oleh
+  `cetak/lepas-figure.py` (listing → blok breakable dengan caption di
+  dalamnya; tabel → tabel polos yang bisa pecah lintas halaman; gambar
+  diberi lebar kolom 394 pt, ikon Ferris 70 pt). Font Liberation Serif
+  ditambahkan di `cetak/fonts/` dan dipakai untuk teks diagram SVG
+  (aslinya `Times,serif` yang tidak terpasang sehingga label meluber keluar
+  kotak). Verifikasi terprogram `cetak/periksa.py`: 0 gambar melebihi
+  kolom; 0 caption menembus batas bawah area teks; blok kode > 1 halaman
+  (8 di j1, 27 di j2) pecah lintas halaman; Tabel B-1 pecah 2 halaman.
+  Hasil: jilid 1 = 442 hal., jilid 2 = 436 hal. Pratinjau PNG halaman yang
+  diperbaiki di `cetak/keluaran/pratinjau-j{1,2}-*.png`. **Menunggu
+  pemeriksaan visual putaran kedua pengguna.**
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak
@@ -840,28 +852,23 @@ mengalokasikan, menetapkan, menangkap, menyalin, memproses, menyaring).
 
 ## Masalah terbuka
 
-- **PENDING (sesi berikutnya = poin 1 + temuan visual)**: pemeriksaan visual
-  pengguna terhadap PDF final jilid 1 & 2
-  (`cetak/keluaran/rust-book-id-jilid-*.pdf`; pratinjau PNG baru
-  `pratinjau-*.png` di folder yang sama, tidak di-commit — PNG lama
-  `j1-*`/`j2-*`/`p-*` dari 2026-10-17 tidak lagi sesuai paginasi baru).
-  Agenda perbaikan sesi berikutnya:
-  (1) **Blok kode** — temuan pengguna 2026-10-17: beberapa blok dipaksa
-      muat satu halaman sehingga bagian bawah saling menimpa; banyak blok
-      terpisah lintas halaman sehingga keterbacaan turun. Perbaikan di
-      `template.typ` (opsi: izinkan pemecahan blok dengan penanda
-      sambungan, kecilkan font kode, atau batasi tinggi blok), diuji lewat
-      mode dev (`./cetak/dev-bab.sh <id>`) lalu rebuild penuh.
-  (2) **Ukuran gambar** — beberapa gambar terlalu besar (teks tabel Ferris
-      tidak muat di selnya); gambar lain sudah pas. Atur lebar gambar/SVG
-      di `template.typ` (mis. `width: 80%`).
-  (3) **Opsi .docx** — pertanyaan pengguna 2026-10-17: apakah bisa diedit
-      manual; bila tetap diinginkan, buat versi .docx lewat pandoc.
-  (4) Checklist visual pengguna (daftar isi, kotak catatan krem, tabel
-      Ferris utuh, tiap bab mulai halaman baru, halaman-halaman baru poin 3)
-      — perbaiki temuan apa pun.
-  Setelah beres: kunci titik potong jilid final (kini J1 509 hal. /
-  J2 510 hal.).
+- **PENDING (menunggu pemeriksaan visual putaran kedua)**: perbaikan poin 1
+  selesai dan terverifikasi terprogram (lihat Status terkini). Hal yang
+  belum otomatis terverifikasi dan perlu dilihat pengguna: (a) judul bab
+  kini rata tengah; (b) teks label di dalam diagram SVG kini memakai
+  Liberation Serif — konfirmasi label tidak lagi meluber keluar kotak;
+  (c) caption kadang jatuh sendirian di puncak halaman berikutnya bila
+  blok kode pas memenuhi satu halaman (14 kasus di j1, 4 di j2 — wajar
+  dalam tipografi, bisa diubah bila mengganggu); (d) tabel B-1 kini pecah
+  dua halaman dengan header berulang.
+  Setelah disetujui: kunci titik potong jilid final (kini J1 442 hal. /
+  J2 436 hal.).
+- **SELESAI (2026-10-18)**: semua temuan visual pengguna 2026-10-18
+  (gambar 4-1..4-7, 15-1, 15-2 terlalu besar; Tabel B-1 berdempetan; blok
+  kode terpotong dengan caption menimpa nomor halaman di ±30 listing;
+  "tidak diperjualbelikan"; judul bab rata tengah; jarak baris kode).
+  Detail perbaikan di Status terkini dan `cetak/README.md`. Opsi .docx
+  belum dikerjakan (tetap terbuka bila diminta).
 - **SELESAI (Tahap 5)**: semua masalah anchor di bawah ini (heading
   diterjemahkan → tautan `file.html#anchor` rusak) ditangani dengan
   menambahkan tag `<a id="...">` pada heading tujuan di `src/`; pemindaian

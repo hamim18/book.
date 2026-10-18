@@ -13,6 +13,9 @@ python3 cetak/ekstrak-print.py --satu "$id"
     --extract-media=media --lua-filter=../hilangkan-tautan.lua \
     bab-dev.html -o bab-dev.typ
 )
+python3 cetak/lepas-figure.py bab-dev
+sed -i 's/font-family="Times,serif"/font-family="Liberation Serif"/g' \
+  cetak/build/media/img/*.svg
 mkdir -p cetak/keluaran
-typst compile --root cetak cetak/pratinjau-bab.typ "cetak/keluaran/bab-dev-$id.pdf"
+typst compile --root cetak --font-path cetak/fonts cetak/pratinjau-bab.typ "cetak/keluaran/bab-dev-$id.pdf"
 echo "Selesai: cetak/keluaran/bab-dev-$id.pdf"

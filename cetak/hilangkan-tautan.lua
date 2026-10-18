@@ -28,6 +28,6 @@ end
 -- file yang di-include tidak melihat binding file pemanggil.
 -- Catatan: handler akar pandoc bernama `Pandoc`, bukan `Doc`.
 function Pandoc(doc)
-  doc.blocks:insert(1, pandoc.RawBlock("typst", '#import "../template.typ": catatan'))
+  doc.blocks:insert(1, pandoc.RawBlock("typst", '#import "../template.typ": catatan, caption'))
   return doc
 end

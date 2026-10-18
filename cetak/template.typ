@@ -15,6 +15,17 @@
   body,
 )
 
+// Caption gambar/tabel/listing ("Gambar 4-1: ...", "Tabel B-1: ...",
+// "Listing 6-8: ..."): rata tengah, sedikit lebih kecil dari teks isi.
+// Dipakai oleh cetak/lepas-figure.py saat membungkus paragraf caption.
+#let caption(body) = block(
+  above: 9pt,
+  below: 13pt,
+  breakable: true,
+)[
+  #align(center)[#text(size: 9pt)[#body]]
+]
+
 // Penomoran heading: "Bab N" untuk level 1, "N.M" untuk di bawahnya.
 // offset menggeser angka level 1 (Jilid 2 mulai dari Bab 13).
 #let nomor(offset) = (..n) => {
@@ -28,7 +39,8 @@
 
 // Aturan gaya dasar, dipakai build penuh dan pratinjau bab.
 #let gaya(body) = {
-  set page(paper: "iso-b5", margin: (x: 18mm, y: 20mm), numbering: "1")
+  // Margin buku cetak B5: sisi dalam lebih lebar untuk ruang jilid.
+  set page(paper: "iso-b5", margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm), numbering: "1")
   set text(font: "IBM Plex Serif", size: 10pt, lang: "id")
   set par(justify: true)
 
@@ -46,7 +58,8 @@
 
   // Blok kode: Codly melipat baris panjang dengan penanda sambungan tanpa
   // mengubah teks sumber. Tanpa nomor baris dan badge bahasa; latar kelabu
-  // muda seragam (zebra bawaan dimatikan).
+  // muda seragam (zebra bawaan dimatikan). leading: 1.5pt merapatkan jarak
+  // antar-baris (bawaan codly 0.32em per sisi) agar blok lebih ringkas.
   show: codly.line-set_(fill: none)
   show raw.where(block: true): it => {
     set text(font: "IBM Plex Mono", size: 8.5pt)
@@ -63,6 +76,7 @@
         lang-position: none,
         file: none,
         wrap-marker: [↪ ],
+        leading: 1.5pt,
       ),
     )
   }
@@ -90,13 +104,15 @@
   offset-bab: 0,
 ) = {
   gaya[
-    // Heading level 1 selalu memulai halaman baru.
+    // Heading level 1 selalu memulai halaman baru dan rata tengah
+    // (judul bab).
     // PENTING: show rule ini harus berada di level atas konten — bila
     // dibungkus block[...], pagebreak-nya memicu galat "pagebreaks are
     // not allowed inside of containers" (ditemukan lewat uji bisect
     // 2026-10-17; breakable: true pun tidak menolong).
     #show heading.where(level: 1): it => {
       pagebreak()
+      set align(center)
       it
     }
 
