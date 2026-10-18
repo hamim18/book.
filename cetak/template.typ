@@ -38,9 +38,15 @@
 }
 
 // Aturan gaya dasar, dipakai build penuh dan pratinjau bab.
-#let gaya(body) = {
+// Versi e-book memakai margin kiri-kanan sama (x) dengan lebar area teks
+// yang sama dengan cetak (139 mm) supaya paginasi — dan nomor halaman
+// indeks istilah — tidak berubah.
+#let gaya(
+  body,
+  margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm),
+) = {
   // Margin buku cetak B5: sisi dalam lebih lebar untuk ruang jilid.
-  set page(paper: "iso-b5", margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm), numbering: "1")
+  set page(paper: "iso-b5", margin: margin, numbering: "1")
   set text(font: "IBM Plex Serif", size: 10pt, lang: "id")
   set par(justify: true)
 
@@ -104,8 +110,9 @@
   lampiran: none,
   belakang: none,
   offset-bab: 0,
+  margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm),
 ) = {
-  gaya[
+  gaya(margin: margin)[
     // Heading level 1 selalu memulai halaman baru dan rata tengah
     // (judul bab).
     // PENTING: show rule ini harus berada di level atas konten — bila
@@ -142,7 +149,7 @@
 
     // ---------- Halaman judul ----------
     #pagebreak()
-    #set page(margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm))
+    #set page(margin: margin)
     #align(center)[
       #v(3cm)
       #text(size: 22pt, weight: 600)[The Rust Programming Language]

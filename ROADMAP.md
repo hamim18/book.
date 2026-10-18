@@ -92,6 +92,17 @@ Diperbarui di akhir setiap sesi.
   (menggantikan 442/436). `periksa.py` lulus: 0 gambar melebihi kolom,
   semua blok kode pecah lintas halaman. Masih terbuka: lembar sampul
   menyebar (belakang–punggung–depan) dengan bleed 3 mm untuk percetakan.
+- **Versi e-book + perbaikan teks sampul (2026-10-18)**: (1) teks
+  "pengumpul sampah" di sinopsis sampul belakang diganti "garbage
+  collector" — file PNG/SVG sampul diperbarui langsung oleh pengguna di
+  `cetak/desain-sampul/` (pendekatan tempelan teks Typst dicoba lalu
+  dibatalkan karena hanya menyembunyikan teks lama); (2) versi e-book
+  ditambahkan: `cetak/ebook-1.typ` dan `ebook-2.typ` dengan margin
+  kiri-kanan sama (`x: 18,5 mm`) dan lebar area teks sama dengan cetak
+  (139 mm) sehingga paginasi — dan nomor halaman indeks istilah — tidak
+  berubah; `template.typ` kini menerima parameter `margin`; `konversi.sh`
+  membangun 4 PDF (jilid-1, jilid-2, ebook-1, ebook-2), semuanya
+  443/437 hal.
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak

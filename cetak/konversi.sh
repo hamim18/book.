@@ -49,8 +49,10 @@ sed -i 's/font-family="Times,serif"/font-family="Liberation Serif"/g' \
 
 echo "== typst compile pass 1"
 mkdir -p cetak/keluaran
-typst compile --root cetak --font-path cetak/fonts cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
-typst compile --root cetak --font-path cetak/fonts cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
+for nama in jilid-1 jilid-2 ebook-1 ebook-2; do
+  typst compile --root cetak --font-path cetak/fonts \
+    "cetak/$nama.typ" "cetak/keluaran/rust-book-id-$nama.pdf"
+done
 
 echo "== peta heading -> halaman"
 typst eval 'query(heading).map(h => (h.level, h.body, h.location().page()))' \
@@ -63,8 +65,12 @@ python3 cetak/buat-materi.py indeks-scan
 python3 cetak/buat-materi.py indeks-rakit
 
 echo "== typst compile pass 2"
-typst compile --root cetak --font-path cetak/fonts cetak/jilid-1.typ cetak/keluaran/rust-book-id-jilid-1.pdf
-typst compile --root cetak --font-path cetak/fonts cetak/jilid-2.typ cetak/keluaran/rust-book-id-jilid-2.pdf
+# E-book: paginasi identik dengan cetak (lebar area teks sama), jadi
+# indeks istilah dari pass cetak tetap sah untuk kedua versi.
+for nama in jilid-1 jilid-2 ebook-1 ebook-2; do
+  typst compile --root cetak --font-path cetak/fonts \
+    "cetak/$nama.typ" "cetak/keluaran/rust-book-id-$nama.pdf"
+done
 
 echo "Selesai:"
 ls -la cetak/keluaran/
