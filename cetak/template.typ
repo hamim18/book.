@@ -93,6 +93,8 @@
 #let dokumen(
   judul-jilid,
   cakupan-jilid,
+  sampul-depan: none,
+  sampul-belakang: none,
   hak-cipta: none,
   kata-pengantar: none,
   foreword: none,
@@ -116,23 +118,31 @@
       it
     }
 
-    // ---------- Sampul (tanpa nomor halaman) ----------
-    #set page(numbering: none)
-    #align(center)[
-      #v(3.5cm)
-      #text(size: 26pt, weight: 700)[The Rust Programming Language]
-      #v(6mm)
-      #text(size: 14pt)[Terjemahan Bahasa Indonesia]
-      #v(1.6cm)
-      #text(size: 12pt)[Steve Klabnik · Carol Nichols · Chris Krycho]
-      #v(3mm)
-      #text(size: 11pt)[diterjemahkan oleh AI]
-      #v(3cm)
-      #text(size: 13pt)[#judul-jilid — #cakupan-jilid]
+    // ---------- Sampul depan (tanpa nomor halaman) ----------
+    // Desain pengguna (2026-10-18): PNG 300 DPI full-bleed di cetak/img/.
+    // Bila tidak ada, pakai sampul teks sederhana (cadangan).
+    #if sampul-depan != none [
+      #set page(numbering: none, margin: 0pt)
+      #image(sampul-depan, width: 100%, height: 100%)
+    ] else [
+      #set page(numbering: none)
+      #align(center)[
+        #v(3.5cm)
+        #text(size: 26pt, weight: 700)[The Rust Programming Language]
+        #v(6mm)
+        #text(size: 14pt)[Terjemahan Bahasa Indonesia]
+        #v(1.6cm)
+        #text(size: 12pt)[Steve Klabnik · Carol Nichols · Chris Krycho]
+        #v(3mm)
+        #text(size: 11pt)[diterjemahkan oleh AI]
+        #v(3cm)
+        #text(size: 13pt)[#judul-jilid — #cakupan-jilid]
+      ]
     ]
 
     // ---------- Halaman judul ----------
     #pagebreak()
+    #set page(margin: (inside: 22mm, outside: 15mm, top: 18mm, bottom: 20mm))
     #align(center)[
       #v(3cm)
       #text(size: 22pt, weight: 600)[The Rust Programming Language]
@@ -175,6 +185,13 @@
       set heading(numbering: none)
       belakang
     }
+
+    // ---------- Sampul belakang (halaman terakhir, full-bleed) ----------
+    #if sampul-belakang != none [
+      #pagebreak()
+      #set page(numbering: none, margin: 0pt)
+      #image(sampul-belakang, width: 100%, height: 100%)
+    ]
   ]
 }
 

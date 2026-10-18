@@ -15,3 +15,8 @@ Terjemahan bahasa Indonesia ini dibuat dari versi daring tersebut untuk
 kepentingan pembelajaran pribadi. Seluruh kode contoh dipertahankan sama
 persis dengan aslinya; kesalahan apa pun pada terjemahan sepenuhnya menjadi
 tanggung jawab penerjemah, bukan para penulis asli.
+
+Maskot kepiting (*Ferris*) yang dipakai pada sampul dan ilustrasi buku
+mengacu pada maskot komunitas Rust; gambar ikon dasarnya karya Dave Gandy
+dengan lisensi CC BY 4.0. Desain sampul dibuat oleh pemilik edisi cetak
+ini.

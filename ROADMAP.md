@@ -77,6 +77,21 @@ Diperbarui di akhir setiap sesi.
   `cetak/periksa.py`: 22 gambar, 0 melebihi kolom teks; 978 blok kode,
   35 pecah lintas halaman (bukan terpotong); 26 tabel, 4 pecah; 431 label
   caption. **Tahap 6 selesai.** Opsi .docx tetap terbuka bila diminta.
+- **Sampul pengguna diintegrasikan (2026-10-18)**: desain sampul depan dan
+  belakang dibuat pengguna di luar Claude Code (PNG B5 300 DPI 2079×2953
+  full-bleed + SVG sumber, keduanya di `cetak/desain-sampul/`; desain
+  kustom — Jilid 1 teal gelap #1E4D4A, Jilid 2 merah-karat #6E2A1D,
+  ilustrasi kepiting khas). **PNG dipakai di build** (persis seperti yang
+  diverifikasi pengguna; SVG hanya beda 0,55% piksel tepi saat dirender
+  Typst, disimpan sebagai sumber edit). `template.typ` kini menerima
+  `sampul-depan`/`sampul-belakang` (gambar full-bleed, halaman pertama dan
+  terakhir; sampul teks lama dipertahankan sebagai cadangan bila parameter
+  kosong); `periksa.py` mengecualikan gambar sampul dari batas kolom;
+  atribusi maskot (Dave Gandy, CC BY 4.0) ditambahkan ke `hak-cipta.md`.
+  Jumlah halaman berubah: **Jilid 1 = 443 hal., Jilid 2 = 437 hal.**
+  (menggantikan 442/436). `periksa.py` lulus: 0 gambar melebihi kolom,
+  semua blok kode pecah lintas halaman. Masih terbuka: lembar sampul
+  menyebar (belakang–punggung–depan) dengan bleed 3 mm untuk percetakan.
 - **Poin 3 (susunan buku lengkap) dimulai 2026-10-18**: materi baru HANYA di
   buku cetak (`cetak/materi/*.md` + `cetak/buat-materi.py`); situs mdBook
   tidak berubah. Urutan per jilid: sampul → halaman judul → hak
@@ -863,7 +878,9 @@ mengalokasikan, menetapkan, menangkap, menyalin, memproses, menyaring).
 - **SELESAI (2026-10-18)**: pemeriksaan visual putaran kedua disetujui
   pengguna ("sudah sangat bagus, siap cetak"). Titik potong jilid final
   dikunci: J1 442 hal. / J2 436 hal.; PDF final dibangun ulang dan lulus
-  `cetak/periksa.py` (rincian di Status terkini). Titik yang belum
+  `cetak/periksa.py` (rincian di Status terkini). **Catatan: setelah sampul
+  pengguna diintegrasikan (2026-10-18), jumlah halaman menjadi J1 443 /
+  J2 437** (sampul belakang menambah 1 halaman per jilid). Titik yang belum
   otomatis terverifikasi dan kini dianggap beres oleh pengguna: (a) judul
   bab rata tengah; (b) label diagram SVG memakai Liberation Serif, tidak
   lagi meluber; (c) caption sendirian di puncak halaman (14 di j1, 4 di

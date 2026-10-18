@@ -98,7 +98,11 @@ def main() -> None:
     for jilid in sys.argv[1:] or ("jilid-1", "jilid-2"):
         d = periksa(jilid)
         print(f"===== {jilid}: {d['hal']} halaman =====")
-        lebar_masalah = [g for g in d["img"] if g[1] > LEBAR_KOLOM + 0.5]
+        # Gambar sampul (full-bleed, selebar halaman) dikecualikan dari
+        # batas kolom teks.
+        lebar_masalah = [g for g in d["img"]
+                         if g[1] > LEBAR_KOLOM + 0.5
+                         and "sampul" not in str(g[0])]
         print(f"gambar: {len(d['img'])} total; "
               f"{len(lebar_masalah)} melebihi kolom teks")
         for g in lebar_masalah:

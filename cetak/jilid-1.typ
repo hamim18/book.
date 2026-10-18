@@ -7,6 +7,8 @@
 #dokumen(
   "Jilid 1",
   "Kata Pengantar, Pendahuluan, Bab 1–12, Lampiran, Glosarium, Indeks",
+  sampul-depan: "img/sampul-depan-jilid1.png",
+  sampul-belakang: "img/sampul-belakang-jilid1.png",
   hak-cipta: include("build/hak-cipta.typ"),
   kata-pengantar: include("build/kata-pengantar-penerjemah.typ"),
   foreword: include("build/foreword.typ"),
